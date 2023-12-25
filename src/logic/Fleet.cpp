@@ -78,10 +78,8 @@ void Fleet::Update(Galaxy_ty_raw galaxy) {
     };
     auto generatePosition = [&]() {
         for (float l = 0.0f; l < 1.0f; l += dl) {
-            vec2pos_ty newPos{
-                x1 + static_cast<int>(std::floor(dx * l + 0.5f)),
-                y1 + static_cast<int>(std::floor(dy * l + 0.5f))
-            };
+            vec2pos_ty newPos{ x1 + static_cast<int>(std::floor(static_cast<float>(dx) * l + 0.5f)),
+                               y1 + static_cast<int>(std::floor(static_cast<float>(dy) * l + 0.5f)) };
             addPosition(newPos);
         }
     };
@@ -93,7 +91,7 @@ void Fleet::Update(Galaxy_ty_raw galaxy) {
     auto filterPosition = [&]() -> vec2pos_ty {
         vec2pos_ty old = m_position;
         vec2pos_ty new_ = target->GetPos();
-        for (int i = 1; i < route.size(); ++i) {
+        for (size_t i = 1; i < route.size(); ++i) {
             old = route.at(i - 1);
             new_ = route.at(i);
             if (galaxy->IsValidPosition(new_)) {
