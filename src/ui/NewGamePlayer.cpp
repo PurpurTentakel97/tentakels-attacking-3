@@ -185,7 +185,7 @@ void NewGamePlayerScene::InitializePlayerButtons() {
         );
 
         button->SetEnabled(i < currentPlayerCount);
-        button->SetOnClick([this, i]() { this->DeletePlayer(i + 1); });
+        button->SetOnClick([this, i]() { this->DeletePlayer(static_cast<unsigned int>(i + 1)); });
 
         m_elements.push_back(button);
         m_playerButtons.push_back(button);

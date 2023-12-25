@@ -80,6 +80,7 @@ void UIManager::Render() {
 
 #ifdef _DEBUG
     int const fps{ GetFPS() };
+    Window_ty_c window{ AppContext::GetInstance().constants.window };
     DrawTextEx(
             *(m_appContext.assetManager.GetFont()),
             ("FPS: " + std::to_string(fps)).c_str(),

@@ -51,7 +51,7 @@ void UIGalaxy::Initialize(SendGalaxyPointerEvent const* event) {
                 planet->SetColor(GRAY);
             }
         }
-        planet->SetOnClick([this](UIGalaxyElement* p) { this->SelectUIGalaxyElement(p); });
+        planet->SetOnClick([this](UIGalaxyElement* p_) { this->SelectUIGalaxyElement(p_); });
         planet->UpdatePosition(m_absoluteSize);
         m_uiGalaxyElements.push_back(planet);
         m_uiPlanets.push_back(planet);
@@ -339,8 +339,8 @@ UIGalaxy::UIGalaxy(
         bool isShowGalaxy,
         bool isAcceptingInput
 )
-    : Focusable{ ID },
-      UIElement{ pos, size, alignment },
+    : UIElement{ pos, size, alignment },
+      Focusable{ ID },
       m_isShowGalaxy{ isShowGalaxy },
       m_isAcceptingInput{ isAcceptingInput } {
     m_absoluteSize = m_collider;
@@ -381,9 +381,9 @@ void UIGalaxy::Zoom(bool zoomIn, int factor) {
     }
 
     if (zoomIn) {
-        m_scaleFactor *= 1.0f + 0.01f * factor;
+        m_scaleFactor *= 1.0f + 0.01f * static_cast<float>(factor);
     } else {
-        m_scaleFactor *= 1.0f - 0.01f * factor;
+        m_scaleFactor *= 1.0f - 0.01f * static_cast<float>(factor);
     }
 
     if (m_scaleFactor < 1.0f) {
