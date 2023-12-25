@@ -568,7 +568,7 @@ Table::Table(
                             m_pos.y + cellHeight * static_cast<float>(row)),
                     Vector2(cellWidth, cellHeight),
                     Alignment::TOP_LEFT,
-                    row * columnCount + column,
+                    static_cast<unsigned int>(row * columnCount + column),
                     "",
                     [this](AbstractTableCell const* c, std::string oldValue, std::string newValue) {
                         this->CellUpdated<std::string>(c, oldValue, newValue);
