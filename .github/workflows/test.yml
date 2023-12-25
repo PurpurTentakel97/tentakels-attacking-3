@@ -26,8 +26,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os:    [ubuntu-latest, windows-latest]
-        build: [Release, Debug]
+        os: [ ubuntu-latest, windows-latest ]
+        build: [ Release, Debug ]
         include:
           - os: windows-latest
             triplet: x64-windows
@@ -85,6 +85,15 @@ jobs:
 
       # On Windows runners, let's ensure to have the Developer Command Prompt environment setup correctly. As used here the Developer Command Prompt created is targeting x64 and using the default the Windows SDK.
       - uses: ilammy/msvc-dev-cmd@v1
+
+      - name: Install GCC 13
+        run: |
+          sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
+          sudo apt-get update
+          sudo apt-get install -y gcc-13 g++-13
+          sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-13 100
+          sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-13 100
+        if: ${{ matrix.os == 'ubuntu-latest' }}
 
       # Run CMake to generate Ninja project files
       - name: Install dependencies and generate project files on Ubuntu
