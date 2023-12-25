@@ -25,6 +25,9 @@ struct Vec2 final {
 	 */
     Vec2(Vec2<T> const& toCopy) : x{ toCopy.x }, y{ toCopy.y } { }
 
+    Vec2(Vec2&&) = default;
+    Vec2& operator=(Vec2 const&) = default;
+    Vec2& operator=(Vec2&&) = default;
 
     /**
 	 * returns a new Vec to match a length of 1 while not changing the direction.
