@@ -107,7 +107,7 @@ void ExpandingButton::Remove(size_t ind) {
     DeleteFocusElementEvent const event{ btn.btn.get() };
     AppContext::GetInstance().eventManager.InvokeEvent(event);
 
-    m_buttons.erase(m_buttons.begin() + ind);
+    m_buttons.erase(m_buttons.begin() + static_cast<int>(ind));
 }
 
 void ExpandingButton::Expand() {
