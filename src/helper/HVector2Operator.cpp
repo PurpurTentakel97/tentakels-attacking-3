@@ -22,7 +22,7 @@ Vector2 operator/(Vector2 const& lhs, float rhs) {
 }
 
 Vector2 operator/(Vector2 const& lhs, int rhs) {
-    return { lhs.x / rhs,lhs.y / rhs };
+    return { lhs.x / static_cast<float>(rhs), lhs.y / static_cast<float>(rhs) };
 }
 
 float LenVec2(Vector2 const& value) {
