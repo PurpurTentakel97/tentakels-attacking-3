@@ -30,7 +30,7 @@ private:
 	/**
 	 * returns index from resolution enum.
 	 */
-	int GetIndexFromResolution(Resolution resolution) const;
+    size_t GetIndexFromResolution(Resolution resolution) const;
 
 public:
 

@@ -9,11 +9,11 @@
 #include "helper/HRandom.h"
 
 void Title::RenderTitle(AppContext_ty_c appContext) {
-    for (int i = 0; i < m_title->size(); ++i) {
+    for (size_t i = 0; i < m_title->size(); ++i) {
         DrawTextEx(
                 *(appContext.assetManager.GetFont()),
                 m_title->at(i).c_str(),
-                Vector2(m_collider.x, m_collider.y + m_fontSize * i),
+                Vector2(m_collider.x, m_collider.y + m_fontSize * static_cast<float>(i)),
                 m_fontSize,
                 0.0f,
                 WHITE
@@ -23,7 +23,7 @@ void Title::RenderTitle(AppContext_ty_c appContext) {
 void Title::RenderTitleSequens(AppContext_ty_c appContext) {
     size_t localCharCount{ 0 };
     std::string dummyText{};
-    int i{ 0 };
+    size_t i{ 0 };
     for (; i < m_title->size(); ++i) {
         dummyText = m_title->at(i);
         if (localCharCount + dummyText.size() > m_charCount) {
@@ -33,7 +33,7 @@ void Title::RenderTitleSequens(AppContext_ty_c appContext) {
         DrawTextEx(
                 *(appContext.assetManager.GetFont()),
                 dummyText.c_str(),
-                Vector2(m_collider.x, m_collider.y + m_fontSize * i),
+                Vector2(m_collider.x, m_collider.y + m_fontSize * static_cast<float>(i)),
                 m_fontSize,
                 0.0f,
                 WHITE
@@ -45,14 +45,14 @@ void Title::RenderTitleSequens(AppContext_ty_c appContext) {
     }
 
     Random& random = Random::GetInstance();
-    float const prefixPosition{
-        m_collider.x + (dummyText.size() * MeasureTextEx(*(appContext.assetManager.GetFont()), "a", m_fontSize, 0.0f).x)
-    };
+    float const prefixPosition{ m_collider.x
+                                + (static_cast<float>(dummyText.size())
+                                   * MeasureTextEx(*(appContext.assetManager.GetFont()), "a", m_fontSize, 0.0f).x) };
 
     DrawTextEx(
             *(appContext.assetManager.GetFont()),
             m_postFixes.at(random.random(m_postFixes.size())).c_str(),
-            Vector2(prefixPosition, m_collider.y + m_fontSize * i),
+            Vector2(prefixPosition, m_collider.y + m_fontSize * static_cast<float>(i)),
             m_fontSize,
             0.0f,
             WHITE
@@ -78,9 +78,9 @@ void Title::MeasureTitleLength() {
 }
 void Title::RecalculateCollider(AppContext_ty_c appContext) {
     Resolution_ty_c resolution{ appContext.GetResolution() };
-    m_fontSize = resolution.y * m_size.y / m_title->size();
+    m_fontSize = resolution.y * m_size.y / static_cast<float>(m_title->size());
 
-    std::string title{ "" };
+    std::string title{};
     for (auto const& line : *m_title) {
         title += line + '\n';
     }
