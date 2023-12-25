@@ -285,7 +285,7 @@ public:
 	SendGalaxyPointerEvent(Galaxy_ty_c_raw galaxy, bool isShowGalaxy)
 		: m_galaxy{ galaxy }, m_isShowGalaxy{ isShowGalaxy } { }
 
-	[[nodiscard]] Galaxy_ty_c_raw GetGalaxy() const {
+	[[nodiscard]] Galaxy_ty_raw GetGalaxy() const {
 		return m_galaxy;
 	}
 	[[nodiscard]] bool IsShowGalaxy() const {
