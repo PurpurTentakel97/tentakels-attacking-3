@@ -4,10 +4,10 @@
 //
 
 #include "include/ui/UIFleet.h"
-#include "logic/Fleet.h"
 #include "AppContext.h"
-#include "ui_lib/ShipCountRing.h"
 #include "include/ui/UIGalaxyElement.h"
+#include "logic/Fleet.h"
+#include "ui_lib/ShipCountRing.h"
 
 UIFleet::UIFleet(unsigned int ID, PlayerData player, Vector2 start, Vector2 end, Vector2 relativeStart, Vector2 relativeEnd,
     Fleet_ty_raw_c fleet, std::function<bool(Vector2 const&)> isInGalaxyCollider)
@@ -27,20 +27,17 @@ UIFleet::UIFleet(unsigned int ID, PlayerData player, Vector2 start, Vector2 end,
     } {
 
     m_ring = std::make_shared<CountRing>(
-        Vector2{ 
-            m_pos.x - m_size.x / 2,
-            m_pos.y - m_size.y / 2
-        },
-        m_size,
-        Alignment::MID_MID,
-        m_size.x,
-        m_size.x * 3.0f,
-        static_cast<int>(m_fleet->GetShipCount()),
-        UIGalaxyElement::s_maxShipCount
+            Vector2{ m_pos.x - m_size.x / 2, m_pos.y - m_size.y / 2 },
+            m_size,
+            Alignment::MID_MID,
+            m_size.x,
+            m_size.x * 3.0f,
+            static_cast<int>(m_fleet->GetShipCount()),
+            UIGalaxyElement::s_maxShipCount
     );
     Color color{ m_player.color };
-	color.a = UIGalaxyElement::s_ringColorAlpha;
-	m_ring->SetRingColor(color);
+    color.a = UIGalaxyElement::s_ringColorAlpha;
+    m_ring->SetRingColor(color);
 
     UpdateHoverText();
 }
@@ -49,7 +46,9 @@ unsigned int UIFleet::GetID() const {
     return m_ID;
 }
 bool UIFleet::IsColliding(Vector2 const& mousePosition) const {
-    if (not m_isInGalaxyCollider(mousePosition)) { return false; }
+    if (not m_isInGalaxyCollider(mousePosition)) {
+        return false;
+    }
 
     if (m_isDisplayAsPoint) {
         return CheckCollisionPointRec(mousePosition, m_collider);
@@ -58,10 +57,7 @@ bool UIFleet::IsColliding(Vector2 const& mousePosition) const {
     Resolution_ty_c resolution{ AppContext::GetInstance().GetResolution() };
     auto const& lineStart{ m_line.GetStart() };
     auto const& lineEnd{ m_line.GetEnd() };
-    Vector2 const start{
-        lineStart.x * resolution.x,
-        lineStart.y * resolution.y
-    };
+    Vector2 const start{ lineStart.x * resolution.x, lineStart.y * resolution.y };
     Vector2 const end{
         lineEnd.x * resolution.x,
         lineEnd.y * resolution.y,
@@ -79,22 +75,19 @@ PlayerData UIFleet::GetPlayer() const {
 }
 
 void UIFleet::UpdateHoverText() {
-    std::string const position{ "X: " + std::to_string(m_fleet->GetPos().x) + ", Y: " + std::to_string(m_fleet->GetPos().y) };
+    std::string const position{ "X: " + std::to_string(m_fleet->GetPos().x)
+                                + ", Y: " + std::to_string(m_fleet->GetPos().y) };
     std::string const text_1{ std::to_string(m_fleet->GetID()) + " | " + position + " |" };
-    std::string const text_2{ std::to_string(m_fleet->GetShipCount())};
+    std::string const text_2{ std::to_string(m_fleet->GetShipCount()) };
     m_hover.SetText(AppContext::GetInstance().languageManager.Text("ui_fleet_hover", text_1, text_2));
 }
 void UIFleet::UpdatePositions(Rectangle newCollider) {
     // update line
     Resolution_ty_c resolution{ AppContext::GetInstance().GetResolution() };
-    Vector2 const start{
-        (newCollider.x + newCollider.width * m_relativeStart.x) /  resolution.x,
-        (newCollider.y + newCollider.height * m_relativeStart.y) / resolution.y
-    };
-    Vector2 const end{
-        (newCollider.x + newCollider.width  * m_relativeEnd.x) / resolution.x,
-        (newCollider.y + newCollider.height * m_relativeEnd.y) / resolution.y
-    };
+    Vector2 const start{ (newCollider.x + newCollider.width * m_relativeStart.x) / resolution.x,
+                         (newCollider.y + newCollider.height * m_relativeStart.y) / resolution.y };
+    Vector2 const end{ (newCollider.x + newCollider.width * m_relativeEnd.x) / resolution.x,
+                       (newCollider.y + newCollider.height * m_relativeEnd.y) / resolution.y };
 
     m_line.SetStart(start);
     m_line.SetEnd(end);
@@ -128,10 +121,10 @@ void UIFleet::Render(AppContext_ty_c appContext) {
 
     if (m_isDisplayAsPoint) {
         DrawCircle(
-            static_cast<int>(m_collider.x),
-            static_cast<int>(m_collider.y),
-            m_collider.width / 2,
-            m_player.color
+                static_cast<int>(m_collider.x),
+                static_cast<int>(m_collider.y),
+                m_collider.width / 2,
+                m_player.color
         );
         return;
     }
@@ -147,4 +140,3 @@ void UIFleet::Resize(AppContext_ty_c appContext) {
     m_hover.Resize(appContext);
     m_ring->Resize(appContext);
 }
-

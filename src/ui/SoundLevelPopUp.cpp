@@ -38,9 +38,8 @@ void SoundLevelPopUp::Initialize() {
     );
     m_checkBox->SetChecked(appContext.constants.sound.muteVolume);
     m_checkBox->SetOnCheck([this](unsigned int, bool isChecked) {
-        AppContext_ty appContext = AppContext::GetInstance();
         auto event = MuteMasterVolumeEvent(isChecked);
-        appContext.eventManager.InvokeEvent(event);
+        AppContext::GetInstance().eventManager.InvokeEvent(event);
         m_slider->SetEnabled(!isChecked);
     });
     AddFocusElement(m_checkBox.get(), true);

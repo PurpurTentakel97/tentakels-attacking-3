@@ -56,13 +56,13 @@ void MainScene::Initialize() {
             SoundType::CLICKED_RELEASE_STD
     );
     gameSettingsBtn->SetOnClick([]() {
-        AppContext_ty_c appContext{ AppContext::GetInstance() };
+        AppContext_ty_c appContext_{ AppContext::GetInstance() };
 
         PauseGameEvent const gameEvent{};
-        appContext.eventManager.InvokeEvent(gameEvent);
+        appContext_.eventManager.InvokeEvent(gameEvent);
 
         SwitchSceneEvent const sceneEvent{ SceneType::GAME_SETTINGS };
-        appContext.eventManager.InvokeEvent(sceneEvent);
+        appContext_.eventManager.InvokeEvent(sceneEvent);
     });
     settingsBtn->Add(gameSettingsBtn, true);
 
@@ -75,13 +75,13 @@ void MainScene::Initialize() {
             SoundType::CLICKED_RELEASE_STD
     );
     appSettingsBtn->SetOnClick([]() {
-        AppContext_ty_c appContext{ AppContext::GetInstance() };
+        AppContext_ty_c appContext_{ AppContext::GetInstance() };
 
         PauseGameEvent const gameEvent{};
-        appContext.eventManager.InvokeEvent(gameEvent);
+        appContext_.eventManager.InvokeEvent(gameEvent);
 
         SwitchSceneEvent const sceneEvent{ SceneType::APP_SETTINGS };
-        appContext.eventManager.InvokeEvent(sceneEvent);
+        appContext_.eventManager.InvokeEvent(sceneEvent);
     });
     settingsBtn->Add(appSettingsBtn, true);
 
@@ -94,13 +94,13 @@ void MainScene::Initialize() {
             SoundType::CLICKED_RELEASE_STD
     );
     mainMenuBtn->SetOnClick([]() {
-        AppContext_ty_c appContext{ AppContext::GetInstance() };
+        AppContext_ty_c appContext_{ AppContext::GetInstance() };
 
         PauseGameEvent const gameEvent{};
-        appContext.eventManager.InvokeEvent(gameEvent);
+        appContext_.eventManager.InvokeEvent(gameEvent);
 
         SwitchSceneEvent const sceneEvent{ SceneType::MAIN_MENU };
-        appContext.eventManager.InvokeEvent(sceneEvent);
+        appContext_.eventManager.InvokeEvent(sceneEvent);
     });
     settingsBtn->Add(mainMenuBtn, true);
 
@@ -566,10 +566,10 @@ void MainScene::HandleGalaxyDragLineInput(DragLineFleetInstructionEvent const* e
     m_destinationY->Clear();
 
     if (event->GetOriginID() > 0) {
-        m_origin->SetValue(event->GetOriginID());
+        m_origin->SetValue(static_cast<int>(event->GetOriginID()));
     }
     if (event->GetDestID() > 0) {
-        m_destination->SetValue(event->GetDestID());
+        m_destination->SetValue(static_cast<int>(event->GetDestID()));
     } else {
         auto const& co{ event->GetDestCoordinates() };
         if (co.x >= 0 and co.y >= 0) {
@@ -653,17 +653,17 @@ void MainScene::OnEvent(Event const& event) {
     }
 
     // turns and rounds
-    if (auto const* playerEvent = dynamic_cast<ShowNextTurnEvent const*>(&event)) {
+    if ([[maybe_unused]] auto const* playerEvent = dynamic_cast<ShowNextTurnEvent const*>(&event)) {
         NextTurn();
         NextTurnPopup(false);
         return;
     }
-    if (auto const* playerEvent = dynamic_cast<ShowSkipTurnEvent const*>(&event)) {
+    if ([[maybe_unused]] auto const* playerEvent = dynamic_cast<ShowSkipTurnEvent const*>(&event)) {
         NextTurn();
         NextTurnPopup(true);
         return;
     }
-    if (auto const* playerEvent = dynamic_cast<ShowEvaluationEvent const*>(&event)) {
+    if ([[maybe_unused]] auto const* playerEvent = dynamic_cast<ShowEvaluationEvent const*>(&event)) {
         SwitchSceneEvent sendEvent{ SceneType::UPDATE_EVALUATION };
         AppContext::GetInstance().eventManager.InvokeEvent(sendEvent);
         return;
