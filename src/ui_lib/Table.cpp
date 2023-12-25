@@ -489,7 +489,7 @@ void Table::SetHighlightBackground(bool reset) {
     Color const newColor{ reset ? BLACK : LIGHT_GREY_100 };
 
     if (m_currentHighlighted.x >= 0) {
-        for (auto const& cell : m_cells[m_currentHighlighted.x]) {
+        for (auto const& cell : m_cells[static_cast<size_t>(m_currentHighlighted.x)]) {
             cell->SetBackgroundColor(newColor);
         }
     }

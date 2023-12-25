@@ -402,7 +402,7 @@ public:
         if (m_cells.size() == 0) {
             Print(PrintType::ERROR, "no rows in table"), throw std::out_of_range("no rows");
         }
-        AddSpecificColumn<T>(static_cast<int>(m_cells.at(0).size()), defaultValue);
+        AddSpecificColumn<T>(m_cells.at(0).size(), defaultValue);
     }
 
     /**
