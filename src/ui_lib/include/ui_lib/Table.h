@@ -331,7 +331,7 @@ public:
 
         auto line{ std::vector<AbstractTableCell_ty>() };
 
-        for (int column = 0; column < m_columnCount; ++column) {
+        for (size_t column = 0; column < m_columnCount; ++column) {
 
             auto cell = std::make_shared<TableCell<T>>(
                     Vector2(0.0f, 0.0f),
@@ -349,8 +349,8 @@ public:
             line.push_back(cell);
         }
 
-        m_cells.insert(m_cells.begin() + row, line);
-        m_editableRowsColumns.at(0).insert(m_editableRowsColumns.at(0).begin() + row, true);
+        m_cells.insert(m_cells.begin() + static_cast<int>(row), line);
+        m_editableRowsColumns.at(0).insert(m_editableRowsColumns.at(0).begin() + static_cast<int>(row), true);
         ++m_rowCount;
     }
     /**
@@ -359,13 +359,13 @@ public:
 	 */
     template<typename T>
     void AddLastRow(T defaultValue) {
-        AddSpecificRow<T>(static_cast<int>(m_cells.size()), defaultValue);
+        AddSpecificRow<T>(m_cells.size(), defaultValue);
     }
     /**
 	 * adds a specific column.
 	 */
     template<typename T>
-    void AddSpecificColumn(int column, T defaultValue) {
+    void AddSpecificColumn(size_t column, T defaultValue) {
         if (m_cells.size() == 0) {
             Print(PrintType::ERROR, "no rows available in the table"), throw std::out_of_range("no rows");
         } else if (column == m_cells.at(0).size()) { /* nothing */
@@ -373,7 +373,7 @@ public:
             Print(PrintType::ERROR, "column-index out of range"), throw std::out_of_range("column index");
         }
 
-        for (int i = 0; i < m_rowCount; ++i) {
+        for (size_t i = 0; i < m_rowCount; ++i) {
             auto row = m_cells.at(i);
             auto cell = std::make_shared<TableCell<T>>(
                     Vector2(0.0f, 0.0f),
@@ -388,9 +388,9 @@ public:
             if (not m_editableRowsColumns.at(0).at(i)) {
                 cell->SetEditable(false);
             }
-            row.insert(row.begin() + column, cell);
+            row.insert(row.begin() + static_cast<int>(column), cell);
         }
-        m_editableRowsColumns.at(1).insert(m_editableRowsColumns.at(1).begin() + column, true);
+        m_editableRowsColumns.at(1).insert(m_editableRowsColumns.at(1).begin() + static_cast<int>(column), true);
         ++m_columnCount;
     }
     /**
@@ -464,7 +464,7 @@ public:
     /**
 	 * sets if all cells in a specific row are editable.
 	 */
-    void SetRowEditable(int row, bool isEditable);
+    void SetRowEditable(size_t row, bool isEditable);
     /**
 	 * returns true if all cells in a specific row are editable.
 	 * returns false if at least one cell in a specific row is not editable.
