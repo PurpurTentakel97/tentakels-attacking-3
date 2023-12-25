@@ -129,8 +129,8 @@ void Button::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appCon
 
 }
 void Button::Render(AppContext_ty_c appContext) {
-	m_textureRec.y = static_cast<int>(m_state) * m_textureRec.height;
-	DrawTexturePro(
+    m_textureRec.y = m_textureRec.height * static_cast<float>(m_state);
+    DrawTexturePro(
 		*m_texture,
 		m_textureRec,
 		m_collider,

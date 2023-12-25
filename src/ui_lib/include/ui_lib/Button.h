@@ -14,23 +14,26 @@
  */
 class Button : public UIElement {
 protected:
-	enum class State { ///< contains the possible button states
-		ENABLED,
+    enum class State { ///< contains the possible button states
+        ENABLED,
 		HOVER,
 		PRESSED,
 		DISABLED,
 	};
-	bool m_isPressed{ false }; ///< contains if the button is currently pressed
-	Texture2D* m_texture{ }; ///< contains a pointer of the btn texture
-	Rectangle m_textureRec{ }; ///< defines a rectangle on the texture that will be rendered
-	State m_state{ State::ENABLED }; ///< contains the current button state
-	int m_buttonParts{ 4 }; ///< defines in how many parts the texture gets split
 
-	float m_textSize{ 24.0f }; ///< defines the text height in px
-	std::string m_text{ }; ///< contains the text on the button
-	Vector2 m_textPosition{ }; ///< contains the position of the text
+    std::string m_text{}; ///< contains the text on the button
+    SoundType m_sound{};  ///< contains the release sound of the button
 
-	SoundType m_sound{ }; ///< contains the release sound of the button
+    Texture2D* m_texture{};   ///< contains a pointer of the btn texture
+    Rectangle m_textureRec{}; ///< defines a rectangle on the texture that will be rendered
+
+    float m_textSize{ 24.0f }; ///< defines the text height in px
+    bool m_isPressed{ false }; ///< contains if the button is currently pressed
+
+    State m_state{ State::ENABLED }; ///< contains the current button state
+    int m_buttonParts{ 4 };          ///< defines in how many parts the texture gets split
+
+    Vector2 m_textPosition{ }; ///< contains the position of the text
 
 	std::function<void()> m_onClick{ []() {} }; ///< contains a lambda that gets called if the button is down
 	std::function<void()> m_onPress{ []() {} }; ///< contains a lambda that gets called if the button is released

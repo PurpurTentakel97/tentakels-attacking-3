@@ -15,7 +15,7 @@ void ColorPickerCell::SetColor() const {
 }
 
 ColorPickerCell::ColorPickerCell(unsigned int ID, Vector2 pos, Vector2 size, Alignment alignment, Color color, ColorPicker* colorPicker)
-	: Focusable{ ID }, UIElement{ pos, size, alignment },
+	: UIElement{ pos, size, alignment },Focusable{ ID },
 	m_color{ color }, m_colorPicker{ colorPicker },
 	m_hover{
 		0.05f,

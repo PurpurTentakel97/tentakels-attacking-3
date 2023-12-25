@@ -84,8 +84,9 @@ auto static const isMatchingSize{ [](nlohmann::json const& son, ConfigTypes sect
 } };
 
 // load
-auto static const loadSection{ [](nlohmann::json const& son, nlohmann::json& out, ConfigTypes section, int count)->bool {
-	if (not isExistingSection(son, section)) {
+auto static const loadSection{ [](nlohmann::json const& son, nlohmann::json& out, ConfigTypes section, size_t count
+                               ) -> bool {
+    if (not isExistingSection(son, section)) {
 		return false;
 	}
 	son.at(CToS(section)).get_to(out);
