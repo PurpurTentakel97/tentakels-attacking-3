@@ -9,9 +9,11 @@
 void CountRing::CalculateRing() {
     Resolution_ty_c resolution{ AppContext::GetInstance().GetResolution() };
     float diff{ m_relativeMaxRingSize - m_relativeDotSize };
-    float factor{ static_cast<float>(m_currentCount) / m_maxCount };
+    float factor{ static_cast<float>(m_currentCount) / static_cast<float>(m_maxCount) };
     diff *= factor;
-    if (diff < 0.001f) { diff = 0.001f; }
+    if (diff < 0.001f) {
+        diff = 0.001f;
+    }
     diff += m_relativeDotSize;
     diff *= resolution.x;
     m_absoluteRingSize = { diff };
