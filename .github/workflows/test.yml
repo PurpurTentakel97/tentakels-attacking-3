@@ -89,9 +89,7 @@ jobs:
       # Run CMake to generate Ninja project files
       - name: Install dependencies and generate project files on Ubuntu
         run: |
-          git clone https://github.com/Microsoft/vcpkg.git
-          ./vcpkg/bootstrap-vcpkg.sh
-          cmake -S . -B build -G "Ninja" -DCMAKE_TOOLCHAIN_FILE=vcpkg/scripts/buildsystems/vcpkg.cmake
+          cmake -S . -B build -G "Ninja" -DCMAKE_TOOLCHAIN_FILE=/usr/local/share/vcpkg/scripts/buildsystems/vcpkg.cmake
         working-directory: "${{ github.workspace }}"
         if: ${{ matrix.os == 'ubuntu-latest' }}
 
