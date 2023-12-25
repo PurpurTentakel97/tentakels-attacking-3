@@ -205,7 +205,11 @@ public:
 	 */
 	Galaxy(Galaxy const&);
 
-	/**
+    Galaxy(Galaxy&&) = default;
+    Galaxy& operator=(Galaxy const&) = default;
+    Galaxy& operator=(Galaxy&&) = default;
+
+    /**
 	 * return if the galaxy is valid.
 	 * if its not valid I really to not use this galaxy.
 	 * this galaxy will not be complete then.
