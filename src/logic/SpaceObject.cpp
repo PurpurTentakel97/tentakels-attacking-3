@@ -15,7 +15,10 @@ bool SpaceObject::IsInRange(SpaceObject_ty_raw first, SpaceObject_ty_raw second,
 SpaceObject::SpaceObject(unsigned int ID, vec2pos_ty position, Player_ty player)
 	: SpaceObject{ ID, position, 0, player } {}
 SpaceObject::SpaceObject(unsigned int ID, vec2pos_ty position, size_t ships, Player_ty player)
-	: m_ID{ID}, m_position{position}, m_player{player}, m_ships{ships} {}
+    : m_ID{ ID },
+      m_ships{ ships },
+      m_position{ position },
+      m_player{ player } { }
 
 void SpaceObject::TransferShipsFrom(SpaceObject* origin) {
 	m_ships += origin->GetShipCount();

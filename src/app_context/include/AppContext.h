@@ -144,6 +144,11 @@ public:
 	 */
     [[nodiscard]] Vector2 GetResolution() const;
 
+    AppContext(AppContext const&) = delete;
+    AppContext(AppContext&&) = delete;
+    AppContext& operator=(AppContext const&) = delete;
+    AppContext& operator=(AppContext&&) = delete;
+
 private:
     /**
 	 * private Constructor so that the member function GetInstance()

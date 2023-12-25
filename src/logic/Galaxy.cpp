@@ -105,8 +105,8 @@ void Galaxy::GenerateOtherPlanets(size_t planetCount, int currentPlanet, Player_
 	Random& random{ Random::GetInstance() };
 
 
-	for (; currentPlanet <= planetCount; ++currentPlanet) {
-		int counter{ 0 };
+    for (; static_cast<size_t>(currentPlanet) <= planetCount; ++currentPlanet) {
+        int counter{ 0 };
 		while (true) {
 			vec2pos_ty_c newPosition{
 				static_cast<int>(random.random(static_cast<size_t>(m_size.x))),
@@ -141,8 +141,8 @@ bool Galaxy::IsValidNewPlanet(Planet_ty newPlanet,
 	bool validPlanet{ true };
 
 	// works because Home Planets are generated first.
-    auto const factor = newPlanet->IsHomePlanet() ? appContext.constants.planet.homeworldSpacing
-		: appContext.constants.planet.globalSpacing;
+    double const factor = newPlanet->IsHomePlanet() ? appContext.constants.planet.homeworldSpacing
+                                                    : appContext.constants.planet.globalSpacing;
 	double const spacing{ m_size.Length() * factor };
 
 	for (auto& p : m_planets) {
@@ -1121,7 +1121,7 @@ HFightResult Galaxy::Fight(SpaceObject_ty defender, SpaceObject_ty attacker) {
 	);
 	return { {defender->GetPlayer(), attacker->GetPlayer()}, {defender, attacker}, rounds, true };
 }
-int Galaxy::Salve(SpaceObject_ty obj) const {
+size_t Galaxy::Salve(SpaceObject_ty obj) const {
     float const hitChace{ AppContext::GetInstance().constants.fight.hitChance * 100 };
 	Random& random_{ Random::GetInstance() };
 	int hitCount{ 0 };
