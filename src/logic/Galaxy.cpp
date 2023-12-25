@@ -99,9 +99,9 @@ int Galaxy::GenerateHomePlanets(std::vector<Player_ty> players) {
 
 	return currentPlanet;
 }
-void Galaxy::GenerateOtherPlanets(size_t planetCount, size_t currentPlanet, Player_ty player) {
+void Galaxy::GenerateOtherPlanets(size_t planetCount, int currentPlanet, Player_ty player) {
 
-	AppContext_ty_c appContext{ AppContext::GetInstance() };
+    AppContext_ty_c appContext{ AppContext::GetInstance() };
 	Random& random{ Random::GetInstance() };
 
 
@@ -110,8 +110,7 @@ void Galaxy::GenerateOtherPlanets(size_t planetCount, size_t currentPlanet, Play
 		while (true) {
 			vec2pos_ty_c newPosition{
 				static_cast<int>(random.random(static_cast<size_t>(m_size.x))),
-				static_cast<int>(random.random(static_cast<size_t>(m_size.y))
-			};
+                                      static_cast<int>(random.random(static_cast<size_t>(m_size.y))) };
 
 			auto const newPlanet = std::make_shared<Planet>(
 				GetNextID(),

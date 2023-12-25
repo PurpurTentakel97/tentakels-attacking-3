@@ -136,8 +136,8 @@ void GameSettingsScene::Initialize() {
 		static_cast<int>(appContext.constants.global.currentTargetRound)
 	);
 	lastRound->SetActive(true, appContext);
-	lastRound->SetOnSave([](int value) {
-		SetCurrentLastRoundEvent const event{ value };
+    lastRound->SetOnSave([](size_t value) {
+        SetCurrentLastRoundEvent const event{ value };
 	AppContext::GetInstance().eventManager.InvokeEvent(event);
 		});
 	m_elements.push_back(lastRound);
