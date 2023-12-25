@@ -5,45 +5,51 @@
 
 #include "include/ui/DeletePlayerPopUp.h"
 #include "event/GenerelEvents.hpp"
-#include "helper/HGeneral.h"
 #include "helper/HFocusEvents.h"
+#include "helper/HGeneral.h"
 
 void DeletePlayerPopUp::Initialize() {
 
-	auto acceptBtn = InitializeAcceptButton();
-	acceptBtn->SetOnClick([this]() {this->SetValue();});
+    auto acceptBtn = InitializeAcceptButton();
+    acceptBtn->SetOnClick([this]() { this->SetValue(); });
 
-	auto inputLine = std::make_shared<InputLine<int>>(
-		3,
-		GetElementPosition(m_pos, m_size, 0.5f, 0.45f),
-		GetElementSize(m_size, 0.5f, 0.1f),
-		Alignment::TOP_MID,
-		5
-		);
-	inputLine->SetPlaceholderText("Player ID");
-	m_inputLine = inputLine;
-	m_elements.push_back(inputLine);
+    auto inputLine = std::make_shared<InputLine<int>>(
+            3,
+            GetElementPosition(m_pos, m_size, 0.5f, 0.45f),
+            GetElementSize(m_size, 0.5f, 0.1f),
+            Alignment::TOP_MID,
+            5
+    );
+    inputLine->SetPlaceholderText("Player ID");
+    m_inputLine = inputLine;
+    m_elements.push_back(inputLine);
 
-	AddFocusElement(m_inputLine.get(), true);
-	SelectFocusElement(m_inputLine.get(), true);
+    AddFocusElement(m_inputLine.get(), true);
+    SelectFocusElement(m_inputLine.get(), true);
 }
 
 void DeletePlayerPopUp::SetValue() {
-	unsigned int const ID{ static_cast<unsigned int const>(m_inputLine->GetValue()) };
+    unsigned int const ID{ static_cast<unsigned int>(m_inputLine->GetValue()) };
 
-	m_onClick(ID);
+    m_onClick(ID);
 
-	SetShouldClose();
+    SetShouldClose();
 }
 
-DeletePlayerPopUp::DeletePlayerPopUp(Vector2 pos, Vector2 size, Alignment alignment,
-	std::string const& title, AssetType inputTexture, std::function<void(unsigned int)> onClick)
-	: CellPopUp{ pos, size, alignment, title, inputTexture }, m_onClick{ onClick } {
-	
-	Initialize();
+DeletePlayerPopUp::DeletePlayerPopUp(
+        Vector2 pos,
+        Vector2 size,
+        Alignment alignment,
+        std::string const& title,
+        AssetType inputTexture,
+        std::function<void(unsigned int)> onClick
+)
+    : CellPopUp{ pos, size, alignment, title, inputTexture },
+      m_onClick{ onClick } {
 
-	if (IsKeyReleased(KEY_ENTER)
-		or IsKeyReleased(KEY_KP_ENTER)) {
-		m_firstEnter = true;
-	}
+    Initialize();
+
+    if (IsKeyReleased(KEY_ENTER) or IsKeyReleased(KEY_KP_ENTER)) {
+        m_firstEnter = true;
+    }
 }

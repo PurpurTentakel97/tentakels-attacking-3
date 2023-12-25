@@ -527,7 +527,7 @@ public:
 	 */
     template<typename T>
     void SetHeadlineValues(std::vector<T> values) {
-        for (int i = 0; i < m_columnCount; ++i) {
+        for (size_t i = 0; i < m_columnCount; ++i) {
             if (i >= values.size()) {
                 break;
             }
