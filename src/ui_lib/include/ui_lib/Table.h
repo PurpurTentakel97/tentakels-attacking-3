@@ -20,8 +20,8 @@ class Slider;
 class Table final : public UIElement, public Focusable {
 private:
     using cells_ty = std::vector<std::vector<AbstractTableCell_ty>>;
-    int m_rowCount;                                         ///< contains the current mount of rows in the table
-    int m_columnCount;                                      ///< contains the current mount of column in the table
+    size_t m_rowCount;                                      ///< contains the current mount of rows in the table
+    size_t m_columnCount;                                   ///< contains the current mount of column in the table
     cells_ty m_cells;                                       ///< contains all cells the table is holding
     Vector2 m_minCellSize;                                  ///< contains the minimum relative size of one cell
     std::array<std::vector<bool>, 2> m_editableRowsColumns; ///< contains the enabled rows and columns
@@ -212,8 +212,8 @@ public:
           Vector2 size,
           Alignment alignment,
           unsigned int focusID,
-          int rowCount,
-          int columnCount,
+          size_t rowCount,
+          size_t columnCount,
           Vector2 minCellSize,
           float scrollSpeed);
 
@@ -221,7 +221,7 @@ public:
 	 * replaces the current Cell with a new one.
 	 */
     template<typename T>
-    void SetValue(int row, int column, T input) {
+    void SetValue(size_t row, size_t column, T input) {
         if (not IsValidIndex(row, column)) {
             Print(PrintType::ERROR, "Index out of range"), throw std::out_of_range("index");
         }
@@ -251,7 +251,7 @@ public:
 	 * returns the current value of a cell.
 	 */
     template<typename T>
-    [[nodiscard]] T GetValue(int row, int column) const {
+    [[nodiscard]] T GetValue(size_t row, size_t column) const {
         if (not IsValidIndex(row, column)) {
             Print(PrintType::ERROR, "index out of range");
             throw std::out_of_range("index");
@@ -275,11 +275,11 @@ public:
 	 * sets a new row count.
 	 * need to call the recalculation of the table.
 	 */
-    void SetRowCount(int newRowCount);
+    void SetRowCount(size_t newRowCount);
     /**
 	 * returns the current row count.
 	 */
-    [[nodiscard]] int GetRowCount() const;
+    [[nodiscard]] size_t GetRowCount() const;
 
     /**
 	 * sets the update cell lambdas for the correct datatype.
@@ -313,17 +313,17 @@ public:
 	 * sets a new column count.
 	 * need to call the recalculation of the table.
 	 */
-    void SetColumnCount(int newColumnCount);
+    void SetColumnCount(size_t newColumnCount);
     /**
 	 * returns the current column count.
 	 */
-    [[nodiscard]] int GetColumnCount() const;
+    [[nodiscard]] size_t GetColumnCount() const;
 
     /**
 	 * adds a specific row.
 	 */
     template<typename T>
-    void AddSpecificRow(int row, T defaultValue) {
+    void AddSpecificRow(size_t row, T defaultValue) {
         if (row == m_cells.size()) { /* nothing */
         } else if (!IsValidRow(row)) {
             Print(PrintType::ERROR, "invalid row index"), throw std::out_of_range("row-index");

@@ -540,8 +540,8 @@ Table::Table(
         Vector2 size,
         Alignment alignment,
         unsigned int focusID,
-        int rowCount,
-        int columnCount,
+        size_t rowCount,
+        size_t columnCount,
         Vector2 minCellSize,
         float scrollSpeed
 )
@@ -602,7 +602,7 @@ Table::Table(
     CalculateSlider();
 }
 
-void Table::SetRowCount(int newRowCount) {
+void Table::SetRowCount(size_t newRowCount) {
     if (newRowCount <= 0) {
         Print(PrintType::ERROR, "tried to set a row count inside of a table that is lower than or equal to 0.");
         return;
@@ -610,11 +610,11 @@ void Table::SetRowCount(int newRowCount) {
 
     m_rowCount = newRowCount;
 }
-int Table::GetRowCount() const {
+size_t Table::GetRowCount() const {
     return m_rowCount;
 }
 
-void Table::SetColumnCount(int newColumnCount) {
+void Table::SetColumnCount(size_t newColumnCount) {
     if (newColumnCount <= 0) {
         Print(PrintType::ERROR, "tried to set a column count inside of a table that is lower than or equal to 0.");
         return;
@@ -622,7 +622,7 @@ void Table::SetColumnCount(int newColumnCount) {
 
     m_columnCount = newColumnCount;
 }
-int Table::GetColumnCount() const {
+size_t Table::GetColumnCount() const {
     return m_columnCount;
 }
 
