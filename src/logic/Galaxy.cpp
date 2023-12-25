@@ -1122,7 +1122,7 @@ HFightResult Galaxy::Fight(SpaceObject_ty defender, SpaceObject_ty attacker) {
 	);
 	return { {defender->GetPlayer(), attacker->GetPlayer()}, {defender, attacker}, rounds, true };
 }
-size_t Galaxy::Salve(SpaceObject_ty obj) const {
+int Galaxy::Salve(SpaceObject_ty obj) const {
     float const hitChace{ AppContext::GetInstance().constants.fight.hitChance * 100 };
 	Random& random_{ Random::GetInstance() };
 	int hitCount{ 0 };
