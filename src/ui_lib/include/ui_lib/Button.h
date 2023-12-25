@@ -24,6 +24,7 @@ protected:
     std::string m_text{}; ///< contains the text on the button
     SoundType m_sound{};  ///< contains the release sound of the button
 
+    Vector2 m_textPosition{}; ///< contains the position of the text
     Texture2D* m_texture{};   ///< contains a pointer of the btn texture
     Rectangle m_textureRec{}; ///< defines a rectangle on the texture that will be rendered
 
@@ -33,7 +34,6 @@ protected:
     State m_state{ State::ENABLED }; ///< contains the current button state
     int m_buttonParts{ 4 };          ///< defines in how many parts the texture gets split
 
-    Vector2 m_textPosition{ }; ///< contains the position of the text
 
 	std::function<void()> m_onClick{ []() {} }; ///< contains a lambda that gets called if the button is down
 	std::function<void()> m_onPress{ []() {} }; ///< contains a lambda that gets called if the button is released
