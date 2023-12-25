@@ -5,44 +5,45 @@
 
 #include "include/ui/ColorCellPopUp.h"
 #include "AppContext.h"
-#include "helper/HGeneral.h"
 #include "helper/HFocusEvents.h"
+#include "helper/HGeneral.h"
 
-void ColorCellPopUp::Initialize(Color currentColor) {
-
-	AppContext_ty_c appContext{ AppContext::GetInstance() };
-
-	auto acceptBtn = InitializeAcceptButton();
-	acceptBtn->SetOnClick([this]() {
-		this->SetValue();
-		});
-
-	auto colorPicker = std::make_shared<ColorPicker>(
-		3,
-		GetElementPosition(m_pos, m_size, 0.5f, 0.5f),
-		GetElementSize(m_size, 0.5f, 0.38f),
-		Alignment::MID_MID,
-		true
-		);
-
-	AddFocusElement(colorPicker.get(), true);
-	SelectFocusElement(colorPicker.get(), true);
-
-	colorPicker->SetInitialColor(currentColor);
-	colorPicker->SetCellFocuses(appContext);
-
-	m_elements.push_back(colorPicker);
-	m_colorPicker = colorPicker;
-}
 void ColorCellPopUp::SetValue() {
-	m_onClick(m_colorPicker->GetColor());
-	SetShouldClose();
+    m_onClick(m_colorPicker->GetColor());
+    SetShouldClose();
 }
 
-ColorCellPopUp::ColorCellPopUp(Vector2 pos, Vector2 size, Alignment alignment,
-	std::string const& title, AssetType infoTexture, Color currentColor, std::function<void(Color)> onClick)
-	: CellPopUp{ pos, size, alignment, title, infoTexture },
-	m_onClick{ onClick } {
+ColorCellPopUp::ColorCellPopUp(
+        Vector2 pos,
+        Vector2 size,
+        Alignment alignment,
+        std::string const& title,
+        AssetType infoTexture,
+        Color currentColor,
+        std::function<void(Color)> onClick
+)
+    : CellPopUp{ pos, size, alignment, title, infoTexture },
+      m_onClick{ onClick } {
 
-	Initialize(currentColor);
+    AppContext_ty_c appContext{ AppContext::GetInstance() };
+
+    auto acceptBtn = InitializeAcceptButton();
+    acceptBtn->SetOnClick([this]() { this->SetValue(); });
+
+    auto colorPicker = std::make_shared<ColorPicker>(
+            3,
+            GetElementPosition(m_pos, m_size, 0.5f, 0.5f),
+            GetElementSize(m_size, 0.5f, 0.38f),
+            Alignment::MID_MID,
+            true
+    );
+
+    AddFocusElement(colorPicker.get(), true);
+    SelectFocusElement(colorPicker.get(), true);
+
+    colorPicker->SetInitialColor(currentColor);
+    colorPicker->SetCellFocuses(appContext);
+
+    m_elements.push_back(colorPicker);
+    m_colorPicker = colorPicker;
 }

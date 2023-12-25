@@ -24,6 +24,8 @@ target_include_directories(constants
 )
 
 target_link_libraries(constants
+                      PRIVATE
+                      project_options
                       PUBLIC
                       helper
                       app_context

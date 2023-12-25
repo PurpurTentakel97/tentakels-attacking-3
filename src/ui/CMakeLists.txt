@@ -78,6 +78,8 @@ target_include_directories(ui
 )
 
 target_link_libraries(ui
+                      PRIVATE
+                      project_options
                       PUBLIC
                       ui_lib
                       logic

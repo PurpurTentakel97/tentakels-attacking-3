@@ -28,7 +28,7 @@ public:
 	 * dtor
 	 * deletes this in the focus system if its still exists.
 	 */
-	~Focusable();
+	virtual ~Focusable();
 	
 	/**
 	 * returns if this element currently focused.

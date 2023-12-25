@@ -25,6 +25,8 @@ target_include_directories(logic
 )
 
 target_link_libraries(logic
+                      PRIVATE
+                      project_options
                       PUBLIC
                       helper
                       event

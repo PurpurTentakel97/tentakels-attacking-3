@@ -58,6 +58,7 @@ target_link_libraries(helper
                       event
                       logic
                       nlohmann_json::nlohmann_json
+                      project_options
                       PUBLIC
                       custom_raylib
                       ui_lib
