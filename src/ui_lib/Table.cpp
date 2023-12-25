@@ -10,21 +10,21 @@
 
 
 bool Table::IsValidIndex(size_t row, size_t column) const {
-    return { IsValidRow(row) and IsValidColumn(column) };
+    return IsValidRow(row) and IsValidColumn(column);
 }
 bool Table::IsValidRow(size_t row) const {
-    return { row < m_cells.size() and row >= 0 };
+    return row < m_cells.size();
 }
 bool Table::IsValidColumn(size_t column) const {
     if (m_cells.size() < 1) {
         return false;
     }
-    return { column < m_cells.at(0).size() and column >= 0 };
+    return column < m_cells.at(0).size();
 }
 
 void Table::UpdateCellFocusID() {
-    for (int row = 0; row < m_cells.size(); ++row) {
-        for (int column = 0; column < m_cells.at(row).size(); ++column) {
+    for (size_t row = 0; row < m_cells.size(); ++row) {
+        for (size_t column = 0; column < m_cells.at(row).size(); ++column) {
             m_cells.at(row).at(column)->SetFocusID(static_cast<unsigned int>(row * m_columnCount + column));
         }
     }
@@ -83,7 +83,8 @@ void Table::RemoveCellFocus() {
 }
 
 void Table::ResizeTable() {
-    bool const needResize{ m_rowCount != m_cells.size() + 1 and m_columnCount != m_cells.at(0).size() + 1
+    bool const needResize{ m_rowCount != m_cells.size() + 1
+                           and m_columnCount != static_cast<int>(m_cells.at(0).size() + 1)
                            and m_setScrollable != m_isScrollable };
     if (not needResize) {
         return;
@@ -92,30 +93,32 @@ void Table::ResizeTable() {
     m_isScrollable = m_setScrollable;
 
     // rows
-    if (m_cells.size() == m_rowCount) { /* nothing */
-    } else if (m_cells.size() < m_rowCount) {
-        while (m_cells.size() < m_rowCount) {
+    auto const cell_count{ static_cast<int>(m_cells.size()) };
+    if (cell_count == m_rowCount) { /* nothing */
+    } else if (cell_count < m_rowCount) {
+        while (cell_count < m_rowCount) {
             AddLastRow<std::string>("");
         }
-    } else if (m_cells.size() > m_rowCount) {
-        while (m_cells.size() > m_rowCount) {
+    } else if (cell_count > m_rowCount) {
+        while (cell_count > m_rowCount) {
             RemoveLastRow();
         }
     }
 
-    if (m_cells.size() == 0) {
+    if (static_cast<int>(m_cells.size()) == 0) {
         Print(PrintType::ERROR, "no rows in table"), throw std::out_of_range("no rows");
     }
 
     // columns
     auto const& row = m_cells.at(0);
-    if (row.size() == m_columnCount) { /* nothing */
-    } else if (row.size() < m_columnCount) {
-        while (row.size() < m_columnCount) {
+    auto const row_count{ static_cast<int>(row.size()) };
+    if (row_count == m_columnCount) { /* nothing */
+    } else if (row_count < m_columnCount) {
+        while (row_count < m_columnCount) {
             AddLastColumn<std::string>("");
         }
-    } else if (row.size() > m_columnCount) {
-        while (row.size() > m_columnCount) {
+    } else if (row_count > m_columnCount) {
+        while (row_count > m_columnCount) {
             RemoveLastColum();
         }
     }
@@ -198,23 +201,23 @@ void Table::CheckAndUpdateClickCell(Vector2 const& mousePosition, AppContext_ty_
         goto clicked;
     }
 
-    for (size_t row = 1; row < m_rowCount; ++row) {
-        cell = m_cells.at(row).at(0);
+    for (int row = 1; row < m_rowCount; ++row) {
+        cell = m_cells.at(static_cast<size_t>(row)).at(0);
         if (cell->IsColliding(mousePosition)) {
             goto clicked;
         }
     }
 
-    for (size_t column = 1; column < m_columnCount; ++column) {
-        cell = m_cells.at(0).at(column);
+    for (int column = 1; column < m_columnCount; ++column) {
+        cell = m_cells.at(0).at(static_cast<size_t>(column));
         if (cell->IsColliding(mousePosition)) {
             goto clicked;
         }
     }
 
-    for (size_t row = 1; row < m_rowCount; ++row) {
+    for (int row = 1; row < m_rowCount; ++row) {
         for (int column = 1; column < m_columnCount; ++column) {
-            cell = m_cells.at(row).at(column);
+            cell = m_cells.at(static_cast<size_t>(row)).at(static_cast<size_t>(column));
             if (cell->IsColliding(mousePosition)) {
                 goto clicked;
             }
@@ -264,11 +267,11 @@ Vector2 Table::GetAbsoluteSize() const {
 
     Vector2 toReturn{ 0.0f, 0.0f };
 
-    for (auto const cell : m_cells.at(0)) {
+    for (auto const& cell : m_cells.at(0)) {
         toReturn.x += cell->GetCollider().width;
     }
     for (int i = 0; i < m_rowCount; ++i) {
-        auto const cell = m_cells.at(i).at(0);
+        auto const cell = m_cells.at(static_cast<size_t>(i)).at(0);
         toReturn.y += cell->GetCollider().height;
     }
 
@@ -285,9 +288,9 @@ void Table::ClampScrollOffset(Vector2& offset) {
     }
 
     // get cells
-    auto const cellTopLeft{ m_cells.at(0).at(0)->GetCollider() };
-    auto const cellSecondTopLeft{ m_cells.at(1).at(1)->GetCollider() };
-    auto const cellBottomLeft{ m_cells.at(m_rowCount - 1).at(m_columnCount - 1)->GetCollider() };
+    auto const cellTopLeft{ m_cells[0][0]->GetCollider() };
+    auto const cellSecondTopLeft{ m_cells[1][1]->GetCollider() };
+    auto const cellBottomLeft{ m_cells[m_rowCount - 1][m_columnCount - 1]->GetCollider() };
 
     // clamp right x
     float cell{ cellBottomLeft.x + cellBottomLeft.width + offset.x };
@@ -428,7 +431,7 @@ void Table::CalculateSlider() {
 
     float height{ 0.0f };
     for (int i = 0; i < m_rowCount; ++i) {
-        auto const& cell = m_cells.at(i).at(1);
+        auto const& cell = m_cells[i][1];
         height += cell->GetSize().y;
     }
     m_activeVerticalSlider = height > m_size.y + static_cast<float>(m_rowCount) * 0.001f;
@@ -451,7 +454,7 @@ void Table::CalculateHoverHighlighted(Vector2 mousePosition) {
     }
 
     for (int column = 1; column < m_columnCount; ++column) {
-        auto const& cell = m_cells.at(0).at(column);
+        auto const& cell = m_cells[0][column];
         if (cell->IsColliding(mousePosition)) {
             newPosition = { 0, column };
             goto found;
@@ -459,7 +462,7 @@ void Table::CalculateHoverHighlighted(Vector2 mousePosition) {
     }
 
     for (int row = 1; row < m_rowCount; ++row) {
-        auto const& cell = m_cells.at(row).at(0);
+        auto const& cell = m_cells[row][0];
         if (cell->IsColliding(mousePosition)) {
             newPosition = { row, 0 };
             goto found;
@@ -468,7 +471,7 @@ void Table::CalculateHoverHighlighted(Vector2 mousePosition) {
 
     for (int row = 1; row < m_rowCount; ++row) {
         for (int column = 1; column < m_columnCount; ++column) {
-            auto const& cell = m_cells.at(row).at(column);
+            auto const& cell = m_cells[row][column];
             if (cell->IsColliding(mousePosition)) {
                 newPosition = { row, column };
                 goto found;
@@ -489,14 +492,14 @@ void Table::SetHighlightBackground(bool reset) {
     Color const newColor{ reset ? BLACK : LIGHT_GREY_100 };
 
     if (m_currentHighlighted.x >= 0) {
-        for (auto const& cell : m_cells.at(m_currentHighlighted.x)) {
+        for (auto const& cell : m_cells[m_currentHighlighted.x]) {
             cell->SetBackgroundColor(newColor);
         }
     }
 
     if (m_currentHighlighted.y >= 0) {
         for (int i = 0; i < m_rowCount; ++i) {
-            auto const& cell = m_cells.at(i).at(m_currentHighlighted.y);
+            auto const& cell = m_cells[i][m_currentHighlighted.y];
             cell->SetBackgroundColor(newColor);
         }
     }
@@ -508,22 +511,22 @@ void Table::RenderTopLeft(AppContext_ty_c appContext) {
 void Table::RenderHeadline(AppContext_ty_c appContext) {
 
     auto const row{ m_cells.at(0) };
-    for (int column = 1; column < row.size(); ++column) { // start at 1 because cell 0 is rendered in TopLeft
-        row.at(column)->Render(appContext);
+    for (size_t column = 1; column < row.size(); ++column) { // start at 1 because cell 0 is rendered in TopLeft
+        row[column]->Render(appContext);
     }
 }
 void Table::RenderFirstColumn(AppContext_ty_c appContext) {
 
-    for (int row = 1; row < m_cells.size(); ++row) { // start at 1 because cell 0 is rendered in TopLeft
-        m_cells.at(row).at(0)->Render(appContext);
+    for (size_t row = 1; row < m_cells.size(); ++row) { // start at 1 because cell 0 is rendered in TopLeft
+        m_cells[row][0]->Render(appContext);
     }
 }
 void Table::RenderOtherCells(AppContext_ty_c appContext) {
 
-    for (int row = 1; row < m_cells.size(); ++row) { // start at 1 because cell 0 is rendered in TopLeft or headline
-        for (int column = 1; column < m_cells.at(row).size();
+    for (size_t row = 1; row < m_cells.size(); ++row) { // start at 1 because cell 0 is rendered in TopLeft or headline
+        for (size_t column = 1; column < m_cells.at(row).size();
              ++column) { // start at 1 because cell 0 is renderd in TopLeft or first column
-            m_cells.at(row).at(column)->Render(appContext);
+            m_cells[row][column]->Render(appContext);
         }
     }
 }
@@ -561,13 +564,14 @@ Table::Table(
         for (int column = 0; column < columnCount; ++column) {
 
             auto cell = std::make_shared<TableCell<std::string>>(
-                    Vector2(m_pos.x + cellWidth * column, m_pos.y + cellHeight * row),
+                    Vector2(m_pos.x + cellWidth * static_cast<float>(column),
+                            m_pos.y + cellHeight * static_cast<float>(row)),
                     Vector2(cellWidth, cellHeight),
                     Alignment::TOP_LEFT,
                     row * columnCount + column,
                     "",
-                    [this](AbstractTableCell const* cell, std::string oldValue, std::string newValue) {
-                        this->CellUpdated<std::string>(cell, oldValue, newValue);
+                    [this](AbstractTableCell const* c, std::string oldValue, std::string newValue) {
+                        this->CellUpdated<std::string>(c, oldValue, newValue);
                     }
             );
 
@@ -576,7 +580,8 @@ Table::Table(
         m_cells.push_back(line);
     }
 
-    m_editableRowsColumns = { std::vector<bool>(m_rowCount, true), std::vector<bool>(m_columnCount, true) };
+    m_editableRowsColumns = { std::vector<bool>(static_cast<size_t>(m_rowCount), true),
+                              std::vector<bool>(static_cast<size_t>(m_columnCount), true) };
 
     m_verticalSlider = std::make_shared<Slider>(
             GetElementPosition(m_pos, m_size, 0.995f, 0.5f),
@@ -622,28 +627,28 @@ int Table::GetColumnCount() const {
 }
 
 
-void Table::RemoveSpecificRow(int row) {
+void Table::RemoveSpecificRow(size_t row) {
     if (!IsValidRow(row)) {
         Print(PrintType::ERROR, "row out of range"), throw std::out_of_range("row index");
     }
 
-    m_cells.erase(m_cells.begin() + row);
-    m_editableRowsColumns.at(0).erase(m_editableRowsColumns.at(0).begin() + row);
+    m_cells.erase(m_cells.begin() + static_cast<int>(row));
+    m_editableRowsColumns.at(0).erase(m_editableRowsColumns.at(0).begin() + static_cast<int>(row));
     --m_rowCount;
 }
 void Table::RemoveLastRow() {
     RemoveSpecificRow(static_cast<int>(m_cells.size() - 1));
 }
-void Table::RemoveSpecificColumn(int column) {
+void Table::RemoveSpecificColumn(size_t column) {
     if (!IsValidColumn(column)) {
         Print(PrintType::ERROR, "column index out of range"), throw std::out_of_range("column index");
     }
 
     for (auto& row : m_cells) {
-        row.erase(row.begin() + column);
+        row.erase(row.begin() + static_cast<int>(column));
     }
 
-    m_editableRowsColumns.at(1).erase(m_editableRowsColumns.at(1).begin() + column);
+    m_editableRowsColumns.at(1).erase(m_editableRowsColumns.at(1).begin() + static_cast<int>(column));
     --m_columnCount;
 }
 void Table::RemoveLastColum() {
@@ -667,7 +672,7 @@ bool Table::IsScrollable() const {
     return m_isScrollable;
 }
 
-void Table::SetSingleEditable(int row, int column, bool isEditable) {
+void Table::SetSingleEditable(size_t row, size_t column, bool isEditable) {
     if (!IsValidIndex(row, column)) {
         Print(PrintType::ERROR, "row or column index out auf range");
         throw std::out_of_range("invalid index");
@@ -675,7 +680,7 @@ void Table::SetSingleEditable(int row, int column, bool isEditable) {
 
     m_cells.at(row).at(column)->SetEditable(isEditable);
 }
-bool Table::IsSingleEditable(int row, int column) const {
+bool Table::IsSingleEditable(size_t row, size_t column) const {
     if (!IsValidIndex(row, column)) {
         Print(PrintType::ERROR, "row or column index out auf range");
         throw std::out_of_range("invalid index");
@@ -689,8 +694,8 @@ void Table::SetAllEditable(bool isEditable) noexcept {
             cell->SetEditable(isEditable);
         }
     }
-    for (int i = 0; i < m_editableRowsColumns.size(); ++i) {
-        for (int j = 0; j < m_editableRowsColumns.at(i).size(); ++j) {
+    for (size_t i = 0; i < m_editableRowsColumns.size(); ++i) {
+        for (size_t j = 0; j < m_editableRowsColumns.at(i).size(); ++j) {
             m_editableRowsColumns.at(i).at(j) = isEditable;
         }
     }
@@ -717,7 +722,7 @@ void Table::SetRowEditable(int row, bool isEditable) {
     }
     m_editableRowsColumns.at(0).at(row) = isEditable;
 }
-bool Table::IsRowEditable(int row) const {
+bool Table::IsRowEditable(size_t row) const {
     if (!IsValidRow(row)) {
         Print(PrintType::ERROR, "row out of range"), throw std::out_of_range("row index");
     }
@@ -725,7 +730,7 @@ bool Table::IsRowEditable(int row) const {
     return m_editableRowsColumns.at(0).at(row);
 }
 
-void Table::SetColumnEditable(int column, bool isEditable) {
+void Table::SetColumnEditable(size_t column, bool isEditable) {
     if (!IsValidColumn(column)) {
         Print(PrintType::ERROR, "column out of Range");
         throw std::out_of_range("column index");
@@ -736,7 +741,7 @@ void Table::SetColumnEditable(int column, bool isEditable) {
     }
     m_editableRowsColumns.at(1).at(column) = isEditable;
 }
-bool Table::IsColumnEditable(int column) const {
+bool Table::IsColumnEditable(size_t column) const {
     if (!IsValidColumn(column)) {
         Print(PrintType::ERROR, "column out of Range");
         throw std::out_of_range("column index");
@@ -745,7 +750,7 @@ bool Table::IsColumnEditable(int column) const {
     return m_editableRowsColumns.at(1).at(column);
 }
 
-void Table::SetSingleCellTextColor(Color color, int row, int column) {
+void Table::SetSingleCellTextColor(Color color, size_t row, size_t column) {
     if (!IsValidIndex(row, column)) {
         Print(PrintType::ERROR, "row or column index out auf range");
         throw std::out_of_range("invalid index");
@@ -753,7 +758,7 @@ void Table::SetSingleCellTextColor(Color color, int row, int column) {
 
     m_cells.at(row).at(column)->SetTextColor(color);
 }
-Color Table::GetSingleCellTextColor(int row, int column) const {
+Color Table::GetSingleCellTextColor(size_t row, size_t column) const {
     if (!IsValidIndex(row, column)) {
         Print(PrintType::ERROR, "row or column index out auf range");
         throw std::out_of_range("invalid index");
@@ -768,7 +773,7 @@ void Table::SetAllCellTextColor(Color color) {
         }
     }
 }
-void Table::SetRowCellTextColor(Color color, int row) {
+void Table::SetRowCellTextColor(Color color, size_t row) {
     if (!IsValidRow(row)) {
         Print(PrintType::ERROR, "row out of range"), throw std::out_of_range("row index");
     }
@@ -777,7 +782,7 @@ void Table::SetRowCellTextColor(Color color, int row) {
         cell->SetTextColor(color);
     }
 }
-void Table::SetColumnCellTextColor(Color color, int column) {
+void Table::SetColumnCellTextColor(Color color, size_t column) {
     if (!IsValidColumn(column)) {
         Print(PrintType::ERROR, "column out of Range");
         throw std::out_of_range("column index");

@@ -12,7 +12,7 @@ void ToggleButton::UpdateState() {
         return;
     }
 
-    if (IsFocused() and IsConfirmInputDown() or CheckCollisionPointRec(GetMousePosition(), m_collider)) {
+    if (IsFocused() and (IsConfirmInputDown() or CheckCollisionPointRec(GetMousePosition(), m_collider))) {
         m_state = State::PRESSED;
         return;
     }
@@ -91,7 +91,7 @@ void ToggleButton::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c 
 
         case State::PRESSED: {
             if (CheckCollisionPointRec(mousePosition, m_collider)) {
-                if (IsMouseButtonPressed(MouseButton::MOUSE_BUTTON_LEFT) or IsFocused() and IsConfirmInputPressed()) {
+                if (IsMouseButtonPressed(MouseButton::MOUSE_BUTTON_LEFT) or (IsFocused() and IsConfirmInputPressed())) {
                     PlaySoundEvent const event{ SoundType::CLICKED_PRESS_STD };
                     appContext.eventManager.InvokeEvent(event);
                 }

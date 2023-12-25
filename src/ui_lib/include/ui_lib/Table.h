@@ -339,8 +339,8 @@ public:
                     Alignment::TOP_LEFT,
                     0,
                     defaultValue,
-                    [this](AbstractTableCell const* cell, T oldValue, T newValue) {
-                        this->CellUpdated<T>(cell, oldValue, newValue);
+                    [this](AbstractTableCell const* c, T oldValue, T newValue) {
+                        this->CellUpdated<T>(c, oldValue, newValue);
                     }
             );
             if (not m_editableRowsColumns.at(1).at(column)) {
@@ -381,8 +381,8 @@ public:
                     Alignment::TOP_LEFT,
                     0,
                     defaultValue,
-                    [this](AbstractTableCell const* cell, T oldValue, T newValue) {
-                        this->CellUpdated<T>(cell, oldValue, newValue);
+                    [this](AbstractTableCell const* c, T oldValue, T newValue) {
+                        this->CellUpdated<T>(c, oldValue, newValue);
                     }
             );
             if (not m_editableRowsColumns.at(0).at(i)) {
@@ -408,7 +408,7 @@ public:
     /**
 	 * removes a specific row.
 	 */
-    void RemoveSpecificRow(int row);
+    void RemoveSpecificRow(size_t row);
     /**
 	 * removes the last row.
 	 * calls RemoveSpecificRow.
@@ -417,7 +417,7 @@ public:
     /**
 	 * removes a specific column.
 	 */
-    void RemoveSpecificColumn(int column);
+    void RemoveSpecificColumn(size_t column);
     /**
 	 * removes the last column.
 	 * calls RemoveSpecificColumn.
@@ -445,11 +445,11 @@ public:
     /**
 	 * sets if a specific cell is editable.
 	 */
-    void SetSingleEditable(int row, int column, bool isEditable);
+    void SetSingleEditable(size_t row, size_t column, bool isEditable);
     /**
 	 * returns true if a specific cell is editable.
 	 */
-    [[nodiscard]] bool IsSingleEditable(int row, int column) const;
+    [[nodiscard]] bool IsSingleEditable(size_t row, size_t column) const;
 
     /**
 	 * Set if all cells are editable.
@@ -469,27 +469,27 @@ public:
 	 * returns true if all cells in a specific row are editable.
 	 * returns false if at least one cell in a specific row is not editable.
 	 */
-    [[nodiscard]] bool IsRowEditable(int row) const;
+    [[nodiscard]] bool IsRowEditable(size_t row) const;
 
     /**
 	 * sets if all cells in a specific column are editable.
 	 */
-    void SetColumnEditable(int column, bool isEditable);
+    void SetColumnEditable(size_t column, bool isEditable);
     /**
 	 * returns true if all cells in a specific column are editable.
 	 * returns false if at least one cell in a specific column is not editable.
 	 */
-    [[nodiscard]] bool IsColumnEditable(int column) const;
+    [[nodiscard]] bool IsColumnEditable(size_t column) const;
 
     /**
 	 * sets the text color of a specific cell.
 	 * color cells will ignore this.
 	 */
-    void SetSingleCellTextColor(Color color, int row, int column);
+    void SetSingleCellTextColor(Color color, size_t row, size_t column);
     /**
 	 * returns the color of a specific cell.
 	 */
-    [[nodiscard]] Color GetSingleCellTextColor(int row, int column) const;
+    [[nodiscard]] Color GetSingleCellTextColor(size_t row, size_t column) const;
     /**
 	 * sets the text color of all cells.
 	 * color cells will ignore this.
@@ -499,12 +499,12 @@ public:
 	 * sets the text color of a row of cells.
 	 * color cells will ignore this.
 	 */
-    void SetRowCellTextColor(Color color, int row);
+    void SetRowCellTextColor(Color color, size_t row);
     /**
 	 * sets the text color of a column of cells.
 	 * color cells will ignore this.
 	 */
-    void SetColumnCellTextColor(Color color, int column);
+    void SetColumnCellTextColor(Color color, size_t column);
     /**
 	 * sets if the first row is fixed while scrolling.
 	 */
