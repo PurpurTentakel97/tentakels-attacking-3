@@ -15,7 +15,7 @@ enum class SceneType;
  */
 class LogoScene final : public Scene {
 private:
-	inline static float  const m_sceneLength{ 5.0f }; ///< defines the scene length in seconds
+	inline static double const m_sceneLength{ 5.0f }; ///< defines the scene length in seconds
 	SceneType m_nextScene{ SceneType::INTRO }; ///< contains the type of the next scene that gets called after this one
 	double m_time; ///< contains the program time at the initialization of this scene
 

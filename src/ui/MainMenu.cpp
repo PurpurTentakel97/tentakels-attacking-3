@@ -142,13 +142,13 @@ void MainMenu::Initialize() {
             SoundType::ACCEPTED
     );
     saveGameBtn->SetOnClick([]() {
-        AppContext_ty appContext{ AppContext::GetInstance() };
-        if (not appContext.constants.global.isGameSaved) {
-            appContext.constants.global.isGameSaved = true;
+        AppContext_ty appContext_{ AppContext::GetInstance() };
+        if (not appContext_.constants.global.isGameSaved) {
+            appContext_.constants.global.isGameSaved = true;
             ShowMessagePopUpEvent const event{ "debug save",
                                                "set save bool to false\nwill be set later when a game was saved.",
                                                []() {} };
-            appContext.eventManager.InvokeEvent(event);
+            appContext_.eventManager.InvokeEvent(event);
         }
     });
     savesBtn->Add(saveGameBtn, true);
