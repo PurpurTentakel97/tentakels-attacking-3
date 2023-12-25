@@ -1,0 +1,8 @@
+add_subdirectory(helper)
+add_subdirectory(custom_raylib)
+add_subdirectory(app_context)
+add_subdirectory(event)
+add_subdirectory(logic)
+add_subdirectory(constants)
+add_subdirectory(ui_lib)
+add_subdirectory(ui)

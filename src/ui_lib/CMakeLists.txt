@@ -1,0 +1,74 @@
+add_library(ui_lib STATIC
+            include/ui_lib/AbstractTableCell.h
+            include/ui_lib/Alignment.h
+            include/ui_lib/Button.h
+            include/ui_lib/CheckBox.h
+            include/ui_lib/ClassicButton.h
+            include/ui_lib/ColorPicker.h
+            include/ui_lib/ColorPickerCell.h
+            include/ui_lib/CountingNumber.h
+            include/ui_lib/DropDown.h
+            include/ui_lib/DropDownElement.h
+            include/ui_lib/ExpandingButton.h
+            include/ui_lib/Focus.h
+            include/ui_lib/Focusable.h
+            include/ui_lib/Hover.h
+            include/ui_lib/HoverRender.h
+            include/ui_lib/InputLine.hpp
+            include/ui_lib/Line.h
+            include/ui_lib/LineDrag.h
+            include/ui_lib/Picture.h
+            include/ui_lib/PopUp.h
+            include/ui_lib/Scene.h
+            include/ui_lib/SceneType.h
+            include/ui_lib/ShipCountRing.h
+            include/ui_lib/Slider.h
+            include/ui_lib/SliderButton.h
+            include/ui_lib/Table.h
+            include/ui_lib/TableCell.hpp
+            include/ui_lib/Text.h
+            include/ui_lib/Title.h
+            include/ui_lib/ToggleButton.h
+            include/ui_lib/UIElement.hpp
+            AbstactTableCell.cpp
+            Alignment.cpp
+            Button.cpp
+            ../ui/CellPopUp.cpp
+            CheckBox.cpp
+            ClassicButton.cpp
+            ColorPicker.cpp
+            ColorPickerCell.cpp
+            CountingNumber.cpp
+            DropDown.cpp
+            DropDownElement.cpp
+            ExpandingButton.cpp
+            Focus.cpp
+            Focusable.cpp
+            Hover.cpp
+            HoverRender.cpp
+            Line.cpp
+            LineDrag.cpp
+            Picture.cpp
+            PopUp.cpp
+            Scene.cpp
+            SceneType.cpp
+            ShipCountRing.cpp
+            Slider.cpp
+            SliderButton.cpp
+            Table.cpp
+            Text.cpp
+            Title.cpp
+            ToggleButton.cpp
+)
+
+target_include_directories(ui_lib
+                           PRIVATE include/ui_lib
+                           INTERFACE include
+)
+
+target_link_libraries(ui_lib
+                      PUBLIC
+                      helper
+                      event
+                      app_context
+)

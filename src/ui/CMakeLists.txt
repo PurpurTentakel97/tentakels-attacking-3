@@ -1,0 +1,85 @@
+add_library(ui STATIC
+            include/ui/AllPopUp.hpp
+            include/ui/AppSettings.h
+            include/ui/CellPopUp.h
+            include/ui/ColorCellPopUp.h
+            include/ui/CreditTable.h
+            include/ui/Credits.h
+            include/ui/DeletePlayerPopUp.h
+            include/ui/FightResultPopup.h
+            include/ui/FleetTable.h
+            include/ui/GalaxyAndSlider.h
+            include/ui/GameEventSettings.h
+            include/ui/GameSettings.h
+            include/ui/Intro.h
+            include/ui/Logos.h
+            include/ui/MainMenu.h
+            include/ui/MainScene.h
+            include/ui/MessagePopUp.h
+            include/ui/NewGameParameter.h
+            include/ui/NewGamePlayer.h
+            include/ui/PlanetTable.h
+            include/ui/PopUpManager.h
+            include/ui/PrivativeCellPopUp.hpp
+            include/ui/SceneManager.h
+            include/ui/Scenes.hpp
+            include/ui/Settings.h
+            include/ui/SliderAndInputLine.h
+            include/ui/SoundLevelPopUp.h
+            include/ui/TestScene.h
+            include/ui/UIFleet.h
+            include/ui/UIGalaxy.h
+            include/ui/UIGalaxyElement.h
+            include/ui/UIManager.h
+            include/ui/UIPlanet.h
+            include/ui/UITargetPoint.h
+            include/ui/UpdateEvaluation.h
+            include/ui/ValidateGalaxy.h
+            include/ui/ValidatePopUp.h
+            AppSettings.cpp
+            CellPopUp.cpp
+            ColorCellPopUp.cpp
+            CreditTable.cpp
+            Credits.cpp
+            DeletePlayerPopUp.cpp
+            FightResultPopup.cpp
+            FleetTable.cpp
+            GalaxyAndSlider.cpp
+            GameEventSettings.cpp
+            GameSettings.cpp
+            Intro.cpp
+            Logos.cpp
+            MainMenu.cpp
+            MainScene.cpp
+            MessagePopUp.cpp
+            NewGameParameter.cpp
+            NewGamePlayer.cpp
+            PlanetTable.cpp
+            PopUpManager.cpp
+            SceneManager.cpp
+            Settings.cpp
+            SliderAndInputLine.cpp
+            SoundLevelPopUp.cpp
+            TestScene.cpp
+            UIFleet.cpp
+            UIGalaxy.cpp
+            UIGalaxyElement.cpp
+            UIManager.cpp
+            UIPlanet.cpp
+            UITargetPoint.cpp
+            UpdateEvaluation.cpp
+            ValidateGalaxy.cpp
+            ValidatePopUp.cpp
+)
+
+target_include_directories(ui
+                           PRIVATE include/ui
+                           INTERFACE include
+)
+
+target_link_libraries(ui
+                      PUBLIC
+                      ui_lib
+                      logic
+                      helper
+)
