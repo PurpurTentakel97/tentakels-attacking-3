@@ -54,11 +54,11 @@ void GameEventSettings::Initialize(unsigned int focusID) {
         m_elements.push_back(displayText);
 
         auto element = std::make_shared<CheckBox>(
-                i + focusID,
+                static_cast<unsigned int>(i + focusID),
                 GetElementPosition(cbX, firstRow + row * static_cast<float>(i) * 2),
                 GetElementSize(0.0f, row * 1.5f).y,
                 Alignment::MID_LEFT,
-                i
+                static_cast<unsigned int>(i)
         );
         element->SetOnCheck([this](unsigned int index, bool isChecked) { this->SetChecked(index, isChecked); });
         element->SetChecked(appContext.constants.gameEvents.IsFlag(m_text.at(i).first));
