@@ -4,11 +4,12 @@
 //
 
 #pragma once
-#include "helper/HResolution.hpp"
 #include "CustomRaylib.h"
+#include "helper/HResolution.hpp"
 #include "helper/Vec2.hpp"
-#include <vector>
+#include <cstddef>
 #include <string>
+#include <vector>
 
 struct CWindow final {
     static inline size_t const configEntryCount{

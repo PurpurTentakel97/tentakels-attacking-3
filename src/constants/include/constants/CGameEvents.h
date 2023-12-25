@@ -6,6 +6,7 @@
 #pragma once
 #include "helper/HGameEventTypes.hpp"
 #include <array>
+#include <cstddef>
 
 /**
  * contains the constants for the game events.

@@ -4,6 +4,7 @@
 //
 
 #pragma once
+#include <cstddef>
 
 struct CFight final {
     static inline size_t const configEntryCount{

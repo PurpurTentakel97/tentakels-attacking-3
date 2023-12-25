@@ -3,6 +3,8 @@
 // 24.05.2023
 //
 
+#pragma once
+#include <cstddef>
 
 struct CFleet final {
     static inline size_t const configEntryCount{

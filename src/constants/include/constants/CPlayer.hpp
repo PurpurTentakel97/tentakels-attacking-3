@@ -4,6 +4,7 @@
 //
 
 #pragma once
+#include <cstddef>
 
 /**
  * contains the player constants
