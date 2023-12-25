@@ -243,14 +243,13 @@ class QuitGameEvent   final : public Event { };
  */
 class SetCurrentLastRoundEvent final : public Event {
 private:
-	int m_lastRound;
+    size_t m_lastRound;
 
 public:
-	SetCurrentLastRoundEvent(int lastRound)
-		:m_lastRound{ lastRound } { }
+    SetCurrentLastRoundEvent(size_t lastRound) :m_lastRound{ lastRound } { }
 
-	[[nodiscard]] int GetLastRound() const {
-		return m_lastRound;
+    [[nodiscard]] size_t GetLastRound() const {
+        return m_lastRound;
 	}
 };
 

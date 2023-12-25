@@ -69,10 +69,8 @@ int Galaxy::GenerateHomePlanets(std::vector<Player_ty> players) {
 	for (auto& p : players) {
 		int counter{ 0 };
 		while (true) {
-			vec2pos_ty_c newPosition{
-			   static_cast<int>(random.random(m_size.x)),
-			   static_cast<int>(random.random(m_size.y))
-			};
+			vec2pos_ty_c newPosition{ static_cast<int>(random.random(static_cast<size_t>(m_size.x))),
+                                      static_cast<int>(random.random(static_cast<size_t>(m_size.y))) };
 
 			auto const newPlanet = std::make_shared<Planet>(
 				GetNextID(),
@@ -101,8 +99,7 @@ int Galaxy::GenerateHomePlanets(std::vector<Player_ty> players) {
 
 	return currentPlanet;
 }
-void Galaxy::GenerateOtherPlanets(size_t planetCount, int currentPlanet,
-	Player_ty player) {
+void Galaxy::GenerateOtherPlanets(size_t planetCount, size_t currentPlanet, Player_ty player) {
 
 	AppContext_ty_c appContext{ AppContext::GetInstance() };
 	Random& random{ Random::GetInstance() };
@@ -112,8 +109,8 @@ void Galaxy::GenerateOtherPlanets(size_t planetCount, int currentPlanet,
 		int counter{ 0 };
 		while (true) {
 			vec2pos_ty_c newPosition{
-				static_cast<int>(random.random(m_size.x)),
-				static_cast<int>(random.random(m_size.y))
+				static_cast<int>(random.random(static_cast<size_t>(m_size.x))),
+				static_cast<int>(random.random(static_cast<size_t>(m_size.y))
 			};
 
 			auto const newPlanet = std::make_shared<Planet>(
@@ -145,8 +142,7 @@ bool Galaxy::IsValidNewPlanet(Planet_ty newPlanet,
 	bool validPlanet{ true };
 
 	// works because Home Planets are generated first.
-	float const factor = newPlanet->IsHomePlanet()
-		? appContext.constants.planet.homeworldSpacing
+    auto const factor = newPlanet->IsHomePlanet() ? appContext.constants.planet.homeworldSpacing
 		: appContext.constants.planet.globalSpacing;
 	double const spacing{ m_size.Length() * factor };
 
@@ -207,8 +203,8 @@ HFleetResult Galaxy::AddFleetFromPlanet(SendFleetInstructionEvent const* event, 
 	}
 
 	// check origin
-	auto const originPlanet{ GetPlanetByID(static_cast<unsigned int>(event->GetOrigin())) };
-	if (originPlanet->GetPlayer() != currentPlayer) {
+    auto const originPlanet{ GetPlanetByID(event->GetOrigin()) };
+    if (originPlanet->GetPlayer() != currentPlayer) {
 		popup(AppContext::GetInstance().languageManager.Text("logic_galaxy_not_your_origin_planet_text"));
 		Print(PrintType::ONLY_DEBUG, "origin planet does not belong to current player");
 		return { nullptr, nullptr, nullptr, false };
@@ -227,9 +223,9 @@ HFleetResult Galaxy::AddFleetFromPlanet(SendFleetInstructionEvent const* event, 
 	// get destination
 	auto const destination = GetOrGenerateDestination(
 		event->GetDestination(),
-		static_cast<int>(event->GetDestinationX()),
-		static_cast<int>(event->GetDestinationY()),
-		currentPlayer
+            event->GetDestinationX(),
+            event->GetDestinationY(),
+            currentPlayer
 	);
 
 	if (destination->IsPlanet()) {
@@ -1126,8 +1122,8 @@ HFightResult Galaxy::Fight(SpaceObject_ty defender, SpaceObject_ty attacker) {
 	);
 	return { {defender->GetPlayer(), attacker->GetPlayer()}, {defender, attacker}, rounds, true };
 }
-int Galaxy::Salve(SpaceObject_ty obj) const {
-	float const hitChace{ AppContext::GetInstance().constants.fight.hitChance * 100 };
+size_t Galaxy::Salve(SpaceObject_ty obj) const {
+    float const hitChace{ AppContext::GetInstance().constants.fight.hitChance * 100 };
 	Random& random_{ Random::GetInstance() };
 	int hitCount{ 0 };
 

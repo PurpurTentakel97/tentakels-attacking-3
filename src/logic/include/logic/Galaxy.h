@@ -190,7 +190,7 @@ private:
 	 * simulate a salve.
 	 * return a hit count.
 	 */
-	[[nodiscard]] int Salve(SpaceObject_ty obj) const;
+    [[nodiscard]] size_t Salve(SpaceObject_ty obj) const;
 
 public:
 	/**
