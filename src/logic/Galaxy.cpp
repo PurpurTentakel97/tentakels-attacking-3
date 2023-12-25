@@ -1044,7 +1044,7 @@ HFightResult Galaxy::Fight(SpaceObject_ty defender, SpaceObject_ty attacker) {
 size_t Galaxy::Salve(SpaceObject_ty obj) const {
     float const hitChace{ AppContext::GetInstance().constants.fight.hitChance * 100 };
     Random& random_{ Random::GetInstance() };
-    int hitCount{ 0 };
+    size_t hitCount{ 0 };
 
     for (size_t i = 0; i < obj->GetShipCount(); ++i) {
         auto result{ random_.random(101) };

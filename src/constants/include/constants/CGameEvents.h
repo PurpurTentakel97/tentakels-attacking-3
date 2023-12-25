@@ -11,9 +11,11 @@
  * contains the constants for the game events.
  */
 struct CGameEvents {
-	static inline int const configEntryCount{ 7 }; ///< config load checks if the count is idetical to the loaded entry count
+    static inline size_t const configEntryCount{
+        7
+    }; ///< config load checks if the count is idetical to the loaded entry count
 
-	HGameEventType events{ 0b11111111 }; ///< contains the bismask for the events --> get overwritten by config
+    HGameEventType events{ 0b11111111 }; ///< contains the bismask for the events --> get overwritten by config
 	float globalEventChance{ 25.0f }; ///< contains the chance a event is happening --> get overwritten by config
 
 	/**

@@ -9,9 +9,11 @@
  * contains the planet constants
  */
 struct CPlanet final {
-	static inline int const configEntryCount{ 8 }; ///< config load checks if the count is idetical to the loaded entry count
+    static inline size_t const configEntryCount{
+        8
+    }; ///< config load checks if the count is idetical to the loaded entry count
 
-	size_t maxShipsFactor{ 25 }; ///< defines the max ships Facor (multiply by production) a non human player can have on one planet. (override by config)
+    size_t maxShipsFactor{ 25 }; ///< defines the max ships Facor (multiply by production) a non human player can have on one planet. (override by config)
 	size_t startingHumanShipsMultiplicator{ 30 }; ///< defines the multiplicator to calculate the starting ships of human player. (override by config)
 	size_t startingGlobalShipsMultiplicator{ 5 }; ///< defines the multiplicator to calculate the starting ships of npc player. (override by config)
 

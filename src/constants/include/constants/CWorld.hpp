@@ -9,9 +9,11 @@
  * contains all world constants
  */
 struct CWorld final {
-	static inline int const configEntryCount{ 13 }; ///< config load checks if the count is idetical to the loaded entry count
+    static inline size_t const configEntryCount{
+        13
+    }; ///< config load checks if the count is idetical to the loaded entry count
 
-	size_t minPlanetCount{ 20 }; ///< defines the min count of planet the unser can set (override by config)
+    size_t minPlanetCount{ 20 }; ///< defines the min count of planet the unser can set (override by config)
 	size_t currentPlanetCount{ 50 }; ///< contains the current count of planets the player has set (override by config)
 	size_t maxPlanetCount{ 100 }; ///< defines the max count of planet the unser can set (override by config)
 	size_t showPlanetCount{ 25 }; ///< defines the count of planet that are displayed in the show galaxy (override by config)

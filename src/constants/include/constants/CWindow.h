@@ -11,9 +11,11 @@
 #include <string>
 
 struct CWindow final {
-	static inline int const configEntryCount{ 3 }; ///< config load checks if the count is idetical to the loaded entry count
+    static inline size_t const configEntryCount{
+        3
+    }; ///< config load checks if the count is idetical to the loaded entry count
 
-	Resolution currentResolutionEnum{ Resolution::LAST }; ///< contains the current resolution Enum (override by config)
+    Resolution currentResolutionEnum{ Resolution::LAST }; ///< contains the current resolution Enum (override by config)
 	Vector2 currentResolutionVec{ 800.0f, 600.0f }; ///< contains the current resolution Vector
 	Vec2<int> nativeResolutionVec{ 800, 600 }; ///< contains the native resolution of the the screen
 

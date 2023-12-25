@@ -13,7 +13,7 @@
 
 // string defaults
 static std::string const defaultValuePrefix{ "-> using default value -> overwrite config by save" };
-static int loadEntryCount{ 0 }; 
+static int loadEntryCount{ 0 };
 // print
 auto static const printMissingSection{ [](ConfigTypes section) {
 	Print(
@@ -31,8 +31,8 @@ auto static const printMissingEntry{ [](ConfigTypes entry) {
 		defaultValuePrefix
 	);
 } };
-auto static const printNotMatchingCount{ [](ConfigTypes section, int expected, size_t provided) {
-	Print(
+auto static const printNotMatchingCount{ [](ConfigTypes section, size_t expected, size_t provided) {
+    Print(
 		PrintType::ERROR,
 		"section \"{}\" entry count in config is not matching -> expected: \"{}\" -> provided: \"{}\"",
 		CToS(section),
@@ -74,8 +74,8 @@ auto static const isExistingEntry{ [](nlohmann::json const& son, ConfigTypes typ
 	}
 	return true;
 } };
-auto static const isMatchingSize{ [](nlohmann::json const& son, ConfigTypes section, int count) ->bool {
-	assert(son.size() == count);
+auto static const isMatchingSize{ [](nlohmann::json const& son, ConfigTypes section, size_t count) -> bool {
+    assert(son.size() == count);
 	if (son.size() != count) {
 		printNotMatchingCount(section, count, son.size());
 		return false;
@@ -99,8 +99,7 @@ auto static const loadString{ [](nlohmann::json const& son, std::string& out, Co
 	++loadEntryCount;
 	if (not isExistingEntry(son, entry)) {
 		return false;
-	
-	}
+    }
 	assert(son.at(CToS(entry)).is_string());
 	if (not son.at(CToS(entry)).is_string()) {
 		printWrongDatatype(entry);
@@ -180,8 +179,8 @@ void LoadConfig() {
 
 	// from json
 	// config
-	if (isNull(load, ConfigTypes::CONFIFG)) { 
-		Print(
+    if (isNull(load, ConfigTypes::CONFIFG)) {
+        Print(
 			PrintType::ERROR,
 			"provided config is null {}",
 			defaultValuePrefix
@@ -243,7 +242,8 @@ void LoadConfig() {
 	else {
 		Print(PrintType::ERROR, "not able to check if config and game versions match");
 	}
-	// fight
+    // @formatter:off
+    // fight
 	if (nlohmann::json fight; loadSection(load, fight, ConfigTypes::FIGHT, constants.fight.configEntryCount)) {
 		if (float out; loadFloat(fight, out, ConfigTypes::HIT_CHANCE))                      { constants.fight.hitChance                     = out; }
 		if (int   out;   loadInt(fight, out, ConfigTypes::FLEET_FIGHT_RANGE))               { constants.fight.fleetFightRange               = out; }
@@ -271,27 +271,55 @@ void LoadConfig() {
 	// global
 	if (nlohmann::json global; loadSection(load, global, ConfigTypes::GLOBAL, constants.global.configEntryCount)) {
 		if (std::string out; loadString(global, out, ConfigTypes::CURRENT_LANGUAGE_NAME)) { constants.global.currentLanguageName = out; }
-		if (int         out;    loadInt(global, out, ConfigTypes::GAME_ROUNDS_CURRENT))   { constants.global.currentTargetRound  = out; }
-		if (int         out;    loadInt(global, out, ConfigTypes::GAME_ROUNDS_MAX))       { constants.global.maxRounds           = out; }
-		if (int         out;    loadInt(global, out, ConfigTypes::GAME_ROUNDS_MIN))       { constants.global.minRounds           = out; }
-	}
+        if (int out; loadInt(global, out, ConfigTypes::GAME_ROUNDS_CURRENT)) {
+            constants.global.currentTargetRound = static_cast<size_t>(out);
+        }
+        if (int out; loadInt(global, out, ConfigTypes::GAME_ROUNDS_MAX)) {
+            constants.global.maxRounds = static_cast<size_t>(out);
+        }
+        if (int out; loadInt(global, out, ConfigTypes::GAME_ROUNDS_MIN)) {
+            constants.global.minRounds = static_cast<size_t>(out);
+        }
+    }
 	// planet
 	if (nlohmann::json planet; loadSection(load, planet, ConfigTypes::PLANET, constants.planet.configEntryCount)) {
-		if (int   out;   loadInt(planet, out, ConfigTypes::PRODUCTION_HOMEWORLD))                { constants.planet.homeworldProduction              = out; }
-		if (int   out;   loadInt(planet, out, ConfigTypes::PRODUCTION_MAX))                      { constants.planet.maxProduction                    = out; }
-		if (int   out;   loadInt(planet, out, ConfigTypes::PRODUCTION_MIN))                      { constants.planet.minProduction                    = out; }
-		if (int   out;   loadInt(planet, out, ConfigTypes::SHIPS_MAX_FACTOR))                    { constants.planet.maxShipsFactor                   = out; }
-		if (float out; loadFloat(planet, out, ConfigTypes::SPACEING_GLOBAL))                     { constants.planet.globalSpacing                    = out; }
-		if (float out; loadFloat(planet, out, ConfigTypes::SPACEING_HOMEWORLD))                  { constants.planet.homeworldSpacing                 = out; }
-		if (int   out;   loadInt(planet, out, ConfigTypes::STARTING_SHIPS_MULTIPLICATOR_GLOBAL)) { constants.planet.startingGlobalShipsMultiplicator = out; }
-		if (int   out;   loadInt(planet, out, ConfigTypes::STARTING_SHIPS_MULTIPLICATOR_HUMAN))  { constants.planet.startingHumanShipsMultiplicator  = out; }
-	}
+        if (int out; loadInt(planet, out, ConfigTypes::PRODUCTION_HOMEWORLD)) {
+            constants.planet.homeworldProduction = static_cast<size_t>(out);
+        }
+        if (int out; loadInt(planet, out, ConfigTypes::PRODUCTION_MAX)) {
+            constants.planet.maxProduction = static_cast<size_t>(out);
+        }
+        if (int out; loadInt(planet, out, ConfigTypes::PRODUCTION_MIN)) {
+            constants.planet.minProduction = static_cast<size_t>(out);
+        }
+        if (int out; loadInt(planet, out, ConfigTypes::SHIPS_MAX_FACTOR)) {
+            constants.planet.maxShipsFactor = static_cast<size_t>(out);
+        }
+        if (float out; loadFloat(planet, out, ConfigTypes::SPACEING_GLOBAL)) {
+            constants.planet.globalSpacing = out;
+        }
+        if (float out; loadFloat(planet, out, ConfigTypes::SPACEING_HOMEWORLD)) {
+            constants.planet.homeworldSpacing = out;
+        }
+        if (int out; loadInt(planet, out, ConfigTypes::STARTING_SHIPS_MULTIPLICATOR_GLOBAL)) {
+            constants.planet.startingGlobalShipsMultiplicator = static_cast<size_t>(out);
+        }
+        if (int out; loadInt(planet, out, ConfigTypes::STARTING_SHIPS_MULTIPLICATOR_HUMAN)) {
+            constants.planet.startingHumanShipsMultiplicator = static_cast<size_t>(out);
+        }
+    }
 	// player
 	if (nlohmann::json player; loadSection(load, player, ConfigTypes::PLAYER, constants.player.configEntryCount)) {
-		if (int  out;  loadInt(player, out, ConfigTypes::PLAYER_COUNT_MAX)) { constants.player.maxPlayerCount = out; }
-		if (int  out;  loadInt(player, out, ConfigTypes::PLAYER_COUNT_MIN)) { constants.player.minPlayerCount = out; }
-		if (bool out; loadBool(player, out, ConfigTypes::Player_SHUFFLE))   { constants.player.shuffle= out;         }
-	}
+        if (int out; loadInt(player, out, ConfigTypes::PLAYER_COUNT_MAX)) {
+            constants.player.maxPlayerCount = static_cast<size_t>(out);
+        }
+        if (int out; loadInt(player, out, ConfigTypes::PLAYER_COUNT_MIN)) {
+            constants.player.minPlayerCount = static_cast<size_t>(out);
+        }
+        if (bool out; loadBool(player, out, ConfigTypes::Player_SHUFFLE)) {
+            constants.player.shuffle = out;
+        }
+    }
 	// sound
 	if (nlohmann::json sound; loadSection(load, sound, ConfigTypes::SOUND, constants.sound.configEntryCount)) {
 		if (float out; loadFloat(sound, out, ConfigTypes::VOLUME_MASTER))    { constants.sound.masterVolume = out; }
@@ -299,28 +327,62 @@ void LoadConfig() {
 	}
 	// window
 	if (nlohmann::json window; loadSection(load, window, ConfigTypes::WINDOW, constants.window.configEntryCount)) {
-		if (int  out;  loadInt(window, out, ConfigTypes::RESOLUTION_AS_ENUM))     { constants.window.currentResolutionEnum = static_cast<Resolution>(out); }
-		if (bool out; loadBool(window, out, ConfigTypes::FULL_SCREEN_BOOL)) { constants.window.isFullScreen                     = out ; }
-		if (int  out;  loadInt(window, out, ConfigTypes::TARGET_FPS))             { constants.window.FPS                                        = out ; }
-	}
+        if (int out; loadInt(window, out, ConfigTypes::RESOLUTION_AS_ENUM)) {
+            constants.window.currentResolutionEnum = static_cast<Resolution>(out);
+        }
+        if (bool out; loadBool(window, out, ConfigTypes::FULL_SCREEN_BOOL)) {
+            constants.window.isFullScreen = out;
+        }
+        if (int out; loadInt(window, out, ConfigTypes::TARGET_FPS)) {
+            constants.window.FPS = static_cast<size_t>(out);
+        }
+    }
 	// world
 	if (nlohmann::json world; loadSection(load, world, ConfigTypes::WORLD, constants.world.configEntryCount)) {
-		if (int out; loadInt(world, out, ConfigTypes::DIMENSION_X_CURRENT))      { constants.world.currentDimensionX   = out; }
-		if (int out; loadInt(world, out, ConfigTypes::DIMENSION_X_MAX))          { constants.world.maxDimensionX       = out; }
-		if (int out; loadInt(world, out, ConfigTypes::DIMENSION_X_MIN))          { constants.world.minDimensionX       = out; }
-		if (int out; loadInt(world, out, ConfigTypes::DIMENSION_X_SHOW_GALAXY))  { constants.world.showDimensionX      = out; }
-		if (int out; loadInt(world, out, ConfigTypes::DIMENSION_Y_CURRENT))      { constants.world.currentDimensionY   = out; }
-		if (int out; loadInt(world, out, ConfigTypes::DIMENSION_Y_MAX))          { constants.world.maxDimensionY       = out; }
-		if (int out; loadInt(world, out, ConfigTypes::DIMENSION_Y_MIN))          { constants.world.minDimensionY       = out; }
-		if (int out; loadInt(world, out, ConfigTypes::DIMENSION_Y_SHOW_GALAXY))  { constants.world.showDimensionY      = out; }
-		if (int out; loadInt(world, out, ConfigTypes::DISCOVER_RANGE_FACTOR))    { constants.world.discoverRangeFactor = out; }
-		if (int out; loadInt(world, out, ConfigTypes::PLANET_COUNT_CURRENT))     { constants.world.currentPlanetCount  = out; }
-		if (int out; loadInt(world, out, ConfigTypes::PLANET_COUNT_MAX))         { constants.world.maxPlanetCount      = out; }
-		if (int out; loadInt(world, out, ConfigTypes::PLANET_COUNT_MIN))         { constants.world.minPlanetCount      = out; }
-		if (int out; loadInt(world, out, ConfigTypes::PLANET_COUNT_SHOW_GALAXY)) { constants.world.showPlanetCount     = out; }
-	}
+        if (int out; loadInt(world, out, ConfigTypes::DIMENSION_X_CURRENT)) {
+            constants.world.currentDimensionX = out;
+        }
+        if (int out; loadInt(world, out, ConfigTypes::DIMENSION_X_MAX)) {
+            constants.world.maxDimensionX = out;
+        }
+        if (int out; loadInt(world, out, ConfigTypes::DIMENSION_X_MIN)) {
+            constants.world.minDimensionX = out;
+        }
+        if (int out; loadInt(world, out, ConfigTypes::DIMENSION_X_SHOW_GALAXY)) {
+            constants.world.showDimensionX = out;
+        }
+        if (int out; loadInt(world, out, ConfigTypes::DIMENSION_Y_CURRENT)) {
+            constants.world.currentDimensionY = out;
+        }
+        if (int out; loadInt(world, out, ConfigTypes::DIMENSION_Y_MAX)) {
+            constants.world.maxDimensionY = out;
+        }
+        if (int out; loadInt(world, out, ConfigTypes::DIMENSION_Y_MIN)) {
+            constants.world.minDimensionY = out;
+        }
+        if (int out; loadInt(world, out, ConfigTypes::DIMENSION_Y_SHOW_GALAXY)) {
+            constants.world.showDimensionY = out;
+        }
+        if (int out; loadInt(world, out, ConfigTypes::DISCOVER_RANGE_FACTOR)) {
+            constants.world.discoverRangeFactor = out;
+        }
+        if (int out; loadInt(world, out, ConfigTypes::PLANET_COUNT_CURRENT)) {
+            constants.world.currentPlanetCount = static_cast<size_t>(out);
+        }
+        if (int out; loadInt(world, out, ConfigTypes::PLANET_COUNT_MAX)) {
+            constants.world.maxPlanetCount = static_cast<size_t>(out);
+        }
+        if (int out; loadInt(world, out, ConfigTypes::PLANET_COUNT_MIN)) {
+            constants.world.minPlanetCount = static_cast<size_t>(out);
+        }
+        if (int out; loadInt(world, out, ConfigTypes::PLANET_COUNT_SHOW_GALAXY)) {
+            constants.world.showPlanetCount = static_cast<size_t>(out);
+        }
+    }
+    // @formatter:on
 
-	// check if all values are loaded
+
+    // check if all values are loaded
 	AppContext_ty_c appContext = AppContext::GetInstance();
 	assert(loadEntryCount == appContext.constants.GetConfigValueCount());
 	if (int count = appContext.constants.GetConfigValueCount();  loadEntryCount != count) {
@@ -348,20 +410,21 @@ void LoadConfig() {
 	Print(PrintType::INFO, "config loaded");
 }
 void SaveConfig() {
-	
-	// to json
+
+    // to json
 	auto const& constants{ AppContext::GetInstance().constants };
 	nlohmann::json save;
-	
-	save[CToS(ConfigTypes::GAME_EVENTS)] = {
+
+    // @formatter:off
+    save[CToS(ConfigTypes::GAME_EVENTS)] = {
 		{ CToS(ConfigTypes::PIRATES),             constants.gameEvents.IsFlag(HGameEventType::PIRATES)        },
 		{ CToS(ConfigTypes::REVOLTS),             constants.gameEvents.IsFlag(HGameEventType::REVOLTS)        },
 		{ CToS(ConfigTypes::RENEGADE_SHIPS),      constants.gameEvents.IsFlag(HGameEventType::RENEGADE_SHIPS) },
 		{ CToS(ConfigTypes::BLACK_HOLE),          constants.gameEvents.IsFlag(HGameEventType::BLACK_HOLE)     },
 		{ CToS(ConfigTypes::SUPERNOVA),           constants.gameEvents.IsFlag(HGameEventType::SUPERNOVA)      },
 		{ CToS(ConfigTypes::ENGINE_PROBLEM),      constants.gameEvents.IsFlag(HGameEventType::ENGINE_PROBLEM) },
-		{ CToS(ConfigTypes::GLOBAL_EVENT_CHANCE), constants.gameEvents.globalEventChance                      },
-	};
+        { CToS(ConfigTypes::GLOBAL_EVENT_CHANCE),                      constants.gameEvents.globalEventChance },
+    };
 	save[CToS(ConfigTypes::FIGHT)] = {
 		{ CToS(ConfigTypes::HIT_CHANCE),                      constants.fight.hitChance                     },
 		{ CToS(ConfigTypes::FLEET_FIGHT_RANGE),               constants.fight.fleetFightRange               },
@@ -377,10 +440,10 @@ void SaveConfig() {
 	};
 	save[CToS(ConfigTypes::GLOBAL)] = {
 		{ CToS(ConfigTypes::CURRENT_LANGUAGE_NAME), constants.global.currentLanguageName },
-		{ CToS(ConfigTypes::GAME_ROUNDS_CURRENT),   constants.global.currentTargetRound    },
-		{ CToS(ConfigTypes::GAME_ROUNDS_MAX),       constants.global.maxRounds             },
-		{ CToS(ConfigTypes::GAME_ROUNDS_MIN),       constants.global.minRounds             },
-	};
+        {   CToS(ConfigTypes::GAME_ROUNDS_CURRENT),  constants.global.currentTargetRound },
+        {       CToS(ConfigTypes::GAME_ROUNDS_MAX),           constants.global.maxRounds },
+        {       CToS(ConfigTypes::GAME_ROUNDS_MIN),           constants.global.minRounds },
+    };
 	save[CToS(ConfigTypes::PLANET)] = {
 		{ CToS(ConfigTypes::PRODUCTION_HOMEWORLD),                constants.planet.homeworldProduction              },
 		{ CToS(ConfigTypes::PRODUCTION_MAX),                      constants.planet.maxProduction                    },
@@ -401,14 +464,14 @@ void SaveConfig() {
 		{ CToS(ConfigTypes::VOLUME_MUTE_BOOL), constants.sound.muteVolume   },
 	};
 	save[CToS(ConfigTypes::VERSION)] = {
-		{ CToS(ConfigTypes::VERSION_CONFIG),      constants.global.configVersion },
-		{ CToS(ConfigTypes::VERSION_GAME),        constants.global.gameVersion   },
-	};
+        { CToS(ConfigTypes::VERSION_CONFIG), constants.global.configVersion },
+        {   CToS(ConfigTypes::VERSION_GAME),   constants.global.gameVersion },
+    };
 	save[CToS(ConfigTypes::WINDOW)] = {
-		{ CToS(ConfigTypes::RESOLUTION_AS_ENUM),       static_cast<size_t>(constants.window.currentResolutionEnum)     },
-		{ CToS(ConfigTypes::FULL_SCREEN_BOOL),                       constants.window.isFullScreen  },
-		{ CToS(ConfigTypes::TARGET_FPS),                                   constants.window.FPS                     },
-	};
+        { CToS(ConfigTypes::RESOLUTION_AS_ENUM), static_cast<size_t>(constants.window.currentResolutionEnum) },
+        {   CToS(ConfigTypes::FULL_SCREEN_BOOL),                               constants.window.isFullScreen },
+        {         CToS(ConfigTypes::TARGET_FPS),                                        constants.window.FPS },
+    };
 	save[CToS(ConfigTypes::WORLD)] = {
 		{ CToS(ConfigTypes::DIMENSION_X_CURRENT),      constants.world.currentDimensionX  },
 		{ CToS(ConfigTypes::DIMENSION_X_MAX),          constants.world.maxDimensionX      },
@@ -418,14 +481,15 @@ void SaveConfig() {
 		{ CToS(ConfigTypes::DIMENSION_Y_MAX),          constants.world.maxDimensionY      },
 		{ CToS(ConfigTypes::DIMENSION_Y_MIN),          constants.world.minDimensionY      },
 		{ CToS(ConfigTypes::DIMENSION_Y_SHOW_GALAXY),  constants.world.showDimensionY     },
-		{ CToS(ConfigTypes::DISCOVER_RANGE_FACTOR),           constants.world.discoverRangeFactor      },
-		{ CToS(ConfigTypes::PLANET_COUNT_CURRENT),     constants.world.currentPlanetCount },
+        {    CToS(ConfigTypes::DISCOVER_RANGE_FACTOR), constants.world.discoverRangeFactor },
+        { CToS(ConfigTypes::PLANET_COUNT_CURRENT),     constants.world.currentPlanetCount },
 		{ CToS(ConfigTypes::PLANET_COUNT_MAX),         constants.world.maxPlanetCount     },
 		{ CToS(ConfigTypes::PLANET_COUNT_MIN),         constants.world.minPlanetCount     },
 		{ CToS(ConfigTypes::PLANET_COUNT_SHOW_GALAXY), constants.world.showPlanetCount    },
 	};
+    // @formatter:on
 
-	// saving
+    // saving
 	std::ofstream file{ };
 
 	if (!std::filesystem::exists(constants.files.savesDir)) {
