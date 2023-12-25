@@ -12,12 +12,12 @@ private:
 	std::string m_text; ///< contains the Hover text
 	Color m_color; ///< contains the render text color
 	Vector2 m_hoverOffset; ///< contains the offset between mouse and rectangle in decimal
-	Vector2 m_absoluteHoverOffset; ///< contains the offset between mouse and rectangle in px
 
 	float m_textHeight; ///< contains text size in px
 	Vector2 m_textPosition; ///< contains the text position in px
+    Vector2 m_absoluteHoverOffset; ///< contains the offset between mouse and rectangle in px
 
-	/**
+    /**
 	 * calculates textHeight, textPosition, colliderLength.
 	 */
 	void CalculateDefault(AppContext_ty_c appContext);

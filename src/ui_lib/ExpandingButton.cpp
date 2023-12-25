@@ -80,9 +80,9 @@ ExpandingButton::ExpandingButton(
         std::string const& btnText
 )
     : UIElement{ pos, size, alignment },
-      m_direction{ direction },
       m_spacing{ spacing },
-      m_expandingSpeed{ expandingSpeed } {
+      m_expandingSpeed{ expandingSpeed },
+      m_direction{ direction } {
 
     Initialize(focusID, btnText);
 }
@@ -98,7 +98,7 @@ void ExpandingButton::Remove(ClassicButton_ty btn) {
 
     std::erase_if(m_buttons, [btn](Btn current) { return btn == current.btn; });
 }
-void ExpandingButton::Remove(int ind) {
+void ExpandingButton::Remove(size_t ind) {
     if (ind >= m_buttons.size()) {
         throw std::runtime_error("index out of range");
     }
@@ -158,7 +158,7 @@ void ExpandingButton::Update() {
         }
     } };
 
-    for (int i = 0; i < m_buttons.size(); ++i) {
+    for (size_t i = 0; i < m_buttons.size(); ++i) {
         auto& btn{ m_buttons.at(i) };
         increse(i == 0);
         btn.btn->SetEnabled(m_isExpanded ? btn.enabled : false);

@@ -30,11 +30,11 @@ private:
 	double m_delayedCollapseTime{ 1.0f }; ///< contains the delay time of the delayed collapse
 	float m_spacing; ///< contains the relative spacing between the buttons
 	float m_expandingSpeed; ///< contains the speed the button is expanding and collapsing
-	ToggleButton_ty m_mainButton; ///< contains the toggle button
 	std::vector<Btn> m_buttons{ }; ///< contains the classic buttons
 	Direction m_direction; ///< contains the current expand direction
+    ToggleButton_ty m_mainButton;  ///< contains the toggle button
 
-	/**
+    /**
 	 * initializes the main button.
 	 */
 	void Initialize(int focusID, std::string const& btnText);
@@ -76,9 +76,9 @@ public:
 	/**
 	 * removes a button by index.
 	 */
-	void Remove(int ind);
+    void Remove(size_t ind);
 
-	/**
+    /**
 	 * expands the button if it is not expended.
 	 */
 	void Expand();

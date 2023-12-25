@@ -56,9 +56,9 @@ void HoverRender::Render() {
 
 	auto const& window{ appContext.constants.window };
 	auto const& resolution{ window.GetIntFromResolution(window.currentResolutionEnum) };
-	bool const high{ resolution.y / 2 > GetMousePosition().y };
+    bool const high{ static_cast<float>(resolution.y) / 2.0f > GetMousePosition().y };
 
-	if (high) {
+    if (high) {
 		auto const offset{ m_elements.at(0)->GetCollider().height };
 		increase(offset, high);
 		increase(offset, high);
