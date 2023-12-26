@@ -4,7 +4,7 @@
 //
 
 #include "CWindow.hpp"
-#include "helper/HPrint.h"
+#include "helper/HPrint.hpp"
 #include <CustomRaylib.hpp>
 
 bool CWindow::IsPossibleResolution(Resolution toProve) const {
@@ -90,7 +90,7 @@ std::string CWindow::GetStringFromResolution(Resolution resolution) const {
 	}
 }
 
-Vec2<int> CWindow::GetIntFromResolution(Resolution resolution) const {
+HVec2<int> CWindow::GetIntFromResolution(Resolution resolution) const {
 
 	switch (resolution) {
 

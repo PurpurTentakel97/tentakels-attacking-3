@@ -7,7 +7,7 @@
 #include "AppContext.hpp"
 #include "Focusable.h"
 #include "event/EventsUI.hpp"
-#include "helper/HPrint.h"
+#include "helper/HPrint.hpp"
 #include <functional>
 #include <stdexcept>
 

@@ -8,8 +8,8 @@
 #include "ClassicButton.h"
 #include "ToggleButton.h"
 #include "event/EventsUI.hpp"
-#include "helper/HInput.h"
-#include "helper/HPrint.h"
+#include "helper/HInput.hpp"
+#include "helper/HPrint.hpp"
 
 void ExpandingButton::Initialize(int focusID, std::string const& btnText) {
     AppContext_ty_c appContext{ AppContext::GetInstance() };

@@ -6,8 +6,8 @@
 #include "Fleet.h"
 #include "AppContext.hpp"
 #include "Galaxy.h"
-#include "helper/HGalaxy.h"
-#include "helper/HPrint.h"
+#include "helper/HGalaxy.hpp"
+#include "helper/HPrint.hpp"
 #include <cmath>
 
 Fleet::Fleet(unsigned int ID, vec2pos_ty position, Player_ty player,

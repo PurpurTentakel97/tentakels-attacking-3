@@ -5,7 +5,7 @@
 
 #include "include/ui/FightResultPopup.h"
 #include "AppContext.hpp"
-#include "helper/HTextProcessing.h"
+#include "helper/HTextProcessing.hpp"
 #include "logic/Player.h"
 #include "logic/SpaceObject.h"
 #include "ui_lib/ClassicButton.h"

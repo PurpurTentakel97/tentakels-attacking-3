@@ -5,8 +5,8 @@
 
 #include "SoundLevelPopUp.h"
 #include "AppContext.hpp"
-#include "helper/HFocusEvents.h"
-#include "helper/HGeneral.h"
+#include "helper/HFocusEvents.hpp"
+#include "helper/HGeneral.hpp"
 #include "ui_lib/CheckBox.h"
 #include "ui_lib/ClassicButton.h"
 #include "ui_lib/Slider.h"

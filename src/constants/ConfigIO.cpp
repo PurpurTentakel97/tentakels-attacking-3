@@ -5,8 +5,8 @@
 
 #include "ConfigIO.hpp"
 #include "AppContext.hpp"
-#include "helper/HConfigEnum.h"
-#include "helper/HPrint.h"
+#include "helper/HConfigEnum.hpp"
+#include "helper/HPrint.hpp"
 #include <cassert>
 #include <filesystem>
 #include <nlohmann/json.hpp>

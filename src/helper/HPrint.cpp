@@ -3,7 +3,7 @@
 // 28.10.2022
 //
 
-#include "HPrint.h"
+#include "HPrint.hpp"
 
 
 void Print(PrintType printType, std::string const& message) {

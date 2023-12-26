@@ -5,7 +5,7 @@
 
 #include "UITargetPoint.h"
 #include "AppContext.hpp"
-#include "helper/HInput.h"
+#include "helper/HInput.hpp"
 #include "logic/Player.h"
 #include "logic/TargetPoint.h"
 

@@ -6,7 +6,7 @@
 #include "CheckBox.h"
 #include "AppContext.hpp"
 #include "event/EventsUI.hpp"
-#include "helper/HInput.h"
+#include "helper/HInput.hpp"
 
 void CheckBox::Check(AppContext_ty_c appContext) {
 	if (m_isChecked) {

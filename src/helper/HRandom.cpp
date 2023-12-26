@@ -4,7 +4,7 @@
 // 08.08.2022
 //
 
-#include "HRandom.h"
+#include "HRandom.hpp"
 #include <chrono>
 
 Random& Random::GetInstance() {

@@ -6,8 +6,8 @@
 #include "include/ui/ValidatePopUp.h"
 #include "AppContext.hpp"
 #include "event/EventGenerel.hpp"
-#include "helper/HFocusEvents.h"
-#include "helper/HInput.h"
+#include "helper/HFocusEvents.hpp"
+#include "helper/HInput.hpp"
 #include "ui_lib/ClassicButton.h"
 
 void ValidatePopUp::Initialize() {

@@ -3,7 +3,7 @@
 // 25.09.2022
 //
 
-#include "HTextProcessing.h"
+#include "HTextProcessing.hpp"
 #include "AppContext.hpp"
 #include "CustomRaylib.hpp"
 #include "ui_lib/Alignment.h"

@@ -5,8 +5,8 @@
 
 #include "DropDownElement.h"
 #include "AppContext.hpp"
-#include "helper/HInput.h"
-#include "helper/HTextProcessing.h"
+#include "helper/HInput.hpp"
+#include "helper/HTextProcessing.hpp"
 
 void DropDownElement::CreateToRender() {
     Resolution_ty_c resolution{ AppContext::GetInstance().GetResolution() };

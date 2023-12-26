@@ -3,9 +3,9 @@
 // 20.10.2022
 //
 
-#include "HColors.h"
+#include "HColors.hpp"
 #include "AppContext.hpp"
-#include "HGeneral.h"
+#include "HGeneral.hpp"
 #include "event/EventsUI.hpp"
 
 bool Colors::CheckValidColor(Color const& color) const {

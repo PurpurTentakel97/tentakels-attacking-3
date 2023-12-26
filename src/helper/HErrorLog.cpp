@@ -3,9 +3,9 @@
 // 01.01.2023
 //
 
-#include "HErrorLog.h"
+#include "HErrorLog.hpp"
 #include "AppContext.hpp"
-#include "HPrint.h"
+#include "HPrint.hpp"
 #include <chrono>
 #include <filesystem>
 

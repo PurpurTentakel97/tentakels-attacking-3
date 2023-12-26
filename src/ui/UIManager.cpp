@@ -5,8 +5,8 @@
 
 #include "UIManager.h"
 #include "TestScene.h"
-#include "helper/HInput.h"
-#include "helper/HPrint.h"
+#include "helper/HInput.hpp"
+#include "helper/HPrint.hpp"
 
 Focus& UIManager::GetFocus() {
     return m_focus;
@@ -96,7 +96,7 @@ void UIManager::Render() {
 
 void UIManager::SetNativeWindowSize() {
     Window_ty_c window{ m_appContext.constants.window };
-    Vec2<int> values{ window.nativeResolutionVec };
+    HVec2<int> values{ window.nativeResolutionVec };
 
     ::SetWindowSize(values.x, values.y);
 }
@@ -108,7 +108,7 @@ void UIManager::SetWindowSize(bool const force) {
     }
     window.currentResolutionEnum = m_nextResolution;
 
-    Vec2<int> values{ window.GetIntFromResolution(m_nextResolution) };
+    HVec2<int> values{ window.GetIntFromResolution(m_nextResolution) };
 
     window.currentResolutionVec = { static_cast<float>(values.x), static_cast<float>(values.y) };
     ::SetWindowSize(values.x, values.y);

@@ -5,8 +5,8 @@
 
 #include "include/ui/ColorCellPopUp.h"
 #include "AppContext.hpp"
-#include "helper/HFocusEvents.h"
-#include "helper/HGeneral.h"
+#include "helper/HFocusEvents.hpp"
+#include "helper/HGeneral.hpp"
 
 void ColorCellPopUp::SetValue() {
     m_onClick(m_colorPicker->GetColor());

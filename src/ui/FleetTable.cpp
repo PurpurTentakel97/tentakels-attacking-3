@@ -4,7 +4,7 @@
 //
 
 #include "FleetTable.h"
-#include "helper/HFocusEvents.h"
+#include "helper/HFocusEvents.hpp"
 #include "logic/Galaxy.h"
 #include "logic/Player.h"
 #include "ui_lib/Table.h"

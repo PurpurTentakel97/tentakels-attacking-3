@@ -3,7 +3,7 @@
 // 04.06.23
 //
 
-#include "HFightResult.h"
+#include "HFightResult.hpp"
 
 HFightResult::HFightResult(player_ty player, spaceObject_ty objects,
 	rounds_ty rounds, bool valid)

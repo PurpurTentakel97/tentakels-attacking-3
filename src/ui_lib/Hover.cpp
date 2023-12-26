@@ -6,7 +6,7 @@
 #include "Hover.h"
 #include "AppContext.hpp"
 #include "event/EventsUI.hpp"
-#include "helper/HTextProcessing.h"
+#include "helper/HTextProcessing.hpp"
 
 void Hover::CalculateDefault(AppContext_ty_c appContext) {
 	Resolution_ty_c resolution{ appContext.GetResolution() };

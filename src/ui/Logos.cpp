@@ -6,7 +6,7 @@
 #include "Logos.h"
 #include "AppContext.hpp"
 #include "UIManager.h"
-#include "helper/HInput.h"
+#include "helper/HInput.hpp"
 #include "ui_lib/Picture.h"
 #include "ui_lib/SceneType.h"
 #include "ui_lib/Text.h"

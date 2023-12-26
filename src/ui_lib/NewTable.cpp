@@ -4,7 +4,7 @@
 //
 
 #include "NewTable.hpp"
-#include "helper/Vec2.hpp"
+#include "helper/HVec2.hpp"
 
 #include <cassert>
 

@@ -12,27 +12,27 @@
  * contains and manage 2 values.
  */
 template<class T>
-struct Vec2 final {
+struct HVec2 final {
     T x, y; ///< contains the 2 values the Vec is holding,
 
     /**
 	 * ctor.
 	 * only initialisation.
 	 */
-    Vec2(T x_, T y_) : x{ x_ }, y{ y_ } { }
+    HVec2(T x_, T y_) : x{ x_ }, y{ y_ } { }
     /**
 	 * generates a exact copy of the Vec.
 	 */
-    Vec2(Vec2<T> const& toCopy) : x{ toCopy.x }, y{ toCopy.y } { }
+    HVec2(HVec2<T> const& toCopy) : x{ toCopy.x }, y{ toCopy.y } { }
 
-    Vec2(Vec2&&) = default;
-    Vec2& operator=(Vec2 const&) = default;
-    Vec2& operator=(Vec2&&) = default;
+    HVec2(HVec2&&) = default;
+    HVec2& operator=(HVec2 const&) = default;
+    HVec2& operator=(HVec2&&) = default;
 
     /**
 	 * returns a new Vec to match a length of 1 while not changing the direction.
 	 */
-    [[nodiscard]] Vec2<T> Normalize() const {
+    [[nodiscard]] HVec2<T> Normalize() const {
         double const length{ Length() };
         return { x / length, y / length };
     }
@@ -48,31 +48,31 @@ struct Vec2 final {
     /**
 	 * checks if the Vec are completely equal.
 	 */
-    bool operator==(Vec2<T> const& other) const {
+    bool operator==(HVec2<T> const& other) const {
         return { x == other.x && y == other.y };
     }
     /**
 	 * check if the Vec are not equal.
 	 */
-    bool operator!=(Vec2<T> const& other) const {
+    bool operator!=(HVec2<T> const& other) const {
         return { x != other.x or y != other.y };
     }
     /**
 	 * adds to Vecs and returns a new one.
 	 */
-    Vec2<T> operator+(Vec2<T> const& other) const {
+    HVec2<T> operator+(HVec2<T> const& other) const {
         return { x + other.x, y + other.y };
     }
     /**
 	 * substracts to Vecs and returns a new one.
 	 */
-    Vec2<T> operator-(Vec2<T> const& other) const {
+    HVec2<T> operator-(HVec2<T> const& other) const {
         return { x - other.x, y - other.y };
     }
     /**
 	 * multiplies to Vecs and returns a new one.
 	 */
-    Vec2<T> operator*(Vec2<T> const& other) const {
+    HVec2<T> operator*(HVec2<T> const& other) const {
         return { x * other.x, y * other.y };
     }
 
@@ -80,7 +80,7 @@ struct Vec2 final {
 	 * generates new Vec with a new datatype and returns it.
 	 */
     template<typename Scalar>
-    Vec2<Scalar> To() const {
+    HVec2<Scalar> To() const {
         static_assert(std::is_floating_point_v<Scalar>, "floating point required");
         return { static_cast<Scalar>(x), static_cast<Scalar>(y) };
     }
@@ -96,14 +96,14 @@ struct Vec2 final {
  * multiplies a Vec with a number and returns a new Vec.
  */
 template<typename T>
-Vec2<T> operator*(Vec2<T> const& vector, T const number) {
+HVec2<T> operator*(HVec2<T> const& vector, T const number) {
     return { vector.x * number, vector.y * number };
 }
 /**
  * multiplies a number with a Vec and returns a new Vec.
  */
 template<typename T>
-Vec2<T> operator*(T const number, Vec2<T> const& vector) {
+HVec2<T> operator*(T const number, HVec2<T> const& vector) {
     return { vector * number };
 }
 
@@ -112,7 +112,7 @@ Vec2<T> operator*(T const number, Vec2<T> const& vector) {
  * if divide by zero: an exception is thrown.
  */
 template<typename T>
-Vec2<T> operator/(Vec2<T> const& vector, T const number) {
+HVec2<T> operator/(HVec2<T> const& vector, T const number) {
     if (number == 0) {
         throw std::runtime_error("divide by zero");
     }
@@ -123,6 +123,6 @@ Vec2<T> operator/(Vec2<T> const& vector, T const number) {
  * returns a positive vector.
  */
 template<typename T>
-inline Vec2<T> Abs(Vec2<T> vec) {
+inline HVec2<T> Abs(HVec2<T> vec) {
     return { abs(vec.x), abs(vec.y) };
 }

@@ -3,8 +3,8 @@
 // 31.08.2022
 //
 
-#include "HAssetManager.h"
-#include "HPrint.h"
+#include "HAssetManager.hpp"
+#include "HPrint.hpp"
 #include <filesystem>
 #include <fstream>
 

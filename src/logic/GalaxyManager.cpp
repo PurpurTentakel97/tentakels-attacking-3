@@ -11,8 +11,8 @@
 #include "Player.h"
 #include "event/EventGenerel.hpp"
 #include "helper/HFleetResult.hpp"
-#include "helper/HPrint.h"
-#include "helper/Vec2.hpp"
+#include "helper/HPrint.hpp"
+#include "helper/HVec2.hpp"
 
 void GalaxyManager::FilterCurrentGalaxy() {
 	Player_ty currentPlayer{ nullptr };

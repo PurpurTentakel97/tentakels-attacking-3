@@ -4,8 +4,8 @@
 //
 
 #pragma once
-#include "helper/LayeredVector.hpp"
 #include "event/EventListener.hpp"
+#include "helper/HLayeredVector.hpp"
 #include "helper/HUIAlias.hpp"
 #include <vector>
 
@@ -15,14 +15,14 @@
 class Focus final : public EventListener {
 private:
 	Focusable_ty_raw m_currentFocus{ nullptr }; ///< contains the current focus
-	LayeredVector<Focusable> m_focus; ///< contains all focusable elements in layer
+    HLayeredVector<Focusable> m_focus; ///< contains all focusable elements in layer
 	std::vector<Focusable_ty_raw> m_lastFocus; ///< stores the correct focus of the underlaying layers
 	bool m_renderFocus{ false }; ///< contains if the focus gets rendered
 
 	size_t m_PopUpLayerCounter{ 0 }; ///< contains the mount of popups that are in the focus layers
-	LayeredVector<Focusable> m_addElementRequest; ///< contains the elements to add if a popup ist currently active
-	LayeredVector<Focusable> m_removeElementRequest;  ///< contains the elements to remove if a popup ist currently active
-	LayeredVector<Focusable> m_toSelectRequest;  ///< contains the elements to select if a popup ist currently active
+    HLayeredVector<Focusable> m_addElementRequest; ///< contains the elements to add if a popup ist currently active
+    HLayeredVector<Focusable> m_removeElementRequest;  ///< contains the elements to remove if a popup ist currently active
+    HLayeredVector<Focusable> m_toSelectRequest;  ///< contains the elements to select if a popup ist currently active
 	std::vector<bool> m_toAddOrDelete; ///< contains if the layer should be added or delete if a popup is currently active
 
 	/**

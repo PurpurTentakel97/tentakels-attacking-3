@@ -6,8 +6,8 @@
 #include "Planet.h"
 #include "AppContext.hpp"
 #include "Player.h"
-#include "helper/HPrint.h"
-#include "helper/HRandom.h"
+#include "helper/HPrint.hpp"
+#include "helper/HRandom.hpp"
 
 Planet::Planet(unsigned int ID, vec2pos position, Player_ty player, bool isHomePlanet, int planetNumber)
     : Planet{ ID, position, player, isHomePlanet, planetNumber, 0 } { }

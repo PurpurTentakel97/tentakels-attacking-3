@@ -3,7 +3,7 @@
 // 09.06.2023
 //
 
-#include "HMergeResult.h"
+#include "HMergeResult.hpp"
 
 HMergeResult::HMergeResult(Player_ty player, SpaceObject_ty origin, SpaceObject_ty destination, size_t count)
     : m_player{ player }, m_origin{ origin }, m_destination{ destination }, m_count{ count } { }

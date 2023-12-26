@@ -3,7 +3,7 @@
 // 08.06.2023
 //
 
-#include "HConfigEnum.h"
+#include "HConfigEnum.hpp"
 
 std::string CToS(ConfigTypes type) {
     switch (type) {

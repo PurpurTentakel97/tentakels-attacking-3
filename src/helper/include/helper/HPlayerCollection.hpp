@@ -4,8 +4,8 @@
 //
 
 #pragma once
-#include "HGeneral.h"
-#include "HPlayerData.h"
+#include "HGeneral.hpp"
+#include "HPlayerData.hpp"
 #include "event/EventListener.hpp"
 #include <array>
 #include <string>

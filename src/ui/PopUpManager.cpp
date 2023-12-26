@@ -4,8 +4,8 @@
 //
 
 #include "PopUpManager.h"
-#include "helper/HFocusEvents.h"
-#include "helper/HPrint.h"
+#include "helper/HFocusEvents.hpp"
+#include "helper/HPrint.hpp"
 
 PopUpManager::PopUpManager() {
 	AppContext::GetInstance().eventManager.AddListener(this);

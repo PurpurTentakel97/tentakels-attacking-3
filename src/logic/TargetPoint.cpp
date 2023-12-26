@@ -4,7 +4,7 @@
 //
 
 #include "TargetPoint.h"
-#include "helper/HPrint.h"
+#include "helper/HPrint.hpp"
 
 
 bool TargetPoint::IsTargetPoint() const {

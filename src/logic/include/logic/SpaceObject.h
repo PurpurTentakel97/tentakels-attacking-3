@@ -5,9 +5,9 @@
 
 #pragma once
 #include "helper/HLogicAlias.hpp"
-#include "helper/Vec2.hpp"
-#include <string>
+#include "helper/HVec2.hpp"
 #include <memory>
+#include <string>
 
 
 /**

@@ -5,7 +5,7 @@
 
 #include "include/ui/UIPlanet.h"
 #include "AppContext.hpp"
-#include "helper/HInput.h"
+#include "helper/HInput.hpp"
 #include "logic/Planet.h"
 #include "ui_lib/ShipCountRing.h"
 

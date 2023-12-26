@@ -1,32 +1,32 @@
 add_library(helper STATIC
-            include/helper/HAssetManager.h
+            include/helper/HAssetManager.hpp
             include/helper/HAssetType.hpp
-            include/helper/HColors.h
+            include/helper/HColors.hpp
             include/helper/HConcepts.hpp
-            include/helper/HConfigEnum.h
-            include/helper/HErrorLog.h
-            include/helper/HFightResult.h
+            include/helper/HConfigEnum.hpp
+            include/helper/HErrorLog.hpp
+            include/helper/HFightResult.hpp
             include/helper/HFleetResult.hpp
-            include/helper/HFocusEvents.h
-            include/helper/HGalaxy.h
+            include/helper/HFocusEvents.hpp
+            include/helper/HGalaxy.hpp
             include/helper/HGameEventTypes.hpp
-            include/helper/HGeneral.h
-            include/helper/HInput.h
-            include/helper/HLaguageManager.h
+            include/helper/HGeneral.hpp
+            include/helper/HInput.hpp
+            include/helper/HLaguageManager.hpp
             include/helper/HLogicAlias.hpp
-            include/helper/HMergeResult.h
-            include/helper/HPlayerCollection.h
-            include/helper/HPlayerData.h
-            include/helper/HPrint.h
-            include/helper/HRandom.h
+            include/helper/HMergeResult.hpp
+            include/helper/HPlayerCollection.hpp
+            include/helper/HPlayerData.hpp
+            include/helper/HPrint.hpp
+            include/helper/HRandom.hpp
             include/helper/HResolution.hpp
-            include/helper/HSoundManager.h
+            include/helper/HSoundManager.hpp
             include/helper/HSoundType.hpp
-            include/helper/HTextProcessing.h
+            include/helper/HTextProcessing.hpp
             include/helper/HUIAlias.hpp
-            include/helper/HVector2Operator.h
-            include/helper/LayeredVector.hpp
-            include/helper/Vec2.hpp
+            include/helper/HVector2Operator.hpp
+            include/helper/HLayeredVector.hpp
+            include/helper/HVec2.hpp
             HAssetManager.cpp
             HColors.cpp
             HConfigEnum.cpp

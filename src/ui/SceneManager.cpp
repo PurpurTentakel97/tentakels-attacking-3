@@ -9,7 +9,7 @@
 #include "MessagePopUp.h"
 #include "Scenes.hpp"
 #include "UIManager.h"
-#include "helper/HPrint.h"
+#include "helper/HPrint.hpp"
 #include "ui_lib/Scene.h"
 #include "ui_lib/SceneType.h"
 

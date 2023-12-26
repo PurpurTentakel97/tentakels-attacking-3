@@ -7,11 +7,11 @@
 #include "AppContext.hpp"
 #include "Player.h"
 #include "event/EventsUI.hpp"
-#include "helper/HFightResult.h"
+#include "helper/HFightResult.hpp"
 #include "helper/HFleetResult.hpp"
-#include "helper/HGalaxy.h"
-#include "helper/HPrint.h"
-#include "helper/HRandom.h"
+#include "helper/HGalaxy.hpp"
+#include "helper/HPrint.hpp"
+#include "helper/HRandom.hpp"
 #include <stdexcept>
 
 // help Lambdas

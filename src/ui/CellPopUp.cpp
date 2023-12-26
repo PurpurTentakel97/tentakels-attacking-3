@@ -5,9 +5,9 @@
 
 #include "include/ui/CellPopUp.h"
 #include "AppContext.hpp"
-#include "helper/HFocusEvents.h"
-#include "helper/HGeneral.h"
-#include "helper/HInput.h"
+#include "helper/HFocusEvents.hpp"
+#include "helper/HGeneral.hpp"
+#include "helper/HInput.hpp"
 
 namespace {
 	// Need for PopUp ctor

@@ -7,8 +7,8 @@
 #include "AppContext.hpp"
 #include "Focusable.h"
 #include "UIElement.hpp"
-#include "helper/HInput.h"
-#include "helper/HTextProcessing.h"
+#include "helper/HInput.hpp"
+#include "helper/HTextProcessing.hpp"
 #include <functional>
 #include <string>
 

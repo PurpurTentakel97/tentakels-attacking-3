@@ -3,7 +3,7 @@
 // 25.05.23
 //
 
-#include "HGalaxy.h"
+#include "HGalaxy.hpp"
 #include "logic/Fleet.h"
 #include "logic/SpaceObject.h"
 

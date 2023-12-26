@@ -9,7 +9,7 @@
 #include "Galaxy.h"
 #include "event/EventGenerel.hpp"
 #include "helper/HLogicAlias.hpp"
-#include "helper/HPrint.h"
+#include "helper/HPrint.hpp"
 #include "ui_lib/SceneType.h"
 #include <algorithm>
 #include <cassert>

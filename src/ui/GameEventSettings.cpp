@@ -4,7 +4,7 @@
 //
 
 #include "GameEventSettings.h"
-#include "helper/HRandom.h"
+#include "helper/HRandom.hpp"
 #include "ui_lib/CheckBox.h"
 #include "ui_lib/Line.h"
 #include "ui_lib/Text.h"

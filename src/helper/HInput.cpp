@@ -3,7 +3,7 @@
 // 24.10.2022
 //
 
-#include "HInput.h"
+#include "HInput.hpp"
 #include "AppContext.hpp"
 #include "CustomRaylib.hpp"
 

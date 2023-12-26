@@ -3,7 +3,7 @@
 // 01.12.2022
 //
 
-#include "HVector2Operator.h"
+#include "HVector2Operator.hpp"
 #include <cmath>
 
 Vector2 operator+(Vector2 const& lhs, Vector2 const& rhs) {

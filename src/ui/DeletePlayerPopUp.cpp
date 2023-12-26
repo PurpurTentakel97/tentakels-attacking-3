@@ -5,8 +5,8 @@
 
 #include "include/ui/DeletePlayerPopUp.h"
 #include "event/EventGenerel.hpp"
-#include "helper/HFocusEvents.h"
-#include "helper/HGeneral.h"
+#include "helper/HFocusEvents.hpp"
+#include "helper/HGeneral.hpp"
 
 void DeletePlayerPopUp::Initialize() {
 

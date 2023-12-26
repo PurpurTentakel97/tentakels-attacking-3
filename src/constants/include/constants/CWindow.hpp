@@ -6,7 +6,7 @@
 #pragma once
 #include "CustomRaylib.hpp"
 #include "helper/HResolution.hpp"
-#include "helper/Vec2.hpp"
+#include "helper/HVec2.hpp"
 #include <cstddef>
 #include <string>
 #include <vector>
@@ -18,7 +18,7 @@ struct CWindow final {
 
     Resolution currentResolutionEnum{ Resolution::LAST }; ///< contains the current resolution Enum (override by config)
 	Vector2 currentResolutionVec{ 800.0f, 600.0f }; ///< contains the current resolution Vector
-	Vec2<int> nativeResolutionVec{ 800, 600 }; ///< contains the native resolution of the the screen
+    HVec2<int> nativeResolutionVec{ 800, 600 }; ///< contains the native resolution of the the screen
 
 	bool isFullScreen{ true }; ///< defines if the game is starting in fullscreen mode (override by config)
 
@@ -39,5 +39,5 @@ struct CWindow final {
 	/**
 	 * returns the provided resolution as int.
 	 */
-	[[nodiscard]] Vec2<int> GetIntFromResolution(Resolution resolution) const;
+	[[nodiscard]] HVec2<int> GetIntFromResolution(Resolution resolution) const;
 };

@@ -16,7 +16,7 @@
  * the other behavior ist similar so the std::vector.
  */
 template<class T>
-class LayeredVector final {
+class HLayeredVector final {
 private:
 	std::vector<std::vector<T*>> m_elements; ///< contains all elements in layers
 	size_t m_layer{ 0 }; ///< contains the layer count as index
@@ -49,13 +49,13 @@ public:
 	 * ass the first layer.
 	 * the complete vector is only working with pointers.
 	 */
-	LayeredVector(){
+    HLayeredVector(){
 		AddLayer();
 	}
-	LayeredVector(LayeredVector const&) = default;
-	LayeredVector(LayeredVector&&) = default;
-	LayeredVector& operator=(LayeredVector const&) = default;
-	LayeredVector& operator=(LayeredVector&&) = default;
+    HLayeredVector(HLayeredVector const&) = default;
+    HLayeredVector(HLayeredVector&&) = default;
+    HLayeredVector& operator=(HLayeredVector const&) = default;
+    HLayeredVector& operator=(HLayeredVector&&) = default;
 
 	/**
 	 * adds a new layer to the vector.

@@ -3,9 +3,9 @@
 // 18.06.2023
 //
 
-#include "HLaguageManager.h"
+#include "HLaguageManager.hpp"
 #include "AppContext.hpp"
-#include "HPrint.h"
+#include "HPrint.hpp"
 #include <filesystem>
 
 void HLanguageManager::InitializeLanguage() {

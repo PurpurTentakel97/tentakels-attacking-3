@@ -7,7 +7,7 @@
 #include "constants/ConfigIO.hpp"
 #include "event/EventGenerel.hpp"
 #include "event/EventsUI.hpp"
-#include "helper/HPrint.h"
+#include "helper/HPrint.hpp"
 
 
 AppContext_ty AppContext::GetInstance() {

@@ -3,9 +3,9 @@
 // 23.10.2022
 //
 
-#include "HFocusEvents.h"
+#include "HFocusEvents.hpp"
 #include "AppContext.hpp"
-#include "HFocusEvents.h"
+#include "HFocusEvents.hpp"
 #include "event/EventsUI.hpp"
 
 void AddFocusLayer(bool isPopUp) {

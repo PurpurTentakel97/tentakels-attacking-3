@@ -4,10 +4,10 @@
 //
 
 #pragma once
-#include "HPrint.h"
+#include "HPrint.hpp"
 #include "event/EventListener.hpp"
-#include <nlohmann/json.hpp>
 #include <format>
+#include <nlohmann/json.hpp>
 
 class HLanguageManager final : public EventListener {
 private:

@@ -8,13 +8,13 @@
 #include "event/EventListener.hpp"
 #include "event/EventManager.hpp"
 #include "event/EventsUI.hpp"
-#include "helper/HAssetManager.h"
-#include "helper/HColors.h"
+#include "helper/HAssetManager.hpp"
+#include "helper/HColors.hpp"
 #include "helper/HConcepts.hpp"
-#include "helper/HLaguageManager.h"
+#include "helper/HLaguageManager.hpp"
 #include "helper/HLogicAlias.hpp"
-#include "helper/HPlayerCollection.h"
-#include "helper/HSoundManager.h"
+#include "helper/HPlayerCollection.hpp"
+#include "helper/HSoundManager.hpp"
 #include <string>
 
 /**

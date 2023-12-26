@@ -3,9 +3,9 @@
 // 15.05.2023
 //
 
-#include "ui_lib/Scene.h"
 #include "helper/HLogicAlias.hpp"
-#include "helper/HPlayerData.h"
+#include "helper/HPlayerData.hpp"
+#include "ui_lib/Scene.h"
 #pragma once
 
 

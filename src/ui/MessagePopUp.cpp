@@ -5,7 +5,7 @@
 
 #include "include/ui/MessagePopUp.h"
 #include "AppContext.hpp"
-#include "helper/HGeneral.h"
+#include "helper/HGeneral.hpp"
 #include <memory>
 
 void MessagePopUp::Initialize() {

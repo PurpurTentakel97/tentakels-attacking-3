@@ -3,7 +3,7 @@
 // 28.10.2022
 //
 
-#include "HErrorLog.h"
+#include "HErrorLog.hpp"
 
 #pragma once
 #include <iomanip>

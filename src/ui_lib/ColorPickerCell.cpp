@@ -6,8 +6,8 @@
 #include "ColorPickerCell.h"
 #include "AppContext.hpp"
 #include "ColorPicker.h"
-#include "helper/HFocusEvents.h"
-#include "helper/HInput.h"
+#include "helper/HFocusEvents.hpp"
+#include "helper/HInput.hpp"
 #include <iostream>
 
 void ColorPickerCell::SetColor() const {

@@ -3,10 +3,10 @@
 // 24.08.2022
 //
 
-#include "HSoundManager.h"
+#include "HSoundManager.hpp"
 #include "AppContext.hpp"
-#include "HPrint.h"
-#include "HRandom.h"
+#include "HPrint.hpp"
+#include "HRandom.hpp"
 #include "event/EventsUI.hpp"
 #include <filesystem>
 

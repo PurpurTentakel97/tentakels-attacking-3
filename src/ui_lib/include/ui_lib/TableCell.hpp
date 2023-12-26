@@ -6,9 +6,9 @@
 #include "AbstractTableCell.h"
 #include "AppContext.hpp"
 #include "event/EventsUI.hpp"
-#include "helper/HColors.h"
-#include "helper/HInput.h"
-#include "helper/HPrint.h"
+#include "helper/HColors.hpp"
+#include "helper/HInput.hpp"
+#include "helper/HPrint.hpp"
 #pragma once
 
 template<typename T>

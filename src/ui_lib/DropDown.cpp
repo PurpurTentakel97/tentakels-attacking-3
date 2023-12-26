@@ -7,9 +7,9 @@
 #include "AppContext.hpp"
 #include "DropDownElement.h"
 #include "event/EventsUI.hpp"
-#include "helper/HFocusEvents.h"
-#include "helper/HInput.h"
-#include "helper/HTextProcessing.h"
+#include "helper/HFocusEvents.hpp"
+#include "helper/HInput.hpp"
+#include "helper/HTextProcessing.hpp"
 #include <algorithm>
 
 

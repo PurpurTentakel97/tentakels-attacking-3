@@ -4,7 +4,7 @@
 //
 
 #include "SliderAndInputLine.h"
-#include "helper/HRandom.h"
+#include "helper/HRandom.hpp"
 #include "ui_lib/ClassicButton.h"
 #include "ui_lib/Slider.h"
 #include <iostream>

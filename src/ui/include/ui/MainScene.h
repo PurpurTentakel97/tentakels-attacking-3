@@ -4,10 +4,10 @@
 //
 
 #pragma once
+#include "event/EventListener.hpp"
+#include "helper/HPlayerData.hpp"
 #include "ui_lib/Scene.h"
 #include "ui_lib/SceneType.h"
-#include "event/EventListener.hpp"
-#include "helper/HPlayerData.h"
 #include <memory>
 
 class GalaxyScene;

@@ -4,7 +4,7 @@
 //
 
 #include "PlanetTable.h"
-#include "helper/HFocusEvents.h"
+#include "helper/HFocusEvents.hpp"
 #include "logic/Player.h"
 
 void PlanetTable::Initialization() {

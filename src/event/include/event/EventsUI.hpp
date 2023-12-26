@@ -6,11 +6,11 @@
 #pragma once
 #include "CustomRaylib.hpp"
 #include "EventMain.hpp"
-#include "helper/HFightResult.h"
+#include "helper/HFightResult.hpp"
 #include "helper/HLogicAlias.hpp"
 #include "helper/HSoundType.hpp"
 #include "helper/HUIAlias.hpp"
-#include "helper/Vec2.hpp"
+#include "helper/HVec2.hpp"
 #include <functional>
 #include <string>
 

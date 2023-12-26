@@ -4,7 +4,7 @@
 //
 
 #pragma once
-#include "helper/HPlayerData.h"
+#include "helper/HPlayerData.hpp"
 #include "ui_lib/Focusable.h"
 #include "ui_lib/Hover.h"
 #include "ui_lib/UIElement.hpp"

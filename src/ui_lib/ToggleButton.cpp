@@ -5,7 +5,7 @@
 
 #include "ToggleButton.h"
 #include "AppContext.hpp"
-#include "helper/HInput.h"
+#include "helper/HInput.hpp"
 
 void ToggleButton::UpdateState() {
     if (m_state == State::DISABLED) {
