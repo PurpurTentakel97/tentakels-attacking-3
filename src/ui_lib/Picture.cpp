@@ -4,7 +4,7 @@
 //
 
 #include "Picture.h"
-#include "AppContext.h"
+#include "AppContext.hpp"
 #include <iostream>
 
 void Picture::ScaleToFit() {

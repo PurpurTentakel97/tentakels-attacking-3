@@ -1,16 +1,16 @@
 //
 // Purpur Tentakel
 // 06.07.2023
-// 
+//
 
 #include "include/ui/FightResultPopup.h"
-#include "AppContext.h"
-#include "ui_lib/Text.h"
-#include "logic/Player.h"
-#include "ui_lib/ClassicButton.h"
-#include "logic/SpaceObject.h"
-#include "ui_lib/CountingNumber.h"
+#include "AppContext.hpp"
 #include "helper/HTextProcessing.h"
+#include "logic/Player.h"
+#include "logic/SpaceObject.h"
+#include "ui_lib/ClassicButton.h"
+#include "ui_lib/CountingNumber.h"
+#include "ui_lib/Text.h"
 
 void FightResultPopup::Initialize() {
 	// constants

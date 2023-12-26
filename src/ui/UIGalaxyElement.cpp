@@ -4,7 +4,7 @@
 //
 
 #include "include/ui/UIGalaxyElement.h"
-#include "AppContext.h"
+#include "AppContext.hpp"
 #include "helper/HColors.h"
 #include "ui_lib/ShipCountRing.h"
 

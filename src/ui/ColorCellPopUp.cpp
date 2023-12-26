@@ -4,7 +4,7 @@
 //
 
 #include "include/ui/ColorCellPopUp.h"
-#include "AppContext.h"
+#include "AppContext.hpp"
 #include "helper/HFocusEvents.h"
 #include "helper/HGeneral.h"
 

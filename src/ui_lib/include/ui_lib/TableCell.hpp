@@ -4,7 +4,7 @@
 //
 
 #include "AbstractTableCell.h"
-#include "AppContext.h"
+#include "AppContext.hpp"
 #include "event/EventsUI.hpp"
 #include "helper/HColors.h"
 #include "helper/HInput.h"

@@ -4,7 +4,7 @@
 //
 
 #include "HoverRender.h"
-#include "AppContext.h"
+#include "AppContext.hpp"
 #include "Hover.h"
 #include "event/EventsUI.hpp"
 

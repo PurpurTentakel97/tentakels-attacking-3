@@ -4,7 +4,7 @@
 //
 
 #include "HFocusEvents.h"
-#include "AppContext.h"
+#include "AppContext.hpp"
 #include "HFocusEvents.h"
 #include "event/EventsUI.hpp"
 

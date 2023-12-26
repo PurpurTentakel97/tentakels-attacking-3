@@ -4,10 +4,10 @@
 //
 
 #include "Fleet.h"
-#include "helper/HPrint.h"
+#include "AppContext.hpp"
 #include "Galaxy.h"
 #include "helper/HGalaxy.h"
-#include "AppContext.h"
+#include "helper/HPrint.h"
 #include <cmath>
 
 Fleet::Fleet(unsigned int ID, vec2pos_ty position, Player_ty player,

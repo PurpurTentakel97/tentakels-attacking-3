@@ -4,7 +4,7 @@
 //
 
 #include "include/ui/UIFleet.h"
-#include "AppContext.h"
+#include "AppContext.hpp"
 #include "include/ui/UIGalaxyElement.h"
 #include "logic/Fleet.h"
 #include "ui_lib/ShipCountRing.h"

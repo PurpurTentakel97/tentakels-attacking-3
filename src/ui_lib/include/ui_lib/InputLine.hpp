@@ -4,13 +4,13 @@
 //
 
 #pragma once
-#include "UIElement.hpp"
+#include "AppContext.hpp"
 #include "Focusable.h"
-#include "AppContext.h"
-#include "helper/HTextProcessing.h"
+#include "UIElement.hpp"
 #include "helper/HInput.h"
-#include <string>
+#include "helper/HTextProcessing.h"
 #include <functional>
+#include <string>
 
 /**
  * provides text input.

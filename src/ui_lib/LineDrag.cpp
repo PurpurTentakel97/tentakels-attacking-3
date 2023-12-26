@@ -4,7 +4,7 @@
 //
 
 #include "LineDrag.h"
-#include "AppContext.h"
+#include "AppContext.hpp"
 
 LineDrag::LineDrag(float thick, Color color, std::function<void(Vector2, Vector2)> callback)
 		: UIElement{ {0.0f,0.0f}, {0.0f,0.0f}, Alignment::DEFAULT },

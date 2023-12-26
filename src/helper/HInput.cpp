@@ -4,7 +4,7 @@
 //
 
 #include "HInput.h"
-#include "AppContext.h"
+#include "AppContext.hpp"
 #include "CustomRaylib.h"
 
 bool IsConfirmInputPressed() {

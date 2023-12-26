@@ -4,7 +4,7 @@
 //
 
 #include "Credits.h"
-#include "AppContext.h"
+#include "AppContext.hpp"
 #include "CreditTable.h"
 #include "ui_lib/ClassicButton.h"
 #include "ui_lib/Line.h"

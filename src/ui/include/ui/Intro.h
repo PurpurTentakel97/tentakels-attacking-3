@@ -4,14 +4,14 @@
 //
 
 #pragma once
+#include "AppContext.hpp"
 #include "ui_lib/Scene.h"
-#include "AppContext.h"
 #include "ui_lib/SceneType.h"
-#include <string>
-#include <vector>
-#include <memory>
 #include <array>
 #include <functional>
+#include <memory>
+#include <string>
+#include <vector>
 
 /**
  * provides the intro scene.

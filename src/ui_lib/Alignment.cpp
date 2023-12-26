@@ -4,8 +4,8 @@
 //
 
 #include "Alignment.h"
+#include "AppContext.hpp"
 #include "helper/HUIAlias.hpp"
-#include "AppContext.h"
 
 Rectangle GetAlignedCollider(Vector2& pos, Vector2 size, Alignment alignment) {
 	Resolution_ty_c resolution{ AppContext::GetInstance().GetResolution() };

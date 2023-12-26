@@ -4,7 +4,7 @@
 //
 
 #include "CreditTable.h"
-#include "AppContext.h"
+#include "AppContext.hpp"
 #include "ui_lib/Line.h"
 #include "ui_lib/Text.h"
 #include <cassert>

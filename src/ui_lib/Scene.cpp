@@ -4,9 +4,9 @@
 //
 
 #include "Scene.h"
+#include "AppContext.hpp"
 #include "Focus.h"
 #include "Focusable.h"
-#include "AppContext.h"
 #include "helper/HFocusEvents.h"
 
 void Scene::SetFocusActive(AppContext_ty_c) {

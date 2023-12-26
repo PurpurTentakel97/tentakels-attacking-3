@@ -4,9 +4,9 @@
 //
 
 #pragma once
-#include "ui_lib/Scene.h"
-#include "AppContext.h"
+#include "AppContext.hpp"
 #include "helper/HGameEventTypes.hpp"
+#include "ui_lib/Scene.h"
 
 /**
  * provides a scene where the game events can be set.

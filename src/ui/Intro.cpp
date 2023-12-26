@@ -4,14 +4,14 @@
 //
 
 #include "Intro.h"
-#include "AppContext.h"
+#include "AppContext.hpp"
 #include "UIManager.h"
+#include "helper/HInput.h"
+#include "helper/HRandom.h"
 #include "ui_lib/ClassicButton.h"
+#include "ui_lib/SceneType.h"
 #include "ui_lib/Text.h"
 #include "ui_lib/Title.h"
-#include "ui_lib/SceneType.h"
-#include "helper/HRandom.h"
-#include "helper/HInput.h"
 
 void Intro::Initialize( ) {
 	AppContext_ty appContext = AppContext::GetInstance();

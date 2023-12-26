@@ -4,7 +4,7 @@
 //
 
 #include "HPlayerData.h"
-#include "AppContext.h"
+#include "AppContext.hpp"
 
 PlayerData::PlayerData(unsigned int id, std::string const& name, Color col, std::string const& key)
 	: ID{ id }, color{ col }, m_name{ name }, m_nameKey{ key }{ }

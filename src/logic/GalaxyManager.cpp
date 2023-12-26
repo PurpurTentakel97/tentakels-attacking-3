@@ -4,7 +4,7 @@
 //
 
 #include "GalaxyManager.h"
-#include "AppContext.h"
+#include "AppContext.hpp"
 #include "CopyGalaxyType.hpp"
 #include "Galaxy.h"
 #include "GameManager.h"

@@ -4,7 +4,7 @@
 //
 
 #include "MainMenu.h"
-#include "AppContext.h"
+#include "AppContext.hpp"
 #include "GalaxyAndSlider.h"
 #include "UIManager.h"
 #include "ui_lib/ClassicButton.h"

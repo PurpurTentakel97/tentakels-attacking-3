@@ -4,7 +4,7 @@
 //
 
 #include "AppSettings.h"
-#include "AppContext.h"
+#include "AppContext.hpp"
 #include "SliderAndInputLine.h"
 #include "ui_lib/CheckBox.h"
 #include "ui_lib/DropDown.h"

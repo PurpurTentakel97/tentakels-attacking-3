@@ -4,7 +4,7 @@
 //
 
 #include "SoundLevelPopUp.h"
-#include "AppContext.h"
+#include "AppContext.hpp"
 #include "helper/HFocusEvents.h"
 #include "helper/HGeneral.h"
 #include "ui_lib/CheckBox.h"

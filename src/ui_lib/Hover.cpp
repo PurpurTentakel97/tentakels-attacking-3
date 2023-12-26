@@ -4,7 +4,7 @@
 //
 
 #include "Hover.h"
-#include "AppContext.h"
+#include "AppContext.hpp"
 #include "event/EventsUI.hpp"
 #include "helper/HTextProcessing.h"
 

@@ -4,7 +4,7 @@
 //
 
 #include "Galaxy.h"
-#include "AppContext.h"
+#include "AppContext.hpp"
 #include "Player.h"
 #include "event/EventsUI.hpp"
 #include "helper/HFightResult.h"

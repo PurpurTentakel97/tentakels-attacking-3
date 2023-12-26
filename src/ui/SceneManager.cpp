@@ -4,7 +4,7 @@
 //
 
 #include "SceneManager.h"
-#include "AppContext.h"
+#include "AppContext.hpp"
 #include "CustomRaylib.h"
 #include "MessagePopUp.h"
 #include "Scenes.hpp"

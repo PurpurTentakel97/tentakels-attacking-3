@@ -4,7 +4,7 @@
 //
 
 #include "include/ui/UIGalaxy.h"
-#include "AppContext.h"
+#include "AppContext.hpp"
 #include "UIFleet.h"
 #include "UIPlanet.h"
 #include "UITargetPoint.h"

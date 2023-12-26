@@ -4,7 +4,7 @@
 //
 
 #include "HSoundManager.h"
-#include "AppContext.h"
+#include "AppContext.hpp"
 #include "HPrint.h"
 #include "HRandom.h"
 #include "event/EventsUI.hpp"

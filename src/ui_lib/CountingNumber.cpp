@@ -4,7 +4,7 @@
 //
 
 #include "CountingNumber.h"
-#include "AppContext.h"
+#include "AppContext.hpp"
 #include "Text.h"
 
 void CountingNumber::HandleCountingOutNumbers() {

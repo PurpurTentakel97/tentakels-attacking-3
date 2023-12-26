@@ -1,14 +1,14 @@
 //
 // Purpur Tentakel
 // 09.11.2022
-// 
+//
 
 #include "GalaxyAndSlider.h"
-#include "AppContext.h"
-#include "ui_lib/Slider.h"
-#include "ui_lib/Line.h"
+#include "AppContext.hpp"
 #include "UIGalaxy.h"
 #include "ui_lib/ClassicButton.h"
+#include "ui_lib/Line.h"
+#include "ui_lib/Slider.h"
 
 void GalaxyScene::Initialize(bool isShowGalaxy, bool isAcceptingInput) {
 

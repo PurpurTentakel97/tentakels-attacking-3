@@ -4,7 +4,7 @@
 //
 
 #include "ExpandingButton.h"
-#include "AppContext.h"
+#include "AppContext.hpp"
 #include "ClassicButton.h"
 #include "ToggleButton.h"
 #include "event/EventsUI.hpp"

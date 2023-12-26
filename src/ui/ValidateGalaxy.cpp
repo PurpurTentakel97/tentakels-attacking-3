@@ -4,7 +4,7 @@
 //
 
 #include "ValidateGalaxy.h"
-#include "AppContext.h"
+#include "AppContext.hpp"
 #include "GalaxyAndSlider.h"
 #include "event/EventGenerel.hpp"
 #include "ui_lib/ClassicButton.h"

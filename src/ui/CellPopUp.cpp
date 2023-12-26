@@ -4,9 +4,9 @@
 //
 
 #include "include/ui/CellPopUp.h"
-#include "helper/HGeneral.h"
+#include "AppContext.hpp"
 #include "helper/HFocusEvents.h"
-#include "AppContext.h"
+#include "helper/HGeneral.h"
 #include "helper/HInput.h"
 
 namespace {

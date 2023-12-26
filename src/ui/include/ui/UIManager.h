@@ -4,7 +4,7 @@
 //
 
 #pragma once
-#include "AppContext.h"
+#include "AppContext.hpp"
 #include "SceneManager.h"
 #include "event/EventListener.hpp"
 #include "logic/GameManager.h"

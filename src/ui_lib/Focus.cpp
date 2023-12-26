@@ -4,7 +4,7 @@
 //
 
 #include "Focus.h"
-#include "AppContext.h"
+#include "AppContext.hpp"
 #include "Focusable.h"
 #include "event/EventsUI.hpp"
 #include "helper/HPrint.h"
