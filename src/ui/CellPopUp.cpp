@@ -3,11 +3,11 @@
 // 04.10.2022
 //
 
-#include "include/ui/CellPopUp.h"
 #include "AppContext.hpp"
 #include "helper/HFocusEvents.hpp"
 #include "helper/HGeneral.hpp"
 #include "helper/HInput.hpp"
+#include "include/ui/PopUpCell.hpp"
 
 namespace {
 	// Need for PopUp ctor

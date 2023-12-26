@@ -3,10 +3,10 @@
 // 31.10.2022
 //
 
-#include "NewGameParameter.h"
 #include "AppContext.hpp"
-#include "GameEventSettings.h"
-#include "SliderAndInputLine.h"
+#include "HSceneGameEventSettings.hpp"
+#include "HSceneSliderAndInputLine.hpp"
+#include "SceneNewGameParameter.hpp"
 #include "event/EventGenerel.hpp"
 #include "event/EventsUI.hpp"
 #include "ui_lib/CheckBox.h"

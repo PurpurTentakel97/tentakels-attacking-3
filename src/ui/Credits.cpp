@@ -3,9 +3,9 @@
 // 04.11.2022
 //
 
-#include "Credits.h"
 #include "AppContext.hpp"
-#include "CreditTable.h"
+#include "HSceneCreditTable.hpp"
+#include "SceneCredits.hpp"
 #include "ui_lib/ClassicButton.h"
 #include "ui_lib/Line.h"
 #include "ui_lib/Picture.h"

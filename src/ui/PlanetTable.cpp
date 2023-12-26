@@ -3,7 +3,7 @@
 // 16.02.2022
 //
 
-#include "PlanetTable.h"
+#include "HScenePlanetTable.hpp"
 #include "helper/HFocusEvents.hpp"
 #include "logic/Player.hpp"
 

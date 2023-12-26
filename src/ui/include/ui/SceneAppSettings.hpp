@@ -4,7 +4,7 @@
 //
 
 #pragma once
-#include "Settings.h"
+#include "SceneSettingsApp.hpp"
 #include "event/EventListener.hpp"
 
 class SliderAndInputLine;

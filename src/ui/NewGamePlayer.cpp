@@ -3,8 +3,8 @@
 // 06.10.2022
 //
 
-#include "NewGamePlayer.h"
-#include "UIManager.h"
+#include "ManagerUI.hpp"
+#include "SceneNewGamePlayer.hpp"
 #include "event/EventGenerel.hpp"
 #include "helper/HFocusEvents.hpp"
 #include "ui_lib/ClassicButton.h"

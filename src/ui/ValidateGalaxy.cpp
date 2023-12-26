@@ -3,9 +3,9 @@
 // 20.11.2022
 //
 
-#include "ValidateGalaxy.h"
 #include "AppContext.hpp"
-#include "GalaxyAndSlider.h"
+#include "HSceneGalaxyAndSlider.hpp"
+#include "SceneValidateGalaxy.hpp"
 #include "event/EventGenerel.hpp"
 #include "ui_lib/ClassicButton.h"
 #include "ui_lib/SceneType.h"

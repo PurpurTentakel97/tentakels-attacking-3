@@ -3,11 +3,11 @@
 // 21.11.2022
 //
 
-#include "MainScene.h"
 #include "AppContext.hpp"
-#include "FleetTable.h"
-#include "GalaxyAndSlider.h"
-#include "PlanetTable.h"
+#include "HSceneFleetTable.hpp"
+#include "HSceneGalaxyAndSlider.hpp"
+#include "HScenePlanetTable.hpp"
+#include "SceneMainScene.hpp"
 #include "event/EventGenerel.hpp"
 #include "helper/HPlayerCollection.hpp"
 #include "helper/HPrint.hpp"

@@ -5,7 +5,7 @@
 
 #pragma once
 #include "AppContext.hpp"
-#include "SceneManager.h"
+#include "ManagerScene.hpp"
 #include "event/EventListener.hpp"
 #include "logic/ManagerGame.hpp"
 #include "ui_lib/Focus.h"

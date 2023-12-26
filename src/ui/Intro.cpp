@@ -3,9 +3,9 @@
 // 12.09.2022
 //
 
-#include "Intro.h"
 #include "AppContext.hpp"
-#include "UIManager.h"
+#include "ManagerUI.hpp"
+#include "SceneIntro.hpp"
 #include "helper/HInput.hpp"
 #include "helper/HRandom.hpp"
 #include "ui_lib/ClassicButton.h"

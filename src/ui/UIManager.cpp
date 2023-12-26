@@ -3,8 +3,8 @@
 // 24.08.2022
 //
 
-#include "UIManager.h"
-#include "TestScene.h"
+#include "HSceneTestScene.hpp"
+#include "ManagerUI.hpp"
 #include "helper/HInput.hpp"
 #include "helper/HPrint.hpp"
 

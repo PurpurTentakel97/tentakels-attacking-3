@@ -3,7 +3,7 @@
 // 27.10.2022
 //
 
-#include "SliderAndInputLine.h"
+#include "HSceneSliderAndInputLine.hpp"
 #include "helper/HRandom.hpp"
 #include "ui_lib/ClassicButton.h"
 #include "ui_lib/Slider.h"

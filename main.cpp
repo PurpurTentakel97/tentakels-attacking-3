@@ -10,7 +10,7 @@
 #include "helper/HErrorLog.hpp"
 #include "helper/HLogicAlias.hpp"
 #include "helper/HPrint.hpp"
-#include "ui/UIManager.h"
+#include "ui/ManagerUI.hpp"
 
 int main() {
     SetConfigFlags(FLAG_VSYNC_HINT);

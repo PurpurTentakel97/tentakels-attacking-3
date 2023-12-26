@@ -3,7 +3,7 @@
 // 15.05.2023
 //
 
-#include "FleetTable.h"
+#include "HSceneFleetTable.hpp"
 #include "helper/HFocusEvents.hpp"
 #include "logic/Galaxy.hpp"
 #include "logic/Player.hpp"

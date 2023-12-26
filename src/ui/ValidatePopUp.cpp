@@ -3,11 +3,11 @@
 // 21.11.2022
 //
 
-#include "include/ui/ValidatePopUp.h"
 #include "AppContext.hpp"
 #include "event/EventGenerel.hpp"
 #include "helper/HFocusEvents.hpp"
 #include "helper/HInput.hpp"
+#include "include/ui/PopUpValidate.hpp"
 #include "ui_lib/ClassicButton.h"
 
 void ValidatePopUp::Initialize() {

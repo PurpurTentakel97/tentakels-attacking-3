@@ -3,9 +3,9 @@
 // 18.07.2023
 //
 
-#include "GameSettings.h"
-#include "GameEventSettings.h"
-#include "SliderAndInputLine.h"
+#include "HSceneGameEventSettings.hpp"
+#include "HSceneSliderAndInputLine.hpp"
+#include "SceneSettingsGame.hpp"
 #include "event/EventGenerel.hpp"
 #include "ui_lib/CheckBox.h"
 #include "ui_lib/ClassicButton.h"

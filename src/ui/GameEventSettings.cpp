@@ -3,7 +3,7 @@
 // 24.10.2022
 //
 
-#include "GameEventSettings.h"
+#include "HSceneGameEventSettings.hpp"
 #include "helper/HRandom.hpp"
 #include "ui_lib/CheckBox.h"
 #include "ui_lib/Line.h"

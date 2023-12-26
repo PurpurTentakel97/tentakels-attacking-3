@@ -3,8 +3,8 @@
 // 05.11.2022
 //
 
-#include "CreditTable.h"
 #include "AppContext.hpp"
+#include "HSceneCreditTable.hpp"
 #include "ui_lib/Line.h"
 #include "ui_lib/Text.h"
 #include <cassert>

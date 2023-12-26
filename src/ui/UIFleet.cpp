@@ -3,9 +3,9 @@
 // 16.06.2023
 //
 
-#include "include/ui/UIFleet.h"
+#include "include/ui/UIFleet.hpp"
 #include "AppContext.hpp"
-#include "include/ui/UIGalaxyElement.h"
+#include "include/ui/UIGalaxyElement.hpp"
 #include "logic/Fleet.hpp"
 #include "ui_lib/ShipCountRing.h"
 

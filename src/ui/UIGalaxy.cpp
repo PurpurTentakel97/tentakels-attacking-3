@@ -3,9 +3,9 @@
 // 12.11.2022
 //
 
-#include "include/ui/UIGalaxy.h"
+#include "include/ui/UIGalaxy.hpp"
 #include "AppContext.hpp"
-#include "UIFleet.h"
+#include "UIFleet.hpp"
 #include "UIPlanet.h"
 #include "UITargetPoint.h"
 #include "event/EventGenerel.hpp"

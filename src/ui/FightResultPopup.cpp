@@ -3,9 +3,9 @@
 // 06.07.2023
 //
 
-#include "include/ui/FightResultPopup.h"
 #include "AppContext.hpp"
 #include "helper/HTextProcessing.hpp"
+#include "include/ui/PopupResultFight.hpp"
 #include "logic/Player.hpp"
 #include "logic/SpaceObject.hpp"
 #include "ui_lib/ClassicButton.h"

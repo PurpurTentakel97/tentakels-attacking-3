@@ -3,10 +3,10 @@
 // 15.10.2022
 //
 
-#include "include/ui/DeletePlayerPopUp.h"
 #include "event/EventGenerel.hpp"
 #include "helper/HFocusEvents.hpp"
 #include "helper/HGeneral.hpp"
+#include "include/ui/PopUpPlayerDelete.hpp"
 
 void DeletePlayerPopUp::Initialize() {
 

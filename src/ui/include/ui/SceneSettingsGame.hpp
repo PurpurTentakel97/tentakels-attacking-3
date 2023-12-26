@@ -4,7 +4,7 @@
 //
 
 #pragma once
-#include "Settings.h"
+#include "SceneSettingsApp.hpp"
 
 class GameSettingsScene : public SettingsScene {
 private:

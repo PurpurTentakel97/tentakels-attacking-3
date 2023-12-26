@@ -4,7 +4,7 @@
 //
 
 #pragma once
-#include "CellPopUp.h"
+#include "PopUpCell.hpp"
 #include "ui_lib/InputLine.hpp"
 #include <functional>
 

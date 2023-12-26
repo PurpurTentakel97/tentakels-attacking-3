@@ -3,10 +3,10 @@
 // 19.09.2022
 //
 
-#include "MainMenu.h"
 #include "AppContext.hpp"
-#include "GalaxyAndSlider.h"
-#include "UIManager.h"
+#include "HSceneGalaxyAndSlider.hpp"
+#include "ManagerUI.hpp"
+#include "SceneMainMenu.hpp"
 #include "ui_lib/ClassicButton.h"
 #include "ui_lib/ExpandingButton.h"
 #include "ui_lib/Text.h"

@@ -3,8 +3,8 @@
 // 01.11.2022
 //
 
-#include "Settings.h"
 #include "AppContext.hpp"
+#include "SceneSettingsApp.hpp"
 #include "event/EventGenerel.hpp"
 #include "ui_lib/ClassicButton.h"
 #include "ui_lib/Line.h"

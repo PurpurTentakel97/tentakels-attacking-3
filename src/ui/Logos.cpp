@@ -3,9 +3,9 @@
 // 14.09.2022
 //
 
-#include "Logos.h"
 #include "AppContext.hpp"
-#include "UIManager.h"
+#include "ManagerUI.hpp"
+#include "SceneLogos.hpp"
 #include "helper/HInput.hpp"
 #include "ui_lib/Picture.h"
 #include "ui_lib/SceneType.h"

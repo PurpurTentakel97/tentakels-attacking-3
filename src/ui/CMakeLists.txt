@@ -1,41 +1,41 @@
 add_library(ui STATIC
-            include/ui/AllPopUp.hpp
-            include/ui/AppSettings.h
-            include/ui/CellPopUp.h
-            include/ui/ColorCellPopUp.h
-            include/ui/CreditTable.h
-            include/ui/Credits.h
-            include/ui/DeletePlayerPopUp.h
-            include/ui/FightResultPopup.h
-            include/ui/FleetTable.h
-            include/ui/GalaxyAndSlider.h
-            include/ui/GameEventSettings.h
-            include/ui/GameSettings.h
-            include/ui/Intro.h
-            include/ui/Logos.h
-            include/ui/MainMenu.h
-            include/ui/MainScene.h
-            include/ui/MessagePopUp.h
-            include/ui/NewGameParameter.h
-            include/ui/NewGamePlayer.h
-            include/ui/PlanetTable.h
+            include/ui/PopUpAll.hpp
+            include/ui/SceneAppSettings.hpp
+            include/ui/PopUpCell.hpp
+            include/ui/PopUpCellColor.hpp
+            include/ui/HSceneCreditTable.hpp
+            include/ui/SceneCredits.hpp
+            include/ui/PopUpPlayerDelete.hpp
+            include/ui/PopupResultFight.hpp
+            include/ui/HSceneFleetTable.hpp
+            include/ui/HSceneGalaxyAndSlider.hpp
+            include/ui/HSceneGameEventSettings.hpp
+            include/ui/SceneSettingsGame.hpp
+            include/ui/SceneIntro.hpp
+            include/ui/SceneLogos.hpp
+            include/ui/SceneMainMenu.hpp
+            include/ui/SceneMainScene.hpp
+            include/ui/PopUpMessage.hpp
+            include/ui/SceneNewGameParameter.hpp
+            include/ui/SceneNewGamePlayer.hpp
+            include/ui/HScenePlanetTable.hpp
             include/ui/PopUpManager.h
             include/ui/PrivativeCellPopUp.hpp
-            include/ui/SceneManager.h
+            include/ui/ManagerScene.hpp
             include/ui/Scenes.hpp
-            include/ui/Settings.h
-            include/ui/SliderAndInputLine.h
-            include/ui/SoundLevelPopUp.h
-            include/ui/TestScene.h
-            include/ui/UIFleet.h
-            include/ui/UIGalaxy.h
-            include/ui/UIGalaxyElement.h
-            include/ui/UIManager.h
+            include/ui/SceneSettingsApp.hpp
+            include/ui/HSceneSliderAndInputLine.hpp
+            include/ui/PopUpSoundLeven.hpp
+            include/ui/HSceneTestScene.hpp
+            include/ui/UIFleet.hpp
+            include/ui/UIGalaxy.hpp
+            include/ui/UIGalaxyElement.hpp
+            include/ui/ManagerUI.hpp
             include/ui/UIPlanet.h
             include/ui/UITargetPoint.h
-            include/ui/UpdateEvaluation.h
-            include/ui/ValidateGalaxy.h
-            include/ui/ValidatePopUp.h
+            include/ui/SceneUpdateEvaluation.hpp
+            include/ui/SceneValidateGalaxy.hpp
+            include/ui/PopUpValidate.hpp
             AppSettings.cpp
             CellPopUp.cpp
             ColorCellPopUp.cpp

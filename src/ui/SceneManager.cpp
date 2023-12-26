@@ -3,12 +3,12 @@
 // 05.09.2022
 //
 
-#include "SceneManager.h"
 #include "AppContext.hpp"
 #include "CustomRaylib.hpp"
-#include "MessagePopUp.h"
+#include "ManagerScene.hpp"
+#include "ManagerUI.hpp"
+#include "PopUpMessage.hpp"
 #include "Scenes.hpp"
-#include "UIManager.h"
 #include "helper/HPrint.hpp"
 #include "ui_lib/Scene.h"
 #include "ui_lib/SceneType.h"
