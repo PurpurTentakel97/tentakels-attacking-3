@@ -16,27 +16,21 @@
 #include "CWindow.hpp"
 #include "CWorld.hpp"
 
-/**
- * contains all constants.
- */
 struct Constants final {
-	// config related
-	CGameEvents gameEvents; ///< contains the game events constants
-	CFight fight; ///< contains the fight constants
-	CFleet fleet; ///< contains the fleet constants
-	CGlobal global; ///< contains the global constants
-	CPlanet planet; ///< contains the planet constants
-	CPlayer player; ///< contains the player constants
-	CSound sound; ///< contains the sound constants
-	CWindow window; ///< contains the window constants
-	CWorld world; ///< contains the world constants
+    // config related
+    CGameEvents gameEvents;
+    CFight fight;
+    CFleet fleet;
+    CGlobal global;
+    CPlanet planet;
+    CPlayer player;
+    CSound sound;
+    CWindow window;
+    CWorld world;
 
-	// non config related
-	CTextProcessing textProcessing; ///< contains the text processing constants
-	CFiles files; ///< contains the file constants
+    // non config related
+    CTextProcessing textProcessing;
+    CFiles files;
 
-	/**
-	 * calculates the sum of all config values.
-	 */
-	[[nodiscard]] int GetConfigValueCount() const;
+    [[nodiscard]] static int GetConfigValueCount();
 };

@@ -5,16 +5,16 @@
 
 #include "CConstants.hpp"
 
-int Constants::GetConfigValueCount() const {
+int Constants::GetConfigValueCount() {
     return
-        global.configVersionCount +
-        fight.configEntryCount +
-        fleet.configEntryCount +
-        gameEvents.configEntryCount +
-        global.configEntryCount +
-        planet.configEntryCount +
-        player.configEntryCount +
-        sound.configEntryCount +
-        window.configEntryCount +
-        world.configEntryCount;
+        CGlobal::configVersionCount +
+        CFight::configEntryCount +
+        CFleet::configEntryCount +
+        CGameEvents::configEntryCount +
+        CGlobal::configEntryCount +
+        CPlanet::configEntryCount +
+        CPlayer::configEntryCount +
+        CSound::configEntryCount +
+        CWindow::configEntryCount +
+        CWorld::configEntryCount;
 }

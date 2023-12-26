@@ -8,7 +8,7 @@
 #include <helper/HPrint.hpp>
 
 bool CWindow::IsPossibleResolution(Resolution toProve) const {
-    auto const value{ GetIntFromResolution(toProve) };
+    auto const value = GetIntFromResolution(toProve) ;
 
     if (nativeResolutionVec.x < value.x) {
         return false;
@@ -83,7 +83,7 @@ std::string CWindow::GetStringFromResolution(Resolution resolution) const {
             return "Native (" + std::to_string(nativeResolutionVec.x) + " x " + std::to_string(nativeResolutionVec.y)
                    + ")";
         case Resolution::SCREEN: {
-            auto const value{ GetIntFromResolution(resolution) };
+            auto const value = GetIntFromResolution(resolution);
             return "Screen (" + std::to_string(value.x) + " x " + std::to_string(value.y) + ")";
         }
         case Resolution::LAST:

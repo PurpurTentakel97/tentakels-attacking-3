@@ -7,11 +7,9 @@
 #include <cstddef>
 
 struct CFleet final {
-    static inline size_t const configEntryCount{
-        3
-    }; ///< config load checks if the count is idetical to the loaded entry count
+    static inline size_t constexpr configEntryCount{ 3 };
 
-    int minFleetSpeed{ 1 }; ///< contains the minimum speed of a fleet
-	int currentFleetSpeed{ 5 }; ///< contains the current speed of a fleet
-	int maxFleetSpeed{ 20 }; ///< contains the maximum speed of a fleet
+    int minFleetSpeed{ 1 };
+    int currentFleetSpeed{ 5 };
+    int maxFleetSpeed{ 20 };
 };

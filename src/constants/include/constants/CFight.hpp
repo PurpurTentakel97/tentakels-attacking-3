@@ -7,14 +7,12 @@
 #include <cstddef>
 
 struct CFight final {
-    static inline size_t const configEntryCount{
-        6
-    };                        ///< config load checks if the count is idetical to the loaded entry count
-    float hitChance{ 0.3f }; ///< contains the change a single ship will hit. gets overwritten by config
-	int fleetFightRange{ 4 }; ///< contains the range 2 fleets will fight. get ovberwritten by config.
+    static inline size_t constexpr configEntryCount{ 6 };
+    float hitChance{ 0.3f };
+    int fleetFightRange{ 4 };
 
-	bool isFightPlanetFleet{ true }; ///< contains if a planet will attack a nearbay fleet automaticly.
-	bool isFightTargetPointFleet{ true }; ///< contains if a target point will attack a nearby fleet automaticly.
-	bool isFightTargetPointTargetPoint{ true }; ///< contains if a target point will attack a nearby target point automaticly. 
-	bool isFightPlanetTargetPoint{ true }; ///< contains if a planet will attack a nearby target point automaticly.
+    bool isFightPlanetFleet{ true };
+    bool isFightTargetPointFleet{ true };
+    bool isFightTargetPointTargetPoint{ true };
+    bool isFightPlanetTargetPoint{ true };
 };
