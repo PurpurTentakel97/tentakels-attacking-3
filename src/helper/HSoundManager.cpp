@@ -7,7 +7,7 @@
 #include "AppContext.h"
 #include "HPrint.h"
 #include "HRandom.h"
-#include "event/UIEvents.hpp"
+#include "event/EventsUI.hpp"
 #include <filesystem>
 
 void SoundManager::LoadSounds() {

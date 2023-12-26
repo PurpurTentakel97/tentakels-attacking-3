@@ -5,8 +5,8 @@
 
 #include "Focusable.h"
 #include "AppContext.h"
+#include "event/EventsUI.hpp"
 #include "helper/HFocusEvents.h"
-#include "event/UIEvents.hpp"
 #include "helper/HPrint.h"
 
 Focusable::Focusable(unsigned int ID)

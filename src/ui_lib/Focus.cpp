@@ -4,12 +4,12 @@
 //
 
 #include "Focus.h"
-#include "Focusable.h"
 #include "AppContext.h"
-#include "event/UIEvents.hpp"
+#include "Focusable.h"
+#include "event/EventsUI.hpp"
 #include "helper/HPrint.h"
-#include <stdexcept>
 #include <functional>
+#include <stdexcept>
 
 bool Focus::HasAnyEnabledElements() const {
 	for (auto const& e : m_focus) {

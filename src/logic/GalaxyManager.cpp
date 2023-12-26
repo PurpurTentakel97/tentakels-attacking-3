@@ -4,15 +4,15 @@
 //
 
 #include "GalaxyManager.h"
-#include "Galaxy.h"
-#include "CopyGalaxyType.hpp"
 #include "AppContext.h"
-#include "helper/Vec2.hpp"
-#include "event/GenerelEvents.hpp"
-#include "helper/HPrint.h"
-#include "Player.h"
+#include "CopyGalaxyType.hpp"
+#include "Galaxy.h"
 #include "GameManager.h"
+#include "Player.h"
+#include "event/EventGenerel.hpp"
 #include "helper/HFleetResult.hpp"
+#include "helper/HPrint.h"
+#include "helper/Vec2.hpp"
 
 void GalaxyManager::FilterCurrentGalaxy() {
 	Player_ty currentPlayer{ nullptr };

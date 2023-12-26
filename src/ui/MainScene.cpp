@@ -8,7 +8,7 @@
 #include "FleetTable.h"
 #include "GalaxyAndSlider.h"
 #include "PlanetTable.h"
-#include "event/GenerelEvents.hpp"
+#include "event/EventGenerel.hpp"
 #include "helper/HPlayerCollection.h"
 #include "helper/HPrint.h"
 #include "logic/Player.h"

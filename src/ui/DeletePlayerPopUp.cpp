@@ -4,7 +4,7 @@
 //
 
 #include "include/ui/DeletePlayerPopUp.h"
-#include "event/GenerelEvents.hpp"
+#include "event/EventGenerel.hpp"
 #include "helper/HFocusEvents.h"
 #include "helper/HGeneral.h"
 

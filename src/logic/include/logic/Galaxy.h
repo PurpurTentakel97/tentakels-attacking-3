@@ -4,13 +4,13 @@
 //
 
 #pragma once
+#include "Fleet.h"
 #include "Planet.h"
 #include "TargetPoint.h"
-#include "Fleet.h"
-#include "event/GenerelEvents.hpp"
+#include "event/EventGenerel.hpp"
 #include "helper/Vec2.hpp"
-#include <vector>
 #include <memory>
+#include <vector>
 
 struct HFleetResult;
 struct HFightResult;

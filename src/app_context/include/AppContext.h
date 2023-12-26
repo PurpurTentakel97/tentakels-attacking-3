@@ -7,7 +7,7 @@
 #include "constants/CConstants.h"
 #include "event/EventListener.hpp"
 #include "event/EventManager.hpp"
-#include "event/UIEvents.hpp"
+#include "event/EventsUI.hpp"
 #include "helper/HAssetManager.h"
 #include "helper/HColors.h"
 #include "helper/HConcepts.hpp"

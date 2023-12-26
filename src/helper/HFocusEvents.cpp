@@ -5,8 +5,8 @@
 
 #include "HFocusEvents.h"
 #include "AppContext.h"
-#include "event/UIEvents.hpp"
 #include "HFocusEvents.h"
+#include "event/EventsUI.hpp"
 
 void AddFocusLayer(bool isPopUp) {
 	if (isPopUp) {

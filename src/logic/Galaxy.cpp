@@ -6,7 +6,7 @@
 #include "Galaxy.h"
 #include "AppContext.h"
 #include "Player.h"
-#include "event/UIEvents.hpp"
+#include "event/EventsUI.hpp"
 #include "helper/HFightResult.h"
 #include "helper/HFleetResult.hpp"
 #include "helper/HGalaxy.h"

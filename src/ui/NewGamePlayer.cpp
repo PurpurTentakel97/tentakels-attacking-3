@@ -5,7 +5,7 @@
 
 #include "NewGamePlayer.h"
 #include "UIManager.h"
-#include "event/GenerelEvents.hpp"
+#include "event/EventGenerel.hpp"
 #include "helper/HFocusEvents.h"
 #include "ui_lib/ClassicButton.h"
 #include "ui_lib/ColorPicker.h"

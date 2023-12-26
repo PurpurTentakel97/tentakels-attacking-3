@@ -4,12 +4,12 @@
 //
 
 #include "Settings.h"
-#include "ui_lib/Title.h"
-#include "ui_lib/ClassicButton.h"
-#include "ui_lib/SceneType.h"
-#include "ui_lib/Line.h"
 #include "AppContext.h"
-#include "event/GenerelEvents.hpp"
+#include "event/EventGenerel.hpp"
+#include "ui_lib/ClassicButton.h"
+#include "ui_lib/Line.h"
+#include "ui_lib/SceneType.h"
+#include "ui_lib/Title.h"
 
 void SettingsScene::Initialize() {
 	AppContext_ty appContext{ AppContext::GetInstance() };

@@ -4,7 +4,7 @@
 //
 
 #pragma once
-#include "MainEvent.hpp"
+#include "EventMain.hpp"
 
 /**
  * pure virtual class that should be implemented by every class that should can receive events.

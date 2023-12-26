@@ -7,7 +7,7 @@
 #include "AppContext.h"
 #include "CopyGalaxyType.hpp"
 #include "Galaxy.h"
-#include "event/GenerelEvents.hpp"
+#include "event/EventGenerel.hpp"
 #include "helper/HLogicAlias.hpp"
 #include "helper/HPrint.h"
 #include "ui_lib/SceneType.h"

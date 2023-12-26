@@ -4,14 +4,14 @@
 //
 
 #pragma once
-#include "Player.h"
 #include "GalaxyManager.h"
+#include "Player.h"
+#include "event/EventGenerel.hpp"
 #include "event/EventListener.hpp"
-#include "event/UIEvents.hpp"
-#include "event/GenerelEvents.hpp"
-#include <vector>
-#include <random>
+#include "event/EventsUI.hpp"
 #include <memory>
+#include <random>
+#include <vector>
 
 /**
  * manage the hole game.

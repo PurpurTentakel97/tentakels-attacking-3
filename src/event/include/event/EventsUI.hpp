@@ -4,15 +4,15 @@
 //
 
 #pragma once
-#include "MainEvent.hpp"
-#include "helper/HSoundType.hpp"
 #include "CustomRaylib.h"
-#include "helper/HLogicAlias.hpp"
-#include "helper/Vec2.hpp"
-#include "helper/HUIAlias.hpp"
+#include "EventMain.hpp"
 #include "helper/HFightResult.h"
-#include <string>
+#include "helper/HLogicAlias.hpp"
+#include "helper/HSoundType.hpp"
+#include "helper/HUIAlias.hpp"
+#include "helper/Vec2.hpp"
 #include <functional>
+#include <string>
 
 class StringCell;
 class IntCell;

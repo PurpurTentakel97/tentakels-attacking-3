@@ -4,14 +4,13 @@
 //
 
 #include "DropDown.h"
-#include "DropDownElement.h"
-#include "helper/HTextProcessing.h"
-#include "helper/HInput.h"
-#include "helper/HFocusEvents.h"
-#include "event/UIEvents.hpp"
 #include "AppContext.h"
+#include "DropDownElement.h"
+#include "event/EventsUI.hpp"
+#include "helper/HFocusEvents.h"
+#include "helper/HInput.h"
+#include "helper/HTextProcessing.h"
 #include <algorithm>
-
 
 
 void DropDown::Initialize(std::vector<std::string> const& elements, unsigned int startFocusID) {

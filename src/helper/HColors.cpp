@@ -4,9 +4,9 @@
 //
 
 #include "HColors.h"
-#include "event/UIEvents.hpp"
-#include "HGeneral.h"
 #include "AppContext.h"
+#include "HGeneral.h"
+#include "event/EventsUI.hpp"
 
 bool Colors::CheckValidColor(Color const& color) const {
 	return std::find(m_colors.begin(), m_colors.end(), color)

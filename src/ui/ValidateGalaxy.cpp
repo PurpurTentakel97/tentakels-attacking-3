@@ -6,7 +6,7 @@
 #include "ValidateGalaxy.h"
 #include "AppContext.h"
 #include "GalaxyAndSlider.h"
-#include "event/GenerelEvents.hpp"
+#include "event/EventGenerel.hpp"
 #include "ui_lib/ClassicButton.h"
 #include "ui_lib/SceneType.h"
 #include "ui_lib/Text.h"

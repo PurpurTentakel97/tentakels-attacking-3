@@ -4,9 +4,9 @@
 //
 
 #include "HoverRender.h"
-#include "Hover.h"
-#include "event/UIEvents.hpp"
 #include "AppContext.h"
+#include "Hover.h"
+#include "event/EventsUI.hpp"
 
 HoverRender::HoverRender() {
 	AppContext::GetInstance().eventManager.AddListener(this);

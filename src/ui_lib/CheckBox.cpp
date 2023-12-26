@@ -5,7 +5,7 @@
 
 #include "CheckBox.h"
 #include "AppContext.h"
-#include "event/UIEvents.hpp"
+#include "event/EventsUI.hpp"
 #include "helper/HInput.h"
 
 void CheckBox::Check(AppContext_ty_c appContext) {
