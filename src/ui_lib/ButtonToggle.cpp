@@ -3,9 +3,9 @@
 // 16.07.2023
 //
 
-#include "AppContext.hpp"
 #include "ButtonToggle.hpp"
-#include "helper/HInput.hpp"
+#include <AppContext.hpp>
+#include <helper/HInput.hpp>
 
 void ToggleButton::UpdateState() {
     if (m_state == State::DISABLED) {

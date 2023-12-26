@@ -4,12 +4,12 @@
 //
 
 #include "ColorPicker.hpp"
-#include "AppContext.hpp"
 #include "ColorPickerCell.hpp"
-#include "helper/HFocusEvents.hpp"
-#include "helper/HGeneral.hpp"
-#include "helper/HInput.hpp"
+#include <AppContext.hpp>
 #include <cmath>
+#include <helper/HFocusEvents.hpp>
+#include <helper/HGeneral.hpp>
+#include <helper/HInput.hpp>
 
 
 void ColorPicker::Initialize() {

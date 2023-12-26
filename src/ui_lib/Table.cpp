@@ -4,9 +4,9 @@
 //
 
 #include "Table.hpp"
-#include "AppContext.hpp"
 #include "Slider.hpp"
-#include "helper/HInput.hpp"
+#include <AppContext.hpp>
+#include <helper/HInput.hpp>
 
 
 bool Table::IsValidIndex(size_t row, size_t column) const {

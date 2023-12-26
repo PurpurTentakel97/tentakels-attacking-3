@@ -4,7 +4,6 @@
 //
 
 #include "TableCellAbstract.hpp"
-#include "helper/HPrint.hpp"
 
 
 AbstractTableCell::AbstractTableCell(Vector2 pos, Vector2 size, Alignment alignment, unsigned int focusID)

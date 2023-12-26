@@ -4,7 +4,7 @@
 //
 
 #include "ShipCountRing.hpp"
-#include "AppContext.hpp"
+#include <AppContext.hpp>
 
 void CountRing::CalculateRing() {
     Resolution_ty_c resolution{ AppContext::GetInstance().GetResolution() };
@@ -19,11 +19,21 @@ void CountRing::CalculateRing() {
     m_absoluteRingSize = { diff };
 }
 
-CountRing::CountRing(Vector2 pos, Vector2 size, Alignment alignment,
-    float dotSize, float ringSize, int currentCount, int maxCount)
-    : UIElement{ pos, size, alignment }, m_relativeDotSize{ dotSize }, m_relativeMaxRingSize{ ringSize },
-    m_currentCount{ currentCount }, m_maxCount{ maxCount } {
-    
+CountRing::CountRing(
+        Vector2 pos,
+        Vector2 size,
+        Alignment alignment,
+        float dotSize,
+        float ringSize,
+        int currentCount,
+        int maxCount
+)
+    : UIElement{ pos, size, alignment },
+      m_relativeDotSize{ dotSize },
+      m_relativeMaxRingSize{ ringSize },
+      m_currentCount{ currentCount },
+      m_maxCount{ maxCount } {
+
     Update();
 }
 
@@ -33,10 +43,7 @@ bool CountRing::IsOverlapping(Rectangle const& rect) const {
 
 void CountRing::Update() {
     Resolution_ty_c resolution{ AppContext::GetInstance().GetResolution() };
-    m_absolutePos = {
-        m_collider.x + m_collider.width / 2,
-        m_collider.y + m_collider.height / 2
-    };
+    m_absolutePos = { m_collider.x + m_collider.width / 2, m_collider.y + m_collider.height / 2 };
     m_absoluteDotSize = { m_relativeDotSize * resolution.x };
     CalculateRing();
 }
@@ -74,19 +81,13 @@ void CountRing::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c app
     UIElement::CheckAndUpdate(mousePosition, appContext);
 }
 void CountRing::Render(AppContext_ty_c) {
-    if (m_currentCount == 0) { return; }
+    if (m_currentCount == 0) {
+        return;
+    }
 
-    DrawCircleV(
-        m_absolutePos,
-        m_absoluteRingSize,
-        m_ringColor
-    );
+    DrawCircleV(m_absolutePos, m_absoluteRingSize, m_ringColor);
 
-    DrawCircleV(
-        m_absolutePos,
-        m_absoluteDotSize,
-        m_dotColor
-    );
+    DrawCircleV(m_absolutePos, m_absoluteDotSize, m_dotColor);
 }
 void CountRing::Resize(AppContext_ty_c appContext) {
     UIElement::Resize(appContext);
