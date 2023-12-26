@@ -166,7 +166,7 @@ void MainMenu::Initialize() {
     loadGameBtn->SetOnClick([]() {
         AppContext::GetInstance().eventManager.InvokeEvent(SwitchSceneEvent(SceneType::TEST));
     });
-    bool constexpr lge{ false };
+    bool constexpr lge{ true };
     savesBtn->Add(loadGameBtn, lge);
     savesBtn->Update();
 

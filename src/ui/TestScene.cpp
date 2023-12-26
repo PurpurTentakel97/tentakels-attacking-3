@@ -7,53 +7,153 @@
 #include "TestScene.h"
 #include "ui_lib/SceneType.h"
 #include "AppContext.h"
-#include "ui_lib/ExpandingButton.h"
 #include "ui_lib/ClassicButton.h"
-#include "ui_lib/Table.h"
+#include "ui_lib/NewTable.hpp"
 
 void TestScene::Initialize([[maybe_unused]] AppContext_ty appContext) {
-	auto mainBtn = std::make_shared<ExpandingButton>(
+	auto table = std::make_shared<NewTable>(
 		1,
-		GetElementPosition(0.1f,0.5f),
-		GetElementSize(0.2f,0.1f),
+		Vector2{ 0.5f, 0.5f },
+		Vector2{ 0.8f, 0.8f },
 		Alignment::MID_MID,
-		ExpandingButton::RIGHT,
-		0.005f,
-		10.0f,
-		"main button"
-	);
-	m_elements.push_back(mainBtn);
-
-	auto firstBtn = std::make_shared<ClassicButton>(
-		2,
-		Vector2(0.0f,0.0f),
-		Vector2(0.0f,0.0f),
-		Alignment::DEFAULT,
-		"first expanding",
-		SoundType::CLICKED_RELEASE_STD
-	);
-	mainBtn->Add(firstBtn, true);
-
-	auto secondBtn = std::make_shared<ClassicButton>(
-		3,
-		Vector2(0.0f,0.1f),
-		Vector2(0.0f,0.0f),
-		Alignment::DEFAULT,
-		"second expanding",
-		SoundType::CLICKED_RELEASE_STD
-	);
-	mainBtn->Add(secondBtn, false);
-
-	auto thirdBtn = std::make_shared<ClassicButton>(
+		10,
 		4,
-		Vector2(0.0f,0.2f),
-		Vector2(0.0f,0.0f),
-		Alignment::DEFAULT,
-		"third expanding",
+		30.0f
+	);
+	m_elements.push_back(table);
+
+	std::vector<std::string> const headlines{
+		"first column",
+		"best column"
+	};
+	table->setHeadlines(headlines);
+	table->setHeadline<std::string>(size_t{ 4 }, "extra column");
+	table->showHeadline(true);
+	table->showNumbers(true);
+	table->set_render_hovered(true);
+	table->setValue(6, 1, PURPLE);
+	table->update_cells();
+
+	auto constexpr x{ 0.005f };
+	auto constexpr y{ 0.005f };
+
+	auto constexpr xs{ 0.05f };
+	auto constexpr ys{ 0.05f };
+
+	auto count{ 0 };
+
+	auto insertLineBtn = std::make_shared<ClassicButton>(
+		100,
+		GetElementPosition(x, y + ys * count),
+		GetElementSize(xs, ys),
+		Alignment::TOP_LEFT,
+		"+",
 		SoundType::CLICKED_RELEASE_STD
 	);
-	mainBtn->Add(thirdBtn, true);
-	mainBtn->Update();
+	insertLineBtn->SetOnClick([table]() {
+		auto const result = table->insertRow(2);
+		Print(PrintType::DEBUG, "Result new Row: {}", result);
+		table->update_cells();
+		});
+	m_elements.push_back(insertLineBtn);
+
+	++count;
+
+	auto addLineBtn = std::make_shared<ClassicButton>(
+		101,
+		GetElementPosition(x, y + ys * count),
+		GetElementSize(xs, ys),
+		Alignment::TOP_LEFT,
+		"+",
+		SoundType::CLICKED_RELEASE_STD
+	);
+	addLineBtn->SetOnClick([table]() {
+		auto const result = table->appendRow();
+		Print(PrintType::DEBUG, "Result new Row: {}", result);
+		table->update_cells();
+		});
+	m_elements.push_back(addLineBtn);
+
+	++count;
+
+	auto removeLineBtn = std::make_shared<ClassicButton>(
+		102,
+		GetElementPosition(x, y + ys * count),
+		GetElementSize(xs, ys),
+		Alignment::TOP_LEFT,
+		"-",
+		SoundType::CLICKED_RELEASE_STD
+	);
+	removeLineBtn->SetOnClick([table]() {
+		table->removeRow(2);
+		table->update_cells();
+		});
+	m_elements.push_back(removeLineBtn);
+
+	++count;
+
+	auto popLineBtn = std::make_shared<ClassicButton>(
+		103,
+		GetElementPosition(x, y + ys * count),
+		GetElementSize(xs, ys),
+		Alignment::TOP_LEFT,
+		"-",
+		SoundType::CLICKED_RELEASE_STD
+	);
+	popLineBtn->SetOnClick([table]() {
+		table->popRow();
+		table->update_cells();
+		});
+	m_elements.push_back(popLineBtn);
+
+	++count;
+
+	auto button = std::make_shared<ClassicButton>(
+		104,
+		GetElementPosition(x, y + ys * count),
+		GetElementSize(xs, ys),
+		Alignment::TOP_LEFT,
+		"new",
+		SoundType::CLICKED_RELEASE_STD
+	);
+	button->SetOnClick([table]() {
+		table->setValue<std::string>(5,3,"RESIZE!!!!!!!!!!!!!!!!!\n!!!!!!!!!!!!!!!!!!!");
+		table->update_cells();
+		});
+	m_elements.push_back(button);
+
+	++count;
+
+	auto button2 = std::make_shared<ClassicButton>(
+		105,
+		GetElementPosition(x, y + ys * count),
+		GetElementSize(xs, ys),
+		Alignment::TOP_LEFT,
+		"new+",
+		SoundType::CLICKED_RELEASE_STD
+	);
+	button2->SetOnClick([table]() {
+		table->setValue<std::string>(5, 2, "RESIZE!!!!!!!!!!!!!!!!!\n!!!!!!!!!!!\n!!!!!!!!");
+		table->update_cells();
+		});
+	m_elements.push_back(button2);
+
+	++count;
+
+	auto button3 = std::make_shared<ClassicButton>(
+		106,
+		GetElementPosition(x, y + ys * count),
+		GetElementSize(xs, ys),
+		Alignment::TOP_LEFT,
+		"scroll",
+		SoundType::CLICKED_RELEASE_STD
+	);
+	button3->SetOnClick([table]() {
+		auto const scroll{ table->is_scrollable() };
+		table->set_scrollable(not scroll);
+		table->update_cells();
+		});
+	m_elements.push_back(button3);
 
 	// to get Back No testing
 	auto backBtn = std::make_shared<ClassicButton>(
