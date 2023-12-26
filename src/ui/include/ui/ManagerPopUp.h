@@ -14,7 +14,7 @@
  * manages the popups.
  * contains the popups.
  */
-class PopUpManager final : public EventListener {
+class ManagerPopUp final : public EventListener {
 private:
     std::vector<std::unique_ptr<PopUp>> m_popUps; ///< contains all popups
     std::vector<PopUp*> m_toDelete; ///< contains the popups that should be deleted but not able to do so yet
@@ -24,11 +24,11 @@ public:
 	 * ctor.
 	 * adds this as an event listener.
 	 */
-    PopUpManager();
+    ManagerPopUp();
     /**
 	 * removes the event listener
 	 */
-    ~PopUpManager() override;
+    ~ManagerPopUp() override;
 
     /**
 	 * returns if the it contains at least one popup.

@@ -4,7 +4,7 @@
 //
 
 #pragma once
-#include "PopUpManager.h"
+#include "ManagerPopUp.h"
 #include "ui_lib/PopUp.h"
 #include "ui_lib/SceneType.h"
 #include <memory>
@@ -19,7 +19,7 @@ class UIManager;
  */
 class SceneManager final : public EventListener {
 private:
-    PopUpManager m_popUpManager; ///< contains the PopUpManager
+    ManagerPopUp m_popUpManager; ///< contains the ManagerPopUp
 
     SceneType m_currentSceneType{ SceneType::NONE }; ///< contains the current / loaded SceneType
     SceneType m_nextSceneType{ SceneType::NONE };    ///< contains the SceneType of the next tick

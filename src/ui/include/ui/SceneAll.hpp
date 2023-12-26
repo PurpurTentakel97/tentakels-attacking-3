@@ -5,7 +5,6 @@
 
 #pragma once
 #include "HSceneTestScene.hpp"
-#include "SceneAppSettings.hpp"
 #include "SceneCredits.hpp"
 #include "SceneIntro.hpp"
 #include "SceneLogos.hpp"
@@ -13,6 +12,7 @@
 #include "SceneMainScene.hpp"
 #include "SceneNewGameParameter.hpp"
 #include "SceneNewGamePlayer.hpp"
+#include "SceneSettingsApp.hpp"
 #include "SceneSettingsGame.hpp"
 #include "SceneUpdateEvaluation.hpp"
 #include "SceneValidateGalaxy.hpp"

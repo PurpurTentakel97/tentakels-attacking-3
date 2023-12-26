@@ -3,24 +3,24 @@
 // 05.09.2022
 //
 
-#include "PopUpManager.h"
+#include "ManagerPopUp.h"
 #include "helper/HFocusEvents.hpp"
 #include "helper/HPrint.hpp"
 
-PopUpManager::PopUpManager() {
+ManagerPopUp::ManagerPopUp() {
 	AppContext::GetInstance().eventManager.AddListener(this);
-	Print(PrintType::INITIALIZE, "PopUpManager");
+	Print(PrintType::INITIALIZE, "ManagerPopUp");
 }
 
-PopUpManager::~PopUpManager() {
+ManagerPopUp::~ManagerPopUp() {
 	AppContext::GetInstance().eventManager.RemoveListener(this);
 }
 
-bool PopUpManager::IsActivePopUp() const {
+bool ManagerPopUp::IsActivePopUp() const {
 	return !m_popUps.empty();
 }
 
-void PopUpManager::OnEvent(Event const& event) {
+void ManagerPopUp::OnEvent(Event const& event) {
 
 	// Message Pop Up
 	if (auto const* PopUpEvent = dynamic_cast<ShowMessagePopUpEvent const*>(&event)) {
@@ -81,7 +81,7 @@ void PopUpManager::OnEvent(Event const& event) {
 	}
 }
 
-void PopUpManager::NewMessagePopUp(ShowMessagePopUpEvent const* event) {
+void ManagerPopUp::NewMessagePopUp(ShowMessagePopUpEvent const* event) {
 	AddFocusLayer(true);
 
 	m_popUps.push_back(std::make_unique<MessagePopUp>(
@@ -95,7 +95,7 @@ void PopUpManager::NewMessagePopUp(ShowMessagePopUpEvent const* event) {
 		)
 	);
 }
-void PopUpManager::NewDeletePlayerPopUp(ShowDeletePlayerPopUpEvent const* event) {
+void ManagerPopUp::NewDeletePlayerPopUp(ShowDeletePlayerPopUpEvent const* event) {
 	AddFocusLayer(true);
 
 	m_popUps.push_back(std::make_unique<DeletePlayerPopUp>(
@@ -107,7 +107,7 @@ void PopUpManager::NewDeletePlayerPopUp(ShowDeletePlayerPopUpEvent const* event)
 		event->GetOnClick()
 		));
 }
-void PopUpManager::NewValidatePopUp(ShowValidatePopUp const* event) {
+void ManagerPopUp::NewValidatePopUp(ShowValidatePopUp const* event) {
 	AddFocusLayer(true);
 
 	m_popUps.push_back(std::make_unique<ValidatePopUp>(
@@ -121,7 +121,7 @@ void PopUpManager::NewValidatePopUp(ShowValidatePopUp const* event) {
 		)
 	);
 }
-void PopUpManager::NewColorCellPopUp(ShowCellPopUpEvent<Color> const* event) {
+void ManagerPopUp::NewColorCellPopUp(ShowCellPopUpEvent<Color> const* event) {
 	AppContext_ty_c appContext{ AppContext::GetInstance() };
 	NewFocusPopUpLayerEvent focusEvent;
 	appContext.eventManager.InvokeEvent(focusEvent);
@@ -137,7 +137,7 @@ void PopUpManager::NewColorCellPopUp(ShowCellPopUpEvent<Color> const* event) {
 		)
 	);
 }
-void PopUpManager::NewSoundLevelPopUp(ShowInitialSoundLevelPopUpEvent const* event) {
+void ManagerPopUp::NewSoundLevelPopUp(ShowInitialSoundLevelPopUpEvent const* event) {
 	AppContext_ty_c appContext{ AppContext::GetInstance() };
 	NewFocusPopUpLayerEvent focusEvent;
 	appContext.eventManager.InvokeEvent(focusEvent);
@@ -151,7 +151,7 @@ void PopUpManager::NewSoundLevelPopUp(ShowInitialSoundLevelPopUpEvent const* eve
 		)
 	);
 }
-void PopUpManager::NewFightResultPopUp(ShowFightResultEvent const* event) {
+void ManagerPopUp::NewFightResultPopUp(ShowFightResultEvent const* event) {
 	AppContext_ty_c appContext{ AppContext::GetInstance() };
 	NewFocusLayerEvent focusEvent;
 	appContext.eventManager.InvokeEvent(focusEvent);
@@ -166,7 +166,7 @@ void PopUpManager::NewFightResultPopUp(ShowFightResultEvent const* event) {
 	);
 }
 
-void PopUpManager::DeleteLastPopUp(PopUp* toDelete) {
+void ManagerPopUp::DeleteLastPopUp(PopUp* toDelete) {
 	if (m_popUps.size() == 0) {
 		return;
 	}
@@ -182,7 +182,7 @@ void PopUpManager::DeleteLastPopUp(PopUp* toDelete) {
 		m_toDelete.push_back(toDelete);
 	}
 }
-void PopUpManager::CheckForDeleteRemainingPopUps() {
+void ManagerPopUp::CheckForDeleteRemainingPopUps() {
 	while (true) {
 		if (m_popUps.size() == 0) {
 			m_toDelete.clear();
@@ -212,7 +212,7 @@ void PopUpManager::CheckForDeleteRemainingPopUps() {
 	}
 }
 
-void PopUpManager::CheckAndUpdate(Vector2 const& mousePosition,
+void ManagerPopUp::CheckAndUpdate(Vector2 const& mousePosition,
 	AppContext_ty_c appContext) {
 	if (!IsActivePopUp()) {
 		return;
@@ -220,12 +220,12 @@ void PopUpManager::CheckAndUpdate(Vector2 const& mousePosition,
 
 	m_popUps.back()->CheckAndUpdate(mousePosition, appContext);
 }
-void PopUpManager::Render(AppContext_ty_c appContext) {
+void ManagerPopUp::Render(AppContext_ty_c appContext) {
 	for (auto& p : m_popUps) {
 		p->Render(appContext);
 	}
 }
-void PopUpManager::Resize(AppContext_ty_c appContext) {
+void ManagerPopUp::Resize(AppContext_ty_c appContext) {
 	for (auto& e : m_popUps) {
 		e->Resize(appContext);
 	}

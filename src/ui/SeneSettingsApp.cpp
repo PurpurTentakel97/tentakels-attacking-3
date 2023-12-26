@@ -3,9 +3,9 @@
 // 18.07.2023
 //
 
-#include "SceneAppSettings.hpp"
 #include "AppContext.hpp"
 #include "HSceneSliderAndInputLine.hpp"
+#include "SceneSettingsApp.hpp"
 #include "ui_lib/CheckBox.h"
 #include "ui_lib/DropDown.h"
 #include "ui_lib/Text.h"

@@ -1,28 +1,41 @@
 //
 // Purpur Tentakel
-// 01.11.2022
+// 18.07.2023
 //
 
 #pragma once
-#include "ui_lib/Scene.h"
+#include "HSceneSettings.hpp"
+#include "event/EventListener.hpp"
 
-/**
- * provides a scenes, where the global settings can be set.
- */
-class SettingsScene : public Scene{
+class SliderAndInputLine;
+
+class AppSettingsScene final : public SettingsScene, public EventListener {
 private:
+	std::vector<std::pair<Resolution, std::string>> m_rawResolutionEntries; ///< contains die raw resolution information
+	std::shared_ptr<SliderAndInputLine> m_volume; ///< contains the volume slider
+	DropDown_ty m_languageDropDown; ///< contains the language drop down
+	DropDown_ty m_resolutionDropDown; ///< contains the language drop down
+	CheckBox_ty m_toggleFullScreenCBM; ///< contains the full screen toggle check box
+	
 	/**
 	 * initializes all ui elements.
 	 * connects the actions.
 	 */
 	void Initialize();
 
-public:
 	/**
-	 * ctor.
-	 * only initialization.
+	 * returns the strings out of the raw resolution data.
 	 */
-	SettingsScene();
+	std::vector<std::string> GetStringsFromResolutionEntries() const;
+	/**
+	 * returns index from resolution enum.
+	 */
+    size_t GetIndexFromResolution(Resolution resolution) const;
+
+public:
+
+	AppSettingsScene();
+	~AppSettingsScene();
 
 	/**
 	 * updates all elements in elements.
@@ -36,4 +49,6 @@ public:
 	 * resizes all elements in elements and elements out update.
 	 */
 	void Resize(AppContext_ty_c appContext) override;
+
+	void OnEvent(Event const& event) override;
 };

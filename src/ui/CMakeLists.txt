@@ -1,6 +1,6 @@
 add_library(ui STATIC
             include/ui/PopUpAll.hpp
-            include/ui/SceneAppSettings.hpp
+            include/ui/SceneSettingsApp.hpp
             include/ui/PopUpCell.hpp
             include/ui/PopUpCellColor.hpp
             include/ui/HSceneCreditTable.hpp
@@ -19,11 +19,11 @@ add_library(ui STATIC
             include/ui/SceneNewGameParameter.hpp
             include/ui/SceneNewGamePlayer.hpp
             include/ui/HScenePlanetTable.hpp
-            include/ui/PopUpManager.h
+            include/ui/ManagerPopUp.h
             include/ui/PrivativeCellPopUp.hpp
             include/ui/ManagerScene.hpp
-            include/ui/Scenes.hpp
-            include/ui/SceneSettingsApp.hpp
+            include/ui/SceneAll.hpp
+            include/ui/HSceneSettings.hpp
             include/ui/HSceneSliderAndInputLine.hpp
             include/ui/PopUpSoundLeven.hpp
             include/ui/HSceneTestScene.hpp
@@ -36,40 +36,40 @@ add_library(ui STATIC
             include/ui/SceneUpdateEvaluation.hpp
             include/ui/SceneValidateGalaxy.hpp
             include/ui/PopUpValidate.hpp
-            AppSettings.cpp
-            CellPopUp.cpp
-            ColorCellPopUp.cpp
-            CreditTable.cpp
-            Credits.cpp
-            DeletePlayerPopUp.cpp
-            FightResultPopup.cpp
-            FleetTable.cpp
-            GalaxyAndSlider.cpp
-            GameEventSettings.cpp
-            GameSettings.cpp
-            Intro.cpp
-            Logos.cpp
-            MainMenu.cpp
-            MainScene.cpp
-            MessagePopUp.cpp
-            NewGameParameter.cpp
-            NewGamePlayer.cpp
-            PlanetTable.cpp
-            PopUpManager.cpp
-            SceneManager.cpp
-            Settings.cpp
-            SliderAndInputLine.cpp
-            SoundLevelPopUp.cpp
-            TestScene.cpp
+            SeneSettingsApp.cpp
+            PopUpCell.cpp
+            PopUpCellColor.cpp
+            HSceneCreditTable.cpp
+            SceneCredits.cpp
+            PopUpPlayerDelete.cpp
+            PopupResultFight.cpp
+            HSceneFleetTable.cpp
+            HSceneGalaxyAndSlider.cpp
+            HSceneGameEventSettings.cpp
+            SceneSettingsGame.cpp
+            SceneIntro.cpp
+            SceneLogos.cpp
+            SceneMainMenu.cpp
+            SceneMainScene.cpp
+            PopUpMessage.cpp
+            SceneNewGameParameter.cpp
+            SceneNewGamePlayer.cpp
+            HScenePlanetTable.cpp
+            ManagerPopUp.cpp
+            ManagerScene.cpp
+            HSceneSettings.cpp
+            HSceneSliderAndInputLine.cpp
+            PopUpSoundLevel.cpp
+            HSceneTest.cpp
             UIFleet.cpp
             UIGalaxy.cpp
             UIGalaxyElement.cpp
-            UIManager.cpp
+            ManagerUI.cpp
             UIPlanet.cpp
             UITargetPoint.cpp
-            UpdateEvaluation.cpp
-            ValidateGalaxy.cpp
-            ValidatePopUp.cpp
+            SceneUpdateEvaluation.cpp
+            SceneValidateGalaxy.cpp
+            PopUpValidate.cpp
 )
 
 target_include_directories(ui
