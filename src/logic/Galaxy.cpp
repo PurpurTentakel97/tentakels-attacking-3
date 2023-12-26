@@ -4,14 +4,14 @@
 //
 
 #include "Galaxy.hpp"
-#include "AppContext.hpp"
 #include "Player.hpp"
-#include "event/EventsUI.hpp"
-#include "helper/HFightResult.hpp"
-#include "helper/HFleetResult.hpp"
-#include "helper/HGalaxy.hpp"
-#include "helper/HPrint.hpp"
-#include "helper/HRandom.hpp"
+#include <AppContext.hpp>
+#include <event/EventsUI.hpp>
+#include <helper/HFightResult.hpp>
+#include <helper/HFleetResult.hpp>
+#include <helper/HGalaxy.hpp>
+#include <helper/HPrint.hpp>
+#include <helper/HRandom.hpp>
 #include <stdexcept>
 
 // help Lambdas

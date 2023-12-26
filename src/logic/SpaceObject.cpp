@@ -4,7 +4,7 @@
 //
 
 #include "SpaceObject.hpp"
-#include "AppContext.hpp"
+#include <AppContext.hpp>
 #include <cassert>
 
 bool SpaceObject::IsInRange(SpaceObject_ty_raw first, SpaceObject_ty_raw second, int range) {

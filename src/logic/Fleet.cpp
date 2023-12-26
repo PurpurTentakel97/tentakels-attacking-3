@@ -4,19 +4,19 @@
 //
 
 #include "Fleet.hpp"
-#include "AppContext.hpp"
 #include "Galaxy.hpp"
-#include "helper/HGalaxy.hpp"
-#include "helper/HPrint.hpp"
+#include <AppContext.hpp>
 #include <cmath>
+#include <helper/HGalaxy.hpp>
+#include <helper/HPrint.hpp>
 
-Fleet::Fleet(unsigned int ID, vec2pos_ty position, Player_ty player,
-    SpaceObject_ty target)
-    : SpaceObject{ ID, position, player }, m_target{ target } { }
+Fleet::Fleet(unsigned int ID, vec2pos_ty position, Player_ty player, SpaceObject_ty target)
+    : SpaceObject{ ID, position, player },
+      m_target{ target } { }
 
-Fleet::Fleet(unsigned int ID, vec2pos_ty position, size_t ships, Player_ty player,
-    SpaceObject_ty target)
-    : SpaceObject{ ID, position, ships, player }, m_target{ target } { }
+Fleet::Fleet(unsigned int ID, vec2pos_ty position, size_t ships, Player_ty player, SpaceObject_ty target)
+    : SpaceObject{ ID, position, ships, player },
+      m_target{ target } { }
 
 bool Fleet::IsFleet() const {
     return true;
@@ -36,8 +36,10 @@ bool Fleet::IsArrived() const {
     return m_position == m_target->GetPos();
 }
 bool Fleet::IsFarArrived() const {
-    auto [valid, dummy] { TryGetTarget(this, m_target) };
-    if (not valid) { return false; }
+    auto [valid, dummy]{ TryGetTarget(this, m_target) };
+    if (not valid) {
+        return false;
+    }
 
     return m_position == dummy->GetPos();
 }
@@ -46,8 +48,10 @@ bool Fleet::IsFriendly() const {
     return m_player == m_target->GetPlayer();
 }
 bool Fleet::IsFarFriendly() const {
-    auto [valid, target] { TryGetTarget(this, m_target) };
-    if (not valid) { return false; }
+    auto [valid, target]{ TryGetTarget(this, m_target) };
+    if (not valid) {
+        return false;
+    }
 
     return m_player == target->GetPlayer();
 }
@@ -55,17 +59,19 @@ bool Fleet::IsFarFriendly() const {
 
 void Fleet::Update(Galaxy_ty_raw galaxy) {
 
-    auto [valid, target] { TryGetTarget(this, m_target) };
-    if (not valid) { target = m_target; };
+    auto [valid, target]{ TryGetTarget(this, m_target) };
+    if (not valid) {
+        target = m_target;
+    };
 
     int speed = AppContext::GetInstance().constants.fleet.currentFleetSpeed;
     float constexpr dl{ 0.001f };
-    int   const     x1{ m_position.x };
-    int   const     y1{ m_position.y };
-    int   const     x2{ target->GetPos().x };
-    int   const     y2{ target->GetPos().y };
-    int   const     dx{ x2 - x1 };
-    int   const     dy{ y2 - y1 };
+    int const x1{ m_position.x };
+    int const y1{ m_position.y };
+    int const x2{ target->GetPos().x };
+    int const y2{ target->GetPos().y };
+    int const dx{ x2 - x1 };
+    int const dy{ y2 - y1 };
     std::vector<vec2pos_ty> route;
 
     auto addPosition = [&](vec2pos_ty_ref_c new_) {
@@ -108,10 +114,5 @@ void Fleet::Update(Galaxy_ty_raw galaxy) {
     generatePosition();
     m_position = filterPosition();
 
-    Print(
-        PrintType::ONLY_DEBUG,
-        "fleet moved -> id: {} -> pos: {}",
-        m_ID,
-        m_position.ToString()
-    );
+    Print(PrintType::ONLY_DEBUG, "fleet moved -> id: {} -> pos: {}", m_ID, m_position.ToString());
 }
