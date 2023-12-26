@@ -4,10 +4,9 @@
 //
 
 #include "HSceneSliderAndInputLine.hpp"
-#include "helper/HRandom.hpp"
-#include "ui_lib/ButtonClassic.hpp"
-#include "ui_lib/Slider.hpp"
-#include <iostream>
+#include <helper/HRandom.hpp>
+#include <ui_lib/ButtonClassic.hpp>
+#include <ui_lib/Slider.hpp>
 
 void SliderAndInputLine::Initialize(unsigned int focusID) {
     m_inputLine = std::make_shared<InputLine<int>>(

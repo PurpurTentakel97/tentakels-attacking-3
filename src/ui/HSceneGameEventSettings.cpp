@@ -4,13 +4,11 @@
 //
 
 #include "HSceneGameEventSettings.hpp"
-#include "helper/HRandom.hpp"
-#include "ui_lib/CheckBox.hpp"
-#include "ui_lib/Line.hpp"
-#include "ui_lib/Text.hpp"
-#include <array>
 #include <cassert>
-#include <utility>
+#include <helper/HRandom.hpp>
+#include <ui_lib/CheckBox.hpp>
+#include <ui_lib/Line.hpp>
+#include <ui_lib/Text.hpp>
 
 
 void GameEventSettings::Initialize(unsigned int focusID) {

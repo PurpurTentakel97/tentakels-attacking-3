@@ -4,14 +4,14 @@
 //
 
 #include "SceneMainMenu.hpp"
-#include "AppContext.hpp"
 #include "HSceneGalaxyAndSlider.hpp"
 #include "ManagerUI.hpp"
-#include "ui_lib/ButtonClassic.hpp"
-#include "ui_lib/ButtonExpanding.hpp"
-#include "ui_lib/Text.hpp"
-#include "ui_lib/Title.hpp"
+#include <AppContext.hpp>
 #include <memory>
+#include <ui_lib/ButtonClassic.hpp>
+#include <ui_lib/ButtonExpanding.hpp>
+#include <ui_lib/Text.hpp>
+#include <ui_lib/Title.hpp>
 
 void MainMenu::Initialize() {
     AppContext_ty_c appContext{ AppContext::GetInstance() };

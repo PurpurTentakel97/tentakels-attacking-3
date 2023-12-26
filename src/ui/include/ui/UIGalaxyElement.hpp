@@ -4,10 +4,10 @@
 //
 
 #pragma once
-#include "helper/HPlayerData.hpp"
-#include "ui_lib/Focusable.hpp"
-#include "ui_lib/Hover.hpp"
-#include "ui_lib/UIElement.hpp"
+#include <helper/HPlayerData.hpp>
+#include <ui_lib/Focusable.hpp>
+#include <ui_lib/Hover.hpp>
+#include <ui_lib/UIElement.hpp>
 
 class UIGalaxyElement : public UIElement, public Focusable {
 public:

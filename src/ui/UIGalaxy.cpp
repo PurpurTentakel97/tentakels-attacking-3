@@ -3,17 +3,17 @@
 // 12.11.2022
 //
 
-#include "include/ui/UIGalaxy.hpp"
-#include "AppContext.hpp"
+#include "UIGalaxy.hpp"
 #include "UIFleet.hpp"
-#include "UIPlanet.h"
-#include "UITargetPoint.h"
-#include "event/EventGenerel.hpp"
-#include "helper/HFocusEvents.hpp"
-#include "helper/HInput.hpp"
-#include "logic/Galaxy.hpp"
-#include "logic/Player.hpp"
-#include "ui_lib/LineDrag.hpp"
+#include "UIPlanet.hpp"
+#include "UITargetPoint.hpp"
+#include <AppContext.hpp>
+#include <event/EventGenerel.hpp>
+#include <helper/HFocusEvents.hpp>
+#include <helper/HInput.hpp>
+#include <logic/Galaxy.hpp>
+#include <logic/Player.hpp>
+#include <ui_lib/LineDrag.hpp>
 
 void UIGalaxy::Initialize(SendGalaxyPointerEvent const* event) {
     AppContext_ty_c appContext{ AppContext::GetInstance() };

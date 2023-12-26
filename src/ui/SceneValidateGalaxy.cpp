@@ -4,13 +4,12 @@
 //
 
 #include "SceneValidateGalaxy.hpp"
-#include "AppContext.hpp"
 #include "HSceneGalaxyAndSlider.hpp"
-#include "event/EventGenerel.hpp"
-#include "ui_lib/ButtonClassic.hpp"
-#include "ui_lib/SceneType.hpp"
-#include "ui_lib/Text.hpp"
-#include <iostream>
+#include <AppContext.hpp>
+#include <event/EventGenerel.hpp>
+#include <ui_lib/ButtonClassic.hpp>
+#include <ui_lib/SceneType.hpp>
+#include <ui_lib/Text.hpp>
 
 void ValidateGalaxyScene::Initialize() {
 

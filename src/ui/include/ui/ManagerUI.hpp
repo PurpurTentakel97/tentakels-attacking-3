@@ -4,14 +4,14 @@
 //
 
 #pragma once
-#include "AppContext.hpp"
 #include "ManagerScene.hpp"
-#include "event/EventListener.hpp"
-#include "logic/ManagerGame.hpp"
-#include "ui_lib/Focus.hpp"
-#include "ui_lib/HoverRender.hpp"
-#include "ui_lib/UIElement.hpp"
+#include <AppContext.hpp>
+#include <event/EventListener.hpp>
+#include <logic/ManagerGame.hpp>
 #include <memory>
+#include <ui_lib/Focus.hpp>
+#include <ui_lib/HoverRender.hpp>
+#include <ui_lib/UIElement.hpp>
 #include <vector>
 
 class Scene;

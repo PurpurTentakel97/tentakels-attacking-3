@@ -4,8 +4,8 @@
 //
 
 #pragma once
-#include "event/EventListener.hpp"
-#include "ui_lib/Scene.hpp"
+#include <event/EventListener.hpp>
+#include <ui_lib/Scene.hpp>
 #include <vector>
 
 class GameEventSettings;

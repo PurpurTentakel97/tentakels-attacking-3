@@ -3,8 +3,8 @@
 // 05.06.2023
 //
 
-#include "event/EventListener.hpp"
-#include "ui_lib/Scene.hpp"
+#include <event/EventListener.hpp>
+#include <ui_lib/Scene.hpp>
 #pragma once
 
 class SendUpdateEvaluation;

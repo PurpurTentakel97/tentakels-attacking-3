@@ -4,14 +4,14 @@
 //
 
 #include "SceneCredits.hpp"
-#include "AppContext.hpp"
 #include "HSceneCreditTable.hpp"
-#include "ui_lib/ButtonClassic.hpp"
-#include "ui_lib/Line.hpp"
-#include "ui_lib/Picture.hpp"
-#include "ui_lib/SceneType.hpp"
-#include "ui_lib/Text.hpp"
-#include "ui_lib/Title.hpp"
+#include <AppContext.hpp>
+#include <ui_lib/ButtonClassic.hpp>
+#include <ui_lib/Line.hpp>
+#include <ui_lib/Picture.hpp>
+#include <ui_lib/SceneType.hpp>
+#include <ui_lib/Text.hpp>
+#include <ui_lib/Title.hpp>
 
 void CreditsScene::Initialize() {
     AppContext_ty appContext{ AppContext::GetInstance() };

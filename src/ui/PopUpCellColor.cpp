@@ -3,10 +3,10 @@
 // 05.10.2022
 //
 
+#include "PopUpCellColor.hpp"
 #include "AppContext.hpp"
-#include "helper/HFocusEvents.hpp"
-#include "helper/HGeneral.hpp"
-#include "include/ui/PopUpCellColor.hpp"
+#include <helper/HFocusEvents.hpp>
+#include <helper/HGeneral.hpp>
 
 void ColorCellPopUp::SetValue() {
     m_onClick(m_colorPicker->GetColor());

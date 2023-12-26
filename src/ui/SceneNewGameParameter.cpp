@@ -4,17 +4,17 @@
 //
 
 #include "SceneNewGameParameter.hpp"
-#include "AppContext.hpp"
 #include "HSceneGameEventSettings.hpp"
 #include "HSceneSliderAndInputLine.hpp"
-#include "event/EventGenerel.hpp"
-#include "event/EventsUI.hpp"
-#include "ui_lib/ButtonClassic.hpp"
-#include "ui_lib/CheckBox.hpp"
-#include "ui_lib/Line.hpp"
-#include "ui_lib/SceneType.hpp"
-#include "ui_lib/Text.hpp"
-#include "ui_lib/Title.hpp"
+#include <AppContext.hpp>
+#include <event/EventGenerel.hpp>
+#include <event/EventsUI.hpp>
+#include <ui_lib/ButtonClassic.hpp>
+#include <ui_lib/CheckBox.hpp>
+#include <ui_lib/Line.hpp>
+#include <ui_lib/SceneType.hpp>
+#include <ui_lib/Text.hpp>
+#include <ui_lib/Title.hpp>
 
 enum class SliderType {
     PLANET_COUNT,

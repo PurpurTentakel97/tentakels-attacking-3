@@ -4,7 +4,7 @@
 //
 
 #pragma once
-#include "ui_lib/Scene.hpp"
+#include <ui_lib/Scene.hpp>
 
 /**
  * provides a scene that displays a credits table.
@@ -16,19 +16,25 @@
  */
 class CreditTableScene : public Scene {
 private:
-	using creditEntries = std::vector<std::vector<std::string>>; ///< contains the datatype of the credit entries
-	
-	/**
+    using creditEntries = std::vector<std::vector<std::string>>; ///< contains the datatype of the credit entries
+
+    /**
 	 * initializes all ui elements.
 	 * connects the actions.
 	 */
-	void Initialize(std::string const& headline, creditEntries const& entries, bool containsLink);
+    void Initialize(std::string const& headline, creditEntries const& entries, bool containsLink);
 
 public:
-	/**
+    /**
 	 * ctor.
 	 * only initialization.
  	 */
-	CreditTableScene(Vector2 pos, Vector2 size, Alignment alignment, std::string const& headline,
-		creditEntries const& entries, bool containsLink = false);
+    CreditTableScene(
+            Vector2 pos,
+            Vector2 size,
+            Alignment alignment,
+            std::string const& headline,
+            creditEntries const& entries,
+            bool containsLink = false
+    );
 };

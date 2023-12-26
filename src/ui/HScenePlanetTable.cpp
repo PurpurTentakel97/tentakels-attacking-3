@@ -4,8 +4,8 @@
 //
 
 #include "HScenePlanetTable.hpp"
-#include "helper/HFocusEvents.hpp"
-#include "logic/Player.hpp"
+#include <helper/HFocusEvents.hpp>
+#include <logic/Player.hpp>
 
 void PlanetTable::Initialization() {
     auto const planets{ m_galaxy->GetPlanets() };

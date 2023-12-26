@@ -4,9 +4,9 @@
 //
 
 #pragma once
-#include "event/EventListener.hpp"
-#include "ui_lib/Scene.hpp"
+#include <event/EventListener.hpp>
 #include <memory>
+#include <ui_lib/Scene.hpp>
 
 class GalaxyScene;
 class SendGalaxyPointerEvent;
@@ -15,36 +15,36 @@ class SendGalaxyPointerEvent;
  * provides a scenes where the generates galaxy can be validated.
  * a new galaxy can be validated if wanted.
  */
-class ValidateGalaxyScene : public Scene{
+class ValidateGalaxyScene : public Scene {
 private:
-	std::shared_ptr<GalaxyScene> m_galaxy; ///< contains the galaxy scene
+    std::shared_ptr<GalaxyScene> m_galaxy; ///< contains the galaxy scene
 
-	/**
+    /**
 	 * initializes all ui elements.
 	 * connects the actions.
 	 */
-	void Initialize();
-	/**
+    void Initialize();
+    /**
 	 * initializes the player legen.
 	 * matches the colors.
 	 */
-	void InitializePlayerLegend();
-	/**
+    void InitializePlayerLegend();
+    /**
 	 * initializes a ui galaxy.
 	 */
-	void InitializeGalaxy();
+    void InitializeGalaxy();
 
-	/**
+    /**
 	 * deletes the old galaxy.
 	 * generates a new one via event.
 	 * calls to initialize it.
 	 */
-	void NewGalaxy();
+    void NewGalaxy();
 
 public:
-	/**
+    /**
 	 * ctor.
 	 * only initialization.
 	 */
-	ValidateGalaxyScene();
+    ValidateGalaxyScene();
 };
