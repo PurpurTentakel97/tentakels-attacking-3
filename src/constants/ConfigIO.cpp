@@ -3,7 +3,7 @@
 // 27.10.2022
 //
 
-#include "ConfigIO.h"
+#include "ConfigIO.hpp"
 #include "AppContext.hpp"
 #include "helper/HConfigEnum.h"
 #include "helper/HPrint.h"

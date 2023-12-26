@@ -3,7 +3,7 @@
 // 10.12.2022
 //
 
-#include "CWindow.h"
+#include "CWindow.hpp"
 #include "helper/HPrint.h"
 #include <CustomRaylib.h>
 

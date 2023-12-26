@@ -4,7 +4,7 @@
 //
 
 #pragma once
-#include "constants/CConstants.h"
+#include "constants/CConstants.hpp"
 #include "event/EventListener.hpp"
 #include "event/EventManager.hpp"
 #include "event/EventsUI.hpp"

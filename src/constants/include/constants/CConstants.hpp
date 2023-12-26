@@ -4,17 +4,17 @@
 //
 
 #pragma once
-#include "CGlobal.hpp"
-#include "CTextProcessing.hpp"
-#include "CPlayer.hpp"
-#include "CWorld.hpp"
-#include "CFiles.hpp"
-#include "CSound.hpp"
-#include "CPlanet.hpp"
-#include "CFleet.hpp"
-#include "CWindow.h"
 #include "CFight.hpp"
-#include "CGameEvents.h"
+#include "CFiles.hpp"
+#include "CFleet.hpp"
+#include "CGameEvents.hpp"
+#include "CGlobal.hpp"
+#include "CPlanet.hpp"
+#include "CPlayer.hpp"
+#include "CSound.hpp"
+#include "CTextProcessing.hpp"
+#include "CWindow.hpp"
+#include "CWorld.hpp"
 
 /**
  * contains all constants.
