@@ -4,9 +4,9 @@
 //
 
 #pragma once
-#include "CustomRaylib.h"
-#include <string>
+#include "CustomRaylib.hpp"
 #include <array>
+#include <string>
 
 /**
  * contains all available colors of the game and validates it.

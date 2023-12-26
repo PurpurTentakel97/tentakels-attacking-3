@@ -5,7 +5,7 @@
 
 #include "HInput.h"
 #include "AppContext.hpp"
-#include "CustomRaylib.h"
+#include "CustomRaylib.hpp"
 
 bool IsConfirmInputPressed() {
     bool const triggered{ IsKeyPressed(KEY_SPACE) or IsKeyPressed(KEY_KP_ENTER)

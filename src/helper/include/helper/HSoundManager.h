@@ -6,7 +6,7 @@
 #pragma once
 
 #include "HSoundType.hpp"
-#include <CustomRaylib.h>
+#include <CustomRaylib.hpp>
 #include <array>
 #include <event/EventListener.hpp>
 #include <string>

@@ -4,7 +4,7 @@
 //
 
 #pragma once
-#include "CustomRaylib.h"
+#include "CustomRaylib.hpp"
 
 /**
  * provides the over all alignment.

@@ -4,7 +4,7 @@
 //
 
 #pragma once
-#include "CustomRaylib.h"
+#include "CustomRaylib.hpp"
 #include "helper/HResolution.hpp"
 #include "helper/Vec2.hpp"
 #include <cstddef>

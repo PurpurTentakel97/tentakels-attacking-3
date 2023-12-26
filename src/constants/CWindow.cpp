@@ -5,7 +5,7 @@
 
 #include "CWindow.hpp"
 #include "helper/HPrint.h"
-#include <CustomRaylib.h>
+#include <CustomRaylib.hpp>
 
 bool CWindow::IsPossibleResolution(Resolution toProve) const {
 	auto const value{ GetIntFromResolution(toProve) };

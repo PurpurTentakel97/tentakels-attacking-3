@@ -3,7 +3,7 @@
 // 14.05.2023
 //
 
-#include "CustomRaylib.h"
+#include "CustomRaylib.hpp"
 #include "event/EventListener.hpp"
 #include <vector>
 #pragma once
