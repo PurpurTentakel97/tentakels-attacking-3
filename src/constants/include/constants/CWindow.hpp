@@ -21,7 +21,7 @@ struct CWindow final {
     bool isFullScreen{ true };
     size_t FPS{ 60 };
 
-    [[nodiscard]] bool IsPossibleResolution(Resolution toProove) const;
+    [[nodiscard]] bool IsPossibleResolution(Resolution toProve) const;
 
     [[nodiscard]] std::vector<std::pair<Resolution, std::string>> GetAllResolutionsAsString() const;
 

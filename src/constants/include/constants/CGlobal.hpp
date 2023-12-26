@@ -29,11 +29,11 @@ struct CGlobal final {
     size_t maxRounds{ 100 };
     size_t currentRound{ 0 };
 
-    // game bools
+    // game
     bool isGameRunning{ false };
     bool isGamePaused{ true };
     bool isGameSaved{ true };
 
-    // input bools
+    // input
     bool acceptInputTriggered{ false };
 };
