@@ -9,12 +9,7 @@
 #include <iomanip>
 #include <iostream>
 #include <string>
-
-#ifdef USE_FMT_FORMAT
-#include <fmt/format.h> // for ubuntu CI -> gcc 12
-#else
 #include <format>
-#endif
 
 /**
  * provides all kinds of print types.
@@ -88,20 +83,14 @@ inline void Print(PrintType printType, std::string const& message, Args const&..
     }
 #endif // _DEBUG
 
-
-#ifdef USE_FMT_FORMAT
-    using namespace fmt;
-#else
-    using namespace std;
-#endif // USE_FMT_FORMAT
     std::string const typeS{ GetPrintTypeString(printType) };
     std::string const toExport{ typeS + ' ' + message + '\n' };
     try {
-        std::string out{ vformat(message, make_format_args(args...)) };
+        std::string out{ std::vformat(message, std::make_format_args(args...)) };
         std::cout << std::setw(static_cast<int>(GetPrintTypeString(longestType).size())) << typeS << ' ' << out << '\n';
         TryExport(toExport, printType);
 
-    } catch (format_error const&) {
+    } catch (std::format_error const&) {
         Print(PrintType::ERROR, "format while printing with arguments");
         std::cout << std::setw(static_cast<int>(GetPrintTypeString(longestType).size())) << typeS << ' ' << message << '\n';
         TryExport(toExport, printType);

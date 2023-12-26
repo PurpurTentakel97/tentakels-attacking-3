@@ -7,12 +7,7 @@
 #include "HPrint.h"
 #include "event/EventListener.hpp"
 #include <nlohmann/json.hpp>
-
-#ifdef USE_FMT_FORMAT
-#include <fmt/format.h> // for ubuntu CI -> gcc 12
-#else
 #include <format>
-#endif
 
 class HLanguageManager final : public EventListener {
 private:
@@ -62,14 +57,9 @@ public:
 
 template<typename... Args>
 inline std::string HLanguageManager::ReplacePlaceholders(std::string_view text, Args const&... args) const {
-#ifdef USE_FMT_FORMAT
-    using namespace fmt;
-#else
-    using namespace std;
-#endif // USE_FMT_FORMAT
     try {
-        return vformat(text, make_format_args(args...));
-    } catch (format_error const&) {
+        return std::vformat(text, std::make_format_args(args...));
+    } catch (std::format_error const&) {
         Print(PrintType::ERROR,
               "wrong format for language text. appears mostly when arguments not matching the provided string -> "
               "\"{}\"",
