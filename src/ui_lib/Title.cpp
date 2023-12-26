@@ -3,7 +3,7 @@
 // 19.09.2022
 //
 
-#include "Title.h"
+#include "Title.hpp"
 #include "AppContext.hpp"
 #include "helper/HInput.hpp"
 #include "helper/HRandom.hpp"

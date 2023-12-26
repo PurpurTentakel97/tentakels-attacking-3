@@ -3,18 +3,18 @@
 // 31.10.2022
 //
 
+#include "SceneNewGameParameter.hpp"
 #include "AppContext.hpp"
 #include "HSceneGameEventSettings.hpp"
 #include "HSceneSliderAndInputLine.hpp"
-#include "SceneNewGameParameter.hpp"
 #include "event/EventGenerel.hpp"
 #include "event/EventsUI.hpp"
-#include "ui_lib/CheckBox.h"
-#include "ui_lib/ClassicButton.h"
-#include "ui_lib/Line.h"
-#include "ui_lib/SceneType.h"
-#include "ui_lib/Text.h"
-#include "ui_lib/Title.h"
+#include "ui_lib/ButtonClassic.hpp"
+#include "ui_lib/CheckBox.hpp"
+#include "ui_lib/Line.hpp"
+#include "ui_lib/SceneType.hpp"
+#include "ui_lib/Text.hpp"
+#include "ui_lib/Title.hpp"
 
 enum class SliderType {
     PLANET_COUNT,

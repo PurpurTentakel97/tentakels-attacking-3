@@ -4,8 +4,8 @@
 //
 
 #pragma once
-#include "Button.h"
-#include "Focusable.h"
+#include "Button.hpp"
+#include "Focusable.hpp"
 
 class ToggleButton : public Button, public Focusable {
 private:

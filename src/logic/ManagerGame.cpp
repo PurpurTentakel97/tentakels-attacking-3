@@ -10,7 +10,7 @@
 #include "event/EventGenerel.hpp"
 #include "helper/HLogicAlias.hpp"
 #include "helper/HPrint.hpp"
-#include "ui_lib/SceneType.h"
+#include "ui_lib/SceneType.hpp"
 #include <algorithm>
 #include <cassert>
 #include <stdexcept>

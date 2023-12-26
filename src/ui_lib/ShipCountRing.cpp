@@ -3,7 +3,7 @@
 // 23.07.2023
 //
 
-#include "ShipCountRing.h"
+#include "ShipCountRing.hpp"
 #include "AppContext.hpp"
 
 void CountRing::CalculateRing() {

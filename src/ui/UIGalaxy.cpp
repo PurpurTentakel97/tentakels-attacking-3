@@ -13,7 +13,7 @@
 #include "helper/HInput.hpp"
 #include "logic/Galaxy.hpp"
 #include "logic/Player.hpp"
-#include "ui_lib/LineDrag.h"
+#include "ui_lib/LineDrag.hpp"
 
 void UIGalaxy::Initialize(SendGalaxyPointerEvent const* event) {
     AppContext_ty_c appContext{ AppContext::GetInstance() };

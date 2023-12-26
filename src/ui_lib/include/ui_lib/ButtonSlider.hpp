@@ -4,7 +4,7 @@
 //
 
 #pragma once
-#include "Button.h"
+#include "Button.hpp"
 
 /**
  * is used by the slider lass as button to slide.

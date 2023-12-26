@@ -3,9 +3,9 @@
 // 14.05.2023
 //
 
-#include "HoverRender.h"
+#include "HoverRender.hpp"
 #include "AppContext.hpp"
-#include "Hover.h"
+#include "Hover.hpp"
 #include "event/EventsUI.hpp"
 
 HoverRender::HoverRender() {

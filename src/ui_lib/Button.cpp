@@ -3,7 +3,7 @@
 // 15.08.2022
 //
 
-#include "Button.h"
+#include "Button.hpp"
 #include "AppContext.hpp"
 
 void Button::SetTextSizeAndPosition(AppContext_ty_c appContext) {

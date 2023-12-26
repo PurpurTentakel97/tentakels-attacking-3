@@ -6,9 +6,9 @@
 #include "AppContext.hpp"
 #include "HSceneSliderAndInputLine.hpp"
 #include "SceneSettingsApp.hpp"
-#include "ui_lib/CheckBox.h"
-#include "ui_lib/DropDown.h"
-#include "ui_lib/Text.h"
+#include "ui_lib/CheckBox.hpp"
+#include "ui_lib/DropDown.hpp"
+#include "ui_lib/Text.hpp"
 
 void AppSettingsScene::Initialize() {
     AppContext_ty_c appContext{ AppContext::GetInstance() };

@@ -4,7 +4,7 @@
 //
 
 #pragma once
-#include "ui_lib/Scene.h"
+#include "ui_lib/Scene.hpp"
 
 /**
  * provides a scenes, where the global settings can be set.

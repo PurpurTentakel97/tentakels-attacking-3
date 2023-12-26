@@ -6,7 +6,7 @@
 #pragma once
 #include "AppContext.hpp"
 #include "helper/HGameEventTypes.hpp"
-#include "ui_lib/Scene.h"
+#include "ui_lib/Scene.hpp"
 
 /**
  * provides a scene where the game events can be set.

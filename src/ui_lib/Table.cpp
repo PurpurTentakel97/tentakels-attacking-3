@@ -3,9 +3,9 @@
 // 03.04.2023
 //
 
-#include "Table.h"
+#include "Table.hpp"
 #include "AppContext.hpp"
-#include "Slider.h"
+#include "Slider.hpp"
 #include "helper/HInput.hpp"
 
 

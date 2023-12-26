@@ -3,7 +3,7 @@
 // 15.09.2022
 //
 
-#include "Picture.h"
+#include "Picture.hpp"
 #include "AppContext.hpp"
 #include <iostream>
 

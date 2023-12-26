@@ -4,10 +4,10 @@
 //
 
 #pragma once
-#include "ColorPickerCell.h"
-#include <vector>
+#include "ColorPickerCell.hpp"
 #include <functional>
 #include <memory>
+#include <vector>
 
 /**
  * provides a Grid of colors to choose from.

@@ -3,7 +3,7 @@
 // 07.04.2023
 //
 
-#include "AbstractTableCell.h"
+#include "TableCellAbstract.hpp"
 #include "helper/HPrint.hpp"
 
 

@@ -3,7 +3,7 @@
 // 18.11.2022
 //
 
-#include "SceneType.h"
+#include "SceneType.hpp"
 
 std::string GetStringBySceneType(SceneType sceneType) {
 	switch (sceneType) {

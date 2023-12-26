@@ -4,7 +4,7 @@
 //
 
 #pragma once
-#include "Alignment.h"
+#include "Alignment.hpp"
 #include "AppContext.hpp"
 #include "CustomRaylib.hpp"
 #include "event/EventsUI.hpp"

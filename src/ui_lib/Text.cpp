@@ -3,7 +3,7 @@
 // 14.09.2022
 //
 
-#include "Text.h"
+#include "Text.hpp"
 #include "AppContext.hpp"
 #include "helper/HPrint.hpp"
 #include "helper/HTextProcessing.hpp"

@@ -3,13 +3,13 @@
 // 14.09.2022
 //
 
+#include "SceneLogos.hpp"
 #include "AppContext.hpp"
 #include "ManagerUI.hpp"
-#include "SceneLogos.hpp"
 #include "helper/HInput.hpp"
-#include "ui_lib/Picture.h"
-#include "ui_lib/SceneType.h"
-#include "ui_lib/Text.h"
+#include "ui_lib/Picture.hpp"
+#include "ui_lib/SceneType.hpp"
+#include "ui_lib/Text.hpp"
 #include <memory>
 
 

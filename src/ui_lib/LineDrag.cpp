@@ -3,7 +3,7 @@
 // 30.05.2023
 //
 
-#include "LineDrag.h"
+#include "LineDrag.hpp"
 #include "AppContext.hpp"
 
 LineDrag::LineDrag(float thick, Color color, std::function<void(Vector2, Vector2)> callback)

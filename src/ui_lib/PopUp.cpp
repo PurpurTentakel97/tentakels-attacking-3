@@ -3,10 +3,10 @@
 // 10.09.2022
 //
 
-#include "PopUp.h"
+#include "PopUp.hpp"
 #include "AppContext.hpp"
-#include "Picture.h"
-#include "Text.h"
+#include "Picture.hpp"
+#include "Text.hpp"
 #include "helper/HGeneral.hpp"
 #include "helper/HInput.hpp"
 #include "helper/HTextProcessing.hpp"

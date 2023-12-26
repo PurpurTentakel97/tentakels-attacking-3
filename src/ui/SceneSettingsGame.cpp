@@ -3,13 +3,13 @@
 // 18.07.2023
 //
 
+#include "SceneSettingsGame.hpp"
 #include "HSceneGameEventSettings.hpp"
 #include "HSceneSliderAndInputLine.hpp"
-#include "SceneSettingsGame.hpp"
 #include "event/EventGenerel.hpp"
-#include "ui_lib/CheckBox.h"
-#include "ui_lib/ClassicButton.h"
-#include "ui_lib/Text.h"
+#include "ui_lib/ButtonClassic.hpp"
+#include "ui_lib/CheckBox.hpp"
+#include "ui_lib/Text.hpp"
 
 void GameSettingsScene::Initialize() {
 

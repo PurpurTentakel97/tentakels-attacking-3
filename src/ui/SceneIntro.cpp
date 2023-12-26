@@ -3,15 +3,15 @@
 // 12.09.2022
 //
 
+#include "SceneIntro.hpp"
 #include "AppContext.hpp"
 #include "ManagerUI.hpp"
-#include "SceneIntro.hpp"
 #include "helper/HInput.hpp"
 #include "helper/HRandom.hpp"
-#include "ui_lib/ClassicButton.h"
-#include "ui_lib/SceneType.h"
-#include "ui_lib/Text.h"
-#include "ui_lib/Title.h"
+#include "ui_lib/ButtonClassic.hpp"
+#include "ui_lib/SceneType.hpp"
+#include "ui_lib/Text.hpp"
+#include "ui_lib/Title.hpp"
 
 void Intro::Initialize( ) {
 	AppContext_ty appContext = AppContext::GetInstance();

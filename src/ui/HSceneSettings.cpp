@@ -6,10 +6,10 @@
 #include "HSceneSettings.hpp"
 #include "AppContext.hpp"
 #include "event/EventGenerel.hpp"
-#include "ui_lib/ClassicButton.h"
-#include "ui_lib/Line.h"
-#include "ui_lib/SceneType.h"
-#include "ui_lib/Title.h"
+#include "ui_lib/ButtonClassic.hpp"
+#include "ui_lib/Line.hpp"
+#include "ui_lib/SceneType.hpp"
+#include "ui_lib/Title.hpp"
 
 void SettingsScene::Initialize() {
 	AppContext_ty appContext{ AppContext::GetInstance() };

@@ -5,8 +5,8 @@
 
 #include "HSceneSliderAndInputLine.hpp"
 #include "helper/HRandom.hpp"
-#include "ui_lib/ClassicButton.h"
-#include "ui_lib/Slider.h"
+#include "ui_lib/ButtonClassic.hpp"
+#include "ui_lib/Slider.hpp"
 #include <iostream>
 
 void SliderAndInputLine::Initialize(unsigned int focusID) {

@@ -8,8 +8,8 @@
 #include "ManagerScene.hpp"
 #include "event/EventListener.hpp"
 #include "logic/ManagerGame.hpp"
-#include "ui_lib/Focus.h"
-#include "ui_lib/HoverRender.h"
+#include "ui_lib/Focus.hpp"
+#include "ui_lib/HoverRender.hpp"
 #include "ui_lib/UIElement.hpp"
 #include <memory>
 #include <vector>

@@ -4,8 +4,8 @@
 //
 
 #pragma once
-#include "ui_lib/Scene.h"
 #include "event/EventListener.hpp"
+#include "ui_lib/Scene.hpp"
 #include <memory>
 
 class GalaxyScene;

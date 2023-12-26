@@ -3,9 +3,9 @@
 // 05.10.2022
 //
 
-#include "ColorPickerCell.h"
+#include "ColorPickerCell.hpp"
 #include "AppContext.hpp"
-#include "ColorPicker.h"
+#include "ColorPicker.hpp"
 #include "helper/HFocusEvents.hpp"
 #include "helper/HInput.hpp"
 #include <iostream>

@@ -7,10 +7,10 @@
 #include "PopUpSoundLeven.hpp"
 #include "helper/HFocusEvents.hpp"
 #include "helper/HGeneral.hpp"
-#include "ui_lib/CheckBox.h"
-#include "ui_lib/ClassicButton.h"
-#include "ui_lib/Slider.h"
-#include "ui_lib/Text.h"
+#include "ui_lib/ButtonClassic.hpp"
+#include "ui_lib/CheckBox.hpp"
+#include "ui_lib/Slider.hpp"
+#include "ui_lib/Text.hpp"
 
 void SoundLevelPopUp::Initialize() {
     AppContext_ty_c appContext = AppContext::GetInstance();

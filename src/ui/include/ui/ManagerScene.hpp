@@ -5,8 +5,8 @@
 
 #pragma once
 #include "ManagerPopUp.h"
-#include "ui_lib/PopUp.h"
-#include "ui_lib/SceneType.h"
+#include "ui_lib/PopUp.hpp"
+#include "ui_lib/SceneType.hpp"
 #include <memory>
 #include <unordered_map>
 #include <vector>

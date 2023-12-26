@@ -3,7 +3,7 @@
 // 18.09.2022
 //
 
-#include "Alignment.h"
+#include "Alignment.hpp"
 #include "AppContext.hpp"
 #include "helper/HUIAlias.hpp"
 

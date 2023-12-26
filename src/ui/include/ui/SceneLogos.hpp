@@ -4,8 +4,8 @@
 //
 
 #pragma once
-#include "ui_lib/Scene.h"
-#include "ui_lib/SceneType.h"
+#include "ui_lib/Scene.hpp"
+#include "ui_lib/SceneType.hpp"
 #include <functional>
 
 enum class SceneType;

@@ -4,8 +4,8 @@
 //
 
 
-#include "SliderButton.h"
 #include "AppContext.hpp"
+#include "ButtonSlider.hpp"
 
 void SliderButton::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) {
 	UIElement::CheckAndUpdate(mousePosition, appContext);

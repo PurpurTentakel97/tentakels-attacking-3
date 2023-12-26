@@ -3,9 +3,9 @@
 // 27.06.2023
 //
 
-#include "CountingNumber.h"
+#include "CountingNumber.hpp"
 #include "AppContext.hpp"
-#include "Text.h"
+#include "Text.hpp"
 
 void CountingNumber::HandleCountingOutNumbers() {
 	if (not m_isCounting) {

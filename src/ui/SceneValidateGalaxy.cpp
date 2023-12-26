@@ -3,13 +3,13 @@
 // 20.11.2022
 //
 
+#include "SceneValidateGalaxy.hpp"
 #include "AppContext.hpp"
 #include "HSceneGalaxyAndSlider.hpp"
-#include "SceneValidateGalaxy.hpp"
 #include "event/EventGenerel.hpp"
-#include "ui_lib/ClassicButton.h"
-#include "ui_lib/SceneType.h"
-#include "ui_lib/Text.h"
+#include "ui_lib/ButtonClassic.hpp"
+#include "ui_lib/SceneType.hpp"
+#include "ui_lib/Text.hpp"
 #include <iostream>
 
 void ValidateGalaxyScene::Initialize() {

@@ -4,10 +4,10 @@
 //
 
 #pragma once
-#include "ui_lib/Scene.h"
-#include "ui_lib/InputLine.hpp"
-#include "ui_lib/AbstractTableCell.h"
 #include "event/EventListener.hpp"
+#include "ui_lib/InputLine.hpp"
+#include "ui_lib/Scene.hpp"
+#include "ui_lib/TableCellAbstract.hpp"
 
 /**
  * provides a scene where the player can be edit of a new game.

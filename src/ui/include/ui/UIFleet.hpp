@@ -6,8 +6,8 @@
 #pragma once
 #include "helper/HLogicAlias.hpp"
 #include "helper/HPlayerCollection.hpp"
-#include "ui_lib/Hover.h"
-#include "ui_lib/Line.h"
+#include "ui_lib/Hover.hpp"
+#include "ui_lib/Line.hpp"
 #include "ui_lib/UIElement.hpp"
 
 class UIFleet final : public UIElement {

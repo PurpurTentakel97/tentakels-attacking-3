@@ -3,8 +3,8 @@
 // 29.08.2022
 //
 
-#include "Slider.h"
-#include "Alignment.h"
+#include "Slider.hpp"
+#include "Alignment.hpp"
 #include "AppContext.hpp"
 
 void Slider::CalculateInitialButton() {

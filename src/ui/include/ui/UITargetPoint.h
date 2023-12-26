@@ -6,7 +6,7 @@
 #pragma once
 #include "UIGalaxyElement.hpp"
 #include "helper/HLogicAlias.hpp"
-#include "ui_lib/ShipCountRing.h"
+#include "ui_lib/ShipCountRing.hpp"
 
 /**
  * provides a Ui representation if the logic Planet.

@@ -4,8 +4,8 @@
 //
 
 #pragma once
-#include "Button.h"
-#include "Focusable.h"
+#include "Button.hpp"
+#include "Focusable.hpp"
 
 /**
  * standard button that calls function if it gets released and is down.

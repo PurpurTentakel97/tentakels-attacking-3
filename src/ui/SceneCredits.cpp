@@ -3,15 +3,15 @@
 // 04.11.2022
 //
 
+#include "SceneCredits.hpp"
 #include "AppContext.hpp"
 #include "HSceneCreditTable.hpp"
-#include "SceneCredits.hpp"
-#include "ui_lib/ClassicButton.h"
-#include "ui_lib/Line.h"
-#include "ui_lib/Picture.h"
-#include "ui_lib/SceneType.h"
-#include "ui_lib/Text.h"
-#include "ui_lib/Title.h"
+#include "ui_lib/ButtonClassic.hpp"
+#include "ui_lib/Line.hpp"
+#include "ui_lib/Picture.hpp"
+#include "ui_lib/SceneType.hpp"
+#include "ui_lib/Text.hpp"
+#include "ui_lib/Title.hpp"
 
 void CreditsScene::Initialize() {
     AppContext_ty appContext{ AppContext::GetInstance() };

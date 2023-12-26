@@ -4,7 +4,7 @@
 //
 
 #pragma once
-#include "SliderButton.h"
+#include "ButtonSlider.hpp"
 
 /**
  * provides a slider that returns values between 0 and 100 if its getting slide.

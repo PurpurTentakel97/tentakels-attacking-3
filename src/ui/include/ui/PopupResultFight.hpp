@@ -5,8 +5,8 @@
 
 #pragma once
 #include "helper/HFightResult.hpp"
-#include "ui_lib/CountingNumber.h"
-#include "ui_lib/PopUp.h"
+#include "ui_lib/CountingNumber.hpp"
+#include "ui_lib/PopUp.hpp"
 
 class FightResultPopup : public PopUp {
 private:

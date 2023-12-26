@@ -3,7 +3,7 @@
 // 06.10.2022
 //
 
-#include "Line.h"
+#include "Line.hpp"
 
 Line::Line(Vector2 start, Vector2 end, float thick, Color color)
     : UIElement{ start, end - start, Alignment::DEFAULT },

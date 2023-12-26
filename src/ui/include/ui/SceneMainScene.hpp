@@ -6,8 +6,8 @@
 #pragma once
 #include "event/EventListener.hpp"
 #include "helper/HPlayerData.hpp"
-#include "ui_lib/Scene.h"
-#include "ui_lib/SceneType.h"
+#include "ui_lib/Scene.hpp"
+#include "ui_lib/SceneType.hpp"
 #include <memory>
 
 class GalaxyScene;

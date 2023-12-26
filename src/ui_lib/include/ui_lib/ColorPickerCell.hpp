@@ -4,9 +4,9 @@
 //
 
 #pragma once
+#include "Focusable.hpp"
+#include "Hover.hpp"
 #include "UIElement.hpp"
-#include "Focusable.h"
-#include "Hover.h"
 
 class ColorPicker;
 

@@ -3,20 +3,20 @@
 // 21.11.2022
 //
 
+#include "SceneMainScene.hpp"
 #include "AppContext.hpp"
 #include "HSceneFleetTable.hpp"
 #include "HSceneGalaxyAndSlider.hpp"
 #include "HScenePlanetTable.hpp"
-#include "SceneMainScene.hpp"
 #include "event/EventGenerel.hpp"
 #include "helper/HPlayerCollection.hpp"
 #include "helper/HPrint.hpp"
 #include "logic/Player.hpp"
-#include "ui_lib/ClassicButton.h"
-#include "ui_lib/ExpandingButton.h"
+#include "ui_lib/ButtonClassic.hpp"
+#include "ui_lib/ButtonExpanding.hpp"
 #include "ui_lib/InputLine.hpp"
-#include "ui_lib/Text.h"
-#include "ui_lib/Title.h"
+#include "ui_lib/Text.hpp"
+#include "ui_lib/Title.hpp"
 #include <cassert>
 
 void MainScene::Initialize() {

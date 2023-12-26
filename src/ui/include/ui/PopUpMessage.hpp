@@ -4,8 +4,8 @@
 //
 
 #pragma once
-#include "ui_lib/PopUp.h"
-#include "ui_lib/ClassicButton.h"
+#include "ui_lib/ButtonClassic.hpp"
+#include "ui_lib/PopUp.hpp"
 #include <functional>
 
 /**

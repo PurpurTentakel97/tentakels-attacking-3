@@ -3,10 +3,10 @@
 // 16.07.2023
 //
 
-#include "ExpandingButton.h"
 #include "AppContext.hpp"
-#include "ClassicButton.h"
-#include "ToggleButton.h"
+#include "ButtonClassic.hpp"
+#include "ButtonExpanding.hpp"
+#include "ButtonToggle.hpp"
 #include "event/EventsUI.hpp"
 #include "helper/HInput.hpp"
 #include "helper/HPrint.hpp"

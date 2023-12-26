@@ -3,9 +3,9 @@
 // 04.09.2022
 //
 
-#include "Focus.h"
+#include "Focus.hpp"
 #include "AppContext.hpp"
-#include "Focusable.h"
+#include "Focusable.hpp"
 #include "event/EventsUI.hpp"
 #include "helper/HPrint.hpp"
 #include <functional>

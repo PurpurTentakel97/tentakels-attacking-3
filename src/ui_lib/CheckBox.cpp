@@ -3,7 +3,7 @@
 // 23.10.2022
 //
 
-#include "CheckBox.h"
+#include "CheckBox.hpp"
 #include "AppContext.hpp"
 #include "event/EventsUI.hpp"
 #include "helper/HInput.hpp"

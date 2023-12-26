@@ -5,8 +5,8 @@
 
 #pragma once
 #include "AppContext.hpp"
-#include "ui_lib/Scene.h"
-#include "ui_lib/SceneType.h"
+#include "ui_lib/Scene.hpp"
+#include "ui_lib/SceneType.hpp"
 #include <array>
 #include <functional>
 #include <memory>

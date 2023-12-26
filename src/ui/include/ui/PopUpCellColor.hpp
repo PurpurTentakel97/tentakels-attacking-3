@@ -5,7 +5,7 @@
 
 #pragma once
 #include "PopUpCell.hpp"
-#include "ui_lib/ColorPicker.h"
+#include "ui_lib/ColorPicker.hpp"
 
 /**
  * provides a specific type of the cell popup for colors.

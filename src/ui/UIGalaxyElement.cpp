@@ -6,7 +6,7 @@
 #include "include/ui/UIGalaxyElement.hpp"
 #include "AppContext.hpp"
 #include "helper/HColors.hpp"
-#include "ui_lib/ShipCountRing.h"
+#include "ui_lib/ShipCountRing.hpp"
 
 UIGalaxyElement::UIGalaxyElement(
         unsigned int focusID,

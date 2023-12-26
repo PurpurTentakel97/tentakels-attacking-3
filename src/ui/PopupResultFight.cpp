@@ -3,14 +3,14 @@
 // 06.07.2023
 //
 
+#include "include/ui/PopupResultFight.hpp"
 #include "AppContext.hpp"
 #include "helper/HTextProcessing.hpp"
-#include "include/ui/PopupResultFight.hpp"
 #include "logic/Player.hpp"
 #include "logic/SpaceObject.hpp"
-#include "ui_lib/ClassicButton.h"
-#include "ui_lib/CountingNumber.h"
-#include "ui_lib/Text.h"
+#include "ui_lib/ButtonClassic.hpp"
+#include "ui_lib/CountingNumber.hpp"
+#include "ui_lib/Text.hpp"
 
 void FightResultPopup::Initialize() {
 	// constants

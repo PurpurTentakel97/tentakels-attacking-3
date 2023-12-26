@@ -3,8 +3,8 @@
 // 23.04.2023
 //
 
-#include "AbstractTableCell.h"
 #include "AppContext.hpp"
+#include "TableCellAbstract.hpp"
 #include "event/EventsUI.hpp"
 #include "helper/HColors.hpp"
 #include "helper/HInput.hpp"

@@ -6,9 +6,9 @@
 #include "AppContext.hpp"
 #include "HSceneTestScene.hpp"
 #include "helper/HPrint.hpp"
-#include "ui_lib/ClassicButton.h"
+#include "ui_lib/ButtonClassic.hpp"
 #include "ui_lib/NewTable.hpp"
-#include "ui_lib/SceneType.h"
+#include "ui_lib/SceneType.hpp"
 
 void TestScene::Initialize([[maybe_unused]] AppContext_ty appContext) {
 	auto table = std::make_shared<NewTable>(

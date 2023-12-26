@@ -3,14 +3,14 @@
 // 19.09.2022
 //
 
+#include "SceneMainMenu.hpp"
 #include "AppContext.hpp"
 #include "HSceneGalaxyAndSlider.hpp"
 #include "ManagerUI.hpp"
-#include "SceneMainMenu.hpp"
-#include "ui_lib/ClassicButton.h"
-#include "ui_lib/ExpandingButton.h"
-#include "ui_lib/Text.h"
-#include "ui_lib/Title.h"
+#include "ui_lib/ButtonClassic.hpp"
+#include "ui_lib/ButtonExpanding.hpp"
+#include "ui_lib/Text.hpp"
+#include "ui_lib/Title.hpp"
 #include <memory>
 
 void MainMenu::Initialize() {

@@ -3,12 +3,12 @@
 // 09.11.2022
 //
 
-#include "AppContext.hpp"
 #include "HSceneGalaxyAndSlider.hpp"
+#include "AppContext.hpp"
 #include "UIGalaxy.hpp"
-#include "ui_lib/ClassicButton.h"
-#include "ui_lib/Line.h"
-#include "ui_lib/Slider.h"
+#include "ui_lib/ButtonClassic.hpp"
+#include "ui_lib/Line.hpp"
+#include "ui_lib/Slider.hpp"
 
 void GalaxyScene::Initialize(bool isShowGalaxy, bool isAcceptingInput) {
 

@@ -3,16 +3,16 @@
 // 06.10.2022
 //
 
-#include "ManagerUI.hpp"
 #include "SceneNewGamePlayer.hpp"
+#include "ManagerUI.hpp"
 #include "event/EventGenerel.hpp"
 #include "helper/HFocusEvents.hpp"
-#include "ui_lib/ClassicButton.h"
-#include "ui_lib/ColorPicker.h"
-#include "ui_lib/Line.h"
-#include "ui_lib/Table.h"
-#include "ui_lib/Text.h"
-#include "ui_lib/Title.h"
+#include "ui_lib/ButtonClassic.hpp"
+#include "ui_lib/ColorPicker.hpp"
+#include "ui_lib/Line.hpp"
+#include "ui_lib/Table.hpp"
+#include "ui_lib/Text.hpp"
+#include "ui_lib/Title.hpp"
 #include <cassert>
 
 void NewGamePlayerScene::Initialize() {
