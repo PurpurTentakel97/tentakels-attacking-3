@@ -4,16 +4,15 @@
 //
 
 #include "ManagerGame.hpp"
-#include "AppContext.hpp"
 #include "CopyGalaxyType.hpp"
 #include "Galaxy.hpp"
-#include "event/EventGenerel.hpp"
-#include "helper/HLogicAlias.hpp"
-#include "helper/HPrint.hpp"
-#include "ui_lib/SceneType.hpp"
+#include <AppContext.hpp>
 #include <algorithm>
-#include <cassert>
+#include <event/EventGenerel.hpp>
+#include <helper/HLogicAlias.hpp>
+#include <helper/HPrint.hpp>
 #include <stdexcept>
+#include <ui_lib/SceneType.hpp>
 
 // help Lambdas
 static auto popup = [](std::string const& text) {

@@ -6,10 +6,9 @@
 #include "Focusable.hpp"
 #include "TableCell.hpp"
 #include "UIElement.hpp"
-#include "helper/HFocusEvents.hpp"
-#include "helper/HPrint.hpp"
-#include "helper/HVec2.hpp"
-
+#include <helper/HFocusEvents.hpp>
+#include <helper/HPrint.hpp>
+#include <helper/HVec2.hpp>
 #include <memory>
 #include <stdexcept>
 

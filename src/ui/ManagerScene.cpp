@@ -4,14 +4,12 @@
 //
 
 #include "ManagerScene.hpp"
-#include "AppContext.hpp"
-#include "CustomRaylib.hpp"
 #include "ManagerUI.hpp"
-#include "PopUpMessage.hpp"
 #include "SceneAll.hpp"
-#include "helper/HPrint.hpp"
-#include "ui_lib/Scene.hpp"
-#include "ui_lib/SceneType.hpp"
+#include <AppContext.hpp>
+#include <CustomRaylib.hpp>
+#include <helper/HPrint.hpp>
+#include <ui_lib/SceneType.hpp>
 
 
 void SceneManager::InitializeNewScene(SceneType sceneType) {

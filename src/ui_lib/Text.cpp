@@ -4,10 +4,9 @@
 //
 
 #include "Text.hpp"
-#include "AppContext.hpp"
-#include "helper/HPrint.hpp"
-#include "helper/HTextProcessing.hpp"
+#include <AppContext.hpp>
 #include <cassert>
+#include <helper/HTextProcessing.hpp>
 
 void Text::CreateToRender() {
     std::vector<std::string> const spitedText{ BreakLines(m_text) };

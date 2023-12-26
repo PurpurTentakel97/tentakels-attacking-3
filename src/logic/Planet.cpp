@@ -4,10 +4,10 @@
 //
 
 #include "Planet.hpp"
-#include "AppContext.hpp"
 #include "Player.hpp"
-#include "helper/HPrint.hpp"
-#include "helper/HRandom.hpp"
+#include <AppContext.hpp>
+#include <helper/HPrint.hpp>
+#include <helper/HRandom.hpp>
 
 Planet::Planet(unsigned int ID, vec2pos position, Player_ty player, bool isHomePlanet, int planetNumber)
     : Planet{ ID, position, player, isHomePlanet, planetNumber, 0 } { }

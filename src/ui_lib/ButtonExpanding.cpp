@@ -3,13 +3,11 @@
 // 16.07.2023
 //
 
-#include "AppContext.hpp"
-#include "ButtonClassic.hpp"
 #include "ButtonExpanding.hpp"
+#include "ButtonClassic.hpp"
 #include "ButtonToggle.hpp"
-#include "event/EventsUI.hpp"
-#include "helper/HInput.hpp"
-#include "helper/HPrint.hpp"
+#include <AppContext.hpp>
+#include <event/EventsUI.hpp>
 
 void ExpandingButton::Initialize(int focusID, std::string const& btnText) {
     AppContext_ty_c appContext{ AppContext::GetInstance() };

@@ -3,9 +3,9 @@
 // 04.09.2022
 //
 
-#include "AppContext.hpp"
 #include "ButtonClassic.hpp"
-#include "helper/HInput.hpp"
+#include <AppContext.hpp>
+#include <helper/HInput.hpp>
 
 ClassicButton::ClassicButton(
         unsigned int focusID,

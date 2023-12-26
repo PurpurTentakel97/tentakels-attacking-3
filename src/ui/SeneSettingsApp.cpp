@@ -3,12 +3,12 @@
 // 18.07.2023
 //
 
-#include "AppContext.hpp"
 #include "HSceneSliderAndInputLine.hpp"
 #include "SceneSettingsApp.hpp"
-#include "ui_lib/CheckBox.hpp"
-#include "ui_lib/DropDown.hpp"
-#include "ui_lib/Text.hpp"
+#include <AppContext.hpp>
+#include <ui_lib/CheckBox.hpp>
+#include <ui_lib/DropDown.hpp>
+#include <ui_lib/Text.hpp>
 
 void AppSettingsScene::Initialize() {
     AppContext_ty_c appContext{ AppContext::GetInstance() };

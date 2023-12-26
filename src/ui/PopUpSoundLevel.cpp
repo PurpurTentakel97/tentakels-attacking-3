@@ -3,14 +3,14 @@
 // 14.11.2022
 //
 
-#include "AppContext.hpp"
 #include "PopUpSoundLeven.hpp"
-#include "helper/HFocusEvents.hpp"
-#include "helper/HGeneral.hpp"
-#include "ui_lib/ButtonClassic.hpp"
-#include "ui_lib/CheckBox.hpp"
-#include "ui_lib/Slider.hpp"
-#include "ui_lib/Text.hpp"
+#include <AppContext.hpp>
+#include <helper/HFocusEvents.hpp>
+#include <helper/HGeneral.hpp>
+#include <ui_lib/ButtonClassic.hpp>
+#include <ui_lib/CheckBox.hpp>
+#include <ui_lib/Slider.hpp>
+#include <ui_lib/Text.hpp>
 
 void SoundLevelPopUp::Initialize() {
     AppContext_ty_c appContext = AppContext::GetInstance();

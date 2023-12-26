@@ -4,9 +4,8 @@
 //
 
 #pragma once
-#include <utility>
-#include <memory>
 #include "HLogicAlias.hpp"
+#include <memory>
+#include <utility>
 
-[[nodiscard]] std::pair<bool, SpaceObject_ty> TryGetTarget(
-	Fleet_ty_raw fleet, SpaceObject_ty_c target);
+[[nodiscard]] std::pair<bool, SpaceObject_ty> TryGetTarget(Fleet_ty_raw fleet, SpaceObject_ty_c target);

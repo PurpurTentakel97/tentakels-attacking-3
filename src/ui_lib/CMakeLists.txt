@@ -35,7 +35,6 @@ add_library(ui_lib STATIC
             AbstactTableCell.cpp
             Alignment.cpp
             Button.cpp
-            ../ui/PopUpCell.cpp
             CheckBox.cpp
             ButtonClassic.cpp
             ColorPicker.cpp

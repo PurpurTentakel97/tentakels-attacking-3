@@ -4,11 +4,9 @@
 //
 
 #include "HGalaxy.hpp"
-#include "logic/Fleet.hpp"
-#include "logic/SpaceObject.hpp"
+#include <logic/Fleet.hpp>
 
-std::pair<bool, SpaceObject_ty> TryGetTarget(
-        Fleet_ty_raw fleet, SpaceObject_ty_c target) {
+std::pair<bool, SpaceObject_ty> TryGetTarget(Fleet_ty_raw fleet, SpaceObject_ty_c target) {
 
     if (target->IsFleet()) {
         if (target->GetID() == fleet->GetID()) {

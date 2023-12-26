@@ -4,11 +4,11 @@
 //
 
 #include "HSceneFleetTable.hpp"
-#include "helper/HFocusEvents.hpp"
-#include "logic/Galaxy.hpp"
-#include "logic/Player.hpp"
-#include "ui_lib/Table.hpp"
-#include "ui_lib/Text.hpp"
+#include <helper/HFocusEvents.hpp>
+#include <logic/Galaxy.hpp>
+#include <logic/Player.hpp>
+#include <ui_lib/Table.hpp>
+#include <ui_lib/Text.hpp>
 
 void FleetAndTargetPointTable::Initialization(PlayerData currentPlayer) {
     AppContext_ty_c appContext{ AppContext::GetInstance() };

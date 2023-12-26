@@ -5,29 +5,29 @@
 
 #pragma once
 #include "UIGalaxyElement.hpp"
-#include "helper/HLogicAlias.hpp"
-#include "ui_lib/ShipCountRing.hpp"
+#include <helper/HLogicAlias.hpp>
 
 /**
  * provides a Ui representation if the logic Planet.
  * gets implemented by the UIGalaxy.
  */
-class UITargetPoint final : public UIGalaxyElement {
+class UIPlanet final : public UIGalaxyElement {
 private:
-    TargetPoint_ty_raw_c m_targetPoint; ///< contains the logic TargetPoint to this TargetPoint
+    Planet_ty_raw_c m_planet; ///< contains the logic Planet to this Planet
+    Vector2 m_renderOffset;   ///< contains the offset to the collider for rendering
 
 public:
     /**
 	 * ctor.
 	 * converts the id to a string.
 	 */
-    UITargetPoint(
+    UIPlanet(
             unsigned int focusID,
             unsigned int ID,
             PlayerData player,
             Vector2 pos,
             Vector2 colliderPos,
-            TargetPoint_ty_raw_c targetPoint
+            Planet_ty_raw_c planet
     );
 
     /**

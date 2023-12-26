@@ -4,13 +4,12 @@
 //
 
 #include "SceneLogos.hpp"
-#include "AppContext.hpp"
 #include "ManagerUI.hpp"
-#include "helper/HInput.hpp"
-#include "ui_lib/Picture.hpp"
-#include "ui_lib/SceneType.hpp"
-#include "ui_lib/Text.hpp"
+#include <AppContext.hpp>
+#include <helper/HInput.hpp>
 #include <memory>
+#include <ui_lib/Picture.hpp>
+#include <ui_lib/Text.hpp>
 
 
 void LogoScene::Initialize() {

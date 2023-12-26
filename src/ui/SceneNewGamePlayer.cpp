@@ -5,15 +5,14 @@
 
 #include "SceneNewGamePlayer.hpp"
 #include "ManagerUI.hpp"
-#include "event/EventGenerel.hpp"
-#include "helper/HFocusEvents.hpp"
-#include "ui_lib/ButtonClassic.hpp"
-#include "ui_lib/ColorPicker.hpp"
-#include "ui_lib/Line.hpp"
-#include "ui_lib/Table.hpp"
-#include "ui_lib/Text.hpp"
-#include "ui_lib/Title.hpp"
-#include <cassert>
+#include <event/EventGenerel.hpp>
+#include <helper/HFocusEvents.hpp>
+#include <ui_lib/ButtonClassic.hpp>
+#include <ui_lib/ColorPicker.hpp>
+#include <ui_lib/Line.hpp>
+#include <ui_lib/Table.hpp>
+#include <ui_lib/Text.hpp>
+#include <ui_lib/Title.hpp>
 
 void NewGamePlayerScene::Initialize() {
     AppContext_ty_c appContext{ AppContext::GetInstance() };

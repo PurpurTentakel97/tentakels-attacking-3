@@ -4,20 +4,19 @@
 //
 
 #include "SceneMainScene.hpp"
-#include "AppContext.hpp"
 #include "HSceneFleetTable.hpp"
 #include "HSceneGalaxyAndSlider.hpp"
 #include "HScenePlanetTable.hpp"
-#include "event/EventGenerel.hpp"
-#include "helper/HPlayerCollection.hpp"
-#include "helper/HPrint.hpp"
-#include "logic/Player.hpp"
-#include "ui_lib/ButtonClassic.hpp"
-#include "ui_lib/ButtonExpanding.hpp"
-#include "ui_lib/InputLine.hpp"
-#include "ui_lib/Text.hpp"
-#include "ui_lib/Title.hpp"
+#include <AppContext.hpp>
 #include <cassert>
+#include <event/EventGenerel.hpp>
+#include <helper/HPlayerCollection.hpp>
+#include <logic/Player.hpp>
+#include <ui_lib/ButtonClassic.hpp>
+#include <ui_lib/ButtonExpanding.hpp>
+#include <ui_lib/InputLine.hpp>
+#include <ui_lib/Text.hpp>
+#include <ui_lib/Title.hpp>
 
 void MainScene::Initialize() {
 

@@ -3,13 +3,13 @@
 // 23.04.2023
 //
 
-#include "AppContext.hpp"
-#include "TableCellAbstract.hpp"
-#include "event/EventsUI.hpp"
-#include "helper/HColors.hpp"
-#include "helper/HInput.hpp"
-#include "helper/HPrint.hpp"
 #pragma once
+#include "TableCellAbstract.hpp"
+#include <AppContext.hpp>
+#include <event/EventsUI.hpp>
+#include <helper/HColors.hpp>
+#include <helper/HInput.hpp>
+#include <helper/HPrint.hpp>
 
 template<typename T>
 class TableCell final : public AbstractTableCell {

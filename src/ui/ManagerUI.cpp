@@ -3,10 +3,10 @@
 // 24.08.2022
 //
 
-#include "HSceneTestScene.hpp"
 #include "ManagerUI.hpp"
-#include "helper/HInput.hpp"
-#include "helper/HPrint.hpp"
+#include "HSceneTestScene.hpp"
+#include <helper/HInput.hpp>
+#include <helper/HPrint.hpp>
 
 Focus& UIManager::GetFocus() {
     return m_focus;

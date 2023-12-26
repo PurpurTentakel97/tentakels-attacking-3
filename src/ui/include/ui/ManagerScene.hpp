@@ -4,10 +4,10 @@
 //
 
 #pragma once
-#include "ManagerPopUp.h"
-#include "ui_lib/PopUp.hpp"
-#include "ui_lib/SceneType.hpp"
+#include "ManagerPopUp.hpp"
 #include <memory>
+#include <ui_lib/PopUp.hpp>
+#include <ui_lib/SceneType.hpp>
 #include <unordered_map>
 #include <vector>
 

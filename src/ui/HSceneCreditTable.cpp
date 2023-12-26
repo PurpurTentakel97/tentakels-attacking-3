@@ -4,11 +4,10 @@
 //
 
 #include "HSceneCreditTable.hpp"
-#include "AppContext.hpp"
-#include "ui_lib/Line.hpp"
-#include "ui_lib/Text.hpp"
-#include <cassert>
+#include <AppContext.hpp>
 #include <stdexcept>
+#include <ui_lib/Line.hpp>
+#include <ui_lib/Text.hpp>
 
 
 void CreditTableScene::Initialize(std::string const& headline, creditEntries const& entries, bool containsLink) {

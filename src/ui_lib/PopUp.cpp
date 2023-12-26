@@ -4,12 +4,12 @@
 //
 
 #include "PopUp.hpp"
-#include "AppContext.hpp"
 #include "Picture.hpp"
 #include "Text.hpp"
-#include "helper/HGeneral.hpp"
-#include "helper/HInput.hpp"
-#include "helper/HTextProcessing.hpp"
+#include <AppContext.hpp>
+#include <helper/HGeneral.hpp>
+#include <helper/HInput.hpp>
+#include <helper/HTextProcessing.hpp>
 #include <string>
 
 void PopUp::Initialize(std::string const& title, std::string& subTitle, AssetType infoTexture) {

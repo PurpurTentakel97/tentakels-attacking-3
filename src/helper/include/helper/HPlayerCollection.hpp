@@ -6,8 +6,8 @@
 #pragma once
 #include "HGeneral.hpp"
 #include "HPlayerData.hpp"
-#include "event/EventListener.hpp"
 #include <array>
+#include <event/EventListener.hpp>
 #include <string>
 #include <vector>
 

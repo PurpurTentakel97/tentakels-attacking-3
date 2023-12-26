@@ -6,9 +6,9 @@
 #pragma once
 #include "ManagerGalaxy.hpp"
 #include "Player.hpp"
-#include "event/EventGenerel.hpp"
-#include "event/EventListener.hpp"
-#include "event/EventsUI.hpp"
+#include <event/EventGenerel.hpp>
+#include <event/EventListener.hpp>
+#include <event/EventsUI.hpp>
 #include <memory>
 #include <random>
 #include <vector>

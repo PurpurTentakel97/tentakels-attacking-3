@@ -19,7 +19,7 @@ add_library(ui STATIC
             include/ui/SceneNewGameParameter.hpp
             include/ui/SceneNewGamePlayer.hpp
             include/ui/HScenePlanetTable.hpp
-            include/ui/ManagerPopUp.h
+            include/ui/ManagerPopUp.hpp
             include/ui/PrivativeCellPopUp.hpp
             include/ui/ManagerScene.hpp
             include/ui/SceneAll.hpp
@@ -31,13 +31,12 @@ add_library(ui STATIC
             include/ui/UIGalaxy.hpp
             include/ui/UIGalaxyElement.hpp
             include/ui/ManagerUI.hpp
-            include/ui/UIPlanet.h
-            include/ui/UITargetPoint.h
+            include/ui/UIPlanet.hpp
+            include/ui/UITargetPoint.hpp
             include/ui/SceneUpdateEvaluation.hpp
             include/ui/SceneValidateGalaxy.hpp
             include/ui/PopUpValidate.hpp
             SeneSettingsApp.cpp
-            PopUpCell.cpp
             PopUpCellColor.cpp
             HSceneCreditTable.cpp
             SceneCredits.cpp
@@ -70,6 +69,7 @@ add_library(ui STATIC
             SceneUpdateEvaluation.cpp
             SceneValidateGalaxy.cpp
             PopUpValidate.cpp
+            PopUpCell.cpp
 )
 
 target_include_directories(ui

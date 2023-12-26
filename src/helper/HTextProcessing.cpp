@@ -4,10 +4,10 @@
 //
 
 #include "HTextProcessing.hpp"
-#include "AppContext.hpp"
-#include "CustomRaylib.hpp"
-#include "ui_lib/Alignment.hpp"
+#include <AppContext.hpp>
+#include <CustomRaylib.hpp>
 #include <cassert>
+#include <ui_lib/Alignment.hpp>
 
 [[nodiscard]] std::vector<std::string> GetSerializedText(std::string const& text) {
     size_t lhs{ 0 };
