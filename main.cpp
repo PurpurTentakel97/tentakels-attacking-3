@@ -6,11 +6,11 @@
 
 // original Random by coder2k (https://gist.github.com/mgerhold/353e39da27ae9b22c614bc264c8a3d18)
 
-#include "helper/HPrint.h"
-#include "ui/UIManager.h"
-#include "helper/HErrorLog.h"
-#include "AppContext.h"
+#include "AppContext.hpp"
+#include "helper/HErrorLog.hpp"
 #include "helper/HLogicAlias.hpp"
+#include "helper/HPrint.hpp"
+#include "ui/ManagerUI.hpp"
 
 int main() {
     SetConfigFlags(FLAG_VSYNC_HINT);

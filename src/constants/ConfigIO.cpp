@@ -3,13 +3,13 @@
 // 27.10.2022
 //
 
-#include "ConfigIO.h"
-#include "AppContext.h"
-#include "helper/HPrint.h"
-#include "helper/HConfigEnum.h"
+#include "ConfigIO.hpp"
+#include "AppContext.hpp"
+#include "helper/HConfigEnum.hpp"
+#include "helper/HPrint.hpp"
+#include <cassert>
 #include <filesystem>
 #include <nlohmann/json.hpp>
-#include <cassert>
 
 // string defaults
 static std::string const defaultValuePrefix{ "-> using default value -> overwrite config by save" };

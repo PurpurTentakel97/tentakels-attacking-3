@@ -3,10 +3,10 @@
 // 15.06.2023
 //
 
-#include "include/ui/UIGalaxyElement.h"
-#include "AppContext.h"
-#include "helper/HColors.h"
-#include "ui_lib/ShipCountRing.h"
+#include "include/ui/UIGalaxyElement.hpp"
+#include "AppContext.hpp"
+#include "helper/HColors.hpp"
+#include "ui_lib/ShipCountRing.hpp"
 
 UIGalaxyElement::UIGalaxyElement(
         unsigned int focusID,

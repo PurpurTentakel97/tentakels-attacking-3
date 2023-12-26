@@ -1,5 +1,5 @@
 add_library(app_context STATIC
-            include/AppContext.h
+            include/AppContext.hpp
             AppContext.cpp
 )
 

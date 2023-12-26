@@ -3,10 +3,10 @@
 // 23.10.2022
 //
 
-#include "CheckBox.h"
-#include "AppContext.h"
-#include "event/UIEvents.hpp"
-#include "helper/HInput.h"
+#include "CheckBox.hpp"
+#include "AppContext.hpp"
+#include "event/EventsUI.hpp"
+#include "helper/HInput.hpp"
 
 void CheckBox::Check(AppContext_ty_c appContext) {
 	if (m_isChecked) {

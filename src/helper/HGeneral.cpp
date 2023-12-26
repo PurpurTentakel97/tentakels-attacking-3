@@ -3,7 +3,7 @@
 // 05.09.2022
 //
 
-#include "HGeneral.h"
+#include "HGeneral.hpp"
 
 // Colors
 bool operator==(Color lhs, Color rhs) {

@@ -4,9 +4,9 @@
 //
 
 #pragma once
-#include "UIElement.hpp"
-#include "Focusable.h"
+#include "Focusable.hpp"
 #include "NewTableCell.hpp"
+#include "UIElement.hpp"
 
 #include <unordered_map>
 #include <vector>

@@ -3,10 +3,10 @@
 // 14.05.2023
 //
 
-#include "HoverRender.h"
-#include "Hover.h"
-#include "event/UIEvents.hpp"
-#include "AppContext.h"
+#include "HoverRender.hpp"
+#include "AppContext.hpp"
+#include "Hover.hpp"
+#include "event/EventsUI.hpp"
 
 HoverRender::HoverRender() {
 	AppContext::GetInstance().eventManager.AddListener(this);

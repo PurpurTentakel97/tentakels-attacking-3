@@ -3,11 +3,11 @@
 // 07.11.2022
 //
 
-#include "Planet.h"
-#include "AppContext.h"
-#include "Player.h"
-#include "helper/HPrint.h"
-#include "helper/HRandom.h"
+#include "Planet.hpp"
+#include "AppContext.hpp"
+#include "Player.hpp"
+#include "helper/HPrint.hpp"
+#include "helper/HRandom.hpp"
 
 Planet::Planet(unsigned int ID, vec2pos position, Player_ty player, bool isHomePlanet, int planetNumber)
     : Planet{ ID, position, player, isHomePlanet, planetNumber, 0 } { }

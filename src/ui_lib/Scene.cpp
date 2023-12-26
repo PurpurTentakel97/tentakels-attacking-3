@@ -3,11 +3,11 @@
 // 05.09.2022
 //
 
-#include "Scene.h"
-#include "Focus.h"
-#include "Focusable.h"
-#include "AppContext.h"
-#include "helper/HFocusEvents.h"
+#include "Scene.hpp"
+#include "AppContext.hpp"
+#include "Focus.hpp"
+#include "Focusable.hpp"
+#include "helper/HFocusEvents.hpp"
 
 void Scene::SetFocusActive(AppContext_ty_c) {
 	if (m_active) {

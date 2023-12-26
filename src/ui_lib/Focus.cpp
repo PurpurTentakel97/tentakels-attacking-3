@@ -3,13 +3,13 @@
 // 04.09.2022
 //
 
-#include "Focus.h"
-#include "Focusable.h"
-#include "AppContext.h"
-#include "event/UIEvents.hpp"
-#include "helper/HPrint.h"
-#include <stdexcept>
+#include "Focus.hpp"
+#include "AppContext.hpp"
+#include "Focusable.hpp"
+#include "event/EventsUI.hpp"
+#include "helper/HPrint.hpp"
 #include <functional>
+#include <stdexcept>
 
 bool Focus::HasAnyEnabledElements() const {
 	for (auto const& e : m_focus) {

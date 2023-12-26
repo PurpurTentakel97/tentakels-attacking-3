@@ -3,8 +3,8 @@
 // 07.04.2023
 //
 
-#include "helper/HPrint.h"
-#include "AbstractTableCell.h"
+#include "TableCellAbstract.hpp"
+#include "helper/HPrint.hpp"
 
 
 AbstractTableCell::AbstractTableCell(Vector2 pos, Vector2 size, Alignment alignment, unsigned int focusID)

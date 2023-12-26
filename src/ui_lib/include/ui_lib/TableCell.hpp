@@ -3,12 +3,12 @@
 // 23.04.2023
 //
 
-#include "AbstractTableCell.h"
-#include "AppContext.h"
-#include "event/UIEvents.hpp"
-#include "helper/HColors.h"
-#include "helper/HInput.h"
-#include "helper/HPrint.h"
+#include "AppContext.hpp"
+#include "TableCellAbstract.hpp"
+#include "event/EventsUI.hpp"
+#include "helper/HColors.hpp"
+#include "helper/HInput.hpp"
+#include "helper/HPrint.hpp"
 #pragma once
 
 template<typename T>

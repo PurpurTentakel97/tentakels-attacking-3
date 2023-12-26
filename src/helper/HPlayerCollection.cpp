@@ -3,11 +3,11 @@
 // 11.10.2022
 //
 
-#include "HPlayerCollection.h"
-#include "AppContext.h"
+#include "HPlayerCollection.hpp"
+#include "AppContext.hpp"
 #include "HLogicAlias.hpp"
-#include "event/GenerelEvents.hpp"
-#include "event/UIEvents.hpp"
+#include "event/EventGenerel.hpp"
+#include "event/EventsUI.hpp"
 #include <algorithm>
 #include <stdexcept>
 

@@ -3,10 +3,10 @@
 // 03.04.2023
 //
 
-#include "Table.h"
-#include "AppContext.h"
-#include "Slider.h"
-#include "helper/HInput.h"
+#include "Table.hpp"
+#include "AppContext.hpp"
+#include "Slider.hpp"
+#include "helper/HInput.hpp"
 
 
 bool Table::IsValidIndex(size_t row, size_t column) const {

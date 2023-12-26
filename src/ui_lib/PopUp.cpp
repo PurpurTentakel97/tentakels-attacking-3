@@ -3,13 +3,13 @@
 // 10.09.2022
 //
 
-#include "PopUp.h"
-#include "AppContext.h"
-#include "Picture.h"
-#include "Text.h"
-#include "helper/HGeneral.h"
-#include "helper/HInput.h"
-#include "helper/HTextProcessing.h"
+#include "PopUp.hpp"
+#include "AppContext.hpp"
+#include "Picture.hpp"
+#include "Text.hpp"
+#include "helper/HGeneral.hpp"
+#include "helper/HInput.hpp"
+#include "helper/HTextProcessing.hpp"
 #include <string>
 
 void PopUp::Initialize(std::string const& title, std::string& subTitle, AssetType infoTexture) {

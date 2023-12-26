@@ -3,10 +3,10 @@
 // 20.10.2022
 //
 
-#include "HColors.h"
-#include "event/UIEvents.hpp"
-#include "HGeneral.h"
-#include "AppContext.h"
+#include "HColors.hpp"
+#include "AppContext.hpp"
+#include "HGeneral.hpp"
+#include "event/EventsUI.hpp"
 
 bool Colors::CheckValidColor(Color const& color) const {
 	return std::find(m_colors.begin(), m_colors.end(), color)

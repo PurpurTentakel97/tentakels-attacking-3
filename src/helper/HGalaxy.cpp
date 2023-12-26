@@ -3,9 +3,9 @@
 // 25.05.23
 //
 
-#include "HGalaxy.h"
-#include "logic/Fleet.h"
-#include "logic/SpaceObject.h"
+#include "HGalaxy.hpp"
+#include "logic/Fleet.hpp"
+#include "logic/SpaceObject.hpp"
 
 std::pair<bool, SpaceObject_ty> TryGetTarget(
         Fleet_ty_raw fleet, SpaceObject_ty_c target) {

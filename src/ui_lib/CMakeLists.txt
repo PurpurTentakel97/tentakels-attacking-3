@@ -1,49 +1,49 @@
 add_library(ui_lib STATIC
-            include/ui_lib/AbstractTableCell.h
-            include/ui_lib/Alignment.h
-            include/ui_lib/Button.h
-            include/ui_lib/CheckBox.h
-            include/ui_lib/ClassicButton.h
-            include/ui_lib/ColorPicker.h
-            include/ui_lib/ColorPickerCell.h
-            include/ui_lib/CountingNumber.h
-            include/ui_lib/DropDown.h
-            include/ui_lib/DropDownElement.h
-            include/ui_lib/ExpandingButton.h
-            include/ui_lib/Focus.h
-            include/ui_lib/Focusable.h
-            include/ui_lib/Hover.h
-            include/ui_lib/HoverRender.h
+            include/ui_lib/TableCellAbstract.hpp
+            include/ui_lib/Alignment.hpp
+            include/ui_lib/Button.hpp
+            include/ui_lib/CheckBox.hpp
+            include/ui_lib/ButtonClassic.hpp
+            include/ui_lib/ColorPicker.hpp
+            include/ui_lib/ColorPickerCell.hpp
+            include/ui_lib/CountingNumber.hpp
+            include/ui_lib/DropDown.hpp
+            include/ui_lib/DropDownElement.hpp
+            include/ui_lib/ButtonExpanding.hpp
+            include/ui_lib/Focus.hpp
+            include/ui_lib/Focusable.hpp
+            include/ui_lib/Hover.hpp
+            include/ui_lib/HoverRender.hpp
             include/ui_lib/InputLine.hpp
-            include/ui_lib/Line.h
-            include/ui_lib/LineDrag.h
-            include/ui_lib/Picture.h
-            include/ui_lib/PopUp.h
-            include/ui_lib/Scene.h
-            include/ui_lib/SceneType.h
-            include/ui_lib/ShipCountRing.h
-            include/ui_lib/Slider.h
-            include/ui_lib/SliderButton.h
-            include/ui_lib/Table.h
+            include/ui_lib/Line.hpp
+            include/ui_lib/LineDrag.hpp
+            include/ui_lib/Picture.hpp
+            include/ui_lib/PopUp.hpp
+            include/ui_lib/Scene.hpp
+            include/ui_lib/SceneType.hpp
+            include/ui_lib/ShipCountRing.hpp
+            include/ui_lib/Slider.hpp
+            include/ui_lib/ButtonSlider.hpp
+            include/ui_lib/Table.hpp
             include/ui_lib/TableCell.hpp
-            include/ui_lib/Text.h
-            include/ui_lib/Title.h
-            include/ui_lib/ToggleButton.h
+            include/ui_lib/Text.hpp
+            include/ui_lib/Title.hpp
+            include/ui_lib/ButtonToggle.hpp
             include/ui_lib/UIElement.hpp
             include/ui_lib/NewTable.hpp
             include/ui_lib/NewTableCell.hpp
             AbstactTableCell.cpp
             Alignment.cpp
             Button.cpp
-            ../ui/CellPopUp.cpp
+            ../ui/PopUpCell.cpp
             CheckBox.cpp
-            ClassicButton.cpp
+            ButtonClassic.cpp
             ColorPicker.cpp
             ColorPickerCell.cpp
             CountingNumber.cpp
             DropDown.cpp
             DropDownElement.cpp
-            ExpandingButton.cpp
+            ButtonExpanding.cpp
             Focus.cpp
             Focusable.cpp
             Hover.cpp
@@ -56,11 +56,11 @@ add_library(ui_lib STATIC
             SceneType.cpp
             ShipCountRing.cpp
             Slider.cpp
-            SliderButton.cpp
+            ButtonSlider.cpp
             Table.cpp
             Text.cpp
             Title.cpp
-            ToggleButton.cpp
+            ButtonToggle.cpp
             NewTable.cpp
             NewTableCell.cpp
 )

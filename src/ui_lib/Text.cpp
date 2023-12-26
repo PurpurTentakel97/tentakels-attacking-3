@@ -3,10 +3,10 @@
 // 14.09.2022
 //
 
-#include "Text.h"
-#include "AppContext.h"
-#include "helper/HPrint.h"
-#include "helper/HTextProcessing.h"
+#include "Text.hpp"
+#include "AppContext.hpp"
+#include "helper/HPrint.hpp"
+#include "helper/HTextProcessing.hpp"
 #include <cassert>
 
 void Text::CreateToRender() {

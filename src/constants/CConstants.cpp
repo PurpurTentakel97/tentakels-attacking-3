@@ -3,7 +3,7 @@
 // 09.06.2023
 //
 
-#include "CConstants.h"
+#include "CConstants.hpp"
 
 int Constants::GetConfigValueCount() const {
     return

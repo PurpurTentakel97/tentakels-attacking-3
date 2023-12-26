@@ -3,11 +3,11 @@
 // 16.02.22
 //
 
-#include "Fleet.h"
-#include "helper/HPrint.h"
-#include "Galaxy.h"
-#include "helper/HGalaxy.h"
-#include "AppContext.h"
+#include "Fleet.hpp"
+#include "AppContext.hpp"
+#include "Galaxy.hpp"
+#include "helper/HGalaxy.hpp"
+#include "helper/HPrint.hpp"
 #include <cmath>
 
 Fleet::Fleet(unsigned int ID, vec2pos_ty position, Player_ty player,

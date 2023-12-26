@@ -3,8 +3,8 @@
 // 23.07.2023
 //
 
-#include "ShipCountRing.h"
-#include "AppContext.h"
+#include "ShipCountRing.hpp"
+#include "AppContext.hpp"
 
 void CountRing::CalculateRing() {
     Resolution_ty_c resolution{ AppContext::GetInstance().GetResolution() };

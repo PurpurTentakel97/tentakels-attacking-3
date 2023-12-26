@@ -3,10 +3,10 @@
 // 19.09.2022
 //
 
-#include "Title.h"
-#include "AppContext.h"
-#include "helper/HInput.h"
-#include "helper/HRandom.h"
+#include "Title.hpp"
+#include "AppContext.hpp"
+#include "helper/HInput.hpp"
+#include "helper/HRandom.hpp"
 
 void Title::RenderTitle(AppContext_ty_c appContext) {
     for (size_t i = 0; i < m_title->size(); ++i) {

@@ -3,8 +3,8 @@
 // 15.09.2022
 //
 
-#include "Picture.h"
-#include "AppContext.h"
+#include "Picture.hpp"
+#include "AppContext.hpp"
 #include <iostream>
 
 void Picture::ScaleToFit() {

@@ -3,15 +3,15 @@
 // 08.11.22
 //
 
-#include "Galaxy.h"
-#include "AppContext.h"
-#include "Player.h"
-#include "event/UIEvents.hpp"
-#include "helper/HFightResult.h"
+#include "Galaxy.hpp"
+#include "AppContext.hpp"
+#include "Player.hpp"
+#include "event/EventsUI.hpp"
+#include "helper/HFightResult.hpp"
 #include "helper/HFleetResult.hpp"
-#include "helper/HGalaxy.h"
-#include "helper/HPrint.h"
-#include "helper/HRandom.h"
+#include "helper/HGalaxy.hpp"
+#include "helper/HPrint.hpp"
+#include "helper/HRandom.hpp"
 #include <stdexcept>
 
 // help Lambdas

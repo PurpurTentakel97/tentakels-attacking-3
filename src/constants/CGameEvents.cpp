@@ -3,7 +3,7 @@
 // 12.07.2023
 //
 
-#include "CGameEvents.h"
+#include "CGameEvents.hpp"
 
 
 void CGameEvents::SetFlag(HGameEventType const type, bool const active) {

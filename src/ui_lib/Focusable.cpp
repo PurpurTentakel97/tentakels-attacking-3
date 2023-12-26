@@ -3,11 +3,11 @@
 // 04.09.2022
 //
 
-#include "Focusable.h"
-#include "AppContext.h"
-#include "helper/HFocusEvents.h"
-#include "event/UIEvents.hpp"
-#include "helper/HPrint.h"
+#include "Focusable.hpp"
+#include "AppContext.hpp"
+#include "event/EventsUI.hpp"
+#include "helper/HFocusEvents.hpp"
+#include "helper/HPrint.hpp"
 
 Focusable::Focusable(unsigned int ID)
 	: m_focusID(ID) { }

@@ -3,10 +3,10 @@
 // 25.09.2022
 //
 
-#include "HTextProcessing.h"
-#include "AppContext.h"
-#include "CustomRaylib.h"
-#include "ui_lib/Alignment.h"
+#include "HTextProcessing.hpp"
+#include "AppContext.hpp"
+#include "CustomRaylib.hpp"
+#include "ui_lib/Alignment.hpp"
 #include <cassert>
 
 [[nodiscard]] std::vector<std::string> GetSerializedText(std::string const& text) {

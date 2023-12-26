@@ -3,11 +3,11 @@
 // 05.10.2022
 //
 
-#include "ColorPickerCell.h"
-#include "ColorPicker.h"
-#include "AppContext.h"
-#include "helper/HFocusEvents.h"
-#include "helper/HInput.h"
+#include "ColorPickerCell.hpp"
+#include "AppContext.hpp"
+#include "ColorPicker.hpp"
+#include "helper/HFocusEvents.hpp"
+#include "helper/HInput.hpp"
 #include <iostream>
 
 void ColorPickerCell::SetColor() const {

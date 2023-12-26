@@ -3,9 +3,9 @@
 // 29.08.2022
 //
 
-#include "Slider.h"
-#include "Alignment.h"
-#include "AppContext.h"
+#include "Slider.hpp"
+#include "Alignment.hpp"
+#include "AppContext.hpp"
 
 void Slider::CalculateInitialButton() {
 	float const sizeX{ m_isHorizontal ? m_size.x / m_absoluteDimension : m_size.x };

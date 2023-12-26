@@ -12,11 +12,11 @@ using AppContext_ty = AppContext&;
 using AppContext_ty_c = AppContext const&;
 
 template<typename T>
-struct Vec2;
-using vec2pos_ty = Vec2<int>;
-using vec2pos_ty_ref = Vec2<int>&;
-using vec2pos_ty_c = Vec2<int> const;
-using vec2pos_ty_ref_c = Vec2<int> const&;
+struct HVec2;
+using vec2pos_ty = HVec2<int>;
+using vec2pos_ty_ref = HVec2<int>&;
+using vec2pos_ty_c = HVec2<int> const;
+using vec2pos_ty_ref_c = HVec2<int> const&;
 
 class SpaceObject;
 using SpaceObject_ty = std::shared_ptr<SpaceObject>;

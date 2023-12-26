@@ -3,8 +3,8 @@
 // 16.02.2022
 //
 
-#include "TargetPoint.h"
-#include "helper/HPrint.h"
+#include "TargetPoint.hpp"
+#include "helper/HPrint.hpp"
 
 
 bool TargetPoint::IsTargetPoint() const {

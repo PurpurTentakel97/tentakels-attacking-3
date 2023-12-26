@@ -4,9 +4,9 @@
 //
 
 #pragma once
+#include "Focusable.hpp"
 #include "UIElement.hpp"
-#include "Focusable.h"
-#include "helper/HPrint.h"
+#include "helper/HPrint.hpp"
 
 #include <variant>
 #include <string>
