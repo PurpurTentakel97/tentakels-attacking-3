@@ -3,12 +3,12 @@
 // 23.05.23
 //
 
-#include "GalaxyManager.h"
+#include "ManagerGalaxy.hpp"
 #include "AppContext.hpp"
 #include "CopyGalaxyType.hpp"
-#include "Galaxy.h"
-#include "GameManager.h"
-#include "Player.h"
+#include "Galaxy.hpp"
+#include "ManagerGame.hpp"
+#include "Player.hpp"
 #include "event/EventGenerel.hpp"
 #include "helper/HFleetResult.hpp"
 #include "helper/HPrint.hpp"

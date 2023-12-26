@@ -7,7 +7,7 @@
 #include "AppContext.hpp"
 #include "SceneManager.h"
 #include "event/EventListener.hpp"
-#include "logic/GameManager.h"
+#include "logic/ManagerGame.hpp"
 #include "ui_lib/Focus.h"
 #include "ui_lib/HoverRender.h"
 #include "ui_lib/UIElement.hpp"

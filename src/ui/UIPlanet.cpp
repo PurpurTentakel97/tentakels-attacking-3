@@ -6,7 +6,7 @@
 #include "include/ui/UIPlanet.h"
 #include "AppContext.hpp"
 #include "helper/HInput.hpp"
-#include "logic/Planet.h"
+#include "logic/Planet.hpp"
 #include "ui_lib/ShipCountRing.h"
 
 UIPlanet::UIPlanet(unsigned int focusID, unsigned int ID, PlayerData player, Vector2 pos,

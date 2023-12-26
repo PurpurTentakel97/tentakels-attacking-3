@@ -3,7 +3,7 @@
 // 16.02.2022
 //
 
-#include "TargetPoint.h"
+#include "TargetPoint.hpp"
 #include "helper/HPrint.hpp"
 
 

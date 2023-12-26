@@ -11,7 +11,7 @@
 #include "event/EventGenerel.hpp"
 #include "helper/HPlayerCollection.hpp"
 #include "helper/HPrint.hpp"
-#include "logic/Player.h"
+#include "logic/Player.hpp"
 #include "ui_lib/ClassicButton.h"
 #include "ui_lib/ExpandingButton.h"
 #include "ui_lib/InputLine.hpp"

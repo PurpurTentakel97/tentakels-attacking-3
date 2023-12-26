@@ -6,7 +6,7 @@
 #include "include/ui/UIFleet.h"
 #include "AppContext.hpp"
 #include "include/ui/UIGalaxyElement.h"
-#include "logic/Fleet.h"
+#include "logic/Fleet.hpp"
 #include "ui_lib/ShipCountRing.h"
 
 UIFleet::UIFleet(unsigned int ID, PlayerData player, Vector2 start, Vector2 end, Vector2 relativeStart, Vector2 relativeEnd,

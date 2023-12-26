@@ -4,7 +4,7 @@
 //
 
 #pragma once
-#include "SpaceObject.h"
+#include "SpaceObject.hpp"
 
 /**
  * the planet ia a space object.

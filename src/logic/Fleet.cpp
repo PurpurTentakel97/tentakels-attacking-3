@@ -3,9 +3,9 @@
 // 16.02.22
 //
 
-#include "Fleet.h"
+#include "Fleet.hpp"
 #include "AppContext.hpp"
-#include "Galaxy.h"
+#include "Galaxy.hpp"
 #include "helper/HGalaxy.hpp"
 #include "helper/HPrint.hpp"
 #include <cmath>

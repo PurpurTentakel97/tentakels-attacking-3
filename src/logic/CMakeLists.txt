@@ -1,18 +1,18 @@
 add_library(logic STATIC
             include/logic/CopyGalaxyType.hpp
-            include/logic/Fleet.h
-            include/logic/Galaxy.h
-            include/logic/GalaxyManager.h
-            include/logic/GameManager.h
-            include/logic/Planet.h
-            include/logic/Player.h
+            include/logic/Fleet.hpp
+            include/logic/Galaxy.hpp
+            include/logic/ManagerGalaxy.hpp
+            include/logic/ManagerGame.hpp
+            include/logic/Planet.hpp
+            include/logic/Player.hpp
             include/logic/PlayerType.hpp
-            include/logic/SpaceObject.h
-            include/logic/TargetPoint.h
+            include/logic/SpaceObject.hpp
+            include/logic/TargetPoint.hpp
             Fleet.cpp
             Galaxy.cpp
-            GalaxyManager.cpp
-            GameManager.cpp
+            ManagerGalaxy.cpp
+            ManagerGame.cpp
             Planet.cpp
             Player.cpp
             SpaceObject.cpp

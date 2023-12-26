@@ -11,8 +11,8 @@
 #include "event/EventGenerel.hpp"
 #include "helper/HFocusEvents.hpp"
 #include "helper/HInput.hpp"
-#include "logic/Galaxy.h"
-#include "logic/Player.h"
+#include "logic/Galaxy.hpp"
+#include "logic/Player.hpp"
 #include "ui_lib/LineDrag.h"
 
 void UIGalaxy::Initialize(SendGalaxyPointerEvent const* event) {

@@ -3,7 +3,7 @@
 // 10.08.22
 //
 
-#include "Player.h"
+#include "Player.hpp"
 
 Player::Player(unsigned int ID, PlayerType playerType)
 	: m_ID{ ID }, m_playerType{ playerType } { }

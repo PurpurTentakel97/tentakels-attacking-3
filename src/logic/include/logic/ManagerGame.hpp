@@ -4,8 +4,8 @@
 //
 
 #pragma once
-#include "GalaxyManager.h"
-#include "Player.h"
+#include "ManagerGalaxy.hpp"
+#include "Player.hpp"
 #include "event/EventGenerel.hpp"
 #include "event/EventListener.hpp"
 #include "event/EventsUI.hpp"

@@ -5,7 +5,7 @@
 
 #include "PlanetTable.h"
 #include "helper/HFocusEvents.hpp"
-#include "logic/Player.h"
+#include "logic/Player.hpp"
 
 void PlanetTable::Initialization() {
     auto const planets{ m_galaxy->GetPlanets() };

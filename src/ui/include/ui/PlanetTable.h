@@ -4,8 +4,8 @@
 //
 
 #pragma once
+#include "logic/Galaxy.hpp"
 #include "ui_lib/Scene.h"
-#include "logic/Galaxy.h"
 #include "ui_lib/Table.h"
 
 class PlanetTable final : public Scene {

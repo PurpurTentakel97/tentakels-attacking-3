@@ -3,9 +3,9 @@
 // 07.11.2022
 //
 
-#include "Planet.h"
+#include "Planet.hpp"
 #include "AppContext.hpp"
-#include "Player.h"
+#include "Player.hpp"
 #include "helper/HPrint.hpp"
 #include "helper/HRandom.hpp"
 

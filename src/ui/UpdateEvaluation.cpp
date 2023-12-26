@@ -7,8 +7,8 @@
 #include "AppContext.hpp"
 #include "event/EventGenerel.hpp"
 #include "helper/HPrint.hpp"
-#include "logic/Player.h"
-#include "logic/SpaceObject.h"
+#include "logic/Player.hpp"
+#include "logic/SpaceObject.hpp"
 #include "ui_lib/SceneType.h"
 
 void UpdateEvaluationScene::TestPrint(SendUpdateEvaluation const* event) const {

@@ -3,10 +3,10 @@
 // 10.08.22
 //
 
-#include "GameManager.h"
+#include "ManagerGame.hpp"
 #include "AppContext.hpp"
 #include "CopyGalaxyType.hpp"
-#include "Galaxy.h"
+#include "Galaxy.hpp"
 #include "event/EventGenerel.hpp"
 #include "helper/HLogicAlias.hpp"
 #include "helper/HPrint.hpp"

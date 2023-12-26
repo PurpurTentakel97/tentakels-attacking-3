@@ -3,9 +3,9 @@
 // 08.11.22
 //
 
-#include "Galaxy.h"
+#include "Galaxy.hpp"
 #include "AppContext.hpp"
-#include "Player.h"
+#include "Player.hpp"
 #include "event/EventsUI.hpp"
 #include "helper/HFightResult.hpp"
 #include "helper/HFleetResult.hpp"

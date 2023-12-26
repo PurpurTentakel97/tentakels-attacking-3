@@ -3,7 +3,7 @@
 // 06.11.2022
 //
 
-#include "SpaceObject.h"
+#include "SpaceObject.hpp"
 #include "AppContext.hpp"
 #include <cassert>
 

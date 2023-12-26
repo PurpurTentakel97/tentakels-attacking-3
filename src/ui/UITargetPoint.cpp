@@ -6,8 +6,8 @@
 #include "UITargetPoint.h"
 #include "AppContext.hpp"
 #include "helper/HInput.hpp"
-#include "logic/Player.h"
-#include "logic/TargetPoint.h"
+#include "logic/Player.hpp"
+#include "logic/TargetPoint.hpp"
 
 UITargetPoint::UITargetPoint(unsigned int focusID, unsigned int ID, PlayerData player, Vector2 pos,
 	Vector2 colliderPos, TargetPoint_ty_raw_c targetPoint)
