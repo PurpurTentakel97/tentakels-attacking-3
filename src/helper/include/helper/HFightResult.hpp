@@ -3,10 +3,10 @@
 // 04.06.23
 //
 
+#pragma once
 #include "HLogicAlias.hpp"
 #include <vector>
 #include <utility>
-#pragma once
 
 struct HFightResult final {
 public:

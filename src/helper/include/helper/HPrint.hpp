@@ -3,13 +3,13 @@
 // 28.10.2022
 //
 
-#include "HErrorLog.hpp"
-
 #pragma once
+
+#include "HErrorLog.hpp"
+#include <format>
 #include <iomanip>
 #include <iostream>
 #include <string>
-#include <format>
 
 /**
  * provides all kinds of print types.
@@ -92,11 +92,13 @@ inline void Print(PrintType printType, std::string const& message, Args const&..
 
     } catch (std::format_error const&) {
         Print(PrintType::ERROR, "format while printing with arguments");
-        std::cout << std::setw(static_cast<int>(GetPrintTypeString(longestType).size())) << typeS << ' ' << message << '\n';
+        std::cout << std::setw(static_cast<int>(GetPrintTypeString(longestType).size())) << typeS << ' ' << message
+                  << '\n';
         TryExport(toExport, printType);
     } catch (std::bad_alloc const&) {
         Print(PrintType::ERROR, "bad alloc while printing with arguments");
-        std::cout << std::setw(static_cast<int>(GetPrintTypeString(longestType).size())) << typeS << ' ' << message << '\n';
+        std::cout << std::setw(static_cast<int>(GetPrintTypeString(longestType).size())) << typeS << ' ' << message
+                  << '\n';
         TryExport(toExport, printType);
     }
 }

@@ -4,8 +4,8 @@
 //
 
 #include "HErrorLog.hpp"
-#include "AppContext.hpp"
 #include "HPrint.hpp"
+#include <AppContext.hpp>
 #include <chrono>
 #include <filesystem>
 
@@ -13,14 +13,14 @@
  * sets the name if the current error log file based on the chrono timestamp.
  */
 void SetErrorLogFileName() {
-	auto& files{ AppContext::GetInstance().constants.files };
+    auto& files{ AppContext::GetInstance().constants.files };
 
-	auto const now{ std::chrono::system_clock::now() };
-	std::stringstream filename{ };
-	filename << "tentakels_attacking_debug_" << now.time_since_epoch().count() << ".txt";
+    auto const now{ std::chrono::system_clock::now() };
+    std::stringstream filename{};
+    filename << "tentakels_attacking_debug_" << now.time_since_epoch().count() << ".txt";
 
-	files.SetDebugLogFile(filename.str());
-	Print(PrintType::INFO, "debug file name set");
+    files.SetDebugLogFile(filename.str());
+    Print(PrintType::INFO, "debug file name set");
 }
 
 /**
@@ -28,42 +28,41 @@ void SetErrorLogFileName() {
  * creates the dirs and file if needed.
  */
 void GenerateFileStream() {
-	auto& files{ AppContext::GetInstance().constants.files };
+    auto& files{ AppContext::GetInstance().constants.files };
 
-	SetErrorLogFileName();
+    SetErrorLogFileName();
 
-	if (!std::filesystem::exists(files.debugLogDir())) {
-		std::filesystem::create_directories(files.debugLogDir());
-		Print(PrintType::INFO, "created debug directory");
-	}
-	else if (!std::filesystem::is_directory(files.debugLogDir())) {
-		std::filesystem::remove(files.debugLogDir());
-		std::filesystem::create_directories(files.debugLogDir());
-		Print(PrintType::INFO, "removed debug file and added debug directory");
-	}
+    if (!std::filesystem::exists(files.debugLogDir())) {
+        std::filesystem::create_directories(files.debugLogDir());
+        Print(PrintType::INFO, "created debug directory");
+    } else if (!std::filesystem::is_directory(files.debugLogDir())) {
+        std::filesystem::remove(files.debugLogDir());
+        std::filesystem::create_directories(files.debugLogDir());
+        Print(PrintType::INFO, "removed debug file and added debug directory");
+    }
 
-	files.debugLogStream.open(files.debugLogFile());
-	Print(PrintType::INFO, "opened debug log");
+    files.debugLogStream.open(files.debugLogFile());
+    Print(PrintType::INFO, "opened debug log");
 }
 
 void LogError(std::string const& error) {
-	auto& files{ AppContext::GetInstance().constants.files };
+    auto& files{ AppContext::GetInstance().constants.files };
 
-	if (!files.debugLogStream.is_open()) {
-		GenerateFileStream();
-	}
+    if (!files.debugLogStream.is_open()) {
+        GenerateFileStream();
+    }
 
-	files.debugLogStream << error;
-	Print(PrintType::INFO, "logged error");
+    files.debugLogStream << error;
+    Print(PrintType::INFO, "logged error");
 }
 
 void CloseErrorStream() {
-	auto& files{ AppContext::GetInstance().constants.files };
+    auto& files{ AppContext::GetInstance().constants.files };
 
-	if (!files.debugLogStream.is_open()) {
-		return;
-	}
+    if (!files.debugLogStream.is_open()) {
+        return;
+    }
 
-	files.debugLogStream.close();
-	Print(PrintType::INFO, "closed debug log");
+    files.debugLogStream.close();
+    Print(PrintType::INFO, "closed debug log");
 }

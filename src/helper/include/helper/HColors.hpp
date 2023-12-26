@@ -4,7 +4,7 @@
 //
 
 #pragma once
-#include "CustomRaylib.hpp"
+#include <CustomRaylib.hpp>
 #include <array>
 #include <string>
 
@@ -13,46 +13,33 @@
  */
 struct Colors final {
 private:
-	using ColorArray = std::array<Color, 16>; ///< type of the color array
-	ColorArray m_colors { ///< contains all colors of the game.
-	YELLOW,
-	GOLD,
-	PINK,
-	MAGENTA,
-	ORANGE,
-	RED,
-	MAROON,
-	NECRO,
-	LIME,
-	DARKGREEN,
-	SKYBLUE,
-	BLUE,
-	DARKBLUE,
-	PURPLE,
-	VIOLET,
-	DARKPURPLE,
-	};
+    using ColorArray = std::array<Color, 16>; ///< type of the color array
+    ColorArray m_colors{
+        ///< contains all colors of the game.
+        YELLOW, GOLD,      PINK,    MAGENTA, ORANGE,   RED,    MAROON, NECRO,
+        LIME,   DARKGREEN, SKYBLUE, BLUE,    DARKBLUE, PURPLE, VIOLET, DARKPURPLE,
+    };
 
 public:
-	/**
+    /**
 	 * check if the provided color is valid.
 	 */
-	[[nodiscard]] bool CheckValidColor(Color const& color) const;
+    [[nodiscard]] bool CheckValidColor(Color const& color) const;
 
-	/**
+    /**
 	 * returns all colors.
 	 */
-	[[nodiscard]] ColorArray GetColors() const;
-	/**
+    [[nodiscard]] ColorArray GetColors() const;
+    /**
 	 * returns a string for a color.
 	 */
-	[[nodiscard]] static std::string AsString(Color color);
-	/**
+    [[nodiscard]] static std::string AsString(Color color);
+    /**
 	 * returns if the colors are the same.
 	 */
-	[[nodiscard]] static bool AreSame(Color lhs, Color rhs);
-	/**
+    [[nodiscard]] static bool AreSame(Color lhs, Color rhs);
+    /**
 	 * returns if a color should have a background.
 	 */
-	[[nodiscard]] static bool NeedBackground(Color color);
+    [[nodiscard]] static bool NeedBackground(Color color);
 };

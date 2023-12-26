@@ -4,10 +4,10 @@
 //
 
 #include "HSoundManager.hpp"
-#include "AppContext.hpp"
 #include "HPrint.hpp"
 #include "HRandom.hpp"
-#include "event/EventsUI.hpp"
+#include <AppContext.hpp>
+#include <event/EventsUI.hpp>
 #include <filesystem>
 
 void SoundManager::LoadSounds() {
