@@ -37,13 +37,13 @@ add_library(ui_lib STATIC
             Button.cpp
             ../ui/PopUpCell.cpp
             CheckBox.cpp
-            ClassicButton.cpp
+            ButtonClassic.cpp
             ColorPicker.cpp
             ColorPickerCell.cpp
             CountingNumber.cpp
             DropDown.cpp
             DropDownElement.cpp
-            ExpandingButton.cpp
+            ButtonExpanding.cpp
             Focus.cpp
             Focusable.cpp
             Hover.cpp
@@ -56,11 +56,11 @@ add_library(ui_lib STATIC
             SceneType.cpp
             ShipCountRing.cpp
             Slider.cpp
-            SliderButton.cpp
+            ButtonSlider.cpp
             Table.cpp
             Text.cpp
             Title.cpp
-            ToggleButton.cpp
+            ButtonToggle.cpp
             NewTable.cpp
             NewTableCell.cpp
 )
