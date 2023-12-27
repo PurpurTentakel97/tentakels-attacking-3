@@ -44,9 +44,9 @@ private:
     [[nodiscard]] NewTableCell const* getCellUnsafe(size_t row, size_t column) const;
 
 
-    [[nodiscard]] bool validSpecialRow(size_t row) const;
+    [[nodiscard]] static bool validSpecialRow(size_t row);
 
-    [[nodiscard]] bool validSpecialColumn(size_t column) const;
+    [[nodiscard]] static bool validSpecialColumn(size_t column);
 
     [[nodiscard]] bool validSpecialIndex(size_t row, size_t column) const;
 

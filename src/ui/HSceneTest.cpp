@@ -37,7 +37,7 @@ void TestScene::Initialize([[maybe_unused]] AppContext_ty appContext) {
     auto constexpr xs{ 0.05f };
     auto constexpr ys{ 0.05f };
 
-    auto count{ 0 };
+    auto count{ 0.0f };
 
     auto insertLineBtn = std::make_shared<ClassicButton>(
             100,

@@ -18,9 +18,10 @@ macro(check_sanitizer_support)
 endmacro()
 
 if (PROJECT_IS_TOP_LEVEL)
-    option(warnings_as_errors "Treat warnings as errors" OFF)
+    option(warnings_as_errors "Treat warnings as errors" ON)
     option(enable_undefined_behavior_sanitizer "Enable undefined behavior sanitizer" ${supports_ubsan})
-    option(enable_address_sanitizer "Enable address sanitizer" ${supports_asan})
+    option(enable_address_sanitizer "Enable address sanitizer" OFF)
+    #${supports_asan}
 else ()
     option(warnings_as_errors "Treat warnings as errors" OFF)
     option(enable_undefined_behavior_sanitizer "Enable undefined behavior sanitizer" OFF)
