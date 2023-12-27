@@ -7,7 +7,7 @@
 
 std::string CToS(ConfigTypes type) {
     switch (type) {
-		case ConfigTypes::CONFIFG:
+		case ConfigTypes::CONFIG:
 			return "config";
 	
 		case ConfigTypes::GAME_EVENTS:
@@ -64,7 +64,7 @@ std::string CToS(ConfigTypes type) {
 
 		case ConfigTypes::PLANET:
 			return "planet";
-		case ConfigTypes::PRODUCTION_HOMEWORLD:
+		case ConfigTypes::PRODUCTION_HOME_WORLD:
 			return "production_homeworld";
 		case ConfigTypes::PRODUCTION_MAX:
 			return "production_max";
@@ -72,13 +72,13 @@ std::string CToS(ConfigTypes type) {
 			return "production_min";
 		case ConfigTypes::SHIPS_MAX_FACTOR:
 			return "ships_max_factor";
-		case ConfigTypes::SPACEING_GLOBAL:
+		case ConfigTypes::SPACING_GLOBAL:
 			return "spacing_global";
-		case ConfigTypes::SPACEING_HOMEWORLD:
+		case ConfigTypes::SPACING_HOME_WORLD:
 			return "spacing_homeworld";
-		case ConfigTypes::STARTING_SHIPS_MULTIPLICATOR_GLOBAL:
+		case ConfigTypes::STARTING_SHIPS_MULTIPLIER_GLOBAL:
 			return "starting_ships_multiplicator_global";
-		case ConfigTypes::STARTING_SHIPS_MULTIPLICATOR_HUMAN:
+		case ConfigTypes::STARTING_SHIPS_MULTIPLIER_HUMAN:
 			return "starting_ships_multiplicator_human";
 
 		case ConfigTypes::PLAYER:

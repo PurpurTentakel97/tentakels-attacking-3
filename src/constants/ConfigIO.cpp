@@ -162,11 +162,11 @@ void LoadConfig() {
 
     // from json
     // config
-    if (isNull(load, ConfigTypes::CONFIFG)) {
+    if (isNull(load, ConfigTypes::CONFIG)) {
         Print(PrintType::ERROR, "provided config is null {}", defaultValuePrefix);
         return;
     }
-    if (not isMatchingSize(load, ConfigTypes::CONFIFG, CGlobal::configSectionCount)) {
+    if (not isMatchingSize(load, ConfigTypes::CONFIG, CGlobal::configSectionCount)) {
         Print(PrintType::ERROR,
               "config section count is not matching {} -> expected: {} -> provided: {}",
               defaultValuePrefix,
@@ -279,7 +279,7 @@ void LoadConfig() {
     }
     // planet
     if (nlohmann::json planet; loadSection(load, planet, ConfigTypes::PLANET, CPlanet::configEntryCount)) {
-        if (int out; loadInt(planet, out, ConfigTypes::PRODUCTION_HOMEWORLD)) {
+        if (int out; loadInt(planet, out, ConfigTypes::PRODUCTION_HOME_WORLD)) {
             constants.planet.homeworldProduction = static_cast<size_t>(out);
         }
         if (int out; loadInt(planet, out, ConfigTypes::PRODUCTION_MAX)) {
@@ -291,16 +291,16 @@ void LoadConfig() {
         if (int out; loadInt(planet, out, ConfigTypes::SHIPS_MAX_FACTOR)) {
             constants.planet.maxShipsFactor = static_cast<size_t>(out);
         }
-        if (float out; loadFloat(planet, out, ConfigTypes::SPACEING_GLOBAL)) {
+        if (float out; loadFloat(planet, out, ConfigTypes::SPACING_GLOBAL)) {
             constants.planet.globalSpacing = out;
         }
-        if (float out; loadFloat(planet, out, ConfigTypes::SPACEING_HOMEWORLD)) {
+        if (float out; loadFloat(planet, out, ConfigTypes::SPACING_HOME_WORLD)) {
             constants.planet.homeworldSpacing = out;
         }
-        if (int out; loadInt(planet, out, ConfigTypes::STARTING_SHIPS_MULTIPLICATOR_GLOBAL)) {
+        if (int out; loadInt(planet, out, ConfigTypes::STARTING_SHIPS_MULTIPLIER_GLOBAL)) {
             constants.planet.startingGlobalShipsMultiplicator = static_cast<size_t>(out);
         }
-        if (int out; loadInt(planet, out, ConfigTypes::STARTING_SHIPS_MULTIPLICATOR_HUMAN)) {
+        if (int out; loadInt(planet, out, ConfigTypes::STARTING_SHIPS_MULTIPLIER_HUMAN)) {
             constants.planet.startingHumanShipsMultiplicator = static_cast<size_t>(out);
         }
     }
@@ -439,14 +439,14 @@ void SaveConfig() {
         {       CToS(ConfigTypes::GAME_ROUNDS_MIN),           constants.global.minRounds },
     };
     save[CToS(ConfigTypes::PLANET)] = {
-        {                CToS(ConfigTypes::PRODUCTION_HOMEWORLD),              constants.planet.homeworldProduction },
+        {                CToS(ConfigTypes::PRODUCTION_HOME_WORLD),              constants.planet.homeworldProduction },
         {                      CToS(ConfigTypes::PRODUCTION_MAX),                    constants.planet.maxProduction },
         {                      CToS(ConfigTypes::PRODUCTION_MIN),                    constants.planet.minProduction },
         {                    CToS(ConfigTypes::SHIPS_MAX_FACTOR),                   constants.planet.maxShipsFactor },
-        {                     CToS(ConfigTypes::SPACEING_GLOBAL),                    constants.planet.globalSpacing },
-        {                  CToS(ConfigTypes::SPACEING_HOMEWORLD),                 constants.planet.homeworldSpacing },
-        { CToS(ConfigTypes::STARTING_SHIPS_MULTIPLICATOR_GLOBAL), constants.planet.startingGlobalShipsMultiplicator },
-        {  CToS(ConfigTypes::STARTING_SHIPS_MULTIPLICATOR_HUMAN),  constants.planet.startingHumanShipsMultiplicator },
+        {                     CToS(ConfigTypes::SPACING_GLOBAL),                    constants.planet.globalSpacing },
+        {                  CToS(ConfigTypes::SPACING_HOME_WORLD),                 constants.planet.homeworldSpacing },
+        { CToS(ConfigTypes::STARTING_SHIPS_MULTIPLIER_GLOBAL), constants.planet.startingGlobalShipsMultiplicator },
+        {  CToS(ConfigTypes::STARTING_SHIPS_MULTIPLIER_HUMAN),  constants.planet.startingHumanShipsMultiplicator },
     };
     save[CToS(ConfigTypes::PLAYER)] = {
         { CToS(ConfigTypes::PLAYER_COUNT_MAX), constants.player.maxPlayerCount },

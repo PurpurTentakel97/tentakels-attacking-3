@@ -54,7 +54,7 @@ std::string CWindow::GetStringFromResolution(Resolution resolution) const {
             return "HD 16:9 (1280 x 720)";
 
             // 21:9
-        case Resolution::_5K_ULTRAWIDE:
+        case Resolution::_5K_ULTRA_WIDE:
             return "5K Ultrawide 21:9 (5120 x 2160)";
         case Resolution::UWQHD:
             return "UWQHD 21:9 (3440 x 1440)";
@@ -112,7 +112,7 @@ HVec2<int> CWindow::GetIntFromResolution(Resolution resolution) const {
             return { 1280, 720 };
 
             // 21:9
-        case Resolution::_5K_ULTRAWIDE:
+        case Resolution::_5K_ULTRA_WIDE:
             return { 5120, 2460 };
         case Resolution::UWQHD:
             return { 3440, 1440 };
