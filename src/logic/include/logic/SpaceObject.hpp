@@ -21,7 +21,7 @@ protected:
     [[nodiscard]] static bool IsInRange(SpaceObject_ty_raw first, SpaceObject_ty_raw second, int range);
 
 public:
-    SpaceObject(unsigned int ID, vec2pos_ty position, Player_ty player);
+    SpaceObject(unsigned int ID, vec2pos_ty_ref_c position, Player_ty_c player);
 
     SpaceObject(unsigned int ID, vec2pos_ty position, size_t ships, Player_ty player);
 
@@ -37,7 +37,7 @@ public:
 
     [[nodiscard]] Player_ty GetPlayer() const;
 
-    void SetPos(vec2pos_ty pos);
+    void SetPos(vec2pos_ty_ref_c pos);
 
     [[nodiscard]] vec2pos_ty GetPos() const;
 

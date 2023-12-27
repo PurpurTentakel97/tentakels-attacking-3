@@ -44,13 +44,13 @@ private:
 
     void ResetPlayer();
 
-    void KillPlayer(Player_ty player);
+    void KillPlayer(Player_ty const& player);
 
     void CheckPlayerCount() const;
 
     void ShuffleCurrentRoundPlayer();
 
-    [[nodiscard]] bool CheckValidAddRemovePlayer(std::function<void(bool valid)> forPopup) const;
+    [[nodiscard]] static bool CheckValidAddRemovePlayer(std::function<void(bool valid)> forPopup);
 
     void SendCurrentPlayerID();
 
@@ -66,16 +66,16 @@ private:
     // fleet
     void AddFleet(SendFleetInstructionEvent const* event);
 
-    [[nodiscard]] bool ValidateAddFleetInput(SendFleetInstructionEvent const* event);
+    [[nodiscard]] static bool ValidateAddFleetInput(SendFleetInstructionEvent const* event);
 
     // game
     void StartGame();
 
-    void StopGame();
+    static void StopGame();
 
-    void PauseGame();
+    static void PauseGame();
 
-    void ResumeGame();
+    static void ResumeGame();
 
     void QuitGame();
 

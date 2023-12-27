@@ -36,7 +36,7 @@ public:
 
     [[nodiscard]] Galaxy* GetGalaxy();
 
-    [[nodiscard]] bool AddFleet(SendFleetInstructionEvent const* event, Player_ty currentPlayer);
+    [[nodiscard]] bool AddFleet(SendFleetInstructionEvent const* event, Player_ty const& currentPlayer);
 
     [[nodiscard]] bool HasMovesLeft(Player_ty_c player) const;
 

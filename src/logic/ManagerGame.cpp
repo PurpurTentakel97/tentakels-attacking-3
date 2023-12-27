@@ -26,13 +26,14 @@ static auto popup = [](std::string const& text) {
 
 // player
 bool GameManager::ValidAddPlayer() const {
-    return { AppContext::GetInstance().constants.player.maxPlayerCount > m_players.size() };
+    return AppContext::GetInstance().constants.player.maxPlayerCount > m_players.size();
 }
+
 unsigned int GameManager::GetNextPlayerID() const {
     unsigned int nextID{ 1 };
     while (true) {
         bool freeID{ true };
-        for (auto p : m_players) {
+        for (auto const& p : m_players) {
             if (p->GetID() == nextID) {
                 freeID = false;
                 break;
@@ -64,6 +65,7 @@ bool GameManager::GetCurrentPlayer(Player_ty& currentPlayer) const {
     currentPlayer = m_currentRoundPlayers.back();
     return true;
 }
+
 bool GameManager::GetNextPlayer(Player_ty& nextPlayer) const {
     if (m_currentRoundPlayers.size() < 2) {
         return false;
@@ -106,6 +108,7 @@ void GameManager::AddPlayer(AddPlayerEvent const* event) {
     AddPlayerUIEvent const AddEvent{ newID, name, color };
     appContext.eventManager.InvokeEvent(AddEvent);
 }
+
 void GameManager::EditPlayer(EditPlayerEvent const* event) const {
 
     AppContext_ty_c appContext{ AppContext::GetInstance() };
@@ -123,6 +126,7 @@ void GameManager::EditPlayer(EditPlayerEvent const* event) const {
     EditPlayerUIEvent const editEvent{ event->GetID(), event->GetName(), event->GetColor() };
     appContext.eventManager.InvokeEvent(editEvent);
 }
+
 void GameManager::DeletePlayer(DeletePlayerEvent const* event) {
 
     auto id{ event->GetID() };
@@ -163,6 +167,7 @@ void GameManager::DeletePlayer(DeletePlayerEvent const* event) {
     DeletePlayerUIEvent const deleteEvent{ event->GetID() };
     AppContext::GetInstance().eventManager.InvokeEvent(deleteEvent);
 }
+
 void GameManager::ResetPlayer() {
     auto const l{ [&](bool valid) {
         if (valid) {
@@ -180,7 +185,8 @@ void GameManager::ResetPlayer() {
     ResetPlayerUIEvent const event{};
     AppContext::GetInstance().eventManager.InvokeEvent(event);
 }
-void GameManager::KillPlayer(Player_ty player) {
+
+void GameManager::KillPlayer(Player_ty const& player) {
     AppContext_ty_c appContext{ AppContext::GetInstance() };
     player->Kill();
     m_galaxyManager.KillPlayer(player, m_npcs[PlayerType::NEUTRAL]);
@@ -195,6 +201,7 @@ void GameManager::KillPlayer(Player_ty player) {
                                } };
     appContext.eventManager.InvokeEvent(msg);
 }
+
 void GameManager::CheckPlayerCount() const {
 
     auto const l{ [this](bool valid) {
@@ -238,6 +245,7 @@ void GameManager::CheckPlayerCount() const {
     ValidatePlayerCountResultEvent const event{ valid };
     appContext.eventManager.InvokeEvent(event);
 }
+
 void GameManager::ShuffleCurrentRoundPlayer() {
     if (not AppContext::GetInstance().constants.player.shuffle) {
         return;
@@ -247,13 +255,14 @@ void GameManager::ShuffleCurrentRoundPlayer() {
 
     Print(PrintType::ONLY_DEBUG, "player shuffled");
 }
-bool GameManager::CheckValidAddRemovePlayer(std::function<void(bool valid)> forPopup) const {
+
+bool GameManager::CheckValidAddRemovePlayer(std::function<void(bool valid)> forPopup) {
     AppContext_ty_c appContext{ AppContext::GetInstance() };
 
     if (appContext.constants.global.isGameRunning) {
         ShowValidatePopUp const event{ appContext.languageManager.Text("ui_popup_game_still_running_title"),
                                        appContext.languageManager.Text("ui_popup_game_still_running_subtitle"),
-                                       forPopup };
+                                       std::move(forPopup) };
         appContext.eventManager.InvokeEvent(event);
         return false;
     }
@@ -273,6 +282,7 @@ void GameManager::SendCurrentPlayerID() {
     UpdateCurrentPlayerIDEvent const event{ ID };
     AppContext::GetInstance().eventManager.InvokeEvent(event);
 }
+
 void GameManager::SendNextPlayerID() {
     unsigned int ID;
     Player_ty player{ nullptr };
@@ -302,7 +312,7 @@ void GameManager::NextRound(bool valid) {
     m_currentRoundPlayers = m_players;
     std::erase_if(m_currentRoundPlayers, [](Player_ty_c player) { return not player->IsAlive(); });
     ShuffleCurrentRoundPlayer();
-    if (m_currentRoundPlayers.size() <= 0) {
+    if (m_currentRoundPlayers.empty()) {
         Print(PrintType::TODO, "no possible moves for any player left. game should be over now.");
     }
 
@@ -331,6 +341,7 @@ void GameManager::NextRound(bool valid) {
 
     appContext.eventManager.InvokeEvent(ShowEvaluationEvent());
 }
+
 void GameManager::NextTurn(bool valid) {
 
     if (!valid) {
@@ -365,6 +376,7 @@ void GameManager::NextTurn(bool valid) {
 
     AppContext::GetInstance().eventManager.InvokeEvent(ShowNextTurnEvent());
 }
+
 void GameManager::ValidateNextTurn() {
 
     AppContext_ty_c appContext{ AppContext::GetInstance() };
@@ -444,7 +456,7 @@ void GameManager::StartGame() {
                                        appContext.languageManager.Text("ui_popup_game_still_running_subtitle", '\n'),
                                        [this](bool valid) {
                                            if (valid) {
-                                               this->StopGame();
+                                               GameManager::StopGame();
                                                this->StartGame();
                                            }
                                        } };
@@ -457,7 +469,7 @@ void GameManager::StartGame() {
     ShuffleCurrentRoundPlayer();
     SendCurrentPlayerID();
     SendNextPlayerID();
-    for (auto p : m_players) {
+    for (auto const& p : m_players) {
         p->Revive();
     }
 
@@ -475,17 +487,20 @@ void GameManager::StartGame() {
     SwitchSceneEvent const event{ SceneType::MAIN };
     appContext.eventManager.InvokeEvent(event);
 }
+
 void GameManager::StopGame() {
     AppContext_ty appConstants{ AppContext::GetInstance() };
     appConstants.constants.global.isGameRunning = false;
     appConstants.constants.global.isGamePaused = true;
     Print(PrintType::ONLY_DEBUG, "game stopped and paused");
 }
+
 void GameManager::PauseGame() {
     AppContext_ty appContext{ AppContext::GetInstance() };
     appContext.constants.global.isGamePaused = true;
     Print(PrintType::ONLY_DEBUG, "game paused");
 }
+
 void GameManager::ResumeGame() {
     AppContext_ty appContext{ AppContext::GetInstance() };
     if (not appContext.constants.global.isGameRunning) {
@@ -501,6 +516,7 @@ void GameManager::ResumeGame() {
     SwitchSceneEvent const event{ SceneType::MAIN };
     appContext.eventManager.InvokeEvent(event);
 }
+
 void GameManager::QuitGame() {
     AppContext_ty appContext{ AppContext::GetInstance() };
     if (not appContext.constants.global.isGameSaved) {
