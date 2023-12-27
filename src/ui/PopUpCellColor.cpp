@@ -23,7 +23,7 @@ ColorCellPopUp::ColorCellPopUp(
         std::function<void(Color)> onClick
 )
     : CellPopUp{ pos, size, alignment, title, infoTexture },
-      m_onClick{ onClick } {
+      m_onClick{ std::move(onClick) } {
 
     AppContext_ty_c appContext{ AppContext::GetInstance() };
 

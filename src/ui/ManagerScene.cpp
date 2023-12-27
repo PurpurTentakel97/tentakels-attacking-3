@@ -106,10 +106,12 @@ void SceneManager::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c 
     }
     m_popUpManager.CheckAndUpdate(mousePosition, appContext);
 }
+
 void SceneManager::Render(AppContext_ty_c appContext) {
     m_currentScene->Render(appContext);
     m_popUpManager.Render(appContext);
 }
+
 void SceneManager::Resize(AppContext_ty_c appContext) {
     m_currentScene->Resize(appContext);
     m_popUpManager.Resize(appContext);

@@ -51,7 +51,7 @@ private:
 
     void Initialize();
 
-    void AddMovingElement(std::shared_ptr<UIElement> element);
+    void AddMovingElement(std::shared_ptr<UIElement> const& element);
 
     void ToggleSpeedLevel();
 

@@ -17,7 +17,7 @@ public:
     UITargetPoint(
             unsigned int focusID,
             unsigned int ID,
-            PlayerData player,
+            PlayerData const& player,
             Vector2 pos,
             Vector2 colliderPos,
             TargetPoint_ty_raw_c targetPoint

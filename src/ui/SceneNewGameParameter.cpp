@@ -96,7 +96,7 @@ void NewGameParameterScene::Initialize() {
             static_cast<int>(appContext.constants.world.currentPlanetCount)
     );
     planetCount->SetActive(true, appContext);
-    planetCount->SetOnSave([this](int value) { this->SetValue(value, SliderType::PLANET_COUNT); });
+    planetCount->SetOnSave([](int value) { NewGameParameterScene::SetValue(value, SliderType::PLANET_COUNT); });
     m_elements.push_back(planetCount);
     m_slider.push_back(planetCount);
 
@@ -121,7 +121,7 @@ void NewGameParameterScene::Initialize() {
             static_cast<int>(appContext.constants.world.currentDimensionX)
     );
     galaxyWidth->SetActive(true, appContext);
-    galaxyWidth->SetOnSave([this](int value) { this->SetValue(value, SliderType::DIMENSION_X); });
+    galaxyWidth->SetOnSave([](int value) { NewGameParameterScene::SetValue(value, SliderType::DIMENSION_X); });
     m_elements.push_back(galaxyWidth);
     m_slider.push_back(galaxyWidth);
 
@@ -146,7 +146,7 @@ void NewGameParameterScene::Initialize() {
             static_cast<int>(appContext.constants.world.currentDimensionY)
     );
     galaxyHeight->SetActive(true, appContext);
-    galaxyHeight->SetOnSave([this](int value) { this->SetValue(value, SliderType::DIMENSION_Y); });
+    galaxyHeight->SetOnSave([](int value) { NewGameParameterScene::SetValue(value, SliderType::DIMENSION_Y); });
     m_elements.push_back(galaxyHeight);
     m_slider.push_back(galaxyHeight);
 
@@ -171,7 +171,7 @@ void NewGameParameterScene::Initialize() {
             static_cast<int>(appContext.constants.fleet.currentFleetSpeed)
     );
     fleetSpeed->SetActive(true, appContext);
-    fleetSpeed->SetOnSave([this](int value) { this->SetValue(value, SliderType::FLEET_SPEED); });
+    fleetSpeed->SetOnSave([](int value) { NewGameParameterScene::SetValue(value, SliderType::FLEET_SPEED); });
     m_elements.push_back(fleetSpeed);
     m_slider.push_back(fleetSpeed);
 
@@ -196,7 +196,7 @@ void NewGameParameterScene::Initialize() {
             static_cast<int>(appContext.constants.global.currentTargetRound)
     );
     lastRound->SetActive(true, appContext);
-    lastRound->SetOnSave([this](int value) { this->SetValue(value, SliderType::TARGET_ROUND); });
+    lastRound->SetOnSave([](int value) { NewGameParameterScene::SetValue(value, SliderType::TARGET_ROUND); });
     m_elements.push_back(lastRound);
     m_slider.push_back(lastRound);
 
@@ -240,7 +240,7 @@ void NewGameParameterScene::Initialize() {
     m_elements.push_back(nextBtn);
 }
 
-void NewGameParameterScene::SetValue(int value, SliderType type) const {
+void NewGameParameterScene::SetValue(int value, SliderType type) {
     switch (type) {
         case SliderType::PLANET_COUNT:
             AppContext::GetInstance().constants.world.currentPlanetCount = static_cast<size_t>(value);
@@ -267,7 +267,7 @@ void NewGameParameterScene::SetRandom() const {
     }
 }
 
-void NewGameParameterScene::NextScene() const {
+void NewGameParameterScene::NextScene() {
     SwitchSceneEvent event{ SceneType::VALIDATE_GALAXY };
     AppContext::GetInstance().eventManager.InvokeEvent(event);
 }

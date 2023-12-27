@@ -19,11 +19,11 @@ private:
 
     void Initialize();
 
-    void SetValue(int value, SliderType type) const;
+    static void SetValue(int value, SliderType type);
 
     void SetRandom() const;
 
-    void NextScene() const;
+    static void NextScene();
 
 public:
     NewGameParameterScene();

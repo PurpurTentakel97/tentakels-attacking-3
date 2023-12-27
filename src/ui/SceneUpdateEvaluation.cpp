@@ -11,7 +11,7 @@
 #include <logic/SpaceObject.hpp>
 #include <ui_lib/SceneType.hpp>
 
-void UpdateEvaluationScene::TestPrint(SendUpdateEvaluation const* event) const {
+void UpdateEvaluationScene::TestPrint(SendUpdateEvaluation const* event) {
 
     /**
 	 * call in OnEvent.
@@ -83,15 +83,14 @@ void UpdateEvaluationScene::DisplayMergeResult() {
                                        [this]() { this->m_nextPopup = true; } };
     appContext.eventManager.InvokeEvent(event);
 }
+
 void UpdateEvaluationScene::DisplayFightResult() {
     AppContext_ty_c appContext{ AppContext::GetInstance() };
 
-    ShowFightResultEvent const event{ m_fightResults.at(m_currentIndex), [this]() {
-                                         this->m_nextPopup = true;
-                                         ;
-                                     } };
+    ShowFightResultEvent const event{ m_fightResults.at(m_currentIndex), [this]() { this->m_nextPopup = true; } };
     appContext.eventManager.InvokeEvent(event);
 }
+
 void UpdateEvaluationScene::HandleNextPopup() {
 
     auto const setNext{ [&]() {
@@ -148,6 +147,7 @@ UpdateEvaluationScene::UpdateEvaluationScene() : Scene({ 0.0f, 0.0f }, { 1.0f, 1
     appContext.eventManager.AddListener(this);
     appContext.eventManager.InvokeEvent(GetUpdateEvaluation{});
 }
+
 UpdateEvaluationScene::~UpdateEvaluationScene() {
     AppContext::GetInstance().eventManager.RemoveListener(this);
 }

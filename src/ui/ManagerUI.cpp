@@ -11,9 +11,11 @@
 Focus& UIManager::GetFocus() {
     return m_focus;
 }
+
 void UIManager::SetFullScreen() {
     m_isNextFullScreen = !m_isNextFullScreen;
 }
+
 void UIManager::CheckAndSetToggleFullScreen() {
     Window_ty window{ m_appContext.constants.window };
 
@@ -71,6 +73,7 @@ void UIManager::CheckAndUpdate() {
     m_focus.CheckAndUpdate();
     m_sceneManager.CheckAndUpdate(mousePosition, m_appContext);
 }
+
 void UIManager::Render() {
     BeginDrawing();
     ClearBackground(BLACK);
@@ -108,7 +111,7 @@ void UIManager::SetWindowSize(bool const force) {
     }
     window.currentResolutionEnum = m_nextResolution;
 
-    HVec2<int> values{ window.GetIntFromResolution(m_nextResolution) };
+    HVec2<int> values = window.GetIntFromResolution(m_nextResolution) ;
 
     window.currentResolutionVec = { static_cast<float>(values.x), static_cast<float>(values.y) };
     ::SetWindowSize(values.x, values.y);
@@ -171,7 +174,7 @@ UIManager::~UIManager() {
 
 void UIManager::StartUI() {
 
-    SetWindowTitle(("Tentakels Attacking " + m_appContext.constants.global.gameVersion).c_str());
+    SetWindowTitle(("Tentakels Attacking " + CGlobal::gameVersion).c_str());
     Window_ty window{ m_appContext.constants.window };
     window.nativeResolutionVec = window.GetIntFromResolution(Resolution::SCREEN);
 

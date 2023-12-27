@@ -33,7 +33,7 @@ private:
 
     float m_scaleFactor{ 1.0f };
     Vector2 m_lastMousePosition{ 0.0f, 0.0f };
-    Rectangle m_absoluteSize;
+    Rectangle m_absoluteSize{};
     Galaxy_ty_raw m_currentGalaxy{ nullptr };
 
     std::vector<UIGalaxyElement_ty> m_uiGalaxyElements;
@@ -54,7 +54,7 @@ private:
 
     [[nodiscard]] Vector2 GetRelativePosition(Vector2 pos, AppContext_ty_c appContext) const;
 
-    [[nodiscard]] bool IsUIGalaxyElementInCollider(UIGalaxyElement_ty element) const;
+    [[nodiscard]] bool IsUIGalaxyElementInCollider(UIGalaxyElement_ty const& element) const;
 
     void UpdateUIGalaxyElementPosition();
 
@@ -105,7 +105,7 @@ public:
 
     void Resize(AppContext_ty_c appContext) override;
 
-    void FilterByCurrentPlayer(PlayerData player);
+    void FilterByCurrentPlayer(PlayerData const& player);
 
     void SetEnabled(bool isEnabled);
 

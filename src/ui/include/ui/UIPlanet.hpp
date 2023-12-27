@@ -11,13 +11,13 @@
 class UIPlanet final : public UIGalaxyElement {
 private:
     Planet_ty_raw_c m_planet;
-    Vector2 m_renderOffset;
+    Vector2 m_renderOffset{};
 
 public:
     UIPlanet(
             unsigned int focusID,
             unsigned int ID,
-            PlayerData player,
+            PlayerData const& player,
             Vector2 pos,
             Vector2 colliderPos,
             Planet_ty_raw_c planet

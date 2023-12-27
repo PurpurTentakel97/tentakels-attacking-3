@@ -31,17 +31,17 @@ private:
 
     void UpdatePlayer(unsigned int ID, std::string const& name, Color color);
 
-    void UpdatePlayerName(AbstractTableCell const* cell, std::string oldValue, std::string newValue);
+    void UpdatePlayerName(AbstractTableCell const* cell, std::string const& oldValue, std::string const& newValue);
 
     void UpdatePlayerColor(AbstractTableCell const* cell, Color oldValue, Color newValue);
 
-    void DeletePlayer(unsigned int ID);
+    static void DeletePlayer(unsigned int ID);
 
-    void CheckPlayerCount() const;
+    static void CheckPlayerCount();
 
-    void NextScene(bool valid);
+    static void NextScene(bool valid);
 
-    void Reset();
+    static void Reset();
 
     void SetNextButton();
 

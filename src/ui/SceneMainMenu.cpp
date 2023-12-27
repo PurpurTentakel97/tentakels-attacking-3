@@ -42,7 +42,7 @@ void MainMenu::Initialize() {
             Alignment::BOTTOM_RIGHT,
             Alignment::BOTTOM_RIGHT,
             0.02f,
-            appContext.constants.global.gameVersion + '\n' + appContext.constants.global.copyRight
+            CGlobal::gameVersion + '\n' + CGlobal::copyRight
     );
     m_elements.push_back(versionAndCopyRight);
 

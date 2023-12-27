@@ -76,11 +76,13 @@ void Intro::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appCont
 
     m_btn->CheckAndUpdate(mousePosition, appContext);
 }
+
 void Intro::Render(AppContext_ty_c appContext) {
     for (auto& e : m_elements) {
         e->Render(appContext);
     }
 }
+
 void Intro::Resize(AppContext_ty_c appContext) {
     for (auto& e : m_elements) {
         e->Resize(appContext);

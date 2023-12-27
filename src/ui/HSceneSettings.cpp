@@ -69,9 +69,11 @@ SettingsScene::SettingsScene()
 void SettingsScene::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) {
     Scene::CheckAndUpdate(mousePosition, appContext);
 }
+
 void SettingsScene::Render(AppContext_ty_c appContext) {
     Scene::Render(appContext);
 }
+
 void SettingsScene::Resize(AppContext_ty_c appContext) {
     Scene::Resize(appContext);
 }

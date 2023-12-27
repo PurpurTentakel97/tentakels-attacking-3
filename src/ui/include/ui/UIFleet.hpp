@@ -25,7 +25,7 @@ private:
 
 public:
     UIFleet(unsigned int ID,
-            PlayerData player,
+            PlayerData const& player,
             Vector2 start,
             Vector2 end,
             Vector2 relativeStart,

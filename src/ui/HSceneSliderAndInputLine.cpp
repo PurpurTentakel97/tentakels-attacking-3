@@ -7,6 +7,8 @@
 #include <helper/HRandom.hpp>
 #include <ui_lib/ButtonClassic.hpp>
 #include <ui_lib/Slider.hpp>
+#include <ui_lib/InputLine.hpp>
+#include <memory>
 
 void SliderAndInputLine::Initialize(unsigned int focusID) {
     m_inputLine = std::make_shared<InputLine<int>>(
@@ -55,10 +57,12 @@ void SliderAndInputLine::BtnPressed() {
     SetSliderValue();
     m_btn->SetEnabled(false);
 }
+
 void SliderAndInputLine::SaveValue() {
     ValidateCurrentValue();
     m_onSave(m_currentValue);
 }
+
 void SliderAndInputLine::Slide(float position) {
     m_currentValue = static_cast<int>(
             (static_cast<float>(m_maxValue - m_minValue) * position / 100.0f) + static_cast<float>(m_minValue)
@@ -67,6 +71,7 @@ void SliderAndInputLine::Slide(float position) {
     SaveValue();
     m_slided = true;
 }
+
 void SliderAndInputLine::ValidateCurrentValue() {
     m_currentValue = m_inputLine->GetValue();
 
@@ -78,6 +83,7 @@ void SliderAndInputLine::ValidateCurrentValue() {
 
     m_inputLine->SetValue(m_currentValue);
 }
+
 void SliderAndInputLine::SetSliderValue() const {
     float const percent{ static_cast<float>(m_currentValue - m_minValue) / static_cast<float>(m_maxValue - m_minValue)
                          * 100.0f };
@@ -133,8 +139,9 @@ void SliderAndInputLine::SetEnabled(bool isEnabled) {
 }
 
 void SliderAndInputLine::SetOnSave(std::function<void(int)> onSave) {
-    m_onSave = onSave;
+    m_onSave = std::move(onSave);
 }
+
 void SliderAndInputLine::SetValue(int value) {
     m_currentValue = value;
     ValidateCurrentValue();

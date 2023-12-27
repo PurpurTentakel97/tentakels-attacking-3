@@ -14,9 +14,9 @@ private:
     Galaxy_ty_raw m_galaxy;
     Table_ty m_table;
 
-    void Initialization(PlayerData currentPlayer);
+    void Initialization(PlayerData const& currentPlayer);
 
-    [[nodiscard]] std::string GetStringFromPosition(vec2pos_ty position, bool getCoordinates) const;
+    [[nodiscard]] std::string GetStringFromPosition(vec2pos_ty_ref_c position, bool getCoordinates) const;
 
 public:
     FleetAndTargetPointTable(
@@ -24,7 +24,7 @@ public:
             Vector2 size,
             Alignment alignment,
             Galaxy_ty_raw galaxy,
-            PlayerData currentPlayer
+            PlayerData const& currentPlayer
     );
 
     void SetActive(bool active, AppContext_ty_c appContext) override;

@@ -82,7 +82,6 @@ GameEventSettings::GameEventSettings(unsigned int focusID, Vector2 pos, Vector2 
     Initialize(focusID);
 }
 
-
 void GameEventSettings::SetRandom() {
     Random& random{ Random::GetInstance() };
     AppContext_ty appContext{ AppContext::GetInstance() };

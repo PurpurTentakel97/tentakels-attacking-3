@@ -9,7 +9,7 @@
 #include <logic/Player.hpp>
 #include <logic/TargetPoint.hpp>
 
-UITargetPoint::UITargetPoint(unsigned int focusID, unsigned int ID, PlayerData player, Vector2 pos,
+UITargetPoint::UITargetPoint(unsigned int focusID, unsigned int ID, PlayerData const& player, Vector2 pos,
 	Vector2 colliderPos, TargetPoint_ty_raw_c targetPoint)
 	: UIGalaxyElement{ focusID, ID,{ 0.005f,0.01f },  player, pos, colliderPos }, m_targetPoint{ targetPoint } {
 
@@ -61,11 +61,13 @@ void UITargetPoint::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c
         m_onClick(this);
     }
 }
+
 void UITargetPoint::RenderRing(AppContext_ty_c appContext) {
     if (m_targetPoint->IsDiscovered()) {
         m_ring->Render(appContext);
     }
 }
+
 void UITargetPoint::Render(AppContext_ty_c) {
 
 

@@ -25,7 +25,7 @@ private:
     int m_popupCount{ 0 };
     bool m_nextPopup{ false };
 
-    void TestPrint(SendUpdateEvaluation const* event) const;
+    static void TestPrint(SendUpdateEvaluation const* event);
 
     void DisplayMergeResult();
 

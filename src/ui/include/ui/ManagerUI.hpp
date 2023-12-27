@@ -43,7 +43,7 @@ private:
 
     void SetWindowPosition();
 
-    void SetTargetFPS(SetTargetFPSEvent const* event);
+    static void SetTargetFPS(SetTargetFPSEvent const* event);
 
     void UILoop();
 

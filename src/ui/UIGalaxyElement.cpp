@@ -12,7 +12,7 @@ UIGalaxyElement::UIGalaxyElement(
         unsigned int focusID,
         unsigned int ID,
         Vector2 size,
-        PlayerData player,
+        PlayerData const& player,
         Vector2 pos,
         Vector2 colliderPos
 )
@@ -34,15 +34,16 @@ void UIGalaxyElement::UpdatePosition(Rectangle newCollider) {
 }
 
 void UIGalaxyElement::SetOnClick(std::function<void(UIGalaxyElement*)> onClick) {
-    m_onClick = onClick;
+    m_onClick = std::move(onClick);
 }
 
 void UIGalaxyElement::SetPlayer(PlayerData player) {
-    m_currentPlayer = player;
+    m_currentPlayer = std::move(player);
     if (Colors::AreSame(m_color, GRAY)) {
         m_color = m_currentPlayer.color;
     }
 }
+
 PlayerData UIGalaxyElement::GetPlayer() const {
     return m_currentPlayer;
 }
@@ -50,6 +51,7 @@ PlayerData UIGalaxyElement::GetPlayer() const {
 void UIGalaxyElement::SetColor(Color color) {
     m_color = color;
 }
+
 Color UIGalaxyElement::GetColor() const {
     return m_color;
 }
@@ -65,6 +67,7 @@ bool UIGalaxyElement::IsHover() const {
 bool UIGalaxyElement::IsEnabled() const {
     return m_isEnabled;
 }
+
 void UIGalaxyElement::SetEnabled(bool isEnabled) {
     m_isEnabled = isEnabled;
 }
@@ -72,6 +75,7 @@ void UIGalaxyElement::SetEnabled(bool isEnabled) {
 Rectangle UIGalaxyElement::GetCollider() const {
     return UIElement::GetCollider();
 }
+
 void UIGalaxyElement::Resize(AppContext_ty_c appContext) {
 
     m_hover.Resize(appContext);

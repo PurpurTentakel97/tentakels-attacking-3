@@ -60,7 +60,7 @@ ValidatePopUp::ValidatePopUp(
         std::function<void(bool)> callback
 )
     : PopUp{ pos, size, alignment, title, subTitle, infoTexture },
-      m_callback{ callback } {
+      m_callback{ std::move(callback) } {
 
     Initialize();
 
