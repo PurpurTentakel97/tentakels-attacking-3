@@ -17,7 +17,7 @@
 // TableCell PopUps
 #include "PopUpCell.hpp"
 #include "PopUpCellColor.hpp"
-#include "PrivativeCellPopUp.hpp"
+#include "PrimitiveCellPopUp.hpp"
 
 // Sound
 #include "PopUpSoundLeven.hpp"

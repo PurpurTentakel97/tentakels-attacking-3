@@ -7,20 +7,13 @@
 #include "UIGalaxyElement.hpp"
 #include <helper/HLogicAlias.hpp>
 
-/**
- * provides a Ui representation if the logic Planet.
- * gets implemented by the UIGalaxy.
- */
+
 class UIPlanet final : public UIGalaxyElement {
 private:
-    Planet_ty_raw_c m_planet; ///< contains the logic Planet to this Planet
-    Vector2 m_renderOffset;   ///< contains the offset to the collider for rendering
+    Planet_ty_raw_c m_planet;
+    Vector2 m_renderOffset;
 
 public:
-    /**
-	 * ctor.
-	 * converts the id to a string.
-	 */
     UIPlanet(
             unsigned int focusID,
             unsigned int ID,
@@ -30,21 +23,13 @@ public:
             Planet_ty_raw_c planet
     );
 
-    /**
-	 * updates the hover text
-	 */
+
     void UpdateHoverText() override;
 
-    /**
-	 * planet logic.
-	 */
+
     void CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) override;
-    /**
-	 * Renders the ring of the Element.
-	 */
+
     void RenderRing(AppContext_ty_c appContext) override;
-    /**
-	 * renders the planet.
-	 */
+
     void Render(AppContext_ty_c appContext) override;
 };

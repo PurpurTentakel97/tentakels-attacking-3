@@ -20,7 +20,7 @@ add_library(ui STATIC
             include/ui/SceneNewGamePlayer.hpp
             include/ui/HScenePlanetTable.hpp
             include/ui/ManagerPopUp.hpp
-            include/ui/PrivativeCellPopUp.hpp
+            include/ui/PrimitiveCellPopUp.hpp
             include/ui/ManagerScene.hpp
             include/ui/SceneAll.hpp
             include/ui/HSceneSettings.hpp

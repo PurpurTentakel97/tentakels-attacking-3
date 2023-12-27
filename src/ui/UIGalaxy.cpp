@@ -337,12 +337,12 @@ UIGalaxy::UIGalaxy(
         Vector2 size,
         Alignment alignment,
         bool isShowGalaxy,
-        bool isAcceptingInput
+        bool isAcceptInput
 )
     : UIElement{ pos, size, alignment },
       Focusable{ ID },
       m_isShowGalaxy{ isShowGalaxy },
-      m_isAcceptingInput{ isAcceptingInput } {
+      m_isAcceptingInput{ isAcceptInput } {
     m_absoluteSize = m_collider;
 
     AppContext_ty appContext{ AppContext::GetInstance() };

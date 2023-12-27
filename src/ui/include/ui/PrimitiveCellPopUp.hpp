@@ -7,30 +7,20 @@
 #include "PopUpCell.hpp"
 #include <ui_lib/InputLine.hpp>
 
-/**
- * provides a popup that can represent all primitive types and update the table.
- */
-template<typename T>
-class PrivativeCellPopUp final : public CellPopUp {
-private:
-    std::shared_ptr<InputLine<T>> m_inputChange;  ///< contains the input line for the current type
-    std::function<void(T)> m_onClick{ [](T) {} }; ///< contains the lambda that sets the edited value
 
-    /**
-	 * gets the value from the input line and calls on click.
-	 * sets should close afterword's.
-	 */
+template<typename T>
+class PrimitiveCellPopUp final : public CellPopUp {
+private:
+    std::shared_ptr<InputLine<T>> m_inputChange;
+    std::function<void(T)> m_onClick{ [](T) {} };
+
     void SetValue() override {
         m_onClick(m_inputChange->GetValue());
         SetShouldClose();
     }
 
 public:
-    /**
-	 * ctor.
-	 * only initialization.
-	 */
-    PrivativeCellPopUp(
+    PrimitiveCellPopUp(
             Vector2 pos,
             Vector2 size,
             Alignment alignment,
