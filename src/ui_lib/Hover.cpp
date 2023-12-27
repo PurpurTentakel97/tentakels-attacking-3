@@ -25,7 +25,7 @@ void Hover::CalculateDefault(AppContext_ty_c appContext) {
 
 Hover::Hover(float height, std::string text, Color color, Vector2 hoverOffset)
 	: UIElement{ { 0.0f, 0.0f }, { 0.0f, 0.0f }, Alignment::BOTTOM_LEFT },
-      m_text{ text },m_color(color),m_hoverOffset{ hoverOffset }, m_textHeight{ 0.0f } {
+      m_text{ text },m_color(color), m_textHeight{ 0.0f } {
 
     AppContext_ty appContext{ AppContext::GetInstance() };
     Resolution_ty_c resolution{ appContext.GetResolution() };

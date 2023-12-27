@@ -19,7 +19,7 @@ bool Focus::HasAnyEnabledElements() const {
     return false;
 }
 
-void Focus::UnfocusAllAtTopLayer() {
+void Focus::UnFocusAllAtTopLayer() {
     for (auto& focus : m_focus) {
         focus->SetFocus(false);
     }
