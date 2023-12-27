@@ -7,19 +7,10 @@
 #include "SpaceObject.hpp"
 
 class TargetPoint : public SpaceObject {
-private:
-
 public:
+    using SpaceObject::SpaceObject;
 
-	/**
-	 * ctor from SpaceObject.
-	 */
-	using SpaceObject::SpaceObject;
+    [[nodiscard]] bool IsTargetPoint() const override;
 
-	/**
-	 * returns if the current space object is a planet.
-	 */
-	[[nodiscard]] bool IsTargetPoint() const override;
-
-	void Update(Galaxy_ty_raw galaxy) override;
+    void Update(Galaxy_ty_raw galaxy) override;
 };
