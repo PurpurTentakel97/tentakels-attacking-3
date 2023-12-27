@@ -27,6 +27,7 @@
 
     return toReturn;
 }
+
 [[nodiscard]] std::string GetStringFromVector(std::vector<std::string> const& slicedText) {
 
     std::string toReturn;
@@ -40,7 +41,6 @@
     return toReturn;
 }
 
-
 void BreakText(std::string& toBreak, float fontSize, float length, AppContext_ty_c appContext) {
     size_t lhs{ 0 };
     size_t rhs{ 0 };
@@ -52,7 +52,7 @@ void BreakText(std::string& toBreak, float fontSize, float length, AppContext_ty
         }
 
         std::string line{ toBreak.c_str() + lhs, rhs - lhs };
-        Vector2 textSize{ MeasureTextEx(*(appContext.assetManager.GetFont()), line.data(), fontSize, 0.0f) };
+        Vector2 textSize = MeasureTextEx(*(appContext.assetManager.GetFont()), line.data(), fontSize, 0.0f);
 
         if (textSize.x > length) {
             rhs = toBreak.find_last_of(' ', rhs - 1);
@@ -110,55 +110,57 @@ std::vector<std::string> BreakTextInVector(std::string const& toBreak, float fon
 }
 
 float GetElementTextHeight(Vector2 const& relativeSize, float absoluteHeight) {
-    return { relativeSize.y * absoluteHeight };
+    return relativeSize.y * absoluteHeight;
 }
 
 std::string
 GetPrintableTextInCollider(std::string const& text, float fontSize, Rectangle collider, AppContext_ty_c appContext) {
-    auto constants = appContext.constants.textProcessing;
-    Vector2 textSize{
-        MeasureTextEx(*(appContext.assetManager.GetFont()), (text + constants.cursor).c_str(), fontSize, 0.0f)
-    };
-    if ((textSize.x + constants.cursorOffset) < collider.width) {
+    Vector2 textSize = MeasureTextEx(
+            *(appContext.assetManager.GetFont()),
+            (text + CTextProcessing::cursor).c_str(),
+            fontSize,
+            0.0f
+    );
+    if ((textSize.x + CTextProcessing::cursorOffset) < collider.width) {
         return text;
     }
 
     std::string toReturn{ text };
-    std::string toCheck{ constants.prefix + text + constants.cursor };
+    std::string toCheck{ CTextProcessing::prefix + text + CTextProcessing::cursor };
 
     do {
-        if (toReturn.size() == 0) {
+        if (toReturn.empty()) {
             break;
         }
         toReturn = toReturn.substr(1, toReturn.size());
-        toCheck = constants.prefix + toReturn + constants.cursor;
+        toCheck = CTextProcessing::prefix + toReturn + CTextProcessing::cursor;
         textSize = MeasureTextEx(*(appContext.assetManager.GetFont()), toCheck.c_str(), fontSize, 0.0f);
-    } while (textSize.x + constants.cursorOffset >= collider.width);
+    } while (textSize.x + CTextProcessing::cursorOffset >= collider.width);
 
-    return { constants.prefix + toReturn };
+    return { CTextProcessing::prefix + toReturn };
 }
+
 std::string GetPrintablePlaceholderTextInCollider(
         std::string const& text,
         float fontSize,
         Rectangle collider,
         AppContext_ty_c appContext
 ) {
-    auto const constants{ appContext.constants.textProcessing };
-    Vector2 textSize{ MeasureTextEx(*(appContext.assetManager.GetFont()), text.c_str(), fontSize, 0.0f) };
-    if ((textSize.x + constants.cursorOffset) < collider.width) {
+    Vector2 textSize = MeasureTextEx(*(appContext.assetManager.GetFont()), text.c_str(), fontSize, 0.0f);
+    if ((textSize.x + CTextProcessing::cursorOffset) < collider.width) {
         return text;
     }
 
     std::string toReturn{ text };
-    std::string toCheck{ constants.prefix + text };
+    std::string toCheck{ CTextProcessing::prefix + text };
 
     do {
         toReturn = toReturn.substr(0, toReturn.size() - 1);
-        toCheck = constants.prefix + toReturn;
+        toCheck = CTextProcessing::prefix + toReturn;
         textSize = MeasureTextEx(*(appContext.assetManager.GetFont()), toCheck.c_str(), fontSize, 0.0f);
-    } while (textSize.x + constants.cursorOffset >= collider.width);
+    } while (textSize.x + CTextProcessing::cursorOffset >= collider.width);
 
-    return { toReturn + constants.prefix };
+    return { toReturn + CTextProcessing::prefix };
 }
 
 void StripString(std::string& toStrip) {
@@ -183,7 +185,7 @@ GetVerticalAlignedTextPosition(std::string const& text, float fontSize, Rectangl
     }
 
     AppContext_ty_c appContext{ AppContext::GetInstance() };
-    Vector2 const textSize{ MeasureTextEx(*(appContext.assetManager.GetFont()), text.c_str(), fontSize, 0.0f) };
+    Vector2 const textSize = MeasureTextEx(*(appContext.assetManager.GetFont()), text.c_str(), fontSize, 0.0f);
 
     if (collider.height < textSize.y) {
         return { collider.x, collider.y };
@@ -202,10 +204,10 @@ GetVerticalAlignedOffset(std::vector<std::string> text, float fontSize, Rectangl
     TextAlignment const textAlignment{ GetVerticalTextAlignment(alignment) };
     std::vector<float> toReturn;
 
-    assert(text.size() > 0);
+    assert(not text.empty());
 
-    float value{ 0.0 };
-    Vector2 const textSize{ MeasureTextEx(*(appContext.assetManager.GetFont()), text.at(0).c_str(), fontSize, 0.0f) };
+    float value{ 0.0f };
+    Vector2 const textSize = MeasureTextEx(*(appContext.assetManager.GetFont()), text.at(0).c_str(), fontSize, 0.0f);
 
     if (textAlignment == TextAlignment::TOP) {
         value = 0.0f;
@@ -238,13 +240,13 @@ std::string GetHorizontalAlignedText(std::string const& text, Rectangle collider
 
     AppContext_ty_c appContext{ AppContext::GetInstance() };
 
-    Vector2 const spaceSize{ MeasureTextEx(*(appContext.assetManager.GetFont()), " ", fontSize, 0.0f) };
+    Vector2 const spaceSize = MeasureTextEx(*(appContext.assetManager.GetFont()), " ", fontSize, 0.0f);
 
     std::vector<std::string> const slicedText{ GetSerializedText(text) };
     std::vector<std::string> alignedSlicedText;
 
     for (auto const& t : slicedText) {
-        Vector2 const textSize{ MeasureTextEx(*(appContext.assetManager.GetFont()), t.c_str(), fontSize, 0.0f) };
+        Vector2 const textSize = MeasureTextEx(*(appContext.assetManager.GetFont()), t.c_str(), fontSize, 0.0f);
 
         if (collider.width < textSize.x) {
             alignedSlicedText.push_back(t);
@@ -266,8 +268,12 @@ std::string GetHorizontalAlignedText(std::string const& text, Rectangle collider
     return toReturn;
 }
 
-std::vector<float>
-GetHorizontalAlignedOffset(std::vector<std::string> text, Rectangle collider, float fontSize, Alignment alignment) {
+std::vector<float> GetHorizontalAlignedOffset(
+        std::vector<std::string> const& text,
+        Rectangle collider,
+        float fontSize,
+        Alignment alignment
+) {
     AppContext_ty_c appContext{ AppContext::GetInstance() };
     TextAlignment const textAlignment{ GetHorizontalTextAlignment(alignment) };
 
@@ -282,7 +288,7 @@ GetHorizontalAlignedOffset(std::vector<std::string> text, Rectangle collider, fl
 
     for (auto const& line : text) {
 
-        Vector2 const textSize{ MeasureTextEx(*(appContext.assetManager.GetFont()), line.c_str(), fontSize, 0.0f) };
+        Vector2 const textSize = MeasureTextEx(*(appContext.assetManager.GetFont()), line.c_str(), fontSize, 0.0f);
 
         if (collider.width < textSize.x) {
             toReturn.push_back(0.0f);

@@ -18,6 +18,7 @@ bool IsConfirmInputPressed() {
 
     return triggered;
 }
+
 bool IsConfirmInputReleased() {
     bool const triggered{ IsKeyReleased(KEY_SPACE) or IsKeyReleased(KEY_KP_ENTER)
                           or (IsKeyReleased(KEY_ENTER) and !IsSkipInput()
@@ -29,9 +30,11 @@ bool IsConfirmInputReleased() {
 
     return triggered;
 }
+
 bool IsConfirmInputDown() {
     return IsKeyDown(KEY_SPACE) or IsKeyDown(KEY_KP_ENTER) or (IsKeyDown(KEY_ENTER) and !IsSkipInput());
 }
+
 bool IsConfirmInputUp() {
     return IsKeyUp(KEY_KP_ENTER) or IsKeyUp(KEY_SPACE) or (IsKeyUp(KEY_ENTER) and !IsSkipInput());
 }
@@ -47,6 +50,7 @@ bool IsOnlyEnterConfirmInputPressed() {
 
     return triggered;
 }
+
 bool IsOnlyEnterConfirmInputReleased() {
     bool const triggered{ IsKeyReleased(KEY_KP_ENTER)
                           or (IsKeyReleased(KEY_ENTER) and !IsSkipInput()
@@ -58,9 +62,11 @@ bool IsOnlyEnterConfirmInputReleased() {
 
     return triggered;
 }
+
 bool IsOnlyEnterConfirmInputDown() {
     return IsKeyDown(KEY_KP_ENTER) or (IsKeyDown(KEY_ENTER) and !IsSkipInput());
 }
+
 bool IsOnlyEnterConfirmInputUp() {
     return IsKeyUp(KEY_KP_ENTER) or (IsKeyUp(KEY_ENTER) and !IsSkipInput());
 }
@@ -68,12 +74,15 @@ bool IsOnlyEnterConfirmInputUp() {
 bool IsBackInputPressed() {
     return IsKeyPressed(KEY_ESCAPE);
 }
+
 bool IsBackInputReleased() {
     return IsKeyReleased(KEY_ESCAPE);
 }
+
 bool IsBackInputDown() {
     return IsKeyDown(KEY_ESCAPE);
 }
+
 bool IsBackInputUp() {
     return IsKeyUp(KEY_ESCAPE);
 }

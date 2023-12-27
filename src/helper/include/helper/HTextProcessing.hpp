@@ -38,7 +38,11 @@ GetVerticalAlignedOffset(std::vector<std::string> text, float fontSize, Rectangl
 [[nodiscard]] std::string
 GetHorizontalAlignedText(std::string const& text, Rectangle collider, float fontSize, Alignment alignment);
 
-[[nodiscard]] std::vector<float>
-GetHorizontalAlignedOffset(std::vector<std::string> text, Rectangle collider, float fontSize, Alignment alignment);
+[[nodiscard]] std::vector<float> GetHorizontalAlignedOffset(
+        std::vector<std::string> const& text,
+        Rectangle collider,
+        float fontSize,
+        Alignment alignment
+);
 
 void DrawTextWithOutline(std::string const& text, Vector2 position, float size, Color color, bool background);

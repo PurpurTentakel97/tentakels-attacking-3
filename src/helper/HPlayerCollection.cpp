@@ -4,11 +4,11 @@
 //
 
 #include "HPlayerCollection.hpp"
-#include <AppContext.hpp>
 #include "HLogicAlias.hpp"
+#include <AppContext.hpp>
+#include <algorithm>
 #include <event/EventGenerel.hpp>
 #include <event/EventsUI.hpp>
-#include <algorithm>
 #include <stdexcept>
 
 bool PlayerCollection::ContainsName(std::string const& name) const {
@@ -26,6 +26,7 @@ bool PlayerCollection::ContainsName(std::string const& name) const {
 
     return false;
 }
+
 bool PlayerCollection::ContainsColor(Color color) const {
     for (auto const& p : m_playerData) {
         if (p.color == color) {
@@ -42,7 +43,7 @@ bool PlayerCollection::ContainsColor(Color color) const {
     return false;
 }
 
-void PlayerCollection::CheckValidColor(Color& color) {
+void PlayerCollection::CheckValidColor(Color& color) const {
     AppContext_ty_c appContext{ AppContext::GetInstance() };
     if (appContext.colors.CheckValidColor(color)) {
         ShowMessagePopUpEvent const event{
@@ -54,6 +55,7 @@ void PlayerCollection::CheckValidColor(Color& color) {
         color = GetPossibleColor();
     }
 }
+
 void PlayerCollection::CheckRemainingColor(Color& color) {
     if (ContainsColor(color)) {
         AppContext_ty_c appContext{ AppContext::GetInstance() };
@@ -66,6 +68,7 @@ void PlayerCollection::CheckRemainingColor(Color& color) {
         color = GetPossibleColor();
     }
 }
+
 void PlayerCollection::CheckRemainingName(std::string& name) {
 
     bool invalidName{ false };
@@ -111,6 +114,7 @@ PlayerData& PlayerCollection::GetPlayerByIDmut(unsigned int ID) {
 
     throw std::out_of_range("Accessing non existing ID");
 }
+
 void PlayerCollection::SortPlayers() {
     std::sort(m_playerData.begin(), m_playerData.end(), SortPlayerByID_ASC);
 }
@@ -126,6 +130,7 @@ void PlayerCollection::AddPlayer(unsigned int ID, std::string name, Color color)
     RefreshNewGamePlayerScene const event{};
     AppContext::GetInstance().eventManager.InvokeEvent(event);
 }
+
 void PlayerCollection::EditPlayer(unsigned int ID, std::string name, Color color) {
 
     PlayerData& playerData{ GetPlayerByIDmut(ID) };
@@ -145,6 +150,7 @@ void PlayerCollection::EditPlayer(unsigned int ID, std::string name, Color color
     RefreshNewGamePlayerScene const event{};
     AppContext::GetInstance().eventManager.InvokeEvent(event);
 }
+
 void PlayerCollection::DeletePlayer(unsigned int ID) {
     auto const& toDelete{ GetPlayerByIDmut(ID) };
 
@@ -154,6 +160,7 @@ void PlayerCollection::DeletePlayer(unsigned int ID) {
     RefreshNewGamePlayerScene const event{};
     AppContext::GetInstance().eventManager.InvokeEvent(event);
 }
+
 void PlayerCollection::ResetPlayer() {
     m_playerData.clear();
     RefreshNewGamePlayerScene const event{};
@@ -169,6 +176,7 @@ Color PlayerCollection::GetPossibleColor() const {
     }
     return appContext.colors.GetColors().at(0);
 }
+
 std::vector<PlayerData> PlayerCollection::GetPlayerData() const {
     return m_playerData;
 }
@@ -187,6 +195,7 @@ PlayerData PlayerCollection::GetPlayerByID(unsigned int ID) const {
 
     throw std::out_of_range("Accessing non existing ID");
 }
+
 PlayerData PlayerCollection::GetPlayerOrNpcByID(unsigned int ID) const {
 
     for (auto const& p : m_npcData) {
@@ -197,6 +206,7 @@ PlayerData PlayerCollection::GetPlayerOrNpcByID(unsigned int ID) const {
 
     return GetPlayerByID(ID);
 }
+
 PlayerData PlayerCollection::GetPlayerByIDOrDefaultPlayer(unsigned int ID) const {
 
     for (auto const& p : m_playerData) {
@@ -207,6 +217,7 @@ PlayerData PlayerCollection::GetPlayerByIDOrDefaultPlayer(unsigned int ID) const
 
     return m_defaultPlayer;
 }
+
 PlayerData PlayerCollection::GetPlayerByName(std::string const& name) const {
     for (auto const& p : m_playerData) {
         if (p.GetName() == name) {
@@ -216,6 +227,7 @@ PlayerData PlayerCollection::GetPlayerByName(std::string const& name) const {
 
     throw std::out_of_range("Accessing non existing Name");
 }
+
 PlayerData PlayerCollection::GetPlayerByColor(Color color) const {
     for (auto const& p : m_playerData) {
         if (p.color == color) {

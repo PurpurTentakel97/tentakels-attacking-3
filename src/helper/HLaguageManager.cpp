@@ -12,16 +12,17 @@ void HLanguageManager::InitializeLanguage() {
     bool const valid{ LoadLanguage(m_default_language, true) };
     if (not valid) {
         Print(PrintType::ERROR,
-              "not able to load default language \"{}\" -> not able to show fallback text if the choosen language does "
+              R"(not able to load default language "{}" -> not able to show fallback text if the chosen language does )"
               "not contain the key",
               m_default_language);
     }
     ChanceLanguage(AppContext::GetInstance().constants.global.currentLanguageName);
 }
+
 void HLanguageManager::InitializeAvailableLanguages() {
     std::string const directory{ "Assets/Languages" };
     m_availableLanguages.clear();
-    auto const contains{ [&](std::string name) -> bool {
+    auto const contains{ [&](std::string const& name) -> bool {
         for (auto const& f : m_availableLanguages) {
             if (f == name) {
                 return true;
@@ -83,6 +84,7 @@ void HLanguageManager::ChanceLanguage(std::string const& language) {
         handleUpdateLanguage();
     }
 }
+
 bool HLanguageManager::LoadLanguage(std::string const& language, bool const defaultLanguage) {
     bool found{ false };
     for (auto const& l : m_availableLanguages) {
@@ -160,38 +162,31 @@ bool HLanguageManager::LoadLanguage(std::string const& language, bool const defa
     } else if (not dummy.contains(m_version_key)) {
         assert(dummy.contains(m_version_key));
         Print(PrintType::ERROR,
-              "not able to check language version -> language does not contain key \"{}\" -> \"{}\"",
+              R"(not able to check language version -> language does not contain key "{}" -> "{}")",
               m_version_key,
               language);
         return false;
     } else {
         auto const& version{ static_cast<std::string>(dummy[m_version_key]) };
-        if (version == AppContext::GetInstance().constants.global.languageVersion) {
-            if (defaultLanguage) {
-                Print(PrintType::INFO,
-                      "loaded language version matches the expected version -> \"{}\" -> \"{}\"",
-                      language,
-                      version);
-            } else {
-                Print(PrintType::INFO,
-                      "loaded language version matches the expected version -> \"{}\" -> \"{}\"",
-                      language,
-                      version);
-            }
+        if (version == CGlobal::languageVersion) {
+            Print(PrintType::INFO,
+                  R"(loaded language version matches the expected version -> "{}" -> "{}")",
+                  language,
+                  version);
         } else {
             if (defaultLanguage) {
                 Print(PrintType::ERROR,
                       "versions of default language does not match -> language \"{}\" -> expected \"{}\" -> provided "
                       "\"{}\" -> it is possible that not every text can be displayed",
                       language,
-                      AppContext::GetInstance().constants.global.languageVersion,
+                      CGlobal::languageVersion,
                       version);
             } else {
                 Print(PrintType::ERROR,
                       "versions of current language does not match -> language \"{}\" -> expected -> \"{}\" -> "
                       "provided \"{}\" -> it is possible that the default language tried to be displayed",
                       language,
-                      AppContext::GetInstance().constants.global.languageVersion,
+                      CGlobal::languageVersion,
                       version);
             }
         }
@@ -226,21 +221,23 @@ std::pair<bool, std::string> HLanguageManager::RawText(std::string const& key, b
         return { true, dummy[key] };
     }
 }
-std::string HLanguageManager::ReplacePlaceholders(std::string const& text) const {
+std::string HLanguageManager::ReplacePlaceholders(std::string const& text) {
     return text;
 }
 
 HLanguageManager::HLanguageManager() {
     Print(PrintType::INITIALIZE, "LanguageManager");
 }
+
 void HLanguageManager::Initialize() {
     InitializeAvailableLanguages();
     InitializeLanguage();
 }
 
-std::vector<std::string> HLanguageManager::GetAvailableLanguages() const {
+std::vector<std::string> HLanguageManager::GetAvailableLanguages() {
     return m_availableLanguages;
 }
+
 std::string HLanguageManager::Text(std::string const& key) const {
     auto [valid, text]{ RawText(key) };
 

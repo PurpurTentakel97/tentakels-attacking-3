@@ -41,7 +41,7 @@ void AssetManager::LoadFont() {
         return;
     }
 
-    m_font = LoadFontEx(filename.c_str(), 128, 0, 250);
+    m_font = LoadFontEx(filename.c_str(), 128, nullptr, 250);
 }
 
 void AssetManager::LoadFiles() {

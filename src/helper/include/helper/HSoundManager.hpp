@@ -35,9 +35,9 @@ private:
 
     void PlayTextSound() const;
 
-    void MuteMasterSoundLevel(bool mute) const;
+    static void MuteMasterSoundLevel(bool mute);
 
-    void SetMasterSoundLevel(float level) const;
+    static void SetMasterSoundLevel(float level);
 
     void OnEvent(Event const& event) override;
 

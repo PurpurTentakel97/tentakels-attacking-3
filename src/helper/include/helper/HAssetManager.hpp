@@ -31,7 +31,7 @@ private:
     };
     std::unordered_map<AssetType, Texture2D> m_assets;
     std::vector<std::string> m_title;
-    Font m_font;
+    Font m_font{};
 
     void LoadTitle();
 

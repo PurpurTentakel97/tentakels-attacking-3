@@ -23,7 +23,7 @@ private:
 
     [[nodiscard]] bool ContainsColor(Color color) const;
 
-    void CheckValidColor(Color& color);
+    void CheckValidColor(Color& color) const;
 
     void CheckRemainingColor(Color& color);
 

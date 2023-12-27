@@ -6,11 +6,11 @@
 #include "HPlayerData.hpp"
 #include <AppContext.hpp>
 
-PlayerData::PlayerData(unsigned int id, std::string const& name, Color col, std::string const& key)
+PlayerData::PlayerData(unsigned int id, std::string name, Color col, std::string key)
     : ID{ id },
       color{ col },
-      m_name{ name },
-      m_nameKey{ key } { }
+      m_name{ std::move(name) },
+      m_nameKey{ std::move(key) } { }
 
 void PlayerData::SetName(std::string const& name) {
     m_name = name;

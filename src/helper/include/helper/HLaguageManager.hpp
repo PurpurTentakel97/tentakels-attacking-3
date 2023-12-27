@@ -21,14 +21,14 @@ private:
     static inline std::string const m_version_key{ "version" };
 
     void InitializeLanguage();
-    void InitializeAvailableLanguages();
+    static void InitializeAvailableLanguages();
 
     void ChanceLanguage(std::string const& language);
     [[nodiscard]] bool LoadLanguage(std::string const& language, bool defaultLanguage = false);
 
     [[nodiscard]] std::pair<bool, std::string> RawText(std::string const& key, bool defaultLanguage = false) const;
 
-    [[nodiscard]] std::string ReplacePlaceholders(std::string const& text) const;
+    [[nodiscard]] static std::string ReplacePlaceholders(std::string const& text);
     template<typename... Args>
     [[nodiscard]] std::string ReplacePlaceholders(std::string_view text, Args const&... args) const;
 
@@ -37,7 +37,7 @@ public:
 
     void Initialize();
 
-    [[nodiscard]] std::vector<std::string> GetAvailableLanguages() const;
+    [[nodiscard]] static std::vector<std::string> GetAvailableLanguages();
 
     [[nodiscard]] std::string Text(std::string const& key) const;
     template<typename... Args>

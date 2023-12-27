@@ -16,6 +16,7 @@ void AddFocusLayer(bool isPopUp) {
         AppContext::GetInstance().eventManager.InvokeEvent(event);
     }
 }
+
 void DeleteFocusLayer(bool isPopUp) {
     if (isPopUp) {
         DeleteFocusPopUpLayerEvent const event{};
@@ -35,6 +36,7 @@ void AddFocusElement(Focusable_ty_raw focusable, bool isPopUp) {
         AppContext::GetInstance().eventManager.InvokeEvent(event);
     }
 }
+
 void DeleteFocusElement(Focusable_ty_raw focusable, bool isPopUp) {
     if (isPopUp) {
         DeleteFocusPopUpElementEvent const event{ focusable };
@@ -49,6 +51,7 @@ void SelectNextFocusElement() {
     SelectNextFocusElementEvent const event{};
     AppContext::GetInstance().eventManager.InvokeEvent(event);
 }
+
 void SelectFocusElement(Focusable_ty_raw focusable, bool isPopUp) {
     if (isPopUp) {
         SelectFocusPopUpElementEvent const event{ focusable };
