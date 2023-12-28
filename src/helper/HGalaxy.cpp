@@ -6,18 +6,20 @@
 #include "HGalaxy.hpp"
 #include <logic/Fleet.hpp>
 
-std::pair<bool, SpaceObject_ty> TryGetTarget(Fleet_ty_raw fleet, SpaceObject_ty_c target) {
+namespace hlp {
+    std::pair<bool, SpaceObject_ty> TryGetTarget(Fleet_ty_raw fleet, SpaceObject_ty_c target) {
 
-    if (target->IsFleet()) {
-        if (target->GetID() == fleet->GetID()) {
-            return { false, nullptr };
+        if (target->IsFleet()) {
+            if (target->GetID() == fleet->GetID()) {
+                return { false, nullptr };
+            }
+            if (fleet->GetPlayer() != target->GetPlayer()) {
+                return { true, target };
+            }
+            auto n_target = dynamic_cast<Fleet_ty_raw>(target.get());
+            return TryGetTarget(fleet, n_target->GetTarget());
         }
-        if (fleet->GetPlayer() != target->GetPlayer()) {
-            return { true, target };
-        }
-        auto n_target = dynamic_cast<Fleet_ty_raw>(target.get());
-        return TryGetTarget(fleet, n_target->GetTarget());
+
+        return { true, target };
     }
-
-    return { true, target };
-}
+} // namespace hlp

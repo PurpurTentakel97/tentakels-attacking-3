@@ -9,45 +9,47 @@
 #include <constants/CFiles.hpp>
 #include <filesystem>
 
-void SetErrorLogFileName() {
-    auto const now{ std::chrono::system_clock::now() };
-    std::stringstream filename{};
-    filename << "tentakels_attacking_debug_" << now.time_since_epoch().count() << ".txt";
+namespace hlp {
+    void SetErrorLogFileName() {
+        auto const now{ std::chrono::system_clock::now() };
+        std::stringstream filename{};
+        filename << "tentakels_attacking_debug_" << now.time_since_epoch().count() << ".txt";
 
-    cst::Files::SetDebugLogFile(filename.str());
-    Print(PrintType::INFO, "debug file name set");
-}
-
-void GenerateFileStream() {
-    SetErrorLogFileName();
-
-    if (!std::filesystem::exists(cst::Files::debugLogDir())) {
-        std::filesystem::create_directories(cst::Files::debugLogDir());
-        Print(PrintType::INFO, "created debug directory");
-    } else if (!std::filesystem::is_directory(cst::Files::debugLogDir())) {
-        std::filesystem::remove(cst::Files::debugLogDir());
-        std::filesystem::create_directories(cst::Files::debugLogDir());
-        Print(PrintType::INFO, "removed debug file and added debug directory");
+        cst::Files::SetDebugLogFile(filename.str());
+        Print(PrintType::INFO, "debug file name set");
     }
 
-    cst::Files::debugLogStream.open(cst::Files::debugLogFile());
-    Print(PrintType::INFO, "opened debug log");
-}
+    void GenerateFileStream() {
+        SetErrorLogFileName();
 
-void LogError(std::string const& error) {
-    if (!cst::Files::debugLogStream.is_open()) {
-        GenerateFileStream();
+        if (!std::filesystem::exists(cst::Files::debugLogDir())) {
+            std::filesystem::create_directories(cst::Files::debugLogDir());
+            Print(PrintType::INFO, "created debug directory");
+        } else if (!std::filesystem::is_directory(cst::Files::debugLogDir())) {
+            std::filesystem::remove(cst::Files::debugLogDir());
+            std::filesystem::create_directories(cst::Files::debugLogDir());
+            Print(PrintType::INFO, "removed debug file and added debug directory");
+        }
+
+        cst::Files::debugLogStream.open(cst::Files::debugLogFile());
+        Print(PrintType::INFO, "opened debug log");
     }
 
-    cst::Files::debugLogStream << error;
-    Print(PrintType::INFO, "logged error");
-}
+    void LogError(std::string const& error) {
+        if (!cst::Files::debugLogStream.is_open()) {
+            GenerateFileStream();
+        }
 
-void CloseErrorStream() {
-    if (!cst::Files::debugLogStream.is_open()) {
-        return;
+        cst::Files::debugLogStream << error;
+        Print(PrintType::INFO, "logged error");
     }
 
-    cst::Files::debugLogStream.close();
-    Print(PrintType::INFO, "closed debug log");
-}
+    void CloseErrorStream() {
+        if (!cst::Files::debugLogStream.is_open()) {
+            return;
+        }
+
+        cst::Files::debugLogStream.close();
+        Print(PrintType::INFO, "closed debug log");
+    }
+} // namespace hlp

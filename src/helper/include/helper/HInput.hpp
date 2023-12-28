@@ -5,37 +5,38 @@
 
 #pragma once
 
+namespace hlp {
+    // confirm
+    [[nodiscard]] bool IsConfirmInputPressed();
 
-// confirm
-[[nodiscard]] bool IsConfirmInputPressed();
+    [[nodiscard]] bool IsConfirmInputReleased();
 
-[[nodiscard]] bool IsConfirmInputReleased();
+    [[nodiscard]] bool IsConfirmInputDown();
 
-[[nodiscard]] bool IsConfirmInputDown();
+    [[nodiscard]] bool IsConfirmInputUp();
 
-[[nodiscard]] bool IsConfirmInputUp();
+    // only enter confirm
+    [[nodiscard]] bool IsOnlyEnterConfirmInputPressed();
 
-// only enter confirm
-[[nodiscard]] bool IsOnlyEnterConfirmInputPressed();
+    [[nodiscard]] bool IsOnlyEnterConfirmInputReleased();
 
-[[nodiscard]] bool IsOnlyEnterConfirmInputReleased();
+    [[nodiscard]] bool IsOnlyEnterConfirmInputDown();
 
-[[nodiscard]] bool IsOnlyEnterConfirmInputDown();
+    [[nodiscard]] bool IsOnlyEnterConfirmInputUp();
 
-[[nodiscard]] bool IsOnlyEnterConfirmInputUp();
+    // back input
+    [[nodiscard]] bool IsBackInputPressed();
 
-// back input
-[[nodiscard]] bool IsBackInputPressed();
+    [[nodiscard]] bool IsBackInputReleased();
 
-[[nodiscard]] bool IsBackInputReleased();
+    [[nodiscard]] bool IsBackInputDown();
 
-[[nodiscard]] bool IsBackInputDown();
+    [[nodiscard]] bool IsBackInputUp();
 
-[[nodiscard]] bool IsBackInputUp();
+    // other
+    [[nodiscard]] bool IsToggleFullscreenInput();
 
-// other
-[[nodiscard]] bool IsToggleFullscreenInput();
+    [[nodiscard]] bool IsSkipInput();
 
-[[nodiscard]] bool IsSkipInput();
-
-[[nodiscard]] bool IsQuitInput();
+    [[nodiscard]] bool IsQuitInput();
+} // namespace hlp

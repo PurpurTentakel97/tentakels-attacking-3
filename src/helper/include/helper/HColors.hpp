@@ -9,11 +9,12 @@
 #include <string>
 
 
-struct Colors final {
-private:
-    using ColorArray = std::array<Color, 16>;
-    ColorArray m_colors{
-        // clang-format off
+namespace hlp {
+    struct Colors final {
+    private:
+        using ColorArray = std::array<Color, 16>;
+        ColorArray m_colors{
+            // clang-format off
         YELLOW,
         GOLD,
         PINK,
@@ -30,17 +31,18 @@ private:
         PURPLE,
         VIOLET,
         DARKPURPLE,
-        // clang-format on
+            // clang-format on
+        };
+
+    public:
+        [[nodiscard]] bool CheckValidColor(Color const& color) const;
+
+        [[nodiscard]] ColorArray GetColors() const;
+
+        [[nodiscard]] static std::string AsString(Color color);
+
+        [[nodiscard]] static bool AreSame(Color lhs, Color rhs);
+
+        [[nodiscard]] static bool NeedBackground(Color color);
     };
-
-public:
-    [[nodiscard]] bool CheckValidColor(Color const& color) const;
-
-    [[nodiscard]] ColorArray GetColors() const;
-
-    [[nodiscard]] static std::string AsString(Color color);
-
-    [[nodiscard]] static bool AreSame(Color lhs, Color rhs);
-
-    [[nodiscard]] static bool NeedBackground(Color color);
-};
+} // namespace hlp

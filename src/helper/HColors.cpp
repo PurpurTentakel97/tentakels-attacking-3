@@ -7,14 +7,15 @@
 #include "HGeneral.hpp"
 #include <AppContext.hpp>
 
-bool Colors::CheckValidColor(Color const& color) const {
-    return std::find(m_colors.begin(), m_colors.end(), color) == m_colors.end();
-}
-Colors::ColorArray Colors::GetColors() const {
-    return m_colors;
-}
-std::string Colors::AsString(Color const color) {
-    // clang-format off
+namespace hlp {
+    bool Colors::CheckValidColor(Color const& color) const {
+        return std::find(m_colors.begin(), m_colors.end(), color) == m_colors.end();
+    }
+    Colors::ColorArray Colors::GetColors() const {
+        return m_colors;
+    }
+    std::string Colors::AsString(Color const color) {
+        // clang-format off
            if (AreSame(color, YELLOW    )) { return AppContext::GetInstance().languageManager.Text("helper_color_yellow"     );
     } else if (AreSame(color, GOLD      )) { return AppContext::GetInstance().languageManager.Text("helper_color_gold"       );
     } else if (AreSame(color, PINK      )) { return AppContext::GetInstance().languageManager.Text("helper_color_pink"       );
@@ -34,20 +35,21 @@ std::string Colors::AsString(Color const color) {
     } else                                 { return AppContext::GetInstance().languageManager.Text("helper_color_invalid"    );
     }
     // clang-format on
-}
-bool Colors::AreSame(Color const lhs, Color const rhs) {
-    // clang-format off
+    }
+    bool Colors::AreSame(Color const lhs, Color const rhs) {
+        // clang-format off
     return  lhs.r == rhs.r
         and lhs.g == rhs.g
         and lhs.b == rhs.b
         and lhs.a == rhs.a;
-    // clang-format on
-}
-bool Colors::NeedBackground(Color const color) {
-    // clang-format off
+        // clang-format on
+    }
+    bool Colors::NeedBackground(Color const color) {
+        // clang-format off
     return AreSame(color, MAGENTA)
         or AreSame(color, DARKGREEN)
         or AreSame(color, DARKBLUE)
         or AreSame(color, VIOLET);
-    // clang-format on
-}
+        // clang-format on
+    }
+} // namespace hlp

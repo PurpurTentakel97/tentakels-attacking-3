@@ -5,31 +5,33 @@
 
 #pragma once
 
-enum class Resolution {
-    // 16:9
-    UHD2 = 0,
-    _5K,
-    UHD1,
-    WQHD,
-    FULL_HD,
-    HD,
+namespace hlp {
+    enum class Resolution {
+        // 16:9
+        UHD2 = 0,
+        _5K,
+        UHD1,
+        WQHD,
+        FULL_HD,
+        HD,
 
-    // 21:9
-    _5K_ULTRA_WIDE,
-    UWQHD,
-    UWHD,
+        // 21:9
+        _5K_ULTRA_WIDE,
+        UWQHD,
+        UWHD,
 
-    // 4:3
-    QXGA,
-    UXGA,
-    SXGA_Plus,
-    XGA_plus,
-    XGA,
-    SVGA,
-    PAL,
-    VGA,
+        // 4:3
+        QXGA,
+        UXGA,
+        SXGA_Plus,
+        XGA_plus,
+        XGA,
+        SVGA,
+        PAL,
+        VGA,
 
-    SCREEN,
-    NATIVE,
-    LAST,
-};
+        SCREEN,
+        NATIVE,
+        LAST,
+    };
+}

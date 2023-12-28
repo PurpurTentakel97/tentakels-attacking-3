@@ -6,9 +6,12 @@
 #include "HLogicAlias.hpp"
 #include <memory>
 
-struct HFleetResult final {
-    SpaceObject_ty origin;
-    Fleet_ty fleet;
-    SpaceObject_ty destination;
-    bool valid;
-};
+
+namespace hlp {
+    struct HFleetResult final {
+        SpaceObject_ty origin;
+        Fleet_ty fleet;
+        SpaceObject_ty destination;
+        bool valid;
+    };
+} // namespace hlp

@@ -8,4 +8,6 @@
 #include <memory>
 #include <utility>
 
-[[nodiscard]] std::pair<bool, SpaceObject_ty> TryGetTarget(Fleet_ty_raw fleet, SpaceObject_ty_c target);
+namespace hlp {
+    [[nodiscard]] std::pair<bool, SpaceObject_ty> TryGetTarget(Fleet_ty_raw fleet, SpaceObject_ty_c target);
+}
