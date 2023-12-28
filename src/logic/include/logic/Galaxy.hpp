@@ -7,6 +7,7 @@
 #include "Fleet.hpp"
 #include "Planet.hpp"
 #include "TargetPoint.hpp"
+#include <app/AliasApp.hpp>
 #include <event/EventGenerel.hpp>
 #include <helper/HVec2.hpp>
 #include <memory>
@@ -36,7 +37,7 @@ private:
 
     void GenerateOtherPlanets(size_t PlanetCount, int currentPlanet, Player_ty const& player);
 
-    [[nodiscard]] bool IsValidNewPlanet(Planet_ty const& newPlanet, AppContext_ty_c appContext) const;
+    [[nodiscard]] bool IsValidNewPlanet(Planet_ty const& newPlanet, app::AppContext_ty_c appContext) const;
 
     // Fleet
     [[nodiscard]] bool IsValidFleet(unsigned int ID) const;

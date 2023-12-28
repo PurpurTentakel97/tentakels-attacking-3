@@ -18,7 +18,7 @@ class Scene;
 
 class UIManager final : public eve::EventListener {
 private:
-    AppContext_ty m_appContext;
+    app::AppContext_ty m_appContext;
     Focus m_focus;
     SceneManager m_sceneManager;
     GameManager m_gameManager;

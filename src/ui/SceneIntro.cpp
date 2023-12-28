@@ -13,7 +13,7 @@
 #include <ui_lib/Title.hpp>
 
 void Intro::Initialize() {
-    AppContext_ty appContext = AppContext::GetInstance();
+    app::AppContext_ty appContext = app::AppContext::GetInstance();
     m_title = std::make_shared<Title>(
             GetElementPosition(0.5f, 0.1f),
             GetElementSize(0.9f, 0.3f),
@@ -46,7 +46,7 @@ void Intro::Initialize() {
 
 
     m_btn->SetOnClick([]() {
-        AppContext::GetInstance().eventManager.InvokeEvent(eve::SwitchSceneEvent(SceneType::MAIN_MENU));
+        app::AppContext::GetInstance().eventManager.InvokeEvent(eve::SwitchSceneEvent(SceneType::MAIN_MENU));
     });
 }
 
@@ -59,7 +59,7 @@ Intro::Intro()
     Initialize();
 }
 
-void Intro::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) {
+void Intro::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) {
     m_title->CheckAndUpdate(mousePosition, appContext);
 
     bool const skipBtn{ hlp::IsBackInputPressed() and m_title->HasFinishedTitle() and m_btn->IsMoving() };
@@ -77,19 +77,19 @@ void Intro::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appCont
     m_btn->CheckAndUpdate(mousePosition, appContext);
 }
 
-void Intro::Render(AppContext_ty_c appContext) {
+void Intro::Render(app::AppContext_ty_c appContext) {
     for (auto& e : m_elements) {
         e->Render(appContext);
     }
 }
 
-void Intro::Resize(AppContext_ty_c appContext) {
+void Intro::Resize(app::AppContext_ty_c appContext) {
     for (auto& e : m_elements) {
         e->Resize(appContext);
     }
 }
 
-void Intro::SetActive(bool const active, AppContext_ty_c appContext) {
+void Intro::SetActive(bool const active, app::AppContext_ty_c appContext) {
     Scene::SetActive(active, appContext);
     eve::SelectFocusElementEvent const event{ m_btn.get() };
     appContext.eventManager.InvokeEvent(event);

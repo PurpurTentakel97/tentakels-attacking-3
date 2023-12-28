@@ -25,7 +25,7 @@ NewTableCell::index_ty NewTableCell::index() const {
 
 void NewTableCell::set_text_offset() {
     Vector2 constexpr ratio{ 0.05f, 0.25f };
-    Resolution_ty_c resolution{ AppContext::GetInstance().GetResolution() };
+    Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
 
     m_textRenderOffset = Vector2{
         m_size.x * ratio.x * resolution.x,
@@ -85,7 +85,7 @@ Rectangle NewTableCell::GetCollider() const {
 
 Vector2 NewTableCell::needed_cell_size(float const text_size) {
     Vector2 constexpr ratio{ 0.05f, 0.25f };
-    AppContext_ty_c appContext{ AppContext::GetInstance() };
+    app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
 
     auto const text = m_strValue.empty() ? "   " : m_strValue.c_str();
     auto result{ MeasureTextEx(*appContext.assetManager.GetFont(), text, text_size, 0.0f) };
@@ -97,7 +97,7 @@ Vector2 NewTableCell::needed_cell_size(float const text_size) {
     return result;
 }
 
-void NewTableCell::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) {
+void NewTableCell::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) {
     UIElement::CheckAndUpdate(mousePosition, appContext);
 }
 
@@ -106,7 +106,7 @@ void NewTableCell::SetSize(Vector2 const size) {
     set_text_offset();
 }
 
-void NewTableCell::Render(AppContext_ty_c) {
+void NewTableCell::Render(app::AppContext_ty_c) {
     DrawRectangleRec(m_collider, BLACK);
 
     if (isA<std::monostate>()) { /*nothing to do here*/
@@ -121,7 +121,7 @@ void NewTableCell::Render(AppContext_ty_c) {
     } else {
         auto const size{ m_textSize < m_collider.height / 2 ? m_textSize : m_collider.height / 2 };
         DrawTextEx(
-                *AppContext::GetInstance().assetManager.GetFont(),
+                *app::AppContext::GetInstance().assetManager.GetFont(),
                 m_strValue.c_str(),
                 { m_collider.x + m_textRenderOffset.x, m_collider.y + m_textRenderOffset.y },
                 size,

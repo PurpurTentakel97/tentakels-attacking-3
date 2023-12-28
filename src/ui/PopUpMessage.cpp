@@ -9,7 +9,7 @@
 #include <memory>
 
 void MessagePopUp::Initialize() {
-    AppContext_ty_c appContext{ AppContext::GetInstance() };
+    app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
 
     auto btn = std::make_shared<ClassicButton>(
             1,
@@ -22,7 +22,7 @@ void MessagePopUp::Initialize() {
 
     btn->SetOnClick([this]() {
         this->m_callback();
-        AppContext::GetInstance().eventManager.InvokeEvent(eve::ClosePopUpEvent(this));
+        app::AppContext::GetInstance().eventManager.InvokeEvent(eve::ClosePopUpEvent(this));
     });
     eve::NewFocusPopUpElementEvent event{ btn.get() };
     appContext.eventManager.InvokeEvent(event);
@@ -45,7 +45,7 @@ MessagePopUp::MessagePopUp(
     Initialize();
 }
 
-void MessagePopUp::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) {
+void MessagePopUp::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) {
 
     if (!m_firstEnter) {
         PopUp::CheckAndUpdate(mousePosition, appContext);

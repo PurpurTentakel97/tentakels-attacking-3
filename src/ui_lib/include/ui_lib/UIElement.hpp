@@ -37,7 +37,7 @@ protected:
 
 
     virtual void UpdateCollider() {
-        Resolution_ty_c resolution{ AppContext::GetInstance().GetResolution() };
+        Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
         m_collider = { m_pos.x * resolution.x,
                        m_pos.y * resolution.y,
                        m_size.x * resolution.x,
@@ -45,7 +45,7 @@ protected:
     }
 
     virtual void UpdateColliderReverse() {
-        Resolution_ty_c resolution{ AppContext::GetInstance().GetResolution() };
+        Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
         m_pos = { m_collider.x / resolution.x, m_collider.y / resolution.y };
         m_size = { m_collider.width / resolution.x, m_collider.height / resolution.y };
     }
@@ -212,13 +212,13 @@ public:
         }
     }
 
-    virtual void CheckAndUpdate(Vector2 const&, AppContext_ty_c) {
+    virtual void CheckAndUpdate(Vector2 const&, app::AppContext_ty_c) {
         UpdateMove();
     }
 
-    virtual void Render(AppContext_ty_c appContext) = 0;
+    virtual void Render(app::AppContext_ty_c appContext) = 0;
 
-    virtual void Resize(AppContext_ty_c) {
+    virtual void Resize(app::AppContext_ty_c) {
         UpdateCollider();
     };
 };

@@ -34,7 +34,7 @@ protected:
             m_value += static_cast<char>(key);
 
             eve::PlaySoundEvent const event{ SoundType::TEXT };
-            AppContext::GetInstance().eventManager.InvokeEvent(event);
+            app::AppContext::GetInstance().eventManager.InvokeEvent(event);
 
             m_onValueChanced();
         }
@@ -47,7 +47,7 @@ protected:
             m_value.pop_back();
 
             eve::PlaySoundEvent const event{ SoundType::TEXT };
-            AppContext::GetInstance().eventManager.InvokeEvent(event);
+            app::AppContext::GetInstance().eventManager.InvokeEvent(event);
 
             m_onValueChanced();
         }
@@ -67,7 +67,7 @@ public:
           Focusable{ focusID },
           m_charLimit{ charLimit } { }
 
-    void CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) override {
+    void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) override {
 
         UIElement::CheckAndUpdate(mousePosition, appContext);
 
@@ -140,7 +140,7 @@ public:
         }
     }
 
-    void Render(AppContext_ty_c appContext) override {
+    void Render(app::AppContext_ty_c appContext) override {
 
         // Update here to make sure its after call of HasValueChanced();
         m_oldValue = m_value;

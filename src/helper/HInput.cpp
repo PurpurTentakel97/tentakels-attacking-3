@@ -11,10 +11,10 @@ namespace hlp {
     bool IsConfirmInputPressed() {
         bool const triggered{ IsKeyPressed(KEY_SPACE) or IsKeyPressed(KEY_KP_ENTER)
                               or (IsKeyPressed(KEY_ENTER) and not IsSkipInput()
-                                  and not AppContext::GetInstance().constants.global.acceptInputTriggered) };
+                                  and not app::AppContext::GetInstance().constants.global.acceptInputTriggered) };
 
         if (triggered) {
-            AppContext::GetInstance().constants.global.acceptInputTriggered = true;
+            app::AppContext::GetInstance().constants.global.acceptInputTriggered = true;
         }
 
         return triggered;
@@ -23,10 +23,10 @@ namespace hlp {
     bool IsConfirmInputReleased() {
         bool const triggered{ IsKeyReleased(KEY_SPACE) or IsKeyReleased(KEY_KP_ENTER)
                               or (IsKeyReleased(KEY_ENTER) and !IsSkipInput()
-                                  and !AppContext::GetInstance().constants.global.acceptInputTriggered) };
+                                  and !app::AppContext::GetInstance().constants.global.acceptInputTriggered) };
 
         if (triggered) {
-            AppContext::GetInstance().constants.global.acceptInputTriggered = true;
+            app::AppContext::GetInstance().constants.global.acceptInputTriggered = true;
         }
 
         return triggered;
@@ -43,10 +43,10 @@ namespace hlp {
     bool IsOnlyEnterConfirmInputPressed() {
         bool const triggered{ IsKeyPressed(KEY_KP_ENTER)
                               or (IsKeyPressed(KEY_ENTER) and !IsSkipInput()
-                                  and !AppContext::GetInstance().constants.global.acceptInputTriggered) };
+                                  and !app::AppContext::GetInstance().constants.global.acceptInputTriggered) };
 
         if (triggered) {
-            AppContext::GetInstance().constants.global.acceptInputTriggered = true;
+            app::AppContext::GetInstance().constants.global.acceptInputTriggered = true;
         }
 
         return triggered;
@@ -55,10 +55,10 @@ namespace hlp {
     bool IsOnlyEnterConfirmInputReleased() {
         bool const triggered{ IsKeyReleased(KEY_KP_ENTER)
                               or (IsKeyReleased(KEY_ENTER) and !IsSkipInput()
-                                  and !AppContext::GetInstance().constants.global.acceptInputTriggered) };
+                                  and !app::AppContext::GetInstance().constants.global.acceptInputTriggered) };
 
         if (triggered) {
-            AppContext::GetInstance().constants.global.acceptInputTriggered = true;
+            app::AppContext::GetInstance().constants.global.acceptInputTriggered = true;
         }
 
         return triggered;

@@ -11,7 +11,7 @@
 #include <ui_lib/Text.hpp>
 
 void AppSettingsScene::Initialize() {
-    AppContext_ty_c appContext{ AppContext::GetInstance() };
+    app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
 
     // headline
     auto settingsText = std::make_shared<Text>(
@@ -65,7 +65,7 @@ void AppSettingsScene::Initialize() {
     m_toggleFullScreenCBM->SetChecked(appContext.constants.window.isFullScreen);
     m_toggleFullScreenCBM->SetOnCheck([](unsigned int, bool isChecked) {
         eve::ToggleFullscreenEvent const event{ isChecked };
-        AppContext::GetInstance().eventManager.InvokeEvent(event);
+        app::AppContext::GetInstance().eventManager.InvokeEvent(event);
     });
     m_elements.push_back(m_toggleFullScreenCBM);
 
@@ -95,7 +95,7 @@ void AppSettingsScene::Initialize() {
     m_volume->SetEnabled(!appContext.constants.sound.muteVolume);
     m_volume->SetOnSave([](int value) {
         eve::SetMasterVolumeEvent const event{ static_cast<float>(value) };
-        AppContext::GetInstance().eventManager.InvokeEvent(event);
+        app::AppContext::GetInstance().eventManager.InvokeEvent(event);
     });
     m_elements.push_back(m_volume);
 
@@ -108,7 +108,7 @@ void AppSettingsScene::Initialize() {
     muteCB->SetChecked(appContext.constants.sound.muteVolume);
     muteCB->SetOnCheck([this](unsigned int, bool isChecked) {
         eve::MuteMasterVolumeEvent const event{ isChecked };
-        AppContext::GetInstance().eventManager.InvokeEvent(event);
+        app::AppContext::GetInstance().eventManager.InvokeEvent(event);
         this->m_volume->SetEnabled(!isChecked);
     });
     m_elements.push_back(muteCB);
@@ -178,7 +178,7 @@ void AppSettingsScene::Initialize() {
     );
     m_resolutionDropDown->SetOnSave([this](unsigned int ID) {
         eve::SetNewResolutionEvent const event{ this->m_rawResolutionEntries[ID - 1].first };
-        AppContext::GetInstance().eventManager.InvokeEvent(event);
+        app::AppContext::GetInstance().eventManager.InvokeEvent(event);
     });
     m_elements.push_back(m_resolutionDropDown);
 
@@ -197,7 +197,7 @@ void AppSettingsScene::Initialize() {
     m_languageDropDown->SetOnSave([](unsigned int ID) {
         auto const language{ HLanguageManager::GetAvailableLanguages().at(ID - 1) };
         auto const event{ eve::ChangeLanguageEvent(language) };
-        AppContext::GetInstance().eventManager.InvokeEvent(event);
+        app::AppContext::GetInstance().eventManager.InvokeEvent(event);
     });
     m_elements.push_back(m_languageDropDown);
 }
@@ -223,33 +223,33 @@ size_t AppSettingsScene::GetIndexFromResolution(Resolution const resolution) con
 
 AppSettingsScene::AppSettingsScene() : SettingsScene{} {
 
-    AppContext_ty appContext{ AppContext::GetInstance() };
+    app::AppContext_ty appContext{ app::AppContext::GetInstance() };
     m_rawResolutionEntries = appContext.constants.window.GetAllResolutionsAsString();
     appContext.eventManager.AddListener(this);
 
     Initialize();
 }
 AppSettingsScene::~AppSettingsScene() {
-    AppContext::GetInstance().eventManager.RemoveListener(this);
+    app::AppContext::GetInstance().eventManager.RemoveListener(this);
 }
 
-void AppSettingsScene::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) {
+void AppSettingsScene::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) {
     SettingsScene::CheckAndUpdate(mousePosition, appContext);
     m_toggleFullScreenCBM->SetChecked(appContext.constants.window.isFullScreen);
 }
 
-void AppSettingsScene::Render(AppContext_ty_c appContext) {
+void AppSettingsScene::Render(app::AppContext_ty_c appContext) {
     SettingsScene::Render(appContext);
 }
 
-void AppSettingsScene::Resize(AppContext_ty_c appContext) {
+void AppSettingsScene::Resize(app::AppContext_ty_c appContext) {
     SettingsScene::Resize(appContext);
 }
 
 void AppSettingsScene::OnEvent(eve::Event const& event) {
     if (auto const* LanguageEvent = dynamic_cast<eve::UpdateLanguageInUIEvent const*>(&event)) {
         m_languageDropDown->SetCurrentElementByString(LanguageEvent->GetLanguage());
-        AppContext_ty_c appContext{ AppContext::GetInstance() };
+        app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
         eve::ShowMessagePopUpEvent const mEvent{
             appContext.languageManager.Text("helper_new_language"),
             appContext.languageManager.Text("ui_popup_new_language_text", LanguageEvent->GetLanguage()),

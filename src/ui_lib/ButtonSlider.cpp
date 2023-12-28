@@ -7,7 +7,7 @@
 #include "ButtonSlider.hpp"
 #include <app/AppContext.hpp>
 
-void SliderButton::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) {
+void SliderButton::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) {
     UIElement::CheckAndUpdate(mousePosition, appContext);
     bool const hover{ CheckCollisionPointRec(mousePosition, m_collider) };
     if (m_state == State::DISABLED) {

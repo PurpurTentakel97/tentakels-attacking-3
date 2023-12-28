@@ -107,7 +107,7 @@ SliderAndInputLine::SliderAndInputLine(
     Initialize(focusID);
 }
 
-void SliderAndInputLine::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) {
+void SliderAndInputLine::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) {
 
     if (!m_isEnabled) {
         return;

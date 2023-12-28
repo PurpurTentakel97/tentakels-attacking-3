@@ -10,7 +10,7 @@
 #include <event/EventsUI.hpp>
 
 void ExpandingButton::Initialize(int const focusID, std::string const& btnText) {
-    AppContext_ty_c appContext{ AppContext::GetInstance() };
+    app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
 
     m_mainButton = std::make_shared<ToggleButton>(
             focusID,
@@ -90,12 +90,12 @@ ExpandingButton::ExpandingButton(
 void ExpandingButton::Add(ClassicButton_ty const& btn, bool const enabled) {
     m_buttons.emplace_back(btn, enabled, btn->GetPosition());
     eve::NewFocusElementEvent const event{ btn.get() };
-    AppContext::GetInstance().eventManager.InvokeEvent(event);
+    app::AppContext::GetInstance().eventManager.InvokeEvent(event);
 }
 
 void ExpandingButton::Remove(ClassicButton_ty const& btn) {
     eve::DeleteFocusElementEvent const event{ btn.get() };
-    AppContext::GetInstance().eventManager.InvokeEvent(event);
+    app::AppContext::GetInstance().eventManager.InvokeEvent(event);
 
     std::erase_if(m_buttons, [btn](Btn const& current) { return btn == current.btn; });
 }
@@ -107,7 +107,7 @@ void ExpandingButton::Remove(size_t const ind) {
 
     auto const& btn{ m_buttons.at(ind) };
     eve::DeleteFocusElementEvent const event{ btn.btn.get() };
-    AppContext::GetInstance().eventManager.InvokeEvent(event);
+    app::AppContext::GetInstance().eventManager.InvokeEvent(event);
 
     m_buttons.erase(m_buttons.begin() + static_cast<int>(ind));
 }
@@ -180,7 +180,7 @@ void ExpandingButton::UpdateCollider() {
         return;
     }
 
-    Resolution_ty_c resolution{ AppContext::GetInstance().GetResolution() };
+    Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
     auto defaultCollider{ m_mainButton->GetCollider() };
     Vector2 extraCollider{ m_spacing * resolution.x, m_spacing * resolution.y };
     for (auto const& btn : m_buttons) {
@@ -219,7 +219,7 @@ void ExpandingButton::UpdateCollider() {
     SetCollider(defaultCollider);
 }
 
-void ExpandingButton::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) {
+void ExpandingButton::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) {
     m_mainButton->CheckAndUpdate(mousePosition, appContext);
 
     if (m_isExpanded and not m_wasKeyInput and not m_delayedCollapse
@@ -245,7 +245,7 @@ void ExpandingButton::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty
     }
 }
 
-void ExpandingButton::Render(AppContext_ty_c appContext) {
+void ExpandingButton::Render(app::AppContext_ty_c appContext) {
     if (m_isExpanded or IsBtnMoving()) {
         for (auto const& btn : m_buttons) {
             btn.btn->Render(appContext);
@@ -258,7 +258,7 @@ void ExpandingButton::Render(AppContext_ty_c appContext) {
     m_mainButton->Render(appContext);
 }
 
-void ExpandingButton::Resize(AppContext_ty_c appContext) {
+void ExpandingButton::Resize(app::AppContext_ty_c appContext) {
     UIElement::Resize(appContext);
 
     for (auto const& btn : m_buttons) {

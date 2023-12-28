@@ -32,9 +32,9 @@ void PopUp::Initialize(std::string const& title, std::string& subTitle, AssetTyp
     );
     m_elements.push_back(textTitle);
 
-    Resolution_ty_c resolution{ AppContext::GetInstance().GetResolution() };
+    Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
     float textHeight = hlp::GetElementTextHeight(m_size, 0.1f);
-    hlp::BreakText(subTitle, textHeight * resolution.y, m_size.x * resolution.x * 0.9f, AppContext::GetInstance());
+    hlp::BreakText(subTitle, textHeight * resolution.y, m_size.x * resolution.x * 0.9f, app::AppContext::GetInstance());
 
     auto textSubTitle = std::make_shared<Text>(
             hlp::GetElementPosition(m_pos, m_size, 0.5f, 0.4f),
@@ -93,7 +93,7 @@ PopUp::PopUp(
     }
 }
 
-void PopUp::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) {
+void PopUp::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) {
 
     UIElement::CheckAndUpdate(mousePosition, appContext);
 
@@ -106,7 +106,7 @@ void PopUp::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appCont
     }
 }
 
-void PopUp::Render(AppContext_ty_c appContext) {
+void PopUp::Render(app::AppContext_ty_c appContext) {
     Resolution_ty_c resolution{ appContext.GetResolution() };
     DrawRectangleRec(Rectangle(0.0f, 0.0f, resolution.x, resolution.y), GREY_50);
     DrawRectangleRec(m_collider, GREY_100);
@@ -118,7 +118,7 @@ void PopUp::Render(AppContext_ty_c appContext) {
     DrawRectangleLinesEx(m_collider, 2.0f, PURPLE);
 }
 
-void PopUp::Resize(AppContext_ty_c appContext) {
+void PopUp::Resize(app::AppContext_ty_c appContext) {
     for (auto const& e : m_elements) {
         e->Resize(appContext);
     }

@@ -152,7 +152,7 @@ namespace cst {
     void LoadConfig() {
         // load file
         loadEntryCount = { 0 };
-        auto& constants = AppContext::GetInstance().constants;
+        auto& constants = app::AppContext::GetInstance().constants;
         std::ifstream file;
 
         if (!std::filesystem::exists(Files::configFile())) {
@@ -340,7 +340,7 @@ namespace cst {
     void SaveConfig() {
 
         // to json
-        auto const& constants{ AppContext::GetInstance().constants };
+        auto const& constants{ app::AppContext::GetInstance().constants };
         nlohmann::json save;
 
         save[CToS(ConfigTypes::GAME_EVENTS)] = {

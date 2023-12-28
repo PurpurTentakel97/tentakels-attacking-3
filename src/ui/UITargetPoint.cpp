@@ -33,10 +33,10 @@ void UITargetPoint::UpdateHoverText() {
                                 + ", y: " + std::to_string(m_targetPoint->GetPos().y) };
     std::string const text_1{ std::to_string(m_targetPoint->GetID()) + " | " + position + " |" };
     std::string const text_2{ std::to_string(m_targetPoint->GetShipCount()) };
-    m_hover.SetText(AppContext::GetInstance().languageManager.Text("ui_target_point_hover", text_1, text_2));
+    m_hover.SetText(app::AppContext::GetInstance().languageManager.Text("ui_target_point_hover", text_1, text_2));
 }
 
-void UITargetPoint::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) {
+void UITargetPoint::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) {
 
     UIElement::CheckAndUpdate(mousePosition, appContext);
     m_ring->CheckAndUpdate(mousePosition, appContext);
@@ -62,13 +62,13 @@ void UITargetPoint::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c
     }
 }
 
-void UITargetPoint::RenderRing(AppContext_ty_c appContext) {
+void UITargetPoint::RenderRing(app::AppContext_ty_c appContext) {
     if (m_targetPoint->IsDiscovered()) {
         m_ring->Render(appContext);
     }
 }
 
-void UITargetPoint::Render(AppContext_ty_c) {
+void UITargetPoint::Render(app::AppContext_ty_c) {
 
 
     DrawCircle(

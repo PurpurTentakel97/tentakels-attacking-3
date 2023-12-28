@@ -19,7 +19,7 @@ private:
 public:
     Picture(Vector2 pos, Vector2 size, Alignment alignment, AssetType assetType, bool scaleToFit = true);
 
-    void Render(AppContext_ty_c appContext) override;
+    void Render(app::AppContext_ty_c appContext) override;
 
-    void Resize(AppContext_ty_c appContext) override;
+    void Resize(app::AppContext_ty_c appContext) override;
 };

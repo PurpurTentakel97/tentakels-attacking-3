@@ -10,7 +10,7 @@
 #include <ui_lib/NewTable.hpp>
 #include <ui_lib/SceneType.hpp>
 
-void TestScene::Initialize([[maybe_unused]] AppContext_ty appContext) {
+void TestScene::Initialize(app::AppContext_ty) {
     auto table = std::make_shared<NewTable>(
             1,
             Vector2{ 0.5f, 0.5f },
@@ -163,7 +163,7 @@ void TestScene::Initialize([[maybe_unused]] AppContext_ty appContext) {
     );
     backBtn->SetOnClick([]() {
         eve::SwitchSceneEvent const event{ SceneType::MAIN_MENU };
-        AppContext::GetInstance().eventManager.InvokeEvent(event);
+        app::AppContext::GetInstance().eventManager.InvokeEvent(event);
     });
     m_elements.push_back(backBtn);
 }
@@ -175,11 +175,11 @@ TestScene::TestScene()
           Alignment::MID_MID
 } {
 
-    AppContext_ty appContext{ AppContext::GetInstance() };
+    app::AppContext_ty appContext{ app::AppContext::GetInstance() };
     Initialize(appContext);
 }
 
-void TestScene::SetActive(bool const active, AppContext_ty_c appContext) {
+void TestScene::SetActive(bool const active, app::AppContext_ty_c appContext) {
     Scene::SetActive(active, appContext);
 }
 
@@ -187,14 +187,14 @@ void TestScene::TestLambda(bool const toggled) {
     hlp::Print(hlp::PrintType::DEBUG, "toggled -> {}", toggled);
 }
 
-void TestScene::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) {
+void TestScene::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) {
     Scene::CheckAndUpdate(mousePosition, appContext);
 }
 
-void TestScene::Render(AppContext_ty_c appContext) {
+void TestScene::Render(app::AppContext_ty_c appContext) {
     Scene::Render(appContext);
 }
 
-void TestScene::Resize(AppContext_ty_c appContext) {
+void TestScene::Resize(app::AppContext_ty_c appContext) {
     Scene::Resize(appContext);
 }

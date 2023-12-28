@@ -22,7 +22,7 @@ ClassicButton::ClassicButton(
     return m_state != State::DISABLED;
 }
 
-void ClassicButton::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) {
+void ClassicButton::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) {
 
     if (IsFocused()) {
         if (m_state == State::DISABLED) {

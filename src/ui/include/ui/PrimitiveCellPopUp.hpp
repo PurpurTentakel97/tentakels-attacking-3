@@ -32,7 +32,7 @@ public:
         : CellPopUp{ pos, size, alignment, title, infoTexture },
           m_onClick{ onClick } {
 
-        AppContext_ty_c appContext{ AppContext::GetInstance() };
+        app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
 
         auto acceptBtn = InitializeAcceptButton();
         acceptBtn->SetOnClick([this]() { this->SetValue(); });

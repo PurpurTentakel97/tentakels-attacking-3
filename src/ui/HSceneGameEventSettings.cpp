@@ -13,7 +13,7 @@
 
 void GameEventSettings::Initialize(unsigned int const focusID) {
 
-    AppContext_ty_c appContext{ AppContext::GetInstance() };
+    app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
 
     // Title
     auto title = std::make_shared<Text>(
@@ -66,7 +66,7 @@ void GameEventSettings::Initialize(unsigned int const focusID) {
 }
 
 void GameEventSettings::SetChecked(unsigned int const index, bool const isChecked) {
-    AppContext_ty appContext{ AppContext::GetInstance() };
+    app::AppContext_ty appContext{ app::AppContext::GetInstance() };
     appContext.constants.gameEvents.SetFlag(m_text.at(index).first, isChecked);
 
     assert(m_checkBoxes.size() == m_text.size());
@@ -89,7 +89,7 @@ GameEventSettings::GameEventSettings(
 
 void GameEventSettings::SetRandom() {
     auto& random{ hlp::Random::GetInstance() };
-    AppContext_ty appContext{ AppContext::GetInstance() };
+    app::AppContext_ty appContext{ app::AppContext::GetInstance() };
 
     assert(m_checkBoxes.size() == m_text.size());
 

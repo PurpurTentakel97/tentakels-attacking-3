@@ -18,7 +18,7 @@ void UpdateEvaluationScene::TestPrint(eve::SendUpdateEvaluation const* event) {
 	 * only for debugging.
 	 */
 
-    AppContext_ty_c appContext{ AppContext::GetInstance() };
+    app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
 
     hlp::Print(hlp::PrintType::DEBUG, "--------------------| Evaluation |--------------------");
 
@@ -66,7 +66,7 @@ void UpdateEvaluationScene::TestPrint(eve::SendUpdateEvaluation const* event) {
 }
 
 void UpdateEvaluationScene::DisplayMergeResult() {
-    AppContext_ty_c appContext{ AppContext::GetInstance() };
+    app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
     auto const data{ m_mergeResults.at(m_currentIndex) };
     auto const playerName{ appContext.playerCollection.GetPlayerByID(data.GetPlayer()->GetID()).GetName() };
 
@@ -96,7 +96,7 @@ void UpdateEvaluationScene::DisplayMergeResult() {
 }
 
 void UpdateEvaluationScene::DisplayFightResult() {
-    AppContext_ty_c appContext{ AppContext::GetInstance() };
+    app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
 
     eve::ShowFightResultEvent const event{ m_fightResults.at(m_currentIndex), [this]() { this->m_nextPopup = true; } };
     appContext.eventManager.InvokeEvent(event);
@@ -130,7 +130,7 @@ void UpdateEvaluationScene::HandleNextPopup() {
         default:
         case ResultType::LAST:
         last:
-            AppContext_ty_c appContext{ AppContext::GetInstance() };
+            app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
             if (m_popupCount == 0) {
                 eve::ShowMessagePopUpEvent const event{
                     appContext.languageManager.Text("ui_popup_no_evaluation_title"),
@@ -144,8 +144,8 @@ void UpdateEvaluationScene::HandleNextPopup() {
                 appContext.languageManager.Text("ui_popup_end_of_evaluation_subtitle"),
                                                []() {
                     eve::SwitchSceneEvent const e{ SceneType::MAIN };
-                    AppContext::GetInstance().eventManager.InvokeEvent(e);
-                                               } };
+                    app::AppContext::GetInstance().eventManager.InvokeEvent(e);
+                } };
             appContext.eventManager.InvokeEvent(event);
             break;
     }
@@ -156,16 +156,16 @@ void UpdateEvaluationScene::HandleNextPopup() {
 
 UpdateEvaluationScene::UpdateEvaluationScene() : Scene({ 0.0f, 0.0f }, { 1.0f, 1.0f }, Alignment::DEFAULT) {
 
-    AppContext_ty appContext{ AppContext::GetInstance() };
+    app::AppContext_ty appContext{ app::AppContext::GetInstance() };
     appContext.eventManager.AddListener(this);
     appContext.eventManager.InvokeEvent(eve::GetUpdateEvaluation{});
 }
 
 UpdateEvaluationScene::~UpdateEvaluationScene() {
-    AppContext::GetInstance().eventManager.RemoveListener(this);
+    app::AppContext::GetInstance().eventManager.RemoveListener(this);
 }
 
-void UpdateEvaluationScene::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) {
+void UpdateEvaluationScene::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) {
     Scene::CheckAndUpdate(mousePosition, appContext);
 
     if (m_nextPopup) {
@@ -178,7 +178,7 @@ void UpdateEvaluationScene::OnEvent(eve::Event const& event) {
     if (auto const* evEvent = dynamic_cast<eve::SendUpdateEvaluation const*>(&event)) {
         m_mergeResults = evEvent->GetMergeResults();
         m_fightResults = evEvent->GetFightResults();
-        AppContext_ty_c appContext{ AppContext::GetInstance() };
+        app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
         eve::ShowMessagePopUpEvent const messageEvent{
             appContext.languageManager.Text("ui_popup_no_evaluation_title"),
             appContext.languageManager.Text("ui_popup_start_evaluation_subtitle"),

@@ -16,7 +16,7 @@ namespace {
 
 void CellPopUp::Initialize() {
 
-    AppContext_ty_c appContext{ AppContext::GetInstance() };
+    app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
 
     auto cancelBtn = std::make_shared<ClassicButton>(
             2,
@@ -36,7 +36,7 @@ void CellPopUp::Initialize() {
 
 ClassicButton_ty CellPopUp::InitializeAcceptButton() {
 
-    AppContext_ty_c appContext{ AppContext::GetInstance() };
+    app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
 
     auto acceptBtn = std::make_shared<ClassicButton>(
             1,
@@ -62,14 +62,14 @@ void CellPopUp::CheckEnter() {
     bool validEnterClose = (IsKeyReleased(KEY_ENTER) or IsKeyPressed(KEY_KP_ENTER)) && !m_shouldClose && !m_firstEnter;
     if (validEnterClose) {
         auto event = eve::PlaySoundEvent(SoundType::ACCEPTED);
-        AppContext::GetInstance().eventManager.InvokeEvent(event);
+        app::AppContext::GetInstance().eventManager.InvokeEvent(event);
         SetValue();
     }
 
     LateUpdate();
 }
 
-void CellPopUp::Close(AppContext_ty_c appContext) {
+void CellPopUp::Close(app::AppContext_ty_c appContext) {
     if (m_shouldClose) {
         auto event = eve::ClosePopUpEvent(this);
         appContext.eventManager.InvokeEvent(event);
@@ -88,7 +88,7 @@ CellPopUp::CellPopUp(
     Initialize();
 }
 
-void CellPopUp::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) {
+void CellPopUp::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) {
 
     PopUp::CheckAndUpdate(mousePosition, appContext);
 

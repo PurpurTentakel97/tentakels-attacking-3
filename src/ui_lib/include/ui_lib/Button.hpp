@@ -35,7 +35,7 @@ protected:
     std::function<void()> m_onClick{ []() {} };
     std::function<void()> m_onPress{ []() {} };
 
-    void SetTextSizeAndPosition(AppContext_ty_c appContext);
+    void SetTextSizeAndPosition(app::AppContext_ty_c appContext);
 
     [[nodiscard]] bool IsSameState(State state) const;
 
@@ -46,11 +46,11 @@ public:
 
     Button();
 
-    void CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) override;
+    void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) override;
 
-    void Render(AppContext_ty_c appContext) override;
+    void Render(app::AppContext_ty_c appContext) override;
 
-    void Resize(AppContext_ty_c appContext) override;
+    void Resize(app::AppContext_ty_c appContext) override;
 
     void SetOnClick(std::function<void()> onClick);
 

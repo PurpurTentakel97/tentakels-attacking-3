@@ -73,9 +73,9 @@ public:
 
     void UpdateCollider() override;
 
-    void CheckAndUpdate(Vector2 const&, AppContext_ty_c) override;
+    void CheckAndUpdate(Vector2 const&, app::AppContext_ty_c) override;
 
-    void Render(AppContext_ty_c appContext) override;
+    void Render(app::AppContext_ty_c appContext) override;
 
-    void Resize(AppContext_ty_c) override;
+    void Resize(app::AppContext_ty_c) override;
 };

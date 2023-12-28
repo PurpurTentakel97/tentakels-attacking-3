@@ -24,18 +24,18 @@ private:
 
     void InitializeNewScene(SceneType sceneType);
 
-    void SwitchScene(AppContext_ty_c appContext);
+    void SwitchScene(app::AppContext_ty_c appContext);
 
 public:
     SceneManager();
 
     void SwitchSceneManual();
 
-    void CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext);
+    void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext);
 
-    void Render(AppContext_ty_c appContext);
+    void Render(app::AppContext_ty_c appContext);
 
-    void Resize(AppContext_ty_c appContext);
+    void Resize(app::AppContext_ty_c appContext);
 
     void OnEvent(eve::Event const& event) override;
 

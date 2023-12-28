@@ -36,11 +36,11 @@ private:
 public:
     Slider(Vector2 pos, Vector2 size, Alignment alignment, bool isHorizontal, float absoluteDimension);
 
-    void CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) override;
+    void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) override;
 
-    void Render(AppContext_ty_c appContext) override;
+    void Render(app::AppContext_ty_c appContext) override;
 
-    void Resize(AppContext_ty_c appContext) override;
+    void Resize(app::AppContext_ty_c appContext) override;
 
     void SetOnSlide(std::function<void(float)> onSlide);
 

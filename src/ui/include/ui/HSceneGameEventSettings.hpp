@@ -15,13 +15,13 @@ private:
     std::array<std::pair<HGameEventType, std::string>, 7> m_text{
         {
          // clang-format off
-        { HGameEventType::GLOBAL,         AppContext::GetInstance().languageManager.Text("ui_game_events_settings_event_all"            ) },
-        { HGameEventType::PIRATES,        AppContext::GetInstance().languageManager.Text("ui_game_events_settings_event_pirates"        ) },
-        { HGameEventType::REVOLTS,        AppContext::GetInstance().languageManager.Text("ui_game_events_settings_event_revolts"        ) },
-        { HGameEventType::RENEGADE_SHIPS, AppContext::GetInstance().languageManager.Text("ui_game_events_settings_event_renegade_ships" ) },
-        { HGameEventType::BLACK_HOLE,     AppContext::GetInstance().languageManager.Text("ui_game_events_settings_event_black_hole"     ) },
-        { HGameEventType::SUPERNOVA,      AppContext::GetInstance().languageManager.Text("ui_game_events_settings_event_supernova"      ) },
-        { HGameEventType::ENGINE_PROBLEM, AppContext::GetInstance().languageManager.Text("ui_game_events_settings_event_engine_problems") },
+        { HGameEventType::GLOBAL,         app::AppContext::GetInstance().languageManager.Text("ui_game_events_settings_event_all"            ) },
+        { HGameEventType::PIRATES,        app::AppContext::GetInstance().languageManager.Text("ui_game_events_settings_event_pirates"        ) },
+        { HGameEventType::REVOLTS,        app::AppContext::GetInstance().languageManager.Text("ui_game_events_settings_event_revolts"        ) },
+        { HGameEventType::RENEGADE_SHIPS, app::AppContext::GetInstance().languageManager.Text("ui_game_events_settings_event_renegade_ships" ) },
+        { HGameEventType::BLACK_HOLE,     app::AppContext::GetInstance().languageManager.Text("ui_game_events_settings_event_black_hole"     ) },
+        { HGameEventType::SUPERNOVA,      app::AppContext::GetInstance().languageManager.Text("ui_game_events_settings_event_supernova"      ) },
+        { HGameEventType::ENGINE_PROBLEM, app::AppContext::GetInstance().languageManager.Text("ui_game_events_settings_event_engine_problems") },
          // clang-format on
         }
     };

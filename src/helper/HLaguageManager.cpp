@@ -18,7 +18,7 @@ void HLanguageManager::InitializeLanguage() {
                 m_default_language
         );
     }
-    ChanceLanguage(AppContext::GetInstance().constants.global.currentLanguageName);
+    ChanceLanguage(app::AppContext::GetInstance().constants.global.currentLanguageName);
 }
 
 void HLanguageManager::InitializeAvailableLanguages() {
@@ -57,7 +57,7 @@ void HLanguageManager::InitializeAvailableLanguages() {
 }
 
 void HLanguageManager::ChanceLanguage(std::string const& language) {
-    AppContext_ty appContext{ AppContext::GetInstance() };
+    app::AppContext_ty appContext{ app::AppContext::GetInstance() };
     auto handleUpdateLanguage{ [&]() {
         auto const event{ eve::UpdateLanguageInUIEvent(appContext.constants.global.currentLanguageName) };
         appContext.eventManager.InvokeEvent(event);
@@ -141,7 +141,7 @@ bool HLanguageManager::LoadLanguage(std::string const& language, bool const defa
     if (defaultLanguage) {
         hlp::Print(hlp::PrintType::INITIALIZE, "default language loaded -> \"{}\"", language);
     } else {
-        AppContext::GetInstance().constants.global.currentLanguageName = language;
+        app::AppContext::GetInstance().constants.global.currentLanguageName = language;
 
         hlp::Print(hlp::PrintType::INITIALIZE, "current language loaded -> \"{}\"", language);
     }

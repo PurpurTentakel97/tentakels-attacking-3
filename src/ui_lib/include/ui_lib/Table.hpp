@@ -79,7 +79,7 @@ private:
 
     void UpdateFirstRowPosition();
 
-    void CheckAndUpdateClickCell(Vector2 const& mousePositon, AppContext_ty_c appContext);
+    void CheckAndUpdateClickCell(Vector2 const& mousePositon, app::AppContext_ty_c appContext);
 
     void CheckAndUpdateScroll(Vector2 const& mousePosition);
 
@@ -97,13 +97,13 @@ private:
 
     void SetHighlightBackground(bool reset);
 
-    void RenderTopLeft(AppContext_ty_c appContext);
+    void RenderTopLeft(app::AppContext_ty_c appContext);
 
-    void RenderHeadline(AppContext_ty_c appContext);
+    void RenderHeadline(app::AppContext_ty_c appContext);
 
-    void RenderFirstColumn(AppContext_ty_c appContext);
+    void RenderFirstColumn(app::AppContext_ty_c appContext);
 
-    void RenderOtherCells(AppContext_ty_c appContext);
+    void RenderOtherCells(app::AppContext_ty_c appContext);
 
     void RenderOutline() const;
 
@@ -361,7 +361,7 @@ public:
 
     [[nodiscard]] Rectangle GetCollider() const noexcept override;
 
-    void CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) override;
+    void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) override;
 
-    void Render(AppContext_ty_c appContext) override;
+    void Render(app::AppContext_ty_c appContext) override;
 };

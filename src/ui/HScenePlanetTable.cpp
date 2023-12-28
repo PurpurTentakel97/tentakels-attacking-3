@@ -9,7 +9,7 @@
 
 void PlanetTable::Initialization() {
     auto const planets{ m_galaxy->GetPlanets() };
-    AppContext_ty_c appContext{ AppContext::GetInstance() };
+    app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
 
     size_t discoveredCount{ 0 };
     for (auto const& p : planets) {
@@ -92,7 +92,7 @@ PlanetTable::PlanetTable(Vector2 const pos, Vector2 const size, Alignment const 
     Initialization();
 }
 
-void PlanetTable::SetActive(bool const active, AppContext_ty_c appContext) {
+void PlanetTable::SetActive(bool const active, app::AppContext_ty_c appContext) {
 
     if (active == m_active) {
         return;

@@ -40,7 +40,7 @@ public:
 
     template<typename T, typename eventType>
     void NewTableCellPopUp(eventType const* const event) {
-        AppContext_ty_c appContext{ AppContext::GetInstance() };
+        app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
         eve::NewFocusPopUpLayerEvent const focusEvent;
         appContext.eventManager.InvokeEvent(focusEvent);
 
@@ -59,9 +59,9 @@ public:
 
     void CheckForDeleteRemainingPopUps();
 
-    void CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext);
+    void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext);
 
-    void Render(AppContext_ty_c appContext);
+    void Render(app::AppContext_ty_c appContext);
 
-    void Resize(AppContext_ty_c appContext);
+    void Resize(app::AppContext_ty_c appContext);
 };

@@ -61,19 +61,23 @@ void DropDown::SetCurrentElementOutUpdate(std::shared_ptr<DropDownElement> const
 }
 
 void DropDown::SetText() {
-    Resolution_ty_c resolution{ AppContext::GetInstance().GetResolution() };
+    Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
     m_currentElementText = m_currentElement->GetText();
     hlp::StripString(m_currentElementText);
     m_fontSize = hlp::GetElementTextHeight(m_size, resolution.y);
-    m_currentElementText =
-            hlp::GetPrintableTextInCollider(m_currentElementText, m_fontSize, m_collider, AppContext::GetInstance());
+    m_currentElementText = hlp::GetPrintableTextInCollider(
+            m_currentElementText,
+            m_fontSize,
+            m_collider,
+            app::AppContext::GetInstance()
+    );
 
     m_textPosition = { m_collider.x + 5.0f, m_collider.y + (m_collider.height - m_fontSize) / 2 };
 }
 
 void DropDown::ToggleFoldedOut() {
 
-    AppContext_ty_c appContext{ AppContext::GetInstance() };
+    app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
 
     m_isFoldouts = !m_isFoldouts;
 
@@ -163,7 +167,7 @@ void DropDown::CheckIfScrolling() {
 
 void DropDown::UpdateCollider() {
 
-    Resolution_ty_c resolution{ AppContext::GetInstance().GetResolution() };
+    Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
     UIElement::UpdateCollider();
     SetText();
 
@@ -188,9 +192,9 @@ DropDown::DropDown(
       Focusable{ focusID },
       m_dropDownHeight{ dropDownHeight } {
 
-    Resolution_ty_c resolution{ AppContext::GetInstance().GetResolution() };
+    Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
 
-    m_arrowTexture = AppContext::GetInstance().assetManager.GetTexture(AssetType::ARROW_UP);
+    m_arrowTexture = app::AppContext::GetInstance().assetManager.GetTexture(AssetType::ARROW_UP);
     m_arrowTextureRec = { 0.0f,
                           0.0f,
                           static_cast<float>(m_arrowTexture->width),
@@ -241,7 +245,7 @@ bool DropDown::SetCurrentElementByString(std::string const& element) {
     return false;
 }
 
-void DropDown::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) {
+void DropDown::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) {
 
     if (not IsEnabled()) {
         if (m_isFoldouts) {
@@ -288,7 +292,7 @@ void DropDown::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appC
     }
 }
 
-void DropDown::Render(AppContext_ty_c appContext) {
+void DropDown::Render(app::AppContext_ty_c appContext) {
     DrawRectangleLinesEx(m_collider, 2.0f, WHITE);
 
     if (m_currentElement) {
@@ -343,7 +347,7 @@ void DropDown::Render(AppContext_ty_c appContext) {
     }
 }
 
-void DropDown::Resize(AppContext_ty_c appContext) {
+void DropDown::Resize(app::AppContext_ty_c appContext) {
 
     UIElement::Resize(appContext);
 

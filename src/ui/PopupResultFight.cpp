@@ -14,7 +14,7 @@
 
 void FightResultPopup::Initialize() {
     // constants
-    AppContext_ty_c appContext{ AppContext::GetInstance() };
+    app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
     float constexpr leftX{ 0.25f };
     float constexpr rightX{ 0.75f };
     float Y{ 0.35f };
@@ -166,17 +166,17 @@ void FightResultPopup::SetLastStep() {
 }
 
 void FightResultPopup::SetEnd() {
-    AppContext_ty_c appContext{ AppContext::GetInstance() };
+    app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
     m_closeBtn->SetText(appContext.languageManager.Text("helper_next_big"));
 
     std::string dummy;
     if (m_result.GetRounds().at(m_result.GetRounds().size() - 1).first == 0) {
-        dummy = AppContext::GetInstance()
+        dummy = app::AppContext::GetInstance()
                         .playerCollection.GetPlayerOrNpcByID(m_result.GetPlayer().second->GetID())
                         .GetName();
         m_leftNumber->SetDefaultColor(RED);
     } else {
-        dummy = AppContext::GetInstance()
+        dummy = app::AppContext::GetInstance()
                         .playerCollection.GetPlayerOrNpcByID(m_result.GetPlayer().first->GetID())
                         .GetName();
         m_rightNumber->SetDefaultColor(RED);
@@ -199,11 +199,11 @@ FightResultPopup::FightResultPopup(
         Vector2 const pos,
         Vector2 const size,
         Alignment const alignment,
-        HFightResult const result,
+        HFightResult result,
         callback_ty callback
 )
     : PopUp{ pos,           size,
-             alignment,     AppContext::GetInstance().languageManager.Text("helper_fight_big"),
+             alignment,     app::AppContext::GetInstance().languageManager.Text("helper_fight_big"),
              s_emptyString, AssetType::EXCLAMATION_MARK },
       m_result{ std::move(result) },
       m_callback{ std::move(callback) } {

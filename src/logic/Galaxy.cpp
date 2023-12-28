@@ -17,11 +17,11 @@
 // help Lambdas
 static auto popup = [](std::string const& text) {
     eve::ShowMessagePopUpEvent const popupEvent{
-        AppContext::GetInstance().languageManager.Text("logic_galaxy_invalid_input_headline"),
+        app::AppContext::GetInstance().languageManager.Text("logic_galaxy_invalid_input_headline"),
         text,
         []() {}
     };
-    AppContext::GetInstance().eventManager.InvokeEvent(popupEvent);
+    app::AppContext::GetInstance().eventManager.InvokeEvent(popupEvent);
 };
 
 // helper
@@ -64,7 +64,7 @@ void Galaxy::InitializePlanets(
 int Galaxy::GenerateHomePlanets(std::vector<Player_ty> const& players) {
 
     auto& random{ hlp::Random::GetInstance() };
-    AppContext_ty_c appContext{ AppContext::GetInstance() };
+    app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
     int currentPlanet{ 1 };
 
 
@@ -98,7 +98,7 @@ int Galaxy::GenerateHomePlanets(std::vector<Player_ty> const& players) {
 
 void Galaxy::GenerateOtherPlanets(size_t const planetCount, int currentPlanet, Player_ty const& player) {
 
-    AppContext_ty_c appContext{ AppContext::GetInstance() };
+    app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
     auto& random{ hlp::Random::GetInstance() };
 
 
@@ -126,7 +126,7 @@ void Galaxy::GenerateOtherPlanets(size_t const planetCount, int currentPlanet, P
     }
 }
 
-bool Galaxy::IsValidNewPlanet(Planet_ty const& newPlanet, AppContext_ty_c appContext) const {
+bool Galaxy::IsValidNewPlanet(Planet_ty const& newPlanet, app::AppContext_ty_c appContext) const {
     bool validPlanet{ true };
 
     // works because Home Planets are generated first.
@@ -185,7 +185,7 @@ Fleet_ty Galaxy::GetFleetByID(unsigned int const ID) const {
 HFleetResult Galaxy::AddFleetFromPlanet(eve::SendFleetInstructionEvent const* event, Player_ty const& currentPlayer) {
     // check origin id
     if (event->GetOrigin() > m_planets.size()) {
-        popup(AppContext::GetInstance().languageManager.Text("logic_galaxy_input_origin_planet_high_text"));
+        popup(app::AppContext::GetInstance().languageManager.Text("logic_galaxy_input_origin_planet_high_text"));
         hlp::Print(hlp::PrintType::ONLY_DEBUG, "ID to high for a planet: {}", event->GetOrigin());
         return { nullptr, nullptr, nullptr, false };
     }
@@ -193,12 +193,12 @@ HFleetResult Galaxy::AddFleetFromPlanet(eve::SendFleetInstructionEvent const* ev
     // check origin
     auto const originPlanet{ GetPlanetByID(event->GetOrigin()) };
     if (originPlanet->GetPlayer() != currentPlayer) {
-        popup(AppContext::GetInstance().languageManager.Text("logic_galaxy_not_your_origin_planet_text"));
+        popup(app::AppContext::GetInstance().languageManager.Text("logic_galaxy_not_your_origin_planet_text"));
         hlp::Print(hlp::PrintType::ONLY_DEBUG, "origin planet does not belong to current player");
         return { nullptr, nullptr, nullptr, false };
     }
     if (originPlanet->GetShipCount() < event->GetShipCount()) {
-        popup(AppContext::GetInstance()
+        popup(app::AppContext::GetInstance()
                       .languageManager.Text("logic_galaxy_not_enough_ships_on_planet_text", event->GetOrigin()));
         hlp::Print(
                 hlp::PrintType::ONLY_DEBUG,
@@ -218,7 +218,7 @@ HFleetResult Galaxy::AddFleetFromPlanet(eve::SendFleetInstructionEvent const* ev
 
     if (destination->IsPlanet()) {
         if (destination->GetID() == originPlanet->GetID()) {
-            popup(AppContext::GetInstance().languageManager.Text("logic_galaxy_are_same_planets_text"));
+            popup(app::AppContext::GetInstance().languageManager.Text("logic_galaxy_are_same_planets_text"));
             hlp::Print(
                     hlp::PrintType::ONLY_DEBUG,
                     "origin and destination if are the same -> origin: {} -> destination: {}",
@@ -229,7 +229,7 @@ HFleetResult Galaxy::AddFleetFromPlanet(eve::SendFleetInstructionEvent const* ev
     }
     if (destination->GetPlayer() != currentPlayer and not destination->IsPlanet()) {
         if (not destination->IsDiscovered()) {
-            popup(AppContext::GetInstance().languageManager.Text("logic_galaxy_destination_blocked_text"));
+            popup(app::AppContext::GetInstance().languageManager.Text("logic_galaxy_destination_blocked_text"));
             hlp::Print(hlp::PrintType::ONLY_DEBUG, "chosen destination is blocked");
             return { nullptr, nullptr, nullptr, false };
         }
@@ -277,8 +277,8 @@ HFleetResult
 Galaxy::AddFleetFromFleet(eve::SendFleetInstructionEvent const* const event, Player_ty const& currentPlayer) {
     // check if origin ID is existing
     if (not IsValidFleet(event->GetOrigin())) {
-        popup(AppContext::GetInstance().languageManager.Text("logic_galaxy_not_existing_fleet_text", event->GetOrigin())
-        );
+        popup(app::AppContext::GetInstance()
+                      .languageManager.Text("logic_galaxy_not_existing_fleet_text", event->GetOrigin()));
         hlp::Print(hlp::PrintType::ONLY_DEBUG, "id not valid for a fleet: ", event->GetOrigin());
         return { nullptr, nullptr, nullptr, false };
     }
@@ -286,12 +286,12 @@ Galaxy::AddFleetFromFleet(eve::SendFleetInstructionEvent const* const event, Pla
     // check origin
     auto const& origin{ GetFleetByID(event->GetOrigin()) };
     if (origin->GetPlayer() != currentPlayer) {
-        popup(AppContext::GetInstance().languageManager.Text("logic_galaxy_not_your_origin_fleet_text"));
+        popup(app::AppContext::GetInstance().languageManager.Text("logic_galaxy_not_your_origin_fleet_text"));
         hlp::Print(hlp::PrintType::ONLY_DEBUG, "the origin fleet does not belong to the current player");
         return { nullptr, nullptr, nullptr, false };
     }
     if (origin->GetShipCount() < event->GetShipCount()) {
-        popup(AppContext::GetInstance()
+        popup(app::AppContext::GetInstance()
                       .languageManager.Text("logic_galaxy_not_enough_ships_in_fleet_text", event->GetOrigin()));
         hlp::Print(
                 hlp::PrintType::ONLY_DEBUG,
@@ -312,7 +312,7 @@ Galaxy::AddFleetFromFleet(eve::SendFleetInstructionEvent const* const event, Pla
     // check destination
     if (destination->GetPlayer() != currentPlayer and not destination->IsPlanet()) {
         if (not destination->IsDiscovered()) {
-            popup(AppContext::GetInstance().languageManager.Text("logic_galaxy_destination_blocked_text"));
+            popup(app::AppContext::GetInstance().languageManager.Text("logic_galaxy_destination_blocked_text"));
             hlp::Print(hlp::PrintType::ONLY_DEBUG, "chosen destination is blocked");
             return { nullptr, nullptr, nullptr, false };
         }
@@ -356,7 +356,7 @@ Galaxy::AddFleetFromFleet(eve::SendFleetInstructionEvent const* const event, Pla
     if (destination->IsFleet()) {
         auto const result{ hlp::TryGetTarget(fleet.get(), fleet->GetTarget()) };
         if (not result.first) { // not valid
-            popup(AppContext::GetInstance().languageManager.Text("logic_galaxy_fleet_round_robin_text"));
+            popup(app::AppContext::GetInstance().languageManager.Text("logic_galaxy_fleet_round_robin_text"));
             hlp::Print(hlp::PrintType::ONLY_DEBUG, "new fleet would generate a round robin");
             return { nullptr, nullptr, nullptr, false };
         }
@@ -384,7 +384,7 @@ HFleetResult
 Galaxy::AddFleetFromTargetPoint(eve::SendFleetInstructionEvent const* const event, Player_ty const& currentPlayer) {
     // check if origin ID is existing
     if (not IsValidTargetPoint(event->GetOrigin())) {
-        popup(AppContext::GetInstance()
+        popup(app::AppContext::GetInstance()
                       .languageManager.Text("logic_galaxy_not_existing_target_point_text", event->GetOrigin()));
         hlp::Print(hlp::PrintType::ONLY_DEBUG, "id not valid for a target point: {}", event->GetOrigin());
         return { nullptr, nullptr, nullptr, false };
@@ -393,12 +393,12 @@ Galaxy::AddFleetFromTargetPoint(eve::SendFleetInstructionEvent const* const even
     // check origin
     auto const& origin{ GetTargetPointByID(event->GetOrigin()) };
     if (origin->GetPlayer() != currentPlayer) {
-        popup(AppContext::GetInstance().languageManager.Text("logic_galaxy_not_your_origin_target_point_text"));
+        popup(app::AppContext::GetInstance().languageManager.Text("logic_galaxy_not_your_origin_target_point_text"));
         hlp::Print(hlp::PrintType::ONLY_DEBUG, "the origin target point does not belong to the current player");
         return { nullptr, nullptr, nullptr, false };
     }
     if (origin->GetShipCount() < event->GetShipCount()) {
-        popup(AppContext::GetInstance()
+        popup(app::AppContext::GetInstance()
                       .languageManager.Text("logic_galaxy_not_enough_ships_at_target_point_text", event->GetOrigin()));
         hlp::Print(
                 hlp::PrintType::ONLY_DEBUG,
@@ -418,7 +418,7 @@ Galaxy::AddFleetFromTargetPoint(eve::SendFleetInstructionEvent const* const even
 
     if (destination->GetPlayer() != currentPlayer and not destination->IsPlanet()) {
         if (not destination->IsDiscovered()) {
-            popup(AppContext::GetInstance().languageManager.Text("logic_galaxy_destination_blocked_text"));
+            popup(app::AppContext::GetInstance().languageManager.Text("logic_galaxy_destination_blocked_text"));
             hlp::Print(hlp::PrintType::ONLY_DEBUG, "chosen destination is blocked");
             return { nullptr, nullptr, nullptr, false };
         }
@@ -894,7 +894,7 @@ std::vector<HFightResult> Galaxy::SimulateFightFleetFleet() {
 std::vector<HFightResult> Galaxy::SimulateFightPlanetFleet() {
     std::vector<HFightResult> results{};
 
-    if (not AppContext::GetInstance().constants.fight.isFightPlanetFleet) {
+    if (not app::AppContext::GetInstance().constants.fight.isFightPlanetFleet) {
         hlp::Print(hlp::PrintType::ONLY_DEBUG, "-> -> -> fights planet : fleet are disabled -> no simulation");
         return results;
     }
@@ -916,7 +916,7 @@ std::vector<HFightResult> Galaxy::SimulateFightPlanetFleet() {
 std::vector<HFightResult> Galaxy::SimulateFightTargetPointFleet() {
     std::vector<HFightResult> results{};
 
-    if (not AppContext::GetInstance().constants.fight.isFightTargetPointFleet) {
+    if (not app::AppContext::GetInstance().constants.fight.isFightTargetPointFleet) {
         hlp::Print(hlp::PrintType::ONLY_DEBUG, "-> -> -> fights target point : fleet are disabled -> no simulation");
         return results;
     }
@@ -938,7 +938,7 @@ std::vector<HFightResult> Galaxy::SimulateFightTargetPointFleet() {
 std::vector<HFightResult> Galaxy::SimulateFightTargetPointTargetPoint() {
     std::vector<HFightResult> results{};
 
-    if (not AppContext::GetInstance().constants.fight.isFightTargetPointTargetPoint) {
+    if (not app::AppContext::GetInstance().constants.fight.isFightTargetPointTargetPoint) {
         hlp::Print(
                 hlp::PrintType::ONLY_DEBUG,
                 "-> -> -> fights target point : target point are disabled -> no simulation"
@@ -980,7 +980,7 @@ std::vector<HFightResult> Galaxy::SimulateFightTargetPointTargetPoint() {
 std::vector<HFightResult> Galaxy::SimulateFightPlanetTargetPoint() {
     std::vector<HFightResult> results{};
 
-    if (not AppContext::GetInstance().constants.fight.isFightPlanetTargetPoint) {
+    if (not app::AppContext::GetInstance().constants.fight.isFightPlanetTargetPoint) {
         hlp::Print(hlp::PrintType::ONLY_DEBUG, "-> -> -> fights planet : target point are disabled -> no simulation");
         return results;
     }
@@ -1068,7 +1068,7 @@ HFightResult Galaxy::Fight(SpaceObject_ty const& defender, SpaceObject_ty const&
 }
 
 size_t Galaxy::Salve(SpaceObject_ty const& obj) {
-    float const hitChance{ AppContext::GetInstance().constants.fight.hitChance * 100 };
+    float const hitChance{ app::AppContext::GetInstance().constants.fight.hitChance * 100 };
     auto& random_{ hlp::Random::GetInstance() };
     size_t hitCount{ 0 };
 
@@ -1196,7 +1196,7 @@ HFleetResult Galaxy::AddFleet(eve::SendFleetInstructionEvent const* const event,
 
     // valid ID?
     if (!IsValidSpaceObjectID(event->GetOrigin())) {
-        popup(AppContext::GetInstance()
+        popup(app::AppContext::GetInstance()
                       .languageManager.Text("logic_galaxy_not_existing_origin_id_text", event->GetOrigin()));
         hlp::Print(hlp::PrintType::ONLY_DEBUG, "origin is not available: {}", event->GetOrigin());
         return { nullptr, nullptr, nullptr, false };
@@ -1208,7 +1208,7 @@ HFleetResult Galaxy::AddFleet(eve::SendFleetInstructionEvent const* const event,
         bool const coordinateInput{ event->GetDestinationX() >= 0 and event->GetDestinationY() >= 0 };
 
         if (!validCoordinates && coordinateInput) {
-            popup(AppContext::GetInstance().languageManager.Text(
+            popup(app::AppContext::GetInstance().languageManager.Text(
                     "logic_galaxy_destination_coordinate_outside_of_map_text",
                     event->GetDestinationX(),
                     event->GetDestinationY()
@@ -1221,7 +1221,7 @@ HFleetResult Galaxy::AddFleet(eve::SendFleetInstructionEvent const* const event,
             return { nullptr, nullptr, nullptr, false };
         }
     } else if (!IsValidSpaceObjectID(event->GetDestination())) {
-        popup(AppContext::GetInstance()
+        popup(app::AppContext::GetInstance()
                       .languageManager.Text("logic_galaxy_not_existing_destination_id_text", event->GetDestination()));
         hlp::Print(hlp::PrintType::ONLY_DEBUG, "destination id not available: {}", event->GetDestination());
         return { nullptr, nullptr, nullptr, false };
@@ -1240,8 +1240,8 @@ HFleetResult Galaxy::AddFleet(eve::SendFleetInstructionEvent const* const event,
         return AddFleetFromTargetPoint(event, currentPlayer);
     }
 
-    popup(AppContext::GetInstance().languageManager.Text("logic_galaxy_cant_recognize_origin_text", event->GetOrigin())
-    );
+    popup(app::AppContext::GetInstance()
+                  .languageManager.Text("logic_galaxy_cant_recognize_origin_text", event->GetOrigin()));
     hlp::Print(
             hlp::PrintType::ERROR,
             "not able to recognize fleet input -> origin: {} -> destination: {} -> destination x: {} -> destination y: "

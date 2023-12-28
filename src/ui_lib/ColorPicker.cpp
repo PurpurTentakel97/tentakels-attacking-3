@@ -13,7 +13,7 @@
 
 
 void ColorPicker::Initialize() {
-    AppContext_ty_c appContext{ AppContext::GetInstance() };
+    app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
 
     auto const colors{ appContext.colors.GetColors() };
 
@@ -47,7 +47,7 @@ void ColorPicker::Initialize() {
     }
 }
 
-void ColorPicker::SetUsedColors(AppContext_ty_c appContext) {
+void ColorPicker::SetUsedColors(app::AppContext_ty_c appContext) {
     auto const& players = appContext.playerCollection.GetPlayerData();
 
     for (auto& c : m_cells) {
@@ -76,7 +76,7 @@ void ColorPicker::SetColorFromFocus() {
     }
 }
 
-void ColorPicker::CheckForValidColor(AppContext_ty_c appContext) {
+void ColorPicker::CheckForValidColor(app::AppContext_ty_c appContext) {
     if (m_currentColorCell) {
         if (m_currentColorCell->IsEnabled()) {
             return;
@@ -136,7 +136,7 @@ bool ColorPicker::SetColor(Color const color) {
             m_currentColorCell = c.get();
             if (m_isNestedFocus) {
                 eve::SelectFocusElementEvent const event{ c.get() };
-                AppContext::GetInstance().eventManager.InvokeEvent(event);
+                app::AppContext::GetInstance().eventManager.InvokeEvent(event);
             }
             return true;
         }
@@ -149,7 +149,7 @@ void ColorPicker::SetOnEnter(std::function<void()> onEnter) {
     m_onEnter = std::move(onEnter);
 }
 
-void ColorPicker::SetCellFocuses([[maybe_unused]] AppContext_ty_c appContext) {
+void ColorPicker::SetCellFocuses(app::AppContext_ty_c) {
     if (m_isNestedFocus) {
         return;
     }
@@ -186,7 +186,7 @@ bool ColorPicker::IsEnabled() const {
     return m_isPopUp;
 }
 
-void ColorPicker::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) {
+void ColorPicker::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) {
 
     UIElement::CheckAndUpdate(mousePosition, appContext);
 
@@ -221,7 +221,7 @@ void ColorPicker::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c a
     CheckForValidColor(appContext);
 }
 
-void ColorPicker::Render(AppContext_ty_c appContext) {
+void ColorPicker::Render(app::AppContext_ty_c appContext) {
     // update here to make sure all CheckAndUpdate() is done
     m_previousColorCell = m_currentColorCell;
 
@@ -239,7 +239,7 @@ void ColorPicker::Render(AppContext_ty_c appContext) {
     }
 }
 
-void ColorPicker::Resize(AppContext_ty_c appContext) {
+void ColorPicker::Resize(app::AppContext_ty_c appContext) {
 
     UIElement::Resize(appContext);
 

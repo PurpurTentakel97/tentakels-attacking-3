@@ -7,7 +7,7 @@
 #include <app/AppContext.hpp>
 
 void CountRing::CalculateRing() {
-    Resolution_ty_c resolution{ AppContext::GetInstance().GetResolution() };
+    Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
     float diff{ m_relativeMaxRingSize - m_relativeDotSize };
     float factor{ static_cast<float>(m_currentCount) / static_cast<float>(m_maxCount) };
     diff *= factor;
@@ -42,7 +42,7 @@ bool CountRing::IsOverlapping(Rectangle const& rect) const {
 }
 
 void CountRing::Update() {
-    Resolution_ty_c resolution{ AppContext::GetInstance().GetResolution() };
+    Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
     m_absolutePos = { m_collider.x + m_collider.width / 2, m_collider.y + m_collider.height / 2 };
     m_absoluteDotSize = { m_relativeDotSize * resolution.x };
     CalculateRing();
@@ -85,11 +85,11 @@ void CountRing::SetPosition(Vector2 const newPos) {
     Update();
 }
 
-void CountRing::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) {
+void CountRing::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) {
     UIElement::CheckAndUpdate(mousePosition, appContext);
 }
 
-void CountRing::Render(AppContext_ty_c) {
+void CountRing::Render(app::AppContext_ty_c) {
     if (m_currentCount == 0) {
         return;
     }
@@ -99,7 +99,7 @@ void CountRing::Render(AppContext_ty_c) {
     DrawCircleV(m_absolutePos, m_absoluteDotSize, m_dotColor);
 }
 
-void CountRing::Resize(AppContext_ty_c appContext) {
+void CountRing::Resize(app::AppContext_ty_c appContext) {
     UIElement::Resize(appContext);
     Update();
 }

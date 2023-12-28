@@ -37,9 +37,9 @@ public:
             std::function<Rectangle(Rectangle)> getTemporaryCollider
     );
 
-    void CheckAndUpdate(Vector2 const&, AppContext_ty_c) override;
+    void CheckAndUpdate(Vector2 const&, app::AppContext_ty_c) override;
 
-    void Render(AppContext_ty_c appContext) override;
+    void Render(app::AppContext_ty_c appContext) override;
 
     [[nodiscard]] bool IsEnabled() const override;
 

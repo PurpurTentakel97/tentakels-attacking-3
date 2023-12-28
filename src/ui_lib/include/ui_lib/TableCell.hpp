@@ -47,7 +47,7 @@ public:
     }
 
 
-    void Clicked(Vector2 const&, AppContext_ty_c appContext) override {
+    void Clicked(Vector2 const&, app::AppContext_ty_c appContext) override {
 
         if (not IsEditable()) {
             return;
@@ -59,7 +59,7 @@ public:
         appContext.eventManager.InvokeEvent(event);
     }
 
-    void CheckAndUpdate(Vector2 const&, AppContext_ty_c appContext) override {
+    void CheckAndUpdate(Vector2 const&, app::AppContext_ty_c appContext) override {
         if (not IsEditable()) {
             return;
         }
@@ -80,7 +80,7 @@ public:
         }
     }
 
-    void Render(AppContext_ty_c appContext) override {
+    void Render(app::AppContext_ty_c appContext) override {
         AbstractTableCell::Render(appContext);
 
         DrawTextEx(
@@ -119,7 +119,7 @@ inline void TableCell<Color>::SetStringValue() {
 }
 
 template<>
-inline void TableCell<Color>::Render(AppContext_ty_c appContext) {
+inline void TableCell<Color>::Render(app::AppContext_ty_c appContext) {
     AbstractTableCell::Render(appContext);
 
     auto const offset{ m_collider.height / 10.0f };

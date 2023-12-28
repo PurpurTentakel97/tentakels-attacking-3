@@ -68,7 +68,7 @@ void SceneManager::InitializeNewScene(SceneType const sceneType) {
     throw std::runtime_error("unexpected scene type in initialize new scene");
 }
 
-void SceneManager::SwitchScene(AppContext_ty_c appContext) {
+void SceneManager::SwitchScene(app::AppContext_ty_c appContext) {
 
     if (m_currentSceneType == m_nextSceneType) {
         return;
@@ -89,15 +89,15 @@ void SceneManager::SwitchScene(AppContext_ty_c appContext) {
 }
 
 SceneManager::SceneManager() {
-    AppContext::GetInstance().eventManager.AddListener(this);
+    app::AppContext::GetInstance().eventManager.AddListener(this);
     hlp::Print(hlp::PrintType::INITIALIZE, "SceneManager");
 }
 
 void SceneManager::SwitchSceneManual() {
-    SwitchScene(AppContext::GetInstance());
+    SwitchScene(app::AppContext::GetInstance());
 }
 
-void SceneManager::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) {
+void SceneManager::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) {
 
     SwitchScene(appContext);
 
@@ -107,12 +107,12 @@ void SceneManager::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c 
     m_popUpManager.CheckAndUpdate(mousePosition, appContext);
 }
 
-void SceneManager::Render(AppContext_ty_c appContext) {
+void SceneManager::Render(app::AppContext_ty_c appContext) {
     m_currentScene->Render(appContext);
     m_popUpManager.Render(appContext);
 }
 
-void SceneManager::Resize(AppContext_ty_c appContext) {
+void SceneManager::Resize(app::AppContext_ty_c appContext) {
     m_currentScene->Resize(appContext);
     m_popUpManager.Resize(appContext);
 }

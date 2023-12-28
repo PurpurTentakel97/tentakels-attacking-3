@@ -14,7 +14,7 @@
 #include <ui_lib/Title.hpp>
 
 void CreditsScene::Initialize() {
-    AppContext_ty appContext{ AppContext::GetInstance() };
+    app::AppContext_ty appContext{ app::AppContext::GetInstance() };
 
     // not moving btn
     m_speedBTN = std::make_shared<ClassicButton>(
@@ -39,7 +39,7 @@ void CreditsScene::Initialize() {
     );
     backBTN->SetOnClick([]() {
         auto event = eve::SwitchSceneEvent(SceneType::MAIN_MENU);
-        AppContext::GetInstance().eventManager.InvokeEvent(event);
+        app::AppContext::GetInstance().eventManager.InvokeEvent(event);
     });
     m_elements.push_back(backBTN);
 
@@ -172,7 +172,7 @@ void CreditsScene::Initialize() {
     );
     m_endBTN->SetOnClick([]() {
         auto event = eve::SwitchSceneEvent(SceneType::MAIN_MENU);
-        AppContext::GetInstance().eventManager.InvokeEvent(event);
+        app::AppContext::GetInstance().eventManager.InvokeEvent(event);
     });
     AddMovingElement(m_endBTN);
 }
@@ -194,7 +194,7 @@ void CreditsScene::ToggleSpeedLevel() {
         m_speedLevel = 1;
     }
 
-    m_speedBTN->SetText(AppContext::GetInstance()
+    m_speedBTN->SetText(app::AppContext::GetInstance()
                                 .languageManager.Text("scene_credits_speed_toggle_btn", m_speedLevel, m_maxSpeedLevel));
 
     for (auto const& e : m_movingElements) {
@@ -203,7 +203,7 @@ void CreditsScene::ToggleSpeedLevel() {
 }
 
 void CreditsScene::CheckCreditsFinished() {
-    Resolution_ty_c resolution{ AppContext::GetInstance().GetResolution() };
+    Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
     float const shouldY{ (resolution.y * 0.75f) - (m_endBTN->GetCollider().height / 2) };
     float const btnY{ m_endBTN->GetCollider().y };
     if (btnY <= shouldY) {
@@ -222,7 +222,7 @@ CreditsScene::CreditsScene()
     Initialize();
 }
 
-void CreditsScene::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) {
+void CreditsScene::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) {
     Scene::CheckAndUpdate(mousePosition, appContext);
 
     if (m_title->IsTitleFinished()) {
@@ -242,6 +242,6 @@ void CreditsScene::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c 
 	}*/
 }
 
-void CreditsScene::Resize(AppContext_ty_c appContext) {
+void CreditsScene::Resize(app::AppContext_ty_c appContext) {
     Scene::Resize(appContext);
 }

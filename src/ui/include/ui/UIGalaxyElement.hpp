@@ -60,7 +60,7 @@ public:
 
     [[nodiscard]] Rectangle GetCollider() const override;
 
-    virtual void RenderRing(AppContext_ty_c appContext) = 0;
+    virtual void RenderRing(app::AppContext_ty_c appContext) = 0;
 
-    void Resize(AppContext_ty_c appContext) override;
+    void Resize(app::AppContext_ty_c appContext) override;
 };

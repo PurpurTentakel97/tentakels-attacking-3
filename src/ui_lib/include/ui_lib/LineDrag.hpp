@@ -34,7 +34,7 @@ public:
 
     void ClearCallback();
 
-    void CheckAndUpdate(Vector2 const& mousePosition, AppContext const&) override;
+    void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c) override;
 
-    void Render(AppContext const&) override;
+    void Render(app::AppContext_ty_c) override;
 };

@@ -55,7 +55,7 @@ bool UIFleet::IsColliding(Vector2 const& mousePosition) const {
         return CheckCollisionPointRec(mousePosition, m_collider);
     }
 
-    Resolution_ty_c resolution{ AppContext::GetInstance().GetResolution() };
+    Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
     auto const& lineStart{ m_line.GetStart() };
     auto const& lineEnd{ m_line.GetEnd() };
     Vector2 const start{ lineStart.x * resolution.x, lineStart.y * resolution.y };
@@ -80,12 +80,12 @@ void UIFleet::UpdateHoverText() {
                                 + ", Y: " + std::to_string(m_fleet->GetPos().y) };
     std::string const text_1{ std::to_string(m_fleet->GetID()) + " | " + position + " |" };
     std::string const text_2{ std::to_string(m_fleet->GetShipCount()) };
-    m_hover.SetText(AppContext::GetInstance().languageManager.Text("ui_fleet_hover", text_1, text_2));
+    m_hover.SetText(app::AppContext::GetInstance().languageManager.Text("ui_fleet_hover", text_1, text_2));
 }
 
 void UIFleet::UpdatePositions(Rectangle const newCollider) {
     // update line
-    Resolution_ty_c resolution{ AppContext::GetInstance().GetResolution() };
+    Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
     Vector2 const start{ (newCollider.x + newCollider.width * m_relativeStart.x) / resolution.x,
                          (newCollider.y + newCollider.height * m_relativeStart.y) / resolution.y };
     Vector2 const end{ (newCollider.x + newCollider.width * m_relativeEnd.x) / resolution.x,
@@ -111,7 +111,7 @@ bool UIFleet::IsDisplayAsPoint() const {
     return m_isDisplayAsPoint;
 }
 
-void UIFleet::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) {
+void UIFleet::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) {
     UIElement::CheckAndUpdate(mousePosition, appContext);
     m_ring->CheckAndUpdate(mousePosition, appContext);
 
@@ -121,7 +121,7 @@ void UIFleet::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appCo
     }
 }
 
-void UIFleet::Render(AppContext_ty_c appContext) {
+void UIFleet::Render(app::AppContext_ty_c appContext) {
 
     if (m_isDisplayAsPoint) {
         DrawCircle(
@@ -136,11 +136,11 @@ void UIFleet::Render(AppContext_ty_c appContext) {
     m_line.Render(appContext);
 }
 
-void UIFleet::RenderRing(AppContext_ty_c appContext) {
+void UIFleet::RenderRing(app::AppContext_ty_c appContext) {
     m_ring->Render(appContext);
 }
 
-void UIFleet::Resize(AppContext_ty_c appContext) {
+void UIFleet::Resize(app::AppContext_ty_c appContext) {
     UIElement::Resize(appContext);
     m_line.Resize(appContext);
     m_hover.Resize(appContext);

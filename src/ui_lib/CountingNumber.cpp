@@ -146,7 +146,7 @@ int CountingNumber::GetTargetNumber() const {
     return m_targetNumber;
 }
 
-void CountingNumber::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) {
+void CountingNumber::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) {
     if (m_isCountingOutNumbers) {
         HandleCountingOutNumbers();
     } else {
@@ -155,11 +155,11 @@ void CountingNumber::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_
     m_text->CheckAndUpdate(mousePosition, appContext);
 }
 
-void CountingNumber::Render(AppContext_ty_c appContext) {
+void CountingNumber::Render(app::AppContext_ty_c appContext) {
     m_text->Render(appContext);
 }
 
-void CountingNumber::Resize(AppContext_ty_c appContext) {
+void CountingNumber::Resize(app::AppContext_ty_c appContext) {
     UIElement::Resize(appContext);
     m_text->Resize(appContext);
 }

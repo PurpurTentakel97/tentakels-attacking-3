@@ -40,9 +40,9 @@ Color AbstractTableCell::GetTextColor() const {
 	return m_textColor;
 }
 
-void AbstractTableCell::Render(AppContext_ty_c) {
+void AbstractTableCell::Render(app::AppContext_ty_c) {
 
-	DrawRectangleRec(
+    DrawRectangleRec(
 		m_collider,
 		m_backgroundColor
 	);

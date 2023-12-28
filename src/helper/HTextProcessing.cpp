@@ -43,7 +43,7 @@ namespace hlp {
         return toReturn;
     }
 
-    void BreakText(std::string& toBreak, float const fontSize, float const length, AppContext_ty_c appContext) {
+    void BreakText(std::string& toBreak, float const fontSize, float const length, app::AppContext_ty_c appContext) {
         size_t lhs{ 0 };
         size_t rhs{ 0 };
 
@@ -72,8 +72,12 @@ namespace hlp {
 
     std::vector<std::string> BreakTextInVector(std::string const& toBreak, float const fontSize, float const length) {
         auto getTextLength = [fontSize](std::string const& text) -> float {
-            Vector2 textSize =
-                    MeasureTextEx(*(AppContext::GetInstance().assetManager.GetFont()), text.c_str(), fontSize, 0.0f);
+            Vector2 textSize = MeasureTextEx(
+                    *(app::AppContext::GetInstance().assetManager.GetFont()),
+                    text.c_str(),
+                    fontSize,
+                    0.0f
+            );
             return textSize.x;
         };
 
@@ -119,7 +123,7 @@ namespace hlp {
             std::string const& text,
             float const fontSize,
             Rectangle const collider,
-            AppContext_ty_c appContext
+            app::AppContext_ty_c appContext
     ) {
         Vector2 textSize = MeasureTextEx(
                 *(appContext.assetManager.GetFont()),
@@ -150,7 +154,7 @@ namespace hlp {
             std::string const& text,
             float const fontSize,
             Rectangle const collider,
-            AppContext_ty_c appContext
+            app::AppContext_ty_c appContext
     ) {
         Vector2 textSize = MeasureTextEx(*(appContext.assetManager.GetFont()), text.c_str(), fontSize, 0.0f);
         if ((textSize.x + cst::TextProcessing::cursorOffset) < collider.width) {
@@ -194,7 +198,7 @@ namespace hlp {
             return { collider.x, collider.y };
         }
 
-        AppContext_ty_c appContext{ AppContext::GetInstance() };
+        app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
         Vector2 const textSize = MeasureTextEx(*(appContext.assetManager.GetFont()), text.c_str(), fontSize, 0.0f);
 
         if (collider.height < textSize.y) {
@@ -214,7 +218,7 @@ namespace hlp {
             Alignment const alignment
     ) {
 
-        AppContext_ty_c appContext{ AppContext::GetInstance() };
+        app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
         TextAlignment const textAlignment{ GetVerticalTextAlignment(alignment) };
         std::vector<float> toReturn;
 
@@ -258,7 +262,7 @@ namespace hlp {
             return text;
         }
 
-        AppContext_ty_c appContext{ AppContext::GetInstance() };
+        app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
 
         Vector2 const spaceSize = MeasureTextEx(*(appContext.assetManager.GetFont()), " ", fontSize, 0.0f);
 
@@ -294,7 +298,7 @@ namespace hlp {
             float const fontSize,
             Alignment const alignment
     ) {
-        AppContext_ty_c appContext{ AppContext::GetInstance() };
+        app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
         TextAlignment const textAlignment{ GetHorizontalTextAlignment(alignment) };
 
         std::vector<float> toReturn;
@@ -331,7 +335,7 @@ namespace hlp {
             Color const color,
             bool const background
     ) {
-        AppContext_ty_c appContext{ AppContext::GetInstance() };
+        app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
         // background text
         if (Colors::NeedBackground(color) and background) {
             DrawTextEx(

@@ -8,7 +8,7 @@
 #include <app/AppContext.hpp>
 #include <helper/HFocusEvents.hpp>
 
-void Scene::SetFocusActive(AppContext_ty_c) {
+void Scene::SetFocusActive(app::AppContext_ty_c) {
     if (m_active) {
         for (auto& element : m_elements) {
             if (auto focusable = dynamic_cast<Focusable_ty_raw>(element.get())) {
@@ -70,7 +70,7 @@ bool Scene::IsActive() const {
     return m_active;
 }
 
-void Scene::SetActive(bool const active, AppContext_ty_c appContext) {
+void Scene::SetActive(bool const active, app::AppContext_ty_c appContext) {
     if (active == m_active) {
         return;
     }
@@ -113,7 +113,7 @@ void Scene::SetSize(Vector2 const size) {
     UIElement::SetSize(size);
 }
 
-void Scene::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) {
+void Scene::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) {
 
     if (!m_active) {
         return;
@@ -126,7 +126,7 @@ void Scene::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appCont
     UIElement::CheckAndUpdate(mousePosition, appContext);
 }
 
-void Scene::Render(AppContext_ty_c appContext) {
+void Scene::Render(app::AppContext_ty_c appContext) {
     if (!m_active) {
         return;
     }
@@ -136,7 +136,7 @@ void Scene::Render(AppContext_ty_c appContext) {
     }
 }
 
-void Scene::Resize(AppContext_ty_c appContext) {
+void Scene::Resize(app::AppContext_ty_c appContext) {
 
     UIElement::Resize(appContext);
 

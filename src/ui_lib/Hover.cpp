@@ -8,7 +8,7 @@
 #include <event/EventsUI.hpp>
 #include <helper/HTextProcessing.hpp>
 
-void Hover::CalculateDefault(AppContext_ty_c appContext) {
+void Hover::CalculateDefault(app::AppContext_ty_c appContext) {
     Resolution_ty_c resolution{ appContext.GetResolution() };
     Vector2 const textOffset{
         resolution.x * 0.01f,
@@ -27,7 +27,7 @@ Hover::Hover(float const height, std::string text, Color const color, Vector2 co
 	: UIElement{ { 0.0f, 0.0f }, { 0.0f, 0.0f }, Alignment::BOTTOM_LEFT },
       m_text{ std::move(text) },m_color(color), m_textHeight{ 0.0f } {
 
-    AppContext_ty appContext{ AppContext::GetInstance() };
+    app::AppContext_ty appContext{ app::AppContext::GetInstance() };
     Resolution_ty_c resolution{ appContext.GetResolution() };
     m_textHeight = { height * resolution.y };
 
@@ -38,7 +38,7 @@ Hover::Hover(float const height, std::string text, Color const color, Vector2 co
 }
 
 Vector2 Hover::GetRenderOffset() const {
-    Resolution_ty_c resolution{ AppContext::GetInstance().GetResolution() };
+    Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
     Vector2 renderOffset{ 0, 0 };
     if (m_collider.x + m_collider.width > resolution.x) {
         renderOffset.x = m_collider.x + m_collider.width - resolution.x;
@@ -50,7 +50,7 @@ Vector2 Hover::GetRenderOffset() const {
     return renderOffset;
 }
 
-void Hover::SetRenderHover(Vector2 const mousePosition, AppContext_ty_c appContext) {
+void Hover::SetRenderHover(Vector2 const mousePosition, app::AppContext_ty_c appContext) {
     Rectangle const newCollider{ mousePosition.x + m_absoluteHoverOffset.x,
                                  mousePosition.y - m_absoluteHoverOffset.y - m_collider.height,
                                  m_collider.width,
@@ -66,12 +66,12 @@ void Hover::SetText(std::string const& text) {
     m_text = { text };
 }
 
-void Hover::Render(AppContext_ty_c appContext) {
+void Hover::Render(app::AppContext_ty_c appContext) {
     auto const& renderOffset{ GetRenderOffset() };
     RenderOffset(appContext, renderOffset);
 }
 
-float Hover::RenderOffset(AppContext_ty_c, Vector2 const& offset) const {
+float Hover::RenderOffset(app::AppContext_ty_c, Vector2 const& offset) const {
     Rectangle const dummyCollider{ m_collider.x - offset.x,
                                    m_collider.y - offset.y,
                                    m_collider.width,
@@ -86,7 +86,7 @@ float Hover::RenderOffset(AppContext_ty_c, Vector2 const& offset) const {
     return m_collider.height;
 }
 
-void Hover::Resize(AppContext_ty_c appContext) {
+void Hover::Resize(app::AppContext_ty_c appContext) {
     UIElement::Resize(appContext);
     CalculateDefault(appContext);
 }

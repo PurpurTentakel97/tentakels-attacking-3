@@ -63,13 +63,13 @@ Text::Text(
     : UIElement{ pos, size, alignment },
       m_text{ std::move(text) },
       m_textHeight{ textHeight },
-      m_textSize{ textHeight * AppContext::GetInstance().GetResolution().y },
+      m_textSize{ textHeight * app::AppContext::GetInstance().GetResolution().y },
       m_textAlignment{ textAlignment } {
 
     CreateToRender();
 }
 
-void Text::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) {
+void Text::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) {
 
     UIElement::CheckAndUpdate(mousePosition, appContext);
 
@@ -80,7 +80,7 @@ void Text::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appConte
     }
 }
 
-void Text::Render(AppContext_ty_c) {
+void Text::Render(app::AppContext_ty_c) {
     for (auto const& [text, position] : m_toRender) {
         hlp::DrawTextWithOutline(text, position, m_textSize, m_color, m_renderBackground);
     }
@@ -90,7 +90,7 @@ void Text::Render(AppContext_ty_c) {
     }
 }
 
-void Text::Resize(AppContext_ty_c appContext) {
+void Text::Resize(app::AppContext_ty_c appContext) {
     Resolution_ty_c resolution{ appContext.GetResolution() };
     UIElement::Resize(appContext);
     m_textSize = m_textHeight * resolution.y;

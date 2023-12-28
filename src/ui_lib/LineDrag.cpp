@@ -42,7 +42,7 @@ void LineDrag::ClearCallback() {
     m_callback = [](Vector2, Vector2) {};
 }
 
-void LineDrag::CheckAndUpdate(Vector2 const& mousePosition, AppContext const& appContext) {
+void LineDrag::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) {
     Resolution_ty_c resolution{ appContext.GetResolution() };
     if (m_render) {
         if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) {
@@ -63,7 +63,7 @@ void LineDrag::CheckAndUpdate(Vector2 const& mousePosition, AppContext const& ap
     }
 }
 
-void LineDrag::Render(AppContext const&) {
+void LineDrag::Render(app::AppContext_ty_c) {
     if (m_render) {
         DrawLineEx(
                 Vector2{ m_collider.x, m_collider.y },

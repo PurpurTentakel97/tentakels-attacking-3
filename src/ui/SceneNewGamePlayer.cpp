@@ -15,7 +15,7 @@
 #include <ui_lib/Title.hpp>
 
 void NewGamePlayerScene::Initialize() {
-    AppContext_ty_c appContext{ AppContext::GetInstance() };
+    app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
 
     auto title = std::make_shared<Title>(
             GetElementPosition(0.5f, 0.025f),
@@ -79,7 +79,7 @@ void NewGamePlayerScene::Initialize() {
             SoundType::CLICKED_RELEASE_STD
     );
     backBtn->SetOnClick([]() {
-        AppContext::GetInstance().eventManager.InvokeEvent(eve::SwitchSceneEvent(SceneType::MAIN_MENU));
+        app::AppContext::GetInstance().eventManager.InvokeEvent(eve::SwitchSceneEvent(SceneType::MAIN_MENU));
     });
     m_elements.push_back(backBtn);
 
@@ -167,7 +167,7 @@ void NewGamePlayerScene::Initialize() {
 }
 
 void NewGamePlayerScene::InitializePlayerButtons() {
-    AppContext_ty_c appContext{ AppContext::GetInstance() };
+    app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
     size_t const maxPlayerCount{ appContext.constants.player.maxPlayerCount };
     size_t const currentPlayerCount{ appContext.playerCollection.GetPlayerCount() };
     float const rowHeight{ 0.45f / static_cast<float>(maxPlayerCount + 1) };
@@ -212,7 +212,7 @@ void NewGamePlayerScene::CheckForNestedFocus(Vector2 const& mousePosition) const
 }
 
 void NewGamePlayerScene::UpdateSceneEntries() {
-    AppContext_ty_c appContext{ AppContext::GetInstance() };
+    app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
     m_colorPicker->SetColor(appContext.playerCollection.GetPossibleColor());
 
     m_inputLine->Clear();
@@ -252,14 +252,14 @@ void NewGamePlayerScene::UpdateSceneEntries() {
 }
 
 void NewGamePlayerScene::AddPlayer() {
-    AppContext_ty_c appContext = AppContext::GetInstance();
+    app::AppContext_ty_c appContext = app::AppContext::GetInstance();
 
     eve::AddPlayerEvent const event{ m_inputLine->GetValue(), m_colorPicker->GetColor() };
     appContext.eventManager.InvokeEvent(event);
 }
 
 void NewGamePlayerScene::UpdatePlayer(unsigned int const ID, std::string const& name, Color const color) {
-    AppContext_ty_c appContext{ AppContext::GetInstance() };
+    app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
     eve::EditPlayerEvent const event{ ID, name, color };
     appContext.eventManager.InvokeEvent(event);
 
@@ -268,21 +268,21 @@ void NewGamePlayerScene::UpdatePlayer(unsigned int const ID, std::string const& 
 
 void NewGamePlayerScene::UpdatePlayerName(AbstractTableCell const*, std::string const& oldValue, std::string const& newValue) {
 
-    AppContext_ty_c appContext{ AppContext::GetInstance() };
+    app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
     PlayerData const playerData{ appContext.playerCollection.GetPlayerByName(oldValue) };
 
     UpdatePlayer(playerData.ID, newValue, playerData.color);
 }
 
 void NewGamePlayerScene::UpdatePlayerColor(AbstractTableCell const*, Color const oldValue, Color const newValue) {
-    AppContext_ty_c appContext{ AppContext::GetInstance() };
+    app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
     PlayerData const playerData{ appContext.playerCollection.GetPlayerByColor(oldValue) };
 
     UpdatePlayer(playerData.ID, playerData.GetName(), newValue);
 }
 
 void NewGamePlayerScene::DeletePlayer(unsigned int const ID) {
-    AppContext_ty_c appContext{ AppContext::GetInstance() };
+    app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
 
     eve::DeletePlayerEvent const event{ ID };
     appContext.eventManager.InvokeEvent(event);
@@ -290,7 +290,7 @@ void NewGamePlayerScene::DeletePlayer(unsigned int const ID) {
 
 void NewGamePlayerScene::CheckPlayerCount() {
     eve::ValidatePlayerCountEvent const event;
-    AppContext::GetInstance().eventManager.InvokeEvent(event);
+    app::AppContext::GetInstance().eventManager.InvokeEvent(event);
 }
 
 void NewGamePlayerScene::NextScene(bool const valid) {
@@ -299,18 +299,18 @@ void NewGamePlayerScene::NextScene(bool const valid) {
     }
 
     eve::SwitchSceneEvent const event{ SceneType::NEW_GAME_PARAMETER };
-    AppContext::GetInstance().eventManager.InvokeEvent(event);
+    app::AppContext::GetInstance().eventManager.InvokeEvent(event);
 }
 
 void NewGamePlayerScene::Reset() {
-    AppContext_ty_c appContext{ AppContext::GetInstance() };
+    app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
 
     eve::ResetPlayerEvent const event;
     appContext.eventManager.InvokeEvent(event);
 }
 
 void NewGamePlayerScene::SetNextButton() {
-    AppContext_ty_c appContext{ AppContext::GetInstance() };
+    app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
     size_t const playerCount{ appContext.playerCollection.GetPlayerData().size() };
     bool const validPlayerCount{ playerCount >= appContext.constants.player.minPlayerCount
                                  and playerCount <= appContext.constants.player.maxPlayerCount };
@@ -327,17 +327,17 @@ NewGamePlayerScene::NewGamePlayerScene()
           Alignment::DEFAULT
 } {
 
-    AppContext_ty appContext{ AppContext::GetInstance() };
+    app::AppContext_ty appContext{ app::AppContext::GetInstance() };
     Initialize();
     UpdateSceneEntries();
     appContext.eventManager.AddListener(this);
 }
 
 NewGamePlayerScene::~NewGamePlayerScene() {
-    AppContext::GetInstance().eventManager.RemoveListener(this);
+    app::AppContext::GetInstance().eventManager.RemoveListener(this);
 }
 
-void NewGamePlayerScene::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) {
+void NewGamePlayerScene::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) {
 
     CheckForNestedFocus(mousePosition);
 
@@ -348,13 +348,13 @@ void NewGamePlayerScene::CheckAndUpdate(Vector2 const& mousePosition, AppContext
     }
 }
 
-void NewGamePlayerScene::Render(AppContext_ty_c appContext) {
+void NewGamePlayerScene::Render(app::AppContext_ty_c appContext) {
     for (auto& e : m_elements) {
         e->Render(appContext);
     }
 }
 
-void NewGamePlayerScene::Resize(AppContext_ty_c appContext) {
+void NewGamePlayerScene::Resize(app::AppContext_ty_c appContext) {
     for (auto& e : m_elements) {
         e->Resize(appContext);
     }

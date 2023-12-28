@@ -13,7 +13,7 @@
 
 void ValidateGalaxyScene::Initialize() {
 
-    AppContext_ty_c appContext{ AppContext::GetInstance() };
+    app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
 
     auto text = std::make_shared<Text>(
             GetElementPosition(0.5f, 0.01f),
@@ -34,7 +34,7 @@ void ValidateGalaxyScene::Initialize() {
             SoundType::CLICKED_RELEASE_STD
     );
     backBtn->SetOnClick([]() {
-        AppContext::GetInstance().eventManager.InvokeEvent(eve::SwitchSceneEvent(SceneType::NEW_GAME_PARAMETER));
+        app::AppContext::GetInstance().eventManager.InvokeEvent(eve::SwitchSceneEvent(SceneType::NEW_GAME_PARAMETER));
     });
     m_elements.push_back(backBtn);
 
@@ -59,12 +59,12 @@ void ValidateGalaxyScene::Initialize() {
     );
     nextBtn->SetOnClick([]() {
         eve::StartGameEvent const event{};
-        AppContext::GetInstance().eventManager.InvokeEvent(event);
+        app::AppContext::GetInstance().eventManager.InvokeEvent(event);
     });
     m_elements.push_back(nextBtn);
 }
 void ValidateGalaxyScene::InitializePlayerLegend() {
-    AppContext_ty_c appContext = AppContext::GetInstance();
+    app::AppContext_ty_c appContext = app::AppContext::GetInstance();
 
     auto const players = appContext.playerCollection.GetPlayerData();
 
@@ -91,7 +91,7 @@ void ValidateGalaxyScene::InitializePlayerLegend() {
 }
 
 void ValidateGalaxyScene::InitializeGalaxy() {
-    AppContext_ty_c appContext{ AppContext::GetInstance() };
+    app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
 
     m_galaxy = std::make_shared<GalaxyScene>(
             GetElementPosition(0.05f, 0.465f),
@@ -105,7 +105,7 @@ void ValidateGalaxyScene::InitializeGalaxy() {
 }
 
 void ValidateGalaxyScene::NewGalaxy() {
-    AppContext_ty_c appContext{ AppContext::GetInstance() };
+    app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
 
     m_galaxy->SetActive(false, appContext);
     m_elements.erase(std::remove(m_elements.begin(), m_elements.end(), m_galaxy), m_elements.end());

@@ -30,7 +30,7 @@ Planet::Planet(
       m_isHomePlanet{ isHomePlanet },
       m_planetNumber{ planetNumber } {
 
-    AppContext const& appContext{ AppContext::GetInstance() };
+    app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
 
     if (m_isHomePlanet) {
         m_production = appContext.constants.planet.homeworldProduction;

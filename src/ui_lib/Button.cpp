@@ -6,8 +6,8 @@
 #include "Button.hpp"
 #include <app/AppContext.hpp>
 
-void Button::SetTextSizeAndPosition(AppContext_ty_c appContext) {
-    Resolution_ty_c resolution{ AppContext::GetInstance().GetResolution() };
+void Button::SetTextSizeAndPosition(app::AppContext_ty_c appContext) {
+    Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
     m_textSize = m_collider.height / 2;
     Vector2 textSize = MeasureTextEx(*(appContext.assetManager.GetFont()), m_text.c_str(), m_textSize, 0.0f);
     while (textSize.x + 20 > m_collider.width) {
@@ -30,7 +30,7 @@ bool Button::IsSameState(State const state) const {
 void Button::UpdateCollider() {
     UIElement::UpdateCollider();
 
-    SetTextSizeAndPosition(AppContext::GetInstance());
+    SetTextSizeAndPosition(app::AppContext::GetInstance());
 }
 
 Button::Button(
@@ -44,13 +44,13 @@ Button::Button(
       m_text{ std::move(text) },
       m_sound{ releaseSound } {
 
-    m_texture = AppContext::GetInstance().assetManager.GetTexture(AssetType::BUTTON_DEFAULT);
+    m_texture = app::AppContext::GetInstance().assetManager.GetTexture(AssetType::BUTTON_DEFAULT);
     m_textureRec = { 0.0f,
                      0.0f,
                      static_cast<float>(m_texture->width),
                      static_cast<float>(m_texture->height) / static_cast<float>(m_buttonParts) };
 
-    SetTextSizeAndPosition(AppContext::GetInstance());
+    SetTextSizeAndPosition(app::AppContext::GetInstance());
 }
 
 Button::Button()
@@ -58,7 +58,7 @@ Button::Button()
 	m_sound{ SoundType::CLICKED_RELEASE_STD }, m_textPosition{ 0.0f,0.0f },
 	m_texture{ nullptr }, m_textureRec{ 0.0f,0.0f,0.0f,0.0f } {}
 
-void Button::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) {
+void Button::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) {
     UIElement::CheckAndUpdate(mousePosition, appContext);
 
     bool const hover{ CheckCollisionPointRec(mousePosition, m_collider) };
@@ -121,7 +121,7 @@ void Button::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appCon
     }
 }
 
-void Button::Render(AppContext_ty_c appContext) {
+void Button::Render(app::AppContext_ty_c appContext) {
     m_textureRec.y = m_textureRec.height * static_cast<float>(m_state);
     DrawTexturePro(*m_texture, m_textureRec, m_collider, Vector2(0.0f, 0.0f), 0, WHITE);
     DrawTextEx(
@@ -133,7 +133,7 @@ void Button::Render(AppContext_ty_c appContext) {
             WHITE
     );
 }
-void Button::Resize(AppContext_ty_c appContext) {
+void Button::Resize(app::AppContext_ty_c appContext) {
     UIElement::Resize(appContext);
     SetTextSizeAndPosition(appContext);
 }
@@ -148,7 +148,7 @@ void Button::SetOnPress(std::function<void()> onPress) {
 
 void Button::SetText(std::string const& text) {
     m_text = text;
-    SetTextSizeAndPosition(AppContext::GetInstance());
+    SetTextSizeAndPosition(app::AppContext::GetInstance());
 }
 
 std::string Button::GetText() const {
@@ -176,5 +176,5 @@ void Button::SetCollider(Rectangle const collider) {
 
 void Button::SetPosition(Vector2 const pos) {
     UIElement::SetPosition(pos);
-    SetTextSizeAndPosition(AppContext::GetInstance());
+    SetTextSizeAndPosition(app::AppContext::GetInstance());
 }

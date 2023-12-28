@@ -12,7 +12,7 @@ Line::Line(Vector2 const start, Vector2 const end, float const thick, Color cons
       m_thick{ thick },
       m_color{ color } { }
 
-void Line::Render(AppContext_ty_c) {
+void Line::Render(app::AppContext_ty_c) {
     DrawLineEx(
             Vector2(m_collider.x, m_collider.y),
             Vector2(m_collider.x + m_collider.width, m_collider.y + m_collider.height),

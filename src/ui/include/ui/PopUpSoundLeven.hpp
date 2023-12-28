@@ -22,5 +22,5 @@ private:
 public:
     SoundLevelPopUp(Vector2 pos, Vector2 size, Alignment alignment, std::string const& title, std::string& subTitle);
 
-    void Render(AppContext_ty_c appContext) override;
+    void Render(app::AppContext_ty_c appContext) override;
 };

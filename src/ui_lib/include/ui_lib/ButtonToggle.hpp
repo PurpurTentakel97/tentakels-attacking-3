@@ -25,7 +25,7 @@ public:
             SoundType releaseSound
     );
 
-    void CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) override;
+    void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) override;
 
     [[nodiscard]] Rectangle GetCollider() const override;
 

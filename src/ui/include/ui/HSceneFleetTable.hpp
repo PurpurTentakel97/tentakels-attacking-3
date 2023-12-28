@@ -27,5 +27,5 @@ public:
             PlayerData const& currentPlayer
     );
 
-    void SetActive(bool active, AppContext_ty_c appContext) override;
+    void SetActive(bool active, app::AppContext_ty_c appContext) override;
 };

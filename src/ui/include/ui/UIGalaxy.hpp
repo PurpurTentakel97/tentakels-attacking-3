@@ -53,9 +53,9 @@ private:
 
     void Initialize(eve::SendGalaxyPointerEvent const* event);
 
-    [[nodiscard]] Vector2 GetAbsolutePosition(Vector2 pos, AppContext_ty_c appContext) const;
+    [[nodiscard]] Vector2 GetAbsolutePosition(Vector2 pos, app::AppContext_ty_c appContext) const;
 
-    [[nodiscard]] Vector2 GetRelativePosition(Vector2 pos, AppContext_ty_c appContext) const;
+    [[nodiscard]] Vector2 GetRelativePosition(Vector2 pos, app::AppContext_ty_c appContext) const;
 
     [[nodiscard]] bool IsUIGalaxyElementInCollider(UIGalaxyElement_ty const& element) const;
 
@@ -102,11 +102,11 @@ public:
 
     void SetOnUIGalaxyElementClick(std::function<void(unsigned int)> onPlanetClick);
 
-    void CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) override;
+    void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) override;
 
-    void Render(AppContext_ty_c appContext) override;
+    void Render(app::AppContext_ty_c appContext) override;
 
-    void Resize(AppContext_ty_c appContext) override;
+    void Resize(app::AppContext_ty_c appContext) override;
 
     void FilterByCurrentPlayer(PlayerData const& player);
 

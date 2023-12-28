@@ -81,7 +81,7 @@ void GalaxyScene::Initialize(bool const isShowGalaxy, bool const isAcceptingInpu
 
 void GalaxyScene::Zoom(float const scaleFactor, Vector2 const referenceScale) {
 
-    Resolution_ty_c resolution{ AppContext::GetInstance().GetResolution() };
+    Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
     m_verticalSlider->SetAbsoluteDimension(scaleFactor);
     m_horizontalSlider->SetAbsoluteDimension(scaleFactor);
 
@@ -149,7 +149,7 @@ void GalaxyScene::FilterByCurrentPlayer(PlayerData const& player) {
     m_galaxy->FilterByCurrentPlayer(player);
 }
 
-void GalaxyScene::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) {
+void GalaxyScene::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) {
     if (!IsActive()) {
         return;
     }
@@ -167,7 +167,7 @@ void GalaxyScene::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c a
     }
 }
 
-void GalaxyScene::Render(AppContext_ty_c appContext) {
+void GalaxyScene::Render(app::AppContext_ty_c appContext) {
     if (!IsActive()) {
         return;
     }
@@ -187,7 +187,7 @@ void GalaxyScene::Render(AppContext_ty_c appContext) {
     }
 }
 
-void GalaxyScene::Resize(AppContext_ty_c appContext) {
+void GalaxyScene::Resize(app::AppContext_ty_c appContext) {
 
     Scene::Resize(appContext);
 

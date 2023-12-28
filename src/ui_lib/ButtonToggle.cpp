@@ -36,7 +36,7 @@ ToggleButton::ToggleButton(
     : Button{ pos, size, alignment, text, releaseSound },
       Focusable{ focusID } { }
 
-void ToggleButton::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) {
+void ToggleButton::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) {
 
     switch (m_state) {
         case State::DISABLED: {

@@ -13,7 +13,7 @@
 #include <ui_lib/Text.hpp>
 
 void SoundLevelPopUp::Initialize() {
-    AppContext_ty_c appContext = AppContext::GetInstance();
+    app::AppContext_ty_c appContext = app::AppContext::GetInstance();
 
     m_slider = std::make_shared<Slider>(
             hlp::GetElementPosition(m_pos, m_size, 0.5f, 0.65f),
@@ -25,7 +25,7 @@ void SoundLevelPopUp::Initialize() {
     m_slider->SetEnabled(!appContext.constants.sound.muteVolume);
     m_slider->SetButtonPosition(appContext.constants.sound.masterVolume);
     m_slider->SetOnSlide([](float position) {
-        AppContext::GetInstance().eventManager.InvokeEvent(eve::SetMasterVolumeEvent(position));
+        app::AppContext::GetInstance().eventManager.InvokeEvent(eve::SetMasterVolumeEvent(position));
     });
     m_elements.push_back(m_slider);
 
@@ -39,7 +39,7 @@ void SoundLevelPopUp::Initialize() {
     m_checkBox->SetChecked(appContext.constants.sound.muteVolume);
     m_checkBox->SetOnCheck([this](unsigned int, bool isChecked) {
         auto event = eve::MuteMasterVolumeEvent(isChecked);
-        AppContext::GetInstance().eventManager.InvokeEvent(event);
+        app::AppContext::GetInstance().eventManager.InvokeEvent(event);
         m_slider->SetEnabled(!isChecked);
     });
     hlp::AddFocusElement(m_checkBox.get(), true);
@@ -62,8 +62,9 @@ void SoundLevelPopUp::Initialize() {
             appContext.languageManager.Text("ui_sound_level_popup_accept_btn"),
             SoundType::ACCEPTED
     );
-    m_acceptBtn->SetOnClick([this]() { AppContext::GetInstance().eventManager.InvokeEvent(eve::ClosePopUpEvent(this)); }
-    );
+    m_acceptBtn->SetOnClick([this]() {
+        app::AppContext::GetInstance().eventManager.InvokeEvent(eve::ClosePopUpEvent(this));
+    });
     hlp::AddFocusElement(m_acceptBtn.get(), true);
     hlp::SelectFocusElement(m_acceptBtn.get(), true);
     m_elements.push_back(m_acceptBtn);
@@ -81,7 +82,7 @@ SoundLevelPopUp::SoundLevelPopUp(
     Initialize();
 }
 
-void SoundLevelPopUp::Render(AppContext_ty_c appContext) {
+void SoundLevelPopUp::Render(app::AppContext_ty_c appContext) {
 
     PopUp::Render(appContext);
 

@@ -45,7 +45,7 @@ bool PlayerCollection::ContainsColor(Color const color) const {
 }
 
 void PlayerCollection::CheckValidColor(Color& color) const {
-    AppContext_ty_c appContext{ AppContext::GetInstance() };
+    app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
     if (appContext.colors.CheckValidColor(color)) {
         eve::ShowMessagePopUpEvent const event{
             appContext.languageManager.Text("helper_player_collection_invalid_color_popup_title"),
@@ -59,7 +59,7 @@ void PlayerCollection::CheckValidColor(Color& color) const {
 
 void PlayerCollection::CheckRemainingColor(Color& color) {
     if (ContainsColor(color)) {
-        AppContext_ty_c appContext{ AppContext::GetInstance() };
+        app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
         eve::ShowMessagePopUpEvent const event{
             appContext.languageManager.Text("helper_player_collection_invalid_color_popup_title"),
             appContext.languageManager.Text("helper_player_collection_already_existing_color_popup_text"),
@@ -73,7 +73,7 @@ void PlayerCollection::CheckRemainingColor(Color& color) {
 void PlayerCollection::CheckRemainingName(std::string& name) {
 
     bool invalidName{ false };
-    AppContext_ty_c appContext{ AppContext::GetInstance() };
+    app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
 
     if (name.empty()) {
         eve::ShowMessagePopUpEvent const event{
@@ -129,7 +129,7 @@ void PlayerCollection::AddPlayer(unsigned int ID, std::string name, Color color)
     m_playerData.emplace_back(ID, name, color);
     SortPlayers();
     eve::RefreshNewGamePlayerScene const event{};
-    AppContext::GetInstance().eventManager.InvokeEvent(event);
+    app::AppContext::GetInstance().eventManager.InvokeEvent(event);
 }
 
 void PlayerCollection::EditPlayer(unsigned int const ID, std::string name, Color color) {
@@ -149,7 +149,7 @@ void PlayerCollection::EditPlayer(unsigned int const ID, std::string name, Color
 
     SortPlayers();
     eve::RefreshNewGamePlayerScene const event{};
-    AppContext::GetInstance().eventManager.InvokeEvent(event);
+    app::AppContext::GetInstance().eventManager.InvokeEvent(event);
 }
 
 void PlayerCollection::DeletePlayer(unsigned int const ID) {
@@ -159,17 +159,17 @@ void PlayerCollection::DeletePlayer(unsigned int const ID) {
 
     SortPlayers();
     eve::RefreshNewGamePlayerScene const event{};
-    AppContext::GetInstance().eventManager.InvokeEvent(event);
+    app::AppContext::GetInstance().eventManager.InvokeEvent(event);
 }
 
 void PlayerCollection::ResetPlayer() {
     m_playerData.clear();
     eve::RefreshNewGamePlayerScene const event{};
-    AppContext::GetInstance().eventManager.InvokeEvent(event);
+    app::AppContext::GetInstance().eventManager.InvokeEvent(event);
 }
 
 Color PlayerCollection::GetPossibleColor() const {
-    AppContext_ty_c appContext{ AppContext::GetInstance() };
+    app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
     for (auto const c : appContext.colors.GetColors()) {
         if (!ContainsColor(c)) {
             return c;

@@ -17,7 +17,7 @@ private:
 public:
     Line(Vector2 start, Vector2 end, float thick, Color color);
 
-    void Render(AppContext_ty_c appContext) override;
+    void Render(app::AppContext_ty_c appContext) override;
 
     virtual void Update();
 

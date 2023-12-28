@@ -66,13 +66,13 @@ bool SpaceObject::IsTargetPoint() const {
 }
 
 bool SpaceObject::IsInDiscoverRange(SpaceObject_ty_c object) const {
-    AppContext_ty_c appContext{ AppContext::GetInstance() };
+    app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
     auto const range = appContext.constants.world.discoverRangeFactor * appContext.constants.fleet.currentFleetSpeed;
     return IsInRange(object.get(), this, range);
 }
 
 bool SpaceObject::IsInFightRange(SpaceObject_ty_c object) const {
-    auto const range = AppContext::GetInstance().constants.fight.fleetFightRange;
+    auto const range = app::AppContext::GetInstance().constants.fight.fleetFightRange;
     return IsInRange(object.get(), this, range);
 }
 

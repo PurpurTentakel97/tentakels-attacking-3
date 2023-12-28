@@ -49,11 +49,11 @@ public:
 
     [[nodiscard]] bool IsDisplayAsPoint() const;
 
-    void CheckAndUpdate(Vector2 const&, AppContext_ty_c appContext) override;
+    void CheckAndUpdate(Vector2 const&, app::AppContext_ty_c appContext) override;
 
-    void Render(AppContext_ty_c appContext) override;
+    void Render(app::AppContext_ty_c appContext) override;
 
-    void RenderRing(AppContext_ty_c appContext);
+    void RenderRing(app::AppContext_ty_c appContext);
 
-    void Resize(AppContext_ty_c appContext) override;
+    void Resize(app::AppContext_ty_c appContext) override;
 };

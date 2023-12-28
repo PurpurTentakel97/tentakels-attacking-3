@@ -14,7 +14,7 @@
 #include <ui_lib/Title.hpp>
 
 void MainMenu::Initialize() {
-    AppContext_ty_c appContext{ AppContext::GetInstance() };
+    app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
 
     auto galaxy = std::make_shared<GalaxyScene>(
             GetElementPosition(0.95f, 0.95f),
@@ -85,7 +85,7 @@ void MainMenu::Initialize() {
     continueBtn->SetEnabled(appContext.constants.global.isGameRunning);
     continueBtn->SetOnClick([]() {
         eve::ResumeGameEvent const event{};
-        AppContext::GetInstance().eventManager.InvokeEvent(event);
+        app::AppContext::GetInstance().eventManager.InvokeEvent(event);
     });
     gameBtn->Add(continueBtn, appContext.constants.global.isGameRunning);
 
@@ -100,7 +100,7 @@ void MainMenu::Initialize() {
             SoundType::ACCEPTED
     );
     newGameBtn->SetOnClick([]() {
-        AppContext::GetInstance().eventManager.InvokeEvent(eve::SwitchSceneEvent(SceneType::NEW_GAME_PLAYER));
+        app::AppContext::GetInstance().eventManager.InvokeEvent(eve::SwitchSceneEvent(SceneType::NEW_GAME_PLAYER));
     });
     gameBtn->Add(newGameBtn, true);
 
@@ -142,7 +142,7 @@ void MainMenu::Initialize() {
             SoundType::ACCEPTED
     );
     saveGameBtn->SetOnClick([]() {
-        AppContext_ty appContext_{ AppContext::GetInstance() };
+        app::AppContext_ty appContext_{ app::AppContext::GetInstance() };
         if (not appContext_.constants.global.isGameSaved) {
             appContext_.constants.global.isGameSaved = true;
             eve::ShowMessagePopUpEvent const event{ "debug save",
@@ -164,7 +164,7 @@ void MainMenu::Initialize() {
             SoundType::ACCEPTED
     );
     loadGameBtn->SetOnClick([]() {
-        AppContext::GetInstance().eventManager.InvokeEvent(eve::SwitchSceneEvent(SceneType::TEST));
+        app::AppContext::GetInstance().eventManager.InvokeEvent(eve::SwitchSceneEvent(SceneType::TEST));
     });
     bool constexpr lge{ true };
     savesBtn->Add(loadGameBtn, lge);
@@ -195,7 +195,7 @@ void MainMenu::Initialize() {
             SoundType::CLICKED_RELEASE_STD
     );
     gameSettingsBtn->SetOnClick([]() {
-        AppContext::GetInstance().eventManager.InvokeEvent(eve::SwitchSceneEvent(SceneType::GAME_SETTINGS));
+        app::AppContext::GetInstance().eventManager.InvokeEvent(eve::SwitchSceneEvent(SceneType::GAME_SETTINGS));
     });
     settingsBtn->Add(gameSettingsBtn, true);
 
@@ -211,7 +211,7 @@ void MainMenu::Initialize() {
     );
     appSettingsBtn->SetOnClick([]() {
         eve::SwitchSceneEvent const event{ SceneType::APP_SETTINGS };
-        AppContext::GetInstance().eventManager.InvokeEvent(event);
+        app::AppContext::GetInstance().eventManager.InvokeEvent(event);
     });
     settingsBtn->Add(appSettingsBtn, true);
     settingsBtn->Update();
@@ -227,7 +227,7 @@ void MainMenu::Initialize() {
             SoundType::CLICKED_RELEASE_STD
     );
     creditsBtn->SetOnClick([]() {
-        AppContext::GetInstance().eventManager.InvokeEvent(eve::SwitchSceneEvent(SceneType::CREDITS));
+        app::AppContext::GetInstance().eventManager.InvokeEvent(eve::SwitchSceneEvent(SceneType::CREDITS));
     });
     m_elements.push_back(creditsBtn);
 
@@ -241,7 +241,7 @@ void MainMenu::Initialize() {
             appContext.languageManager.Text("scene_main_menu_quit_btn"),
             SoundType::ACCEPTED
     );
-    quitBtn->SetOnClick([]() { AppContext::GetInstance().eventManager.InvokeEvent(eve::QuitGameEvent{}); });
+    quitBtn->SetOnClick([]() { app::AppContext::GetInstance().eventManager.InvokeEvent(eve::QuitGameEvent{}); });
     m_elements.push_back(quitBtn);
 }
 

@@ -28,7 +28,7 @@ void GalaxyManager::FilterCurrentGalaxy() {
 GalaxyManager::GalaxyManager(GameManager* const gameManager) : m_gameManager{ gameManager } { }
 
 void GalaxyManager::GenerateGalaxy() {
-    AppContext_ty_c appContext{ AppContext::GetInstance() };
+    app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
     vec2pos_ty_c size = { appContext.constants.world.currentDimensionX, appContext.constants.world.currentDimensionY };
     auto const galaxy = std::make_shared<Galaxy>(
             size,
@@ -53,7 +53,7 @@ void GalaxyManager::GenerateGalaxy() {
 }
 
 void GalaxyManager::GenerateShowGalaxy() {
-    AppContext_ty_c appContext{ AppContext::GetInstance() };
+    app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
     vec2pos_ty_c size = {
         appContext.constants.world.showDimensionX,
         appContext.constants.world.showDimensionY,
@@ -101,7 +101,7 @@ bool GalaxyManager::AddFleet(eve::SendFleetInstructionEvent const* const event, 
         hlp::Print(hlp::PrintType::ONLY_DEBUG, "Not able to add Fleet to main Galaxy");
 
         eve::ReturnFleetInstructionEvent const returnEvent{ result.valid };
-        AppContext::GetInstance().eventManager.InvokeEvent(returnEvent);
+        app::AppContext::GetInstance().eventManager.InvokeEvent(returnEvent);
         return false;
     }
     m_currentGalaxy->HandleFleetResult(result, currentPlayer);

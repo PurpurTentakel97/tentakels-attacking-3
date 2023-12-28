@@ -156,7 +156,7 @@ Slider::Slider(
     CalculateInitialButton();
 }
 
-void Slider::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) {
+void Slider::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) {
 
     UIElement::CheckAndUpdate(mousePosition, appContext);
 
@@ -177,12 +177,12 @@ void Slider::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appCon
     m_btn.CheckAndUpdate(mousePosition, appContext);
 }
 
-void Slider::Render(AppContext_ty_c appContext) {
+void Slider::Render(app::AppContext_ty_c appContext) {
     DrawRectangleRec(m_collider, GREY_100);
     m_btn.Render(appContext);
 }
 
-void Slider::Resize(AppContext_ty_c appContext) {
+void Slider::Resize(app::AppContext_ty_c appContext) {
 
     UIElement::Resize(appContext);
 

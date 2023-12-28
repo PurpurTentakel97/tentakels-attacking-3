@@ -20,5 +20,5 @@ std::string PlayerData::GetName() const {
     if (not m_name.empty()) {
         return m_name;
     }
-    return AppContext::GetInstance().languageManager.Text(m_nameKey);
+    return app::AppContext::GetInstance().languageManager.Text(m_nameKey);
 }

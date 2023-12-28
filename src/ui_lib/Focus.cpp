@@ -366,7 +366,7 @@ void Focus::CheckNewID(unsigned int const newID) {
 
 Focus::Focus() {
     AddLayer();
-    AppContext_ty appContext{ AppContext::GetInstance() };
+    app::AppContext_ty appContext{ app::AppContext::GetInstance() };
     appContext.eventManager.AddListener(this);
 
     hlp::Print(hlp::PrintType::INITIALIZE, "Focus");

@@ -12,7 +12,7 @@
 
 void ValidatePopUp::Initialize() {
 
-    AppContext_ty_c appContext{ AppContext::GetInstance() };
+    app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
 
     auto acceptBtn = std::make_shared<ClassicButton>(
             2,
@@ -69,7 +69,7 @@ ValidatePopUp::ValidatePopUp(
     }
 }
 
-void ValidatePopUp::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) {
+void ValidatePopUp::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) {
     if (!m_firstEnter) {
         PopUp::CheckAndUpdate(mousePosition, appContext);
     } else {

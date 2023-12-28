@@ -9,11 +9,11 @@
 #include <helper/HTextProcessing.hpp>
 
 void DropDownElement::CreateToRender() {
-    Resolution_ty_c resolution{ AppContext::GetInstance().GetResolution() };
+    Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
     m_toRender = m_text;
     hlp::StripString(m_toRender);
     m_fontSize = hlp::GetElementTextHeight(m_size, resolution.y);
-    m_toRender = hlp::GetPrintableTextInCollider(m_toRender, m_fontSize, m_collider, AppContext::GetInstance());
+    m_toRender = hlp::GetPrintableTextInCollider(m_toRender, m_fontSize, m_collider, app::AppContext::GetInstance());
 
     m_textPosition = { m_collider.x + 5.0f, m_collider.y + (m_collider.height - m_fontSize) / 2 };
 }
@@ -46,7 +46,7 @@ DropDownElement::DropDownElement(
     CreateToRender();
 }
 
-void DropDownElement::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) {
+void DropDownElement::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) {
 
     UIElement::CheckAndUpdate(mousePosition, appContext);
 
@@ -62,7 +62,7 @@ void DropDownElement::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty
     }
 }
 
-void DropDownElement::Render(AppContext_ty_c appContext) {
+void DropDownElement::Render(app::AppContext_ty_c appContext) {
 
     DrawRectangleRec(m_collider, GREY_100);
 
