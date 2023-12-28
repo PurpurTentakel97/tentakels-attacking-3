@@ -14,144 +14,78 @@ class DropDownElement;
 
 class DropDown : public UIElement, public Focusable {
 private:
-	bool m_isEnabled{ true }; ///< contains if the element is currently enabled
-	bool m_isFoldouts{ false }; ///< contains if the element is currents folded out
-	bool m_isScrolling{ true }; ///< contains if the DropDown in able to scroll
-	std::vector<std::shared_ptr<DropDownElement>> m_dropDownElements; ///< contains all elements in the drop down
+    bool m_isEnabled{ true };
+    bool m_isFoldouts{ false };
+    bool m_isScrolling{ true };
+    std::vector<std::shared_ptr<DropDownElement>> m_dropDownElements;
 
-	Texture const* m_arrowTexture; ///< contains the texture of the arrow that controls if the menu is dropped down
-	Rectangle m_arrowTextureRec; ///< contains the dimensions onto the texture
-	Rectangle m_arrowCollider; ///< contains the absolute dimensions of the arrow
+    Texture const* m_arrowTexture{};
+    Rectangle m_arrowTextureRec{};
+    Rectangle m_arrowCollider{};
 
-	std::shared_ptr<DropDownElement> m_currentElement{ nullptr }; ///< contains the current element
-	std::string m_currentElementText{ "" }; ///< contains the text of the current element
-	float m_fontSize{ 0.0f }; ///< contains the height of the text of the current element
-	Vector2 m_textPosition{ 0.0f,0.0f }; ///< contains the position of the current element
+    std::shared_ptr<DropDownElement> m_currentElement{ nullptr };
+    std::string m_currentElementText{};
+    float m_fontSize{ 0.0f };
+    Vector2 m_textPosition{ 0.0f, 0.0f };
 
-	float m_dropDownHeight; ///< contains the relative height of the drop down part
-	Rectangle m_dropDownCollider; ///< contains the collider of the drop down part
-	std::function<void(unsigned int)> m_onSave{ [](unsigned int) {} }; ///< gets called of save
+    float m_dropDownHeight;
+    Rectangle m_dropDownCollider{};
+    std::function<void(unsigned int)> m_onSave{ [](unsigned int) {} };
 
-	/**
-	 * initializes all ui elements.
-	 * context the on click.
-	 */
-	void Initialize(std::vector<std::string> const& elements, unsigned int startFocusID);
-	/**
-	 * gets called of the elements as on click action.
-	 */
-	void OnElementClick(unsigned int ID);
+    void Initialize(std::vector<std::string> const& elements, unsigned int startFocusID);
 
-	/**
-	 * sets the current element and current element text.
-	 */
-	void SetCurrentElement(std::shared_ptr<DropDownElement> element);
-	void SetCurrentElementOutUpdate(std::shared_ptr<DropDownElement> element);
+    void OnElementClick(unsigned int ID);
 
-	/**
-	 * sets the current text
-	 */
-	void SetText();
+    void SetCurrentElement(std::shared_ptr<DropDownElement> const& element);
 
-	/**
-	 * toggles the drop down menu.
-	 */
-	void ToggleFoldedOut();
+    void SetCurrentElementOutUpdate(std::shared_ptr<DropDownElement> const& element);
 
-	/**
-	 * calculates a collider that represents the area where the provided collider
-	 * overlaps with the drop down collider.
-	 * returns the temporary collider.
-	 */
-	[[nodiscard]] Rectangle GetTemporaryCollider(Rectangle collider) const;
+    void SetText();
 
-	/**
-	 * checks if the elements in overlapping with the drop down collider.
-	 * sets the element active if so.
-	 * sets it inactive if not.
-	 */
-	void CheckAndSetElementsEnabled();
+    void ToggleFoldedOut();
 
-	/**
-	 * scrolls the entries an sets new focused entry if necessary.
-	 * the movement value gets multiplied ba the wheel value.
-	 */
-	void ScrollMove(float wheel);
-	/**
-	 * clamps the first and last value into the drop down collider.
-	 */
-	void ClampScrolling();
-	/**
-	 * Checks if scrolling should be enabled.
-	 */
-	void CheckIfScrolling();
+    [[nodiscard]] Rectangle GetTemporaryCollider(Rectangle collider) const;
 
-	/**
-	 * calls UpdateCollider from UIElement.
-	 * sets a new position of the arrow and the current element text.
-	 */
-	void UpdateCollider() override;
+    void CheckAndSetElementsEnabled();
+
+    void ScrollMove(float wheel);
+
+    void ClampScrolling();
+
+    void CheckIfScrolling();
+
+    void UpdateCollider() override;
 
 public:
-	/**
-	 * ctor.
-	 * only initialization.
-	 */
-	DropDown(Vector2 pos, Vector2 size, Alignment alignment, 
-		float dropDownSize, unsigned int focusID, unsigned int startElementFocusID, std::vector<std::string> const& elements);
+    DropDown(
+            Vector2 pos,
+            Vector2 size,
+            Alignment alignment,
+            float dropDownSize,
+            unsigned int focusID,
+            unsigned int startElementFocusID,
+            std::vector<std::string> const& elements
+    );
 
+    [[nodiscard]] std::shared_ptr<DropDownElement> GetCurrentElement() const;
 
-	/**
-	 * returns the current element.
-	 */
-	[[nodiscard]] std::shared_ptr<DropDownElement> GetCurrentElement() const;
-	/**
-	 * sets the element of the provided ID as current element.
-	 * returns if the element was set.
-	 */
-	bool SetCurrentElementByID(unsigned int ID);
-	/**
-	 * sets the element of the provided string as current element.
-	 * returns if the element was set.
-	 */
-	bool SetCurrentElementByString(std::string const& element);
+    bool SetCurrentElementByID(unsigned int ID);
 
+    bool SetCurrentElementByString(std::string const& element);
 
-	/**
-	 * calls the CheckAndUpdate of the UIElement.
-	 * contains the DropDown logic.
-	 */
-	void CheckAndUpdate(Vector2 const&, AppContext_ty_c) override;
-	/**
-	 * renders the DropDown.
-	 */
-	void Render(AppContext_ty_c appContext) override;
-	/**
-	 * resizes itself and alle elements it contains.
-	 */
-	void Resize(AppContext_ty_c appContext) override;
+    void CheckAndUpdate(Vector2 const&, AppContext_ty_c) override;
 
-	/**
-	 * returns if the element is currently enabled.
-	 */
-	[[nodiscard]] bool IsEnabled() const override;
-	/**
-	 * sets if the element is currently enabled.
-	 */
-	void SetEnabled(bool isEnabled);
-	/**
-	 * returns if the drop down is folded out.
-	 */
-	[[nodiscard]] bool IsFoldedOut() const;
+    void Render(AppContext_ty_c appContext) override;
 
-	/**
-	 * returns the current collider of the element.
-	 */
-	[[nodiscard]] Rectangle GetCollider() const override;
+    void Resize(AppContext_ty_c appContext) override;
 
-	/**
-	 * sets the lambda that gets called when a value gets set.
-	 * provides the element ID when it gets called.
-	 */
-	void SetOnSave(std::function<void(unsigned int)> onSave);
+    [[nodiscard]] bool IsEnabled() const override;
+
+    void SetEnabled(bool isEnabled);
+
+    [[nodiscard]] bool IsFoldedOut() const;
+
+    [[nodiscard]] Rectangle GetCollider() const override;
+
+    void SetOnSave(std::function<void(unsigned int)> onSave);
 };

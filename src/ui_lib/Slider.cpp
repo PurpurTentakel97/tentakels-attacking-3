@@ -17,7 +17,7 @@ void Slider::CalculateInitialButton() {
 
 void Slider::CalculateOnSlide() const {
 
-    auto btnCollider{ m_btn.GetCollider() };
+    auto btnCollider = m_btn.GetCollider();
 
     float const total{ m_isHorizontal ? m_collider.width - btnCollider.width : m_collider.height - btnCollider.height };
     float const slide{ m_isHorizontal ? btnCollider.x - m_collider.x : btnCollider.y - m_collider.y };
@@ -26,15 +26,16 @@ void Slider::CalculateOnSlide() const {
 
     m_onSlide(calculated);
 }
+
 void Slider::Slide() {
     m_isPressed = true;
-    Vector2 mousePosition{ GetMousePosition() };
+    Vector2 mousePosition = GetMousePosition();
     if (m_isHorizontal) {
         mousePosition.x -= m_btnOffset;
     } else {
         mousePosition.y -= m_btnOffset;
     }
-    Rectangle btnCollider{ m_btn.GetCollider() };
+    Rectangle btnCollider = m_btn.GetCollider();
 
     float const mousePoint{ m_isHorizontal ? mousePosition.x : mousePosition.y };
     float* const btnColliderPoint{ m_isHorizontal ? &btnCollider.x : &btnCollider.y };
@@ -56,6 +57,7 @@ void Slider::Slide() {
 
     CalculateOnSlide();
 }
+
 void Slider::SlideIfPressed() {
     if (!m_isPressed) {
         return;
@@ -66,6 +68,7 @@ void Slider::SlideIfPressed() {
     }
     Slide();
 }
+
 void Slider::MoveButtonIfColliderIsPressed(Vector2 const& mousePosition) {
     bool const hover{ CheckCollisionPointRec(mousePosition, m_collider) };
     if (!hover) {
@@ -78,6 +81,7 @@ void Slider::MoveButtonIfColliderIsPressed(Vector2 const& mousePosition) {
 
     Slide();
 }
+
 void Slider::SlideIfScroll() {
     if (!m_isScroll) {
         return;
@@ -97,7 +101,7 @@ void Slider::SlideIfScroll() {
         return;
     }
 
-    auto btnCollider{ m_btn.GetCollider() };
+    auto btnCollider = m_btn.GetCollider();
     float const total{ m_isHorizontal ? m_collider.width - btnCollider.width : m_collider.height - btnCollider.height };
 
     float const slidingDifference{ total / 100 * mouseWheel * 3 };
@@ -117,6 +121,7 @@ void Slider::SlideIfScroll() {
     m_btn.SetCollider(btnCollider);
     CalculateOnSlide();
 }
+
 void Slider::SetOffset(Vector2 mousePosition) {
 
     auto const btnCollider{ m_btn.GetCollider() };
@@ -165,10 +170,12 @@ void Slider::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appCon
 
     m_btn.CheckAndUpdate(mousePosition, appContext);
 }
+
 void Slider::Render(AppContext_ty_c appContext) {
     DrawRectangleRec(m_collider, GREY_100);
     m_btn.Render(appContext);
 }
+
 void Slider::Resize(AppContext_ty_c appContext) {
 
     UIElement::Resize(appContext);
@@ -177,15 +184,16 @@ void Slider::Resize(AppContext_ty_c appContext) {
 }
 
 void Slider::SetOnSlide(std::function<void(float)> onSlide) {
-    m_onSlide = onSlide;
+    m_onSlide = std::move(onSlide);
 }
+
 void Slider::SetButtonPosition(float position) {
-    auto btnCollider{ m_btn.GetCollider() };
+    auto btnCollider = m_btn.GetCollider();
 
     float const total{ m_isHorizontal ? m_collider.width - btnCollider.width : m_collider.height - btnCollider.height };
 
-    float const deferens{ total / 100 * position };
-    float const newPosition{ m_isHorizontal ? m_collider.x + deferens : m_collider.y + deferens };
+    float const difference{ total / 100 * position };
+    float const newPosition{ m_isHorizontal ? m_collider.x + difference : m_collider.y + difference };
 
     if (m_isHorizontal) {
         btnCollider.x = newPosition;
@@ -207,6 +215,7 @@ void Slider::SetAbsoluteDimension(float absolutDimension) {
     m_absoluteDimension = absolutDimension;
     CalculateInitialButton();
 }
+
 float Slider::GetAbsoluteDimension() const {
     return m_absoluteDimension;
 }

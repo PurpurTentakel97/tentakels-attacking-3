@@ -67,7 +67,7 @@ void NewGamePlayerScene::Initialize() {
             appContext.languageManager.Text("scene_new_game_player_reset_btn"),
             SoundType::ACCEPTED
     );
-    resetBTN->SetOnClick([this]() { this->Reset(); });
+    resetBTN->SetOnClick([]() { NewGamePlayerScene::Reset(); });
     m_elements.push_back(resetBTN);
 
     auto backBtn = std::make_shared<ClassicButton>(
@@ -129,7 +129,7 @@ void NewGamePlayerScene::Initialize() {
     });
 
     table->SetUpdateSpecificCell<std::string>(
-            [this](AbstractTableCell const* cell, std::string oldValue, std::string newValue) {
+            [this](AbstractTableCell const* cell, std::string const& oldValue, std::string const& newValue) {
                 this->UpdatePlayerName(cell, oldValue, newValue);
             }
     );
@@ -160,7 +160,7 @@ void NewGamePlayerScene::Initialize() {
             appContext.languageManager.Text("scene_new_game_player_next_btn"),
             SoundType::ACCEPTED
     );
-    m_nextBTN->SetOnClick([this]() { this->CheckPlayerCount(); });
+    m_nextBTN->SetOnClick([]() { NewGamePlayerScene::CheckPlayerCount(); });
     m_elements.push_back(m_nextBTN);
 
     InitializePlayerButtons();
@@ -184,7 +184,7 @@ void NewGamePlayerScene::InitializePlayerButtons() {
         );
 
         button->SetEnabled(i < currentPlayerCount);
-        button->SetOnClick([this, i]() { this->DeletePlayer(static_cast<unsigned int>(i + 1)); });
+        button->SetOnClick([i]() { NewGamePlayerScene::DeletePlayer(static_cast<unsigned int>(i + 1)); });
 
         m_elements.push_back(button);
         m_playerButtons.push_back(button);
@@ -236,9 +236,9 @@ void NewGamePlayerScene::UpdateSceneEntries() {
         m_table->SetSingleEditable(index, 1, true);
         m_table->SetSingleEditable(index, 2, true);
 
-        unsigned int _ID{ p.ID };
+        unsigned int ID_{ p.ID };
         m_playerButtons.at(index - 1)->SetEnabled(true);
-        m_playerButtons.at(index - 1)->SetOnClick([this, _ID]() { this->DeletePlayer(_ID); });
+        m_playerButtons.at(index - 1)->SetOnClick([ID_]() { NewGamePlayerScene::DeletePlayer(ID_); });
 
         ++index;
     }
@@ -257,6 +257,7 @@ void NewGamePlayerScene::AddPlayer() {
     AddPlayerEvent const event{ m_inputLine->GetValue(), m_colorPicker->GetColor() };
     appContext.eventManager.InvokeEvent(event);
 }
+
 void NewGamePlayerScene::UpdatePlayer(unsigned int ID, std::string const& name, Color color) {
     AppContext_ty_c appContext{ AppContext::GetInstance() };
     EditPlayerEvent const event{ ID, name, color };
@@ -264,26 +265,30 @@ void NewGamePlayerScene::UpdatePlayer(unsigned int ID, std::string const& name, 
 
     UpdateSceneEntries();
 }
-void NewGamePlayerScene::UpdatePlayerName(AbstractTableCell const*, std::string oldValue, std::string newValue) {
+
+void NewGamePlayerScene::UpdatePlayerName(AbstractTableCell const*, std::string const& oldValue, std::string const& newValue) {
 
     AppContext_ty_c appContext{ AppContext::GetInstance() };
     PlayerData const playerData{ appContext.playerCollection.GetPlayerByName(oldValue) };
 
     UpdatePlayer(playerData.ID, newValue, playerData.color);
 }
+
 void NewGamePlayerScene::UpdatePlayerColor(AbstractTableCell const*, Color oldValue, Color newValue) {
     AppContext_ty_c appContext{ AppContext::GetInstance() };
     PlayerData const playerData{ appContext.playerCollection.GetPlayerByColor(oldValue) };
 
     UpdatePlayer(playerData.ID, playerData.GetName(), newValue);
 }
+
 void NewGamePlayerScene::DeletePlayer(unsigned int ID) {
     AppContext_ty_c appContext{ AppContext::GetInstance() };
 
     DeletePlayerEvent const event{ ID };
     appContext.eventManager.InvokeEvent(event);
 }
-void NewGamePlayerScene::CheckPlayerCount() const {
+
+void NewGamePlayerScene::CheckPlayerCount() {
     ValidatePlayerCountEvent const event;
     AppContext::GetInstance().eventManager.InvokeEvent(event);
 }
@@ -296,6 +301,7 @@ void NewGamePlayerScene::NextScene(bool valid) {
     SwitchSceneEvent const event{ SceneType::NEW_GAME_PARAMETER };
     AppContext::GetInstance().eventManager.InvokeEvent(event);
 }
+
 void NewGamePlayerScene::Reset() {
     AppContext_ty_c appContext{ AppContext::GetInstance() };
 
@@ -326,6 +332,7 @@ NewGamePlayerScene::NewGamePlayerScene()
     UpdateSceneEntries();
     appContext.eventManager.AddListener(this);
 }
+
 NewGamePlayerScene::~NewGamePlayerScene() {
     AppContext::GetInstance().eventManager.RemoveListener(this);
 }
@@ -340,11 +347,13 @@ void NewGamePlayerScene::CheckAndUpdate(Vector2 const& mousePosition, AppContext
         e->CheckAndUpdate(mousePosition, appContext);
     }
 }
+
 void NewGamePlayerScene::Render(AppContext_ty_c appContext) {
     for (auto& e : m_elements) {
         e->Render(appContext);
     }
 }
+
 void NewGamePlayerScene::Resize(AppContext_ty_c appContext) {
     for (auto& e : m_elements) {
         e->Resize(appContext);

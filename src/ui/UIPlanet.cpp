@@ -9,14 +9,13 @@
 #include <logic/Planet.hpp>
 #include <ui_lib/ShipCountRing.hpp>
 
-UIPlanet::UIPlanet(unsigned int focusID, unsigned int ID, PlayerData player, Vector2 pos,
+UIPlanet::UIPlanet(unsigned int focusID, unsigned int ID, PlayerData const& player, Vector2 pos,
 	Vector2 colliderPos, Planet_ty_raw_c planet)
 	:UIGalaxyElement{ focusID, ID, { 0.015f, 0.025f }, player, pos, colliderPos }, m_planet{ planet } {
 
     AppContext_ty_c appContext{ AppContext::GetInstance() };
-    auto const textSize{
-        MeasureTextEx(*(appContext.assetManager.GetFont()), m_stringID.c_str(), m_collider.height, 0.0f)
-    };
+    auto const textSize =
+            MeasureTextEx(*(appContext.assetManager.GetFont()), m_stringID.c_str(), m_collider.height, 0.0f);
 
     m_renderOffset = { (m_collider.width - textSize.x) / 2, (m_collider.height - textSize.y) / 2 };
 
@@ -76,11 +75,13 @@ void UIPlanet::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appC
         m_onClick(this);
     }
 }
+
 void UIPlanet::RenderRing(AppContext_ty_c appContext) {
     if (m_planet->IsDiscovered()) {
         m_ring->Render(appContext);
     }
 }
+
 void UIPlanet::Render(AppContext_ty_c appContext) {
 
     DrawCircle(

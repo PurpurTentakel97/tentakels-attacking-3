@@ -4,35 +4,30 @@
 //
 
 #pragma once
-#include <string>
 #include <fstream>
+#include <string>
 
-/**
- * contains the file constants.
- */
+
 struct CFiles final {
 private:
-	static inline const std::string m_configFile{ "config.tac" }; ///< config file name
-	static inline std::string m_debugLogFile{ "default.txt" }; ///< debug log file name
-	static inline const std::string m_debugLogDir{ "debug" }; ///< debug log dir name
+    static inline std::string const m_configFile{ "config.tac" };
+    static inline std::string m_debugLogFile{ "default.txt" };
+    static inline std::string const m_debugLogDir{ "debug" };
 
 public:
-	static inline const std::string savesDir{ "saves" }; ///< saves dir name
-	static inline std::ofstream debugLogStream{ }; ///< contains the debug log stream
+    static inline std::string const savesDir{ "saves" };
+    static inline std::ofstream debugLogStream{};
 
-	/**
-	 * return the complete path of the config file.
-	 */
-	[[nodiscard]] inline std::string configFile() const {
-		return { savesDir + "/" + m_configFile };
-	}
-	[[nodiscard]] inline std::string debugLogDir() const {
-		return { savesDir + "/" + m_debugLogDir };
-	}
-	[[nodiscard]] inline std::string debugLogFile() const {
-		return { debugLogDir() + "/" + m_debugLogFile };
-	}
-	void inline SetDebugLogFile(std::string const& filename) {
-		m_debugLogFile = filename;
-	}
+    [[nodiscard]] static inline std::string configFile() {
+        return { savesDir + "/" + m_configFile };
+    }
+    [[nodiscard]] static inline std::string debugLogDir() {
+        return { savesDir + "/" + m_debugLogDir };
+    }
+    [[nodiscard]] static inline std::string debugLogFile() {
+        return { debugLogDir() + "/" + m_debugLogFile };
+    }
+    static inline void SetDebugLogFile(std::string const& filename) {
+        m_debugLogFile = filename;
+    }
 };

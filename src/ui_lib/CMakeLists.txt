@@ -32,7 +32,7 @@ add_library(ui_lib STATIC
             include/ui_lib/UIElement.hpp
             include/ui_lib/NewTable.hpp
             include/ui_lib/NewTableCell.hpp
-            AbstactTableCell.cpp
+            TableCellAbstract.cpp
             Alignment.cpp
             Button.cpp
             CheckBox.cpp

@@ -9,10 +9,10 @@
 #include <logic/Fleet.hpp>
 #include <ui_lib/ShipCountRing.hpp>
 
-UIFleet::UIFleet(unsigned int ID, PlayerData player, Vector2 start, Vector2 end, Vector2 relativeStart, Vector2 relativeEnd,
+UIFleet::UIFleet(unsigned int ID, PlayerData const& player, Vector2 start, Vector2 end, Vector2 relativeStart, Vector2 relativeEnd,
     Fleet_ty_raw_c fleet, std::function<bool(Vector2 const&)> isInGalaxyCollider)
     : UIElement{ start, { 0.005f,0.01f }, Alignment::MID_MID }, m_ID{ ID }, m_player{ player },
-    m_relativeStart{ relativeStart }, m_relativeEnd{ relativeEnd }, m_fleet { fleet }, m_isInGalaxyCollider{ isInGalaxyCollider },
+    m_relativeStart{ relativeStart }, m_relativeEnd{ relativeEnd }, m_fleet { fleet }, m_isInGalaxyCollider{ std::move(isInGalaxyCollider) },
     m_line{
         start,
         end,
@@ -45,6 +45,7 @@ UIFleet::UIFleet(unsigned int ID, PlayerData player, Vector2 start, Vector2 end,
 unsigned int UIFleet::GetID() const {
     return m_ID;
 }
+
 bool UIFleet::IsColliding(Vector2 const& mousePosition) const {
     if (not m_isInGalaxyCollider(mousePosition)) {
         return false;
@@ -81,6 +82,7 @@ void UIFleet::UpdateHoverText() {
     std::string const text_2{ std::to_string(m_fleet->GetShipCount()) };
     m_hover.SetText(AppContext::GetInstance().languageManager.Text("ui_fleet_hover", text_1, text_2));
 }
+
 void UIFleet::UpdatePositions(Rectangle newCollider) {
     // update line
     Resolution_ty_c resolution{ AppContext::GetInstance().GetResolution() };
@@ -104,6 +106,7 @@ void UIFleet::UpdatePositions(Rectangle newCollider) {
 void UIFleet::SetDisplayedAsPoint(bool isDisplayedAsPoint) {
     m_isDisplayAsPoint = isDisplayedAsPoint;
 }
+
 bool UIFleet::IsDisplayAsPoint() const {
     return m_isDisplayAsPoint;
 }
@@ -117,6 +120,7 @@ void UIFleet::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appCo
         m_hover.SetRenderHover(mousePosition, appContext);
     }
 }
+
 void UIFleet::Render(AppContext_ty_c appContext) {
 
     if (m_isDisplayAsPoint) {
@@ -131,9 +135,11 @@ void UIFleet::Render(AppContext_ty_c appContext) {
 
     m_line.Render(appContext);
 }
+
 void UIFleet::RenderRing(AppContext_ty_c appContext) {
     m_ring->Render(appContext);
 }
+
 void UIFleet::Resize(AppContext_ty_c appContext) {
     UIElement::Resize(appContext);
     m_line.Resize(appContext);

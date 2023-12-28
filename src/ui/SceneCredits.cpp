@@ -177,7 +177,7 @@ void CreditsScene::Initialize() {
     AddMovingElement(m_endBTN);
 }
 
-void CreditsScene::AddMovingElement(std::shared_ptr<UIElement> element) {
+void CreditsScene::AddMovingElement(std::shared_ptr<UIElement> const& element) {
     m_elements.push_back(element);
     m_movingElements.push_back(element);
 }
@@ -197,10 +197,11 @@ void CreditsScene::ToggleSpeedLevel() {
     m_speedBTN->SetText(AppContext::GetInstance()
                                 .languageManager.Text("scene_credits_speed_toggle_btn", m_speedLevel, m_maxSpeedLevel));
 
-    for (auto e : m_movingElements) {
+    for (auto const& e : m_movingElements) {
         e->MoveBySpeed(m_speed * static_cast<float>(m_speedLevel), 0.0f);
     }
 }
+
 void CreditsScene::CheckCreditsFinished() {
     Resolution_ty_c resolution{ AppContext::GetInstance().GetResolution() };
     float const shouldY{ (resolution.y * 0.75f) - (m_endBTN->GetCollider().height / 2) };
@@ -240,6 +241,7 @@ void CreditsScene::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c 
 		m_moving = !m_moving;
 	}*/
 }
+
 void CreditsScene::Resize(AppContext_ty_c appContext) {
     Scene::Resize(appContext);
 }

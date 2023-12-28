@@ -6,9 +6,7 @@
 #pragma once
 #include <CustomRaylib.hpp>
 
-/**
- * provides the over all alignment.
- */
+
 enum class Alignment {
     TOP_LEFT,
     TOP_MID,
@@ -21,9 +19,7 @@ enum class Alignment {
     BOTTOM_RIGHT,
     DEFAULT,
 };
-/**
- * provides the text alignment.
- */
+
 enum class TextAlignment {
     TOP,
     MID,
@@ -32,24 +28,12 @@ enum class TextAlignment {
     RIGHT,
 };
 
-/**
- * recalculates the position witch the size and alignment.
- */
-Rectangle GetAlignedCollider(Vector2& pos, Vector2 size, Alignment allignment);
-/**
- * recalculates the provided position witch the provided collider and alignment.
- */
-[[nodiscard]] Vector2 GetAlignedPosition(Alignment allignment, Vector2 position, Vector2 size);
-/**
- * recalculates the provided position witch the provided collider and alignment.
- */
-[[nodiscard]] Vector2 GetAlignedPositionReversed(Alignment allignment, Vector2 position, Vector2 size);
+Rectangle GetAlignedCollider(Vector2& pos, Vector2 size, Alignment alignment);
 
-/**
- * converts the over all alignment into horizontal text alignment.
- */
+[[nodiscard]] Vector2 GetAlignedPosition(Alignment alignment, Vector2 position, Vector2 size);
+
+[[nodiscard]] Vector2 GetAlignedPositionReversed(Alignment alignment, Vector2 position, Vector2 size);
+
 [[nodiscard]] TextAlignment GetHorizontalTextAlignment(Alignment alignment);
-/**
- * converts the over all alignment into vertical text alignment.
- */
+
 [[nodiscard]] TextAlignment GetVerticalTextAlignment(Alignment alignment);

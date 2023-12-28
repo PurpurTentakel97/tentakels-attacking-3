@@ -35,15 +35,15 @@ NewTableCell const* NewTable::getCellUnsafe(size_t row, size_t column) const {
     return m_cells[row][column].get();
 }
 
-bool NewTable::validSpecialRow(size_t row) const {
+bool NewTable::validSpecialRow(size_t const row) {
     return row == 0;
 }
 
-bool NewTable::validSpecialColumn(size_t column) const {
+bool NewTable::validSpecialColumn(size_t const column) {
     return column == 0;
 }
 
-bool NewTable::validSpecialIndex(size_t row, size_t column) const {
+bool NewTable::validSpecialIndex(size_t const row, size_t const column) const {
     return row <= m_row_count and column <= m_column_count and (validSpecialRow(row) or validSpecialColumn(column));
 }
 
@@ -62,7 +62,6 @@ bool NewTable::validIndex(size_t row, size_t column) const {
 NewTableCell::index_ty NewTable::index(NewTableCell const& cell) const {
     for (size_t row = 0; row <= m_row_count; ++row) {
         for (size_t column = 0; column <= m_column_count; ++column) {
-            auto const c{ m_cells[row][column] };
             if (cell.GetFocusID() == cell.GetFocusID()) {
                 return { row, column };
             }
@@ -88,22 +87,22 @@ void NewTable::updateSpecialCells() {
     }
     m_cells[firstRow][firstColumn]->clear();
 
-    for (int i = 1; i <= m_column_count; ++i) {
+    for (size_t i = 1; i <= m_column_count; ++i) {
         if (m_isHeadline) {
             if (m_headlines.contains(i)) {
                 m_cells[firstRow][i]->setValueVariant(m_headlines[i]);
             } else if (m_isNumbered) {
-                m_cells[firstRow][i]->setValue(i);
+                m_cells[firstRow][i]->setValue(static_cast<int>(i));
             } else {
                 m_cells[firstRow][i]->setValue(std::monostate{});
             }
         } else {
-            m_cells[firstRow][i]->setValue(i);
+            m_cells[firstRow][i]->setValue(static_cast<int>(i));
         }
     }
 
-    for (int i = 1; i <= m_row_count; ++i) {
-        m_cells[i][firstColumn]->setValue(i);
+    for (size_t i = 1; i <= m_row_count; ++i) {
+        m_cells[i][firstColumn]->setValue(static_cast<int>(i));
     }
 }
 
@@ -147,10 +146,10 @@ void NewTable::update_cell_sizes() {
         }
 
         for (auto& r : row_heights) {
-            r += difference.y / row_heights.size();
+            r += difference.y / static_cast<float>(row_heights.size());
         }
         for (auto& c : column_widths) {
-            c += difference.x / column_widths.size();
+            c += difference.x / static_cast<float>(column_widths.size());
         }
     }
 
@@ -165,9 +164,7 @@ void NewTable::update_cell_sizes() {
 void NewTable::update_cell_positions() {
     size_t const first_row{ m_isHeadline or m_isNumbered ? size_t{ 0 } : size_t{ 1 } };
     size_t const first_column{ m_isNumbered ? size_t{ 0 } : size_t{ 1 } };
-    Vector2 const scroll_offset{
-        m_isScrollable ? m_scroll_offset : Vector2{ 0.0f, 0.0f }
-    };
+    Vector2 const scroll_offset = m_isScrollable ? m_scroll_offset : Vector2( 0.0f, 0.0f );
 
     for (size_t row = first_row; row <= m_row_count; ++row) {
         for (size_t column = first_column; column <= m_column_count; ++column) {
@@ -301,8 +298,8 @@ NewTable::NewTable(
         size_t column_count,
         float text_size
 )
-    : Focusable{ ID },
-      UIElement{ pos, size, alignment },
+    : UIElement{ pos, size, alignment },
+      Focusable{ ID },
       m_row_count{ row_count },
       m_column_count{ column_count },
       m_preference_text_size{ text_size } {
@@ -377,7 +374,7 @@ bool NewTable::hasRow(size_t row) const {
 }
 
 size_t NewTable::insertRow(size_t row) {
-    if (not validRow(row) and not row == 0) {
+    if (not validRow(row) and row != 0) {
         throw std::runtime_error{ IndexOutOfRangeExceptionString(row, size_t{ 0 }) };
     }
     std::vector<std::shared_ptr<NewTableCell>> new_row{};
@@ -385,7 +382,7 @@ size_t NewTable::insertRow(size_t row) {
         new_row.push_back(generate_cell());
     }
 
-    m_cells.insert(m_cells.begin() + row + 1, new_row);
+    m_cells.insert(m_cells.begin() + static_cast<int>(row) + 1, new_row);
     ++m_row_count;
 
     return row;
@@ -403,7 +400,7 @@ bool NewTable::removeRow(size_t row) {
         throw std::runtime_error{ IndexOutOfRangeExceptionString(row, size_t{ 0 }) };
     }
 
-    m_cells.erase(m_cells.begin() + row);
+    m_cells.erase(m_cells.begin() + static_cast<int>(row));
     --m_row_count;
 
     return true;
@@ -418,11 +415,11 @@ bool NewTable::hasColumn(size_t column) const {
 }
 
 size_t NewTable::insertColumn(size_t column) {
-    if (not validColumn(column) and not column == 0) {
+    if (not validColumn(column) and column != 0) {
         throw std::runtime_error{ IndexOutOfRangeExceptionString(size_t{ 0 }, column) };
     }
     for (auto& row : m_cells) {
-        row.insert(row.begin() + column + 1, generate_cell());
+        row.insert(row.begin() + static_cast<int>(column) + 1, generate_cell());
     }
     ++m_column_count;
 
@@ -442,7 +439,7 @@ bool NewTable::removeColumn(size_t column) {
     }
 
     for (auto& row : m_cells) {
-        row.erase(row.begin() + column);
+        row.erase(row.begin() + static_cast<int>(column));
     }
     --m_column_count;
 
@@ -508,20 +505,20 @@ void NewTable::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appC
     UIElement::CheckAndUpdate(mousePosition, appContext);
 
     if (m_isRenderHover and CheckCollisionPointRec(mousePosition, m_collider)) {
-        vec2pos_ty index{ 0, 0 };
+        HVec2<size_t> index{ 0, 0 };
 
-        for (int row = 0; row <= m_row_count; ++row) {
-            for (int column = 0; column <= m_column_count; ++column) {
+        for (size_t row = 0; row <= m_row_count; ++row) {
+            for (size_t column = 0; column <= m_column_count; ++column) {
                 if (m_cells[row][column]->is_hovered(mousePosition)) {
                     index = { column, row };
                 }
             }
         }
 
-        for (int row = 0; row <= m_row_count; ++row) {
+        for (size_t row = 0; row <= m_row_count; ++row) {
             m_cells[row][index.x]->set_hovered(true);
         }
-        for (int column = 0; column <= m_column_count; ++column) {
+        for (size_t column = 0; column <= m_column_count; ++column) {
             m_cells[index.y][column]->set_hovered(true);
         }
     }
@@ -549,7 +546,7 @@ void NewTable::Render(AppContext_ty_c appContext) {
         goto cleanup;
     }
 
-    for (auto column = 1; column <= m_column_count; ++column) {
+    for (size_t column = 1; column <= m_column_count; ++column) {
         m_cells[first_row][column]->Render(appContext);
     }
 
@@ -557,7 +554,7 @@ void NewTable::Render(AppContext_ty_c appContext) {
         goto cleanup;
     }
 
-    for (auto row = 1; row <= m_row_count; ++row) {
+    for (size_t row = 1; row <= m_row_count; ++row) {
         m_cells[row][first_column]->Render(appContext);
     }
 

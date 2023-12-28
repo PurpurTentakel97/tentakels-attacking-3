@@ -12,32 +12,20 @@
 #include <vector>
 
 struct CWindow final {
-    static inline size_t const configEntryCount{
-        3
-    }; ///< config load checks if the count is idetical to the loaded entry count
+    static inline size_t constexpr configEntryCount{ 3 };
 
-    Resolution currentResolutionEnum{ Resolution::LAST }; ///< contains the current resolution Enum (override by config)
-    Vector2 currentResolutionVec{ 800.0f, 600.0f };       ///< contains the current resolution Vector
-    HVec2<int> nativeResolutionVec{ 800, 600 };           ///< contains the native resolution of the the screen
+    Resolution currentResolutionEnum{ Resolution::LAST };
+    Vector2 currentResolutionVec{ 800.0f, 600.0f };
+    HVec2<int> nativeResolutionVec{ 800, 600 };
 
-    bool isFullScreen{ true }; ///< defines if the game is starting in fullscreen mode (override by config)
+    bool isFullScreen{ true };
+    size_t FPS{ 60 };
 
-    size_t FPS{ 60 }; ///< contains the target FPS (override by config)
+    [[nodiscard]] bool IsPossibleResolution(Resolution toProve) const;
 
-    /**
-	 * checks if the provided resolution would fit onto the screen
-	 */
-    [[nodiscard]] bool IsPossibleResolution(Resolution toProove) const;
-    /**
-	 * returns all resolutions as pair of resolution and string
-	 */
     [[nodiscard]] std::vector<std::pair<Resolution, std::string>> GetAllResolutionsAsString() const;
-    /**
-	 * returns a string for the provided resolution.
-	 */
+
     [[nodiscard]] std::string GetStringFromResolution(Resolution resolution) const;
-    /**
-	 * returns the provided resolution as int.
-	 */
+
     [[nodiscard]] HVec2<int> GetIntFromResolution(Resolution resolution) const;
 };

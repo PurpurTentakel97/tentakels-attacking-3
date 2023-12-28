@@ -15,7 +15,7 @@ std::pair<bool, SpaceObject_ty> TryGetTarget(Fleet_ty_raw fleet, SpaceObject_ty_
         if (fleet->GetPlayer() != target->GetPlayer()) {
             return { true, target };
         }
-        Fleet_ty_raw n_target = dynamic_cast<Fleet_ty_raw>(target.get());
+        auto n_target = dynamic_cast<Fleet_ty_raw>(target.get());
         return TryGetTarget(fleet, n_target->GetTarget());
     }
 

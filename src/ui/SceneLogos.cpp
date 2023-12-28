@@ -51,6 +51,7 @@ LogoScene::LogoScene()
 	m_time{ GetTime() } {
     Initialize();
 }
+
 void LogoScene::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) {
     bool const nextScene{ IsBackInputPressed() or (m_time + m_sceneLength) < GetTime() };
     if (nextScene) {
@@ -58,17 +59,19 @@ void LogoScene::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c app
         appContext.eventManager.InvokeEvent(event);
     }
 
-    for (auto e : m_elements) {
+    for (auto const& e : m_elements) {
         e->CheckAndUpdate(mousePosition, appContext);
     }
 }
+
 void LogoScene::Render(AppContext_ty_c appContext) {
-    for (auto e : m_elements) {
+    for (auto const& e : m_elements) {
         e->Render(appContext);
     }
 }
+
 void LogoScene::Resize(AppContext_ty_c appContext) {
-    for (auto e : m_elements) {
+    for (auto const& e : m_elements) {
         e->Resize(appContext);
     }
 }

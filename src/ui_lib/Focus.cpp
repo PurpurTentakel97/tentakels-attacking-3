@@ -19,13 +19,14 @@ bool Focus::HasAnyEnabledElements() const {
     return false;
 }
 
-void Focus::UnfocusAllAtTopLayer() {
+void Focus::UnFocusAllAtTopLayer() {
     for (auto& focus : m_focus) {
         focus->SetFocus(false);
     }
 
     m_currentFocus = nullptr;
 }
+
 Focusable_ty_raw Focus::GetFirstFocus() {
     Focusable_ty_raw firstFocus{ nullptr };
     bool const hasAnyEnabledElements{ HasAnyEnabledElements() };
@@ -45,6 +46,7 @@ Focusable_ty_raw Focus::GetFirstFocus() {
 
     return firstFocus;
 }
+
 Focusable_ty_raw Focus::GetLastFocus() {
     Focusable_ty_raw lastFocus{ nullptr };
     bool const hasAnyEnabledElements{ HasAnyEnabledElements() };
@@ -64,6 +66,7 @@ Focusable_ty_raw Focus::GetLastFocus() {
 
     return lastFocus;
 }
+
 Focusable_ty_raw Focus::GetNextFocus() {
     unsigned int const currentID{ m_currentFocus ? m_currentFocus->GetFocusID() : 0 };
     Focusable_ty_raw nextFocus{ nullptr };
@@ -71,7 +74,7 @@ Focusable_ty_raw Focus::GetNextFocus() {
 
     for (auto focus : m_focus) {
         if (!focus) {
-            throw 0;
+            throw std::runtime_error{ "invalid focus as next focus" };
         }
         if (hasAnyEnabledElements and !focus->IsEnabled()) {
             continue;
@@ -89,6 +92,7 @@ Focusable_ty_raw Focus::GetNextFocus() {
 
     return nextFocus;
 }
+
 Focusable_ty_raw Focus::GetPreviousFocus() {
     unsigned int const currentID{ m_currentFocus ? m_currentFocus->GetFocusID()
                                                  : static_cast<unsigned int>(m_focus.size()) };
@@ -112,12 +116,14 @@ Focusable_ty_raw Focus::GetPreviousFocus() {
 
     return previousFocus;
 }
+
 void Focus::SetInitialFocus() {
     m_currentFocus = GetFirstFocus();
     if (m_currentFocus) {
         m_currentFocus->SetFocus(true);
     }
 }
+
 void Focus::SetNextFocus() {
     m_currentFocus->SetFocus(false);
 
@@ -129,6 +135,7 @@ void Focus::SetNextFocus() {
     m_currentFocus = nextFocus;
     m_currentFocus->SetFocus(true);
 }
+
 void Focus::SetPreviousFocus() {
     m_currentFocus->SetFocus(false);
 
@@ -140,6 +147,7 @@ void Focus::SetPreviousFocus() {
     m_currentFocus = previousFocus;
     m_currentFocus->SetFocus(true);
 }
+
 bool Focus::IsExistingFocus(Focusable_ty_raw focusable) {
     for (auto focus : m_focus) {
         if (focus == focusable) {
@@ -160,6 +168,7 @@ void Focus::SetSpecificFocus(Focusable_ty_raw focusable) {
     m_currentFocus = focusable;
     m_currentFocus->SetFocus(true);
 }
+
 void Focus::SetSpecificNormalFocus(Focusable_ty_raw focusable) {
     if (m_PopUpLayerCounter == 0) {
         SetSpecificFocus(focusable);
@@ -167,6 +176,7 @@ void Focus::SetSpecificNormalFocus(Focusable_ty_raw focusable) {
         m_toSelectRequest.AddElement(focusable);
     }
 }
+
 void Focus::SetSpecificPopUpFocus(Focusable_ty_raw focusable) {
     SetSpecificFocus(focusable);
 }
@@ -177,6 +187,7 @@ void Focus::AddLayer() {
     m_currentFocus = nullptr;
     m_renderFocus = false;
 }
+
 void Focus::AddNormalLayer() {
     if (m_PopUpLayerCounter == 0) {
         AddLayer();
@@ -187,10 +198,12 @@ void Focus::AddNormalLayer() {
         m_toAddOrDelete.push_back(true);
     }
 }
+
 void Focus::AddPopUpLayer() {
     AddLayer();
     ++m_PopUpLayerCounter;
 }
+
 void Focus::DeleteLayer(bool setNewFocus) {
     for (auto f : m_focus) {
         f->SetFocus(false);
@@ -202,12 +215,13 @@ void Focus::DeleteLayer(bool setNewFocus) {
         return;
     }
 
-    if (m_lastFocus.size() > 0) {
+    if (not m_lastFocus.empty()) {
         SetSpecificFocus(m_lastFocus.at(m_lastFocus.size() - 1));
         m_lastFocus.pop_back();
         m_renderFocus = false;
     }
 }
+
 void Focus::DeleteNormalLayer() {
     if (m_PopUpLayerCounter == 0) {
         DeleteLayer();
@@ -217,6 +231,7 @@ void Focus::DeleteNormalLayer() {
         m_toAddOrDelete.push_back(false);
     }
 }
+
 void Focus::DeletePopUpLayer() {
     DeleteLayer();
     --m_PopUpLayerCounter;
@@ -238,6 +253,7 @@ void Focus::AddElement(Focusable_ty_raw focusable, bool setNewFocus) {
     }
     SetInitialFocus();
 }
+
 void Focus::AddNormalElement(Focusable_ty_raw focusable) {
     if (m_PopUpLayerCounter == 0) {
         AddElement(focusable);
@@ -245,9 +261,11 @@ void Focus::AddNormalElement(Focusable_ty_raw focusable) {
         m_addElementRequest.AddElement(focusable);
     }
 }
+
 void Focus::AddPopUpElement(Focusable_ty_raw focusable) {
     AddElement(focusable);
 }
+
 void Focus::DeleteElement(Focusable_ty_raw focusable, bool setNextFocus) {
     m_focus.RemoveElement(focusable);
 
@@ -259,6 +277,7 @@ void Focus::DeleteElement(Focusable_ty_raw focusable, bool setNextFocus) {
         m_currentFocus = GetNextFocus();
     }
 }
+
 void Focus::DeleteNormalElement(Focusable_ty_raw focusable) {
     if (m_PopUpLayerCounter == 0) {
         DeleteElement(focusable);
@@ -266,6 +285,7 @@ void Focus::DeleteNormalElement(Focusable_ty_raw focusable) {
         m_removeElementRequest.AddElement(focusable);
     }
 }
+
 void Focus::DeletePopUpElement(Focusable_ty_raw focusable) {
     DeleteElement(focusable);
 }
@@ -273,7 +293,7 @@ void Focus::DeletePopUpElement(Focusable_ty_raw focusable) {
 void Focus::SetLayerAfterPopUp() {
 
     while (true) {
-        if (m_toAddOrDelete.size() == 0) {
+        if (m_toAddOrDelete.empty()) {
             break;
         }
 
@@ -339,7 +359,7 @@ void Focus::SetLayerAfterPopUp() {
 void Focus::CheckNewID(unsigned int newID) {
     for (auto focus : m_focus) {
         if (focus->GetFocusID() == newID) {
-            throw std::invalid_argument("ID already exists, ID: " + newID);
+            throw std::invalid_argument("ID already exists, ID: " + std::to_string(newID));
         }
     }
 }
@@ -438,6 +458,7 @@ void Focus::CheckAndUpdate() {
         SetNextFocus();
     }
 }
+
 void Focus::Render() {
     if (!m_currentFocus) {
         return;
@@ -446,14 +467,14 @@ void Focus::Render() {
         return;
     }
 
-    Rectangle const& f_colider{ m_currentFocus->GetCollider() };
+    Rectangle const& f_collider{ m_currentFocus->GetCollider() };
     float const offset{ 5.0 };
     DrawRectangleLinesEx(
             Rectangle(
-                    static_cast<int>(f_colider.x) - offset,
-                    static_cast<int>(f_colider.y) - offset,
-                    static_cast<int>(f_colider.width) + 2.0f * offset,
-                    static_cast<int>(f_colider.height) + 2.0f * offset
+                    f_collider.x - offset,
+                    f_collider.y - offset,
+                    f_collider.width + 2.0f * offset,
+                    f_collider.height + 2.0f * offset
             ),
             offset,
             PURPLE

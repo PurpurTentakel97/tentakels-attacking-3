@@ -11,7 +11,7 @@
 
 namespace {
     // Need for PopUp ctor
-    std::string subTitle{ };
+    std::string subTitle{};
 } // namespace
 
 void CellPopUp::Initialize() {
@@ -33,6 +33,7 @@ void CellPopUp::Initialize() {
 
     m_elements.push_back(cancelBtn);
 }
+
 ClassicButton_ty CellPopUp::InitializeAcceptButton() {
 
     AppContext_ty_c appContext{ AppContext::GetInstance() };

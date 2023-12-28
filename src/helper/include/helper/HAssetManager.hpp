@@ -12,59 +12,43 @@
 #include <unordered_map>
 #include <vector>
 
-/**
- * contains all assets and manage them
- */
+
 class AssetManager final {
 private:
-    using FileArray = std::array<std::string, 9>; ///< the datatype for the files
+    using FileArray = std::array<std::string, 9>;
     FileArray m_files{
-        ///< contains all asset file strings
-        "btn_f_default.png", "exclamation_mark.png", "question_mark.png", "check.png",      "logo.png",
-        "arrow_up.png",      "arrow_right.png",      "arrow_down.png",    "arrow_left.png",
+        // clang-format off
+        "btn_f_default.png",
+        "exclamation_mark.png",
+        "question_mark.png",
+        "check.png",
+        "logo.png",
+        "arrow_up.png",
+        "arrow_right.png",
+        "arrow_down.png",
+        "arrow_left.png",
+        // clang-format on
     };
-    std::unordered_map<AssetType, Texture2D> m_assets; ///< contains all assets
-    std::vector<std::string> m_title;                  ///< contains the tile
-    Font m_font;                                       ///< contains the font
+    std::unordered_map<AssetType, Texture2D> m_assets;
+    std::vector<std::string> m_title;
+    Font m_font{};
 
-    /**
-	 * loads the title.
-	 */
     void LoadTitle();
-    /**
-	 * loads the font.
-	 */
+
     void LoadFont();
-    /**
-	 * loads all files.
-	 * ity important, that the file strings an the enum in in the same order
-	 */
+
     void LoadFiles();
 
 public:
-    /**
-	 * loads all needed files.
-	 */
     AssetManager();
-    /**
-	 * unloads all needed files.
-	 */
+
     ~AssetManager();
 
-    /**
-	 * returns a texture* according to the AssetType.
-	 */
     [[nodiscard]] Texture* GetTexture(AssetType assetType);
-    /**
-	 * returns a texture* according to the AssetType const.
-	 */
+
     [[nodiscard]] Texture const* GetTexture(AssetType assetType) const;
-    /**
-	 * returns the title pointer.
-	 */
+
     std::vector<std::string>* GetTitle();
-    /**
-	 * returns a font*.
-	 */
+
     [[nodiscard]] Font const* GetFont() const;
 };

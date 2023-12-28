@@ -191,11 +191,11 @@ void AppSettingsScene::Initialize() {
             0.25f,
             id,
             id + 1,
-            appContext.languageManager.GetAvailableLanguages()
+            HLanguageManager::GetAvailableLanguages()
     );
     m_languageDropDown->SetCurrentElementByString(appContext.constants.global.currentLanguageName);
     m_languageDropDown->SetOnSave([](unsigned int ID) {
-        auto const language{ AppContext::GetInstance().languageManager.GetAvailableLanguages().at(ID - 1) };
+        auto const language{ HLanguageManager::GetAvailableLanguages().at(ID - 1) };
         auto const event{ ChangeLanguageEvent(language) };
         AppContext::GetInstance().eventManager.InvokeEvent(event);
     });
@@ -211,6 +211,7 @@ std::vector<std::string> AppSettingsScene::GetStringsFromResolutionEntries() con
 
     return toReturn;
 }
+
 size_t AppSettingsScene::GetIndexFromResolution(Resolution resolution) const {
     for (size_t i = 0; i < m_rawResolutionEntries.size(); ++i) {
         if (m_rawResolutionEntries[i].first == resolution) {
@@ -236,9 +237,11 @@ void AppSettingsScene::CheckAndUpdate(Vector2 const& mousePosition, AppContext_t
     SettingsScene::CheckAndUpdate(mousePosition, appContext);
     m_toggleFullScreenCBM->SetChecked(appContext.constants.window.isFullScreen);
 }
+
 void AppSettingsScene::Render(AppContext_ty_c appContext) {
     SettingsScene::Render(appContext);
 }
+
 void AppSettingsScene::Resize(AppContext_ty_c appContext) {
     SettingsScene::Resize(appContext);
 }

@@ -10,13 +10,13 @@
 #include <helper/HGalaxy.hpp>
 #include <helper/HPrint.hpp>
 
-Fleet::Fleet(unsigned int ID, vec2pos_ty position, Player_ty player, SpaceObject_ty target)
+Fleet::Fleet(unsigned int ID, vec2pos_ty_ref_c position, Player_ty_c player, SpaceObject_ty target)
     : SpaceObject{ ID, position, player },
-      m_target{ target } { }
+      m_target{ std::move(target) } { }
 
-Fleet::Fleet(unsigned int ID, vec2pos_ty position, size_t ships, Player_ty player, SpaceObject_ty target)
+Fleet::Fleet(unsigned int ID, vec2pos_ty_ref_c position, size_t ships, Player_ty_c player, SpaceObject_ty target)
     : SpaceObject{ ID, position, ships, player },
-      m_target{ target } { }
+      m_target{ std::move(target) } { }
 
 bool Fleet::IsFleet() const {
     return true;
@@ -25,16 +25,19 @@ bool Fleet::IsFleet() const {
 SpaceObject_ty Fleet::GetTarget() const {
     return m_target;
 }
+
 std::pair<bool, SpaceObject_ty> Fleet::GetFairTarget() const {
     return TryGetTarget(this, m_target);
 }
+
 void Fleet::SetTarget(SpaceObject_ty target) {
-    m_target = target;
+    m_target = std::move(target);
 }
 
 bool Fleet::IsArrived() const {
     return m_position == m_target->GetPos();
 }
+
 bool Fleet::IsFarArrived() const {
     auto [valid, dummy]{ TryGetTarget(this, m_target) };
     if (not valid) {
@@ -47,6 +50,7 @@ bool Fleet::IsFarArrived() const {
 bool Fleet::IsFriendly() const {
     return m_player == m_target->GetPlayer();
 }
+
 bool Fleet::IsFarFriendly() const {
     auto [valid, target]{ TryGetTarget(this, m_target) };
     if (not valid) {
@@ -56,13 +60,12 @@ bool Fleet::IsFarFriendly() const {
     return m_player == target->GetPlayer();
 }
 
-
 void Fleet::Update(Galaxy_ty_raw galaxy) {
 
     auto [valid, target]{ TryGetTarget(this, m_target) };
     if (not valid) {
         target = m_target;
-    };
+    }
 
     int speed = AppContext::GetInstance().constants.fleet.currentFleetSpeed;
     float constexpr dl{ 0.001f };
@@ -95,10 +98,9 @@ void Fleet::Update(Galaxy_ty_raw galaxy) {
         speed -= offset.y;
     };
     auto filterPosition = [&]() -> vec2pos_ty {
-        vec2pos_ty old = m_position;
         vec2pos_ty new_ = target->GetPos();
         for (size_t i = 1; i < route.size(); ++i) {
-            old = route.at(i - 1);
+            vec2pos_ty old = route.at(i - 1);
             new_ = route.at(i);
             if (galaxy->IsValidPosition(new_)) {
                 setSpeed(old, new_);

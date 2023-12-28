@@ -24,7 +24,7 @@ void SoundLevelPopUp::Initialize() {
     );
     m_slider->SetEnabled(!appContext.constants.sound.muteVolume);
     m_slider->SetButtonPosition(appContext.constants.sound.masterVolume);
-    m_slider->SetOnSlide([this](float position) {
+    m_slider->SetOnSlide([](float position) {
         AppContext::GetInstance().eventManager.InvokeEvent(SetMasterVolumeEvent(position));
     });
     m_elements.push_back(m_slider);

@@ -32,7 +32,7 @@ void CreditTableScene::Initialize(std::string const& headline, creditEntries con
 
     for (size_t i = 0; i < entries.size(); ++i) {
         auto e{ entries.at(i) };
-        if (e.size() == 0) {
+        if (e.empty()) {
             continue;
         }
         if (containsLink && e.size() % 2 != 0) {

@@ -5,13 +5,11 @@
 
 #pragma once
 
-/**
- * the basic events without function where every other event will inherit from.
- */
+
 class Event {
 protected:
-	Event() = default;
+    Event() = default;
 
 public:
-	virtual ~Event() = default;
+    virtual ~Event() = default;
 };

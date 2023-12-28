@@ -9,51 +9,33 @@
 
 class ToggleButton : public Button, public Focusable {
 private:
-	bool m_isToggled{ false }; ///< contains the button is currently toggled
+    bool m_isToggled{ false };
 
-	std::function<void(bool, bool)> m_onToggle{ [](bool, bool) { } }; ///< contains the callback for the toggle (toggled, keyinput)
+    std::function<void(bool, bool)> m_onToggle{ [](bool, bool) {} };
 
-	/**
-	 * updates the button state.
-	 */
-	void UpdateState();
+    void UpdateState();
 
 public:
-	/**
-	 * ctor
-	 */
-	ToggleButton(unsigned int focusID, Vector2 pos, Vector2 size, Alignment alignment,
-		std::string const& text, SoundType releaseSound);
+    ToggleButton(
+            unsigned int focusID,
+            Vector2 pos,
+            Vector2 size,
+            Alignment alignment,
+            std::string const& text,
+            SoundType releaseSound
+    );
 
-	/**
-	 * logic.
-	 */
-	void CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) override;
+    void CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) override;
 
-	/**
-	 * return current collider of the button.
-	 */
-	[[nodiscard]] Rectangle GetCollider() const override;
-	/**
-	 * sets weather the button is enabled or not.
-	 */
-	void SetEnabled(bool enabled) override;
-	/**
-	 * returns if the current elements is enabled.
-	 */
-	[[nodiscard]] bool IsEnabled() const override;
+    [[nodiscard]] Rectangle GetCollider() const override;
 
-	/**
-	 * returns if the button is current toggled.
-	 */
-	[[nodiscard]] bool IsToggled() const;
-	/**
-	 * sets the toggle state of the button.
-	 */
-	void SetToggleButton(bool isToggled);
+    void SetEnabled(bool enabled) override;
 
-	/**
-	 * sets the toggle callback
-	 */
-	void SetOnToggle(std::function<void(bool, bool)> onToggle);
+    [[nodiscard]] bool IsEnabled() const override;
+
+    [[nodiscard]] bool IsToggled() const;
+
+    void SetToggleButton(bool isToggled);
+
+    void SetOnToggle(std::function<void(bool, bool)> onToggle);
 };

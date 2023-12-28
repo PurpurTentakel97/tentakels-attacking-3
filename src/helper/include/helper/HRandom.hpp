@@ -9,19 +9,20 @@
 
 class Random final {
 public:
-	static Random& GetInstance();
+    static Random& GetInstance();
 
-	[[nodiscard]] auto random(std::mt19937_64::result_type upperBoundExclusive)->std::mt19937_64::result_type;
-	[[nodiscard]] auto random() -> float;
-	auto setRandomSeed(std::mt19937_64::result_type seed) -> void;
-	[[nodiscard]] auto getRandomSeed() const->std::mt19937_64::result_type;
-	auto randomize() -> void;
+    [[nodiscard]] auto random(std::mt19937_64::result_type upperBoundExclusive) -> std::mt19937_64::result_type;
+    [[nodiscard]] auto random() -> float;
+    auto setRandomSeed(std::mt19937_64::result_type seed) -> void;
+    [[nodiscard]] auto getRandomSeed() const -> std::mt19937_64::result_type;
+    auto randomize() -> void;
+
+    Random(Random const& old) = delete;
 
 private:
-	Random();
-	Random(const Random& old) = delete;
-	std::mt19937_64 mGenerator;
-	std::mt19937_64::result_type mSeed;
-	std::uniform_real_distribution<float> mUniformRealDistribution;
-	std::uniform_int_distribution<std::mt19937_64::result_type> mUniformIntDistribution;
+    Random();
+    std::mt19937_64 mGenerator;
+    std::mt19937_64::result_type mSeed;
+    std::uniform_real_distribution<float> mUniformRealDistribution;
+    std::uniform_int_distribution<std::mt19937_64::result_type> mUniformIntDistribution;
 };

@@ -23,14 +23,6 @@ static auto popup = [](std::string const& text) {
     };
     AppContext::GetInstance().eventManager.InvokeEvent(popupEvent);
 };
-static auto message = [](std::string& messageText, std::string const& first, std::string const& second) {
-    if (messageText.size() <= 0) {
-        messageText = first;
-        return;
-    }
-
-    messageText += ", " + second;
-};
 
 // helper
 unsigned int Galaxy::GetNextID() const {
@@ -57,14 +49,19 @@ unsigned int Galaxy::GetNextID() const {
     }
 }
 
-void Galaxy::InitializePlanets(size_t planetCount, std::vector<Player_ty> players, Player_ty neutralPlayer) {
+void Galaxy::InitializePlanets(
+        size_t planetCount,
+        std::vector<Player_ty> const& players,
+        Player_ty const& neutralPlayer
+) {
 
     int const currentPlanet{ GenerateHomePlanets(players) };
     if (m_validGalaxy) {
         GenerateOtherPlanets(planetCount, currentPlanet, neutralPlayer);
     }
 }
-int Galaxy::GenerateHomePlanets(std::vector<Player_ty> players) {
+
+int Galaxy::GenerateHomePlanets(std::vector<Player_ty> const& players) {
 
     Random& random{ Random::GetInstance() };
     AppContext_ty_c appContext{ AppContext::GetInstance() };
@@ -98,7 +95,8 @@ int Galaxy::GenerateHomePlanets(std::vector<Player_ty> players) {
 
     return currentPlanet;
 }
-void Galaxy::GenerateOtherPlanets(size_t planetCount, int currentPlanet, Player_ty player) {
+
+void Galaxy::GenerateOtherPlanets(size_t planetCount, int currentPlanet, Player_ty const& player) {
 
     AppContext_ty_c appContext{ AppContext::GetInstance() };
     Random& random{ Random::GetInstance() };
@@ -128,7 +126,7 @@ void Galaxy::GenerateOtherPlanets(size_t planetCount, int currentPlanet, Player_
     }
 }
 
-bool Galaxy::IsValidNewPlanet(Planet_ty newPlanet, AppContext_ty_c appContext) const {
+bool Galaxy::IsValidNewPlanet(Planet_ty const& newPlanet, AppContext_ty_c appContext) const {
     bool validPlanet{ true };
 
     // works because Home Planets are generated first.
@@ -157,6 +155,7 @@ bool Galaxy::IsValidFleet(unsigned int const ID) const {
     }
     return false;
 }
+
 Fleet_ty Galaxy::GetFleetByID(unsigned int const ID) const {
     for (auto const& f : m_fleets) {
         if (f->GetID() == ID) {
@@ -166,8 +165,11 @@ Fleet_ty Galaxy::GetFleetByID(unsigned int const ID) const {
 
     throw std::runtime_error("no fleet with this ID: " + std::to_string(ID));
 }
-[[nodiscard]] Fleet_ty
-Galaxy::TryGetExistingFleetByOriginAndDestination(SpaceObject_ty origin, SpaceObject_ty destination) const {
+
+[[nodiscard]] Fleet_ty Galaxy::TryGetExistingFleetByOriginAndDestination(
+        SpaceObject_ty const& origin,
+        SpaceObject_ty const& destination
+) const {
 
     for (auto const& f : m_fleets) {
         if (f->GetPos() == origin->GetPos()) {
@@ -180,7 +182,7 @@ Galaxy::TryGetExistingFleetByOriginAndDestination(SpaceObject_ty origin, SpaceOb
     return nullptr;
 }
 
-HFleetResult Galaxy::AddFleetFromPlanet(SendFleetInstructionEvent const* event, Player_ty currentPlayer) {
+HFleetResult Galaxy::AddFleetFromPlanet(SendFleetInstructionEvent const* event, Player_ty const& currentPlayer) {
     // check origin id
     if (event->GetOrigin() > m_planets.size()) {
         popup(AppContext::GetInstance().languageManager.Text("logic_galaxy_input_origin_planet_high_text"));
@@ -226,7 +228,7 @@ HFleetResult Galaxy::AddFleetFromPlanet(SendFleetInstructionEvent const* event, 
     if (destination->GetPlayer() != currentPlayer and not destination->IsPlanet()) {
         if (not destination->IsDiscovered()) {
             popup(AppContext::GetInstance().languageManager.Text("logic_galaxy_destination_blocked_text"));
-            Print(PrintType::ONLY_DEBUG, "choosen destination is blocked");
+            Print(PrintType::ONLY_DEBUG, "chosen destination is blocked");
             return { nullptr, nullptr, nullptr, false };
         }
     }
@@ -266,7 +268,8 @@ HFleetResult Galaxy::AddFleetFromPlanet(SendFleetInstructionEvent const* event, 
 
     return { originPlanet, fleet, destination, true };
 }
-HFleetResult Galaxy::AddFleetFromFleet(SendFleetInstructionEvent const* event, Player_ty currentPlayer) {
+
+HFleetResult Galaxy::AddFleetFromFleet(SendFleetInstructionEvent const* event, Player_ty const& currentPlayer) {
     // check if origin ID is existing
     if (not IsValidFleet(event->GetOrigin())) {
         popup(AppContext::GetInstance().languageManager.Text("logic_galaxy_not_existing_fleet_text", event->GetOrigin())
@@ -304,7 +307,7 @@ HFleetResult Galaxy::AddFleetFromFleet(SendFleetInstructionEvent const* event, P
     if (destination->GetPlayer() != currentPlayer and not destination->IsPlanet()) {
         if (not destination->IsDiscovered()) {
             popup(AppContext::GetInstance().languageManager.Text("logic_galaxy_destination_blocked_text"));
-            Print(PrintType::ONLY_DEBUG, "choosen destination is blocked");
+            Print(PrintType::ONLY_DEBUG, "chosen destination is blocked");
             return { nullptr, nullptr, nullptr, false };
         }
     }
@@ -367,7 +370,8 @@ HFleetResult Galaxy::AddFleetFromFleet(SendFleetInstructionEvent const* event, P
 
     return { origin, fleet, destination, true };
 }
-HFleetResult Galaxy::AddFleetFromTargetPoint(SendFleetInstructionEvent const* event, Player_ty currentPlayer) {
+
+HFleetResult Galaxy::AddFleetFromTargetPoint(SendFleetInstructionEvent const* event, Player_ty const& currentPlayer) {
     // check if origin ID is existing
     if (not IsValidTargetPoint(event->GetOrigin())) {
         popup(AppContext::GetInstance()
@@ -404,7 +408,7 @@ HFleetResult Galaxy::AddFleetFromTargetPoint(SendFleetInstructionEvent const* ev
     if (destination->GetPlayer() != currentPlayer and not destination->IsPlanet()) {
         if (not destination->IsDiscovered()) {
             popup(AppContext::GetInstance().languageManager.Text("logic_galaxy_destination_blocked_text"));
-            Print(PrintType::ONLY_DEBUG, "choosen destination is blocked");
+            Print(PrintType::ONLY_DEBUG, "chosen destination is blocked");
             return { nullptr, nullptr, nullptr, false };
         }
     }
@@ -451,7 +455,7 @@ HFleetResult Galaxy::AddFleetFromTargetPoint(SendFleetInstructionEvent const* ev
     return { origin, fleet, destination, true };
 }
 
-std::vector<Fleet_ty> Galaxy::GetFleetsOfTarget(SpaceObject_ty object) const {
+std::vector<Fleet_ty> Galaxy::GetFleetsOfTarget(SpaceObject_ty const& object) const {
     std::vector<Fleet_ty> vec{};
 
     for (auto const& fleet : m_fleets) {
@@ -495,13 +499,24 @@ void Galaxy::DeleteFleet(std::vector<Fleet_ty> const& fleets) {
     auto const newStart2{ std::remove_if(m_objects.begin(), m_objects.end(), containsObject) };
     m_objects.erase(newStart2, m_objects.end());
 }
-void Galaxy::DeleteFleet(Fleet_ty fleet) {
-    m_fleets.erase(std::remove_if(m_fleets.begin(), m_fleets.end(), [fleet](Fleet_ty_c currentFleet) {
-        return fleet->GetID() == currentFleet->GetID();
-    }));
-    m_objects.erase(std::remove_if(m_objects.begin(), m_objects.end(), [fleet](SpaceObject_ty const& object) {
-        return fleet->GetID() == object->GetID();
-    }));
+
+void Galaxy::DeleteFleet(Fleet_ty const& fleet) {
+    m_fleets.erase(
+            std::remove_if(
+                    m_fleets.begin(),
+                    m_fleets.end(),
+                    [fleet](Fleet_ty_c currentFleet) { return fleet->GetID() == currentFleet->GetID(); }
+            ),
+            m_fleets.end()
+    );
+    m_objects.erase(
+            std::remove_if(
+                    m_objects.begin(),
+                    m_objects.end(),
+                    [fleet](SpaceObject_ty const& object) { return fleet->GetID() == object->GetID(); }
+            ),
+            m_objects.end()
+    );
 
     Print(PrintType::ONLY_DEBUG,
           "delete fleet -> id: {} -> player: {} -> ships: {}",
@@ -510,7 +525,6 @@ void Galaxy::DeleteFleet(Fleet_ty fleet) {
           fleet->GetShipCount());
 }
 
-// Target Point
 bool Galaxy::IsValidTargetPoint(unsigned int const ID) const {
     for (auto const& tp : m_targetPoints) {
         if (tp->GetID() == ID) {
@@ -530,7 +544,7 @@ TargetPoint_ty Galaxy::GetTargetPointByID(unsigned int const ID) const {
     throw std::runtime_error("no Target Point with ID " + std::to_string(ID));
 }
 
-SpaceObject_ty Galaxy::GetOrGenerateDestination(unsigned int ID, int X, int Y, Player_ty currentPlayer) {
+SpaceObject_ty Galaxy::GetOrGenerateDestination(unsigned int ID, int X, int Y, Player_ty const& currentPlayer) {
 
     for (auto& object : m_objects) {
 
@@ -538,11 +552,11 @@ SpaceObject_ty Galaxy::GetOrGenerateDestination(unsigned int ID, int X, int Y, P
             return object;
         }
 
-        auto const pos{ object->GetPos() };
+        auto const pos = object->GetPos();
         if (pos.x == X && pos.y == Y) {
-            if (object->IsTargetPoint() or object->IsPlanet()) {
-                return object;
-            } else if (object->IsFleet() and object->GetPlayer() == currentPlayer) {
+            auto const remove{ (object->IsTargetPoint() or object->IsPlanet())
+                               or (object->IsFleet() and object->GetPlayer() == currentPlayer) };
+            if (remove) {
                 return object;
             }
         }
@@ -565,7 +579,7 @@ void Galaxy::CheckDeleteTargetPoints() {
             continue;
         }
         auto const& origins{ GetFleetsOfTarget(t) };
-        if (origins.size() > 0) {
+        if (not origins.empty()) {
             continue;
         }
         toDelete.push_back(t);
@@ -576,7 +590,7 @@ void Galaxy::CheckDeleteTargetPoints() {
               origins.size());
     }
     // delete
-    auto const containsTargetPoint{ [toDelete](SpaceObject_ty d_t) -> bool {
+    auto const containsTargetPoint{ [toDelete](SpaceObject_ty const& d_t) -> bool {
         for (auto const& o_t : toDelete) {
             if (d_t->GetID() == o_t->GetID()) {
                 return true;
@@ -592,9 +606,11 @@ void Galaxy::CheckDeleteTargetPoints() {
     m_objects.erase(start2, m_objects.end());
 }
 
-// update
-std::vector<Fleet_ty>
-Galaxy::UpdateFleetTargets(std::vector<Fleet_ty> fleets, SpaceObject_ty currentFleet, SpaceObject_ty target) {
+std::vector<Fleet_ty> Galaxy::UpdateFleetTargets(
+        std::vector<Fleet_ty> const& fleets,
+        SpaceObject_ty const& currentFleet,
+        SpaceObject_ty const& target
+) {
     std::vector<Fleet_ty> emptyFleets{};
     for (auto const& fleet : fleets) {
         if (fleet->GetPlayer() == currentFleet->GetPlayer()) {
@@ -620,7 +636,7 @@ Galaxy::UpdateFleetTargets(std::vector<Fleet_ty> fleets, SpaceObject_ty currentF
 
             auto origins{ GetFleetsOfTarget(fleet) };
             auto results{ UpdateFleetTargets(origins, fleet, targetPoint) };
-            if (results.size() > 0) {
+            if (not results.empty()) {
                 for (auto const& result : results) {
                     emptyFleets.push_back(result);
                 }
@@ -628,37 +644,6 @@ Galaxy::UpdateFleetTargets(std::vector<Fleet_ty> fleets, SpaceObject_ty currentF
         }
     }
     return emptyFleets;
-    /*for (auto const& fleet : fleets) {
-		if (fleet->GetPlayer() != target->GetPlayer()) {
-			auto targetPoint = std::make_shared<TargetPoint>(
-				GetNextID(),
-				fleet->GetPos(),
-				fleet->GetPlayer()
-			);
-			*targetPoint += *fleet;
-			auto origins{ GetFleetsOfTarget(fleet) };
-			UpdateFleetTargets(origins, targetPoint);
-			DeleteFleet(fleet);
-			m_objects.push_back(targetPoint);
-			m_targetPoints.push_back(targetPoint);
-			Print(
-				PrintType::ONLY_DEBUG,
-				"generated a target point for the fleet because player where not matching -> id {} -> position {}",
-				targetPoint->GetID(),
-				targetPoint->GetPos().ToString()
-			);
-		}
-		else {
-			fleet->SetTarget(target);
-			Print(
-				PrintType::ONLY_DEBUG,
-				"redirect fleet -> id: {} -> target: {}",
-				fleet->GetID(),
-				target->GetID()
-			);
-		}
-	}
-	*/
 }
 
 std::vector<HMergeResult> Galaxy::CheckArrivingFriendlyFleets() {
@@ -706,6 +691,7 @@ std::vector<HMergeResult> Galaxy::CheckArrivingFriendlyFleets() {
     }
     return mergeResult;
 }
+
 std::vector<HMergeResult> Galaxy::CheckMergingFriendlyFleets() {
     std::vector<HMergeResult> mergeResult{};
 
@@ -725,11 +711,11 @@ std::vector<HMergeResult> Galaxy::CheckMergingFriendlyFleets() {
                 target_rhs = fleet_rhs->GetTarget();
             }
 
-            bool const mergable{ fleet_lhs->GetPlayer() == fleet_rhs->GetPlayer()
-                                 and target_lhs->GetID() == target_rhs->GetID()
-                                 and fleet_lhs->IsInFightRange(fleet_rhs) };
+            bool const merge_able{ fleet_lhs->GetPlayer() == fleet_rhs->GetPlayer()
+                                   and target_lhs->GetID() == target_rhs->GetID()
+                                   and fleet_lhs->IsInFightRange(fleet_rhs) };
 
-            if (mergable) {
+            if (merge_able) {
                 mergeResult.emplace_back(fleet_lhs->GetPlayer(), fleet_lhs, fleet_rhs, fleet_rhs->GetShipCount());
                 fleet_lhs->TransferShipsFrom(fleet_rhs.get());
 
@@ -745,6 +731,7 @@ std::vector<HMergeResult> Galaxy::CheckMergingFriendlyFleets() {
 
     return mergeResult;
 }
+
 void Galaxy::CheckDeleteFleetsWithoutShips() {
     std::vector<Fleet_ty> toDelete{};
     for (auto const& fleet : m_fleets) {
@@ -754,7 +741,7 @@ void Galaxy::CheckDeleteFleetsWithoutShips() {
 
         auto const& origins{ GetFleetsOfTarget(fleet) };
         auto results{ UpdateFleetTargets(origins, fleet, fleet->GetTarget()) };
-        if (results.size() > 0) {
+        if (not results.empty()) {
             for (auto const& result : results) {
                 toDelete.push_back(result);
             }
@@ -802,6 +789,7 @@ std::vector<HFightResult> Galaxy::SimulateFight() {
 
     return results;
 }
+
 std::vector<HFightResult> Galaxy::SimulateFightFleetPlanet() {
     std::vector<HFightResult> results{};
     for (auto const& fleet : m_fleets) {
@@ -822,6 +810,7 @@ std::vector<HFightResult> Galaxy::SimulateFightFleetPlanet() {
 
     return results;
 }
+
 std::vector<HFightResult> Galaxy::SimulateFightFleetTargetPoint() {
     std::vector<HFightResult> results{};
 
@@ -843,6 +832,7 @@ std::vector<HFightResult> Galaxy::SimulateFightFleetTargetPoint() {
 
     return results;
 }
+
 std::vector<HFightResult> Galaxy::SimulateFightFleetFleet() {
     std::vector<HFightResult> results{};
     Random& random{ Random::GetInstance() };
@@ -876,6 +866,7 @@ std::vector<HFightResult> Galaxy::SimulateFightFleetFleet() {
 
     return results;
 }
+
 std::vector<HFightResult> Galaxy::SimulateFightPlanetFleet() {
     std::vector<HFightResult> results{};
 
@@ -897,6 +888,7 @@ std::vector<HFightResult> Galaxy::SimulateFightPlanetFleet() {
 
     return results;
 }
+
 std::vector<HFightResult> Galaxy::SimulateFightTargetPointFleet() {
     std::vector<HFightResult> results{};
 
@@ -918,6 +910,7 @@ std::vector<HFightResult> Galaxy::SimulateFightTargetPointFleet() {
 
     return results;
 }
+
 std::vector<HFightResult> Galaxy::SimulateFightTargetPointTargetPoint() {
     std::vector<HFightResult> results{};
 
@@ -956,6 +949,7 @@ std::vector<HFightResult> Galaxy::SimulateFightTargetPointTargetPoint() {
 
     return results;
 }
+
 std::vector<HFightResult> Galaxy::SimulateFightPlanetTargetPoint() {
     std::vector<HFightResult> results{};
 
@@ -977,7 +971,8 @@ std::vector<HFightResult> Galaxy::SimulateFightPlanetTargetPoint() {
 
     return results;
 }
-HFightResult Galaxy::Fight(SpaceObject_ty defender, SpaceObject_ty attacker) {
+
+HFightResult Galaxy::Fight(SpaceObject_ty const& defender, SpaceObject_ty const& attacker) {
     if (defender->GetShipCount() == 0 or attacker->GetShipCount() == 0) {
         Print(PrintType::ONLY_DEBUG,
               "fight without ships -> defender id: {} -> ships: {} -> attacker id: {} -> ships: {}",
@@ -1041,14 +1036,15 @@ HFightResult Galaxy::Fight(SpaceObject_ty defender, SpaceObject_ty attacker) {
         true
     };
 }
-size_t Galaxy::Salve(SpaceObject_ty obj) const {
-    float const hitChace{ AppContext::GetInstance().constants.fight.hitChance * 100 };
+
+size_t Galaxy::Salve(SpaceObject_ty const& obj) {
+    float const hitChance{ AppContext::GetInstance().constants.fight.hitChance * 100 };
     Random& random_{ Random::GetInstance() };
     size_t hitCount{ 0 };
 
     for (size_t i = 0; i < obj->GetShipCount(); ++i) {
         auto result{ random_.random(101) };
-        if (hitChace >= static_cast<float>(result)) {
+        if (hitChance >= static_cast<float>(result)) {
             ++hitCount;
         }
     }
@@ -1056,15 +1052,20 @@ size_t Galaxy::Salve(SpaceObject_ty obj) const {
     return hitCount;
 }
 
-// public
-Galaxy::Galaxy(vec2pos_ty size, size_t planetCount, std::vector<Player_ty> players, Player_ty neutralPlayer)
-    : m_size{ size } {
+Galaxy::Galaxy(
+        vec2pos_ty size,
+        size_t planetCount,
+        std::vector<Player_ty> const& players,
+        Player_ty const& neutralPlayer
+)
+    : m_size{ std::move(size) } {
 
     InitializePlanets(planetCount, players, neutralPlayer);
 }
+
 Galaxy::Galaxy(Galaxy const& old) : m_validGalaxy{ old.m_validGalaxy }, m_size{ old.m_size } {
 
-    for (auto o : old.m_objects) {
+    for (auto const& o : old.m_objects) {
         if (o->IsFleet()) {
             auto const object = std::make_shared<Fleet>(*std::static_pointer_cast<Fleet>(o));
             m_objects.push_back(object);
@@ -1083,10 +1084,10 @@ Galaxy::Galaxy(Galaxy const& old) : m_validGalaxy{ old.m_validGalaxy }, m_size{ 
     }
 }
 
-// get set is
 bool Galaxy::IsValid() const {
     return m_validGalaxy;
 }
+
 bool Galaxy::IsValidSpaceObjectID(unsigned int ID) const {
 
     for (auto const& object : m_objects) {
@@ -1110,6 +1111,7 @@ bool Galaxy::HasMovesLeft(Player_ty_c player) const {
 void Galaxy::SetFiltered(bool isFiltered) {
     m_isFiltered = isFiltered;
 }
+
 bool Galaxy::IsFiltered() const {
     return m_isFiltered;
 }
@@ -1117,19 +1119,20 @@ bool Galaxy::IsFiltered() const {
 vec2pos_ty Galaxy::GetSize() const {
     return m_size;
 }
-std::vector<Planet_ty> const Galaxy::GetPlanets() const {
+
+std::vector<Planet_ty> Galaxy::GetPlanets() const {
     return m_planets;
 }
 
-std::vector<Fleet_ty> const Galaxy::GetFleets() const {
+std::vector<Fleet_ty> Galaxy::GetFleets() const {
     return m_fleets;
 }
 
-std::vector<TargetPoint_ty> const Galaxy::GetTargetPoints() const {
+std::vector<TargetPoint_ty> Galaxy::GetTargetPoints() const {
     return m_targetPoints;
 }
 
-Planet_ty const Galaxy::GetPlanetByID(unsigned int ID) const {
+Planet_ty Galaxy::GetPlanetByID(unsigned int ID) const {
     for (auto const& planet : m_planets) {
         if (planet->GetID() == ID) {
             return planet;
@@ -1139,7 +1142,7 @@ Planet_ty const Galaxy::GetPlanetByID(unsigned int ID) const {
     throw std::runtime_error("no planet with this ID: " + std::to_string(ID));
 }
 
-SpaceObject_ty const Galaxy::GetSpaceObjectByID(unsigned int ID) const {
+SpaceObject_ty Galaxy::GetSpaceObjectByID(unsigned int ID) const {
 
     for (auto const& object : m_objects) {
         if (object->GetID() == ID) {
@@ -1159,8 +1162,7 @@ bool Galaxy::IsValidPosition(vec2pos_ty_ref_c position) const {
     return true;
 }
 
-// actions
-HFleetResult Galaxy::AddFleet(SendFleetInstructionEvent const* event, Player_ty currentPlayer) {
+HFleetResult Galaxy::AddFleet(SendFleetInstructionEvent const* event, Player_ty const& currentPlayer) {
 
     // valid ID?
     if (!IsValidSpaceObjectID(event->GetOrigin())) {
@@ -1221,7 +1223,7 @@ HFleetResult Galaxy::AddFleet(SendFleetInstructionEvent const* event, Player_ty 
 }
 
 void Galaxy::SetDiscoverByPlayer(unsigned int currentPlayerID) {
-    // discover all spaceobjects with player
+    // discover all space objects with player
     for (auto const& object : m_objects) {
         object->SetDiscovered(false);
     }
@@ -1232,7 +1234,7 @@ void Galaxy::SetDiscoverByPlayer(unsigned int currentPlayerID) {
             if (object->IsTargetPoint() and object->GetShipCount() == 0) {
                 continue;
             }
-            // discover all spaceobjects nearby spaceobjects with player
+            // discover all space objects nearby space objects with player
             for (auto const& object_i : m_objects) {
                 if (object_i->IsInDiscoverRange(object)) {
                     if (object_i->IsTargetPoint() and object_i->GetShipCount() == 0) {
@@ -1244,13 +1246,14 @@ void Galaxy::SetDiscoverByPlayer(unsigned int currentPlayerID) {
         }
     }
 }
-void Galaxy::FilterByPlayer(unsigned int currentPlayerID) {
+
+void Galaxy::FilterByDiscovered() {
     if (m_isFiltered) {
         return;
     }
 
-    // filter fleets and target points inly by discovered
-    auto const newStart{ std::remove_if(m_fleets.begin(), m_fleets.end(), [currentPlayerID](Fleet_ty_c fleet) {
+    // filter fleets and target points only by discovered
+    auto const newStart{ std::remove_if(m_fleets.begin(), m_fleets.end(), [](Fleet_ty_c fleet) {
         return not fleet->IsDiscovered();
     }) };
     m_fleets.erase(newStart, m_fleets.end());
@@ -1258,16 +1261,14 @@ void Galaxy::FilterByPlayer(unsigned int currentPlayerID) {
     auto const newStart3{ std::remove_if(
             m_targetPoints.begin(),
             m_targetPoints.end(),
-            [currentPlayerID](TargetPoint_ty_c targetPoint) { return not targetPoint->IsDiscovered(); }
+            [](TargetPoint_ty_c targetPoint) { return not targetPoint->IsDiscovered(); }
     ) };
     m_targetPoints.erase(newStart3, m_targetPoints.end());
 
-    // filter spaceobjects by discovered and is not a planet
-    auto const newStart4{ std::remove_if(
-            m_objects.begin(),
-            m_objects.end(),
-            [currentPlayerID](SpaceObject_ty_c object) { return not object->IsPlanet() and not object->IsDiscovered(); }
-    ) };
+    // filter space objects by discovered and is not a planet
+    auto const newStart4{ std::remove_if(m_objects.begin(), m_objects.end(), [](SpaceObject_ty_c object) {
+        return not object->IsPlanet() and not object->IsDiscovered();
+    }) };
     m_objects.erase(newStart4, m_objects.end());
 
     m_isFiltered = true;
@@ -1313,7 +1314,7 @@ void Galaxy::HandleFleetResult(HFleetResult const& fleetResult, Player_ty_c curr
         }
 
         if (obj) {
-            auto& my_obj{ this->GetSpaceObjectByID(obj->GetID()) };
+            auto const& my_obj{ this->GetSpaceObjectByID(obj->GetID()) };
             if (my_obj) {
                 my_obj->SetShipCount(obj->GetShipCount());
                 if (my_obj->IsFleet()) {
@@ -1334,18 +1335,7 @@ void Galaxy::HandleFleetResult(HFleetResult const& fleetResult, Player_ty_c curr
     handle(fleetResult.destination);
 }
 
-// update
 UpdateResult_ty Galaxy::Update() {
-    /*
-		- k�mpfe
-		  - flotte gegen planet
-		  - flotte gegen target point
-		  - flotten, die sich zuf�llig treffen
-		  - optional
-			- planet gegen flotte
-			- target point gegen flotte
-	*/
-
     Print(PrintType::ONLY_DEBUG, "start update logic");
     Print(PrintType::ONLY_DEBUG, "-> update space objects");
     for (auto& o : m_objects) {
@@ -1357,8 +1347,8 @@ UpdateResult_ty Galaxy::Update() {
     std::vector<HMergeResult> singleMergeResult{ CheckMergingFriendlyFleets() };
     std::copy(singleMergeResult.begin(), singleMergeResult.end(), std::back_inserter(mergeResults));
 
-    Print(PrintType::ONLY_DEBUG, "-> delete fleets without ships bevor fights");
-    CheckDeleteFleetsWithoutShips(); // Check bevor Fight so there will be no fight without ships
+    Print(PrintType::ONLY_DEBUG, "-> delete fleets without ships before fights");
+    CheckDeleteFleetsWithoutShips(); // Check before Fight so there will be no fight without ships
     Print(PrintType::ONLY_DEBUG, "-> simulate fights");
     std::vector<HFightResult> fightResults{ SimulateFight() };
     Print(PrintType::ONLY_DEBUG, "-> delete fleets without ships after fights");

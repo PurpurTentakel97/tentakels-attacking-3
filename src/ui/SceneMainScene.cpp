@@ -384,6 +384,7 @@ void MainScene::Initialize() {
     m_resetBtn->SetOnClick([this]() { this->ClearInputLines(); });
     m_elements.push_back(m_resetBtn);
 }
+
 void MainScene::InitializeGalaxy() {
     AppContext_ty_c appContext{ AppContext::GetInstance() };
     if (m_galaxy) {
@@ -419,6 +420,7 @@ void MainScene::InitializePlanetTable() {
     );
     m_elements.push_back(m_planetTable);
 }
+
 void MainScene::InitializeFleetTable() {
 
     AppContext_ty appContext{ AppContext::GetInstance() };
@@ -546,6 +548,7 @@ void MainScene::SendFleetInstruction() {
                                      static_cast<size_t>(m_shipCount->GetValue()) };
     AppContext::GetInstance().eventManager.InvokeEvent(event);
 }
+
 void MainScene::ClearInputLines() {
 
     m_origin->Clear();
@@ -592,6 +595,7 @@ void MainScene::HandleGalaxyDragLineInput(DragLineFleetInstructionEvent const* e
     SelectFocusElementEvent const focusEvent{ m_shipCount.get() };
     AppContext::GetInstance().eventManager.InvokeEvent(focusEvent);
 }
+
 SpaceObject_ty MainScene::GetSpaceObjectFromID(unsigned int ID) const {
     auto const& planetData{ m_galaxy->GetGalaxy()->GetPlanets() };
     for (auto const& planet : planetData) {
@@ -634,6 +638,7 @@ MainScene::MainScene()
     SetAcceptButton();
     NextTurnPopup(false);
 }
+
 MainScene::~MainScene() {
     AppContext::GetInstance().eventManager.RemoveListener(this);
 }

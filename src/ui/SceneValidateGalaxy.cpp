@@ -57,7 +57,7 @@ void ValidateGalaxyScene::Initialize() {
             appContext.languageManager.Text("scene_validate_galaxy_next_btn"),
             SoundType::ACCEPTED
     );
-    nextBtn->SetOnClick([this]() {
+    nextBtn->SetOnClick([]() {
         StartGameEvent const event{};
         AppContext::GetInstance().eventManager.InvokeEvent(event);
     });
@@ -89,6 +89,7 @@ void ValidateGalaxyScene::InitializePlayerLegend() {
         Y += height;
     }
 }
+
 void ValidateGalaxyScene::InitializeGalaxy() {
     AppContext_ty_c appContext{ AppContext::GetInstance() };
 

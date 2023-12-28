@@ -6,6 +6,7 @@
 #include "ColorPickerCell.hpp"
 #include "ColorPicker.hpp"
 #include <AppContext.hpp>
+#include <helper/HColors.hpp>
 #include <helper/HFocusEvents.hpp>
 #include <helper/HInput.hpp>
 
@@ -18,7 +19,7 @@ ColorPickerCell::ColorPickerCell(unsigned int ID, Vector2 pos, Vector2 size, Ali
 	m_color{ color }, m_colorPicker{ colorPicker },
 	m_hover{
 		0.05f,
-		AppContext::GetInstance().colors.AsString(color),
+        Colors::AsString(color),
 		WHITE,
 		{0.01f,0.01f}
 	}
@@ -36,6 +37,7 @@ Color ColorPickerCell::GetColor() const {
 bool ColorPickerCell::IsBlankCell() const {
     return m_color == BLANK;
 }
+
 void ColorPickerCell::SetEnabled(bool enabled) {
     if (IsBlankCell()) {
         m_enabled = false;
@@ -43,9 +45,11 @@ void ColorPickerCell::SetEnabled(bool enabled) {
     }
     m_enabled = enabled;
 }
+
 bool ColorPickerCell::IsEnabled() const {
     return m_enabled;
 }
+
 Rectangle ColorPickerCell::GetCollider() const {
     return UIElement::GetCollider();
 }
@@ -76,6 +80,8 @@ void ColorPickerCell::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty
         m_colorPicker->SetColor(m_color);
     }
 }
+
+
 void ColorPickerCell::Render([[maybe_unused]] AppContext_ty_c appContext) {
     if (!m_enabled) {
         return;

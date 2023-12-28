@@ -8,9 +8,8 @@
 
 class GameSettingsScene : public SettingsScene {
 private:
+    void Initialize();
 
-	void Initialize();
-	
 public:
-	GameSettingsScene();
+    GameSettingsScene();
 };

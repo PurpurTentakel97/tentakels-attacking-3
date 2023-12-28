@@ -27,7 +27,7 @@ private:
     cell_vec_ty m_cells{};
     size_t m_row_count, m_column_count;
     headlines_ty m_headlines{};
-    Vector2 m_scroll_offset{ 0.0f, 0.0f };
+    Vector2 m_scroll_offset = Vector2(0.0f, 0.0f) ;
     float m_preference_text_size;
     float m_scroll_speed{ 0.05f };
     bool m_isHeadline{ false };
@@ -44,9 +44,9 @@ private:
     [[nodiscard]] NewTableCell const* getCellUnsafe(size_t row, size_t column) const;
 
 
-    [[nodiscard]] bool validSpecialRow(size_t row) const;
+    [[nodiscard]] static bool validSpecialRow(size_t row);
 
-    [[nodiscard]] bool validSpecialColumn(size_t column) const;
+    [[nodiscard]] static bool validSpecialColumn(size_t column);
 
     [[nodiscard]] bool validSpecialIndex(size_t row, size_t column) const;
 

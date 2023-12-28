@@ -101,6 +101,7 @@ void GalaxyScene::Zoom(float scaleFactor, Vector2 referenceScale) {
     m_scaleLineY->SetStart(startY);
     m_scaleLineY->Update();
 }
+
 void GalaxyScene::Slide(float position, bool isHorizontal) {
     if (isHorizontal) {
         m_horizontalSlider->SetButtonPosition(position);
@@ -118,9 +119,9 @@ GalaxyScene::GalaxyScene(Vector2 pos, Vector2 size, Alignment alignment, bool is
 void GalaxyScene::SetIsScaling(bool isScaling) {
     m_galaxy->SetIsScaling(isScaling);
 }
+
 bool GalaxyScene::IsScaling() const {
     return m_galaxy->IsScaling();
-    ;
 }
 
 void GalaxyScene::SetIsEnabled(bool isEnabled) {
@@ -129,6 +130,7 @@ void GalaxyScene::SetIsEnabled(bool isEnabled) {
     m_zoomInBtn->SetEnabled(isEnabled);
     m_zoomOutBtn->SetEnabled(isEnabled);
 }
+
 bool GalaxyScene::IsEnabled() const {
     return m_isEnabled;
 }
@@ -138,7 +140,7 @@ Galaxy_ty_raw GalaxyScene::GetGalaxy() const {
 }
 
 void GalaxyScene::FilterByCurrentPlayer(PlayerData player) {
-    m_galaxy->FilterByCurrentPlayer(player);
+    m_galaxy->FilterByCurrentPlayer(std::move(player));
 }
 
 void GalaxyScene::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) {
@@ -158,6 +160,7 @@ void GalaxyScene::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c a
         m_verticalSlider->CheckAndUpdate(mousePosition, appContext);
     }
 }
+
 void GalaxyScene::Render(AppContext_ty_c appContext) {
     if (!IsActive()) {
         return;
@@ -177,6 +180,7 @@ void GalaxyScene::Render(AppContext_ty_c appContext) {
         m_scaleLineY->Render(appContext);
     }
 }
+
 void GalaxyScene::Resize(AppContext_ty_c appContext) {
 
     Scene::Resize(appContext);

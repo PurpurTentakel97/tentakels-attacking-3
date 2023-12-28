@@ -19,32 +19,32 @@ class Slider;
 class Table final : public UIElement, public Focusable {
 private:
     using cells_ty = std::vector<std::vector<AbstractTableCell_ty>>;
-    size_t m_rowCount;                                      ///< contains the current mount of rows in the table
-    size_t m_columnCount;                                   ///< contains the current mount of column in the table
-    cells_ty m_cells;                                       ///< contains all cells the table is holding
-    Vector2 m_minCellSize;                                  ///< contains the minimum relative size of one cell
-    std::array<std::vector<bool>, 2> m_editableRowsColumns; ///< contains the enabled rows and columns
+    size_t m_rowCount;
+    size_t m_columnCount;
+    cells_ty m_cells;
+    Vector2 m_minCellSize;
+    std::array<std::vector<bool>, 2> m_editableRowsColumns;
 
-    bool m_setScrollable{ false };                   ///< contains if the table get set scrollable this frame
-    bool m_isScrollable{ false };                    ///< contains if it is able to scroll the table
-    bool m_setFixedHeadline{ false };                ///< contains if the first row will get fixed this frame
-    bool m_isFixedHeadline{ false };                 ///< contains if the first row is fixed while scrolling
-    bool m_setFixedFirstColumn{ false };             ///< contains if the first column will get fixed this frame
-    bool m_isFixedFirstColumn{ false };              ///< contains if the first column is fixed while scrolling
-    float m_scroll_speed;                            ///< contains the speed the table ist scrolled with
-    Vector2 m_absoluteScrollingOffset{ 0.0f, 0.0f }; ///< contains the absolute scrolling offset
+    bool m_setScrollable{ false };
+    bool m_isScrollable{ false };
+    bool m_setFixedHeadline{ false };
+    bool m_isFixedHeadline{ false };
+    bool m_setFixedFirstColumn{ false };
+    bool m_isFixedFirstColumn{ false };
+    float m_scroll_speed;
+    Vector2 m_absoluteScrollingOffset{ 0.0f, 0.0f };
 
-    Slider_ty m_horizontalSlider;  ///< contains the horizontal slider
-    bool m_activeHorizontalSlider; ///< contains if the horizontal slider is needed
-    Slider_ty m_verticalSlider;    ///< contains the vertical slider
-    bool m_activeVerticalSlider;   ///< contains if the vertical slider is needed
+    Slider_ty m_horizontalSlider;
+    bool m_activeHorizontalSlider;
+    Slider_ty m_verticalSlider;
+    bool m_activeVerticalSlider;
 
-    bool m_isHoveredHighlighted{ false };      ///< contains if the hovered row and column gets highlighted
-    vec2pos_ty m_currentHighlighted{ -1, -1 }; ///< contains the currently hightlithed row (x) and column (y) index
+    bool m_isHoveredHighlighted{ false };
+    vec2pos_ty m_currentHighlighted{ -1, -1 };
 
     std::function<void(AbstractTableCell const*, std::string, std::string)> m_updatedStringCell{
         [](AbstractTableCell const*, std::string, std::string) {}
-    }; ///< string
+    };
     std::function<void(AbstractTableCell const*, int, int)> m_updatedIntCell{ [](AbstractTableCell const*, int, int) {
     } }; ///< int
     std::function<void(AbstractTableCell const*, float, float)> m_updatedFloatCell{

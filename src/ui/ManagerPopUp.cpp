@@ -94,6 +94,7 @@ void ManagerPopUp::NewMessagePopUp(ShowMessagePopUpEvent const* event) {
             event->GetCallback()
     ));
 }
+
 void ManagerPopUp::NewDeletePlayerPopUp(ShowDeletePlayerPopUpEvent const* event) {
     AddFocusLayer(true);
 
@@ -106,6 +107,7 @@ void ManagerPopUp::NewDeletePlayerPopUp(ShowDeletePlayerPopUpEvent const* event)
             event->GetOnClick()
     ));
 }
+
 void ManagerPopUp::NewValidatePopUp(ShowValidatePopUp const* event) {
     AddFocusLayer(true);
 
@@ -119,6 +121,7 @@ void ManagerPopUp::NewValidatePopUp(ShowValidatePopUp const* event) {
             event->GetCallback()
     ));
 }
+
 void ManagerPopUp::NewColorCellPopUp(ShowCellPopUpEvent<Color> const* event) {
     AppContext_ty_c appContext{ AppContext::GetInstance() };
     NewFocusPopUpLayerEvent focusEvent;
@@ -134,6 +137,7 @@ void ManagerPopUp::NewColorCellPopUp(ShowCellPopUpEvent<Color> const* event) {
             event->GetOnClick()
     ));
 }
+
 void ManagerPopUp::NewSoundLevelPopUp(ShowInitialSoundLevelPopUpEvent const* event) {
     AppContext_ty_c appContext{ AppContext::GetInstance() };
     NewFocusPopUpLayerEvent focusEvent;
@@ -162,7 +166,7 @@ void ManagerPopUp::NewFightResultPopUp(ShowFightResultEvent const* event) {
 }
 
 void ManagerPopUp::DeleteLastPopUp(PopUp* toDelete) {
-    if (m_popUps.size() == 0) {
+    if (m_popUps.empty()) {
         return;
     }
 
@@ -176,13 +180,14 @@ void ManagerPopUp::DeleteLastPopUp(PopUp* toDelete) {
         m_toDelete.push_back(toDelete);
     }
 }
+
 void ManagerPopUp::CheckForDeleteRemainingPopUps() {
     while (true) {
-        if (m_popUps.size() == 0) {
+        if (m_popUps.empty()) {
             m_toDelete.clear();
             return;
         }
-        if (m_toDelete.size() == 0) {
+        if (m_toDelete.empty()) {
             return;
         }
 
@@ -211,11 +216,13 @@ void ManagerPopUp::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c 
 
     m_popUps.back()->CheckAndUpdate(mousePosition, appContext);
 }
+
 void ManagerPopUp::Render(AppContext_ty_c appContext) {
     for (auto& p : m_popUps) {
         p->Render(appContext);
     }
 }
+
 void ManagerPopUp::Resize(AppContext_ty_c appContext) {
     for (auto& e : m_popUps) {
         e->Resize(appContext);

@@ -44,6 +44,7 @@ void SoundManager::PlaySound(SoundType soundType) const {
 
     ::PlaySound(m_sounds.at(soundType));
 }
+
 void SoundManager::PlayTextSound() const {
     Random& random{ Random::GetInstance() };
 
@@ -57,12 +58,14 @@ void SoundManager::PlayTextSound() const {
     ::PlaySound(m_textSounds.at(nextIndex));
     lastIndex = nextIndex;
 }
-void SoundManager::MuteMasterSoundLevel(bool mute) const {
+
+void SoundManager::MuteMasterSoundLevel(bool mute) {
     AppContext_ty appContext{ AppContext::GetInstance() };
     appContext.constants.sound.muteVolume = mute;
     SetMasterSoundLevel(appContext.constants.sound.masterVolume);
 }
-void SoundManager::SetMasterSoundLevel(float level) const {
+
+void SoundManager::SetMasterSoundLevel(float level) {
     AppContext_ty appContext{ AppContext::GetInstance() };
 
     appContext.constants.sound.masterVolume = level;

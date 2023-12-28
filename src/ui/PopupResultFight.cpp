@@ -25,13 +25,7 @@ void FightResultPopup::Initialize() {
     auto const& object{ m_result.GetSpaceObjects().first };
     if (object->IsPlanet()) {
         fightText = { appContext.languageManager.Text("ui_popup_fight_result_fight_at_planet", object->GetID()) };
-    } else if (object->IsFleet()) {
-        fightText = { appContext.languageManager.Text(
-                "ui_popup_fight_result_fight_at_coordinates",
-                object->GetPos().x,
-                object->GetPos().y
-        ) };
-    } else if (object->IsTargetPoint()) {
+    } else {
         fightText = { appContext.languageManager.Text(
                 "ui_popup_fight_result_fight_at_coordinates",
                 object->GetPos().x,
@@ -159,15 +153,18 @@ void FightResultPopup::NextNumber(bool const left) {
 
     ++m_index;
 }
+
 void FightResultPopup::NextNumber(CountingNumber::Type, int, int, double, bool const left) {
     NextNumber(left);
 }
+
 void FightResultPopup::SetLastStep() {
     m_index = m_result.GetRounds().size() - 1;
     m_leftNumber->SetTo(static_cast<int>(m_result.GetRounds().at(m_index).first));
     m_rightNumber->SetTo(static_cast<int>(m_result.GetRounds().at(m_index).second));
     SetEnd();
 }
+
 void FightResultPopup::SetEnd() {
     AppContext_ty_c appContext{ AppContext::GetInstance() };
     m_closeBtn->SetText(appContext.languageManager.Text("helper_next_big"));
@@ -187,6 +184,7 @@ void FightResultPopup::SetEnd() {
 
     m_winText->SetText(appContext.languageManager.Text("ui_popup_fight_result_win_text", dummy));
 }
+
 void FightResultPopup::HandleButton() {
     if (not m_finishedCounting) {
         m_finishedCounting = true;
@@ -201,14 +199,14 @@ FightResultPopup::FightResultPopup(
         Vector2 pos,
         Vector2 size,
         Alignment alignment,
-        HFightResult const result,
+        HFightResult  result,
         callback_ty callback
 )
     : PopUp{ pos,           size,
              alignment,     AppContext::GetInstance().languageManager.Text("helper_fight_big"),
              s_emptyString, AssetType::EXCLAMATION_MARK },
-      m_result{ result },
-      m_callback{ callback } {
+      m_result{ std::move(result) },
+      m_callback{ std::move(callback) } {
 
     Initialize();
     NextNumber(false);

@@ -6,7 +6,10 @@
 #include "HMergeResult.hpp"
 
 HMergeResult::HMergeResult(Player_ty player, SpaceObject_ty origin, SpaceObject_ty destination, size_t count)
-    : m_player{ player }, m_origin{ origin }, m_destination{ destination }, m_count{ count } { }
+    : m_player{ std::move(player) },
+      m_origin{ std::move(origin) },
+      m_destination{ std::move(destination) },
+      m_count{ count } { }
 
 Player_ty HMergeResult::GetPlayer() const {
     return m_player;

@@ -44,7 +44,7 @@ DeletePlayerPopUp::DeletePlayerPopUp(
         std::function<void(unsigned int)> onClick
 )
     : CellPopUp{ pos, size, alignment, title, inputTexture },
-      m_onClick{ onClick } {
+      m_onClick{ std::move(onClick) } {
 
     Initialize();
 

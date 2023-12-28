@@ -21,6 +21,7 @@ void CountingNumber::HandleCountingOutNumbers() {
         m_callback(m_countingType, m_startNumber, m_currentNumber, m_timeInS);
     }
 }
+
 void CountingNumber::HandleCounting() {
     if (m_currentNumber != m_targetNumber and not m_isCounting) {
         m_isCounting = true;
@@ -57,18 +58,21 @@ void CountingNumber::HandleCounting() {
         UpdateColor();
     }
 }
+
 void CountingNumber::HandleLinearCounting() {
     double const percent{ (GetTime() - m_startCountingTime) / m_timeInS };
     int nextNumber = { m_startNumber + static_cast<int>((m_targetNumber - m_startNumber) * percent) };
 
     SetNewNumber(nextNumber);
 }
+
 void CountingNumber::HandleAsymptoticCounting() {
     double const percent{ std::sqrt((GetTime() - m_startCountingTime) / m_timeInS) };
     int nextNumber = { m_startNumber + static_cast<int>((m_targetNumber - m_startNumber) * percent) };
 
     SetNewNumber(nextNumber);
 }
+
 void CountingNumber::SetNewNumber(int number) {
     m_currentNumber = number;
     m_text->SetText(std::to_string(m_currentNumber));
@@ -109,9 +113,11 @@ void CountingNumber::SetDefaultColor(Color color) {
 bool CountingNumber::IsCounting() const {
     return m_isCounting;
 }
+
 void CountingNumber::SetCallback(callback_ty callback) {
-    m_callback = callback;
+    m_callback = std::move(callback);
 }
+
 void CountingNumber::CountTo(Type type, int target, double timeIsS) {
     m_countingType = type;
     m_targetNumber = target;
@@ -122,6 +128,7 @@ void CountingNumber::CountTo(Type type, int target, double timeIsS) {
         m_isCountingOutNumbers = true;
     }
 }
+
 void CountingNumber::SetTo(int target) {
     m_targetNumber = target;
     m_currentNumber = m_targetNumber;
@@ -130,9 +137,11 @@ void CountingNumber::SetTo(int target) {
     m_isCountingOutNumbers = false;
     UpdateColor();
 }
+
 int CountingNumber::GetCurrentNumber() const {
     return m_currentNumber;
 }
+
 int CountingNumber::GetTargetNumber() const {
     return m_targetNumber;
 }
@@ -145,9 +154,11 @@ void CountingNumber::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_
     }
     m_text->CheckAndUpdate(mousePosition, appContext);
 }
+
 void CountingNumber::Render(AppContext_ty_c appContext) {
     m_text->Render(appContext);
 }
+
 void CountingNumber::Resize(AppContext_ty_c appContext) {
     UIElement::Resize(appContext);
     m_text->Resize(appContext);

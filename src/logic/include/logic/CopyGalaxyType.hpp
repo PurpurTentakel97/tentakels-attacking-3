@@ -4,6 +4,6 @@
 //
 
 enum class CopyGalaxyType {
-	COPY_ALL,
-	COPY_START,
+    COPY_ALL,
+    COPY_START,
 };

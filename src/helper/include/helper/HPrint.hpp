@@ -11,9 +11,7 @@
 #include <iostream>
 #include <string>
 
-/**
- * provides all kinds of print types.
- */
+
 enum class PrintType {
     INFO,
     EXPECTED_ERROR,
@@ -26,9 +24,6 @@ enum class PrintType {
 };
 static PrintType longestType{ PrintType::EXPECTED_ERROR };
 
-/**
- * returns the provided print type as string.
- */
 [[nodiscard]] static inline std::string GetPrintTypeString(PrintType printType) {
     switch (printType) {
         default:
@@ -50,9 +45,7 @@ static PrintType longestType{ PrintType::EXPECTED_ERROR };
             return "[TODO]";
     }
 }
-/**
- * exports the message when according to the print type.
- */
+
 static inline void TryExport(std::string const& message, PrintType printType) {
     switch (printType) {
         case PrintType::EXPECTED_ERROR:
@@ -64,15 +57,9 @@ static inline void TryExport(std::string const& message, PrintType printType) {
     }
 }
 
-/**
- * print to the console with a print type tag and additional values.
- * values must match with the provided `{}` inside the string.
- */
 template<typename... Args>
 void Print(PrintType printType, std::string const& message, Args const&... args);
-/**
- * print to the console with a print type tag.
- */
+
 void Print(PrintType printType, std::string const& message);
 
 template<typename... Args>

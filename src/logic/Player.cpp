@@ -5,29 +5,28 @@
 
 #include "Player.hpp"
 
-Player::Player(unsigned int ID, PlayerType playerType)
-	: m_ID{ ID }, m_playerType{ playerType } { }
+Player::Player(unsigned int ID, PlayerType playerType) : m_ID{ ID }, m_playerType{ playerType } { }
 
 bool Player::IsHumanPlayer() const {
-	return m_playerType == PlayerType::HUMAN;
+    return m_playerType == PlayerType::HUMAN;
 }
 
 unsigned int Player::GetID() const {
-	return m_ID;
+    return m_ID;
 }
 
 bool Player::IsAlive() const {
-	return m_isAlive;
+    return m_isAlive;
 }
 
 void Player::Kill() {
-	m_isAlive = false;
+    m_isAlive = false;
 }
 
 void Player::Revive() {
-	m_isAlive = true;
+    m_isAlive = true;
 }
 
 bool operator==(Player const& lhs, Player const& rhs) {
-	return lhs.m_ID == rhs.m_ID;
+    return lhs.m_ID == rhs.m_ID;
 }

@@ -37,7 +37,7 @@ void TestScene::Initialize([[maybe_unused]] AppContext_ty appContext) {
     auto constexpr xs{ 0.05f };
     auto constexpr ys{ 0.05f };
 
-    auto count{ 0 };
+    auto count{ 0.0f };
 
     auto insertLineBtn = std::make_shared<ClassicButton>(
             100,
@@ -190,9 +190,11 @@ void TestScene::TestLambda(bool toggled) {
 void TestScene::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) {
     Scene::CheckAndUpdate(mousePosition, appContext);
 }
+
 void TestScene::Render(AppContext_ty_c appContext) {
     Scene::Render(appContext);
 }
+
 void TestScene::Resize(AppContext_ty_c appContext) {
     Scene::Resize(appContext);
 }

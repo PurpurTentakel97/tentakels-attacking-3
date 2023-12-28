@@ -22,7 +22,7 @@ void GalaxyManager::FilterCurrentGalaxy() {
     }
     m_mainGalaxy->SetDiscoverByPlayer(currentPlayer->GetID());
     m_currentGalaxy->SetDiscoverByPlayer(currentPlayer->GetID());
-    m_currentGalaxy->FilterByPlayer(currentPlayer->GetID());
+    m_currentGalaxy->FilterByDiscovered();
 }
 
 GalaxyManager::GalaxyManager(GameManager* gameManager) : m_gameManager{ gameManager } { }
@@ -51,6 +51,7 @@ void GalaxyManager::GenerateGalaxy() {
         appContext.eventManager.InvokeEvent(event);
     }
 }
+
 void GalaxyManager::GenerateShowGalaxy() {
     AppContext_ty_c appContext{ AppContext::GetInstance() };
     vec2pos_ty_c size = {
@@ -93,9 +94,9 @@ Galaxy* GalaxyManager::GetGalaxy() {
     return m_currentGalaxy.get();
 }
 
-bool GalaxyManager::AddFleet(SendFleetInstructionEvent const* event, Player_ty currentPlayer) {
+bool GalaxyManager::AddFleet(SendFleetInstructionEvent const* event, Player_ty const& currentPlayer) {
 
-    auto const result{ m_mainGalaxy->AddFleet(event, currentPlayer) };
+    auto const result = m_mainGalaxy->AddFleet(event, currentPlayer);
     if (not result.valid) {
         Print(PrintType::ONLY_DEBUG, "Not able to add Fleet to main Galaxy");
 

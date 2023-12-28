@@ -10,81 +10,48 @@
 
 class DropDownElement : public UIElement, public Focusable {
 private:
-	bool m_isEnabled{ true }; ///< contains if the element is currently enabled
-	bool m_hover{ false }; ///< contains if the mouse if currently hovering over the element
-	unsigned int m_ID; ///< contains the unique element ID
-	float m_fontSize; ///< contains the font height
-	std::string m_toRender; ///< contains the string that gets rendered
-	std::string m_text; ///< contains the raw string
-	Vector2 m_textPosition; ///< contains the position the text gets rendered at
-	std::function<void(unsigned int)> m_onClick{ [](unsigned int) {} }; ///< contains the action that gets called on click or enter
-	std::function<Rectangle(Rectangle)> m_getTemporaryCollider;
+    bool m_isEnabled{ true };
+    bool m_hover{ false };
+    unsigned int m_ID;
+    float m_fontSize{};
+    std::string m_toRender;
+    std::string m_text;
+    Vector2 m_textPosition{};
+    std::function<void(unsigned int)> m_onClick{ [](unsigned int) {} };
+    std::function<Rectangle(Rectangle)> m_getTemporaryCollider;
 
-	/**
-	 * generates the toRender string out of the raw string.
-	 */
-	void CreateToRender();
+    void CreateToRender();
 
-	/**
-	 * calls UpdateCollider of the UIElement.
-	 * Updates the text.
-	 */
-	void UpdateCollider() override;
-	/**
-	 * calls UpdateReverseCollider of the UIElement.
-	 * Updates the text.
-	 */
-	void UpdateColliderReverse() override;
+    void UpdateCollider() override;
+
+    void UpdateColliderReverse() override;
 
 public:
-	/**
-	 * ctor.
-	 * create toRender.
-	 */
-	DropDownElement(Vector2 pos, Vector2 size, Alignment alignment,
-		unsigned int focusID, unsigned int ID, std::string const& text, std::function<Rectangle(Rectangle)> getTemoraryCollider);
+    DropDownElement(
+            Vector2 pos,
+            Vector2 size,
+            Alignment alignment,
+            unsigned int focusID,
+            unsigned int ID,
+            std::string text,
+            std::function<Rectangle(Rectangle)> getTemporaryCollider
+    );
 
-	/**
-	 * calls the CheckAndUpdate member function of the UIElement.
-	 * contains the element logic.
-	 */
-	void CheckAndUpdate(Vector2 const&, AppContext_ty_c) override;
-	/**
-	 * renders the element.
-	 */
-	void Render(AppContext_ty_c appContext) override;
+    void CheckAndUpdate(Vector2 const&, AppContext_ty_c) override;
 
-	/**
-	 * returns if the element is currently enabled.
-	 */
-	[[nodiscard]] bool IsEnabled() const override;
-	/**
-	 * sets if the element is currently enabled.
-	 */
-	void SetEnabled(bool isEnabled);
+    void Render(AppContext_ty_c appContext) override;
 
-	/**
-	 * sets the current text of the element.
-	 */
-	void SetText(std::string text);
-	/**
-	 * returns the current entry text.
-	 */
-	[[nodiscard]] std::string GetText() const;
+    [[nodiscard]] bool IsEnabled() const override;
 
-	/**
-	 * returns the ID of the Entry.
-	 */
-	[[nodiscard]] unsigned int GetID() const;
+    void SetEnabled(bool isEnabled);
 
-	/**
-	 * sets the lambda that gets called on click or enter.
-	 * provides the ID of the clicked element.
-	 */
-	void SetOnClick(std::function<void(unsigned int)> onClick);
+    void SetText(std::string text);
 
-	/**
-	 * returns the element collider.
-	 */
-	[[nodiscard]] Rectangle GetCollider() const override;
+    [[nodiscard]] std::string GetText() const;
+
+    [[nodiscard]] unsigned int GetID() const;
+
+    void SetOnClick(std::function<void(unsigned int)> onClick);
+
+    [[nodiscard]] Rectangle GetCollider() const override;
 };
