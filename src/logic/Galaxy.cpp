@@ -96,7 +96,7 @@ int Galaxy::GenerateHomePlanets(std::vector<Player_ty> const& players) {
     return currentPlanet;
 }
 
-void Galaxy::GenerateOtherPlanets(size_t planetCount, int currentPlanet, Player_ty const& player) {
+void Galaxy::GenerateOtherPlanets(size_t const planetCount, int currentPlanet, Player_ty const& player) {
 
     AppContext_ty_c appContext{ AppContext::GetInstance() };
     Random& random{ Random::GetInstance() };
@@ -269,7 +269,7 @@ HFleetResult Galaxy::AddFleetFromPlanet(SendFleetInstructionEvent const* event, 
     return { originPlanet, fleet, destination, true };
 }
 
-HFleetResult Galaxy::AddFleetFromFleet(SendFleetInstructionEvent const* event, Player_ty const& currentPlayer) {
+HFleetResult Galaxy::AddFleetFromFleet(SendFleetInstructionEvent const* const event, Player_ty const& currentPlayer) {
     // check if origin ID is existing
     if (not IsValidFleet(event->GetOrigin())) {
         popup(AppContext::GetInstance().languageManager.Text("logic_galaxy_not_existing_fleet_text", event->GetOrigin())
@@ -371,7 +371,8 @@ HFleetResult Galaxy::AddFleetFromFleet(SendFleetInstructionEvent const* event, P
     return { origin, fleet, destination, true };
 }
 
-HFleetResult Galaxy::AddFleetFromTargetPoint(SendFleetInstructionEvent const* event, Player_ty const& currentPlayer) {
+HFleetResult
+Galaxy::AddFleetFromTargetPoint(SendFleetInstructionEvent const* const event, Player_ty const& currentPlayer) {
     // check if origin ID is existing
     if (not IsValidTargetPoint(event->GetOrigin())) {
         popup(AppContext::GetInstance()
@@ -544,7 +545,8 @@ TargetPoint_ty Galaxy::GetTargetPointByID(unsigned int const ID) const {
     throw std::runtime_error("no Target Point with ID " + std::to_string(ID));
 }
 
-SpaceObject_ty Galaxy::GetOrGenerateDestination(unsigned int ID, int X, int Y, Player_ty const& currentPlayer) {
+SpaceObject_ty
+Galaxy::GetOrGenerateDestination(unsigned int const ID, int const X, int const Y, Player_ty const& currentPlayer) {
 
     for (auto& object : m_objects) {
 
@@ -1088,7 +1090,7 @@ bool Galaxy::IsValid() const {
     return m_validGalaxy;
 }
 
-bool Galaxy::IsValidSpaceObjectID(unsigned int ID) const {
+bool Galaxy::IsValidSpaceObjectID(unsigned int const ID) const {
 
     for (auto const& object : m_objects) {
         if (object->GetID() == ID) {
@@ -1108,7 +1110,7 @@ bool Galaxy::HasMovesLeft(Player_ty_c player) const {
     return false;
 }
 
-void Galaxy::SetFiltered(bool isFiltered) {
+void Galaxy::SetFiltered(bool const isFiltered) {
     m_isFiltered = isFiltered;
 }
 
@@ -1132,7 +1134,7 @@ std::vector<TargetPoint_ty> Galaxy::GetTargetPoints() const {
     return m_targetPoints;
 }
 
-Planet_ty Galaxy::GetPlanetByID(unsigned int ID) const {
+Planet_ty Galaxy::GetPlanetByID(unsigned int const ID) const {
     for (auto const& planet : m_planets) {
         if (planet->GetID() == ID) {
             return planet;
@@ -1142,7 +1144,7 @@ Planet_ty Galaxy::GetPlanetByID(unsigned int ID) const {
     throw std::runtime_error("no planet with this ID: " + std::to_string(ID));
 }
 
-SpaceObject_ty Galaxy::GetSpaceObjectByID(unsigned int ID) const {
+SpaceObject_ty Galaxy::GetSpaceObjectByID(unsigned int const ID) const {
 
     for (auto const& object : m_objects) {
         if (object->GetID() == ID) {
@@ -1162,7 +1164,7 @@ bool Galaxy::IsValidPosition(vec2pos_ty_ref_c position) const {
     return true;
 }
 
-HFleetResult Galaxy::AddFleet(SendFleetInstructionEvent const* event, Player_ty const& currentPlayer) {
+HFleetResult Galaxy::AddFleet(SendFleetInstructionEvent const* const event, Player_ty const& currentPlayer) {
 
     // valid ID?
     if (!IsValidSpaceObjectID(event->GetOrigin())) {

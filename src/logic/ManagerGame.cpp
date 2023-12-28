@@ -48,7 +48,7 @@ unsigned int GameManager::GetNextPlayerID() const {
     }
 }
 
-bool GameManager::IsExistingPlayerID(unsigned int ID) const {
+bool GameManager::IsExistingPlayerID(unsigned int const ID) const {
     for (auto const& p : m_players) {
         if (p->GetID() == ID) {
             return true;
@@ -75,7 +75,7 @@ bool GameManager::GetNextPlayer(Player_ty& nextPlayer) const {
     return true;
 }
 
-void GameManager::AddPlayer(AddPlayerEvent const* event) {
+void GameManager::AddPlayer(AddPlayerEvent const* const event) {
 
     auto name{ event->GetName() };
     auto color{ event->GetColor() };
@@ -109,7 +109,7 @@ void GameManager::AddPlayer(AddPlayerEvent const* event) {
     appContext.eventManager.InvokeEvent(AddEvent);
 }
 
-void GameManager::EditPlayer(EditPlayerEvent const* event) const {
+void GameManager::EditPlayer(EditPlayerEvent const* const event) const {
 
     AppContext_ty_c appContext{ AppContext::GetInstance() };
 
@@ -127,7 +127,7 @@ void GameManager::EditPlayer(EditPlayerEvent const* event) const {
     appContext.eventManager.InvokeEvent(editEvent);
 }
 
-void GameManager::DeletePlayer(DeletePlayerEvent const* event) {
+void GameManager::DeletePlayer(DeletePlayerEvent const* const event) {
 
     auto id{ event->GetID() };
     AppContext_ty_c appContext{ AppContext::GetInstance() };
@@ -298,7 +298,7 @@ void GameManager::SendNextPlayerID() {
 }
 
 // rounds
-void GameManager::NextRound(bool valid) {
+void GameManager::NextRound(bool const valid) {
 
     if (!valid) {
         return;
@@ -342,7 +342,7 @@ void GameManager::NextRound(bool valid) {
     appContext.eventManager.InvokeEvent(ShowEvaluationEvent());
 }
 
-void GameManager::NextTurn(bool valid) {
+void GameManager::NextTurn(bool const valid) {
 
     if (!valid) {
         return;
@@ -397,7 +397,7 @@ void GameManager::ValidateNextTurn() {
 }
 
 // Fleet
-void GameManager::AddFleet(SendFleetInstructionEvent const* event) {
+void GameManager::AddFleet(SendFleetInstructionEvent const* const event) {
 
     AppContext_ty_c appContext{ AppContext::GetInstance() };
 
@@ -416,7 +416,7 @@ void GameManager::AddFleet(SendFleetInstructionEvent const* event) {
     appContext.eventManager.InvokeEvent(returnEvent);
 }
 
-bool GameManager::ValidateAddFleetInput(SendFleetInstructionEvent const* event) {
+bool GameManager::ValidateAddFleetInput(SendFleetInstructionEvent const* const event) {
 
     std::string messageText;
     AppContext_ty_c appContext{ AppContext::GetInstance() };
