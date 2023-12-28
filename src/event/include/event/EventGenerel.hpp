@@ -19,7 +19,7 @@ private:
     Color m_color;
 
 public:
-    PlayerEvent(std::string name, Color color) : m_name{ std::move(name) }, m_color{ color } { }
+    PlayerEvent(std::string name, Color const color) : m_name{ std::move(name) }, m_color{ color } { }
 
     [[nodiscard]] std::string GetName() const {
         return m_name;
@@ -34,7 +34,7 @@ private:
     unsigned int m_ID;
 
 public:
-    PlayerWithIDEvent(unsigned int ID, std::string const& name, Color color)
+    PlayerWithIDEvent(unsigned int ID, std::string const& name, Color const color)
         : PlayerEvent{ name, color },
           m_ID{ ID } { }
 
@@ -59,7 +59,7 @@ private:
     unsigned int m_ID;
 
 public:
-    explicit DeletePlayerEvent(unsigned int ID) : m_ID{ ID } { }
+    explicit DeletePlayerEvent(unsigned int const ID) : m_ID{ ID } { }
 
     [[nodiscard]] unsigned int GetID() const {
         return m_ID;
@@ -87,7 +87,7 @@ private:
     unsigned int m_ID;
 
 public:
-    explicit DeletePlayerUIEvent(unsigned int ID) : m_ID{ ID } { }
+    explicit DeletePlayerUIEvent(unsigned int const ID) : m_ID{ ID } { }
 
     [[nodiscard]] unsigned int GetID() const {
         return m_ID;
@@ -101,7 +101,7 @@ private:
     unsigned int m_ID;
 
 public:
-    explicit PlayerIDEvent(unsigned int ID) : m_ID{ ID } { }
+    explicit PlayerIDEvent(unsigned int const ID) : m_ID{ ID } { }
     [[nodiscard]] unsigned int GetID() const {
         return m_ID;
     }
@@ -152,7 +152,7 @@ private:
     bool m_validPlayerCount;
 
 public:
-    explicit ValidatePlayerCountResultEvent(bool validPlayerCount) : m_validPlayerCount{ validPlayerCount } { }
+    explicit ValidatePlayerCountResultEvent(bool const validPlayerCount) : m_validPlayerCount{ validPlayerCount } { }
 
     [[nodiscard]] bool GetValid() const {
         return m_validPlayerCount;
@@ -174,7 +174,7 @@ private:
     size_t m_lastRound;
 
 public:
-    explicit SetCurrentLastRoundEvent(size_t lastRound) : m_lastRound{ lastRound } { }
+    explicit SetCurrentLastRoundEvent(size_t const lastRound) : m_lastRound{ lastRound } { }
 
     [[nodiscard]] size_t GetLastRound() const {
         return m_lastRound;
@@ -195,7 +195,7 @@ private:
     bool m_isShowGalaxy;
 
 public:
-    SendGalaxyPointerEvent(Galaxy_ty_c_raw galaxy, bool isShowGalaxy)
+    SendGalaxyPointerEvent(Galaxy_ty_c_raw const galaxy, bool const isShowGalaxy)
         : m_galaxy{ galaxy },
           m_isShowGalaxy{ isShowGalaxy } { }
 
@@ -217,11 +217,11 @@ private:
 
 public:
     SendFleetInstructionEvent(
-            unsigned int origin,
-            unsigned int destination,
-            int destinationX,
-            int destinationY,
-            size_t shipCount
+            unsigned int const origin,
+            unsigned int const destination,
+            int const destinationX,
+            int const destinationY,
+            size_t const shipCount
     )
         : m_origin{ origin },
           m_destination{ destination },
@@ -251,7 +251,7 @@ private:
     bool m_isValidFleet;
 
 public:
-    explicit ReturnFleetInstructionEvent(bool validFeet) : m_isValidFleet{ validFeet } { }
+    explicit ReturnFleetInstructionEvent(bool const validFeet) : m_isValidFleet{ validFeet } { }
 
     [[nodiscard]] bool IsValidFleet() const {
         return m_isValidFleet;

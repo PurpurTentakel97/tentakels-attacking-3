@@ -240,7 +240,7 @@ void NewGameParameterScene::Initialize() {
     m_elements.push_back(nextBtn);
 }
 
-void NewGameParameterScene::SetValue(int value, SliderType type) {
+void NewGameParameterScene::SetValue(int const value, SliderType const type) {
     switch (type) {
         case SliderType::PLANET_COUNT:
             AppContext::GetInstance().constants.world.currentPlanetCount = static_cast<size_t>(value);

@@ -76,7 +76,13 @@ void CellPopUp::Close(AppContext_ty_c appContext) {
     }
 }
 
-CellPopUp::CellPopUp(Vector2 pos, Vector2 size, Alignment alignment, std::string const& title, AssetType infoTexture)
+CellPopUp::CellPopUp(
+        Vector2 const pos,
+        Vector2 const size,
+        Alignment const alignment,
+        std::string const& title,
+        AssetType const infoTexture
+)
     : PopUp{ pos, size, alignment, title, subTitle, infoTexture } {
 
     Initialize();

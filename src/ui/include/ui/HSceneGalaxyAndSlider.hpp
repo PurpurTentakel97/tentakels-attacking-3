@@ -41,7 +41,7 @@ public:
 
     [[nodiscard]] Galaxy_ty_raw GetGalaxy() const;
 
-    void FilterByCurrentPlayer(PlayerData player);
+    void FilterByCurrentPlayer(PlayerData const& player);
 
     void CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) override;
 

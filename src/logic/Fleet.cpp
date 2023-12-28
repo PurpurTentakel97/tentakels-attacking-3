@@ -10,11 +10,11 @@
 #include <helper/HGalaxy.hpp>
 #include <helper/HPrint.hpp>
 
-Fleet::Fleet(unsigned int ID, vec2pos_ty_ref_c position, Player_ty_c player, SpaceObject_ty target)
+Fleet::Fleet(unsigned int const ID, vec2pos_ty_ref_c position, Player_ty_c player, SpaceObject_ty target)
     : SpaceObject{ ID, position, player },
       m_target{ std::move(target) } { }
 
-Fleet::Fleet(unsigned int ID, vec2pos_ty_ref_c position, size_t ships, Player_ty_c player, SpaceObject_ty target)
+Fleet::Fleet(unsigned int const ID, vec2pos_ty_ref_c position, size_t ships, Player_ty_c player, SpaceObject_ty target)
     : SpaceObject{ ID, position, ships, player },
       m_target{ std::move(target) } { }
 

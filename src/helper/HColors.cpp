@@ -13,7 +13,7 @@ bool Colors::CheckValidColor(Color const& color) const {
 Colors::ColorArray Colors::GetColors() const {
     return m_colors;
 }
-std::string Colors::AsString(Color color) {
+std::string Colors::AsString(Color const color) {
     // clang-format off
            if (AreSame(color, YELLOW    )) { return AppContext::GetInstance().languageManager.Text("helper_color_yellow"     );
     } else if (AreSame(color, GOLD      )) { return AppContext::GetInstance().languageManager.Text("helper_color_gold"       );
@@ -35,7 +35,7 @@ std::string Colors::AsString(Color color) {
     }
     // clang-format on
 }
-bool Colors::AreSame(Color lhs, Color rhs) {
+bool Colors::AreSame(Color const lhs, Color const rhs) {
     // clang-format off
     return  lhs.r == rhs.r
         and lhs.g == rhs.g
@@ -43,7 +43,7 @@ bool Colors::AreSame(Color lhs, Color rhs) {
         and lhs.a == rhs.a;
     // clang-format on
 }
-bool Colors::NeedBackground(Color color) {
+bool Colors::NeedBackground(Color const color) {
     // clang-format off
     return AreSame(color, MAGENTA)
         or AreSame(color, DARKGREEN)

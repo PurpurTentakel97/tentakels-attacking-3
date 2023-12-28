@@ -107,7 +107,7 @@ void Title::TitleFinish(AppContext_ty_c appContext) {
     appContext.eventManager.InvokeEvent(event);
 }
 
-Title::Title(Vector2 pos, Vector2 size, Alignment alignment, bool drawTitle)
+Title::Title(Vector2 const pos, Vector2 const size, Alignment const alignment, bool const drawTitle)
     : UIElement{ pos, size, alignment },
       m_titleFinish{ !drawTitle } {
 

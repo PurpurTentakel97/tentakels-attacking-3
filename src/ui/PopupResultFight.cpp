@@ -196,10 +196,10 @@ void FightResultPopup::HandleButton() {
 }
 
 FightResultPopup::FightResultPopup(
-        Vector2 pos,
-        Vector2 size,
-        Alignment alignment,
-        HFightResult  result,
+        Vector2 const pos,
+        Vector2 const size,
+        Alignment const alignment,
+        HFightResult const result,
         callback_ty callback
 )
     : PopUp{ pos,           size,

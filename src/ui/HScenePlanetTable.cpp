@@ -85,14 +85,14 @@ void PlanetTable::Initialization() {
     }
 }
 
-PlanetTable::PlanetTable(Vector2 pos, Vector2 size, Alignment alignment, Galaxy_ty_raw galaxy)
+PlanetTable::PlanetTable(Vector2 const pos, Vector2 const size, Alignment const alignment, Galaxy_ty_raw const galaxy)
     : Scene{ pos, size, alignment },
       m_galaxy{ galaxy } {
 
     Initialization();
 }
 
-void PlanetTable::SetActive(bool active, AppContext_ty_c appContext) {
+void PlanetTable::SetActive(bool const active, AppContext_ty_c appContext) {
 
     if (active == m_active) {
         return;

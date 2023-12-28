@@ -11,7 +11,7 @@
 #include <ui_lib/Text.hpp>
 
 
-void GameEventSettings::Initialize(unsigned int focusID) {
+void GameEventSettings::Initialize(unsigned int const focusID) {
 
     AppContext_ty_c appContext{ AppContext::GetInstance() };
 
@@ -65,7 +65,7 @@ void GameEventSettings::Initialize(unsigned int focusID) {
     }
 }
 
-void GameEventSettings::SetChecked(unsigned int index, bool isChecked) {
+void GameEventSettings::SetChecked(unsigned int const index, bool const isChecked) {
     AppContext_ty appContext{ AppContext::GetInstance() };
     appContext.constants.gameEvents.SetFlag(m_text.at(index).first, isChecked);
 
@@ -76,7 +76,12 @@ void GameEventSettings::SetChecked(unsigned int index, bool isChecked) {
     }
 }
 
-GameEventSettings::GameEventSettings(unsigned int focusID, Vector2 pos, Vector2 size, Alignment alignment)
+GameEventSettings::GameEventSettings(
+        unsigned int const focusID,
+        Vector2 const pos,
+        Vector2 const size,
+        Alignment const alignment
+)
     : Scene{ pos, size, alignment } {
 
     Initialize(focusID);

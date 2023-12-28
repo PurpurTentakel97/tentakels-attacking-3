@@ -23,8 +23,8 @@ void Button::SetTextSizeAndPosition(AppContext_ty_c appContext) {
     m_textPosition.y = resolution.y * m_pos.y + (resolution.y * m_size.y / 2 - m_textSize / 2);
 }
 
-bool Button::IsSameState(State state) const {
-    return  m_state == state ;
+bool Button::IsSameState(State const state) const {
+    return m_state == state;
 }
 
 void Button::UpdateCollider() {
@@ -33,7 +33,13 @@ void Button::UpdateCollider() {
     SetTextSizeAndPosition(AppContext::GetInstance());
 }
 
-Button::Button(Vector2 pos, Vector2 size, Alignment alignment, std::string text, SoundType releaseSound)
+Button::Button(
+        Vector2 const pos,
+        Vector2 const size,
+        Alignment const alignment,
+        std::string text,
+        SoundType const releaseSound
+)
     : UIElement{ pos, size, alignment },
       m_text{ std::move(text) },
       m_sound{ releaseSound } {
@@ -149,7 +155,7 @@ std::string Button::GetText() const {
     return m_text;
 }
 
-void Button::SetEnabled(bool enabled) {
+void Button::SetEnabled(bool const enabled) {
     if (enabled) {
         m_state = State::ENABLED;
     } else {
@@ -162,13 +168,13 @@ bool Button::IsEnabled() const {
     return m_state != State::DISABLED;
 }
 
-void Button::SetCollider(Rectangle collider) {
+void Button::SetCollider(Rectangle const collider) {
     m_textPosition.x += (collider.x - m_collider.x);
     m_textPosition.y += (collider.y - m_collider.y);
     UIElement::SetCollider(collider);
 }
 
-void Button::SetPosition(Vector2 pos) {
+void Button::SetPosition(Vector2 const pos) {
     UIElement::SetPosition(pos);
     SetTextSizeAndPosition(AppContext::GetInstance());
 }

@@ -11,6 +11,7 @@
 struct PlayerData final {
     unsigned int ID{ 0 };
     Color color{ WHITE };
+
     PlayerData(unsigned int id, std::string name, Color col, std::string key = "");
 
     void SetName(std::string const& name);

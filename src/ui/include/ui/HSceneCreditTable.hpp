@@ -9,7 +9,7 @@
 
 class CreditTableScene : public Scene {
 private:
-    using creditEntries = std::vector<std::vector<std::string>>; ///< contains the datatype of the credit entries
+    using creditEntries = std::vector<std::vector<std::string>>;
 
     void Initialize(std::string const& headline, creditEntries const& entries, bool containsLink);
 

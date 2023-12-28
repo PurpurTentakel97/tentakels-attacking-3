@@ -27,7 +27,7 @@ protected:
     std::function<void()> m_onEnter{ []() {} };
     std::function<void()> m_onValueChanced{ []() {} };
 
-    bool AddChar(int key) {
+    bool AddChar(int const key) {
         bool const validAdd{ m_charLimit > m_value.size() };
 
         if (validAdd) {
@@ -53,10 +53,16 @@ protected:
         }
     }
 
-    [[nodiscard]] bool IsValidKey(int key) = delete;
+    [[nodiscard]] bool IsValidKey(int const key) = delete;
 
 public:
-    InputLine(unsigned int focusID, Vector2 pos, Vector2 size, Alignment alignment, unsigned int charLimit)
+    InputLine(
+            unsigned int const focusID,
+            Vector2 const pos,
+            Vector2 const size,
+            Alignment const alignment,
+            unsigned int const charLimit
+    )
         : UIElement{ pos, size, alignment },
           Focusable{ focusID },
           m_charLimit{ charLimit } { }
@@ -197,7 +203,7 @@ public:
         m_placeholderText = std::move(placeholderText);
     }
 
-    void SetValue(T value) {
+    void SetValue(T const value) {
         m_value = std::to_string(value);
         m_onValueChanced();
     }
@@ -235,7 +241,7 @@ public:
         m_onValueChanced = std::move(onValueChanged);
     }
 
-    void SetShouldClearByFocus(bool isShouldClearByFocus) {
+    void SetShouldClearByFocus(bool const isShouldClearByFocus) {
         m_shouldClearByFocus = isShouldClearByFocus;
     }
 
@@ -251,19 +257,19 @@ public:
         return m_isEnabled;
     }
 
-    void SetEnabled(bool isEnabled) {
+    void SetEnabled(bool const isEnabled) {
         m_isEnabled = isEnabled;
     }
 };
 
 
 template<>
-inline bool InputLine<int>::IsValidKey(int key) {
+inline bool InputLine<int>::IsValidKey(int const key) {
     return key >= 48 and key <= 57;
 }
 
 template<>
-inline bool InputLine<float>::IsValidKey(int key) {
+inline bool InputLine<float>::IsValidKey(int const key) {
     bool valid{ (key >= 48 and key <= 57) // numbers
                 or key == 44              // comma
                 or key == 46 };           // dot
@@ -286,7 +292,7 @@ inline bool InputLine<float>::IsValidKey(int key) {
 }
 
 template<>
-inline bool InputLine<double>::IsValidKey(int key) {
+inline bool InputLine<double>::IsValidKey(int const key) {
     bool valid{ (key >= 48 and key <= 57) // numbers
                 or key == 44              // comma
                 or key == 46 };           // dot
@@ -309,7 +315,7 @@ inline bool InputLine<double>::IsValidKey(int key) {
 }
 
 template<>
-inline bool InputLine<std::string>::IsValidKey(int key) {
+inline bool InputLine<std::string>::IsValidKey(int const key) {
     return key >= 32 and key <= 126;
 }
 

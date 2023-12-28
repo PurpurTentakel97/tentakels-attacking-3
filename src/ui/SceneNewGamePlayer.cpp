@@ -258,7 +258,7 @@ void NewGamePlayerScene::AddPlayer() {
     appContext.eventManager.InvokeEvent(event);
 }
 
-void NewGamePlayerScene::UpdatePlayer(unsigned int ID, std::string const& name, Color color) {
+void NewGamePlayerScene::UpdatePlayer(unsigned int const ID, std::string const& name, Color const color) {
     AppContext_ty_c appContext{ AppContext::GetInstance() };
     EditPlayerEvent const event{ ID, name, color };
     appContext.eventManager.InvokeEvent(event);
@@ -274,14 +274,14 @@ void NewGamePlayerScene::UpdatePlayerName(AbstractTableCell const*, std::string 
     UpdatePlayer(playerData.ID, newValue, playerData.color);
 }
 
-void NewGamePlayerScene::UpdatePlayerColor(AbstractTableCell const*, Color oldValue, Color newValue) {
+void NewGamePlayerScene::UpdatePlayerColor(AbstractTableCell const*, Color const oldValue, Color const newValue) {
     AppContext_ty_c appContext{ AppContext::GetInstance() };
     PlayerData const playerData{ appContext.playerCollection.GetPlayerByColor(oldValue) };
 
     UpdatePlayer(playerData.ID, playerData.GetName(), newValue);
 }
 
-void NewGamePlayerScene::DeletePlayer(unsigned int ID) {
+void NewGamePlayerScene::DeletePlayer(unsigned int const ID) {
     AppContext_ty_c appContext{ AppContext::GetInstance() };
 
     DeletePlayerEvent const event{ ID };
@@ -293,7 +293,7 @@ void NewGamePlayerScene::CheckPlayerCount() {
     AppContext::GetInstance().eventManager.InvokeEvent(event);
 }
 
-void NewGamePlayerScene::NextScene(bool valid) {
+void NewGamePlayerScene::NextScene(bool const valid) {
     if (!valid) {
         return;
     }

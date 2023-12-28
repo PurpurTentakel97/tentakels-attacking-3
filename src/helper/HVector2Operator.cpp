@@ -13,11 +13,11 @@ Vector2 operator-(Vector2 const& lhs, Vector2 const& rhs) {
     return { lhs.x - rhs.x, lhs.y - rhs.y };
 }
 
-Vector2 operator/(Vector2 const& lhs, float rhs) {
+Vector2 operator/(Vector2 const& lhs, float const rhs) {
     return { lhs.x / rhs, lhs.y / rhs };
 }
 
-Vector2 operator/(Vector2 const& lhs, int rhs) {
+Vector2 operator/(Vector2 const& lhs, int const rhs) {
     return { lhs.x / static_cast<float>(rhs), lhs.y / static_cast<float>(rhs) };
 }
 

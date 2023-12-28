@@ -12,7 +12,7 @@
 #include <ui_lib/SceneType.hpp>
 
 
-void SceneManager::InitializeNewScene(SceneType sceneType) {
+void SceneManager::InitializeNewScene(SceneType const sceneType) {
     switch (sceneType) {
         case SceneType::TEST:
             m_currentScene = std::make_shared<TestScene>();

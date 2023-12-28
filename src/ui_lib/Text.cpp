@@ -52,7 +52,14 @@ void Text::UpdateCollider() {
     CreateToRender();
 }
 
-Text::Text(Vector2 pos, Vector2 size, Alignment alignment, Alignment textAlignment, float textHeight, std::string text)
+Text::Text(
+        Vector2 const pos,
+        Vector2 const size,
+        Alignment const alignment,
+        Alignment const textAlignment,
+        float const textHeight,
+        std::string text
+)
     : UIElement{ pos, size, alignment },
       m_text{ std::move(text) },
       m_textHeight{ textHeight },
@@ -73,7 +80,7 @@ void Text::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appConte
     }
 }
 
-void Text::Render([[maybe_unused]] AppContext_ty_c appContext) {
+void Text::Render(AppContext_ty_c) {
     for (auto const& [text, position] : m_toRender) {
         DrawTextWithOutline(text, position, m_textSize, m_color, m_renderBackground);
     }
@@ -90,17 +97,17 @@ void Text::Resize(AppContext_ty_c appContext) {
     CreateToRender();
 }
 
-void Text::SetPosition(Vector2 pos) {
+void Text::SetPosition(Vector2 const pos) {
     UIElement::SetPosition(pos);
     CreateToRender();
 }
 
-void Text::SetSize(Vector2 size) {
+void Text::SetSize(Vector2 const size) {
     UIElement::SetSize(size);
     CreateToRender();
 }
 
-void Text::SetCollider(Rectangle collider) {
+void Text::SetCollider(Rectangle const collider) {
     UIElement::SetCollider(collider);
     CreateToRender();
 }
@@ -118,7 +125,7 @@ std::string Text::GetText() const {
     return m_text;
 }
 
-void Text::SetColor(Color color) {
+void Text::SetColor(Color const color) {
     m_color = color;
 }
 
@@ -139,16 +146,16 @@ std::string Text::GetURL() const {
     return m_URL;
 }
 
-void Text::LineBreaks(bool lineBreaks) {
+void Text::LineBreaks(bool const lineBreaks) {
     m_lineBreaks = lineBreaks;
     CreateToRender();
 }
 
-void Text::RenderRectangle(bool renderRectangle) {
+void Text::RenderRectangle(bool const renderRectangle) {
     m_renderRectangle = renderRectangle;
 }
 
-void Text::SetRenderBackground(bool isRenderBackground) {
+void Text::SetRenderBackground(bool const isRenderBackground) {
     m_renderBackground = isRenderBackground;
 }
 

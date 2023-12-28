@@ -9,10 +9,23 @@
 #include <helper/HPrint.hpp>
 #include <helper/HRandom.hpp>
 
-Planet::Planet(unsigned int ID, vec2pos_ty_ref_c position, Player_ty player, bool isHomePlanet, int planetNumber)
+Planet::Planet(
+        unsigned int const ID,
+        vec2pos_ty_ref_c position,
+        Player_ty player,
+        bool const isHomePlanet,
+        int planetNumber
+)
     : Planet{ ID, position, std::move(player), isHomePlanet, planetNumber, 0 } { }
 
-Planet::Planet(unsigned int ID, vec2pos_ty_ref_c position, Player_ty player, bool isHomePlanet, int planetNumber, size_t ships)
+Planet::Planet(
+        unsigned int const ID,
+        vec2pos_ty_ref_c position,
+        Player_ty player,
+        bool const isHomePlanet,
+        int planetNumber,
+        size_t ships
+)
     : SpaceObject{ ID, position, ships, std::move(player) },
       m_isHomePlanet{ isHomePlanet },
       m_planetNumber{ planetNumber } {
@@ -46,7 +59,7 @@ size_t Planet::GetProduction() const {
     return m_production;
 }
 
-void Planet::SetDestroyed(bool isDestroyed) {
+void Planet::SetDestroyed(bool const isDestroyed) {
     m_isDestroyed = isDestroyed;
 }
 

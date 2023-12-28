@@ -10,7 +10,7 @@
 #include <ui_lib/Line.hpp>
 #include <ui_lib/Slider.hpp>
 
-void GalaxyScene::Initialize(bool isShowGalaxy, bool isAcceptingInput) {
+void GalaxyScene::Initialize(bool const isShowGalaxy, bool const isAcceptingInput) {
 
     // Galaxy
     m_galaxy = std::make_shared<UIGalaxy>(
@@ -79,7 +79,7 @@ void GalaxyScene::Initialize(bool isShowGalaxy, bool isAcceptingInput) {
     m_galaxy->Zoom(false, 0);
 }
 
-void GalaxyScene::Zoom(float scaleFactor, Vector2 referenceScale) {
+void GalaxyScene::Zoom(float const scaleFactor, Vector2 const referenceScale) {
 
     Resolution_ty_c resolution{ AppContext::GetInstance().GetResolution() };
     m_verticalSlider->SetAbsoluteDimension(scaleFactor);
@@ -102,7 +102,7 @@ void GalaxyScene::Zoom(float scaleFactor, Vector2 referenceScale) {
     m_scaleLineY->Update();
 }
 
-void GalaxyScene::Slide(float position, bool isHorizontal) {
+void GalaxyScene::Slide(float const position, bool const isHorizontal) {
     if (isHorizontal) {
         m_horizontalSlider->SetButtonPosition(position);
     } else {
@@ -110,13 +110,19 @@ void GalaxyScene::Slide(float position, bool isHorizontal) {
     }
 }
 
-GalaxyScene::GalaxyScene(Vector2 pos, Vector2 size, Alignment alignment, bool isShowGalaxy, bool isAcceptingInput)
+GalaxyScene::GalaxyScene(
+        Vector2 const pos,
+        Vector2 const size,
+        Alignment const alignment,
+        bool const isShowGalaxy,
+        bool const isAcceptingInput
+)
     : Scene{ pos, size, alignment } {
 
     Initialize(isShowGalaxy, isAcceptingInput);
 }
 
-void GalaxyScene::SetIsScaling(bool isScaling) {
+void GalaxyScene::SetIsScaling(bool const isScaling) {
     m_galaxy->SetIsScaling(isScaling);
 }
 
@@ -124,7 +130,7 @@ bool GalaxyScene::IsScaling() const {
     return m_galaxy->IsScaling();
 }
 
-void GalaxyScene::SetIsEnabled(bool isEnabled) {
+void GalaxyScene::SetIsEnabled(bool const isEnabled) {
     m_isEnabled = isEnabled;
     m_galaxy->SetEnabled(isEnabled);
     m_zoomInBtn->SetEnabled(isEnabled);
@@ -139,8 +145,8 @@ Galaxy_ty_raw GalaxyScene::GetGalaxy() const {
     return m_galaxy->GetGalaxy();
 }
 
-void GalaxyScene::FilterByCurrentPlayer(PlayerData player) {
-    m_galaxy->FilterByCurrentPlayer(std::move(player));
+void GalaxyScene::FilterByCurrentPlayer(PlayerData const& player) {
+    m_galaxy->FilterByCurrentPlayer(player);
 }
 
 void GalaxyScene::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) {

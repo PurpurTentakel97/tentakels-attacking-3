@@ -14,12 +14,12 @@ void ColorCellPopUp::SetValue() {
 }
 
 ColorCellPopUp::ColorCellPopUp(
-        Vector2 pos,
-        Vector2 size,
-        Alignment alignment,
+        Vector2 const pos,
+        Vector2 const size,
+        Alignment const alignment,
         std::string const& title,
-        AssetType infoTexture,
-        Color currentColor,
+        AssetType const infoTexture,
+        Color const currentColor,
         std::function<void(Color)> onClick
 )
     : CellPopUp{ pos, size, alignment, title, infoTexture },

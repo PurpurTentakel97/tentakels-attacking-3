@@ -24,7 +24,7 @@ enum class PrintType {
 };
 static PrintType longestType{ PrintType::EXPECTED_ERROR };
 
-[[nodiscard]] static inline std::string GetPrintTypeString(PrintType printType) {
+[[nodiscard]] static inline std::string GetPrintTypeString(PrintType const printType) {
     switch (printType) {
         default:
         case PrintType::INFO:
@@ -46,7 +46,7 @@ static PrintType longestType{ PrintType::EXPECTED_ERROR };
     }
 }
 
-static inline void TryExport(std::string const& message, PrintType printType) {
+static inline void TryExport(std::string const& message, PrintType const printType) {
     switch (printType) {
         case PrintType::EXPECTED_ERROR:
         case PrintType::ERROR:
@@ -63,7 +63,7 @@ void Print(PrintType printType, std::string const& message, Args const&... args)
 void Print(PrintType printType, std::string const& message);
 
 template<typename... Args>
-inline void Print(PrintType printType, std::string const& message, Args const&... args) {
+inline void Print(PrintType const printType, std::string const& message, Args const&... args) {
 #ifndef _DEBUG
     if (printType == PrintType::ONLY_DEBUG) {
         return;

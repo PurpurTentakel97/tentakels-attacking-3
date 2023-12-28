@@ -70,10 +70,10 @@ AssetManager::~AssetManager() {
     UnloadFont(m_font);
 }
 
-Texture* AssetManager::GetTexture(AssetType assetType) {
+Texture* AssetManager::GetTexture(AssetType const assetType) {
     return &m_assets.at(assetType);
 }
-Texture const* AssetManager::GetTexture(AssetType assetType) const {
+Texture const* AssetManager::GetTexture(AssetType const assetType) const {
     return &m_assets.at(assetType);
 }
 std::vector<std::string>* AssetManager::GetTitle() {

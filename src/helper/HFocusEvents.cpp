@@ -7,7 +7,7 @@
 #include <AppContext.hpp>
 #include <event/EventsUI.hpp>
 
-void AddFocusLayer(bool isPopUp) {
+void AddFocusLayer(bool const isPopUp) {
     if (isPopUp) {
         NewFocusPopUpLayerEvent const event{};
         AppContext::GetInstance().eventManager.InvokeEvent(event);
@@ -17,7 +17,7 @@ void AddFocusLayer(bool isPopUp) {
     }
 }
 
-void DeleteFocusLayer(bool isPopUp) {
+void DeleteFocusLayer(bool const isPopUp) {
     if (isPopUp) {
         DeleteFocusPopUpLayerEvent const event{};
         AppContext::GetInstance().eventManager.InvokeEvent(event);
@@ -27,7 +27,7 @@ void DeleteFocusLayer(bool isPopUp) {
     }
 }
 
-void AddFocusElement(Focusable_ty_raw focusable, bool isPopUp) {
+void AddFocusElement(Focusable_ty_raw focusable, bool const isPopUp) {
     if (isPopUp) {
         NewFocusPopUpElementEvent const event{ focusable };
         AppContext::GetInstance().eventManager.InvokeEvent(event);
@@ -37,7 +37,7 @@ void AddFocusElement(Focusable_ty_raw focusable, bool isPopUp) {
     }
 }
 
-void DeleteFocusElement(Focusable_ty_raw focusable, bool isPopUp) {
+void DeleteFocusElement(Focusable_ty_raw focusable, bool const isPopUp) {
     if (isPopUp) {
         DeleteFocusPopUpElementEvent const event{ focusable };
         AppContext::GetInstance().eventManager.InvokeEvent(event);
@@ -52,7 +52,7 @@ void SelectNextFocusElement() {
     AppContext::GetInstance().eventManager.InvokeEvent(event);
 }
 
-void SelectFocusElement(Focusable_ty_raw focusable, bool isPopUp) {
+void SelectFocusElement(Focusable_ty_raw focusable, bool const isPopUp) {
     if (isPopUp) {
         SelectFocusPopUpElementEvent const event{ focusable };
         AppContext::GetInstance().eventManager.InvokeEvent(event);

@@ -6,7 +6,7 @@
 #include "HPlayerData.hpp"
 #include <AppContext.hpp>
 
-PlayerData::PlayerData(unsigned int id, std::string name, Color col, std::string key)
+PlayerData::PlayerData(unsigned int const id, std::string name, Color const col, std::string key)
     : ID{ id },
       color{ col },
       m_name{ std::move(name) },

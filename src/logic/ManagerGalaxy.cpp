@@ -25,7 +25,7 @@ void GalaxyManager::FilterCurrentGalaxy() {
     m_currentGalaxy->FilterByDiscovered();
 }
 
-GalaxyManager::GalaxyManager(GameManager* gameManager) : m_gameManager{ gameManager } { }
+GalaxyManager::GalaxyManager(GameManager* const gameManager) : m_gameManager{ gameManager } { }
 
 void GalaxyManager::GenerateGalaxy() {
     AppContext_ty_c appContext{ AppContext::GetInstance() };
@@ -79,7 +79,7 @@ void GalaxyManager::GenerateShowGalaxy() {
     }
 }
 
-void GalaxyManager::CopyGalaxies(CopyGalaxyType copyType) {
+void GalaxyManager::CopyGalaxies(CopyGalaxyType const copyType) {
     if (copyType == CopyGalaxyType::COPY_ALL) {
         m_startGalaxy = std::make_shared<Galaxy>(*m_mainGalaxy);
     }
@@ -94,7 +94,7 @@ Galaxy* GalaxyManager::GetGalaxy() {
     return m_currentGalaxy.get();
 }
 
-bool GalaxyManager::AddFleet(SendFleetInstructionEvent const* event, Player_ty const& currentPlayer) {
+bool GalaxyManager::AddFleet(SendFleetInstructionEvent const* const event, Player_ty const& currentPlayer) {
 
     auto const result = m_mainGalaxy->AddFleet(event, currentPlayer);
     if (not result.valid) {

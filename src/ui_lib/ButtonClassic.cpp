@@ -8,12 +8,12 @@
 #include <helper/HInput.hpp>
 
 ClassicButton::ClassicButton(
-        unsigned int focusID,
-        Vector2 pos,
-        Vector2 size,
-        Alignment alignment,
+        unsigned int const focusID,
+        Vector2 const pos,
+        Vector2 const size,
+        Alignment const alignment,
         std::string const& text,
-        SoundType releaseSound
+        SoundType const releaseSound
 )
     : Button{ pos, size, alignment, text, releaseSound },
       Focusable{ focusID } { }

@@ -27,7 +27,7 @@ bool PlayerCollection::ContainsName(std::string const& name) const {
     return false;
 }
 
-bool PlayerCollection::ContainsColor(Color color) const {
+bool PlayerCollection::ContainsColor(Color const color) const {
     for (auto const& p : m_playerData) {
         if (p.color == color) {
             return true;
@@ -102,7 +102,7 @@ void PlayerCollection::CheckRemainingName(std::string& name) {
     }
 }
 
-PlayerData& PlayerCollection::GetPlayerByIDmut(unsigned int ID) {
+PlayerData& PlayerCollection::GetPlayerByIDmut(unsigned int const ID) {
 
     for (auto& p : m_playerData) {
         if (p.ID == ID) {
@@ -131,7 +131,7 @@ void PlayerCollection::AddPlayer(unsigned int ID, std::string name, Color color)
     AppContext::GetInstance().eventManager.InvokeEvent(event);
 }
 
-void PlayerCollection::EditPlayer(unsigned int ID, std::string name, Color color) {
+void PlayerCollection::EditPlayer(unsigned int const ID, std::string name, Color color) {
 
     PlayerData& playerData{ GetPlayerByIDmut(ID) };
 
@@ -151,7 +151,7 @@ void PlayerCollection::EditPlayer(unsigned int ID, std::string name, Color color
     AppContext::GetInstance().eventManager.InvokeEvent(event);
 }
 
-void PlayerCollection::DeletePlayer(unsigned int ID) {
+void PlayerCollection::DeletePlayer(unsigned int const ID) {
     auto const& toDelete{ GetPlayerByIDmut(ID) };
 
     m_playerData.erase(std::remove(m_playerData.begin(), m_playerData.end(), toDelete), m_playerData.end());
@@ -181,7 +181,7 @@ std::vector<PlayerData> PlayerCollection::GetPlayerData() const {
     return m_playerData;
 }
 
-PlayerData PlayerCollection::GetPlayerByID(unsigned int ID) const {
+PlayerData PlayerCollection::GetPlayerByID(unsigned int const ID) const {
 
     if (ID == m_defaultPlayer.ID) {
         return m_defaultPlayer;
@@ -196,7 +196,7 @@ PlayerData PlayerCollection::GetPlayerByID(unsigned int ID) const {
     throw std::out_of_range("Accessing non existing ID");
 }
 
-PlayerData PlayerCollection::GetPlayerOrNpcByID(unsigned int ID) const {
+PlayerData PlayerCollection::GetPlayerOrNpcByID(unsigned int const ID) const {
 
     for (auto const& p : m_npcData) {
         if (p.ID == ID) {
@@ -207,7 +207,7 @@ PlayerData PlayerCollection::GetPlayerOrNpcByID(unsigned int ID) const {
     return GetPlayerByID(ID);
 }
 
-PlayerData PlayerCollection::GetPlayerByIDOrDefaultPlayer(unsigned int ID) const {
+PlayerData PlayerCollection::GetPlayerByIDOrDefaultPlayer(unsigned int const ID) const {
 
     for (auto const& p : m_playerData) {
         if (ID == p.ID) {
@@ -228,7 +228,7 @@ PlayerData PlayerCollection::GetPlayerByName(std::string const& name) const {
     throw std::out_of_range("Accessing non existing Name");
 }
 
-PlayerData PlayerCollection::GetPlayerByColor(Color color) const {
+PlayerData PlayerCollection::GetPlayerByColor(Color const color) const {
     for (auto const& p : m_playerData) {
         if (p.color == color) {
             return p;
@@ -238,7 +238,7 @@ PlayerData PlayerCollection::GetPlayerByColor(Color color) const {
     throw std::out_of_range("Accessing non existing Color");
 }
 
-Color PlayerCollection::GetColorByID(unsigned int ID) const {
+Color PlayerCollection::GetColorByID(unsigned int const ID) const {
     for (auto const& p : m_playerData) {
         if (p.ID == ID) {
             return p.color;

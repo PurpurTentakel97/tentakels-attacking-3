@@ -5,7 +5,7 @@
 
 #include "HFightResult.hpp"
 
-HFightResult::HFightResult(player_ty player, spaceObject_ty objects, rounds_ty rounds, bool valid)
+HFightResult::HFightResult(player_ty player, spaceObject_ty objects, rounds_ty rounds, bool const valid)
     : m_players{ player },
       m_objects{ objects },
       m_rounds{ std::move(rounds) },

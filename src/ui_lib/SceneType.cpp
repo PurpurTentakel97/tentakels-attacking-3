@@ -5,7 +5,7 @@
 
 #include "SceneType.hpp"
 
-std::string GetStringBySceneType(SceneType sceneType) {
+std::string GetStringBySceneType(SceneType const sceneType) {
     switch (sceneType) {
         case SceneType::TEST:
             return "TEST";

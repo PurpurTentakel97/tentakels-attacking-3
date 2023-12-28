@@ -29,11 +29,11 @@ void DropDownElement::UpdateColliderReverse() {
 }
 
 DropDownElement::DropDownElement(
-        Vector2 pos,
-        Vector2 size,
-        Alignment alignment,
-        unsigned int focusID,
-        unsigned int ID,
+        Vector2 const pos,
+        Vector2 const size,
+        Alignment const alignment,
+        unsigned int const focusID,
+        unsigned int const ID,
         std::string text,
         std::function<Rectangle(Rectangle)> getTemporaryCollider
 )
@@ -88,7 +88,7 @@ bool DropDownElement::IsEnabled() const {
     return m_isEnabled;
 }
 
-void DropDownElement::SetEnabled(bool isEnabled) {
+void DropDownElement::SetEnabled(bool const isEnabled) {
     m_isEnabled = isEnabled;
 }
 

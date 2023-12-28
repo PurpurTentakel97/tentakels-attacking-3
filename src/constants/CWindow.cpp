@@ -7,7 +7,7 @@
 #include <CustomRaylib.hpp>
 #include <helper/HPrint.hpp>
 
-bool CWindow::IsPossibleResolution(Resolution toProve) const {
+bool CWindow::IsPossibleResolution(Resolution const toProve) const {
     auto const value = GetIntFromResolution(toProve) ;
 
     if (nativeResolutionVec.x < value.x) {
@@ -35,7 +35,7 @@ std::vector<std::pair<Resolution, std::string>> CWindow::GetAllResolutionsAsStri
     return toReturn;
 }
 
-std::string CWindow::GetStringFromResolution(Resolution resolution) const {
+std::string CWindow::GetStringFromResolution(Resolution const resolution) const {
 
     switch (resolution) {
 
@@ -93,7 +93,7 @@ std::string CWindow::GetStringFromResolution(Resolution resolution) const {
     }
 }
 
-HVec2<int> CWindow::GetIntFromResolution(Resolution resolution) const {
+HVec2<int> CWindow::GetIntFromResolution(Resolution const resolution) const {
 
     switch (resolution) {
 

@@ -36,7 +36,7 @@ void SoundManager::LoadSounds() {
     }
 }
 
-void SoundManager::PlaySound(SoundType soundType) const {
+void SoundManager::PlaySound(SoundType const soundType) const {
     if (soundType == SoundType::TEXT) {
         PlayTextSound();
         return;
@@ -59,13 +59,13 @@ void SoundManager::PlayTextSound() const {
     lastIndex = nextIndex;
 }
 
-void SoundManager::MuteMasterSoundLevel(bool mute) {
+void SoundManager::MuteMasterSoundLevel(bool const mute) {
     AppContext_ty appContext{ AppContext::GetInstance() };
     appContext.constants.sound.muteVolume = mute;
     SetMasterSoundLevel(appContext.constants.sound.masterVolume);
 }
 
-void SoundManager::SetMasterSoundLevel(float level) {
+void SoundManager::SetMasterSoundLevel(float const level) {
     AppContext_ty appContext{ AppContext::GetInstance() };
 
     appContext.constants.sound.masterVolume = level;
@@ -74,8 +74,7 @@ void SoundManager::SetMasterSoundLevel(float level) {
         return;
     }
 
-    level /= 100;
-    SetMasterVolume(level);
+    SetMasterVolume((level / 100.0f));
 }
 
 SoundManager::SoundManager() {

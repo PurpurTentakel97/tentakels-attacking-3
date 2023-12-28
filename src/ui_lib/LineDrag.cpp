@@ -6,7 +6,7 @@
 #include "LineDrag.hpp"
 #include <AppContext.hpp>
 
-LineDrag::LineDrag(float thick, Color color, std::function<void(Vector2, Vector2)> callback)
+LineDrag::LineDrag(float const thick, Color const color, std::function<void(Vector2, Vector2)> callback)
 		: UIElement{ {0.0f,0.0f}, {0.0f,0.0f}, Alignment::DEFAULT },
 		m_start{ 0.0f,0.0f }, m_end{ 0.0f,0.0f }, m_thick{ thick }, m_color{ color }, m_callback{ std::move(callback) } { }
 
@@ -18,7 +18,7 @@ Vector2 LineDrag::GetEnd() const {
     return m_end;
 }
 
-void LineDrag::SetThick(float thick) {
+void LineDrag::SetThick(float const thick) {
     m_thick = thick;
 }
 
@@ -26,7 +26,7 @@ float LineDrag::GetThick() const {
     return m_thick;
 }
 
-void LineDrag::SetColor(Color color) {
+void LineDrag::SetColor(Color const color) {
     m_color = color;
 }
 

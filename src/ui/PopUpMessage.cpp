@@ -31,12 +31,12 @@ void MessagePopUp::Initialize() {
 }
 
 MessagePopUp::MessagePopUp(
-        Vector2 pos,
-        Vector2 size,
-        Alignment alignment,
+        Vector2 const pos,
+        Vector2 const size,
+        Alignment const alignment,
         std::string const& title,
         std::string& subTitle,
-        AssetType infoTexture,
+        AssetType const infoTexture,
         std::function<void()> callback
 )
     : PopUp{ pos, size, alignment, title, subTitle, infoTexture },

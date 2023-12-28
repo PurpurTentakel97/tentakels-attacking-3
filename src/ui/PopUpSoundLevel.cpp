@@ -69,9 +69,9 @@ void SoundLevelPopUp::Initialize() {
 }
 
 SoundLevelPopUp::SoundLevelPopUp(
-        Vector2 pos,
-        Vector2 size,
-        Alignment alignment,
+        Vector2 const pos,
+        Vector2 const size,
+        Alignment const alignment,
         std::string const& title,
         std::string& subTitle
 )

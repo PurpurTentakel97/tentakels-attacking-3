@@ -38,15 +38,15 @@ void Scene::SetFocusActive(AppContext_ty_c) {
     }
 }
 
-Vector2 Scene::GetElementPosition(float x, float y) {
+Vector2 Scene::GetElementPosition(float const x, float const y) {
     return { m_pos.x + x * m_size.x, m_pos.y + y * m_size.y };
 }
 
-Vector2 Scene::GetElementSize(float x, float y) {
+Vector2 Scene::GetElementSize(float const x, float const y) {
     return { x * m_size.x, y * m_size.y };
 }
 
-Focusable_ty_raw Scene::GetFocusableByFocusID(unsigned int ID) const {
+Focusable_ty_raw Scene::GetFocusableByFocusID(unsigned int const ID) const {
     for (auto const& element : m_elements) {
         if (auto focus = dynamic_cast<Focusable_ty_raw>(element.get())) {
             if (focus->GetFocusID() == ID) {
@@ -64,13 +64,13 @@ Focusable_ty_raw Scene::GetFocusableByFocusID(unsigned int ID) const {
     return nullptr;
 }
 
-Scene::Scene(Vector2 pos, Vector2 size, Alignment alignment) : UIElement(pos, size, alignment) { }
+Scene::Scene(Vector2 const pos, Vector2 const size, Alignment const alignment) : UIElement(pos, size, alignment) { }
 
 bool Scene::IsActive() const {
     return m_active;
 }
 
-void Scene::SetActive(bool active, AppContext_ty_c appContext) {
+void Scene::SetActive(bool const active, AppContext_ty_c appContext) {
     if (active == m_active) {
         return;
     }
@@ -79,7 +79,7 @@ void Scene::SetActive(bool active, AppContext_ty_c appContext) {
     SetFocusActive(appContext);
 }
 
-void Scene::SetPosition(Vector2 pos) {
+void Scene::SetPosition(Vector2 const pos) {
     Vector2 const dif{ m_pos.x - pos.x, m_pos.y - pos.y };
 
     for (auto const& e : m_elements) {
@@ -96,7 +96,7 @@ void Scene::SetPosition(Vector2 pos) {
     UIElement::SetPosition(pos);
 }
 
-void Scene::SetSize(Vector2 size) {
+void Scene::SetSize(Vector2 const size) {
     Vector2 const dif{ m_size.x - size.x, m_size.y - size.y };
 
     for (auto const& e : m_elements) {
@@ -145,7 +145,7 @@ void Scene::Resize(AppContext_ty_c appContext) {
     }
 }
 
-void Scene::MoveBySpeed(float relativeSpeed, float angle) {
+void Scene::MoveBySpeed(float const relativeSpeed, float const angle) {
     UIElement::MoveBySpeed(relativeSpeed, angle);
 
     for (auto const& e : m_elements) {
@@ -156,7 +156,7 @@ void Scene::MoveBySpeed(float relativeSpeed, float angle) {
     }
 }
 
-void Scene::MoveToPositionLinear(Vector2 position, float relativeSpeed) {
+void Scene::MoveToPositionLinear(Vector2 const position, float const relativeSpeed) {
     UIElement::MoveToPositionLinear(position, relativeSpeed);
 
     for (auto const& e : m_elements) {
@@ -169,7 +169,7 @@ void Scene::MoveToPositionLinear(Vector2 position, float relativeSpeed) {
     }
 }
 
-void Scene::MoveToPositionAsymptotic(Vector2 position, float relativeSpeed) {
+void Scene::MoveToPositionAsymptotic(Vector2 const position, float const relativeSpeed) {
     UIElement::MoveToPositionAsymptotic(position, relativeSpeed);
 
     for (auto const& e : m_elements) {

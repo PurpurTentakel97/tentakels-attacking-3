@@ -21,13 +21,13 @@ private:
 
 public:
     PrimitiveCellPopUp(
-            Vector2 pos,
-            Vector2 size,
-            Alignment alignment,
+            Vector2 const pos,
+            Vector2 const size,
+            Alignment const alignment,
             std::string const& title,
-            AssetType infoTexture,
-            T currentValue,
-            std::function<void(T)> onClick
+            AssetType const infoTexture,
+            T const currentValue,
+            std::function<void(T)> const onClick
     )
         : CellPopUp{ pos, size, alignment, title, infoTexture },
           m_onClick{ onClick } {

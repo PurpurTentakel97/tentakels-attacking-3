@@ -449,7 +449,7 @@ void MainScene::NextTurn() {
     ClearInputLines();
 }
 
-void MainScene::NextTurnPopup(bool skip) {
+void MainScene::NextTurnPopup(bool const skip) {
     AppContext_ty_c appContext{ AppContext::GetInstance() };
     if (skip) {
         ShowMessagePopUpEvent event{ appContext.languageManager.Text("scene_main_scene_popup_text_skip_turn_title"),
@@ -561,7 +561,7 @@ void MainScene::ClearInputLines() {
     AppContext::GetInstance().eventManager.InvokeEvent(event);
 }
 
-void MainScene::HandleGalaxyDragLineInput(DragLineFleetInstructionEvent const* event) {
+void MainScene::HandleGalaxyDragLineInput(DragLineFleetInstructionEvent const* const event) {
     m_origin->Clear();
     m_destination->Clear();
     m_destinationX->Clear();
@@ -596,7 +596,7 @@ void MainScene::HandleGalaxyDragLineInput(DragLineFleetInstructionEvent const* e
     AppContext::GetInstance().eventManager.InvokeEvent(focusEvent);
 }
 
-SpaceObject_ty MainScene::GetSpaceObjectFromID(unsigned int ID) const {
+SpaceObject_ty MainScene::GetSpaceObjectFromID(unsigned int const ID) const {
     auto const& planetData{ m_galaxy->GetGalaxy()->GetPlanets() };
     for (auto const& planet : planetData) {
         if (planet->GetID() == ID) {
