@@ -5,7 +5,7 @@
 
 #pragma once
 
-
+namespace app {
     enum class AssetType {
         BUTTON_DEFAULT,
         EXCLAMATION_MARK,
@@ -17,3 +17,4 @@
         ARROW_DOWN,
         ARROW_LEFT,
     };
+}

@@ -5,11 +5,11 @@
 
 #pragma once
 #include "Alignment.hpp"
+#include "app/AssetType.hpp"
 #include <CustomRaylib.hpp>
 #include <app/AppContext.hpp>
 #include <cmath>
 #include <event/EventsUI.hpp>
-#include <helper/HAssetType.hpp>
 #include <helper/HSoundType.hpp>
 #include <helper/HUIAlias.hpp>
 #include <helper/HVector2Operator.hpp>

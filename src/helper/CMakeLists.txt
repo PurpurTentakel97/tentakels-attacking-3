@@ -1,6 +1,6 @@
 add_library(helper STATIC
-            include/helper/HAssetManager.hpp
-            include/helper/HAssetType.hpp
+            ../app/include/app/AssetManager.hpp
+            ../app/include/app/AssetType.hpp
             include/helper/HColors.hpp
             include/helper/HConcepts.hpp
             include/helper/HConfigEnum.hpp
@@ -27,7 +27,7 @@ add_library(helper STATIC
             include/helper/HVector2Operator.hpp
             include/helper/HLayeredVector.hpp
             include/helper/HVec2.hpp
-            HAssetManager.cpp
+            ../app/AssetManager.cpp
             HColors.cpp
             HConfigEnum.cpp
             HErrorLog.cpp
