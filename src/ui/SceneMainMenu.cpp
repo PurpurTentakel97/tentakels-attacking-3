@@ -80,7 +80,7 @@ void MainMenu::Initialize() {
             Vector2{ 0.0f, 0.0f },
             Alignment::DEFAULT,
             appContext.languageManager.Text("scene_main_menu_continue_btn"),
-            SoundType::ACCEPTED
+            app::SoundType::ACCEPTED
     );
     continueBtn->SetEnabled(appContext.constants.global.isGameRunning);
     continueBtn->SetOnClick([]() {
@@ -97,7 +97,7 @@ void MainMenu::Initialize() {
             Vector2{ 0.0f, 0.0f },
             Alignment::DEFAULT,
             appContext.languageManager.Text("scene_main_menu_new_game_btn"),
-            SoundType::ACCEPTED
+            app::SoundType::ACCEPTED
     );
     newGameBtn->SetOnClick([]() {
         app::AppContext::GetInstance().eventManager.InvokeEvent(eve::SwitchSceneEvent(SceneType::NEW_GAME_PLAYER));
@@ -112,7 +112,7 @@ void MainMenu::Initialize() {
             Vector2{ 0.0f, 0.0f },
             Alignment::DEFAULT,
             appContext.languageManager.Text("helper_network"),
-            SoundType::ACCEPTED
+            app::SoundType::ACCEPTED
     );
     gameBtn->Add(networkBtn, false);
     gameBtn->Update();
@@ -139,7 +139,7 @@ void MainMenu::Initialize() {
             Vector2{ 0.0f, 0.0f },
             Alignment::DEFAULT,
             appContext.languageManager.Text("scene_main_menu_save_btn"),
-            SoundType::ACCEPTED
+            app::SoundType::ACCEPTED
     );
     saveGameBtn->SetOnClick([]() {
         app::AppContext_ty appContext_{ app::AppContext::GetInstance() };
@@ -161,7 +161,7 @@ void MainMenu::Initialize() {
             Vector2{ 0.0f, 0.0f },
             Alignment::DEFAULT,
             appContext.languageManager.Text("scene_main_menu_load_btn"),
-            SoundType::ACCEPTED
+            app::SoundType::ACCEPTED
     );
     loadGameBtn->SetOnClick([]() {
         app::AppContext::GetInstance().eventManager.InvokeEvent(eve::SwitchSceneEvent(SceneType::TEST));
@@ -192,7 +192,7 @@ void MainMenu::Initialize() {
             Vector2{ 0.0f, 0.0f },
             Alignment::DEFAULT,
             appContext.languageManager.Text("helper_game"),
-            SoundType::CLICKED_RELEASE_STD
+            app::SoundType::CLICKED_RELEASE_STD
     );
     gameSettingsBtn->SetOnClick([]() {
         app::AppContext::GetInstance().eventManager.InvokeEvent(eve::SwitchSceneEvent(SceneType::GAME_SETTINGS));
@@ -207,7 +207,7 @@ void MainMenu::Initialize() {
             Vector2{ 0.0f, 0.0f },
             Alignment::DEFAULT,
             appContext.languageManager.Text("helper_app"),
-            SoundType::CLICKED_RELEASE_STD
+            app::SoundType::CLICKED_RELEASE_STD
     );
     appSettingsBtn->SetOnClick([]() {
         eve::SwitchSceneEvent const event{ SceneType::APP_SETTINGS };
@@ -224,7 +224,7 @@ void MainMenu::Initialize() {
             GetElementSize(btnSizX, btnSizY),
             Alignment::MID_RIGHT,
             appContext.languageManager.Text("scene_main_menu_credits_btn"),
-            SoundType::CLICKED_RELEASE_STD
+            app::SoundType::CLICKED_RELEASE_STD
     );
     creditsBtn->SetOnClick([]() {
         app::AppContext::GetInstance().eventManager.InvokeEvent(eve::SwitchSceneEvent(SceneType::CREDITS));
@@ -239,7 +239,7 @@ void MainMenu::Initialize() {
             GetElementSize(btnSizX, btnSizY),
             Alignment::MID_RIGHT,
             appContext.languageManager.Text("scene_main_menu_quit_btn"),
-            SoundType::ACCEPTED
+            app::SoundType::ACCEPTED
     );
     quitBtn->SetOnClick([]() { app::AppContext::GetInstance().eventManager.InvokeEvent(eve::QuitGameEvent{}); });
     m_elements.push_back(quitBtn);

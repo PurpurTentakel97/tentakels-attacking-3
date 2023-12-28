@@ -34,7 +34,7 @@ void SettingsScene::Initialize() {
             GetElementSize(0.15f, 0.1f),
             Alignment::BOTTOM_MID,
             appContext.languageManager.Text("scene_settings_continue_btn"),
-            SoundType::ACCEPTED
+            app::SoundType::ACCEPTED
     );
     continueBtn->SetEnabled(appContext.constants.global.isGameRunning);
     continueBtn->SetOnClick([]() {
@@ -49,7 +49,7 @@ void SettingsScene::Initialize() {
             GetElementSize(0.15f, 0.1f),
             Alignment::BOTTOM_MID,
             appContext.languageManager.Text("scene_settings_main_menu_btn"),
-            SoundType::CLICKED_RELEASE_STD
+            app::SoundType::CLICKED_RELEASE_STD
     );
     backBtn->SetOnClick([]() {
         app::AppContext::GetInstance().eventManager.InvokeEvent(eve::SwitchSceneEvent{ SceneType::MAIN_MENU });

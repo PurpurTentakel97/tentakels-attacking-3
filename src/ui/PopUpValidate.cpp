@@ -20,7 +20,7 @@ void ValidatePopUp::Initialize() {
             hlp::GetElementSize(m_size, 0.2f, 0.15f),
             Alignment::BOTTOM_MID,
             appContext.languageManager.Text("ui_validate_popup_accept_btn"),
-            SoundType::ACCEPTED
+            app::SoundType::ACCEPTED
     );
     acceptBtn->SetOnClick([this]() {
         this->m_callback(true);
@@ -35,7 +35,7 @@ void ValidatePopUp::Initialize() {
             hlp::GetElementSize(m_size, 0.2f, 0.15f),
             Alignment::BOTTOM_MID,
             appContext.languageManager.Text("ui_validate_popup_cancel_btn"),
-            SoundType::CLICKED_RELEASE_STD
+            app::SoundType::CLICKED_RELEASE_STD
     );
     cancelBtn->SetOnClick([this]() {
         this->m_callback(false);

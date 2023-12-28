@@ -11,7 +11,7 @@ void Slider::CalculateInitialButton() {
     float const sizeX{ m_isHorizontal ? m_size.x / m_absoluteDimension : m_size.x };
     float const sizeY{ m_isHorizontal ? m_size.y : m_size.y / m_absoluteDimension };
 
-    m_btn = SliderButton(m_pos, Vector2(sizeX, sizeY), Alignment::TOP_LEFT, "", SoundType::CLICKED_RELEASE_STD);
+    m_btn = SliderButton(m_pos, Vector2(sizeX, sizeY), Alignment::TOP_LEFT, "", app::SoundType::CLICKED_RELEASE_STD);
     m_btn.SetOnPress([this]() { this->Slide(); });
 }
 

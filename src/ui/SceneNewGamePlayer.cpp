@@ -65,7 +65,7 @@ void NewGamePlayerScene::Initialize() {
             GetElementSize(0.15f, 0.1f),
             Alignment::TOP_RIGHT,
             appContext.languageManager.Text("scene_new_game_player_reset_btn"),
-            SoundType::ACCEPTED
+            app::SoundType::ACCEPTED
     );
     resetBTN->SetOnClick([]() { NewGamePlayerScene::Reset(); });
     m_elements.push_back(resetBTN);
@@ -76,7 +76,7 @@ void NewGamePlayerScene::Initialize() {
             GetElementSize(0.15f, 0.1f),
             Alignment::TOP_LEFT,
             appContext.languageManager.Text("scene_new_game_player_back_btn"),
-            SoundType::CLICKED_RELEASE_STD
+            app::SoundType::CLICKED_RELEASE_STD
     );
     backBtn->SetOnClick([]() {
         app::AppContext::GetInstance().eventManager.InvokeEvent(eve::SwitchSceneEvent(SceneType::MAIN_MENU));
@@ -147,7 +147,7 @@ void NewGamePlayerScene::Initialize() {
             GetElementSize(0.15f, 0.1f),
             Alignment::TOP_LEFT,
             appContext.languageManager.Text("scene_new_game_player_add_player_btn"),
-            SoundType::ACCEPTED
+            app::SoundType::ACCEPTED
     );
     addPlayerBtn->SetOnClick([this]() { this->AddPlayer(); });
     m_elements.push_back(addPlayerBtn);
@@ -158,7 +158,7 @@ void NewGamePlayerScene::Initialize() {
             GetElementSize(0.15f, 0.1f),
             Alignment::TOP_RIGHT,
             appContext.languageManager.Text("scene_new_game_player_next_btn"),
-            SoundType::ACCEPTED
+            app::SoundType::ACCEPTED
     );
     m_nextBTN->SetOnClick([]() { NewGamePlayerScene::CheckPlayerCount(); });
     m_elements.push_back(m_nextBTN);
@@ -180,7 +180,7 @@ void NewGamePlayerScene::InitializePlayerButtons() {
                 GetElementSize(rowHeight * 0.7f, rowHeight - 0.01f),
                 Alignment::TOP_LEFT,
                 "X",
-                SoundType::CLICKED_RELEASE_STD
+                app::SoundType::CLICKED_RELEASE_STD
         );
 
         button->SetEnabled(i < currentPlayerCount);

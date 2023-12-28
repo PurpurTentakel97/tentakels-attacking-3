@@ -53,7 +53,7 @@ void GalaxyScene::Initialize(bool const isShowGalaxy, bool const isAcceptingInpu
             GetElementSize(0.05f, 0.05f),
             Alignment::TOP_LEFT,
             "+",
-            SoundType::CLICKED_RELEASE_STD
+            app::SoundType::CLICKED_RELEASE_STD
     );
     m_zoomInBtn->SetOnPress([this]() { this->m_galaxy->Zoom(true); });
     m_elementsOutUpdates.push_back(m_zoomInBtn);
@@ -64,7 +64,7 @@ void GalaxyScene::Initialize(bool const isShowGalaxy, bool const isAcceptingInpu
             GetElementSize(0.05f, 0.05f),
             Alignment::TOP_LEFT,
             "-",
-            SoundType::CLICKED_RELEASE_STD
+            app::SoundType::CLICKED_RELEASE_STD
     );
     m_zoomOutBtn->SetOnPress([this]() { this->m_galaxy->Zoom(false); });
     m_elementsOutUpdates.push_back(m_zoomOutBtn);

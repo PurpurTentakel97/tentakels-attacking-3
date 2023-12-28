@@ -13,7 +13,7 @@ ClassicButton::ClassicButton(
         Vector2 const size,
         Alignment const alignment,
         std::string const& text,
-        SoundType const releaseSound
+        app::SoundType const releaseSound
 )
     : Button{ pos, size, alignment, text, releaseSound },
       Focusable{ focusID } { }
@@ -27,7 +27,7 @@ void ClassicButton::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext
     if (IsFocused()) {
         if (m_state == State::DISABLED) {
             if (hlp::IsConfirmInputPressed()) {
-                eve::PlaySoundEvent const event{ SoundType::CLICKED_DISABLED_STD };
+                eve::PlaySoundEvent const event{ app::SoundType::CLICKED_DISABLED_STD };
                 appContext.eventManager.InvokeEvent(event);
                 return;
             }
@@ -42,7 +42,7 @@ void ClassicButton::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext
             if (m_state != State::PRESSED) {
                 m_state = State::PRESSED;
                 m_isPressed = true;
-                eve::PlaySoundEvent const event{ SoundType::CLICKED_PRESS_STD };
+                eve::PlaySoundEvent const event{ app::SoundType::CLICKED_PRESS_STD };
                 appContext.eventManager.InvokeEvent(event);
                 return;
             }

@@ -10,10 +10,10 @@
 
 void CheckBox::Check(app::AppContext_ty_c appContext) {
     if (m_isChecked) {
-        eve::PlaySoundEvent const event{ SoundType::CLICKED_RELEASE_STD };
+        eve::PlaySoundEvent const event{ app::SoundType::CLICKED_RELEASE_STD };
         appContext.eventManager.InvokeEvent(event);
     } else {
-        eve::PlaySoundEvent const event{ SoundType::CLICKED_PRESS_STD };
+        eve::PlaySoundEvent const event{ app::SoundType::CLICKED_PRESS_STD };
         appContext.eventManager.InvokeEvent(event);
     }
 
@@ -74,7 +74,7 @@ void CheckBox::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c
             if (m_isEnabled) {
                 check = true;
             } else {
-                eve::PlaySoundEvent const event{ SoundType::CLICKED_DISABLED_STD };
+                eve::PlaySoundEvent const event{ app::SoundType::CLICKED_DISABLED_STD };
                 appContext.eventManager.InvokeEvent(event);
             }
         }
@@ -87,7 +87,7 @@ void CheckBox::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c
             if (m_isEnabled) {
                 check = true;
             } else {
-                eve::PlaySoundEvent const event{ SoundType::CLICKED_DISABLED_STD };
+                eve::PlaySoundEvent const event{ app::SoundType::CLICKED_DISABLED_STD };
                 appContext.eventManager.InvokeEvent(event);
             }
         }

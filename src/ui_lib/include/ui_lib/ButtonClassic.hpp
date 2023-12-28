@@ -16,7 +16,7 @@ public:
             Vector2 size,
             Alignment alignment,
             std::string const& text,
-            SoundType releaseSound
+            app::SoundType releaseSound
     );
 
     [[nodiscard]] bool IsEnabled() const override;

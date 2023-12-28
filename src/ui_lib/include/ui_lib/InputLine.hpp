@@ -33,7 +33,7 @@ protected:
         if (validAdd) {
             m_value += static_cast<char>(key);
 
-            eve::PlaySoundEvent const event{ SoundType::TEXT };
+            eve::PlaySoundEvent const event{ app::SoundType::TEXT };
             app::AppContext::GetInstance().eventManager.InvokeEvent(event);
 
             m_onValueChanced();
@@ -46,7 +46,7 @@ protected:
         if (not m_value.empty()) {
             m_value.pop_back();
 
-            eve::PlaySoundEvent const event{ SoundType::TEXT };
+            eve::PlaySoundEvent const event{ app::SoundType::TEXT };
             app::AppContext::GetInstance().eventManager.InvokeEvent(event);
 
             m_onValueChanced();

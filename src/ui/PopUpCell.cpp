@@ -24,7 +24,7 @@ void CellPopUp::Initialize() {
             hlp::GetElementSize(m_size, 0.3f, 0.2f),
             Alignment::BOTTOM_LEFT,
             appContext.languageManager.Text("ui_cell_popup_cancel_btn"),
-            SoundType::CLICKED_RELEASE_STD
+            app::SoundType::CLICKED_RELEASE_STD
     );
 
     hlp::AddFocusElement(cancelBtn.get(), true);
@@ -44,7 +44,7 @@ ClassicButton_ty CellPopUp::InitializeAcceptButton() {
             hlp::GetElementSize(m_size, 0.3f, 0.2f),
             Alignment::BOTTOM_RIGHT,
             appContext.languageManager.Text("ui_cell_popup_accept_btn"),
-            SoundType::ACCEPTED
+            app::SoundType::ACCEPTED
     );
 
     hlp::AddFocusElement(acceptBtn.get(), true);
@@ -61,7 +61,7 @@ void CellPopUp::SetShouldClose() {
 void CellPopUp::CheckEnter() {
     bool validEnterClose = (IsKeyReleased(KEY_ENTER) or IsKeyPressed(KEY_KP_ENTER)) && !m_shouldClose && !m_firstEnter;
     if (validEnterClose) {
-        auto event = eve::PlaySoundEvent(SoundType::ACCEPTED);
+        auto event = eve::PlaySoundEvent(app::SoundType::ACCEPTED);
         app::AppContext::GetInstance().eventManager.InvokeEvent(event);
         SetValue();
     }
@@ -95,7 +95,7 @@ void CellPopUp::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_
     CheckEnter();
 
     if (hlp::IsBackInputPressed()) {
-        eve::PlaySoundEvent event{ SoundType::CLICKED_RELEASE_STD };
+        eve::PlaySoundEvent event{ app::SoundType::CLICKED_RELEASE_STD };
         appContext.eventManager.InvokeEvent(event);
         SetShouldClose();
     }

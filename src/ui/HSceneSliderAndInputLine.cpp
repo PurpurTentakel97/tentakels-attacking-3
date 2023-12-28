@@ -33,7 +33,7 @@ void SliderAndInputLine::Initialize(unsigned int focusID) {
             GetElementSize(0.1f, 1.0f),
             Alignment::TOP_LEFT,
             "Set",
-            SoundType::CLICKED_RELEASE_STD
+            app::SoundType::CLICKED_RELEASE_STD
     );
     m_btn->SetOnClick([this]() { this->BtnPressed(); });
     m_btn->SetEnabled(false);

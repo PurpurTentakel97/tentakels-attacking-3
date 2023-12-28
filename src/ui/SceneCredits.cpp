@@ -23,7 +23,7 @@ void CreditsScene::Initialize() {
             GetElementSize(0.15f, 0.1f),
             Alignment::BOTTOM_RIGHT,
             appContext.languageManager.Text("scene_credits_speed_toggle_btn", m_speedLevel, m_maxSpeedLevel),
-            SoundType::CLICKED_RELEASE_STD
+            app::SoundType::CLICKED_RELEASE_STD
     );
     m_speedBTN->SetOnClick([this]() { this->ToggleSpeedLevel(); });
     m_speedBTN->SetEnabled(false);
@@ -35,7 +35,7 @@ void CreditsScene::Initialize() {
             GetElementSize(0.15f, 0.1f),
             Alignment::BOTTOM_LEFT,
             appContext.languageManager.Text("scene_credits_back_btn"),
-            SoundType::CLICKED_RELEASE_STD
+            app::SoundType::CLICKED_RELEASE_STD
     );
     backBTN->SetOnClick([]() {
         auto event = eve::SwitchSceneEvent(SceneType::MAIN_MENU);
@@ -168,7 +168,7 @@ void CreditsScene::Initialize() {
             GetElementSize(0.15f, height),
             Alignment::TOP_MID,
             appContext.languageManager.Text("scene_credits_end_btn"),
-            SoundType::ACCEPTED
+            app::SoundType::ACCEPTED
     );
     m_endBTN->SetOnClick([]() {
         auto event = eve::SwitchSceneEvent(SceneType::MAIN_MENU);

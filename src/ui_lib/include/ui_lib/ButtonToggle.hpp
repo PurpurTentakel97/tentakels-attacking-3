@@ -22,7 +22,7 @@ public:
             Vector2 size,
             Alignment alignment,
             std::string const& text,
-            SoundType releaseSound
+            app::SoundType releaseSound
     );
 
     void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) override;

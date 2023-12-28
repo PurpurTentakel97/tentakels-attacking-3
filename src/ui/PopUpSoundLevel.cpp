@@ -60,7 +60,7 @@ void SoundLevelPopUp::Initialize() {
             hlp::GetElementSize(m_size, 0.2f, 0.15f),
             Alignment::BOTTOM_MID,
             appContext.languageManager.Text("ui_sound_level_popup_accept_btn"),
-            SoundType::ACCEPTED
+            app::SoundType::ACCEPTED
     );
     m_acceptBtn->SetOnClick([this]() {
         app::AppContext::GetInstance().eventManager.InvokeEvent(eve::ClosePopUpEvent(this));

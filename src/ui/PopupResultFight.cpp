@@ -123,7 +123,7 @@ void FightResultPopup::Initialize() {
             hlp::GetElementSize(m_size, 0.2f, 0.15f),
             Alignment::BOTTOM_MID,
             appContext.languageManager.Text("helper_skip_big"),
-            SoundType::CLICKED_RELEASE_STD
+            app::SoundType::CLICKED_RELEASE_STD
     );
     m_closeBtn->SetOnClick([this]() { this->HandleButton(); });
     m_elements.push_back(m_closeBtn);

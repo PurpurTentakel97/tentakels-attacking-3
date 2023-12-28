@@ -18,7 +18,7 @@ void ExpandingButton::Initialize(int const focusID, std::string const& btnText) 
             m_size,
             Alignment::DEFAULT,
             btnText,
-            SoundType::CLICKED_RELEASE_STD
+            app::SoundType::CLICKED_RELEASE_STD
     );
     m_mainButton->SetOnToggle([this](bool toggle, bool keyInput) { this->HandleExpandChance(toggle, keyInput); });
 

@@ -207,7 +207,7 @@ void NewGameParameterScene::Initialize() {
             GetElementSize(0.15f, 0.1f),
             Alignment::BOTTOM_MID,
             appContext.languageManager.Text("scene_new_game_parameter_random_btn"),
-            SoundType::CLICKED_RELEASE_STD
+            app::SoundType::CLICKED_RELEASE_STD
     );
     randomBtn->SetOnClick([this]() { this->SetRandom(); });
     m_elements.push_back(randomBtn);
@@ -218,7 +218,7 @@ void NewGameParameterScene::Initialize() {
             GetElementSize(0.15f, 0.1f),
             Alignment::BOTTOM_MID,
             appContext.languageManager.Text("scene_new_game_parameter_back_btn"),
-            SoundType::CLICKED_RELEASE_STD
+            app::SoundType::CLICKED_RELEASE_STD
     );
     backBtn->SetOnClick([]() {
         app::AppContext::GetInstance().eventManager.InvokeEvent(eve::SwitchSceneEvent(SceneType::NEW_GAME_PLAYER));
@@ -231,7 +231,7 @@ void NewGameParameterScene::Initialize() {
             GetElementSize(0.15f, 0.1f),
             Alignment::BOTTOM_MID,
             appContext.languageManager.Text("scene_new_game_parameter_next_btn"),
-            SoundType::ACCEPTED
+            app::SoundType::ACCEPTED
     );
     nextBtn->SetOnClick([]() {
         auto event = eve::GenerateGalaxyEvent();

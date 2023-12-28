@@ -32,7 +32,7 @@ void GameSettingsScene::Initialize() {
             GetElementSize(0.15f, 0.1f),
             Alignment::BOTTOM_MID,
             appContext.languageManager.Text("scene_settings_end_game_btn"),
-            SoundType::CLICKED_RELEASE_STD
+            app::SoundType::CLICKED_RELEASE_STD
     );
     finishBtn->SetEnabled(false);
     m_elements.push_back(finishBtn);

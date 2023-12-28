@@ -45,7 +45,7 @@ void TestScene::Initialize(app::AppContext_ty) {
             GetElementSize(xs, ys),
             Alignment::TOP_LEFT,
             "+",
-            SoundType::CLICKED_RELEASE_STD
+            app::SoundType::CLICKED_RELEASE_STD
     );
     insertLineBtn->SetOnClick([table]() {
         auto const result = table->insertRow(2);
@@ -62,7 +62,7 @@ void TestScene::Initialize(app::AppContext_ty) {
             GetElementSize(xs, ys),
             Alignment::TOP_LEFT,
             "+",
-            SoundType::CLICKED_RELEASE_STD
+            app::SoundType::CLICKED_RELEASE_STD
     );
     addLineBtn->SetOnClick([table]() {
         auto const result = table->appendRow();
@@ -79,7 +79,7 @@ void TestScene::Initialize(app::AppContext_ty) {
             GetElementSize(xs, ys),
             Alignment::TOP_LEFT,
             "-",
-            SoundType::CLICKED_RELEASE_STD
+            app::SoundType::CLICKED_RELEASE_STD
     );
     removeLineBtn->SetOnClick([table]() {
         table->removeRow(2);
@@ -95,7 +95,7 @@ void TestScene::Initialize(app::AppContext_ty) {
             GetElementSize(xs, ys),
             Alignment::TOP_LEFT,
             "-",
-            SoundType::CLICKED_RELEASE_STD
+            app::SoundType::CLICKED_RELEASE_STD
     );
     popLineBtn->SetOnClick([table]() {
         table->popRow();
@@ -111,7 +111,7 @@ void TestScene::Initialize(app::AppContext_ty) {
             GetElementSize(xs, ys),
             Alignment::TOP_LEFT,
             "new",
-            SoundType::CLICKED_RELEASE_STD
+            app::SoundType::CLICKED_RELEASE_STD
     );
     button->SetOnClick([table]() {
         table->setValue<std::string>(5, 3, "RESIZE!!!!!!!!!!!!!!!!!\n!!!!!!!!!!!!!!!!!!!");
@@ -127,7 +127,7 @@ void TestScene::Initialize(app::AppContext_ty) {
             GetElementSize(xs, ys),
             Alignment::TOP_LEFT,
             "new+",
-            SoundType::CLICKED_RELEASE_STD
+            app::SoundType::CLICKED_RELEASE_STD
     );
     button2->SetOnClick([table]() {
         table->setValue<std::string>(5, 2, "RESIZE!!!!!!!!!!!!!!!!!\n!!!!!!!!!!!\n!!!!!!!!");
@@ -143,7 +143,7 @@ void TestScene::Initialize(app::AppContext_ty) {
             GetElementSize(xs, ys),
             Alignment::TOP_LEFT,
             "scroll",
-            SoundType::CLICKED_RELEASE_STD
+            app::SoundType::CLICKED_RELEASE_STD
     );
     button3->SetOnClick([table]() {
         auto const scroll{ table->is_scrollable() };
@@ -159,7 +159,7 @@ void TestScene::Initialize(app::AppContext_ty) {
             GetElementSize(0.15f, 0.1f),
             Alignment::BOTTOM_LEFT,
             "Back",
-            SoundType::CLICKED_PRESS_STD
+            app::SoundType::CLICKED_PRESS_STD
     );
     backBtn->SetOnClick([]() {
         eve::SwitchSceneEvent const event{ SceneType::MAIN_MENU };

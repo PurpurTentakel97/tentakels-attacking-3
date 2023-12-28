@@ -5,8 +5,8 @@
 
 #pragma once
 #include "EventMain.hpp"
-#include "app/SoundType.hpp"
 #include <CustomRaylib.hpp>
+#include <app/SoundType.hpp>
 #include <functional>
 #include <helper/HFightResult.hpp>
 #include <helper/HLogicAlias.hpp>
@@ -61,11 +61,11 @@ namespace eve {
 
     class PlaySoundEvent final : public Event {
     private:
-        SoundType m_soundType;
+        app::SoundType m_soundType;
 
     public:
-        explicit PlaySoundEvent(SoundType const soundType) : m_soundType{ soundType } { }
-        [[nodiscard]] SoundType GetSoundType() const {
+        explicit PlaySoundEvent(app::SoundType const soundType) : m_soundType{ soundType } { }
+        [[nodiscard]] app::SoundType GetSoundType() const {
             return m_soundType;
         }
     };

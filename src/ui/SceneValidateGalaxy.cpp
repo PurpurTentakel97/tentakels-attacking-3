@@ -31,7 +31,7 @@ void ValidateGalaxyScene::Initialize() {
             GetElementSize(0.15f, 0.1f),
             Alignment::BOTTOM_LEFT,
             appContext.languageManager.Text("scene_validate_galaxy_back_btn"),
-            SoundType::CLICKED_RELEASE_STD
+            app::SoundType::CLICKED_RELEASE_STD
     );
     backBtn->SetOnClick([]() {
         app::AppContext::GetInstance().eventManager.InvokeEvent(eve::SwitchSceneEvent(SceneType::NEW_GAME_PARAMETER));
@@ -44,7 +44,7 @@ void ValidateGalaxyScene::Initialize() {
             GetElementSize(0.15f, 0.1f),
             Alignment::BOTTOM_MID,
             appContext.languageManager.Text("scene_validate_galaxy_regenerate_btn"),
-            SoundType::CLICKED_RELEASE_STD
+            app::SoundType::CLICKED_RELEASE_STD
     );
     reGenerateBtn->SetOnClick([this]() { this->NewGalaxy(); });
     m_elements.push_back(reGenerateBtn);
@@ -55,7 +55,7 @@ void ValidateGalaxyScene::Initialize() {
             GetElementSize(0.15f, 0.1f),
             Alignment::BOTTOM_RIGHT,
             appContext.languageManager.Text("scene_validate_galaxy_next_btn"),
-            SoundType::ACCEPTED
+            app::SoundType::ACCEPTED
     );
     nextBtn->SetOnClick([]() {
         eve::StartGameEvent const event{};

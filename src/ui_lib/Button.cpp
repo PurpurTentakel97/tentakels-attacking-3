@@ -38,7 +38,7 @@ Button::Button(
         Vector2 const size,
         Alignment const alignment,
         std::string text,
-        SoundType const releaseSound
+        app::SoundType const releaseSound
 )
     : UIElement{ pos, size, alignment },
       m_text{ std::move(text) },
@@ -55,7 +55,7 @@ Button::Button(
 
 Button::Button()
 	: UIElement{ {0.0f,0.0f}, {0.0f,0.0f}, Alignment::TOP_LEFT },
-	m_sound{ SoundType::CLICKED_RELEASE_STD }, m_textPosition{ 0.0f,0.0f },
+	m_sound{ app::SoundType::CLICKED_RELEASE_STD }, m_textPosition{ 0.0f,0.0f },
 	m_texture{ nullptr }, m_textureRec{ 0.0f,0.0f,0.0f,0.0f } {}
 
 void Button::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) {
@@ -64,7 +64,7 @@ void Button::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c a
     bool const hover{ CheckCollisionPointRec(mousePosition, m_collider) };
     if (m_state == State::DISABLED) {
         if (hover && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
-            eve::PlaySoundEvent const event{ SoundType::CLICKED_DISABLED_STD };
+            eve::PlaySoundEvent const event{ app::SoundType::CLICKED_DISABLED_STD };
             appContext.eventManager.InvokeEvent(event);
         }
         return;
@@ -81,7 +81,7 @@ void Button::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c a
         }
 
         if (IsSameState(State::HOVER)) {
-            eve::PlaySoundEvent const event{ SoundType::HOVER_STD };
+            eve::PlaySoundEvent const event{ app::SoundType::HOVER_STD };
             appContext.eventManager.InvokeEvent(event);
         }
         m_state = State::ENABLED;
@@ -107,14 +107,14 @@ void Button::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c a
         if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
             m_isPressed = true;
             m_state = State::PRESSED;
-            eve::PlaySoundEvent const event{ SoundType::CLICKED_PRESS_STD };
+            eve::PlaySoundEvent const event{ app::SoundType::CLICKED_PRESS_STD };
             appContext.eventManager.InvokeEvent(event);
             m_onPress();
             return;
         }
         if (!IsSameState(State::HOVER)) {
             m_state = State::HOVER;
-            eve::PlaySoundEvent const event{ SoundType::HOVER_STD };
+            eve::PlaySoundEvent const event{ app::SoundType::HOVER_STD };
             appContext.eventManager.InvokeEvent(event);
             return;
         }

@@ -52,7 +52,7 @@ void MainScene::Initialize() {
             Vector2{ 0.0f, 0.0f },
             Alignment::DEFAULT,
             appContext.languageManager.Text("helper_game"),
-            SoundType::CLICKED_RELEASE_STD
+            app::SoundType::CLICKED_RELEASE_STD
     );
     gameSettingsBtn->SetOnClick([]() {
         app::AppContext_ty_c appContext_{ app::AppContext::GetInstance() };
@@ -71,7 +71,7 @@ void MainScene::Initialize() {
             Vector2{ 0.0f, 0.0f },
             Alignment::DEFAULT,
             appContext.languageManager.Text("helper_app"),
-            SoundType::CLICKED_RELEASE_STD
+            app::SoundType::CLICKED_RELEASE_STD
     );
     appSettingsBtn->SetOnClick([]() {
         app::AppContext_ty_c appContext_{ app::AppContext::GetInstance() };
@@ -90,7 +90,7 @@ void MainScene::Initialize() {
             Vector2{ 0.0f, 0.0f },
             Alignment::DEFAULT,
             appContext.languageManager.Text("scene_settings_main_menu_btn"),
-            SoundType::CLICKED_RELEASE_STD
+            app::SoundType::CLICKED_RELEASE_STD
     );
     mainMenuBtn->SetOnClick([]() {
         app::AppContext_ty_c appContext_{ app::AppContext::GetInstance() };
@@ -109,7 +109,7 @@ void MainScene::Initialize() {
             Vector2{ 0.0f, 0.0f },
             Alignment::DEFAULT,
             appContext.languageManager.Text("scene_main_scene_resign_btn"),
-            SoundType::CLICKED_RELEASE_STD
+            app::SoundType::CLICKED_RELEASE_STD
     );
     resignBtn->SetOnClick([settingsBtn]() {
         settingsBtn->Collapse();
@@ -124,7 +124,7 @@ void MainScene::Initialize() {
             GetElementSize(0.1f, 0.05f),
             Alignment::TOP_RIGHT,
             appContext.languageManager.Text("scene_main_scene_galaxy_btn"),
-            SoundType::CLICKED_RELEASE_STD
+            app::SoundType::CLICKED_RELEASE_STD
     );
     galaxyBtn->SetOnClick([this]() { this->Switch(MainSceneType::GALAXY); });
     m_elements.push_back(galaxyBtn);
@@ -135,7 +135,7 @@ void MainScene::Initialize() {
             GetElementSize(0.1f, 0.05f),
             Alignment::TOP_RIGHT,
             appContext.languageManager.Text("scene_main_scene_planet_table_btn"),
-            SoundType::CLICKED_RELEASE_STD
+            app::SoundType::CLICKED_RELEASE_STD
     );
     planetTableBtn->SetOnClick([this]() { this->Switch(MainSceneType::PLANET_TABLE); });
     m_elements.push_back(planetTableBtn);
@@ -146,7 +146,7 @@ void MainScene::Initialize() {
             GetElementSize(0.1f, 0.05f),
             Alignment::TOP_RIGHT,
             appContext.languageManager.Text("scene_main_scene_fleet_point_table_btn"),
-            SoundType::CLICKED_RELEASE_STD
+            app::SoundType::CLICKED_RELEASE_STD
     );
     fleetTableBtn->SetOnClick([this]() { this->Switch(MainSceneType::FLEET_TABLE); });
     m_elements.push_back(fleetTableBtn);
@@ -157,7 +157,7 @@ void MainScene::Initialize() {
             GetElementSize(0.1f, 0.05f),
             Alignment::BOTTOM_RIGHT,
             appContext.languageManager.Text("scene_main_scene_next_player_btn"),
-            SoundType::ACCEPTED
+            app::SoundType::ACCEPTED
     );
     m_nextBtn->SetOnClick([]() { app::AppContext::GetInstance().eventManager.InvokeEvent(eve::TriggerNextTurnEvent()); }
     );
@@ -369,7 +369,7 @@ void MainScene::Initialize() {
             GetElementSize(0.04f, 0.04f),
             Alignment::TOP_RIGHT,
             "+",
-            SoundType::ACCEPTED
+            app::SoundType::ACCEPTED
     );
     m_acceptBtn->SetOnClick([this]() { this->SendFleetInstruction(); });
     m_elements.push_back(m_acceptBtn);
@@ -380,7 +380,7 @@ void MainScene::Initialize() {
             GetElementSize(0.04f, 0.04f),
             Alignment::TOP_RIGHT,
             "X",
-            SoundType::ACCEPTED
+            app::SoundType::ACCEPTED
     );
     m_resetBtn->SetOnClick([this]() { this->ClearInputLines(); });
     m_elements.push_back(m_resetBtn);

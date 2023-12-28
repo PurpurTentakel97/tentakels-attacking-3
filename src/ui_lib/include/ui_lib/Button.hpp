@@ -19,7 +19,7 @@ protected:
     };
 
     std::string m_text{};
-    SoundType m_sound{};
+    app::SoundType m_sound{};
 
     Vector2 m_textPosition{};
     Texture2D* m_texture{};
@@ -42,7 +42,7 @@ protected:
     void UpdateCollider() override;
 
 public:
-    Button(Vector2 pos, Vector2 size, Alignment alignment, std::string text, SoundType releaseSound);
+    Button(Vector2 pos, Vector2 size, Alignment alignment, std::string text, app::SoundType releaseSound);
 
     Button();
 
