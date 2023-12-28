@@ -136,7 +136,6 @@ public:
 
     void Render(AppContext_ty_c appContext) override {
 
-        auto const constants{ appContext.constants.textProcessing };
         // Update here to make sure its after call of HasValueChanced();
         m_oldValue = m_value;
 
