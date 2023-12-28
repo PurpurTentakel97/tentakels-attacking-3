@@ -149,7 +149,7 @@ public:
         float const posX{ m_collider.x + 10.0f };
         float const posY{ m_collider.y + m_collider.height * 0.1f };
         float const fontSize{ m_collider.height * 0.8f };
-        std::string printableInput{ };
+        std::string printableInput{};
 
         if (not m_value.empty()) {
             printableInput = GetPrintableTextInCollider(m_value, fontSize, m_collider, appContext);
@@ -203,7 +203,7 @@ public:
         m_onValueChanced();
     }
 
-    void ExtendValue(T value) {
+    void ExtendValue(T const& value) {
         m_value += std::to_string(value);
         m_onValueChanced();
     }
@@ -229,11 +229,11 @@ public:
     }
 
     void SetOnEnter(std::function<void()> onEnter) {
-        m_onEnter = onEnter;
+        m_onEnter = std::move(onEnter);
     }
 
     void SetOnValueChanced(std::function<void()> onValueChanged) {
-        m_onValueChanced = onValueChanged;
+        m_onValueChanced = std::move(onValueChanged);
     }
 
     void SetShouldClearByFocus(bool isShouldClearByFocus) {
@@ -260,7 +260,7 @@ public:
 
 template<>
 inline bool InputLine<int>::IsValidKey(int key) {
-    return { key >= 48 and key <= 57 };
+    return key >= 48 and key <= 57;
 }
 
 template<>
@@ -271,7 +271,7 @@ inline bool InputLine<float>::IsValidKey(int key) {
 
     //check for multiple commas/dots
     if ('.' == key or ',' == key) {
-        if (m_value.size() == 0) {
+        if (m_value.empty()) {
             valid = false;
         }
 
@@ -294,7 +294,7 @@ inline bool InputLine<double>::IsValidKey(int key) {
 
     //check for multiple commas/dots
     if ('.' == key or ',' == key) {
-        if (m_value.size() == 0) {
+        if (m_value.empty()) {
             valid = false;
         }
 
@@ -311,13 +311,13 @@ inline bool InputLine<double>::IsValidKey(int key) {
 
 template<>
 inline bool InputLine<std::string>::IsValidKey(int key) {
-    return { key >= 32 and key <= 126 };
+    return key >= 32 and key <= 126;
 }
 
 template<>
 [[nodiscard]] inline int InputLine<int>::GetValue() {
     StripString(m_value);
-    if (m_value.size() == 0) {
+    if (m_value.empty()) {
         return 0;
     }
     return std::stoi(m_value);
@@ -326,10 +326,10 @@ template<>
 template<>
 [[nodiscard]] inline float InputLine<float>::GetValue() {
     StripString(m_value);
-    if (m_value.size() == 0) {
+    if (m_value.empty()) {
         return 0.0f;
     }
-    for (char c : m_value) {
+    for (char& c : m_value) {
         if (c == ',') {
             c = '.';
             break;
@@ -341,7 +341,7 @@ template<>
 template<>
 [[nodiscard]] inline double InputLine<double>::GetValue() {
     StripString(m_value);
-    if (m_value.size() == 0) {
+    if (m_value.empty()) {
         return 0.0;
     }
     for (char& c : m_value) {
@@ -361,12 +361,12 @@ template<>
 
 template<>
 inline void InputLine<std::string>::SetValue(std::string value) {
-    m_value = value;
+    m_value = std::move(value);
     m_onValueChanced();
 }
 
 template<>
-inline void InputLine<std::string>::ExtendValue(std::string value) {
+inline void InputLine<std::string>::ExtendValue(std::string const& value) {
     m_value += value;
     m_onValueChanced();
 }
