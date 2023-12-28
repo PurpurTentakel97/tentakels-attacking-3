@@ -10,11 +10,11 @@
 
 class EventManager final {
 public:
-    void AddListener(EventListener* eventListener) {
+    void AddListener(EventListener* const eventListener) {
         m_listeners.push_back(eventListener);
     }
 
-    void RemoveListener(EventListener* eventListener) {
+    void RemoveListener(EventListener* const eventListener) {
         m_listeners.erase(std::remove(m_listeners.begin(), m_listeners.end(), eventListener), m_listeners.end());
     }
 

@@ -27,7 +27,7 @@ private:
     size_t m_fps;
 
 public:
-    explicit SetTargetFPSEvent(size_t fps) : m_fps{ fps } { }
+    explicit SetTargetFPSEvent(size_t const fps) : m_fps{ fps } { }
 
     [[nodiscard]] size_t GetFPS() const {
         return m_fps;
@@ -51,7 +51,7 @@ private:
     Resolution m_resolution;
 
 public:
-    explicit SetNewResolutionEvent(Resolution resolution) : m_resolution{ resolution } { }
+    explicit SetNewResolutionEvent(Resolution const resolution) : m_resolution{ resolution } { }
 
     [[nodiscard]] Resolution GetResolution() const {
         return m_resolution;
@@ -63,7 +63,7 @@ private:
     SoundType m_soundType;
 
 public:
-    explicit PlaySoundEvent(SoundType soundType) : m_soundType{ soundType } { }
+    explicit PlaySoundEvent(SoundType const soundType) : m_soundType{ soundType } { }
     [[nodiscard]] SoundType GetSoundType() const {
         return m_soundType;
     }
@@ -74,7 +74,7 @@ private:
     float m_level;
 
 public:
-    explicit SetMasterVolumeEvent(float level) : m_level{ level } {};
+    explicit SetMasterVolumeEvent(float const level) : m_level{ level } {};
 
     [[nodiscard]] float GetLevel() const {
         return m_level;
@@ -86,7 +86,7 @@ private:
     bool m_mute;
 
 public:
-    explicit MuteMasterVolumeEvent(bool mute) : m_mute{ mute } { }
+    explicit MuteMasterVolumeEvent(bool const mute) : m_mute{ mute } { }
 
     [[nodiscard]] bool GetMute() const {
         return m_mute;
@@ -98,7 +98,7 @@ private:
     Hover* m_hover;
 
 public:
-    explicit RenderHoverEvent(Hover* hover) : m_hover{ hover } { }
+    explicit RenderHoverEvent(Hover* const hover) : m_hover{ hover } { }
 
     [[nodiscard]] Hover* GetHover() const {
         return m_hover;
@@ -122,7 +122,7 @@ private:
     bool m_render;
 
 public:
-    explicit RenderFocusEvent(bool render) : m_render{ render } { }
+    explicit RenderFocusEvent(bool const render) : m_render{ render } { }
 
     [[nodiscard]] bool GetRender() const noexcept {
         return m_render;
@@ -177,7 +177,7 @@ private:
     SceneType m_sceneType;
 
 public:
-    explicit SwitchSceneEvent(SceneType sceneType) : m_sceneType{ sceneType } { }
+    explicit SwitchSceneEvent(SceneType const sceneType) : m_sceneType{ sceneType } { }
 
     [[nodiscard]] SceneType GetSceneType() const {
         return m_sceneType;
@@ -189,7 +189,7 @@ private:
     PopUp* m_popUp;
 
 public:
-    explicit ClosePopUpEvent(PopUp* popUp) : m_popUp{ popUp } { }
+    explicit ClosePopUpEvent(PopUp* const popUp) : m_popUp{ popUp } { }
 
     [[nodiscard]] PopUp* GetPop() const {
         return m_popUp;
@@ -235,7 +235,7 @@ private:
     std::function<void(T)> m_onClick;
 
 public:
-    ShowCellPopUpEvent(std::string const& title, T currentValue, std::function<void(T)> onClick)
+    ShowCellPopUpEvent(std::string const& title, T const currentValue, std::function<void(T)> const onClick)
         : PopUpEvent{ title, "" },
           m_currentValue{ currentValue },
           m_onClick{ onClick } { }
@@ -327,13 +327,13 @@ class DragLineFleetInstructionEvent final : public Event {
 private:
     unsigned int m_originID;
     unsigned int m_destID;
-    vec2pos_ty m_destCorrinates;
+    vec2pos_ty m_destCoordinates;
 
 public:
-    DragLineFleetInstructionEvent(unsigned int originID, unsigned int destID, vec2pos_ty destCoordinates)
+    DragLineFleetInstructionEvent(unsigned int const originID, unsigned int const destID, vec2pos_ty destCoordinates)
         : m_originID{ originID },
           m_destID{ destID },
-          m_destCorrinates{ std::move(destCoordinates) } { }
+          m_destCoordinates{ std::move(destCoordinates) } { }
 
     [[nodiscard]] unsigned int GetOriginID() const {
         return m_originID;
@@ -342,7 +342,7 @@ public:
         return m_destID;
     }
     [[nodiscard]] vec2pos_ty GetDestCoordinates() const {
-        return m_destCorrinates;
+        return m_destCoordinates;
     }
 };
 
