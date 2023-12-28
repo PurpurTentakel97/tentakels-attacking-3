@@ -20,7 +20,7 @@ void Title::RenderTitle(AppContext_ty_c appContext) {
         );
     }
 }
-void Title::RenderTitleSequens(AppContext_ty_c appContext) {
+void Title::RenderTitleSequence(AppContext_ty_c appContext) {
     size_t localCharCount{ 0 };
     std::string dummyText{};
     size_t i{ 0 };
@@ -129,7 +129,7 @@ void Title::Render(AppContext_ty_c appContext) {
     m_lastFinishedTitle = m_titleFinish;
 
     if (!m_titleFinish) {
-        RenderTitleSequens(appContext);
+        RenderTitleSequence(appContext);
     } else {
         RenderTitle(appContext);
     }

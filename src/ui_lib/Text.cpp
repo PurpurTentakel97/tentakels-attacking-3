@@ -141,8 +141,8 @@ void Text::RenderRectangle(bool renderRectangle) {
     m_renderRectangle = renderRectangle;
 }
 
-void Text::SetRenderBackground(bool isRenderBackround) {
-    m_renderBackground = isRenderBackround;
+void Text::SetRenderBackground(bool isRenderBackground) {
+    m_renderBackground = isRenderBackground;
 }
 bool Text::GetRenderBackground() const {
     return m_renderBackground;
