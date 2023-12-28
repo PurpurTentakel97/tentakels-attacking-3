@@ -1,6 +1,6 @@
 add_subdirectory(helper)
 add_subdirectory(custom_raylib)
-add_subdirectory(app_context)
+add_subdirectory(app)
 add_subdirectory(event)
 add_subdirectory(logic)
 add_subdirectory(constants)

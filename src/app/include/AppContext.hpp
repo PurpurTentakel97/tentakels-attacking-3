@@ -54,8 +54,8 @@ public:
         rhs = lhs + 1;
         eve::ShowMessagePopUpEvent const event{ "Invalid Config",
                                                 lhsMessage + " >= " + rhsMessage + "\nset " + rhsMessage + " to "
-                                                   + std::to_string(rhs),
-                                           []() {} };
+                                                        + std::to_string(rhs),
+                                                []() {} };
         eventManager.InvokeEvent(event);
     }
 
@@ -68,9 +68,9 @@ public:
 
         value = max;
         eve::ShowMessagePopUpEvent const event{ "Invalid Config",
-                                                valueMessage + " > " + std::to_string(max) + "\nset " + valueMessage + " to "
-                                                   + std::to_string(value),
-                                           []() {} };
+                                                valueMessage + " > " + std::to_string(max) + "\nset " + valueMessage
+                                                        + " to " + std::to_string(value),
+                                                []() {} };
         eventManager.InvokeEvent(event);
     }
 
@@ -83,9 +83,9 @@ public:
 
         value = min;
         eve::ShowMessagePopUpEvent const event{ "Invalid Config",
-                                                valueMessage + " < " + std::to_string(min) + "\nset " + valueMessage + " to "
-                                                   + std::to_string(value),
-                                           []() {} };
+                                                valueMessage + " < " + std::to_string(min) + "\nset " + valueMessage
+                                                        + " to " + std::to_string(value),
+                                                []() {} };
         eventManager.InvokeEvent(event);
     }
 
