@@ -15,7 +15,7 @@ void Hover::CalculateDefault(AppContext_ty_c appContext) {
         resolution.y * 0.01f,
     };
 
-    Vector2 const measure{ MeasureTextEx(*appContext.assetManager.GetFont(), m_text.c_str(), m_textHeight, 0.0f) };
+    Vector2 const measure= MeasureTextEx(*appContext.assetManager.GetFont(), m_text.c_str(), m_textHeight, 0.0f) ;
 
     Rectangle const newCollider{ m_collider.x, m_collider.y, measure.x + textOffset.x, measure.y + textOffset.y };
     SetCollider(newCollider);
@@ -25,7 +25,7 @@ void Hover::CalculateDefault(AppContext_ty_c appContext) {
 
 Hover::Hover(float height, std::string text, Color color, Vector2 hoverOffset)
 	: UIElement{ { 0.0f, 0.0f }, { 0.0f, 0.0f }, Alignment::BOTTOM_LEFT },
-      m_text{ text },m_color(color), m_textHeight{ 0.0f } {
+      m_text{ std::move(text) },m_color(color), m_textHeight{ 0.0f } {
 
     AppContext_ty appContext{ AppContext::GetInstance() };
     Resolution_ty_c resolution{ appContext.GetResolution() };
@@ -49,6 +49,7 @@ Vector2 Hover::GetRenderOffset() const {
 
     return renderOffset;
 }
+
 void Hover::SetRenderHover(Vector2 mousePosition, AppContext_ty_c appContext) {
     Rectangle const newCollider{ mousePosition.x + m_absoluteHoverOffset.x,
                                  mousePosition.y - m_absoluteHoverOffset.y - m_collider.height,
@@ -69,6 +70,7 @@ void Hover::Render(AppContext_ty_c appContext) {
     auto const& renderOffset{ GetRenderOffset() };
     RenderOffset(appContext, renderOffset);
 }
+
 float Hover::RenderOffset(AppContext_ty_c, Vector2 const& offset) const {
     Rectangle const dummyCollider{ m_collider.x - offset.x,
                                    m_collider.y - offset.y,

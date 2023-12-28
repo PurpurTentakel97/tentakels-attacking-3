@@ -46,14 +46,15 @@ void DropDown::OnElementClick(unsigned int ID) {
     m_onSave(ID);
 }
 
-void DropDown::SetCurrentElement(std::shared_ptr<DropDownElement> element) {
+void DropDown::SetCurrentElement(std::shared_ptr<DropDownElement> const& element) {
     m_currentElement = element;
 
     SetText();
 
     m_onSave(element->GetID());
 }
-void DropDown::SetCurrentElementOutUpdate(std::shared_ptr<DropDownElement> element) {
+
+void DropDown::SetCurrentElementOutUpdate(std::shared_ptr<DropDownElement> const& element) {
     m_currentElement = element;
 
     SetText();
@@ -110,13 +111,14 @@ void DropDown::ScrollMove(float wheel) {
     }
 
     for (auto const& e : m_dropDownElements) {
-        Vector2 pos{ e->GetPosition() };
+        Vector2 pos = e->GetPosition();
         pos.y += 0.025f * wheel;
         e->SetPositionUnaligned(pos);
     }
     CheckAndSetElementsEnabled();
     ClampScrolling();
 }
+
 void DropDown::ClampScrolling() {
 
     float offset{ 0.0f };
@@ -144,6 +146,7 @@ void DropDown::ClampScrolling() {
         e->SetCollider(col);
     }
 }
+
 void DropDown::CheckIfScrolling() {
     float sum{ 0 };
 
@@ -226,6 +229,7 @@ bool DropDown::SetCurrentElementByID(unsigned int ID) {
     }
     return false;
 }
+
 bool DropDown::SetCurrentElementByString(std::string const& element) {
 
     for (auto const& e : m_dropDownElements) {
@@ -283,6 +287,7 @@ void DropDown::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appC
         }
     }
 }
+
 void DropDown::Render(AppContext_ty_c appContext) {
     DrawRectangleLinesEx(m_collider, 2.0f, WHITE);
 
@@ -337,6 +342,7 @@ void DropDown::Render(AppContext_ty_c appContext) {
         DrawRectangleRec(m_arrowCollider, GREY_50);
     }
 }
+
 void DropDown::Resize(AppContext_ty_c appContext) {
 
     UIElement::Resize(appContext);
@@ -350,6 +356,7 @@ void DropDown::Resize(AppContext_ty_c appContext) {
 bool DropDown::IsEnabled() const {
     return m_isEnabled;
 }
+
 void DropDown::SetEnabled(bool isEnabled) {
     m_isEnabled = isEnabled;
 }
@@ -363,5 +370,5 @@ Rectangle DropDown::GetCollider() const {
 }
 
 void DropDown::SetOnSave(std::function<void(unsigned int)> onSave) {
-    m_onSave = onSave;
+    m_onSave = std::move(onSave);
 }

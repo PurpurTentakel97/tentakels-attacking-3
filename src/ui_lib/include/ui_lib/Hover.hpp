@@ -13,8 +13,8 @@ private:
     Color m_color;
 
     float m_textHeight;
-    Vector2 m_textPosition;
-    Vector2 m_absoluteHoverOffset;
+    Vector2 m_textPosition{};
+    Vector2 m_absoluteHoverOffset{};
 
     void CalculateDefault(AppContext_ty_c appContext);
 

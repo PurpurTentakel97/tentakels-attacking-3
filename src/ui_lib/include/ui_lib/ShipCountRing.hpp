@@ -8,11 +8,11 @@
 
 class CountRing final : public UIElement {
 private:
-    Vector2 m_absolutePos;
+    Vector2 m_absolutePos{};
     float m_relativeDotSize;
-    float m_absoluteDotSize;
+    float m_absoluteDotSize{};
     float m_relativeMaxRingSize;
-    float m_absoluteRingSize;
+    float m_absoluteRingSize{};
     int m_currentCount;
     int m_maxCount;
     Color m_dotColor{ BLACK };

@@ -26,7 +26,7 @@ private:
 
     void CreateToRender();
 
-    [[nodiscard]] std::vector<std::string> BreakLines(std::string toBreak) const;
+    [[nodiscard]] std::vector<std::string> BreakLines(std::string const& toBreak) const;
 
     void OpenURL() const;
 
@@ -47,7 +47,7 @@ public:
 
     void SetCollider(Rectangle collider) override;
 
-    [[nodiscard]] float GetRelativeTextHeight();
+    [[nodiscard]] float GetRelativeTextHeight() const;
 
     void SetText(std::string text);
 

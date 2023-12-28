@@ -36,7 +36,7 @@ void NewTableCell::set_text_offset() {
 NewTableCell::NewTableCell(unsigned int const ID, Vector2 const pos, Vector2 const size, index_callback_ty callback)
     : UIElement{ pos, size, Alignment::DEFAULT },
       Focusable{ ID },
-      m_indexCallback{ callback } {
+      m_indexCallback{ std::move(callback) } {
     set_text_offset();
 }
 

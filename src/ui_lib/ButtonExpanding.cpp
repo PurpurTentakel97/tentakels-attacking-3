@@ -34,6 +34,7 @@ void ExpandingButton::HandleExpandChance(bool expanding, bool keyInput) {
         HandleCollapse();
     }
 }
+
 void ExpandingButton::HandleExpand() {
     if (m_isExpanded) {
         return;
@@ -46,13 +47,14 @@ void ExpandingButton::HandleExpand() {
         btn->MoveToPositionAsymptotic(pos, m_expandingSpeed);
     }
 }
+
 void ExpandingButton::HandleCollapse() {
     if (not m_isExpanded) {
         return;
     }
 
     m_isExpanded = false;
-    for (auto const& [btn, _, __] : m_buttons) {
+    for (auto const& [btn, _, _a] : m_buttons) {
         btn->SetEnabled(false);
         btn->MoveToPositionAsymptotic(m_mainButton->GetPosition(), m_expandingSpeed);
     }
@@ -85,17 +87,19 @@ ExpandingButton::ExpandingButton(
     Initialize(focusID, btnText);
 }
 
-void ExpandingButton::Add(ClassicButton_ty btn, bool enabled) {
+void ExpandingButton::Add(ClassicButton_ty const& btn, bool enabled) {
     m_buttons.emplace_back(btn, enabled, btn->GetPosition());
     NewFocusElementEvent const event{ btn.get() };
     AppContext::GetInstance().eventManager.InvokeEvent(event);
 }
-void ExpandingButton::Remove(ClassicButton_ty btn) {
+
+void ExpandingButton::Remove(ClassicButton_ty const& btn) {
     DeleteFocusElementEvent const event{ btn.get() };
     AppContext::GetInstance().eventManager.InvokeEvent(event);
 
-    std::erase_if(m_buttons, [btn](Btn current) { return btn == current.btn; });
+    std::erase_if(m_buttons, [btn](Btn const& current) { return btn == current.btn; });
 }
+
 void ExpandingButton::Remove(size_t ind) {
     if (ind >= m_buttons.size()) {
         throw std::runtime_error("index out of range");
@@ -121,6 +125,7 @@ void ExpandingButton::Collapse() {
 double ExpandingButton::GetDelayedCollapseTime() const {
     return m_delayedCollapseTime;
 }
+
 void ExpandingButton::SetDelayedCollapseTime(double time) {
     m_delayedCollapseTime = time;
 }
@@ -128,13 +133,14 @@ void ExpandingButton::SetDelayedCollapseTime(double time) {
 void ExpandingButton::SetDirection(Direction direction) {
     m_direction = direction;
 }
+
 ExpandingButton::Direction ExpandingButton::GetDirection() const {
     return m_direction;
 }
 
 void ExpandingButton::Update() {
     auto position{ m_mainButton->GetPosition() };
-    auto const increse{ [&](bool first) {
+    auto const increase{ [&](bool first) {
         float const offset{ first ? 2 * m_spacing : m_spacing };
 
         switch (m_direction) {
@@ -158,7 +164,7 @@ void ExpandingButton::Update() {
 
     for (size_t i = 0; i < m_buttons.size(); ++i) {
         auto& btn{ m_buttons.at(i) };
-        increse(i == 0);
+        increase(i == 0);
         btn.btn->SetEnabled(m_isExpanded ? btn.enabled : false);
         btn.btn->SetSize(m_mainButton->GetSize());
         btn.pos = position;
@@ -167,6 +173,7 @@ void ExpandingButton::Update() {
 
     UpdateCollider();
 }
+
 void ExpandingButton::UpdateCollider() {
     if (m_buttons.empty()) {
         SetCollider(m_mainButton->GetCollider());
@@ -237,6 +244,7 @@ void ExpandingButton::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty
         }
     }
 }
+
 void ExpandingButton::Render(AppContext_ty_c appContext) {
     if (m_isExpanded or IsBtnMoving()) {
         for (auto const& btn : m_buttons) {
@@ -249,6 +257,7 @@ void ExpandingButton::Render(AppContext_ty_c appContext) {
 
     m_mainButton->Render(appContext);
 }
+
 void ExpandingButton::Resize(AppContext_ty_c appContext) {
     UIElement::Resize(appContext);
 

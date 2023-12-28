@@ -26,9 +26,9 @@ private:
         // clang-format on
     };
     std::vector<std::string>* m_title;
-    float m_fontSize;
+    float m_fontSize{};
     size_t m_charCount{ 0 };
-    size_t m_maxCharCount;
+    size_t m_maxCharCount{};
     bool m_titleFinish;
     bool m_lastFinishedTitle{ false };
 

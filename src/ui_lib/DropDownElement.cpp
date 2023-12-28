@@ -22,6 +22,7 @@ void DropDownElement::UpdateCollider() {
     UIElement::UpdateCollider();
     CreateToRender();
 }
+
 void DropDownElement::UpdateColliderReverse() {
     UIElement::UpdateColliderReverse();
     CreateToRender();
@@ -33,14 +34,14 @@ DropDownElement::DropDownElement(
         Alignment alignment,
         unsigned int focusID,
         unsigned int ID,
-        std::string const& text,
+        std::string text,
         std::function<Rectangle(Rectangle)> getTemporaryCollider
 )
     : UIElement{ pos, size, alignment },
       Focusable{ focusID },
       m_ID{ ID },
-      m_text{ text },
-      m_getTemporaryCollider{ getTemporaryCollider } {
+      m_text{ std::move(text) },
+      m_getTemporaryCollider{ std::move(getTemporaryCollider) } {
 
     CreateToRender();
 }
@@ -60,6 +61,7 @@ void DropDownElement::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty
         m_onClick(m_ID);
     }
 }
+
 void DropDownElement::Render(AppContext_ty_c appContext) {
 
     DrawRectangleRec(m_collider, GREY_100);
@@ -85,14 +87,16 @@ void DropDownElement::Render(AppContext_ty_c appContext) {
 bool DropDownElement::IsEnabled() const {
     return m_isEnabled;
 }
+
 void DropDownElement::SetEnabled(bool isEnabled) {
     m_isEnabled = isEnabled;
 }
 
 void DropDownElement::SetText(std::string text) {
-    m_text = text;
+    m_text = std::move(text);
     CreateToRender();
 }
+
 std::string DropDownElement::GetText() const {
     return m_text;
 }
@@ -100,9 +104,11 @@ std::string DropDownElement::GetText() const {
 unsigned int DropDownElement::GetID() const {
     return m_ID;
 }
+
 void DropDownElement::SetOnClick(std::function<void(unsigned int)> onClick) {
-    m_onClick = onClick;
+    m_onClick = std::move(onClick);
 }
+
 Rectangle DropDownElement::GetCollider() const {
     return m_collider;
 }

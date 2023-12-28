@@ -19,9 +19,9 @@ private:
     bool m_isScrolling{ true };
     std::vector<std::shared_ptr<DropDownElement>> m_dropDownElements;
 
-    Texture const* m_arrowTexture;
-    Rectangle m_arrowTextureRec;
-    Rectangle m_arrowCollider;
+    Texture const* m_arrowTexture{};
+    Rectangle m_arrowTextureRec{};
+    Rectangle m_arrowCollider{};
 
     std::shared_ptr<DropDownElement> m_currentElement{ nullptr };
     std::string m_currentElementText{};
@@ -29,16 +29,16 @@ private:
     Vector2 m_textPosition{ 0.0f, 0.0f };
 
     float m_dropDownHeight;
-    Rectangle m_dropDownCollider;
+    Rectangle m_dropDownCollider{};
     std::function<void(unsigned int)> m_onSave{ [](unsigned int) {} };
 
     void Initialize(std::vector<std::string> const& elements, unsigned int startFocusID);
 
     void OnElementClick(unsigned int ID);
 
-    void SetCurrentElement(std::shared_ptr<DropDownElement> element);
+    void SetCurrentElement(std::shared_ptr<DropDownElement> const& element);
 
-    void SetCurrentElementOutUpdate(std::shared_ptr<DropDownElement> element);
+    void SetCurrentElementOutUpdate(std::shared_ptr<DropDownElement> const& element);
 
     void SetText();
 

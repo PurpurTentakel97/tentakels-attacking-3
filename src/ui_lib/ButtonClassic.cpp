@@ -20,7 +20,7 @@ ClassicButton::ClassicButton(
 
 [[nodiscard]] bool ClassicButton::IsEnabled() const {
     return m_state != State::DISABLED;
-};
+}
 
 void ClassicButton::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) {
 

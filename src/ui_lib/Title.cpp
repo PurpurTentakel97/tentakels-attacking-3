@@ -20,6 +20,7 @@ void Title::RenderTitle(AppContext_ty_c appContext) {
         );
     }
 }
+
 void Title::RenderTitleSequence(AppContext_ty_c appContext) {
     size_t localCharCount{ 0 };
     std::string dummyText{};
@@ -58,7 +59,7 @@ void Title::RenderTitleSequence(AppContext_ty_c appContext) {
             WHITE
     );
 
-    if (dummyText.size() > 0) {
+    if (not dummyText.empty()) {
         if (dummyText.at(dummyText.size() - 1) != ' ') {
             PlaySoundEvent event{ SoundType::TEXT };
             appContext.eventManager.InvokeEvent(event);
@@ -70,12 +71,14 @@ void Title::RenderTitleSequence(AppContext_ty_c appContext) {
         TitleFinish(appContext);
     }
 }
+
 void Title::MeasureTitleLength() {
     m_maxCharCount = 0;
     for (auto const& s : *m_title) {
         m_maxCharCount += s.size();
     }
 }
+
 void Title::RecalculateCollider(AppContext_ty_c appContext) {
     Resolution_ty_c resolution{ appContext.GetResolution() };
     m_fontSize = resolution.y * m_size.y / static_cast<float>(m_title->size());
@@ -124,6 +127,7 @@ void Title::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appCont
         return;
     }
 }
+
 void Title::Render(AppContext_ty_c appContext) {
     // Update here to make sure the value ist correct
     m_lastFinishedTitle = m_titleFinish;
@@ -134,6 +138,7 @@ void Title::Render(AppContext_ty_c appContext) {
         RenderTitle(appContext);
     }
 }
+
 void Title::Resize(AppContext_ty_c appContext) {
 
     RecalculateCollider(appContext);
@@ -143,6 +148,7 @@ void Title::Resize(AppContext_ty_c appContext) {
 bool Title::HasFinishedTitle() const {
     return m_titleFinish;
 }
+
 bool Title::IsTitleFinished() const {
-    return { m_lastFinishedTitle != m_titleFinish };
+    return m_lastFinishedTitle != m_titleFinish;
 }

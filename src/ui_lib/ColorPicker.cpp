@@ -46,6 +46,7 @@ void ColorPicker::Initialize() {
         }
     }
 }
+
 void ColorPicker::SetUsedColors(AppContext_ty_c appContext) {
     auto const& players = appContext.playerCollection.GetPlayerData();
 
@@ -61,6 +62,7 @@ void ColorPicker::SetUsedColors(AppContext_ty_c appContext) {
         c->SetEnabled(!sameColor);
     }
 }
+
 void ColorPicker::SetColorFromFocus() {
     if (!m_isNestedFocus) {
         return;
@@ -73,6 +75,7 @@ void ColorPicker::SetColorFromFocus() {
         }
     }
 }
+
 void ColorPicker::CheckForValidColor(AppContext_ty_c appContext) {
     if (m_currentColorCell) {
         if (m_currentColorCell->IsEnabled()) {
@@ -90,6 +93,7 @@ ColorPicker::ColorPicker(unsigned int ID, Vector2 pos, Vector2 size, Alignment a
 
     Initialize();
 }
+
 ColorPicker::~ColorPicker() {
     if (!m_isNestedFocus) {
         return;
@@ -104,14 +108,17 @@ Color ColorPicker::GetColor() const {
     }
     return BLANK;
 }
+
 bool ColorPicker::HasColorChanced() const {
-    return { m_currentColorCell->GetColor() != m_previousColorCell->GetColor() };
+    return m_currentColorCell->GetColor() != m_previousColorCell->GetColor();
 }
+
 bool ColorPicker::SetInitialColor(Color color) {
     bool const set{ SetColor(color) };
     m_previousColorCell = m_currentColorCell;
     return set;
 }
+
 bool ColorPicker::SetColor(Color color) {
     for (auto& c : m_cells) {
         if (c->GetColor() == color) {
@@ -133,7 +140,7 @@ bool ColorPicker::SetColor(Color color) {
 }
 
 void ColorPicker::SetOnEnter(std::function<void()> onEnter) {
-    m_onEnter = onEnter;
+    m_onEnter = std::move(onEnter);
 }
 
 void ColorPicker::SetCellFocuses([[maybe_unused]] AppContext_ty_c appContext) {
@@ -155,6 +162,7 @@ void ColorPicker::SetCellFocuses([[maybe_unused]] AppContext_ty_c appContext) {
 
     m_isNestedFocus = true;
 }
+
 void ColorPicker::SetEnabled(bool enabled, Color color) {
     for (auto& c : m_cells) {
         if (c->GetColor() == color) {
@@ -163,6 +171,7 @@ void ColorPicker::SetEnabled(bool enabled, Color color) {
         }
     }
 }
+
 bool ColorPicker::IsEnabled() const {
     return true;
 }
@@ -205,6 +214,7 @@ void ColorPicker::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c a
     SetColorFromFocus();
     CheckForValidColor(appContext);
 }
+
 void ColorPicker::Render(AppContext_ty_c appContext) {
     // update here to make sure all CheckAndUpdate() is done
     m_previousColorCell = m_currentColorCell;
@@ -222,6 +232,7 @@ void ColorPicker::Render(AppContext_ty_c appContext) {
         DrawRectangleLinesEx(m_currentColorCell->GetCollider(), 3.0f, WHITE);
     }
 }
+
 void ColorPicker::Resize(AppContext_ty_c appContext) {
 
     UIElement::Resize(appContext);

@@ -19,7 +19,7 @@ HoverRender::~HoverRender() {
 Vector2 HoverRender::GetStartRenderingOffset() const {
     Vector2 offset{ 0.0f, 0.0f };
     for (auto const& e : m_elements) {
-        auto const singleOffset{ e->GetRenderOffset() };
+        auto const singleOffset= e->GetRenderOffset() ;
         if (offset.x < singleOffset.x) {
             offset.x = singleOffset.x;
         }
@@ -34,7 +34,7 @@ Vector2 HoverRender::GetStartRenderingOffset() const {
 void HoverRender::Render() {
     auto const handleReturn{ [&]() { m_elements.clear(); } };
     // no elements
-    if (m_elements.size() == 0) {
+    if (m_elements.empty()) {
         handleReturn();
         return;
     }

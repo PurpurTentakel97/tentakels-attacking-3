@@ -13,10 +13,10 @@ private:
     bool m_isEnabled{ true };
     bool m_hover{ false };
     unsigned int m_ID;
-    float m_fontSize;
+    float m_fontSize{};
     std::string m_toRender;
     std::string m_text;
-    Vector2 m_textPosition;
+    Vector2 m_textPosition{};
     std::function<void(unsigned int)> m_onClick{ [](unsigned int) {} };
     std::function<Rectangle(Rectangle)> m_getTemporaryCollider;
 
@@ -33,7 +33,7 @@ public:
             Alignment alignment,
             unsigned int focusID,
             unsigned int ID,
-            std::string const& text,
+            std::string text,
             std::function<Rectangle(Rectangle)> getTemporaryCollider
     );
 

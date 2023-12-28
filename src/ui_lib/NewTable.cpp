@@ -62,7 +62,6 @@ bool NewTable::validIndex(size_t row, size_t column) const {
 NewTableCell::index_ty NewTable::index(NewTableCell const& cell) const {
     for (size_t row = 0; row <= m_row_count; ++row) {
         for (size_t column = 0; column <= m_column_count; ++column) {
-            auto const c{ m_cells[row][column] };
             if (cell.GetFocusID() == cell.GetFocusID()) {
                 return { row, column };
             }
@@ -165,9 +164,7 @@ void NewTable::update_cell_sizes() {
 void NewTable::update_cell_positions() {
     size_t const first_row{ m_isHeadline or m_isNumbered ? size_t{ 0 } : size_t{ 1 } };
     size_t const first_column{ m_isNumbered ? size_t{ 0 } : size_t{ 1 } };
-    Vector2 const scroll_offset{
-        m_isScrollable ? m_scroll_offset : Vector2{ 0.0f, 0.0f }
-    };
+    Vector2 const scroll_offset = m_isScrollable ? m_scroll_offset : Vector2( 0.0f, 0.0f );
 
     for (size_t row = first_row; row <= m_row_count; ++row) {
         for (size_t column = first_column; column <= m_column_count; ++column) {

@@ -29,7 +29,8 @@ void Text::CreateToRender() {
         m_toRender.emplace_back(a);
     }
 }
-std::vector<std::string> Text::BreakLines(std::string toBreak) const {
+
+std::vector<std::string> Text::BreakLines(std::string const& toBreak) const {
     if (!m_lineBreaks) {
         return { toBreak };
     }
@@ -53,7 +54,7 @@ void Text::UpdateCollider() {
 
 Text::Text(Vector2 pos, Vector2 size, Alignment alignment, Alignment textAlignment, float textHeight, std::string text)
     : UIElement{ pos, size, alignment },
-      m_text{ text },
+      m_text{ std::move(text) },
       m_textHeight{ textHeight },
       m_textSize{ textHeight * AppContext::GetInstance().GetResolution().y },
       m_textAlignment{ textAlignment } {
@@ -71,6 +72,7 @@ void Text::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appConte
         }
     }
 }
+
 void Text::Render([[maybe_unused]] AppContext_ty_c appContext) {
     for (auto const& [text, position] : m_toRender) {
         DrawTextWithOutline(text, position, m_textSize, m_color, m_renderBackground);
@@ -80,6 +82,7 @@ void Text::Render([[maybe_unused]] AppContext_ty_c appContext) {
         DrawRectangleLinesEx(m_collider, 1.0f, PURPLE);
     }
 }
+
 void Text::Resize(AppContext_ty_c appContext) {
     Resolution_ty_c resolution{ appContext.GetResolution() };
     UIElement::Resize(appContext);
@@ -102,14 +105,15 @@ void Text::SetCollider(Rectangle collider) {
     CreateToRender();
 }
 
-float Text::GetRelativeTextHeight() {
+float Text::GetRelativeTextHeight() const{
     return m_textSize;
 }
 
 void Text::SetText(std::string text) {
-    m_text = text;
+    m_text = std::move(text);
     CreateToRender();
 }
+
 std::string Text::GetText() const {
     return m_text;
 }
@@ -126,9 +130,11 @@ void Text::SetURL(std::string URL) {
     StripString(URL);
     m_URL = URL;
 }
+
 void Text::ClearURL() {
     m_URL.clear();
 }
+
 std::string Text::GetURL() const {
     return m_URL;
 }
@@ -137,6 +143,7 @@ void Text::LineBreaks(bool lineBreaks) {
     m_lineBreaks = lineBreaks;
     CreateToRender();
 }
+
 void Text::RenderRectangle(bool renderRectangle) {
     m_renderRectangle = renderRectangle;
 }
@@ -144,6 +151,7 @@ void Text::RenderRectangle(bool renderRectangle) {
 void Text::SetRenderBackground(bool isRenderBackground) {
     m_renderBackground = isRenderBackground;
 }
+
 bool Text::GetRenderBackground() const {
     return m_renderBackground;
 }

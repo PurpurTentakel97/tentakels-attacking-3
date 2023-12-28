@@ -9,7 +9,7 @@
 void Button::SetTextSizeAndPosition(AppContext_ty_c appContext) {
     Resolution_ty_c resolution{ AppContext::GetInstance().GetResolution() };
     m_textSize = m_collider.height / 2;
-    Vector2 textSize{ MeasureTextEx(*(appContext.assetManager.GetFont()), m_text.c_str(), m_textSize, 0.0f) };
+    Vector2 textSize = MeasureTextEx(*(appContext.assetManager.GetFont()), m_text.c_str(), m_textSize, 0.0f);
     while (textSize.x + 20 > m_collider.width) {
         if (m_textSize <= 1) {
             break;
@@ -24,7 +24,7 @@ void Button::SetTextSizeAndPosition(AppContext_ty_c appContext) {
 }
 
 bool Button::IsSameState(State state) const {
-    return { m_state == state };
+    return  m_state == state ;
 }
 
 void Button::UpdateCollider() {
@@ -33,16 +33,16 @@ void Button::UpdateCollider() {
     SetTextSizeAndPosition(AppContext::GetInstance());
 }
 
-Button::Button(Vector2 pos, Vector2 size, Alignment alignment, std::string const& text, SoundType releaseSound)
+Button::Button(Vector2 pos, Vector2 size, Alignment alignment, std::string text, SoundType releaseSound)
     : UIElement{ pos, size, alignment },
-      m_text{ text },
+      m_text{ std::move(text) },
       m_sound{ releaseSound } {
 
     m_texture = AppContext::GetInstance().assetManager.GetTexture(AssetType::BUTTON_DEFAULT);
     m_textureRec = { 0.0f,
                      0.0f,
                      static_cast<float>(m_texture->width),
-                     static_cast<float>(m_texture->height / m_buttonParts) };
+                     static_cast<float>(m_texture->height) / static_cast<float>(m_buttonParts) };
 
     SetTextSizeAndPosition(AppContext::GetInstance());
 }
@@ -114,6 +114,7 @@ void Button::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appCon
         }
     }
 }
+
 void Button::Render(AppContext_ty_c appContext) {
     m_textureRec.y = m_textureRec.height * static_cast<float>(m_state);
     DrawTexturePro(*m_texture, m_textureRec, m_collider, Vector2(0.0f, 0.0f), 0, WHITE);
@@ -132,16 +133,18 @@ void Button::Resize(AppContext_ty_c appContext) {
 }
 
 void Button::SetOnClick(std::function<void()> onClick) {
-    m_onClick = onClick;
+    m_onClick = std::move(onClick);
 }
+
 void Button::SetOnPress(std::function<void()> onPress) {
-    m_onPress = onPress;
+    m_onPress = std::move(onPress);
 }
 
 void Button::SetText(std::string const& text) {
     m_text = text;
     SetTextSizeAndPosition(AppContext::GetInstance());
 }
+
 std::string Button::GetText() const {
     return m_text;
 }
@@ -154,6 +157,7 @@ void Button::SetEnabled(bool enabled) {
         m_isPressed = false;
     }
 }
+
 bool Button::IsEnabled() const {
     return m_state != State::DISABLED;
 }

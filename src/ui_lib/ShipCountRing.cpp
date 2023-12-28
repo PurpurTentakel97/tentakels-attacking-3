@@ -51,27 +51,35 @@ void CountRing::Update() {
 int CountRing::GetMaxCount() const {
     return m_maxCount;
 }
+
 void CountRing::SetMaxCount(int maxCount) {
     m_maxCount = maxCount;
 }
+
 int CountRing::GetCurrentCount() const {
     return m_currentCount;
 }
+
 void CountRing::SetCurrentCount(int currentCount) {
     m_currentCount = currentCount;
 }
+
 Color CountRing::GetDotColor() const {
     return m_dotColor;
 }
+
 void CountRing::SetDotColor(Color color) {
     m_dotColor = color;
 }
+
 Color CountRing::GetRingColor() const {
     return m_ringColor;
 }
+
 void CountRing::SetRingColor(Color color) {
     m_ringColor = color;
 }
+
 void CountRing::SetPosition(Vector2 newPos) {
     UIElement::SetPosition(newPos);
     Update();
@@ -80,6 +88,7 @@ void CountRing::SetPosition(Vector2 newPos) {
 void CountRing::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) {
     UIElement::CheckAndUpdate(mousePosition, appContext);
 }
+
 void CountRing::Render(AppContext_ty_c) {
     if (m_currentCount == 0) {
         return;
@@ -89,6 +98,7 @@ void CountRing::Render(AppContext_ty_c) {
 
     DrawCircleV(m_absolutePos, m_absoluteDotSize, m_dotColor);
 }
+
 void CountRing::Resize(AppContext_ty_c appContext) {
     UIElement::Resize(appContext);
     Update();

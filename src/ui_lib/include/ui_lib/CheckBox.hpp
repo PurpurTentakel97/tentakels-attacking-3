@@ -18,7 +18,7 @@ private:
     unsigned int m_ID;
 
     Texture* m_texture;
-    Rectangle m_textureRec;
+    Rectangle m_textureRec{};
 
     std::function<void(unsigned int, bool)> m_onCheck{ [](unsigned int, bool) {} };
 

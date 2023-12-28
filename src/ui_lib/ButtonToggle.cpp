@@ -40,14 +40,9 @@ void ToggleButton::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c 
 
     switch (m_state) {
         case State::DISABLED: {
-            bool play{ false };
-
-            if (CheckCollisionPointRec(mousePosition, m_collider)
-                and IsMouseButtonPressed(MouseButton::MOUSE_BUTTON_LEFT)) {
-                play = true;
-            } else if (IsFocused() and IsConfirmInputPressed()) {
-                play = true;
-            }
+            bool play{ ((CheckCollisionPointRec(mousePosition, m_collider)
+                         and IsMouseButtonPressed(MouseButton::MOUSE_BUTTON_LEFT)))
+                       or (IsFocused() and IsConfirmInputPressed()) };
 
             if (play) {
                 PlaySoundEvent const event{ SoundType::CLICKED_DISABLED_STD };
@@ -149,10 +144,12 @@ void ToggleButton::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c 
 Rectangle ToggleButton::GetCollider() const {
     return m_collider;
 }
+
 void ToggleButton::SetEnabled(bool enabled) {
     Button::SetEnabled(enabled);
     UpdateState();
 }
+
 bool ToggleButton::IsEnabled() const {
     return m_state != State::DISABLED;
 }
@@ -160,11 +157,12 @@ bool ToggleButton::IsEnabled() const {
 bool ToggleButton::IsToggled() const {
     return m_isToggled;
 }
+
 void ToggleButton::SetToggleButton(bool isToggled) {
     m_isToggled = isToggled;
     UpdateState();
 }
 
 void ToggleButton::SetOnToggle(std::function<void(bool, bool)> onToggle) {
-    m_onToggle = onToggle;
+    m_onToggle = std::move(onToggle);
 }

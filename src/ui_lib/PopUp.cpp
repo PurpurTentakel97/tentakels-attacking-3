@@ -47,6 +47,7 @@ void PopUp::Initialize(std::string const& title, std::string& subTitle, AssetTyp
     textSubTitle->LineBreaks(true);
     m_elements.push_back(textSubTitle);
 }
+
 void PopUp::LateUpdate() {
     if (m_firstEnter and IsKeyUp(KEY_ENTER)) {
         m_firstEnter = false;
@@ -74,7 +75,6 @@ Rectangle PopUp::GetColliderWithMaxValues(Texture2D* texture, float maxWidth, fl
 
     return rectangle;
 }
-
 
 PopUp::PopUp(
         Vector2 pos,
@@ -105,6 +105,7 @@ void PopUp::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appCont
         appContext.eventManager.InvokeEvent(ClosePopUpEvent(this));
     }
 }
+
 void PopUp::Render(AppContext_ty_c appContext) {
     Resolution_ty_c resolution{ appContext.GetResolution() };
     DrawRectangleRec(Rectangle(0.0f, 0.0f, resolution.x, resolution.y), GREY_50);
@@ -116,6 +117,7 @@ void PopUp::Render(AppContext_ty_c appContext) {
 
     DrawRectangleLinesEx(m_collider, 2.0f, PURPLE);
 }
+
 void PopUp::Resize(AppContext_ty_c appContext) {
     for (auto const& e : m_elements) {
         e->Resize(appContext);

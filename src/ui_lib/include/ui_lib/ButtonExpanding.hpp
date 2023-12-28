@@ -51,9 +51,9 @@ public:
             std::string const& btnText
     );
 
-    void Add(ClassicButton_ty btn, bool enabled);
+    void Add(ClassicButton_ty const& btn, bool enabled);
 
-    void Remove(ClassicButton_ty btn);
+    void Remove(ClassicButton_ty const& btn);
 
     void Remove(size_t ind);
 
