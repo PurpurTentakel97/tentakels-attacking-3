@@ -5,7 +5,7 @@
 
 #include "Slider.hpp"
 #include "Alignment.hpp"
-#include <AppContext.hpp>
+#include <app/AppContext.hpp>
 
 void Slider::CalculateInitialButton() {
     float const sizeX{ m_isHorizontal ? m_size.x / m_absoluteDimension : m_size.x };

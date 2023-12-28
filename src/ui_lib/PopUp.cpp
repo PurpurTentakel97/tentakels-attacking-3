@@ -6,7 +6,7 @@
 #include "PopUp.hpp"
 #include "Picture.hpp"
 #include "Text.hpp"
-#include <AppContext.hpp>
+#include <app/AppContext.hpp>
 #include <helper/HGeneral.hpp>
 #include <helper/HInput.hpp>
 #include <helper/HTextProcessing.hpp>

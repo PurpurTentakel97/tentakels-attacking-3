@@ -5,7 +5,7 @@
 
 #include "Focus.hpp"
 #include "Focusable.hpp"
-#include <AppContext.hpp>
+#include <app/AppContext.hpp>
 #include <event/EventsUI.hpp>
 #include <helper/HPrint.hpp>
 #include <stdexcept>

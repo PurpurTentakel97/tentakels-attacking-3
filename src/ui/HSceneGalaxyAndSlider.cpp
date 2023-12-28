@@ -5,7 +5,7 @@
 
 #include "HSceneGalaxyAndSlider.hpp"
 #include "UIGalaxy.hpp"
-#include <AppContext.hpp>
+#include <app/AppContext.hpp>
 #include <ui_lib/ButtonClassic.hpp>
 #include <ui_lib/Line.hpp>
 #include <ui_lib/Slider.hpp>

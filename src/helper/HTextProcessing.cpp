@@ -4,8 +4,8 @@
 //
 
 #include "HTextProcessing.hpp"
-#include <AppContext.hpp>
 #include <CustomRaylib.hpp>
+#include <app/AppContext.hpp>
 #include <cassert>
 #include <ui_lib/Alignment.hpp>
 

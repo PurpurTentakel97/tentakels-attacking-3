@@ -5,7 +5,7 @@
 
 #include "ColorPicker.hpp"
 #include "ColorPickerCell.hpp"
-#include <AppContext.hpp>
+#include <app/AppContext.hpp>
 #include <cmath>
 #include <helper/HFocusEvents.hpp>
 #include <helper/HGeneral.hpp>

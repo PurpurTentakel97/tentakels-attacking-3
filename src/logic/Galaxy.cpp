@@ -5,7 +5,7 @@
 
 #include "Galaxy.hpp"
 #include "Player.hpp"
-#include <AppContext.hpp>
+#include <app/AppContext.hpp>
 #include <event/EventsUI.hpp>
 #include <helper/HFightResult.hpp>
 #include <helper/HFleetResult.hpp>

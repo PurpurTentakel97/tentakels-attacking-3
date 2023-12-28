@@ -5,7 +5,7 @@
 
 #include "Scene.hpp"
 #include "Focusable.hpp"
-#include <AppContext.hpp>
+#include <app/AppContext.hpp>
 #include <helper/HFocusEvents.hpp>
 
 void Scene::SetFocusActive(AppContext_ty_c) {

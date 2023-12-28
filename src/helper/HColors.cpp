@@ -5,7 +5,7 @@
 
 #include "HColors.hpp"
 #include "HGeneral.hpp"
-#include <AppContext.hpp>
+#include <app/AppContext.hpp>
 
 namespace hlp {
     bool Colors::CheckValidColor(Color const& color) const {

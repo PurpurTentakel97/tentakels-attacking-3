@@ -4,7 +4,7 @@
 //
 
 #include "ShipCountRing.hpp"
-#include <AppContext.hpp>
+#include <app/AppContext.hpp>
 
 void CountRing::CalculateRing() {
     Resolution_ty_c resolution{ AppContext::GetInstance().GetResolution() };

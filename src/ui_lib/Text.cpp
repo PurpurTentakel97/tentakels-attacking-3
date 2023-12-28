@@ -4,7 +4,7 @@
 //
 
 #include "Text.hpp"
-#include <AppContext.hpp>
+#include <app/AppContext.hpp>
 #include <cassert>
 #include <helper/HTextProcessing.hpp>
 

@@ -4,7 +4,7 @@
 //
 
 #include "Alignment.hpp"
-#include <AppContext.hpp>
+#include <app/AppContext.hpp>
 
 Rectangle GetAlignedCollider(Vector2& pos, Vector2 const size, Alignment const alignment) {
     Resolution_ty_c resolution{ AppContext::GetInstance().GetResolution() };

@@ -5,7 +5,7 @@
 
 #include "SceneLogos.hpp"
 #include "ManagerUI.hpp"
-#include <AppContext.hpp>
+#include <app/AppContext.hpp>
 #include <helper/HInput.hpp>
 #include <memory>
 #include <ui_lib/Picture.hpp>

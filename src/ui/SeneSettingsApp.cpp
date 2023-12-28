@@ -5,7 +5,7 @@
 
 #include "HSceneSliderAndInputLine.hpp"
 #include "SceneSettingsApp.hpp"
-#include <AppContext.hpp>
+#include <app/AppContext.hpp>
 #include <ui_lib/CheckBox.hpp>
 #include <ui_lib/DropDown.hpp>
 #include <ui_lib/Text.hpp>

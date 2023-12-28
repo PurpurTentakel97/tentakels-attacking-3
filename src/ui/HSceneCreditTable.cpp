@@ -4,7 +4,7 @@
 //
 
 #include "HSceneCreditTable.hpp"
-#include <AppContext.hpp>
+#include <app/AppContext.hpp>
 #include <stdexcept>
 #include <ui_lib/Line.hpp>
 #include <ui_lib/Text.hpp>

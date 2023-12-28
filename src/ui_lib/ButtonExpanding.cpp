@@ -6,7 +6,7 @@
 #include "ButtonExpanding.hpp"
 #include "ButtonClassic.hpp"
 #include "ButtonToggle.hpp"
-#include <AppContext.hpp>
+#include <app/AppContext.hpp>
 #include <event/EventsUI.hpp>
 
 void ExpandingButton::Initialize(int const focusID, std::string const& btnText) {
