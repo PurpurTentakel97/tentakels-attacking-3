@@ -14,40 +14,40 @@ void SetErrorLogFileName() {
     std::stringstream filename{};
     filename << "tentakels_attacking_debug_" << now.time_since_epoch().count() << ".txt";
 
-    CFiles::SetDebugLogFile(filename.str());
+    cst::CFiles::SetDebugLogFile(filename.str());
     Print(PrintType::INFO, "debug file name set");
 }
 
 void GenerateFileStream() {
     SetErrorLogFileName();
 
-    if (!std::filesystem::exists(CFiles::debugLogDir())) {
-        std::filesystem::create_directories(CFiles::debugLogDir());
+    if (!std::filesystem::exists(cst::CFiles::debugLogDir())) {
+        std::filesystem::create_directories(cst::CFiles::debugLogDir());
         Print(PrintType::INFO, "created debug directory");
-    } else if (!std::filesystem::is_directory(CFiles::debugLogDir())) {
-        std::filesystem::remove(CFiles::debugLogDir());
-        std::filesystem::create_directories(CFiles::debugLogDir());
+    } else if (!std::filesystem::is_directory(cst::CFiles::debugLogDir())) {
+        std::filesystem::remove(cst::CFiles::debugLogDir());
+        std::filesystem::create_directories(cst::CFiles::debugLogDir());
         Print(PrintType::INFO, "removed debug file and added debug directory");
     }
 
-    CFiles::debugLogStream.open(CFiles::debugLogFile());
+    cst::CFiles::debugLogStream.open(cst::CFiles::debugLogFile());
     Print(PrintType::INFO, "opened debug log");
 }
 
 void LogError(std::string const& error) {
-    if (!CFiles::debugLogStream.is_open()) {
+    if (!cst::CFiles::debugLogStream.is_open()) {
         GenerateFileStream();
     }
 
-    CFiles::debugLogStream << error;
+    cst::CFiles::debugLogStream << error;
     Print(PrintType::INFO, "logged error");
 }
 
 void CloseErrorStream() {
-    if (!CFiles::debugLogStream.is_open()) {
+    if (!cst::CFiles::debugLogStream.is_open()) {
         return;
     }
 
-    CFiles::debugLogStream.close();
+    cst::CFiles::debugLogStream.close();
     Print(PrintType::INFO, "closed debug log");
 }

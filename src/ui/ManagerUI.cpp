@@ -17,7 +17,7 @@ void UIManager::SetFullScreen() {
 }
 
 void UIManager::CheckAndSetToggleFullScreen() {
-    Window_ty window{ m_appContext.constants.window };
+    cst::Window_ty window{ m_appContext.constants.window };
 
     if (window.isFullScreen == m_isNextFullScreen) {
         return;
@@ -38,7 +38,7 @@ void UIManager::CheckAndSetToggleFullScreen() {
 }
 
 void UIManager::CheckAndSetNewResolution() {
-    Window_ty window{ m_appContext.constants.window };
+    cst::Window_ty window{ m_appContext.constants.window };
     if (m_nextResolution == window.currentResolutionEnum) {
         return;
     }
@@ -83,7 +83,7 @@ void UIManager::Render() {
 
 #ifdef _DEBUG
     int const fps{ GetFPS() };
-    Window_ty_c window{ AppContext::GetInstance().constants.window };
+    cst::Window_ty_c window{ AppContext::GetInstance().constants.window };
     DrawTextEx(
             *(m_appContext.assetManager.GetFont()),
             ("FPS: " + std::to_string(fps)).c_str(),
@@ -98,14 +98,14 @@ void UIManager::Render() {
 }
 
 void UIManager::SetNativeWindowSize() {
-    Window_ty_c window{ m_appContext.constants.window };
+    cst::Window_ty_c window{ m_appContext.constants.window };
     HVec2<int> values{ window.nativeResolutionVec };
 
     ::SetWindowSize(values.x, values.y);
 }
 
 void UIManager::SetWindowSize(bool const force) {
-    Window_ty window{ m_appContext.constants.window };
+    cst::Window_ty window{ m_appContext.constants.window };
     if (window.currentResolutionEnum == m_nextResolution and not force) {
         return;
     }
@@ -118,7 +118,7 @@ void UIManager::SetWindowSize(bool const force) {
 }
 
 void UIManager::SetWindowPosition() {
-    Window_ty_c window{ m_appContext.constants.window };
+    cst::Window_ty_c window{ m_appContext.constants.window };
     if (window.isFullScreen) {
         return;
     }
@@ -174,8 +174,8 @@ UIManager::~UIManager() {
 
 void UIManager::StartUI() {
 
-    SetWindowTitle(("Tentakels Attacking " + CGlobal::gameVersion).c_str());
-    Window_ty window{ m_appContext.constants.window };
+    SetWindowTitle(("Tentakels Attacking " + cst::CGlobal::gameVersion).c_str());
+    cst::Window_ty window{ m_appContext.constants.window };
     window.nativeResolutionVec = window.GetIntFromResolution(Resolution::SCREEN);
 
     if (m_appContext.constants.window.currentResolutionEnum == Resolution::LAST) {

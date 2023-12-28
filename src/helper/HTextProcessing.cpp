@@ -121,27 +121,27 @@ std::string GetPrintableTextInCollider(
 ) {
     Vector2 textSize = MeasureTextEx(
             *(appContext.assetManager.GetFont()),
-            (text + CTextProcessing::cursor).c_str(),
+            (text + cst::CTextProcessing::cursor).c_str(),
             fontSize,
             0.0f
     );
-    if ((textSize.x + CTextProcessing::cursorOffset) < collider.width) {
+    if ((textSize.x + cst::CTextProcessing::cursorOffset) < collider.width) {
         return text;
     }
 
     std::string toReturn{ text };
-    std::string toCheck{ CTextProcessing::prefix + text + CTextProcessing::cursor };
+    std::string toCheck{ cst::CTextProcessing::prefix + text + cst::CTextProcessing::cursor };
 
     do {
         if (toReturn.empty()) {
             break;
         }
         toReturn = toReturn.substr(1, toReturn.size());
-        toCheck = CTextProcessing::prefix + toReturn + CTextProcessing::cursor;
+        toCheck = cst::CTextProcessing::prefix + toReturn + cst::CTextProcessing::cursor;
         textSize = MeasureTextEx(*(appContext.assetManager.GetFont()), toCheck.c_str(), fontSize, 0.0f);
-    } while (textSize.x + CTextProcessing::cursorOffset >= collider.width);
+    } while (textSize.x + cst::CTextProcessing::cursorOffset >= collider.width);
 
-    return { CTextProcessing::prefix + toReturn };
+    return { cst::CTextProcessing::prefix + toReturn };
 }
 
 std::string GetPrintablePlaceholderTextInCollider(
@@ -151,20 +151,20 @@ std::string GetPrintablePlaceholderTextInCollider(
         AppContext_ty_c appContext
 ) {
     Vector2 textSize = MeasureTextEx(*(appContext.assetManager.GetFont()), text.c_str(), fontSize, 0.0f);
-    if ((textSize.x + CTextProcessing::cursorOffset) < collider.width) {
+    if ((textSize.x + cst::CTextProcessing::cursorOffset) < collider.width) {
         return text;
     }
 
     std::string toReturn{ text };
-    std::string toCheck{ CTextProcessing::prefix + text };
+    std::string toCheck{ cst::CTextProcessing::prefix + text };
 
     do {
         toReturn = toReturn.substr(0, toReturn.size() - 1);
-        toCheck = CTextProcessing::prefix + toReturn;
+        toCheck = cst::CTextProcessing::prefix + toReturn;
         textSize = MeasureTextEx(*(appContext.assetManager.GetFont()), toCheck.c_str(), fontSize, 0.0f);
-    } while (textSize.x + CTextProcessing::cursorOffset >= collider.width);
+    } while (textSize.x + cst::CTextProcessing::cursorOffset >= collider.width);
 
-    return { toReturn + CTextProcessing::prefix };
+    return { toReturn + cst::CTextProcessing::prefix };
 }
 
 void StripString(std::string& toStrip) {

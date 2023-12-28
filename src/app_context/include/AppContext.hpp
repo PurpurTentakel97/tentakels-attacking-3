@@ -25,7 +25,7 @@ public:
     EventManager eventManager;
     PlayerCollection playerCollection;
     Colors colors;
-    Constants constants;
+    cst::Constants constants;
 
     [[nodiscard]] static AppContext_ty GetInstance();
 

@@ -168,7 +168,7 @@ bool HLanguageManager::LoadLanguage(std::string const& language, bool const defa
         return false;
     } else {
         auto const& version{ static_cast<std::string>(dummy[m_version_key]) };
-        if (version == CGlobal::languageVersion) {
+        if (version == cst::CGlobal::languageVersion) {
             Print(PrintType::INFO,
                   R"(loaded language version matches the expected version -> "{}" -> "{}")",
                   language,
@@ -179,14 +179,14 @@ bool HLanguageManager::LoadLanguage(std::string const& language, bool const defa
                       "versions of default language does not match -> language \"{}\" -> expected \"{}\" -> provided "
                       "\"{}\" -> it is possible that not every text can be displayed",
                       language,
-                      CGlobal::languageVersion,
+                      cst::CGlobal::languageVersion,
                       version);
             } else {
                 Print(PrintType::ERROR,
                       "versions of current language does not match -> language \"{}\" -> expected -> \"{}\" -> "
                       "provided \"{}\" -> it is possible that the default language tried to be displayed",
                       language,
-                      CGlobal::languageVersion,
+                      cst::CGlobal::languageVersion,
                       version);
             }
         }

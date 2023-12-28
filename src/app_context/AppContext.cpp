@@ -20,7 +20,7 @@ void AppContext::LoadLanguages() {
 }
 
 void AppContext::LoadConfig() const {
-    ::LoadConfig();
+    cst::LoadConfig();
     if (constants.sound.muteVolume) {
         SetMasterVolume(0.0f);
     } else {
@@ -32,7 +32,7 @@ void AppContext::LoadConfig() const {
 }
 
 void AppContext::SaveConfig() {
-    ::SaveConfig();
+    cst::SaveConfig();
 }
 
 void AppContext::ValidateConfig() {
