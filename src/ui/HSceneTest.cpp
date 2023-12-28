@@ -179,11 +179,11 @@ TestScene::TestScene()
     Initialize(appContext);
 }
 
-void TestScene::SetActive(bool active, AppContext_ty_c appContext) {
+void TestScene::SetActive(bool const active, AppContext_ty_c appContext) {
     Scene::SetActive(active, appContext);
 }
 
-void TestScene::TestLambda(bool toggled) {
+void TestScene::TestLambda(bool const toggled) {
     Print(PrintType::DEBUG, "toggled -> {}", toggled);
 }
 

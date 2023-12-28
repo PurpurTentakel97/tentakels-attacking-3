@@ -81,7 +81,7 @@ void ManagerPopUp::OnEvent(Event const& event) {
     }
 }
 
-void ManagerPopUp::NewMessagePopUp(ShowMessagePopUpEvent const* event) {
+void ManagerPopUp::NewMessagePopUp(ShowMessagePopUpEvent const* const event) {
     AddFocusLayer(true);
 
     m_popUps.push_back(std::make_unique<MessagePopUp>(
@@ -95,7 +95,7 @@ void ManagerPopUp::NewMessagePopUp(ShowMessagePopUpEvent const* event) {
     ));
 }
 
-void ManagerPopUp::NewDeletePlayerPopUp(ShowDeletePlayerPopUpEvent const* event) {
+void ManagerPopUp::NewDeletePlayerPopUp(ShowDeletePlayerPopUpEvent const* const event) {
     AddFocusLayer(true);
 
     m_popUps.push_back(std::make_unique<DeletePlayerPopUp>(
@@ -108,7 +108,7 @@ void ManagerPopUp::NewDeletePlayerPopUp(ShowDeletePlayerPopUpEvent const* event)
     ));
 }
 
-void ManagerPopUp::NewValidatePopUp(ShowValidatePopUp const* event) {
+void ManagerPopUp::NewValidatePopUp(ShowValidatePopUp const* const event) {
     AddFocusLayer(true);
 
     m_popUps.push_back(std::make_unique<ValidatePopUp>(
@@ -122,7 +122,7 @@ void ManagerPopUp::NewValidatePopUp(ShowValidatePopUp const* event) {
     ));
 }
 
-void ManagerPopUp::NewColorCellPopUp(ShowCellPopUpEvent<Color> const* event) {
+void ManagerPopUp::NewColorCellPopUp(ShowCellPopUpEvent<Color> const* const event) {
     AppContext_ty_c appContext{ AppContext::GetInstance() };
     NewFocusPopUpLayerEvent focusEvent;
     appContext.eventManager.InvokeEvent(focusEvent);
@@ -138,7 +138,7 @@ void ManagerPopUp::NewColorCellPopUp(ShowCellPopUpEvent<Color> const* event) {
     ));
 }
 
-void ManagerPopUp::NewSoundLevelPopUp(ShowInitialSoundLevelPopUpEvent const* event) {
+void ManagerPopUp::NewSoundLevelPopUp(ShowInitialSoundLevelPopUpEvent const* const event) {
     AppContext_ty_c appContext{ AppContext::GetInstance() };
     NewFocusPopUpLayerEvent focusEvent;
     appContext.eventManager.InvokeEvent(focusEvent);
@@ -151,7 +151,7 @@ void ManagerPopUp::NewSoundLevelPopUp(ShowInitialSoundLevelPopUpEvent const* eve
             const_cast<std::string&>(event->GetSubTitle())
     ));
 }
-void ManagerPopUp::NewFightResultPopUp(ShowFightResultEvent const* event) {
+void ManagerPopUp::NewFightResultPopUp(ShowFightResultEvent const* const event) {
     AppContext_ty_c appContext{ AppContext::GetInstance() };
     NewFocusLayerEvent focusEvent;
     appContext.eventManager.InvokeEvent(focusEvent);
@@ -165,7 +165,7 @@ void ManagerPopUp::NewFightResultPopUp(ShowFightResultEvent const* event) {
     ));
 }
 
-void ManagerPopUp::DeleteLastPopUp(PopUp* toDelete) {
+void ManagerPopUp::DeleteLastPopUp(PopUp* const toDelete) {
     if (m_popUps.empty()) {
         return;
     }

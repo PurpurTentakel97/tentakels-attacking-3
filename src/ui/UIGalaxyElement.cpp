@@ -9,12 +9,12 @@
 #include <ui_lib/ShipCountRing.hpp>
 
 UIGalaxyElement::UIGalaxyElement(
-        unsigned int focusID,
-        unsigned int ID,
-        Vector2 size,
+        unsigned int const focusID,
+        unsigned int const ID,
+        Vector2 const size,
         PlayerData const& player,
-        Vector2 pos,
-        Vector2 colliderPos
+        Vector2 const pos,
+        Vector2 const colliderPos
 )
     : UIElement{ pos, size, Alignment::MID_MID },
       Focusable{ focusID },
@@ -25,7 +25,7 @@ UIGalaxyElement::UIGalaxyElement(
       m_stringID{ std::to_string(ID) },
       m_hover{ 0.03f, "", player.color, Vector2(0.01f, 0.01f) } { }
 
-void UIGalaxyElement::UpdatePosition(Rectangle newCollider) {
+void UIGalaxyElement::UpdatePosition(Rectangle const newCollider) {
     Resolution_ty_c resolution{ AppContext::GetInstance().GetResolution() };
     Vector2 const newPos{ (newCollider.x + newCollider.width * m_colliderPos.x) / resolution.x,
                           (newCollider.y + newCollider.height * m_colliderPos.y) / resolution.y };
@@ -37,7 +37,7 @@ void UIGalaxyElement::SetOnClick(std::function<void(UIGalaxyElement*)> onClick) 
     m_onClick = std::move(onClick);
 }
 
-void UIGalaxyElement::SetPlayer(PlayerData player) {
+void UIGalaxyElement::SetPlayer(PlayerData const player) {
     m_currentPlayer = std::move(player);
     if (Colors::AreSame(m_color, GRAY)) {
         m_color = m_currentPlayer.color;
@@ -48,7 +48,7 @@ PlayerData UIGalaxyElement::GetPlayer() const {
     return m_currentPlayer;
 }
 
-void UIGalaxyElement::SetColor(Color color) {
+void UIGalaxyElement::SetColor(Color const color) {
     m_color = color;
 }
 
@@ -68,7 +68,7 @@ bool UIGalaxyElement::IsEnabled() const {
     return m_isEnabled;
 }
 
-void UIGalaxyElement::SetEnabled(bool isEnabled) {
+void UIGalaxyElement::SetEnabled(bool const isEnabled) {
     m_isEnabled = isEnabled;
 }
 

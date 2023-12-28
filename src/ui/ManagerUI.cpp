@@ -140,7 +140,7 @@ void UIManager::SetWindowPosition() {
     ::SetWindowPosition(differenceWidth, differenceHeight);
 }
 
-void UIManager::SetTargetFPS(SetTargetFPSEvent const* event) {
+void UIManager::SetTargetFPS(SetTargetFPSEvent const* const event) {
     ::SetTargetFPS(static_cast<int>(event->GetFPS()));
     Print(PrintType::INFO, "fps set -> {}", event->GetFPS());
 }

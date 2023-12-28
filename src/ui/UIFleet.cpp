@@ -9,7 +9,7 @@
 #include <logic/Fleet.hpp>
 #include <ui_lib/ShipCountRing.hpp>
 
-UIFleet::UIFleet(unsigned int ID, PlayerData const& player, Vector2 start, Vector2 end, Vector2 relativeStart, Vector2 relativeEnd,
+UIFleet::UIFleet(unsigned int const ID, PlayerData const& player, Vector2 const start, Vector2 const end, Vector2 const relativeStart, Vector2 const relativeEnd,
     Fleet_ty_raw_c fleet, std::function<bool(Vector2 const&)> isInGalaxyCollider)
     : UIElement{ start, { 0.005f,0.01f }, Alignment::MID_MID }, m_ID{ ID }, m_player{ player },
     m_relativeStart{ relativeStart }, m_relativeEnd{ relativeEnd }, m_fleet { fleet }, m_isInGalaxyCollider{ std::move(isInGalaxyCollider) },
@@ -83,7 +83,7 @@ void UIFleet::UpdateHoverText() {
     m_hover.SetText(AppContext::GetInstance().languageManager.Text("ui_fleet_hover", text_1, text_2));
 }
 
-void UIFleet::UpdatePositions(Rectangle newCollider) {
+void UIFleet::UpdatePositions(Rectangle const newCollider) {
     // update line
     Resolution_ty_c resolution{ AppContext::GetInstance().GetResolution() };
     Vector2 const start{ (newCollider.x + newCollider.width * m_relativeStart.x) / resolution.x,
@@ -103,7 +103,7 @@ void UIFleet::UpdatePositions(Rectangle newCollider) {
     m_ring->SetPosition(m_pos);
 }
 
-void UIFleet::SetDisplayedAsPoint(bool isDisplayedAsPoint) {
+void UIFleet::SetDisplayedAsPoint(bool const isDisplayedAsPoint) {
     m_isDisplayAsPoint = isDisplayedAsPoint;
 }
 

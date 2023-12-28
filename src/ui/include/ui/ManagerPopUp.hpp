@@ -39,7 +39,7 @@ public:
     void NewFightResultPopUp(ShowFightResultEvent const* event);
 
     template<typename T, typename eventType>
-    void NewTableCellPopUp(eventType const* event) {
+    void NewTableCellPopUp(eventType const* const event) {
         AppContext_ty_c appContext{ AppContext::GetInstance() };
         NewFocusPopUpLayerEvent const focusEvent;
         appContext.eventManager.InvokeEvent(focusEvent);

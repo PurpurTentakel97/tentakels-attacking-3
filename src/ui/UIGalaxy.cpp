@@ -15,7 +15,7 @@
 #include <logic/Player.hpp>
 #include <ui_lib/LineDrag.hpp>
 
-void UIGalaxy::Initialize(SendGalaxyPointerEvent const* event) {
+void UIGalaxy::Initialize(SendGalaxyPointerEvent const* const event) {
     AppContext_ty_c appContext{ AppContext::GetInstance() };
     Galaxy_ty_c_raw galaxy{ event->GetGalaxy() };
 
@@ -113,7 +113,7 @@ void UIGalaxy::Initialize(SendGalaxyPointerEvent const* event) {
     m_onZoom(1.0f, GetCurrentScaleReference());
 }
 
-Vector2 UIGalaxy::GetAbsolutePosition(Vector2 pos, AppContext_ty_c appContext) const {
+Vector2 UIGalaxy::GetAbsolutePosition(Vector2 const pos, AppContext_ty_c appContext) const {
     Resolution_ty_c resolution{ AppContext::GetInstance().GetResolution() };
     Vector2 const newPos{
         (m_collider.x) / resolution.x,
@@ -136,7 +136,7 @@ Vector2 UIGalaxy::GetAbsolutePosition(Vector2 pos, AppContext_ty_c appContext) c
     }
 }
 
-Vector2 UIGalaxy::GetRelativePosition(Vector2 pos, AppContext_ty_c appContext) const {
+Vector2 UIGalaxy::GetRelativePosition(Vector2 const pos, AppContext_ty_c appContext) const {
     if (m_isShowGalaxy) {
         return {
             pos.x / static_cast<float>(appContext.constants.world.showDimensionX),
@@ -151,7 +151,7 @@ Vector2 UIGalaxy::GetRelativePosition(Vector2 pos, AppContext_ty_c appContext) c
 }
 
 bool UIGalaxy::IsUIGalaxyElementInCollider(UIGalaxyElement_ty const& element) const {
-    auto const elementCollider= element->GetCollider() ;
+    auto const elementCollider = element->GetCollider();
 
     if (elementCollider.x + elementCollider.width <= m_collider.x) {
         return false;
@@ -178,7 +178,7 @@ void UIGalaxy::UpdateUIGalaxyElementPosition() {
     }
 }
 
-void UIGalaxy::SelectUIGalaxyElement(UIGalaxyElement* planet) {
+void UIGalaxy::SelectUIGalaxyElement(UIGalaxyElement* const planet) {
     m_onUIGalaxyElementClick(planet->GetID());
 }
 
@@ -208,7 +208,7 @@ void UIGalaxy::PrepForOnSlide() {
     m_onSlide(percent, false);
 }
 
-void UIGalaxy::MoveByKey(Direction direction, float speed) {
+void UIGalaxy::MoveByKey(Direction const direction, float const speed) {
     float difference;
     float offset;
     float percent;
@@ -243,7 +243,7 @@ void UIGalaxy::MoveByKey(Direction direction, float speed) {
     UpdateUIGalaxyElementPosition();
 }
 
-void UIGalaxy::MoveByMouse(Vector2 mousePosition) {
+void UIGalaxy::MoveByMouse(Vector2 const mousePosition) {
     if (m_lastMousePosition.x == 0.0f && m_lastMousePosition.y == 0.0f) {
         m_lastMousePosition = mousePosition;
         return;
@@ -264,7 +264,7 @@ Vector2 UIGalaxy::GetCurrentScaleReference() const {
              m_absoluteSize.height / static_cast<float>(m_currentGalaxy->GetSize().y * 10) };
 }
 
-bool UIGalaxy::IsCollidingObjectPoint(Vector2 point) const {
+bool UIGalaxy::IsCollidingObjectPoint(Vector2 const point) const {
     // don't check if point is in galaxy collider because the other planets get displayed on the edge of the collider
     for (auto const& p : m_uiPlanets) {
         auto const& collider{ p->GetCollider() };
@@ -287,7 +287,7 @@ bool UIGalaxy::IsCollidingObjectPoint(Vector2 point) const {
     return false;
 }
 
-unsigned int UIGalaxy::GetIDFromPoint(Vector2 point) const {
+unsigned int UIGalaxy::GetIDFromPoint(Vector2 const point) const {
     Resolution_ty_c resolution{ AppContext::GetInstance().GetResolution() };
     Vector2 absolutePoint{ resolution.x * point.x, resolution.y * point.y };
     // don't check if point is in galaxy collider because the other planets get displayed on the edge of the collider
@@ -310,7 +310,7 @@ unsigned int UIGalaxy::GetIDFromPoint(Vector2 point) const {
     return 0;
 }
 
-vec2pos_ty UIGalaxy::GetCoordinatesFromPoint(Vector2 point) const {
+vec2pos_ty UIGalaxy::GetCoordinatesFromPoint(Vector2 const point) const {
     Resolution_ty_c resolution{ AppContext::GetInstance().GetResolution() };
     Vector2 const absolutePoint{ resolution.x * point.x, resolution.y * point.y };
     if (!CheckCollisionPointRec(absolutePoint, m_collider)) {
@@ -326,7 +326,7 @@ vec2pos_ty UIGalaxy::GetCoordinatesFromPoint(Vector2 point) const {
     return { static_cast<int>(relative.x) * galaxySize.x, static_cast<int>(relative.y) * galaxySize.y };
 }
 
-void UIGalaxy::HandleDragLineResult(Vector2 start, Vector2 end) {
+void UIGalaxy::HandleDragLineResult(Vector2 const start, Vector2 const end) {
     auto const originID{ GetIDFromPoint(start) };
     auto const destID{ GetIDFromPoint(end) };
     vec2pos_ty destCo{ -1, -1 };
@@ -341,12 +341,12 @@ void UIGalaxy::HandleDragLineResult(Vector2 start, Vector2 end) {
 }
 
 UIGalaxy::UIGalaxy(
-        unsigned int ID,
-        Vector2 pos,
-        Vector2 size,
-        Alignment alignment,
-        bool isShowGalaxy,
-        bool isAcceptInput
+        unsigned int const ID,
+        Vector2 const pos,
+        Vector2 const size,
+        Alignment const alignment,
+        bool const isShowGalaxy,
+        bool const isAcceptInput
 )
     : UIElement{ pos, size, alignment },
       Focusable{ ID },
@@ -374,7 +374,7 @@ UIGalaxy::~UIGalaxy() {
     AppContext::GetInstance().eventManager.RemoveListener(this);
 }
 
-void UIGalaxy::SetIsScaling(bool isScaling) {
+void UIGalaxy::SetIsScaling(bool const isScaling) {
     m_isScaling = isScaling;
 }
 
@@ -386,7 +386,7 @@ float UIGalaxy::GetScaleFactor() const {
     return m_scaleFactor;
 }
 
-void UIGalaxy::Zoom(bool zoomIn, int factor) {
+void UIGalaxy::Zoom(bool const zoomIn, int const factor) {
     if (!m_isScaling) {
         return;
     }
@@ -435,7 +435,7 @@ void UIGalaxy::Zoom(bool zoomIn, int factor) {
     UpdateUIGalaxyElementPosition();
 }
 
-void UIGalaxy::Slide(float position, bool isHorizontal) {
+void UIGalaxy::Slide(float const position, bool const isHorizontal) {
     if (isHorizontal) {
         float const difference{ m_absoluteSize.width - m_collider.width };
         float const offset{ difference / 100 * position };
@@ -614,7 +614,7 @@ void UIGalaxy::FilterByCurrentPlayer(PlayerData const& player) {
     }
 }
 
-void UIGalaxy::SetEnabled(bool isEnabled) {
+void UIGalaxy::SetEnabled(bool const isEnabled) {
     m_isEnabled = isEnabled;
 }
 

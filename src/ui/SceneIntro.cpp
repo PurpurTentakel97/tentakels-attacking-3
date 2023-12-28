@@ -89,7 +89,7 @@ void Intro::Resize(AppContext_ty_c appContext) {
     }
 }
 
-void Intro::SetActive(bool active, AppContext_ty_c appContext) {
+void Intro::SetActive(bool const active, AppContext_ty_c appContext) {
     Scene::SetActive(active, appContext);
     SelectFocusElementEvent const event{ m_btn.get() };
     appContext.eventManager.InvokeEvent(event);

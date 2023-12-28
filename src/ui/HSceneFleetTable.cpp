@@ -147,9 +147,9 @@ std::string FleetAndTargetPointTable::GetStringFromPosition(vec2pos_ty_ref_c pos
 }
 
 FleetAndTargetPointTable::FleetAndTargetPointTable(
-        Vector2 pos,
-        Vector2 size,
-        Alignment alignment,
+        Vector2 const pos,
+        Vector2 const size,
+        Alignment const alignment,
         Galaxy_ty_raw galaxy,
         PlayerData const& currentPlayer
 )
@@ -159,7 +159,7 @@ FleetAndTargetPointTable::FleetAndTargetPointTable(
     Initialization(currentPlayer);
 }
 
-void FleetAndTargetPointTable::SetActive(bool active, AppContext_ty_c appContext) {
+void FleetAndTargetPointTable::SetActive(bool const active, AppContext_ty_c appContext) {
 
     if (active == m_active) {
         return;

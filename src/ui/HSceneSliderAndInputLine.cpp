@@ -63,7 +63,7 @@ void SliderAndInputLine::SaveValue() {
     m_onSave(m_currentValue);
 }
 
-void SliderAndInputLine::Slide(float position) {
+void SliderAndInputLine::Slide(float const position) {
     m_currentValue = static_cast<int>(
             (static_cast<float>(m_maxValue - m_minValue) * position / 100.0f) + static_cast<float>(m_minValue)
     );
@@ -91,13 +91,13 @@ void SliderAndInputLine::SetSliderValue() const {
 }
 
 SliderAndInputLine::SliderAndInputLine(
-        unsigned int focusID,
-        Vector2 pos,
-        Vector2 size,
-        Alignment alignment,
-        int minValue,
-        int maxValue,
-        int initialValue
+        unsigned int const focusID,
+        Vector2 const pos,
+        Vector2 const size,
+        Alignment const alignment,
+        int const minValue,
+        int const maxValue,
+        int const initialValue
 )
     : Scene{ pos, size, alignment },
       m_minValue{ minValue },
@@ -125,7 +125,7 @@ void SliderAndInputLine::CheckAndUpdate(Vector2 const& mousePosition, AppContext
     }
 }
 
-void SliderAndInputLine::SetEnabled(bool isEnabled) {
+void SliderAndInputLine::SetEnabled(bool const isEnabled) {
     m_isEnabled = isEnabled;
     m_slider->SetEnabled(isEnabled);
     m_inputLine->SetEnabled(isEnabled);
@@ -142,7 +142,7 @@ void SliderAndInputLine::SetOnSave(std::function<void(int)> onSave) {
     m_onSave = std::move(onSave);
 }
 
-void SliderAndInputLine::SetValue(int value) {
+void SliderAndInputLine::SetValue(int const value) {
     m_currentValue = value;
     ValidateCurrentValue();
     m_inputLine->SetValue(m_currentValue);

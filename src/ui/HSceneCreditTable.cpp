@@ -10,7 +10,7 @@
 #include <ui_lib/Text.hpp>
 
 
-void CreditTableScene::Initialize(std::string const& headline, creditEntries const& entries, bool containsLink) {
+void CreditTableScene::Initialize(std::string const& headline, creditEntries const& entries, bool const containsLink) {
     // headline
     auto headlineText = std::make_shared<Text>(
             GetElementPosition(0.5f, 0.0f),
@@ -102,12 +102,12 @@ void CreditTableScene::Initialize(std::string const& headline, creditEntries con
 }
 
 CreditTableScene::CreditTableScene(
-        Vector2 pos,
-        Vector2 size,
-        Alignment alignment,
+        Vector2 const pos,
+        Vector2 const size,
+        Alignment const alignment,
         std::string const& headline,
         creditEntries const& entries,
-        bool containsLink
+        bool const containsLink
 )
     : Scene{ pos, size, alignment } {
     Initialize(headline, entries, containsLink);
