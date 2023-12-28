@@ -18,6 +18,7 @@ using vec2pos_ty_ref = HVec2<int>&;
 using vec2pos_ty_c = HVec2<int> const;
 using vec2pos_ty_ref_c = HVec2<int> const&;
 
+
 class SpaceObject;
 using SpaceObject_ty = std::shared_ptr<SpaceObject>;
 using SpaceObject_ty_c = std::shared_ptr<SpaceObject> const&;
@@ -54,8 +55,6 @@ using Player_ty_c = Player_ty const&;
 using Player_ty_raw = Player const*;
 using Player_ty_raw_c = Player const* const;
 
-namespace hlp {
-    struct HMergeResult;
-    struct HFightResult;
-    using UpdateResult_ty = std::pair<std::vector<HMergeResult>, std::vector<HFightResult>>;
-} // namespace hlp
+struct HMergeResult;
+struct HFightResult;
+using UpdateResult_ty = std::pair<std::vector<HMergeResult>, std::vector<HFightResult>>;

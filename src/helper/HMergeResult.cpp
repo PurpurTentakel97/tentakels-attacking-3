@@ -5,8 +5,8 @@
 
 #include "HMergeResult.hpp"
 
-namespace hlp {
-    HMergeResult::HMergeResult(Player_ty player, SpaceObject_ty origin, SpaceObject_ty destination, size_t count)
+
+HMergeResult::HMergeResult(Player_ty player, SpaceObject_ty origin, SpaceObject_ty destination, size_t count)
         : m_player{ std::move(player) },
           m_origin{ std::move(origin) },
           m_destination{ std::move(destination) },
@@ -24,4 +24,3 @@ namespace hlp {
     size_t HMergeResult::GetCount() const {
         return m_count;
     }
-} // namespace hlp

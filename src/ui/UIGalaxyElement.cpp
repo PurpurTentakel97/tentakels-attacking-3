@@ -39,7 +39,7 @@ void UIGalaxyElement::SetOnClick(std::function<void(UIGalaxyElement*)> onClick) 
 
 void UIGalaxyElement::SetPlayer(PlayerData const player) {
     m_currentPlayer = std::move(player);
-    if (Colors::AreSame(m_color, GRAY)) {
+    if (hlp::Colors::AreSame(m_color, GRAY)) {
         m_color = m_currentPlayer.color;
     }
 }

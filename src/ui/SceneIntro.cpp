@@ -62,7 +62,7 @@ Intro::Intro()
 void Intro::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) {
     m_title->CheckAndUpdate(mousePosition, appContext);
 
-    bool const skipBtn{ IsBackInputPressed() and m_title->HasFinishedTitle() and m_btn->IsMoving() };
+    bool const skipBtn{ hlp::IsBackInputPressed() and m_title->HasFinishedTitle() and m_btn->IsMoving() };
     if (skipBtn) {
         m_btn->StopMoving();
         m_btn->SetPosition({ 0.5f, 0.5f });

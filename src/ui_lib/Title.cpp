@@ -45,7 +45,7 @@ void Title::RenderTitleSequence(AppContext_ty_c appContext) {
         }
     }
 
-    Random& random = Random::GetInstance();
+    auto& random = hlp::Random::GetInstance();
     float const prefixPosition{ m_collider.x
                                 + (static_cast<float>(dummyText.size())
                                    * MeasureTextEx(*(appContext.assetManager.GetFont()), "a", m_fontSize, 0.0f).x) };
@@ -121,7 +121,7 @@ void Title::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appCont
 
     UIElement::CheckAndUpdate(mousePosition, appContext);
 
-    bool const skipTitle{ IsBackInputPressed() and !m_titleFinish };
+    bool const skipTitle{ hlp::IsBackInputPressed() and !m_titleFinish };
     if (skipTitle) {
         TitleFinish(appContext);
         return;

@@ -18,21 +18,27 @@ namespace cst {
     static int loadEntryCount{ 0 };
     // print
     auto static const printMissingSection{ [](ConfigTypes const section) {
-        Print(PrintType::ERROR, "section \"{}\" in config missing {}", CToS(section), defaultValuePrefix);
+        hlp::Print(hlp::PrintType::ERROR, "section \"{}\" in config missing {}", CToS(section), defaultValuePrefix);
     } };
     auto static const printMissingEntry{ [](ConfigTypes const entry) {
-        Print(PrintType::ERROR, "entry \"{}\" in config missing {}", CToS(entry), defaultValuePrefix);
+        hlp::Print(hlp::PrintType::ERROR, "entry \"{}\" in config missing {}", CToS(entry), defaultValuePrefix);
     } };
     auto static const printNotMatchingCount{ [](ConfigTypes const section, size_t const expected, size_t const provided
                                              ) {
-        Print(PrintType::ERROR,
-              R"(section "{}" entry count in config is not matching -> expected: "{}" -> provided: "{}")",
+        hlp::Print(
+                hlp::PrintType::ERROR,
+                R"(section "{}" entry count in config is not matching -> expected: "{}" -> provided: "{}")",
               CToS(section),
               expected,
               provided);
     } };
     auto static const printWrongDatatype{ [](ConfigTypes const entry) {
-        Print(PrintType::ERROR, "entry \"{}\" in config has wrong datatype {}", CToS(entry), defaultValuePrefix);
+        hlp::Print(
+                hlp::PrintType::ERROR,
+                "entry \"{}\" in config has wrong datatype {}",
+                CToS(entry),
+                defaultValuePrefix
+        );
     } };
 
     // check
@@ -150,14 +156,14 @@ namespace cst {
         std::ifstream file;
 
         if (!std::filesystem::exists(Files::configFile())) {
-            Print(PrintType::EXPECTED_ERROR, "no config existing");
+            hlp::Print(hlp::PrintType::EXPECTED_ERROR, "no config existing");
             SaveConfig();
             return;
         }
 
         file.open(Files::configFile());
         if (!file.is_open()) {
-            Print(PrintType::INFO, "cant open config");
+            hlp::Print(hlp::PrintType::INFO, "cant open config");
             return;
         }
 
@@ -168,12 +174,13 @@ namespace cst {
         // from json
         // config
         if (isNull(load, ConfigTypes::CONFIG)) {
-            Print(PrintType::ERROR, "provided config is null {}", defaultValuePrefix);
+            hlp::Print(hlp::PrintType::ERROR, "provided config is null {}", defaultValuePrefix);
             return;
         }
         if (not isMatchingSize(load, ConfigTypes::CONFIG, Global::configSectionCount)) {
-            Print(PrintType::ERROR,
-                  "config section count is not matching {} -> expected: {} -> provided: {}",
+            hlp::Print(
+                    hlp::PrintType::ERROR,
+                    "config section count is not matching {} -> expected: {} -> provided: {}",
                   defaultValuePrefix,
                   Global::configSectionCount,
                   load.size());
@@ -182,32 +189,34 @@ namespace cst {
         if (nlohmann::json version; loadSection(load, version, ConfigTypes::VERSION, Global::configVersionCount)) {
             if (std::string versionConfig; loadString(version, versionConfig, ConfigTypes::VERSION_CONFIG)) {
                 if (versionConfig != Global::configVersion) {
-                    Print(PrintType::ERROR,
-                          "config version in config is not matching -> expected: {} -> provided: {} -> overwrite "
+                    hlp::Print(
+                            hlp::PrintType::ERROR,
+                            "config version in config is not matching -> expected: {} -> provided: {} -> overwrite "
                           "config by "
                           "save",
                           Global::configVersion,
                           versionConfig);
                 } else {
-                    Print(PrintType::INFO, "config versions matching -> version: {}", versionConfig);
+                    hlp::Print(hlp::PrintType::INFO, "config versions matching -> version: {}", versionConfig);
                 }
             } else {
-                Print(PrintType::ERROR, "unable to check if config version is matching");
+                hlp::Print(hlp::PrintType::ERROR, "unable to check if config version is matching");
             }
             if (std::string versionGame; loadString(version, versionGame, ConfigTypes::VERSION_GAME)) {
                 if (versionGame != Global::gameVersion) {
-                    Print(PrintType::ERROR,
-                          "game version in config is not matching -> expected: {} -> provided: {} -> overwrite by save",
+                    hlp::Print(
+                            hlp::PrintType::ERROR,
+                            "game version in config is not matching -> expected: {} -> provided: {} -> overwrite by save",
                           Global::gameVersion,
                           versionGame);
                 } else {
-                    Print(PrintType::INFO, "game versions matching -> version: {}", versionGame);
+                    hlp::Print(hlp::PrintType::INFO, "game versions matching -> version: {}", versionGame);
                 }
             } else {
-                Print(PrintType::ERROR, "unable to check if config version is matching");
+                hlp::Print(hlp::PrintType::ERROR, "unable to check if config version is matching");
             }
         } else {
-            Print(PrintType::ERROR, "not able to check if config and game versions match");
+            hlp::Print(hlp::PrintType::ERROR, "not able to check if config and game versions match");
         }
 
         // fight
@@ -309,23 +318,24 @@ namespace cst {
         // check if all values are loaded
         assert(loadEntryCount == Constants::GetConfigValueCount());
         if (int count = Constants::GetConfigValueCount(); loadEntryCount != count) {
-            Print(PrintType::ERROR,
-                  "Entry count in config is not matching -> expected: {} -> provided: {} -> some values will use the "
+            hlp::Print(
+                    hlp::PrintType::ERROR,
+                    "Entry count in config is not matching -> expected: {} -> provided: {} -> some values will use the "
                   "default value",
                   count,
                   loadEntryCount);
         } else {
-            Print(PrintType::INFO, "Entry count in config is matching -> count {}", loadEntryCount);
+            hlp::Print(hlp::PrintType::INFO, "Entry count in config is matching -> count {}", loadEntryCount);
         }
 
 #ifdef _DEBUG
         constants.window.isFullScreen = false;
-        Print(PrintType::DEBUG, "set full screen to false");
+        hlp::Print(hlp::PrintType::DEBUG, "set full screen to false");
         constants.window.currentResolutionEnum = Resolution::HD;
-        Print(PrintType::DEBUG, "set resolution ro HD");
+        hlp::Print(hlp::PrintType::DEBUG, "set resolution ro HD");
 #endif // _DEBUG
 
-        Print(PrintType::INFO, "config loaded");
+        hlp::Print(hlp::PrintType::INFO, "config loaded");
     }
     void SaveConfig() {
 
@@ -429,13 +439,13 @@ namespace cst {
         std::ofstream file{};
 
         if (!std::filesystem::exists(Files::savesDir)) {
-            Print(PrintType::EXPECTED_ERROR, "saves dir does not exists");
+            hlp::Print(hlp::PrintType::EXPECTED_ERROR, "saves dir does not exists");
             std::filesystem::create_directory(Files::savesDir);
-            Print(PrintType::INFO, "saves dir generated");
+            hlp::Print(hlp::PrintType::INFO, "saves dir generated");
         }
 
         if (!std::filesystem::exists(Files::configFile())) {
-            Print(PrintType::INFO, "config generated");
+            hlp::Print(hlp::PrintType::INFO, "config generated");
         }
 
         file.open(Files::configFile());
@@ -443,6 +453,6 @@ namespace cst {
         file << save.dump(4);
         file.close();
 
-        Print(PrintType::INFO, "config saved");
+        hlp::Print(hlp::PrintType::INFO, "config saved");
     }
 } // namespace cst

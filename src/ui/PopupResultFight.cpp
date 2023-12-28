@@ -18,7 +18,7 @@ void FightResultPopup::Initialize() {
     float constexpr leftX{ 0.25f };
     float constexpr rightX{ 0.75f };
     float Y{ 0.35f };
-    float const textSize{ GetElementTextHeight(m_size, 0.07f) };
+    float const textSize{ hlp::GetElementTextHeight(m_size, 0.07f) };
 
     // subtitle
     std::string fightText{ "invalid" };
@@ -34,8 +34,8 @@ void FightResultPopup::Initialize() {
     }
 
     auto const subtitle = std::make_shared<Text>(
-            GetElementPosition(m_pos, m_size, 0.6f, Y),
-            GetElementSize(m_size, 0.7f, textSize * 1.2f),
+            hlp::GetElementPosition(m_pos, m_size, 0.6f, Y),
+            hlp::GetElementSize(m_size, 0.7f, textSize * 1.2f),
             Alignment::MID_MID,
             Alignment::MID_MID,
             textSize * 1.2f,
@@ -48,8 +48,8 @@ void FightResultPopup::Initialize() {
     // player names
     auto player{ appContext.playerCollection.GetPlayerOrNpcByID(m_result.GetPlayer().first->GetID()) };
     auto playerName = std::make_shared<Text>(
-            GetElementPosition(m_pos, m_size, leftX, Y),
-            GetElementSize(m_size, 0.5f, textSize),
+            hlp::GetElementPosition(m_pos, m_size, leftX, Y),
+            hlp::GetElementSize(m_size, 0.5f, textSize),
             Alignment::MID_MID,
             Alignment::MID_MID,
             textSize,
@@ -61,8 +61,8 @@ void FightResultPopup::Initialize() {
 
     player = { appContext.playerCollection.GetPlayerOrNpcByID(m_result.GetPlayer().second->GetID()) };
     playerName = std::make_shared<Text>(
-            GetElementPosition(m_pos, m_size, rightX, Y),
-            GetElementSize(m_size, 0.5f, textSize),
+            hlp::GetElementPosition(m_pos, m_size, rightX, Y),
+            hlp::GetElementSize(m_size, 0.5f, textSize),
             Alignment::MID_MID,
             Alignment::MID_MID,
             textSize,
@@ -77,8 +77,8 @@ void FightResultPopup::Initialize() {
     // numbers
     auto firstNumber{ m_result.GetRounds().at(0).first };
     m_leftNumber = std::make_shared<CountingNumber>(
-            GetElementPosition(m_pos, m_size, leftX, Y),
-            GetElementSize(m_size, 0.5f, textSize * 1.5f),
+            hlp::GetElementPosition(m_pos, m_size, leftX, Y),
+            hlp::GetElementSize(m_size, 0.5f, textSize * 1.5f),
             Alignment::MID_MID,
             Alignment::MID_MID,
             textSize * 1.5f,
@@ -91,8 +91,8 @@ void FightResultPopup::Initialize() {
 
     firstNumber = { m_result.GetRounds().at(0).second };
     m_rightNumber = std::make_shared<CountingNumber>(
-            GetElementPosition(m_pos, m_size, rightX, Y),
-            GetElementSize(m_size, 0.5f, textSize * 1.5f),
+            hlp::GetElementPosition(m_pos, m_size, rightX, Y),
+            hlp::GetElementSize(m_size, 0.5f, textSize * 1.5f),
             Alignment::MID_MID,
             Alignment::MID_MID,
             textSize * 1.5f,
@@ -107,8 +107,8 @@ void FightResultPopup::Initialize() {
 
     // win text
     m_winText = std::make_shared<Text>(
-            GetElementPosition(m_pos, m_size, 0.5f, Y),
-            GetElementSize(m_size, 0.8f, textSize * 1.5f),
+            hlp::GetElementPosition(m_pos, m_size, 0.5f, Y),
+            hlp::GetElementSize(m_size, 0.8f, textSize * 1.5f),
             Alignment::MID_MID,
             Alignment::MID_MID,
             textSize * 1.5f,
@@ -119,8 +119,8 @@ void FightResultPopup::Initialize() {
     // button
     m_closeBtn = std::make_shared<ClassicButton>(
             1,
-            GetElementPosition(m_pos, m_size, 0.5f, 0.95f),
-            GetElementSize(m_size, 0.2f, 0.15f),
+            hlp::GetElementPosition(m_pos, m_size, 0.5f, 0.95f),
+            hlp::GetElementSize(m_size, 0.2f, 0.15f),
             Alignment::BOTTOM_MID,
             appContext.languageManager.Text("helper_skip_big"),
             SoundType::CLICKED_RELEASE_STD

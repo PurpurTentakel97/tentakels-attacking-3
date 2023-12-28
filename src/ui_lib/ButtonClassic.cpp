@@ -26,19 +26,19 @@ void ClassicButton::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c
 
     if (IsFocused()) {
         if (m_state == State::DISABLED) {
-            if (IsConfirmInputPressed()) {
+            if (hlp::IsConfirmInputPressed()) {
                 eve::PlaySoundEvent const event{ SoundType::CLICKED_DISABLED_STD };
                 appContext.eventManager.InvokeEvent(event);
                 return;
             }
 
-            bool const disabledAction{ IsConfirmInputDown() or IsConfirmInputReleased() };
+            bool const disabledAction{ hlp::IsConfirmInputDown() or hlp::IsConfirmInputReleased() };
             if (disabledAction) {
                 return;
             }
         }
 
-        if (IsConfirmInputPressed()) {
+        if (hlp::IsConfirmInputPressed()) {
             if (m_state != State::PRESSED) {
                 m_state = State::PRESSED;
                 m_isPressed = true;
@@ -48,13 +48,13 @@ void ClassicButton::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c
             }
         }
 
-        if (m_isPressed and IsConfirmInputDown()) {
+        if (m_isPressed and hlp::IsConfirmInputDown()) {
             m_state = State::PRESSED;
             m_onPress();
             return;
         }
 
-        if (m_isPressed and IsConfirmInputReleased()) {
+        if (m_isPressed and hlp::IsConfirmInputReleased()) {
             bool const hover{ CheckCollisionPointRec(mousePosition, m_collider) };
             if (!hover or !IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
                 m_state = hover ? State::HOVER : State::ENABLED;

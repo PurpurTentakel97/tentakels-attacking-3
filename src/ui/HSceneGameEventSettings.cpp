@@ -88,7 +88,7 @@ GameEventSettings::GameEventSettings(
 }
 
 void GameEventSettings::SetRandom() {
-    Random& random{ Random::GetInstance() };
+    auto& random{ hlp::Random::GetInstance() };
     AppContext_ty appContext{ AppContext::GetInstance() };
 
     assert(m_checkBoxes.size() == m_text.size());

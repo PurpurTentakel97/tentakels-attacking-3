@@ -67,7 +67,7 @@ public:
         bool shouldEdit{ false };
 
         if (IsFocused()) {
-            if (IsConfirmInputPressed()) {
+            if (hlp::IsConfirmInputPressed()) {
                 shouldEdit = true;
             }
         }
@@ -115,7 +115,7 @@ inline void TableCell<std::string>::SetStringValue() {
 
 template<>
 inline void TableCell<Color>::SetStringValue() {
-    m_stringValue = Colors::AsString(m_value);
+    m_stringValue = hlp::Colors::AsString(m_value);
 }
 
 template<>

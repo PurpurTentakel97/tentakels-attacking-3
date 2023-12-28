@@ -19,7 +19,7 @@ ColorPickerCell::ColorPickerCell(unsigned int const ID, Vector2 const pos, Vecto
 	m_color{ color }, m_colorPicker{ colorPicker },
 	m_hover{
 		0.05f,
-        Colors::AsString(color),
+          hlp::Colors::AsString(color),
 		WHITE,
 		{0.01f,0.01f}
 	}
@@ -72,10 +72,10 @@ void ColorPickerCell::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty
     if (mouseClick) {
         m_colorPicker->SetCellFocuses(appContext);
 
-        SelectFocusElement(this, m_colorPicker->IsPopUp());
+        hlp::SelectFocusElement(this, m_colorPicker->IsPopUp());
     }
 
-    bool const enterClick{ IsFocused() && IsConfirmInputPressed() };
+    bool const enterClick{ IsFocused() && hlp::IsConfirmInputPressed() };
     if (mouseClick or enterClick) {
         m_colorPicker->SetColor(m_color);
     }

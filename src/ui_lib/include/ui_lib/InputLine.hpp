@@ -88,7 +88,7 @@ public:
             return;
         }
 
-        bool const enter{ IsOnlyEnterConfirmInputPressed() };
+        bool const enter{ hlp::IsOnlyEnterConfirmInputPressed() };
         if (enter) {
             m_onEnter();
         }
@@ -157,7 +157,7 @@ public:
         std::string printableInput{};
 
         if (not m_value.empty()) {
-            printableInput = GetPrintableTextInCollider(m_value, fontSize, m_collider, appContext);
+            printableInput = hlp::GetPrintableTextInCollider(m_value, fontSize, m_collider, appContext);
             DrawTextEx(
                     *(appContext.assetManager.GetFont()),
                     printableInput.c_str(),
@@ -168,7 +168,7 @@ public:
             );
         } else {
             std::string const printablePlaceholder{
-                GetPrintablePlaceholderTextInCollider(m_placeholderText, fontSize, m_collider, appContext)
+                hlp::GetPrintablePlaceholderTextInCollider(m_placeholderText, fontSize, m_collider, appContext)
             };
             DrawTextEx(
                     *(appContext.assetManager.GetFont()),
@@ -322,7 +322,7 @@ inline bool InputLine<std::string>::IsValidKey(int const key) {
 
 template<>
 [[nodiscard]] inline int InputLine<int>::GetValue() {
-    StripString(m_value);
+    hlp::StripString(m_value);
     if (m_value.empty()) {
         return 0;
     }
@@ -331,7 +331,7 @@ template<>
 
 template<>
 [[nodiscard]] inline float InputLine<float>::GetValue() {
-    StripString(m_value);
+    hlp::StripString(m_value);
     if (m_value.empty()) {
         return 0.0f;
     }
@@ -346,7 +346,7 @@ template<>
 
 template<>
 [[nodiscard]] inline double InputLine<double>::GetValue() {
-    StripString(m_value);
+    hlp::StripString(m_value);
     if (m_value.empty()) {
         return 0.0;
     }
@@ -361,7 +361,7 @@ template<>
 
 template<>
 [[nodiscard]] inline std::string InputLine<std::string>::GetValue() {
-    StripString(m_value);
+    hlp::StripString(m_value);
     return m_value;
 }
 

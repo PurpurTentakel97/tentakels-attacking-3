@@ -32,14 +32,14 @@ ColorCellPopUp::ColorCellPopUp(
 
     auto colorPicker = std::make_shared<ColorPicker>(
             3,
-            GetElementPosition(m_pos, m_size, 0.5f, 0.5f),
-            GetElementSize(m_size, 0.5f, 0.38f),
+            hlp::GetElementPosition(m_pos, m_size, 0.5f, 0.5f),
+            hlp::GetElementSize(m_size, 0.5f, 0.38f),
             Alignment::MID_MID,
             true
     );
 
-    AddFocusElement(colorPicker.get(), true);
-    SelectFocusElement(colorPicker.get(), true);
+    hlp::AddFocusElement(colorPicker.get(), true);
+    hlp::SelectFocusElement(colorPicker.get(), true);
 
     colorPicker->SetInitialColor(currentColor);
     colorPicker->SetCellFocuses(appContext);

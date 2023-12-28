@@ -118,7 +118,7 @@ void AppContext::ValidateConfig() {
             constants.fleet.maxFleetSpeed
     );
 
-    Print(PrintType::INFO, "Config validated");
+    hlp::Print(hlp::PrintType::INFO, "Config validated");
 }
 
 void AppContext::OnEvent(eve::Event const& event) {
@@ -139,7 +139,7 @@ AppContext::AppContext() {
     eventManager.AddListener(&languageManager);
     eventManager.AddListener(this);
 
-    Print(PrintType::INITIALIZE, "AppContext");
+    hlp::Print(hlp::PrintType::INITIALIZE, "AppContext");
 }
 
 AppContext::~AppContext() {
@@ -147,5 +147,5 @@ AppContext::~AppContext() {
     eventManager.RemoveListener(&playerCollection);
     eventManager.RemoveListener(&languageManager);
     eventManager.RemoveListener(this);
-    Print(PrintType::INFO, "AppContext deleted");
+    hlp::Print(hlp::PrintType::INFO, "AppContext deleted");
 }

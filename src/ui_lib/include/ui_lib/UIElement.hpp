@@ -96,7 +96,7 @@ protected:
         }
 
         Vector2 const diffVec{ m_targetPosition - m_pos };
-        float const diff{ LenVec2(diffVec) };
+        float const diff{ hlp::LenVec2(diffVec) };
 
         bool const stopMoving{ diffVec.x < 0.001f and diffVec.x > -0.001f and diffVec.y < 0.001f
                                and diffVec.y > -0.001f };

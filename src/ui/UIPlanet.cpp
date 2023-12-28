@@ -71,7 +71,7 @@ void UIPlanet::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appC
         m_hover.SetRenderHover(mousePosition, appContext);
     }
 
-    if (IsFocused() && IsConfirmInputPressed()) {
+    if (IsFocused() && hlp::IsConfirmInputPressed()) {
         m_onClick(this);
     }
 }

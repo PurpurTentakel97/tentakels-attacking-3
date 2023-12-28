@@ -10,7 +10,7 @@
 Focusable::Focusable(unsigned int const ID) : m_focusID(ID) { }
 
 Focusable::~Focusable() {
-    DeleteFocusElement(this);
+    hlp::DeleteFocusElement(this);
 }
 
 bool Focusable::IsFocused() const {

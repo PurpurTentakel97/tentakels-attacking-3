@@ -6,7 +6,6 @@
 #pragma once
 
 
-namespace hlp {
     enum class SoundType {
         ACCEPTED,
         CLICKED_PRESS_STD,
@@ -15,4 +14,3 @@ namespace hlp {
         HOVER_STD,
         TEXT,
     };
-}

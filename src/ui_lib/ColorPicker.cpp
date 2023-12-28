@@ -24,7 +24,7 @@ void ColorPicker::Initialize() {
     for (size_t row = 0; row < m_countY; ++row) {
         for (size_t column = 0; column < m_countX; ++column) {
 
-            size_t const index{ GetIndexFromRowAndColumn(row, column, m_countX) };
+            size_t const index{ hlp::GetIndexFromRowAndColumn(row, column, m_countX) };
             // start					offset
             float const posX{ (1.0f / static_cast<float>((2 * m_countX)))
                               + (1.0f / static_cast<float>(m_countX * column)) };
@@ -37,8 +37,8 @@ void ColorPicker::Initialize() {
 
             m_cells.push_back(std::make_unique<ColorPickerCell>(
                     static_cast<unsigned int>(index + 1),
-                    GetElementPosition(m_pos, m_size, posX, posY),
-                    GetElementSize(m_size, sizeX, sizeY),
+                    hlp::GetElementPosition(m_pos, m_size, posX, posY),
+                    hlp::GetElementSize(m_size, sizeX, sizeY),
                     Alignment::MID_MID,
                     color,
                     this
@@ -105,7 +105,7 @@ ColorPicker::~ColorPicker() {
         return;
     }
 
-    DeleteFocusLayer(m_isPopUp);
+    hlp::DeleteFocusLayer(m_isPopUp);
 }
 
 Color ColorPicker::GetColor() const {
@@ -154,16 +154,16 @@ void ColorPicker::SetCellFocuses([[maybe_unused]] AppContext_ty_c appContext) {
         return;
     }
 
-    AddFocusLayer(m_isPopUp);
+    hlp::AddFocusLayer(m_isPopUp);
 
     for (auto const& c : m_cells) {
-        AddFocusElement(c.get(), m_isPopUp);
+        hlp::AddFocusElement(c.get(), m_isPopUp);
     }
 
     if (m_currentColorCell) {
-        SelectFocusElement(m_currentColorCell, m_isPopUp);
+        hlp::SelectFocusElement(m_currentColorCell, m_isPopUp);
     } else {
-        SelectFocusElement(m_cells.at(0).get(), m_isPopUp);
+        hlp::SelectFocusElement(m_cells.at(0).get(), m_isPopUp);
     }
 
     m_isNestedFocus = true;
@@ -190,21 +190,21 @@ void ColorPicker::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c a
 
     UIElement::CheckAndUpdate(mousePosition, appContext);
 
-    if (IsBackInputPressed()) {
+    if (hlp::IsBackInputPressed()) {
         if (!m_isNestedFocus) {
             return;
         }
-        DeleteFocusLayer(m_isPopUp);
+        hlp::DeleteFocusLayer(m_isPopUp);
         m_isNestedFocus = false;
     }
 
     if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
         if (CheckCollisionPointRec(mousePosition, m_collider)) {
-            SelectFocusElement(this, m_isPopUp);
+            hlp::SelectFocusElement(this, m_isPopUp);
         }
     }
 
-    if (IsFocused() and IsConfirmInputPressed()) {
+    if (IsFocused() and hlp::IsConfirmInputPressed()) {
         if (!m_isNestedFocus) {
             SetCellFocuses(appContext);
         } else {

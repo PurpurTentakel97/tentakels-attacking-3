@@ -253,7 +253,7 @@ void GameManager::ShuffleCurrentRoundPlayer() {
 
     std::shuffle(m_currentRoundPlayers.begin(), m_currentRoundPlayers.end(), m_random);
 
-    Print(PrintType::ONLY_DEBUG, "player shuffled");
+    hlp::Print(hlp::PrintType::ONLY_DEBUG, "player shuffled");
 }
 
 bool GameManager::CheckValidAddRemovePlayer(std::function<void(bool valid)> forPopup) {
@@ -313,7 +313,7 @@ void GameManager::NextRound(bool const valid) {
     std::erase_if(m_currentRoundPlayers, [](Player_ty_c player) { return not player->IsAlive(); });
     ShuffleCurrentRoundPlayer();
     if (m_currentRoundPlayers.empty()) {
-        Print(PrintType::TODO, "no possible moves for any player left. game should be over now.");
+        hlp::Print(hlp::PrintType::TODO, "no possible moves for any player left. game should be over now.");
     }
 
     m_galaxyManager.CopyGalaxies(CopyGalaxyType::COPY_ALL);
@@ -326,9 +326,9 @@ void GameManager::NextRound(bool const valid) {
     Player_ty player{};
     bool validPlayer{ GetCurrentPlayer(player) };
     if (not validPlayer) {
-        Print(PrintType::ONLY_DEBUG, "next round started -> can't get current player");
+        hlp::Print(hlp::PrintType::ONLY_DEBUG, "next round started -> can't get current player");
     } else {
-        Print(PrintType::ONLY_DEBUG, "next round started -> player {}", player->GetID());
+        hlp::Print(hlp::PrintType::ONLY_DEBUG, "next round started -> player {}", player->GetID());
     }
 
     if (validPlayer) {
@@ -361,9 +361,9 @@ void GameManager::NextTurn(bool const valid) {
     bool validPlayer{ GetCurrentPlayer(player) };
 
     if (not validPlayer) {
-        Print(PrintType::ONLY_DEBUG, "next turn started -> can't get current player");
+        hlp::Print(hlp::PrintType::ONLY_DEBUG, "next turn started -> can't get current player");
     } else {
-        Print(PrintType::ONLY_DEBUG, "next turn started -> player {}", player->GetID());
+        hlp::Print(hlp::PrintType::ONLY_DEBUG, "next turn started -> player {}", player->GetID());
     }
 
     if (validPlayer) {
@@ -482,10 +482,10 @@ void GameManager::StartGame() {
 
     Player_ty player{};
     if (not GetCurrentPlayer(player)) {
-        Print(PrintType::ONLY_DEBUG, "game started -> can't get current player");
+        hlp::Print(hlp::PrintType::ONLY_DEBUG, "game started -> can't get current player");
     }
 
-    Print(PrintType::ONLY_DEBUG, "game started -> player {}", player->GetID());
+    hlp::Print(hlp::PrintType::ONLY_DEBUG, "game started -> player {}", player->GetID());
     eve::SwitchSceneEvent const event{ SceneType::MAIN };
     appContext.eventManager.InvokeEvent(event);
 }
@@ -494,13 +494,13 @@ void GameManager::StopGame() {
     AppContext_ty appConstants{ AppContext::GetInstance() };
     appConstants.constants.global.isGameRunning = false;
     appConstants.constants.global.isGamePaused = true;
-    Print(PrintType::ONLY_DEBUG, "game stopped and paused");
+    hlp::Print(hlp::PrintType::ONLY_DEBUG, "game stopped and paused");
 }
 
 void GameManager::PauseGame() {
     AppContext_ty appContext{ AppContext::GetInstance() };
     appContext.constants.global.isGamePaused = true;
-    Print(PrintType::ONLY_DEBUG, "game paused");
+    hlp::Print(hlp::PrintType::ONLY_DEBUG, "game paused");
 }
 
 void GameManager::ResumeGame() {
@@ -510,11 +510,11 @@ void GameManager::ResumeGame() {
                                                 appContext.languageManager.Text("ui_popup_no_game_subtitle"),
                                            []() {} };
         appContext.eventManager.InvokeEvent(event);
-        Print(PrintType::ONLY_DEBUG, "not able to resume to game because its no game running");
+        hlp::Print(hlp::PrintType::ONLY_DEBUG, "not able to resume to game because its no game running");
         return;
     }
     appContext.constants.global.isGamePaused = false;
-    Print(PrintType::ONLY_DEBUG, "resumed to game");
+    hlp::Print(hlp::PrintType::ONLY_DEBUG, "resumed to game");
     eve::SwitchSceneEvent const event{ SceneType::MAIN };
     appContext.eventManager.InvokeEvent(event);
 }
@@ -543,7 +543,7 @@ GameManager::GameManager() : m_galaxyManager{ this } {
     AppContext::GetInstance().eventManager.AddListener(this);
     m_npcs[PlayerType::NEUTRAL] = std::make_shared<Player>(100, PlayerType::NEUTRAL);
 
-    Print(PrintType::INITIALIZE, "GameManager");
+    hlp::Print(hlp::PrintType::INITIALIZE, "GameManager");
 }
 
 void GameManager::Update() {

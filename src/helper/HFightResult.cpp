@@ -5,8 +5,8 @@
 
 #include "HFightResult.hpp"
 
-namespace hlp {
-    HFightResult::HFightResult(player_ty player, spaceObject_ty objects, rounds_ty rounds, bool const valid)
+
+HFightResult::HFightResult(player_ty player, spaceObject_ty objects, rounds_ty rounds, bool const valid)
         : m_players{ player },
           m_objects{ objects },
           m_rounds{ std::move(rounds) },
@@ -26,4 +26,3 @@ namespace hlp {
     bool HFightResult::IsValid() const {
         return m_valid;
     }
-} // namespace hlp

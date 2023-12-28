@@ -85,12 +85,12 @@ void SceneManager::SwitchScene(AppContext_ty_c appContext) {
     m_currentScene->SetActive(true, appContext);
     m_currentSceneType = m_nextSceneType;
 
-    Print(PrintType::INFO, "scene switched to -> {}", GetStringBySceneType(m_currentSceneType));
+    hlp::Print(hlp::PrintType::INFO, "scene switched to -> {}", GetStringBySceneType(m_currentSceneType));
 }
 
 SceneManager::SceneManager() {
     AppContext::GetInstance().eventManager.AddListener(this);
-    Print(PrintType::INITIALIZE, "SceneManager");
+    hlp::Print(hlp::PrintType::INITIALIZE, "SceneManager");
 }
 
 void SceneManager::SwitchSceneManual() {

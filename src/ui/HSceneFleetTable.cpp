@@ -166,7 +166,7 @@ void FleetAndTargetPointTable::SetActive(bool const active, AppContext_ty_c appC
     }
 
     if (m_table->IsNestedFocus() && !active) {
-        DeleteFocusLayer();
+        hlp::DeleteFocusLayer();
         m_table->SetNestedFocus(false);
     }
     Scene::SetActive(active, appContext);

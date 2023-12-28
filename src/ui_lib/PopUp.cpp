@@ -15,30 +15,30 @@
 void PopUp::Initialize(std::string const& title, std::string& subTitle, AssetType const infoTexture) {
 
     auto icon = std::make_shared<Picture>(
-            GetElementPosition(m_pos, m_size, 0.15f, 0.05f),
-            GetElementSize(m_size, 0.25f, 0.3f),
+            hlp::GetElementPosition(m_pos, m_size, 0.15f, 0.05f),
+            hlp::GetElementSize(m_size, 0.25f, 0.3f),
             Alignment::TOP_MID,
             infoTexture
     );
     m_elements.push_back(icon);
 
     auto textTitle = std::make_shared<Text>(
-            GetElementPosition(m_pos, m_size, 0.6f, 0.1f),
-            GetElementSize(m_size, 0.7f, 0.2f),
+            hlp::GetElementPosition(m_pos, m_size, 0.6f, 0.1f),
+            hlp::GetElementSize(m_size, 0.7f, 0.2f),
             Alignment::TOP_MID,
             Alignment::TOP_MID,
-            GetElementTextHeight(m_size, 0.18f),
+            hlp::GetElementTextHeight(m_size, 0.18f),
             title
     );
     m_elements.push_back(textTitle);
 
     Resolution_ty_c resolution{ AppContext::GetInstance().GetResolution() };
-    float textHeight = GetElementTextHeight(m_size, 0.1f);
-    BreakText(subTitle, textHeight * resolution.y, m_size.x * resolution.x * 0.9f, AppContext::GetInstance());
+    float textHeight = hlp::GetElementTextHeight(m_size, 0.1f);
+    hlp::BreakText(subTitle, textHeight * resolution.y, m_size.x * resolution.x * 0.9f, AppContext::GetInstance());
 
     auto textSubTitle = std::make_shared<Text>(
-            GetElementPosition(m_pos, m_size, 0.5f, 0.4f),
-            GetElementSize(m_size, 0.9f, 0.4f),
+            hlp::GetElementPosition(m_pos, m_size, 0.5f, 0.4f),
+            hlp::GetElementSize(m_size, 0.9f, 0.4f),
             Alignment::TOP_MID,
             Alignment::TOP_MID,
             textHeight,
@@ -88,7 +88,7 @@ PopUp::PopUp(
 
     Initialize(title, subTitle, infoTexture);
 
-    if (IsConfirmInputDown()) {
+    if (hlp::IsConfirmInputDown()) {
         m_firstEnter = true;
     }
 }

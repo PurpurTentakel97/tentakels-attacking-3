@@ -8,9 +8,8 @@
 #include <type_traits>
 
 
-namespace hlp {
-    enum class HGameEventType : uint8_t {
-        // clang-format off
+enum class HGameEventType : uint8_t {
+    // clang-format off
     PIRATES        = 0b00000001, // 1
     REVOLTS        = 0b00000010, // 2
     RENEGADE_SHIPS = 0b00000100, // 4
@@ -18,28 +17,27 @@ namespace hlp {
     SUPERNOVA      = 0b00010000, // 16
     ENGINE_PROBLEM = 0b00100000, // 32
     GLOBAL         = 0b11111111,
-        // clang-format on
-    };
+    // clang-format on
+};
 
-    inline HGameEventType operator|(HGameEventType lhs, HGameEventType rhs) {
-        return static_cast<HGameEventType>(
-                static_cast<std::underlying_type_t<HGameEventType>>(lhs)
-                | static_cast<std::underlying_type_t<HGameEventType>>(rhs)
-        );
-    }
-    inline HGameEventType& operator|=(HGameEventType& lhs, HGameEventType rhs) {
-        return lhs = { lhs | rhs };
-    }
-    inline HGameEventType operator&(HGameEventType lhs, HGameEventType rhs) {
-        return static_cast<HGameEventType>(
-                static_cast<std::underlying_type_t<HGameEventType>>(lhs)
-                & static_cast<std::underlying_type_t<HGameEventType>>(rhs)
-        );
-    }
-    inline HGameEventType& operator&=(HGameEventType& lhs, HGameEventType rhs) {
-        return lhs = { lhs & rhs };
-    }
-    inline HGameEventType operator~(HGameEventType value) {
-        return static_cast<HGameEventType>(~(static_cast<std::underlying_type_t<HGameEventType>>(value)));
-    }
-} // namespace hlp
+inline HGameEventType operator|(HGameEventType lhs, HGameEventType rhs) {
+    return static_cast<HGameEventType>(
+            static_cast<std::underlying_type_t<HGameEventType>>(lhs)
+            | static_cast<std::underlying_type_t<HGameEventType>>(rhs)
+    );
+}
+inline HGameEventType& operator|=(HGameEventType& lhs, HGameEventType rhs) {
+    return lhs = { lhs | rhs };
+}
+inline HGameEventType operator&(HGameEventType lhs, HGameEventType rhs) {
+    return static_cast<HGameEventType>(
+            static_cast<std::underlying_type_t<HGameEventType>>(lhs)
+            & static_cast<std::underlying_type_t<HGameEventType>>(rhs)
+    );
+}
+inline HGameEventType& operator&=(HGameEventType& lhs, HGameEventType rhs) {
+    return lhs = { lhs & rhs };
+}
+inline HGameEventType operator~(HGameEventType value) {
+    return static_cast<HGameEventType>(~(static_cast<std::underlying_type_t<HGameEventType>>(value)));
+}

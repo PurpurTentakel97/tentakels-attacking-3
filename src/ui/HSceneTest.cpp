@@ -49,7 +49,7 @@ void TestScene::Initialize([[maybe_unused]] AppContext_ty appContext) {
     );
     insertLineBtn->SetOnClick([table]() {
         auto const result = table->insertRow(2);
-        Print(PrintType::DEBUG, "Result new Row: {}", result);
+        hlp::Print(hlp::PrintType::DEBUG, "Result new Row: {}", result);
         table->update_cells();
     });
     m_elements.push_back(insertLineBtn);
@@ -66,7 +66,7 @@ void TestScene::Initialize([[maybe_unused]] AppContext_ty appContext) {
     );
     addLineBtn->SetOnClick([table]() {
         auto const result = table->appendRow();
-        Print(PrintType::DEBUG, "Result new Row: {}", result);
+        hlp::Print(hlp::PrintType::DEBUG, "Result new Row: {}", result);
         table->update_cells();
     });
     m_elements.push_back(addLineBtn);
@@ -184,7 +184,7 @@ void TestScene::SetActive(bool const active, AppContext_ty_c appContext) {
 }
 
 void TestScene::TestLambda(bool const toggled) {
-    Print(PrintType::DEBUG, "toggled -> {}", toggled);
+    hlp::Print(hlp::PrintType::DEBUG, "toggled -> {}", toggled);
 }
 
 void TestScene::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) {

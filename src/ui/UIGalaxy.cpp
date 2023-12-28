@@ -318,7 +318,7 @@ vec2pos_ty UIGalaxy::GetCoordinatesFromPoint(Vector2 const point) const {
     }
 
     auto const galaxySize{ m_currentGalaxy->GetSize() };
-    auto const relative = GetElementPositionReversed(
+    auto const relative = hlp::GetElementPositionReversed(
             { m_absoluteSize.x, m_absoluteSize.y },
             { m_absoluteSize.width, m_absoluteSize.height },
             absolutePoint
@@ -517,7 +517,7 @@ void UIGalaxy::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appC
             if (IsUIGalaxyElementInCollider(e) != e->IsEnabled()) {
                 e->SetEnabled(IsUIGalaxyElementInCollider(e));
                 if (!IsUIGalaxyElementInCollider(e) && e->IsFocused()) {
-                    SelectNextFocusElement();
+                    hlp::SelectNextFocusElement();
                 }
             }
 
@@ -530,18 +530,18 @@ void UIGalaxy::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appC
         }
 
         if (IsFocused() && !IsNestedFocus()) {
-            if (IsConfirmInputPressed()) {
+            if (hlp::IsConfirmInputPressed()) {
                 m_isNestedFocus = true;
-                AddFocusLayer();
+                hlp::AddFocusLayer();
                 for (auto const& e : m_uiGalaxyElements) {
-                    AddFocusElement(e.get());
+                    hlp::AddFocusElement(e.get());
                 }
             }
         }
 
         if (IsNestedFocus()) {
-            if (IsBackInputPressed() or !CheckCollisionPointRec(mousePosition, m_collider)) {
-                DeleteFocusLayer();
+            if (hlp::IsBackInputPressed() or !CheckCollisionPointRec(mousePosition, m_collider)) {
+                hlp::DeleteFocusLayer();
                 m_isNestedFocus = false;
             }
         }

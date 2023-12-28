@@ -81,7 +81,7 @@ float Hover::RenderOffset(AppContext_ty_c, Vector2 const& offset) const {
     DrawRectangleRec(dummyCollider, GREY_100);
     DrawRectangleLinesEx(dummyCollider, 2.0f, PURPLE);
 
-    DrawTextWithOutline(m_text, dummyTextPosition, m_textHeight, m_color, true);
+    hlp::DrawTextWithOutline(m_text, dummyTextPosition, m_textHeight, m_color, true);
 
     return m_collider.height;
 }

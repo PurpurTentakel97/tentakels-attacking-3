@@ -9,7 +9,7 @@
 
 ManagerPopUp::ManagerPopUp() {
     AppContext::GetInstance().eventManager.AddListener(this);
-    Print(PrintType::INITIALIZE, "ManagerPopUp");
+    hlp::Print(hlp::PrintType::INITIALIZE, "ManagerPopUp");
 }
 
 ManagerPopUp::~ManagerPopUp() {
@@ -82,7 +82,7 @@ void ManagerPopUp::OnEvent(eve::Event const& event) {
 }
 
 void ManagerPopUp::NewMessagePopUp(eve::ShowMessagePopUpEvent const* const event) {
-    AddFocusLayer(true);
+    hlp::AddFocusLayer(true);
 
     m_popUps.push_back(std::make_unique<MessagePopUp>(
             Vector2(0.5f, 0.5f),
@@ -96,7 +96,7 @@ void ManagerPopUp::NewMessagePopUp(eve::ShowMessagePopUpEvent const* const event
 }
 
 void ManagerPopUp::NewDeletePlayerPopUp(eve::ShowDeletePlayerPopUpEvent const* const event) {
-    AddFocusLayer(true);
+    hlp::AddFocusLayer(true);
 
     m_popUps.push_back(std::make_unique<DeletePlayerPopUp>(
             Vector2(0.5f, 0.5f),
@@ -109,7 +109,7 @@ void ManagerPopUp::NewDeletePlayerPopUp(eve::ShowDeletePlayerPopUpEvent const* c
 }
 
 void ManagerPopUp::NewValidatePopUp(eve::ShowValidatePopUp const* const event) {
-    AddFocusLayer(true);
+    hlp::AddFocusLayer(true);
 
     m_popUps.push_back(std::make_unique<ValidatePopUp>(
             Vector2(0.5f, 0.5f),
@@ -172,7 +172,7 @@ void ManagerPopUp::DeleteLastPopUp(PopUp* const toDelete) {
 
     if (toDelete == m_popUps.back().get()) {
 
-        DeleteFocusLayer(true);
+        hlp::DeleteFocusLayer(true);
         m_popUps.pop_back();
 
         CheckForDeleteRemainingPopUps();
@@ -195,7 +195,7 @@ void ManagerPopUp::CheckForDeleteRemainingPopUps() {
         for (auto& p : m_toDelete) {
             if (p == m_popUps.back().get()) {
                 found = true;
-                DeleteFocusLayer(true);
+                hlp::DeleteFocusLayer(true);
                 m_popUps.pop_back();
 
                 m_toDelete.erase(std::remove(m_toDelete.begin(), m_toDelete.end(), p), m_toDelete.end());

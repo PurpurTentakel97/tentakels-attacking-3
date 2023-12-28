@@ -90,7 +90,7 @@ namespace cst {
             }
             case Resolution::LAST:
             default:
-                Print(PrintType::ERROR, "invalid resolution selected {}", static_cast<int>(resolution));
+                hlp::Print(hlp::PrintType::ERROR, "invalid resolution selected {}", static_cast<int>(resolution));
                 return "invalid resolution";
         }
     }
@@ -151,7 +151,7 @@ namespace cst {
             }
             case Resolution::LAST:
             default:
-                Print(PrintType::ERROR, "invalid resolution selected {}", static_cast<int>(resolution));
+                hlp::Print(hlp::PrintType::ERROR, "invalid resolution selected {}", static_cast<int>(resolution));
                 return { 100, 100 };
         }
     }

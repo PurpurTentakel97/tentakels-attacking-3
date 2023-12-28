@@ -63,10 +63,10 @@ void DropDown::SetCurrentElementOutUpdate(std::shared_ptr<DropDownElement> const
 void DropDown::SetText() {
     Resolution_ty_c resolution{ AppContext::GetInstance().GetResolution() };
     m_currentElementText = m_currentElement->GetText();
-    StripString(m_currentElementText);
-    m_fontSize = GetElementTextHeight(m_size, resolution.y);
+    hlp::StripString(m_currentElementText);
+    m_fontSize = hlp::GetElementTextHeight(m_size, resolution.y);
     m_currentElementText =
-            GetPrintableTextInCollider(m_currentElementText, m_fontSize, m_collider, AppContext::GetInstance());
+            hlp::GetPrintableTextInCollider(m_currentElementText, m_fontSize, m_collider, AppContext::GetInstance());
 
     m_textPosition = { m_collider.x + 5.0f, m_collider.y + (m_collider.height - m_fontSize) / 2 };
 }
@@ -81,14 +81,14 @@ void DropDown::ToggleFoldedOut() {
 
     if (m_isFoldouts) {
         m_arrowTexture = appContext.assetManager.GetTexture(AssetType::ARROW_DOWN);
-        AddFocusLayer();
+        hlp::AddFocusLayer();
         for (auto const& e : m_dropDownElements) {
-            AddFocusElement(e.get());
+            hlp::AddFocusElement(e.get());
         }
         CheckAndSetElementsEnabled();
     } else {
         m_arrowTexture = appContext.assetManager.GetTexture(AssetType::ARROW_UP);
-        DeleteFocusLayer();
+        hlp::DeleteFocusLayer();
     }
 }
 
@@ -263,11 +263,11 @@ void DropDown::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appC
         }
     }
     if (IsFocused()) {
-        if (IsConfirmInputPressed() && !IsNestedFocus() && !m_isFoldouts) {
+        if (hlp::IsConfirmInputPressed() && !IsNestedFocus() && !m_isFoldouts) {
             ToggleFoldedOut();
             first = true;
         }
-        if (IsBackInputPressed() && m_isFoldouts) {
+        if (hlp::IsBackInputPressed() && m_isFoldouts) {
             ToggleFoldedOut();
             first = true;
         }

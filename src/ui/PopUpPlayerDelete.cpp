@@ -14,8 +14,8 @@ void DeletePlayerPopUp::Initialize() {
 
     auto inputLine = std::make_shared<InputLine<int>>(
             3,
-            GetElementPosition(m_pos, m_size, 0.5f, 0.45f),
-            GetElementSize(m_size, 0.5f, 0.1f),
+            hlp::GetElementPosition(m_pos, m_size, 0.5f, 0.45f),
+            hlp::GetElementSize(m_size, 0.5f, 0.1f),
             Alignment::TOP_MID,
             5
     );
@@ -23,8 +23,8 @@ void DeletePlayerPopUp::Initialize() {
     m_inputLine = inputLine;
     m_elements.push_back(inputLine);
 
-    AddFocusElement(m_inputLine.get(), true);
-    SelectFocusElement(m_inputLine.get(), true);
+    hlp::AddFocusElement(m_inputLine.get(), true);
+    hlp::SelectFocusElement(m_inputLine.get(), true);
 }
 
 void DeletePlayerPopUp::SetValue() {

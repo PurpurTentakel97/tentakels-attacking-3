@@ -27,7 +27,7 @@ SpaceObject_ty Fleet::GetTarget() const {
 }
 
 std::pair<bool, SpaceObject_ty> Fleet::GetFairTarget() const {
-    return TryGetTarget(this, m_target);
+    return hlp::TryGetTarget(this, m_target);
 }
 
 void Fleet::SetTarget(SpaceObject_ty target) {
@@ -39,7 +39,7 @@ bool Fleet::IsArrived() const {
 }
 
 bool Fleet::IsFarArrived() const {
-    auto [valid, dummy]{ TryGetTarget(this, m_target) };
+    auto [valid, dummy]{ hlp::TryGetTarget(this, m_target) };
     if (not valid) {
         return false;
     }
@@ -52,7 +52,7 @@ bool Fleet::IsFriendly() const {
 }
 
 bool Fleet::IsFarFriendly() const {
-    auto [valid, target]{ TryGetTarget(this, m_target) };
+    auto [valid, target]{ hlp::TryGetTarget(this, m_target) };
     if (not valid) {
         return false;
     }
@@ -62,7 +62,7 @@ bool Fleet::IsFarFriendly() const {
 
 void Fleet::Update(Galaxy_ty_raw galaxy) {
 
-    auto [valid, target]{ TryGetTarget(this, m_target) };
+    auto [valid, target]{ hlp::TryGetTarget(this, m_target) };
     if (not valid) {
         target = m_target;
     }
@@ -116,5 +116,5 @@ void Fleet::Update(Galaxy_ty_raw galaxy) {
     generatePosition();
     m_position = filterPosition();
 
-    Print(PrintType::ONLY_DEBUG, "fleet moved -> id: {} -> pos: {}", m_ID, m_position.ToString());
+    hlp::Print(hlp::PrintType::ONLY_DEBUG, "fleet moved -> id: {} -> pos: {}", m_ID, m_position.ToString());
 }

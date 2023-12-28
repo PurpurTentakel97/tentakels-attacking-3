@@ -11,9 +11,9 @@
 void DropDownElement::CreateToRender() {
     Resolution_ty_c resolution{ AppContext::GetInstance().GetResolution() };
     m_toRender = m_text;
-    StripString(m_toRender);
-    m_fontSize = GetElementTextHeight(m_size, resolution.y);
-    m_toRender = GetPrintableTextInCollider(m_toRender, m_fontSize, m_collider, AppContext::GetInstance());
+    hlp::StripString(m_toRender);
+    m_fontSize = hlp::GetElementTextHeight(m_size, resolution.y);
+    m_toRender = hlp::GetPrintableTextInCollider(m_toRender, m_fontSize, m_collider, AppContext::GetInstance());
 
     m_textPosition = { m_collider.x + 5.0f, m_collider.y + (m_collider.height - m_fontSize) / 2 };
 }
@@ -57,7 +57,7 @@ void DropDownElement::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty
     if (m_hover && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
         m_onClick(m_ID);
     }
-    if (IsFocused() && IsConfirmInputPressed()) {
+    if (IsFocused() && hlp::IsConfirmInputPressed()) {
         m_onClick(m_ID);
     }
 }

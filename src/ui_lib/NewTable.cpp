@@ -214,11 +214,11 @@ void NewTable::clamp_scroll_offset(Vector2& offset) const {
     size_t const first_column{ m_isNumbered ? size_t{ 0 } : size_t{ 1 } };
 
     if (m_row_count < first_row + 1) {
-        Print(PrintType::EXPECTED_ERROR, "not enough rows in table for clamping");
+        hlp::Print(hlp::PrintType::EXPECTED_ERROR, "not enough rows in table for clamping");
         return;
     }
     if (m_column_count < first_column + 1) {
-        Print(PrintType::EXPECTED_ERROR, "not enough columns in table for clamping");
+        hlp::Print(hlp::PrintType::EXPECTED_ERROR, "not enough columns in table for clamping");
         return;
     }
 
@@ -281,8 +281,9 @@ void NewTable::check_and_update_scroll(Vector2 const& mousePosition) {
     m_scroll_offset.x -= offset.x;
     m_scroll_offset.y -= offset.y;
     update_cell_positions();
-    Print(PrintType::DEBUG,
-          "current offset: x: {}, y: {} | new offset: x: {}, y:{}",
+    hlp::Print(
+            hlp::PrintType::DEBUG,
+            "current offset: x: {}, y: {} | new offset: x: {}, y:{}",
           m_scroll_offset.x,
           m_scroll_offset.y,
           offset.x,

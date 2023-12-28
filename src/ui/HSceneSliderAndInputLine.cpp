@@ -151,7 +151,7 @@ void SliderAndInputLine::SetValue(int const value) {
 }
 
 void SliderAndInputLine::RandomValue() {
-    Random& random{ Random::GetInstance() };
+    auto& random{ hlp::Random::GetInstance() };
     m_currentValue = static_cast<int>(random.random(static_cast<size_t>(m_maxValue - m_minValue))) + m_minValue;
     m_inputLine->SetValue(m_currentValue);
     SetSliderValue();

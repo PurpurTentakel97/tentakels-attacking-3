@@ -13,8 +13,8 @@ void MessagePopUp::Initialize() {
 
     auto btn = std::make_shared<ClassicButton>(
             1,
-            GetElementPosition(m_pos, m_size, 0.5f, 0.8f),
-            GetElementSize(m_size, 0.3f, 0.2f),
+            hlp::GetElementPosition(m_pos, m_size, 0.5f, 0.8f),
+            hlp::GetElementSize(m_size, 0.3f, 0.2f),
             Alignment::MID_MID,
             appContext.languageManager.Text("ui_message_popup_ok_btn"),
             SoundType::CLICKED_RELEASE_STD

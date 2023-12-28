@@ -6,8 +6,8 @@
 #pragma once
 #include "HLogicAlias.hpp"
 
-namespace hlp {
-    struct HMergeResult final {
+
+struct HMergeResult final {
     private:
         Player_ty m_player;
         SpaceObject_ty m_origin;
@@ -22,4 +22,3 @@ namespace hlp {
         [[nodiscard]] SpaceObject_ty GetDestination() const;
         [[nodiscard]] size_t GetCount() const;
     };
-} // namespace hlp

@@ -73,9 +73,9 @@ void GalaxyManager::GenerateShowGalaxy() {
     } else if (m_showGalaxy) {
         eve::SendGalaxyPointerEvent const event{ m_showGalaxy.get(), true };
         appContext.eventManager.InvokeEvent(event);
-        Print(PrintType::EXPECTED_ERROR, "Could not generated ShowGalaxy -> Use old Galaxy");
+        hlp::Print(hlp::PrintType::EXPECTED_ERROR, "Could not generated ShowGalaxy -> Use old Galaxy");
     } else {
-        Print(PrintType::EXPECTED_ERROR, "Could not generated ShowGalaxy -> No Galaxy");
+        hlp::Print(hlp::PrintType::EXPECTED_ERROR, "Could not generated ShowGalaxy -> No Galaxy");
     }
 }
 
@@ -98,7 +98,7 @@ bool GalaxyManager::AddFleet(eve::SendFleetInstructionEvent const* const event, 
 
     auto const result = m_mainGalaxy->AddFleet(event, currentPlayer);
     if (not result.valid) {
-        Print(PrintType::ONLY_DEBUG, "Not able to add Fleet to main Galaxy");
+        hlp::Print(hlp::PrintType::ONLY_DEBUG, "Not able to add Fleet to main Galaxy");
 
         eve::ReturnFleetInstructionEvent const returnEvent{ result.valid };
         AppContext::GetInstance().eventManager.InvokeEvent(returnEvent);

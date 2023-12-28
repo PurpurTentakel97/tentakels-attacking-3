@@ -206,7 +206,7 @@ void NewGamePlayerScene::CheckForNestedFocus(Vector2 const& mousePosition) const
 
         if (!CheckCollisionPointRec(mousePosition, f->GetCollider())) {
             f->SetNestedFocus(false);
-            DeleteFocusLayer();
+            hlp::DeleteFocusLayer();
         }
     }
 }

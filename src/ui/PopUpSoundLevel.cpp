@@ -16,8 +16,8 @@ void SoundLevelPopUp::Initialize() {
     AppContext_ty_c appContext = AppContext::GetInstance();
 
     m_slider = std::make_shared<Slider>(
-            GetElementPosition(m_pos, m_size, 0.5f, 0.65f),
-            GetElementSize(m_size, 0.7f, 0.1f),
+            hlp::GetElementPosition(m_pos, m_size, 0.5f, 0.65f),
+            hlp::GetElementSize(m_size, 0.7f, 0.1f),
             Alignment::BOTTOM_MID,
             true,
             10.0f
@@ -31,8 +31,8 @@ void SoundLevelPopUp::Initialize() {
 
     m_checkBox = std::make_shared<CheckBox>(
             4,
-            GetElementPosition(m_pos, m_size, 0.15f, 0.66f),
-            GetElementSize(m_size, 0.0f, 0.04f).y,
+            hlp::GetElementPosition(m_pos, m_size, 0.15f, 0.66f),
+            hlp::GetElementSize(m_size, 0.0f, 0.04f).y,
             Alignment::TOP_LEFT,
             1
     );
@@ -42,12 +42,12 @@ void SoundLevelPopUp::Initialize() {
         AppContext::GetInstance().eventManager.InvokeEvent(event);
         m_slider->SetEnabled(!isChecked);
     });
-    AddFocusElement(m_checkBox.get(), true);
+    hlp::AddFocusElement(m_checkBox.get(), true);
     m_elements.push_back(m_checkBox);
 
     m_elements.push_back(std::make_shared<Text>(
-            GetElementPosition(m_pos, m_size, 0.18f, 0.655f),
-            GetElementSize(m_size, 0.2f, 0.3f),
+            hlp::GetElementPosition(m_pos, m_size, 0.18f, 0.655f),
+            hlp::GetElementSize(m_size, 0.2f, 0.3f),
             Alignment::TOP_LEFT,
             Alignment::TOP_LEFT,
             0.025f,
@@ -56,16 +56,16 @@ void SoundLevelPopUp::Initialize() {
 
     m_acceptBtn = std::make_shared<ClassicButton>(
             1,
-            GetElementPosition(m_pos, m_size, 0.5f, 0.95f),
-            GetElementSize(m_size, 0.2f, 0.15f),
+            hlp::GetElementPosition(m_pos, m_size, 0.5f, 0.95f),
+            hlp::GetElementSize(m_size, 0.2f, 0.15f),
             Alignment::BOTTOM_MID,
             appContext.languageManager.Text("ui_sound_level_popup_accept_btn"),
             SoundType::ACCEPTED
     );
     m_acceptBtn->SetOnClick([this]() { AppContext::GetInstance().eventManager.InvokeEvent(eve::ClosePopUpEvent(this)); }
     );
-    AddFocusElement(m_acceptBtn.get(), true);
-    SelectFocusElement(m_acceptBtn.get(), true);
+    hlp::AddFocusElement(m_acceptBtn.get(), true);
+    hlp::SelectFocusElement(m_acceptBtn.get(), true);
     m_elements.push_back(m_acceptBtn);
 }
 

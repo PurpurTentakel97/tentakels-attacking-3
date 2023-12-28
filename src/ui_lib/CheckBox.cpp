@@ -70,7 +70,7 @@ void CheckBox::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appC
     bool check{ false };
 
     if (IsFocused()) {
-        if (IsConfirmInputPressed()) {
+        if (hlp::IsConfirmInputPressed()) {
             if (m_isEnabled) {
                 check = true;
             } else {

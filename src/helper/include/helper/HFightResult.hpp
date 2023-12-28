@@ -8,8 +8,8 @@
 #include <utility>
 #include <vector>
 
-namespace hlp {
-    struct HFightResult final {
+
+struct HFightResult final {
     public:
         using rounds_ty = std::vector<std::pair<size_t, size_t>>;
         using player_ty = std::pair<Player_ty, Player_ty>;
@@ -31,4 +31,3 @@ namespace hlp {
         [[nodiscard]] rounds_ty GetRounds() const;
         [[nodiscard]] bool IsValid() const;
     };
-} // namespace hlp

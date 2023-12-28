@@ -45,7 +45,7 @@ void UIManager::CheckAndSetNewResolution() {
 
     bool const validResolution{ window.IsPossibleResolution(m_nextResolution) };
     if (!validResolution) {
-        Print(PrintType::ERROR,
+        Print(hlp::PrintType::ERROR,
               "invalid resolution for this screen -> {}",
               m_appContext.constants.window.GetStringFromResolution(m_nextResolution));
         return;
@@ -60,12 +60,12 @@ void UIManager::CheckAndSetNewResolution() {
 }
 
 void UIManager::CheckAndUpdate() {
-    if (IsQuitInput()) {
+    if (hlp::IsQuitInput()) {
         eve::CloseWindowEvent event;
         m_appContext.eventManager.InvokeEvent(event);
     }
 
-    if (IsToggleFullscreenInput()) {
+    if (hlp::IsToggleFullscreenInput()) {
         SetFullScreen();
     }
 
@@ -142,7 +142,7 @@ void UIManager::SetWindowPosition() {
 
 void UIManager::SetTargetFPS(eve::SetTargetFPSEvent const* const event) {
     ::SetTargetFPS(static_cast<int>(event->GetFPS()));
-    Print(PrintType::INFO, "fps set -> {}", event->GetFPS());
+    hlp::Print(hlp::PrintType::INFO, "fps set -> {}", event->GetFPS());
 }
 
 void UIManager::UILoop() {
@@ -165,7 +165,7 @@ UIManager::UIManager() : m_appContext(AppContext::GetInstance()), m_sceneManager
 
     m_appContext.eventManager.AddListener(this);
 
-    Print(PrintType::INITIALIZE, "UIManager");
+    hlp::Print(hlp::PrintType::INITIALIZE, "UIManager");
 }
 
 UIManager::~UIManager() {
@@ -195,15 +195,16 @@ void UIManager::StartUI() {
         window.isFullScreen = false;
 
         if (!window.IsPossibleResolution(m_nextResolution)) {
-            Print(PrintType::ERROR,
-                  "invalid resolution: {} -> resolution set to: {}",
+            hlp::Print(
+                    hlp::PrintType::ERROR,
+                    "invalid resolution: {} -> resolution set to: {}",
                   m_appContext.constants.window.GetStringFromResolution(m_nextResolution),
                   m_appContext.constants.window.GetStringFromResolution(Resolution::SCREEN));
             m_nextResolution = Resolution::SCREEN;
         }
     }
 
-    Print(PrintType::INFO, "\"UI\" started");
+    hlp::Print(hlp::PrintType::INFO, "\"UI\" started");
 }
 
 void UIManager::StartUILoop() {
@@ -216,7 +217,7 @@ void UIManager::StartUILoop() {
     CheckAndSetToggleFullScreen();
     CheckAndSetNewResolution();
 
-    Print(PrintType::INFO, "\"UI Loop\" started");
+    hlp::Print(hlp::PrintType::INFO, "\"UI Loop\" started");
 
     UILoop();
 }

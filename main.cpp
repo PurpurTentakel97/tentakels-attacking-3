@@ -17,12 +17,12 @@ int main() {
     InitWindow(100, 100, "");
     AppContext_ty appContext{ AppContext::GetInstance() };
 #ifdef _DEBUG
-    Print(PrintType::BUILD, "Debug");
+    hlp::Print(hlp::PrintType::BUILD, "Debug");
 #else
-    Print(PrintType::BUILD, "Release");
+    hlp::Print(hlp::PrintType::BUILD, "Release");
 #endif // _DEBUG
 
-    Print(PrintType::BUILD, appContext.constants.global.gameVersion);
+    hlp::Print(hlp::PrintType::BUILD, cst::Global::gameVersion);
 
     UIManager uiManager;
 
@@ -37,7 +37,7 @@ int main() {
 
     appContext.SaveConfig();
 
-    CloseErrorStream();
+    hlp::CloseErrorStream();
 
     return 0;
 }

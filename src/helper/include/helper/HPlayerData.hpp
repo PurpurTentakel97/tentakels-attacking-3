@@ -8,7 +8,6 @@
 #include <string>
 
 
-namespace hlp {
     struct PlayerData final {
         unsigned int ID{ 0 };
         Color color{ WHITE };
@@ -38,4 +37,3 @@ namespace hlp {
     [[nodiscard]] inline bool operator!=(PlayerData const& lhs, PlayerData const& rhs) {
         return !(lhs == rhs);
     }
-} // namespace hlp

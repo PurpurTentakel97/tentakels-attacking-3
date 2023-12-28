@@ -20,38 +20,49 @@ void UpdateEvaluationScene::TestPrint(eve::SendUpdateEvaluation const* event) {
 
     AppContext_ty_c appContext{ AppContext::GetInstance() };
 
-    Print(PrintType::DEBUG, "--------------------| Evaluation |--------------------");
+    hlp::Print(hlp::PrintType::DEBUG, "--------------------| Evaluation |--------------------");
 
-    Print(PrintType::DEBUG, "------------------ | Merge Results |------------------");
+    hlp::Print(hlp::PrintType::DEBUG, "------------------ | Merge Results |------------------");
     for (auto const& e : event->GetMergeResults()) {
-        Print(PrintType::DEBUG, "{}", appContext.playerCollection.GetPlayerOrNpcByID(e.GetPlayer()->GetID()).GetName());
-        Print(PrintType::DEBUG,
-              "origin: {} -> destination: {} -> count: {}",
+        hlp::Print(
+                hlp::PrintType::DEBUG,
+                "{}",
+                appContext.playerCollection.GetPlayerOrNpcByID(e.GetPlayer()->GetID()).GetName()
+        );
+        hlp::Print(
+                hlp::PrintType::DEBUG,
+                "origin: {} -> destination: {} -> count: {}",
               e.GetOrigin()->GetID(),
               e.GetDestination()->GetID(),
               e.GetCount());
-        Print(PrintType::DEBUG, "------------------------------------------------------");
+        hlp::Print(hlp::PrintType::DEBUG, "------------------------------------------------------");
     }
 
-    Print(PrintType::DEBUG, "------------------ | Fight Results |------------------");
+    hlp::Print(hlp::PrintType::DEBUG, "------------------ | Fight Results |------------------");
     for (auto const& e : event->GetFightResults()) {
         if (not e.IsValid()) {
-            Print(PrintType::DEBUG, "invalid update Evaluation");
+            hlp::Print(hlp::PrintType::DEBUG, "invalid update Evaluation");
             continue;
         }
 
-        Print(PrintType::DEBUG, "{} vs.{}", e.GetSpaceObjects().first->GetID(), e.GetSpaceObjects().second->GetID());
-        Print(PrintType::DEBUG,
-              "{} vs. {}",
+        hlp::Print(
+                hlp::PrintType::DEBUG,
+                "{} vs.{}",
+                e.GetSpaceObjects().first->GetID(),
+                e.GetSpaceObjects().second->GetID()
+        );
+        hlp::Print(
+                hlp::PrintType::DEBUG,
+                "{} vs. {}",
               appContext.playerCollection.GetPlayerOrNpcByID(e.GetPlayer().first->GetID()).GetName(),
               appContext.playerCollection.GetPlayerOrNpcByID(e.GetPlayer().second->GetID()).GetName());
 
         for (auto const& r : e.GetRounds()) {
-            Print(PrintType::DEBUG, "{} | {}", r.first, r.second);
+            hlp::Print(hlp::PrintType::DEBUG, "{} | {}", r.first, r.second);
         }
-        Print(PrintType::DEBUG, "------------------------------------------------------");
+        hlp::Print(hlp::PrintType::DEBUG, "------------------------------------------------------");
     }
-    Print(PrintType::DEBUG, "------------------------------------------------------");
+    hlp::Print(hlp::PrintType::DEBUG, "------------------------------------------------------");
 }
 
 void UpdateEvaluationScene::DisplayMergeResult() {

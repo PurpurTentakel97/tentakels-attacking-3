@@ -11,10 +11,10 @@
 void Text::CreateToRender() {
     std::vector<std::string> const spitedText{ BreakLines(m_text) };
     std::vector<float> const horizontalOffset{
-        GetHorizontalAlignedOffset(spitedText, m_collider, m_textSize, m_textAlignment)
+        hlp::GetHorizontalAlignedOffset(spitedText, m_collider, m_textSize, m_textAlignment)
     };
     std::vector<float> const verticalOffset{
-        GetVerticalAlignedOffset(spitedText, m_textSize, m_collider, m_textAlignment)
+        hlp::GetVerticalAlignedOffset(spitedText, m_textSize, m_collider, m_textAlignment)
     };
 
     assert(spitedText.size() == horizontalOffset.size());
@@ -35,7 +35,7 @@ std::vector<std::string> Text::BreakLines(std::string const& toBreak) const {
         return { toBreak };
     }
 
-    std::vector<std::string> const toReturn{ BreakTextInVector(toBreak, m_textSize, m_collider.width) };
+    std::vector<std::string> const toReturn{ hlp::BreakTextInVector(toBreak, m_textSize, m_collider.width) };
 
     return toReturn;
 }
@@ -82,7 +82,7 @@ void Text::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appConte
 
 void Text::Render(AppContext_ty_c) {
     for (auto const& [text, position] : m_toRender) {
-        DrawTextWithOutline(text, position, m_textSize, m_color, m_renderBackground);
+        hlp::DrawTextWithOutline(text, position, m_textSize, m_color, m_renderBackground);
     }
 
     if (m_renderRectangle) {
@@ -134,7 +134,7 @@ Color Text::GetColor() const {
 }
 
 void Text::SetURL(std::string URL) {
-    StripString(URL);
+    hlp::StripString(URL);
     m_URL = URL;
 }
 

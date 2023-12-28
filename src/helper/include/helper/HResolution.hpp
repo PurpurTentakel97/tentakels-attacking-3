@@ -5,7 +5,6 @@
 
 #pragma once
 
-namespace hlp {
     enum class Resolution {
         // 16:9
         UHD2 = 0,
@@ -34,4 +33,3 @@ namespace hlp {
         NATIVE,
         LAST,
     };
-}

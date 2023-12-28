@@ -36,7 +36,7 @@ Planet::Planet(
         m_production = appContext.constants.planet.homeworldProduction;
         m_ships = m_production * appContext.constants.planet.startingHumanShipsMultiplicator;
     } else {
-        Random& random{ Random::GetInstance() };
+        auto& random{ hlp::Random::GetInstance() };
         size_t const r{
             random.random(appContext.constants.planet.maxProduction - appContext.constants.planet.minProduction)
         };
@@ -76,8 +76,9 @@ void Planet::Update(Galaxy_ty_raw) {
     if (not m_player->IsHumanPlayer() and m_ships > m_maxShips) {
         m_ships = m_maxShips;
     }
-    Print(PrintType::ONLY_DEBUG,
-          "planet produced -> id: {} -> is human: {} -> ships: {}",
+    hlp::Print(
+            hlp::PrintType::ONLY_DEBUG,
+            "planet produced -> id: {} -> is human: {} -> ships: {}",
           m_ID,
           m_player->IsHumanPlayer(),
           m_ships);

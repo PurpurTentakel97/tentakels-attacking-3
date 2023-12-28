@@ -24,7 +24,7 @@ public:
     HLanguageManager languageManager;
     eve::EventManager eventManager;
     PlayerCollection playerCollection;
-    Colors colors;
+    hlp::Colors colors;
     cst::Constants constants;
 
     [[nodiscard]] static AppContext_ty GetInstance();

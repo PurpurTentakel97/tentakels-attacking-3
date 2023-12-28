@@ -6,7 +6,6 @@
 #pragma once
 
 
-namespace hlp {
     enum class AssetType {
         BUTTON_DEFAULT,
         EXCLAMATION_MARK,
@@ -18,4 +17,3 @@ namespace hlp {
         ARROW_DOWN,
         ARROW_LEFT,
     };
-}
