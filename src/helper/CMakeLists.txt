@@ -1,7 +1,6 @@
 add_library(helper STATIC
             include/helper/HColors.hpp
             include/helper/HConcepts.hpp
-            include/helper/HConfigEnum.hpp
             include/helper/HErrorLog.hpp
             include/helper/HFightResult.hpp
             include/helper/HFleetResult.hpp
@@ -23,7 +22,6 @@ add_library(helper STATIC
             include/helper/HLayeredVector.hpp
             include/helper/HVec2.hpp
             HColors.cpp
-            HConfigEnum.cpp
             HErrorLog.cpp
             HFightResult.cpp
             HFocusEvents.cpp

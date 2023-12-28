@@ -12,10 +12,12 @@ add_library(constants STATIC
             include/constants/CWindow.hpp
             include/constants/CWorld.hpp
             include/constants/CConfigIO.hpp
+            include/constants/CConfigEnum.hpp
             CConstants.cpp
             CGameEvents.cpp
             CWindow.cpp
             ConfigIO.cpp
+            ConfigEnum.cpp
 )
 
 target_include_directories(constants

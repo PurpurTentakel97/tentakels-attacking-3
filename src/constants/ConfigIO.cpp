@@ -3,11 +3,11 @@
 // 27.10.2022
 //
 
+#include "CConfigEnum.hpp"
 #include "CConfigIO.hpp"
 #include <app/AppContext.hpp>
 #include <cassert>
 #include <filesystem>
-#include <helper/HConfigEnum.hpp>
 #include <helper/HPrint.hpp>
 #include <nlohmann/json.hpp>
 
