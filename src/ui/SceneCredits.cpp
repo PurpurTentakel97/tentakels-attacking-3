@@ -85,7 +85,7 @@ void CreditsScene::Initialize() {
             GetElementPosition(0.5f, Y),
             GetElementSize(0.5f, height),
             Alignment::TOP_MID,
-            AssetType::LOGO
+            app::AssetType::LOGO
     );
     AddMovingElement(logo);
 

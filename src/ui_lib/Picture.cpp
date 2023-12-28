@@ -24,7 +24,7 @@ Picture::Picture(
         Vector2 const pos,
         Vector2 const size,
         Alignment const alignment,
-        AssetType const assetType,
+        app::AssetType const assetType,
         bool const scaleToFit
 )
     : UIElement{ pos, size, alignment },

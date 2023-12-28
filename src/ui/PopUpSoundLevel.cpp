@@ -77,7 +77,7 @@ SoundLevelPopUp::SoundLevelPopUp(
         std::string const& title,
         std::string& subTitle
 )
-    : PopUp{ pos, size, alignment, title, subTitle, AssetType::QUESTION_MARK } {
+    : PopUp{ pos, size, alignment, title, subTitle, app::AssetType::QUESTION_MARK } {
 
     Initialize();
 }

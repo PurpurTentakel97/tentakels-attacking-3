@@ -12,7 +12,7 @@
 #include <helper/HTextProcessing.hpp>
 #include <string>
 
-void PopUp::Initialize(std::string const& title, std::string& subTitle, AssetType const infoTexture) {
+void PopUp::Initialize(std::string const& title, std::string& subTitle, app::AssetType const infoTexture) {
 
     auto icon = std::make_shared<Picture>(
             hlp::GetElementPosition(m_pos, m_size, 0.15f, 0.05f),
@@ -82,7 +82,7 @@ PopUp::PopUp(
         Alignment const alignment,
         std::string const& title,
         std::string& subTitle,
-        AssetType const infoTexture
+        app::AssetType const infoTexture
 )
     : UIElement{ pos, size, alignment } {
 

@@ -81,7 +81,7 @@ CellPopUp::CellPopUp(
         Vector2 const size,
         Alignment const alignment,
         std::string const& title,
-        AssetType const infoTexture
+        app::AssetType const infoTexture
 )
     : PopUp{ pos, size, alignment, title, subTitle, infoTexture } {
 

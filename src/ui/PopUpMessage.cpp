@@ -36,7 +36,7 @@ MessagePopUp::MessagePopUp(
         Alignment const alignment,
         std::string const& title,
         std::string& subTitle,
-        AssetType const infoTexture,
+        app::AssetType const infoTexture,
         std::function<void()> callback
 )
     : PopUp{ pos, size, alignment, title, subTitle, infoTexture },

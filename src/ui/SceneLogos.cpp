@@ -19,7 +19,7 @@ void LogoScene::Initialize() {
             GetElementPosition(0.5f, 0.1f),
             GetElementSize(0.0f, 0.5f),
             Alignment::TOP_MID,
-            AssetType::LOGO
+            app::AssetType::LOGO
     );
     m_elements.push_back(logo);
 

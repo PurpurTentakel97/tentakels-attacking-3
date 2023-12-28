@@ -204,7 +204,7 @@ FightResultPopup::FightResultPopup(
 )
     : PopUp{ pos,           size,
              alignment,     app::AppContext::GetInstance().languageManager.Text("helper_fight_big"),
-             s_emptyString, AssetType::EXCLAMATION_MARK },
+             s_emptyString, app::AssetType::EXCLAMATION_MARK },
       m_result{ std::move(result) },
       m_callback{ std::move(callback) } {
 

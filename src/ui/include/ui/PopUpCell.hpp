@@ -25,7 +25,7 @@ protected:
     void Close(app::AppContext_ty_c appContext);
 
 public:
-    CellPopUp(Vector2 pos, Vector2 size, Alignment alignment, std::string const& title, AssetType infoTexture);
+    CellPopUp(Vector2 pos, Vector2 size, Alignment alignment, std::string const& title, app::AssetType infoTexture);
 
     void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) override;
 };

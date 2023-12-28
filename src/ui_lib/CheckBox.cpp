@@ -31,7 +31,7 @@ CheckBox::CheckBox(unsigned int const focusID, Vector2 const pos, float const he
     m_size.x = resolution.y / resolution.x * m_size.y;
     UpdateCollider();
 
-    m_texture = appContext.assetManager.GetTexture(AssetType::CHECK);
+    m_texture = appContext.assetManager.GetTexture(app::AssetType::CHECK);
     m_textureRec = { 0.0f, 0.0f, static_cast<float>(m_texture->width), static_cast<float>(m_texture->height) };
 }
 

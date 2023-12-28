@@ -84,14 +84,14 @@ void DropDown::ToggleFoldedOut() {
     appContext.eventManager.InvokeEvent(eve::PlaySoundEvent(SoundType::CLICKED_PRESS_STD));
 
     if (m_isFoldouts) {
-        m_arrowTexture = appContext.assetManager.GetTexture(AssetType::ARROW_DOWN);
+        m_arrowTexture = appContext.assetManager.GetTexture(app::AssetType::ARROW_DOWN);
         hlp::AddFocusLayer();
         for (auto const& e : m_dropDownElements) {
             hlp::AddFocusElement(e.get());
         }
         CheckAndSetElementsEnabled();
     } else {
-        m_arrowTexture = appContext.assetManager.GetTexture(AssetType::ARROW_UP);
+        m_arrowTexture = appContext.assetManager.GetTexture(app::AssetType::ARROW_UP);
         hlp::DeleteFocusLayer();
     }
 }
@@ -194,7 +194,7 @@ DropDown::DropDown(
 
     Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
 
-    m_arrowTexture = app::AppContext::GetInstance().assetManager.GetTexture(AssetType::ARROW_UP);
+    m_arrowTexture = app::AppContext::GetInstance().assetManager.GetTexture(app::AssetType::ARROW_UP);
     m_arrowTextureRec = { 0.0f,
                           0.0f,
                           static_cast<float>(m_arrowTexture->width),

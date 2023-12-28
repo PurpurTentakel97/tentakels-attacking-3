@@ -18,7 +18,7 @@ ColorCellPopUp::ColorCellPopUp(
         Vector2 const size,
         Alignment const alignment,
         std::string const& title,
-        AssetType const infoTexture,
+        app::AssetType const infoTexture,
         Color const currentColor,
         std::function<void(Color)> onClick
 )

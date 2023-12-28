@@ -90,7 +90,7 @@ void ManagerPopUp::NewMessagePopUp(eve::ShowMessagePopUpEvent const* const event
             Alignment::MID_MID,
             event->GetTitle(),
             const_cast<std::string&>(event->GetSubTitle()),
-            AssetType::EXCLAMATION_MARK,
+            app::AssetType::EXCLAMATION_MARK,
             event->GetCallback()
     ));
 }
@@ -103,7 +103,7 @@ void ManagerPopUp::NewDeletePlayerPopUp(eve::ShowDeletePlayerPopUpEvent const* c
             Vector2(0.5f, 0.5f),
             Alignment::MID_MID,
             event->GetTitle(),
-            AssetType::QUESTION_MARK,
+            app::AssetType::QUESTION_MARK,
             event->GetOnClick()
     ));
 }
@@ -117,7 +117,7 @@ void ManagerPopUp::NewValidatePopUp(eve::ShowValidatePopUp const* const event) {
             Alignment::MID_MID,
             event->GetTitle(),
             const_cast<std::string&>(event->GetSubTitle()),
-            AssetType::QUESTION_MARK,
+            app::AssetType::QUESTION_MARK,
             event->GetCallback()
     ));
 }
@@ -132,7 +132,7 @@ void ManagerPopUp::NewColorCellPopUp(eve::ShowCellPopUpEvent<Color> const* const
             Vector2(0.7f, 0.7f),
             Alignment::MID_MID,
             event->GetTitle(),
-            AssetType::LOGO,
+            app::AssetType::LOGO,
             event->GetCurrentValue(),
             event->GetOnClick()
     ));

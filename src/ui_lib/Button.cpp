@@ -44,7 +44,7 @@ Button::Button(
       m_text{ std::move(text) },
       m_sound{ releaseSound } {
 
-    m_texture = app::AppContext::GetInstance().assetManager.GetTexture(AssetType::BUTTON_DEFAULT);
+    m_texture = app::AppContext::GetInstance().assetManager.GetTexture(app::AssetType::BUTTON_DEFAULT);
     m_textureRec = { 0.0f,
                      0.0f,
                      static_cast<float>(m_texture->width),

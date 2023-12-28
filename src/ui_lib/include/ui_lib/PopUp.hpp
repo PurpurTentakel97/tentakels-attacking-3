@@ -15,7 +15,7 @@ protected:
     bool m_shouldClose{ false };
     std::vector<std::shared_ptr<UIElement>> m_elements;
 
-    void Initialize(std::string const& title, std::string& subTitle, AssetType infoTexture);
+    void Initialize(std::string const& title, std::string& subTitle, app::AssetType infoTexture);
 
     void LateUpdate();
 
@@ -27,7 +27,7 @@ public:
           Alignment alignment,
           std::string const& title,
           std::string& subTitle,
-          AssetType infoTexture);
+          app::AssetType infoTexture);
 
     void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) override;
 

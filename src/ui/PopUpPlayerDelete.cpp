@@ -40,7 +40,7 @@ DeletePlayerPopUp::DeletePlayerPopUp(
         Vector2 const size,
         Alignment const alignment,
         std::string const& title,
-        AssetType const inputTexture,
+        app::AssetType const inputTexture,
         std::function<void(unsigned int)> onClick
 )
     : CellPopUp{ pos, size, alignment, title, inputTexture },

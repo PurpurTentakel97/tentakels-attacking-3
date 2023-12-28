@@ -24,7 +24,7 @@ public:
             Vector2 size,
             Alignment alignment,
             std::string const& title,
-            AssetType inputTexture,
+            app::AssetType inputTexture,
             std::function<void(unsigned int)> onClick
     );
 };

@@ -49,7 +49,7 @@ public:
                 Vector2(0.7f, 0.7f),
                 Alignment::MID_MID,
                 event->GetTitle(),
-                AssetType::LOGO,
+                app::AssetType::LOGO,
                 event->GetCurrentValue(),
                 event->GetOnClick()
         ));

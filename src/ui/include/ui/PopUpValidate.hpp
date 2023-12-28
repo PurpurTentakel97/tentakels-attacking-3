@@ -23,7 +23,7 @@ public:
             Alignment alignment,
             std::string const& title,
             std::string& subTitle,
-            AssetType infoTexture,
+            app::AssetType infoTexture,
             std::function<void(bool)> callback
     );
 
