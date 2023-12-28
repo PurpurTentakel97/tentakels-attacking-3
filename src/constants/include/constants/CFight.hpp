@@ -6,13 +6,15 @@
 #pragma once
 #include <cstddef>
 
-struct CFight final {
-    static inline size_t constexpr configEntryCount{ 6 };
-    float hitChance{ 0.3f };
-    int fleetFightRange{ 4 };
+namespace cst {
+    struct CFight final {
+        static inline size_t constexpr configEntryCount{ 6 };
+        float hitChance{ 0.3f };
+        int fleetFightRange{ 4 };
 
-    bool isFightPlanetFleet{ true };
-    bool isFightTargetPointFleet{ true };
-    bool isFightTargetPointTargetPoint{ true };
-    bool isFightPlanetTargetPoint{ true };
-};
+        bool isFightPlanetFleet{ true };
+        bool isFightTargetPointFleet{ true };
+        bool isFightTargetPointTargetPoint{ true };
+        bool isFightPlanetTargetPoint{ true };
+    };
+} // namespace cst

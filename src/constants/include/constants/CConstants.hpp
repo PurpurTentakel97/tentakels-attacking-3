@@ -16,21 +16,23 @@
 #include "CWindow.hpp"
 #include "CWorld.hpp"
 
-struct Constants final {
-    // config related
-    CGameEvents gameEvents;
-    CFight fight;
-    CFleet fleet;
-    CGlobal global;
-    CPlanet planet;
-    CPlayer player;
-    CSound sound;
-    CWindow window;
-    CWorld world;
+namespace cst {
+    struct Constants final {
+        // config related
+        CGameEvents gameEvents;
+        CFight fight;
+        CFleet fleet;
+        CGlobal global;
+        CPlanet planet;
+        CPlayer player;
+        CSound sound;
+        CWindow window;
+        CWorld world;
 
-    // non config related
-    CTextProcessing textProcessing;
-    CFiles files;
+        // non config related
+        CTextProcessing textProcessing;
+        CFiles files;
 
-    [[nodiscard]] static int GetConfigValueCount();
-};
+        [[nodiscard]] static int GetConfigValueCount();
+    };
+} // namespace cst

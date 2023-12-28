@@ -6,11 +6,12 @@
 #pragma once
 #include <cstddef>
 
+namespace cst {
+    struct CPlayer final {
+        static inline size_t constexpr configEntryCount{ 3 };
 
-struct CPlayer final {
-    static inline size_t constexpr configEntryCount{ 3 };
-
-    size_t minPlayerCount{ 2 };
-    size_t maxPlayerCount{ 7 };
-    bool shuffle{ false };
-};
+        size_t minPlayerCount{ 2 };
+        size_t maxPlayerCount{ 7 };
+        bool shuffle{ false };
+    };
+} // namespace cst

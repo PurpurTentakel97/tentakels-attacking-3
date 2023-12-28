@@ -5,7 +5,8 @@
 
 #pragma once
 
+namespace cst {
+    void LoadConfig();
 
-void LoadConfig();
-
-void SaveConfig();
+    void SaveConfig();
+} // namespace cst
