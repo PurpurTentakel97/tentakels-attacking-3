@@ -3,8 +3,10 @@ add_library(app_context STATIC
             include/app/AppContext.hpp
             include/app/AssetType.hpp
             include/app/AssetManager.hpp
+            include/app/LanguageManager.hpp
             AppContext.cpp
             AssetManager.cpp
+            LanguageManager.cpp
 )
 
 target_include_directories(app_context

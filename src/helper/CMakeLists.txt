@@ -10,7 +10,6 @@ add_library(helper STATIC
             include/helper/HGameEventTypes.hpp
             include/helper/HGeneral.hpp
             include/helper/HInput.hpp
-            include/helper/HLaguageManager.hpp
             include/helper/HLogicAlias.hpp
             include/helper/HMergeResult.hpp
             include/helper/HPlayerCollection.hpp
@@ -33,7 +32,6 @@ add_library(helper STATIC
             HGalaxy.cpp
             HGeneral.cpp
             HInput.cpp
-            HLaguageManager.cpp
             HMergeResult.cpp
             HPlayerCollection.cpp
             HPlayerData.cpp

@@ -191,11 +191,11 @@ void AppSettingsScene::Initialize() {
             0.25f,
             id,
             id + 1,
-            HLanguageManager::GetAvailableLanguages()
+            LanguageManager::GetAvailableLanguages()
     );
     m_languageDropDown->SetCurrentElementByString(appContext.constants.global.currentLanguageName);
     m_languageDropDown->SetOnSave([](unsigned int ID) {
-        auto const language{ HLanguageManager::GetAvailableLanguages().at(ID - 1) };
+        auto const language{ LanguageManager::GetAvailableLanguages().at(ID - 1) };
         auto const event{ eve::ChangeLanguageEvent(language) };
         app::AppContext::GetInstance().eventManager.InvokeEvent(event);
     });
