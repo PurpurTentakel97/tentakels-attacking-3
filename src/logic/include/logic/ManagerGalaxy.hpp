@@ -10,8 +10,11 @@
 
 class GameManager;
 enum class CopyGalaxyType;
-class SendFleetInstructionEvent;
 struct HFightResult;
+
+namespace eve {
+    class SendFleetInstructionEvent;
+}
 
 class GalaxyManager final {
     friend class Galaxy;
@@ -36,7 +39,7 @@ public:
 
     [[nodiscard]] Galaxy* GetGalaxy();
 
-    [[nodiscard]] bool AddFleet(SendFleetInstructionEvent const* event, Player_ty const& currentPlayer);
+    [[nodiscard]] bool AddFleet(eve::SendFleetInstructionEvent const* event, Player_ty const& currentPlayer);
 
     [[nodiscard]] bool HasMovesLeft(Player_ty_c player) const;
 

@@ -61,7 +61,7 @@ void CellPopUp::SetShouldClose() {
 void CellPopUp::CheckEnter() {
     bool validEnterClose = (IsKeyReleased(KEY_ENTER) or IsKeyPressed(KEY_KP_ENTER)) && !m_shouldClose && !m_firstEnter;
     if (validEnterClose) {
-        auto event = PlaySoundEvent(SoundType::ACCEPTED);
+        auto event = eve::PlaySoundEvent(SoundType::ACCEPTED);
         AppContext::GetInstance().eventManager.InvokeEvent(event);
         SetValue();
     }
@@ -71,7 +71,7 @@ void CellPopUp::CheckEnter() {
 
 void CellPopUp::Close(AppContext_ty_c appContext) {
     if (m_shouldClose) {
-        auto event = ClosePopUpEvent(this);
+        auto event = eve::ClosePopUpEvent(this);
         appContext.eventManager.InvokeEvent(event);
     }
 }
@@ -95,7 +95,7 @@ void CellPopUp::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c app
     CheckEnter();
 
     if (IsBackInputPressed()) {
-        PlaySoundEvent event{ SoundType::CLICKED_RELEASE_STD };
+        eve::PlaySoundEvent event{ SoundType::CLICKED_RELEASE_STD };
         appContext.eventManager.InvokeEvent(event);
         SetShouldClose();
     }

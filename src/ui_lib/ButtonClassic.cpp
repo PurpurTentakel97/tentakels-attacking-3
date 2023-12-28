@@ -27,7 +27,7 @@ void ClassicButton::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c
     if (IsFocused()) {
         if (m_state == State::DISABLED) {
             if (IsConfirmInputPressed()) {
-                PlaySoundEvent const event{ SoundType::CLICKED_DISABLED_STD };
+                eve::PlaySoundEvent const event{ SoundType::CLICKED_DISABLED_STD };
                 appContext.eventManager.InvokeEvent(event);
                 return;
             }
@@ -42,7 +42,7 @@ void ClassicButton::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c
             if (m_state != State::PRESSED) {
                 m_state = State::PRESSED;
                 m_isPressed = true;
-                PlaySoundEvent const event{ SoundType::CLICKED_PRESS_STD };
+                eve::PlaySoundEvent const event{ SoundType::CLICKED_PRESS_STD };
                 appContext.eventManager.InvokeEvent(event);
                 return;
             }
@@ -60,7 +60,7 @@ void ClassicButton::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c
                 m_state = hover ? State::HOVER : State::ENABLED;
                 m_isPressed = false;
 
-                PlaySoundEvent const event{ m_sound };
+                eve::PlaySoundEvent const event{ m_sound };
                 appContext.eventManager.InvokeEvent(event);
                 m_onClick();
                 return;

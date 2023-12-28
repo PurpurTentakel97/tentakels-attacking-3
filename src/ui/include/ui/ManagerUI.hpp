@@ -16,7 +16,7 @@
 
 class Scene;
 
-class UIManager final : public EventListener {
+class UIManager final : public eve::EventListener {
 private:
     AppContext_ty m_appContext;
     Focus m_focus;
@@ -43,7 +43,7 @@ private:
 
     void SetWindowPosition();
 
-    static void SetTargetFPS(SetTargetFPSEvent const* event);
+    static void SetTargetFPS(eve::SetTargetFPSEvent const* event);
 
     void UILoop();
 
@@ -56,7 +56,7 @@ public:
 
     void StartUILoop();
 
-    void OnEvent(Event const& event) override;
+    void OnEvent(eve::Event const& event) override;
 
     [[nodiscard]] Focus& GetFocus();
 };

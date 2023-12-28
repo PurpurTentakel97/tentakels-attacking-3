@@ -45,10 +45,10 @@ public:
                 50
         );
 
-        NewFocusPopUpElementEvent event{ inputChance.get() };
+        eve::NewFocusPopUpElementEvent event{ inputChance.get() };
         appContext.eventManager.InvokeEvent(event);
 
-        SelectFocusPopUpElementEvent event2{ inputChance.get() };
+        eve::SelectFocusPopUpElementEvent event2{ inputChance.get() };
         appContext.eventManager.InvokeEvent(event2);
         inputChance->SetValue(currentValue);
         inputChance->SetPlaceholderText(

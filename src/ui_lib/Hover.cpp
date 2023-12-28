@@ -58,7 +58,7 @@ void Hover::SetRenderHover(Vector2 const mousePosition, AppContext_ty_c appConte
     SetCollider(newCollider);
     CalculateDefault(appContext);
 
-    RenderHoverEvent event{ this };
+    eve::RenderHoverEvent event{ this };
     appContext.eventManager.InvokeEvent(event);
 }
 

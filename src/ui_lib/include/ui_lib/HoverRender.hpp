@@ -10,7 +10,7 @@
 
 class Hover;
 
-class HoverRender final : public EventListener {
+class HoverRender final : public eve::EventListener {
 private:
     std::vector<Hover*> m_elements;
     static float constexpr m_renderGap{ 3.0f };
@@ -24,5 +24,5 @@ public:
 
     void Render();
 
-    void OnEvent(Event const& event) override;
+    void OnEvent(eve::Event const& event) override;
 };

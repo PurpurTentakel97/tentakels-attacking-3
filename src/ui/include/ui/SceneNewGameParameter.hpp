@@ -12,7 +12,7 @@ class GameEventSettings;
 class SliderAndInputLine;
 enum class SliderType;
 
-class NewGameParameterScene final : public Scene, public EventListener {
+class NewGameParameterScene final : public Scene, public eve::EventListener {
 private:
     std::shared_ptr<GameEventSettings> m_eventSettings;
     std::vector<std::shared_ptr<SliderAndInputLine>> m_slider;
@@ -30,5 +30,5 @@ public:
 
     ~NewGameParameterScene() override;
 
-    void OnEvent(Event const& event) override;
+    void OnEvent(eve::Event const& event) override;
 };

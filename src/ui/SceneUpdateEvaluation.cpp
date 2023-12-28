@@ -11,7 +11,7 @@
 #include <logic/SpaceObject.hpp>
 #include <ui_lib/SceneType.hpp>
 
-void UpdateEvaluationScene::TestPrint(SendUpdateEvaluation const* event) {
+void UpdateEvaluationScene::TestPrint(eve::SendUpdateEvaluation const* event) {
 
     /**
 	 * call in OnEvent.
@@ -78,8 +78,8 @@ void UpdateEvaluationScene::DisplayMergeResult() {
             data.GetDestination()->GetID()
     ) };
 
-    ShowMessagePopUpEvent const event{ appContext.languageManager.Text("ui_popup_arriving_fleet_title"),
-                                       subText,
+    eve::ShowMessagePopUpEvent const event{ appContext.languageManager.Text("ui_popup_arriving_fleet_title"),
+                                            subText,
                                        [this]() { this->m_nextPopup = true; } };
     appContext.eventManager.InvokeEvent(event);
 }
@@ -87,7 +87,7 @@ void UpdateEvaluationScene::DisplayMergeResult() {
 void UpdateEvaluationScene::DisplayFightResult() {
     AppContext_ty_c appContext{ AppContext::GetInstance() };
 
-    ShowFightResultEvent const event{ m_fightResults.at(m_currentIndex), [this]() { this->m_nextPopup = true; } };
+    eve::ShowFightResultEvent const event{ m_fightResults.at(m_currentIndex), [this]() { this->m_nextPopup = true; } };
     appContext.eventManager.InvokeEvent(event);
 }
 
@@ -121,17 +121,19 @@ void UpdateEvaluationScene::HandleNextPopup() {
         last:
             AppContext_ty_c appContext{ AppContext::GetInstance() };
             if (m_popupCount == 0) {
-                ShowMessagePopUpEvent const event{ appContext.languageManager.Text("ui_popup_no_evaluation_title"),
-                                                   appContext.languageManager.Text("ui_popup_no_evaluation_subtitle"),
+                eve::ShowMessagePopUpEvent const event{
+                    appContext.languageManager.Text("ui_popup_no_evaluation_title"),
+                    appContext.languageManager.Text("ui_popup_no_evaluation_subtitle"),
                                                    [this]() { this->HandleNextPopup(); } };
                 appContext.eventManager.InvokeEvent(event);
                 break;
             }
-            ShowMessagePopUpEvent const event{ appContext.languageManager.Text("ui_popup_end_of_evaluation_title"),
-                                               appContext.languageManager.Text("ui_popup_end_of_evaluation_subtitle"),
+            eve::ShowMessagePopUpEvent const event{
+                appContext.languageManager.Text("ui_popup_end_of_evaluation_title"),
+                appContext.languageManager.Text("ui_popup_end_of_evaluation_subtitle"),
                                                []() {
-                                                   SwitchSceneEvent const e{ SceneType::MAIN };
-                                                   AppContext::GetInstance().eventManager.InvokeEvent(e);
+                    eve::SwitchSceneEvent const e{ SceneType::MAIN };
+                    AppContext::GetInstance().eventManager.InvokeEvent(e);
                                                } };
             appContext.eventManager.InvokeEvent(event);
             break;
@@ -145,7 +147,7 @@ UpdateEvaluationScene::UpdateEvaluationScene() : Scene({ 0.0f, 0.0f }, { 1.0f, 1
 
     AppContext_ty appContext{ AppContext::GetInstance() };
     appContext.eventManager.AddListener(this);
-    appContext.eventManager.InvokeEvent(GetUpdateEvaluation{});
+    appContext.eventManager.InvokeEvent(eve::GetUpdateEvaluation{});
 }
 
 UpdateEvaluationScene::~UpdateEvaluationScene() {
@@ -161,13 +163,14 @@ void UpdateEvaluationScene::CheckAndUpdate(Vector2 const& mousePosition, AppCont
     }
 }
 
-void UpdateEvaluationScene::OnEvent(Event const& event) {
-    if (auto const* evEvent = dynamic_cast<SendUpdateEvaluation const*>(&event)) {
+void UpdateEvaluationScene::OnEvent(eve::Event const& event) {
+    if (auto const* evEvent = dynamic_cast<eve::SendUpdateEvaluation const*>(&event)) {
         m_mergeResults = evEvent->GetMergeResults();
         m_fightResults = evEvent->GetFightResults();
         AppContext_ty_c appContext{ AppContext::GetInstance() };
-        ShowMessagePopUpEvent const messageEvent{ appContext.languageManager.Text("ui_popup_no_evaluation_title"),
-                                                  appContext.languageManager.Text("ui_popup_start_evaluation_subtitle"),
+        eve::ShowMessagePopUpEvent const messageEvent{
+            appContext.languageManager.Text("ui_popup_no_evaluation_title"),
+            appContext.languageManager.Text("ui_popup_start_evaluation_subtitle"),
                                                   [this]() { this->m_nextPopup = true; } };
         appContext.eventManager.InvokeEvent(messageEvent);
         // TestPrint(evEvent); // to print the incoming event to the console

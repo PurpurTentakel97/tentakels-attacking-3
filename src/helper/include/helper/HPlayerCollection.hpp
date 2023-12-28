@@ -11,7 +11,7 @@
 #include <string>
 #include <vector>
 
-class PlayerCollection final : public EventListener {
+class PlayerCollection final : public eve::EventListener {
 private:
     std::vector<PlayerData> m_playerData;
     std::vector<PlayerData> m_npcData{
@@ -60,5 +60,5 @@ public:
 
     [[nodiscard]] size_t GetPlayerCount() const;
 
-    void OnEvent(Event const& event) override;
+    void OnEvent(eve::Event const& event) override;
 };

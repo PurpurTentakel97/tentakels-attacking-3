@@ -14,7 +14,7 @@ class GalaxyScene;
 class PlanetTable;
 class FleetAndTargetPointTable;
 
-class MainScene : public Scene, public EventListener {
+class MainScene : public Scene, public eve::EventListener {
 private:
     enum class MainSceneType {
         GALAXY,
@@ -69,7 +69,7 @@ private:
 
     void ClearInputLines();
 
-    void HandleGalaxyDragLineInput(DragLineFleetInstructionEvent const* event);
+    void HandleGalaxyDragLineInput(eve::DragLineFleetInstructionEvent const* event);
 
     [[nodiscard]] SpaceObject_ty GetSpaceObjectFromID(unsigned int ID) const;
 
@@ -78,7 +78,7 @@ public:
 
     ~MainScene() override;
 
-    void OnEvent(Event const& event) override;
+    void OnEvent(eve::Event const& event) override;
 
     void CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) override;
 };

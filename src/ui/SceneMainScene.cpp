@@ -57,10 +57,10 @@ void MainScene::Initialize() {
     gameSettingsBtn->SetOnClick([]() {
         AppContext_ty_c appContext_{ AppContext::GetInstance() };
 
-        PauseGameEvent const gameEvent{};
+        eve::PauseGameEvent const gameEvent{};
         appContext_.eventManager.InvokeEvent(gameEvent);
 
-        SwitchSceneEvent const sceneEvent{ SceneType::GAME_SETTINGS };
+        eve::SwitchSceneEvent const sceneEvent{ SceneType::GAME_SETTINGS };
         appContext_.eventManager.InvokeEvent(sceneEvent);
     });
     settingsBtn->Add(gameSettingsBtn, true);
@@ -76,10 +76,10 @@ void MainScene::Initialize() {
     appSettingsBtn->SetOnClick([]() {
         AppContext_ty_c appContext_{ AppContext::GetInstance() };
 
-        PauseGameEvent const gameEvent{};
+        eve::PauseGameEvent const gameEvent{};
         appContext_.eventManager.InvokeEvent(gameEvent);
 
-        SwitchSceneEvent const sceneEvent{ SceneType::APP_SETTINGS };
+        eve::SwitchSceneEvent const sceneEvent{ SceneType::APP_SETTINGS };
         appContext_.eventManager.InvokeEvent(sceneEvent);
     });
     settingsBtn->Add(appSettingsBtn, true);
@@ -95,10 +95,10 @@ void MainScene::Initialize() {
     mainMenuBtn->SetOnClick([]() {
         AppContext_ty_c appContext_{ AppContext::GetInstance() };
 
-        PauseGameEvent const gameEvent{};
+        eve::PauseGameEvent const gameEvent{};
         appContext_.eventManager.InvokeEvent(gameEvent);
 
-        SwitchSceneEvent const sceneEvent{ SceneType::MAIN_MENU };
+        eve::SwitchSceneEvent const sceneEvent{ SceneType::MAIN_MENU };
         appContext_.eventManager.InvokeEvent(sceneEvent);
     });
     settingsBtn->Add(mainMenuBtn, true);
@@ -113,7 +113,7 @@ void MainScene::Initialize() {
     );
     resignBtn->SetOnClick([settingsBtn]() {
         settingsBtn->Collapse();
-        AppContext::GetInstance().eventManager.InvokeEvent(KillCurrentPlayerEvent());
+        AppContext::GetInstance().eventManager.InvokeEvent(eve::KillCurrentPlayerEvent());
     });
     settingsBtn->Add(resignBtn, true);
     settingsBtn->Update();
@@ -159,7 +159,7 @@ void MainScene::Initialize() {
             appContext.languageManager.Text("scene_main_scene_next_player_btn"),
             SoundType::ACCEPTED
     );
-    m_nextBtn->SetOnClick([]() { AppContext::GetInstance().eventManager.InvokeEvent(TriggerNextTurnEvent()); });
+    m_nextBtn->SetOnClick([]() { AppContext::GetInstance().eventManager.InvokeEvent(eve::TriggerNextTurnEvent()); });
     m_elements.push_back(m_nextBtn);
 
     // text
@@ -452,19 +452,20 @@ void MainScene::NextTurn() {
 void MainScene::NextTurnPopup(bool const skip) {
     AppContext_ty_c appContext{ AppContext::GetInstance() };
     if (skip) {
-        ShowMessagePopUpEvent event{ appContext.languageManager.Text("scene_main_scene_popup_text_skip_turn_title"),
-                                     appContext.languageManager.Text(
+        eve::ShowMessagePopUpEvent event{
+            appContext.languageManager.Text("scene_main_scene_popup_text_skip_turn_title"),
+            appContext.languageManager.Text(
                                              "scene_main_scene_popup_text_skip_turn_subtitle",
                                              m_currentPlayer.GetName(),
                                              '\n'
                                      ),
                                      [this]() {
                                          this->Switch(MainSceneType::GALAXY);
-                                         AppContext::GetInstance().eventManager.InvokeEvent(TriggerNextTurnEvent());
-                                     } };
+                AppContext::GetInstance().eventManager.InvokeEvent(eve::TriggerNextTurnEvent());
+            } };
         appContext.eventManager.InvokeEvent(event);
     } else {
-        ShowMessagePopUpEvent event{
+        eve::ShowMessagePopUpEvent event{
             appContext.languageManager.Text("scene_main_scene_popup_text_turn_title"),
             appContext.languageManager.Text("scene_main_scene_popup_text_turn_text", m_currentPlayer.GetName(), "\n"),
             [this]() { this->Switch(MainSceneType::GALAXY); }
@@ -541,8 +542,8 @@ void MainScene::UpdateActiveDestination() {
 
 void MainScene::SendFleetInstruction() {
 
-    SendFleetInstructionEvent event{ static_cast<unsigned int>(m_origin->GetValue()),
-                                     static_cast<unsigned int>(m_destination->GetValue()),
+    eve::SendFleetInstructionEvent event{ static_cast<unsigned int>(m_origin->GetValue()),
+                                          static_cast<unsigned int>(m_destination->GetValue()),
                                      m_destinationX->IsEnabled() ? m_destinationX->GetValue() : -1,
                                      m_destinationY->IsEnabled() ? m_destinationY->GetValue() : -1,
                                      static_cast<size_t>(m_shipCount->GetValue()) };
@@ -557,11 +558,11 @@ void MainScene::ClearInputLines() {
     m_destinationY->Clear();
     m_shipCount->Clear();
 
-    SelectFocusElementEvent event{ m_origin.get() };
+    eve::SelectFocusElementEvent event{ m_origin.get() };
     AppContext::GetInstance().eventManager.InvokeEvent(event);
 }
 
-void MainScene::HandleGalaxyDragLineInput(DragLineFleetInstructionEvent const* const event) {
+void MainScene::HandleGalaxyDragLineInput(eve::DragLineFleetInstructionEvent const* const event) {
     m_origin->Clear();
     m_destination->Clear();
     m_destinationX->Clear();
@@ -592,7 +593,7 @@ void MainScene::HandleGalaxyDragLineInput(DragLineFleetInstructionEvent const* c
     }
 
 
-    SelectFocusElementEvent const focusEvent{ m_shipCount.get() };
+    eve::SelectFocusElementEvent const focusEvent{ m_shipCount.get() };
     AppContext::GetInstance().eventManager.InvokeEvent(focusEvent);
 }
 
@@ -628,7 +629,7 @@ MainScene::MainScene()
 
     AppContext_ty appContext{ AppContext::GetInstance() };
     appContext.eventManager.AddListener(this);
-    appContext.eventManager.InvokeEvent(LoadCurrentPlayerEvent{});
+    appContext.eventManager.InvokeEvent(eve::LoadCurrentPlayerEvent{});
 
     Initialize();
     InitializeGalaxy();
@@ -643,38 +644,38 @@ MainScene::~MainScene() {
     AppContext::GetInstance().eventManager.RemoveListener(this);
 }
 
-void MainScene::OnEvent(Event const& event) {
+void MainScene::OnEvent(eve::Event const& event) {
     AppContext_ty_c appContext{ AppContext::GetInstance() };
 
     // player
-    if (auto const* playerEvent = dynamic_cast<UpdateCurrentPlayerIDEvent const*>(&event)) {
+    if (auto const* playerEvent = dynamic_cast<eve::UpdateCurrentPlayerIDEvent const*>(&event)) {
         m_currentPlayer = appContext.playerCollection.GetPlayerByID(playerEvent->GetID());
         return;
     }
-    if (auto const* playerEvent = dynamic_cast<UpdateNextPlayerIDEvent const*>(&event)) {
+    if (auto const* playerEvent = dynamic_cast<eve::UpdateNextPlayerIDEvent const*>(&event)) {
         m_nextPlayer = appContext.playerCollection.GetPlayerByID(playerEvent->GetID());
         return;
     }
 
     // turns and rounds
-    if ([[maybe_unused]] auto const* playerEvent = dynamic_cast<ShowNextTurnEvent const*>(&event)) {
+    if ([[maybe_unused]] auto const* playerEvent = dynamic_cast<eve::ShowNextTurnEvent const*>(&event)) {
         NextTurn();
         NextTurnPopup(false);
         return;
     }
-    if ([[maybe_unused]] auto const* playerEvent = dynamic_cast<ShowSkipTurnEvent const*>(&event)) {
+    if ([[maybe_unused]] auto const* playerEvent = dynamic_cast<eve::ShowSkipTurnEvent const*>(&event)) {
         NextTurn();
         NextTurnPopup(true);
         return;
     }
-    if ([[maybe_unused]] auto const* playerEvent = dynamic_cast<ShowEvaluationEvent const*>(&event)) {
-        SwitchSceneEvent sendEvent{ SceneType::UPDATE_EVALUATION };
+    if ([[maybe_unused]] auto const* playerEvent = dynamic_cast<eve::ShowEvaluationEvent const*>(&event)) {
+        eve::SwitchSceneEvent sendEvent{ SceneType::UPDATE_EVALUATION };
         AppContext::GetInstance().eventManager.InvokeEvent(sendEvent);
         return;
     }
 
     // Fleet Instruction
-    if (auto const* fleetEvent = dynamic_cast<ReturnFleetInstructionEvent const*>(&event)) {
+    if (auto const* fleetEvent = dynamic_cast<eve::ReturnFleetInstructionEvent const*>(&event)) {
         if (fleetEvent->IsValidFleet()) {
             ClearInputLines();
             InitializeGalaxy();
@@ -684,7 +685,7 @@ void MainScene::OnEvent(Event const& event) {
         }
         return;
     }
-    if (auto const* dragLineEvent = dynamic_cast<DragLineFleetInstructionEvent const*>(&event)) {
+    if (auto const* dragLineEvent = dynamic_cast<eve::DragLineFleetInstructionEvent const*>(&event)) {
         HandleGalaxyDragLineInput(dragLineEvent);
         return;
     }
@@ -707,7 +708,7 @@ void MainScene::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c app
         }
 
         if (setFocus) {
-            SelectFocusElementEvent const event{ m_origin.get() };
+            eve::SelectFocusElementEvent const event{ m_origin.get() };
             appContext.eventManager.InvokeEvent(event);
         }
     }

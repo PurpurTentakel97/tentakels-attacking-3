@@ -46,11 +46,14 @@ private:
     [[nodiscard]] Fleet_ty TryGetExistingFleetByOriginAndDestination(SpaceObject_ty const& origin, SpaceObject_ty const& destination)
             const;
 
-    [[nodiscard]] HFleetResult AddFleetFromPlanet(SendFleetInstructionEvent const* event, Player_ty const& currentPlayer);
+    [[nodiscard]] HFleetResult
+    AddFleetFromPlanet(eve::SendFleetInstructionEvent const* event, Player_ty const& currentPlayer);
 
-    [[nodiscard]] HFleetResult AddFleetFromFleet(SendFleetInstructionEvent const* event, Player_ty const& currentPlayer);
+    [[nodiscard]] HFleetResult
+    AddFleetFromFleet(eve::SendFleetInstructionEvent const* event, Player_ty const& currentPlayer);
 
-    [[nodiscard]] HFleetResult AddFleetFromTargetPoint(SendFleetInstructionEvent const* event, Player_ty const& currentPlayer);
+    [[nodiscard]] HFleetResult
+    AddFleetFromTargetPoint(eve::SendFleetInstructionEvent const* event, Player_ty const& currentPlayer);
 
     [[nodiscard]] std::vector<Fleet_ty> GetFleetsOfTarget(SpaceObject_ty const& object) const;
 
@@ -126,7 +129,7 @@ public:
 
     [[nodiscard]] bool IsValidPosition(vec2pos_ty_ref_c position) const;
 
-    [[nodiscard]] HFleetResult AddFleet(SendFleetInstructionEvent const* event, Player_ty const& currentPlayer);
+    [[nodiscard]] HFleetResult AddFleet(eve::SendFleetInstructionEvent const* event, Player_ty const& currentPlayer);
 
     void SetDiscoverByPlayer(unsigned int currentPlayerID);
 

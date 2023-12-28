@@ -40,10 +40,10 @@ void GalaxyManager::GenerateGalaxy() {
     if (galaxy->IsValid()) {
         m_mainGalaxy = galaxy;
         CopyGalaxies(CopyGalaxyType::COPY_ALL);
-        GalaxyGeneratedUIEvent const event{};
+        eve::GalaxyGeneratedUIEvent const event{};
         appContext.eventManager.InvokeEvent(event);
     } else {
-        ShowMessagePopUpEvent const event{
+        eve::ShowMessagePopUpEvent const event{
             appContext.languageManager.Text("logic_galaxy_manager_unable_generate_galaxy_title"),
             appContext.languageManager.Text("logic_galaxy_manager_unable_generate_galaxy_text", "\n"),
             []() {}
@@ -68,10 +68,10 @@ void GalaxyManager::GenerateShowGalaxy() {
 
     if (galaxy->IsValid()) {
         m_showGalaxy = galaxy;
-        SendGalaxyPointerEvent const event{ m_showGalaxy.get(), true };
+        eve::SendGalaxyPointerEvent const event{ m_showGalaxy.get(), true };
         appContext.eventManager.InvokeEvent(event);
     } else if (m_showGalaxy) {
-        SendGalaxyPointerEvent const event{ m_showGalaxy.get(), true };
+        eve::SendGalaxyPointerEvent const event{ m_showGalaxy.get(), true };
         appContext.eventManager.InvokeEvent(event);
         Print(PrintType::EXPECTED_ERROR, "Could not generated ShowGalaxy -> Use old Galaxy");
     } else {
@@ -94,13 +94,13 @@ Galaxy* GalaxyManager::GetGalaxy() {
     return m_currentGalaxy.get();
 }
 
-bool GalaxyManager::AddFleet(SendFleetInstructionEvent const* const event, Player_ty const& currentPlayer) {
+bool GalaxyManager::AddFleet(eve::SendFleetInstructionEvent const* const event, Player_ty const& currentPlayer) {
 
     auto const result = m_mainGalaxy->AddFleet(event, currentPlayer);
     if (not result.valid) {
         Print(PrintType::ONLY_DEBUG, "Not able to add Fleet to main Galaxy");
 
-        ReturnFleetInstructionEvent const returnEvent{ result.valid };
+        eve::ReturnFleetInstructionEvent const returnEvent{ result.valid };
         AppContext::GetInstance().eventManager.InvokeEvent(returnEvent);
         return false;
     }

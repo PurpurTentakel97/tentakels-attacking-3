@@ -79,7 +79,7 @@ void NewGamePlayerScene::Initialize() {
             SoundType::CLICKED_RELEASE_STD
     );
     backBtn->SetOnClick([]() {
-        AppContext::GetInstance().eventManager.InvokeEvent(SwitchSceneEvent(SceneType::MAIN_MENU));
+        AppContext::GetInstance().eventManager.InvokeEvent(eve::SwitchSceneEvent(SceneType::MAIN_MENU));
     });
     m_elements.push_back(backBtn);
 
@@ -218,11 +218,11 @@ void NewGamePlayerScene::UpdateSceneEntries() {
     m_inputLine->Clear();
     if (m_colorPicker->IsNestedFocus()) {
         m_colorPicker->SetNestedFocus(false);
-        DeleteFocusLayerEvent const focusEvent;
+        eve::DeleteFocusLayerEvent const focusEvent;
         appContext.eventManager.InvokeEvent(focusEvent);
     }
 
-    SelectFocusElementEvent const event{ m_inputLine };
+    eve::SelectFocusElementEvent const event{ m_inputLine };
     appContext.eventManager.InvokeEvent(event);
 
     auto const PlayerData{ appContext.playerCollection.GetPlayerData() };
@@ -254,13 +254,13 @@ void NewGamePlayerScene::UpdateSceneEntries() {
 void NewGamePlayerScene::AddPlayer() {
     AppContext_ty_c appContext = AppContext::GetInstance();
 
-    AddPlayerEvent const event{ m_inputLine->GetValue(), m_colorPicker->GetColor() };
+    eve::AddPlayerEvent const event{ m_inputLine->GetValue(), m_colorPicker->GetColor() };
     appContext.eventManager.InvokeEvent(event);
 }
 
 void NewGamePlayerScene::UpdatePlayer(unsigned int const ID, std::string const& name, Color const color) {
     AppContext_ty_c appContext{ AppContext::GetInstance() };
-    EditPlayerEvent const event{ ID, name, color };
+    eve::EditPlayerEvent const event{ ID, name, color };
     appContext.eventManager.InvokeEvent(event);
 
     UpdateSceneEntries();
@@ -284,12 +284,12 @@ void NewGamePlayerScene::UpdatePlayerColor(AbstractTableCell const*, Color const
 void NewGamePlayerScene::DeletePlayer(unsigned int const ID) {
     AppContext_ty_c appContext{ AppContext::GetInstance() };
 
-    DeletePlayerEvent const event{ ID };
+    eve::DeletePlayerEvent const event{ ID };
     appContext.eventManager.InvokeEvent(event);
 }
 
 void NewGamePlayerScene::CheckPlayerCount() {
-    ValidatePlayerCountEvent const event;
+    eve::ValidatePlayerCountEvent const event;
     AppContext::GetInstance().eventManager.InvokeEvent(event);
 }
 
@@ -298,14 +298,14 @@ void NewGamePlayerScene::NextScene(bool const valid) {
         return;
     }
 
-    SwitchSceneEvent const event{ SceneType::NEW_GAME_PARAMETER };
+    eve::SwitchSceneEvent const event{ SceneType::NEW_GAME_PARAMETER };
     AppContext::GetInstance().eventManager.InvokeEvent(event);
 }
 
 void NewGamePlayerScene::Reset() {
     AppContext_ty_c appContext{ AppContext::GetInstance() };
 
-    ResetPlayerEvent const event;
+    eve::ResetPlayerEvent const event;
     appContext.eventManager.InvokeEvent(event);
 }
 
@@ -360,13 +360,13 @@ void NewGamePlayerScene::Resize(AppContext_ty_c appContext) {
     }
 }
 
-void NewGamePlayerScene::OnEvent(Event const& event) {
+void NewGamePlayerScene::OnEvent(eve::Event const& event) {
 
-    if (auto const* CountEvent = dynamic_cast<ValidatePlayerCountResultEvent const*>(&event)) {
+    if (auto const* CountEvent = dynamic_cast<eve::ValidatePlayerCountResultEvent const*>(&event)) {
         NextScene(CountEvent->GetValid());
         return;
     }
-    if ([[maybe_unused]] auto const* RefreshEvent = dynamic_cast<RefreshNewGamePlayerScene const*>(&event)) {
+    if ([[maybe_unused]] auto const* RefreshEvent = dynamic_cast<eve::RefreshNewGamePlayerScene const*>(&event)) {
         UpdateSceneEntries();
         return;
     }

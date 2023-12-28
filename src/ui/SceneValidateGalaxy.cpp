@@ -34,7 +34,7 @@ void ValidateGalaxyScene::Initialize() {
             SoundType::CLICKED_RELEASE_STD
     );
     backBtn->SetOnClick([]() {
-        AppContext::GetInstance().eventManager.InvokeEvent(SwitchSceneEvent(SceneType::NEW_GAME_PARAMETER));
+        AppContext::GetInstance().eventManager.InvokeEvent(eve::SwitchSceneEvent(SceneType::NEW_GAME_PARAMETER));
     });
     m_elements.push_back(backBtn);
 
@@ -58,7 +58,7 @@ void ValidateGalaxyScene::Initialize() {
             SoundType::ACCEPTED
     );
     nextBtn->SetOnClick([]() {
-        StartGameEvent const event{};
+        eve::StartGameEvent const event{};
         AppContext::GetInstance().eventManager.InvokeEvent(event);
     });
     m_elements.push_back(nextBtn);
@@ -111,7 +111,7 @@ void ValidateGalaxyScene::NewGalaxy() {
     m_elements.erase(std::remove(m_elements.begin(), m_elements.end(), m_galaxy), m_elements.end());
     m_galaxy = nullptr;
 
-    GenerateGalaxyEvent const event;
+    eve::GenerateGalaxyEvent const event;
     appContext.eventManager.InvokeEvent(event);
 
     InitializeGalaxy();

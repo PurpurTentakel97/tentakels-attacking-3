@@ -15,7 +15,7 @@
 #include <logic/Player.hpp>
 #include <ui_lib/LineDrag.hpp>
 
-void UIGalaxy::Initialize(SendGalaxyPointerEvent const* const event) {
+void UIGalaxy::Initialize(eve::SendGalaxyPointerEvent const* const event) {
     AppContext_ty_c appContext{ AppContext::GetInstance() };
     Galaxy_ty_c_raw galaxy{ event->GetGalaxy() };
 
@@ -336,7 +336,7 @@ void UIGalaxy::HandleDragLineResult(Vector2 const start, Vector2 const end) {
 
     m_updateLineDrag = false;
 
-    DragLineFleetInstructionEvent const event{ originID, destID, destCo };
+    eve::DragLineFleetInstructionEvent const event{ originID, destID, destCo };
     AppContext::GetInstance().eventManager.InvokeEvent(event);
 }
 
@@ -362,10 +362,10 @@ UIGalaxy::UIGalaxy(
     });
 
     if (isShowGalaxy) {
-        GetShowGalaxyPointerEvent event;
+        eve::GetShowGalaxyPointerEvent event;
         appContext.eventManager.InvokeEvent(event);
     } else {
-        GetGalaxyPointerEvent event;
+        eve::GetGalaxyPointerEvent event;
         appContext.eventManager.InvokeEvent(event);
     }
 }
@@ -630,9 +630,9 @@ Galaxy_ty_raw UIGalaxy::GetGalaxy() const {
     return m_currentGalaxy;
 }
 
-void UIGalaxy::OnEvent(Event const& event) {
+void UIGalaxy::OnEvent(eve::Event const& event) {
 
-    if (auto const* galaxyEvent = dynamic_cast<SendGalaxyPointerEvent const*>(&event)) {
+    if (auto const* galaxyEvent = dynamic_cast<eve::SendGalaxyPointerEvent const*>(&event)) {
         Initialize(galaxyEvent);
         return;
     }

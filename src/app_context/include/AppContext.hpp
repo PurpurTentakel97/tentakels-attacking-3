@@ -17,12 +17,12 @@
 #include <helper/HSoundManager.hpp>
 #include <string>
 
-struct AppContext final : public EventListener {
+struct AppContext final : public eve::EventListener {
 public:
     SoundManager soundManager;
     AssetManager assetManager;
     HLanguageManager languageManager;
-    EventManager eventManager;
+    eve::EventManager eventManager;
     PlayerCollection playerCollection;
     Colors colors;
     cst::Constants constants;
@@ -52,8 +52,8 @@ public:
         }
 
         rhs = lhs + 1;
-        ShowMessagePopUpEvent const event{ "Invalid Config",
-                                           lhsMessage + " >= " + rhsMessage + "\nset " + rhsMessage + " to "
+        eve::ShowMessagePopUpEvent const event{ "Invalid Config",
+                                                lhsMessage + " >= " + rhsMessage + "\nset " + rhsMessage + " to "
                                                    + std::to_string(rhs),
                                            []() {} };
         eventManager.InvokeEvent(event);
@@ -67,8 +67,8 @@ public:
         }
 
         value = max;
-        ShowMessagePopUpEvent const event{ "Invalid Config",
-                                           valueMessage + " > " + std::to_string(max) + "\nset " + valueMessage + " to "
+        eve::ShowMessagePopUpEvent const event{ "Invalid Config",
+                                                valueMessage + " > " + std::to_string(max) + "\nset " + valueMessage + " to "
                                                    + std::to_string(value),
                                            []() {} };
         eventManager.InvokeEvent(event);
@@ -82,14 +82,14 @@ public:
         }
 
         value = min;
-        ShowMessagePopUpEvent const event{ "Invalid Config",
-                                           valueMessage + " < " + std::to_string(min) + "\nset " + valueMessage + " to "
+        eve::ShowMessagePopUpEvent const event{ "Invalid Config",
+                                                valueMessage + " < " + std::to_string(min) + "\nset " + valueMessage + " to "
                                                    + std::to_string(value),
                                            []() {} };
         eventManager.InvokeEvent(event);
     }
 
-    void OnEvent(Event const& event) override;
+    void OnEvent(eve::Event const& event) override;
 
     [[nodiscard]] Vector2 GetResolution() const;
 

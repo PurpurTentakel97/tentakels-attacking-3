@@ -74,10 +74,10 @@ void SceneManager::SwitchScene(AppContext_ty_c appContext) {
         return;
     }
 
-    ClearFocusEvent const closeEvent;
+    eve::ClearFocusEvent const closeEvent;
     appContext.eventManager.InvokeEvent(closeEvent);
 
-    NewFocusLayerEvent const newLayerEvent;
+    eve::NewFocusLayerEvent const newLayerEvent;
     appContext.eventManager.InvokeEvent(newLayerEvent);
 
     InitializeNewScene(m_nextSceneType);
@@ -117,9 +117,9 @@ void SceneManager::Resize(AppContext_ty_c appContext) {
     m_popUpManager.Resize(appContext);
 }
 
-void SceneManager::OnEvent(Event const& event) {
+void SceneManager::OnEvent(eve::Event const& event) {
 
-    if (auto const SceneEvent = dynamic_cast<SwitchSceneEvent const*>(&event)) {
+    if (auto const SceneEvent = dynamic_cast<eve::SwitchSceneEvent const*>(&event)) {
         m_nextSceneType = SceneEvent->GetSceneType();
         return;
     }

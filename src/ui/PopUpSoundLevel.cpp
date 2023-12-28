@@ -25,7 +25,7 @@ void SoundLevelPopUp::Initialize() {
     m_slider->SetEnabled(!appContext.constants.sound.muteVolume);
     m_slider->SetButtonPosition(appContext.constants.sound.masterVolume);
     m_slider->SetOnSlide([](float position) {
-        AppContext::GetInstance().eventManager.InvokeEvent(SetMasterVolumeEvent(position));
+        AppContext::GetInstance().eventManager.InvokeEvent(eve::SetMasterVolumeEvent(position));
     });
     m_elements.push_back(m_slider);
 
@@ -38,7 +38,7 @@ void SoundLevelPopUp::Initialize() {
     );
     m_checkBox->SetChecked(appContext.constants.sound.muteVolume);
     m_checkBox->SetOnCheck([this](unsigned int, bool isChecked) {
-        auto event = MuteMasterVolumeEvent(isChecked);
+        auto event = eve::MuteMasterVolumeEvent(isChecked);
         AppContext::GetInstance().eventManager.InvokeEvent(event);
         m_slider->SetEnabled(!isChecked);
     });
@@ -62,7 +62,8 @@ void SoundLevelPopUp::Initialize() {
             appContext.languageManager.Text("ui_sound_level_popup_accept_btn"),
             SoundType::ACCEPTED
     );
-    m_acceptBtn->SetOnClick([this]() { AppContext::GetInstance().eventManager.InvokeEvent(ClosePopUpEvent(this)); });
+    m_acceptBtn->SetOnClick([this]() { AppContext::GetInstance().eventManager.InvokeEvent(eve::ClosePopUpEvent(this)); }
+    );
     AddFocusElement(m_acceptBtn.get(), true);
     SelectFocusElement(m_acceptBtn.get(), true);
     m_elements.push_back(m_acceptBtn);

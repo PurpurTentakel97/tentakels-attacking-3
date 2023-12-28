@@ -46,7 +46,7 @@ bool PlayerCollection::ContainsColor(Color const color) const {
 void PlayerCollection::CheckValidColor(Color& color) const {
     AppContext_ty_c appContext{ AppContext::GetInstance() };
     if (appContext.colors.CheckValidColor(color)) {
-        ShowMessagePopUpEvent const event{
+        eve::ShowMessagePopUpEvent const event{
             appContext.languageManager.Text("helper_player_collection_invalid_color_popup_title"),
             appContext.languageManager.Text("helper_player_collection_already_existing_color_popup_text"),
             []() {}
@@ -59,7 +59,7 @@ void PlayerCollection::CheckValidColor(Color& color) const {
 void PlayerCollection::CheckRemainingColor(Color& color) {
     if (ContainsColor(color)) {
         AppContext_ty_c appContext{ AppContext::GetInstance() };
-        ShowMessagePopUpEvent const event{
+        eve::ShowMessagePopUpEvent const event{
             appContext.languageManager.Text("helper_player_collection_invalid_color_popup_title"),
             appContext.languageManager.Text("helper_player_collection_already_existing_color_popup_text"),
             []() {}
@@ -75,7 +75,7 @@ void PlayerCollection::CheckRemainingName(std::string& name) {
     AppContext_ty_c appContext{ AppContext::GetInstance() };
 
     if (name.empty()) {
-        ShowMessagePopUpEvent const event{
+        eve::ShowMessagePopUpEvent const event{
             appContext.languageManager.Text("helper_player_collection_invalid_name_popup_title"),
             appContext.languageManager.Text("helper_player_collection_no_name_popup_text."),
             []() {}
@@ -85,7 +85,7 @@ void PlayerCollection::CheckRemainingName(std::string& name) {
     }
 
     if (ContainsName(name)) {
-        ShowMessagePopUpEvent const event{
+        eve::ShowMessagePopUpEvent const event{
             appContext.languageManager.Text("helper_player_collection_invalid_name_popup_title"),
             appContext.languageManager.Text("helper_player_collection_already_existing_name_popup_text"),
             []() {}
@@ -127,7 +127,7 @@ void PlayerCollection::AddPlayer(unsigned int ID, std::string name, Color color)
 
     m_playerData.emplace_back(ID, name, color);
     SortPlayers();
-    RefreshNewGamePlayerScene const event{};
+    eve::RefreshNewGamePlayerScene const event{};
     AppContext::GetInstance().eventManager.InvokeEvent(event);
 }
 
@@ -147,7 +147,7 @@ void PlayerCollection::EditPlayer(unsigned int const ID, std::string name, Color
     }
 
     SortPlayers();
-    RefreshNewGamePlayerScene const event{};
+    eve::RefreshNewGamePlayerScene const event{};
     AppContext::GetInstance().eventManager.InvokeEvent(event);
 }
 
@@ -157,13 +157,13 @@ void PlayerCollection::DeletePlayer(unsigned int const ID) {
     m_playerData.erase(std::remove(m_playerData.begin(), m_playerData.end(), toDelete), m_playerData.end());
 
     SortPlayers();
-    RefreshNewGamePlayerScene const event{};
+    eve::RefreshNewGamePlayerScene const event{};
     AppContext::GetInstance().eventManager.InvokeEvent(event);
 }
 
 void PlayerCollection::ResetPlayer() {
     m_playerData.clear();
-    RefreshNewGamePlayerScene const event{};
+    eve::RefreshNewGamePlayerScene const event{};
     AppContext::GetInstance().eventManager.InvokeEvent(event);
 }
 
@@ -251,21 +251,21 @@ size_t PlayerCollection::GetPlayerCount() const {
     return m_playerData.size();
 }
 
-void PlayerCollection::OnEvent(Event const& event) {
+void PlayerCollection::OnEvent(eve::Event const& event) {
 
-    if (auto const* playerEvent = dynamic_cast<AddPlayerUIEvent const*>(&event)) {
+    if (auto const* playerEvent = dynamic_cast<eve::AddPlayerUIEvent const*>(&event)) {
         AddPlayer(playerEvent->GetID(), playerEvent->GetName(), playerEvent->GetColor());
         return;
     }
-    if (auto const* playerEvent = dynamic_cast<EditPlayerUIEvent const*>(&event)) {
+    if (auto const* playerEvent = dynamic_cast<eve::EditPlayerUIEvent const*>(&event)) {
         EditPlayer(playerEvent->GetID(), playerEvent->GetName(), playerEvent->GetColor());
         return;
     }
-    if (auto const* playerEvent = dynamic_cast<DeletePlayerUIEvent const*>(&event)) {
+    if (auto const* playerEvent = dynamic_cast<eve::DeletePlayerUIEvent const*>(&event)) {
         DeletePlayer(playerEvent->GetID());
         return;
     }
-    if ([[maybe_unused]] auto const* playerEvent = dynamic_cast<ResetPlayerUIEvent const*>(&event)) {
+    if ([[maybe_unused]] auto const* playerEvent = dynamic_cast<eve::ResetPlayerUIEvent const*>(&event)) {
         ResetPlayer();
         return;
     }

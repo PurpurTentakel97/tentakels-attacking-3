@@ -15,9 +15,12 @@
 #include <vector>
 
 class UIPlanet;
-class SendGalaxyPointerEvent;
 
-class UIGalaxy final : public UIElement, public EventListener, public Focusable {
+namespace eve {
+    class SendGalaxyPointerEvent;
+}
+
+class UIGalaxy final : public UIElement, public eve::EventListener, public Focusable {
 private:
     enum class Direction {
         UP,
@@ -48,7 +51,7 @@ private:
     bool m_updateLineDrag{ false };
     LineDrag_ty m_lineDrag;
 
-    void Initialize(SendGalaxyPointerEvent const* event);
+    void Initialize(eve::SendGalaxyPointerEvent const* event);
 
     [[nodiscard]] Vector2 GetAbsolutePosition(Vector2 pos, AppContext_ty_c appContext) const;
 
@@ -115,5 +118,5 @@ public:
 
     [[nodiscard]] Galaxy_ty_raw GetGalaxy() const;
 
-    void OnEvent(Event const& event) override;
+    void OnEvent(eve::Event const& event) override;
 };

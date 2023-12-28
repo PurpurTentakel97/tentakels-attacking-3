@@ -102,7 +102,7 @@ void PopUp::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appCont
     }
 
     if (m_shouldClose) {
-        appContext.eventManager.InvokeEvent(ClosePopUpEvent(this));
+        appContext.eventManager.InvokeEvent(eve::ClosePopUpEvent(this));
     }
 }
 

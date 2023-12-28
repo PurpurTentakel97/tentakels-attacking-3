@@ -22,7 +22,7 @@ void ExpandingButton::Initialize(int const focusID, std::string const& btnText) 
     );
     m_mainButton->SetOnToggle([this](bool toggle, bool keyInput) { this->HandleExpandChance(toggle, keyInput); });
 
-    NewFocusElementEvent const event{ m_mainButton.get() };
+    eve::NewFocusElementEvent const event{ m_mainButton.get() };
     appContext.eventManager.InvokeEvent(event);
 }
 
@@ -89,12 +89,12 @@ ExpandingButton::ExpandingButton(
 
 void ExpandingButton::Add(ClassicButton_ty const& btn, bool const enabled) {
     m_buttons.emplace_back(btn, enabled, btn->GetPosition());
-    NewFocusElementEvent const event{ btn.get() };
+    eve::NewFocusElementEvent const event{ btn.get() };
     AppContext::GetInstance().eventManager.InvokeEvent(event);
 }
 
 void ExpandingButton::Remove(ClassicButton_ty const& btn) {
-    DeleteFocusElementEvent const event{ btn.get() };
+    eve::DeleteFocusElementEvent const event{ btn.get() };
     AppContext::GetInstance().eventManager.InvokeEvent(event);
 
     std::erase_if(m_buttons, [btn](Btn const& current) { return btn == current.btn; });
@@ -106,7 +106,7 @@ void ExpandingButton::Remove(size_t const ind) {
     }
 
     auto const& btn{ m_buttons.at(ind) };
-    DeleteFocusElementEvent const event{ btn.btn.get() };
+    eve::DeleteFocusElementEvent const event{ btn.btn.get() };
     AppContext::GetInstance().eventManager.InvokeEvent(event);
 
     m_buttons.erase(m_buttons.begin() + static_cast<int>(ind));

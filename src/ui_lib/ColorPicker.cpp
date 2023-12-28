@@ -135,7 +135,7 @@ bool ColorPicker::SetColor(Color const color) {
 
             m_currentColorCell = c.get();
             if (m_isNestedFocus) {
-                SelectFocusElementEvent const event{ c.get() };
+                eve::SelectFocusElementEvent const event{ c.get() };
                 AppContext::GetInstance().eventManager.InvokeEvent(event);
             }
             return true;

@@ -383,62 +383,62 @@ void Focus::Clear() {
     m_PopUpLayerCounter = 0;
 }
 
-void Focus::OnEvent(Event const& event) {
-    if (auto const focusEvent = dynamic_cast<NewFocusElementEvent const*>(&event)) {
+void Focus::OnEvent(eve::Event const& event) {
+    if (auto const focusEvent = dynamic_cast<eve::NewFocusElementEvent const*>(&event)) {
         AddNormalElement(focusEvent->GetFocusable());
         return;
     }
-    if (auto const focusEvent = dynamic_cast<NewFocusPopUpElementEvent const*>(&event)) {
+    if (auto const focusEvent = dynamic_cast<eve::NewFocusPopUpElementEvent const*>(&event)) {
         AddPopUpElement(focusEvent->GetFocusable());
         return;
     }
 
-    if (auto const focusEvent = dynamic_cast<DeleteFocusElementEvent const*>(&event)) {
+    if (auto const focusEvent = dynamic_cast<eve::DeleteFocusElementEvent const*>(&event)) {
         DeleteNormalElement(focusEvent->GetFocusable());
         return;
     }
-    if (auto const focusEvent = dynamic_cast<DeleteFocusPopUpElementEvent const*>(&event)) {
+    if (auto const focusEvent = dynamic_cast<eve::DeleteFocusPopUpElementEvent const*>(&event)) {
         DeletePopUpElement(focusEvent->GetFocusable());
         return;
     }
 
-    if (auto const focusEvent = dynamic_cast<SelectFocusElementEvent const*>(&event)) {
+    if (auto const focusEvent = dynamic_cast<eve::SelectFocusElementEvent const*>(&event)) {
         SetSpecificNormalFocus(focusEvent->GetFocusable());
         return;
     }
-    if (auto const focusEvent = dynamic_cast<SelectFocusPopUpElementEvent const*>(&event)) {
+    if (auto const focusEvent = dynamic_cast<eve::SelectFocusPopUpElementEvent const*>(&event)) {
         SetSpecificPopUpFocus(focusEvent->GetFocusable());
         return;
     }
-    if (auto const focusEvent = dynamic_cast<SelectNextFocusElementEvent const*>(&event)) {
+    if (auto const focusEvent = dynamic_cast<eve::SelectNextFocusElementEvent const*>(&event)) {
         SetNextFocus();
         return;
     }
 
-    if (auto const focusEvent = dynamic_cast<NewFocusLayerEvent const*>(&event)) {
+    if (auto const focusEvent = dynamic_cast<eve::NewFocusLayerEvent const*>(&event)) {
         AddNormalLayer();
         return;
     }
-    if (auto const focusEvent = dynamic_cast<NewFocusPopUpLayerEvent const*>(&event)) {
+    if (auto const focusEvent = dynamic_cast<eve::NewFocusPopUpLayerEvent const*>(&event)) {
         AddPopUpLayer();
         return;
     }
 
-    if (auto const focusEvent = dynamic_cast<DeleteFocusLayerEvent const*>(&event)) {
+    if (auto const focusEvent = dynamic_cast<eve::DeleteFocusLayerEvent const*>(&event)) {
         DeleteNormalLayer();
         return;
     }
-    if (auto const focusEvent = dynamic_cast<DeleteFocusPopUpLayerEvent const*>(&event)) {
+    if (auto const focusEvent = dynamic_cast<eve::DeleteFocusPopUpLayerEvent const*>(&event)) {
         DeletePopUpLayer();
         return;
     }
 
-    if (auto const focusEvent = dynamic_cast<ClearFocusEvent const*>(&event)) {
+    if (auto const focusEvent = dynamic_cast<eve::ClearFocusEvent const*>(&event)) {
         Clear();
         return;
     }
 
-    if (auto const focusEvent = dynamic_cast<RenderFocusEvent const*>(&event)) {
+    if (auto const focusEvent = dynamic_cast<eve::RenderFocusEvent const*>(&event)) {
         m_renderFocus = focusEvent->GetRender();
         return;
     }

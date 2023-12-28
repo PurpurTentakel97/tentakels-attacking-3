@@ -22,9 +22,9 @@ void MessagePopUp::Initialize() {
 
     btn->SetOnClick([this]() {
         this->m_callback();
-        AppContext::GetInstance().eventManager.InvokeEvent(ClosePopUpEvent(this));
+        AppContext::GetInstance().eventManager.InvokeEvent(eve::ClosePopUpEvent(this));
     });
-    NewFocusPopUpElementEvent event{ btn.get() };
+    eve::NewFocusPopUpElementEvent event{ btn.get() };
     appContext.eventManager.InvokeEvent(event);
 
     m_elements.push_back(btn);

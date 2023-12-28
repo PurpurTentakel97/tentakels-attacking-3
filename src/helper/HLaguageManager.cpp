@@ -57,7 +57,7 @@ void HLanguageManager::InitializeAvailableLanguages() {
 void HLanguageManager::ChanceLanguage(std::string const& language) {
     AppContext_ty appContext{ AppContext::GetInstance() };
     auto handleUpdateLanguage{ [&]() {
-        auto const event{ UpdateLanguageInUIEvent(appContext.constants.global.currentLanguageName) };
+        auto const event{ eve::UpdateLanguageInUIEvent(appContext.constants.global.currentLanguageName) };
         appContext.eventManager.InvokeEvent(event);
     } };
 
@@ -248,8 +248,8 @@ std::string HLanguageManager::Text(std::string const& key) const {
     }
 }
 
-void HLanguageManager::OnEvent(Event const& event) {
-    if (auto const* ChaneEvent = dynamic_cast<ChangeLanguageEvent const*>(&event)) {
+void HLanguageManager::OnEvent(eve::Event const& event) {
+    if (auto const* ChaneEvent = dynamic_cast<eve::ChangeLanguageEvent const*>(&event)) {
         ChanceLanguage(ChaneEvent->GetLanguage());
     }
 }

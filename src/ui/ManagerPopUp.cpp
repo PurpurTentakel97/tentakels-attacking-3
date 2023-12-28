@@ -20,68 +20,68 @@ bool ManagerPopUp::IsActivePopUp() const {
     return !m_popUps.empty();
 }
 
-void ManagerPopUp::OnEvent(Event const& event) {
+void ManagerPopUp::OnEvent(eve::Event const& event) {
 
     // Message Pop Up
-    if (auto const* PopUpEvent = dynamic_cast<ShowMessagePopUpEvent const*>(&event)) {
+    if (auto const* PopUpEvent = dynamic_cast<eve::ShowMessagePopUpEvent const*>(&event)) {
         NewMessagePopUp(PopUpEvent);
         return;
     }
 
     // Delete Player Pop Up
-    if (auto const* PopUpEvent = dynamic_cast<ShowDeletePlayerPopUpEvent const*>(&event)) {
+    if (auto const* PopUpEvent = dynamic_cast<eve::ShowDeletePlayerPopUpEvent const*>(&event)) {
         NewDeletePlayerPopUp(PopUpEvent);
         return;
     }
 
     // Table Pop Up
-    if (auto const* PopUpEvent = dynamic_cast<ShowCellPopUpEvent<std::string> const*>(&event)) {
-        NewTableCellPopUp<std::string, ShowCellPopUpEvent<std::string>>(PopUpEvent);
+    if (auto const* PopUpEvent = dynamic_cast<eve::ShowCellPopUpEvent<std::string> const*>(&event)) {
+        NewTableCellPopUp<std::string, eve::ShowCellPopUpEvent<std::string>>(PopUpEvent);
         return;
     }
-    if (auto const* PopUpEvent = dynamic_cast<ShowCellPopUpEvent<int> const*>(&event)) {
-        NewTableCellPopUp<int, ShowCellPopUpEvent<int>>(PopUpEvent);
+    if (auto const* PopUpEvent = dynamic_cast<eve::ShowCellPopUpEvent<int> const*>(&event)) {
+        NewTableCellPopUp<int, eve::ShowCellPopUpEvent<int>>(PopUpEvent);
         return;
     }
-    if (auto const* PopUpEvent = dynamic_cast<ShowCellPopUpEvent<float> const*>(&event)) {
-        NewTableCellPopUp<float, ShowCellPopUpEvent<float>>(PopUpEvent);
+    if (auto const* PopUpEvent = dynamic_cast<eve::ShowCellPopUpEvent<float> const*>(&event)) {
+        NewTableCellPopUp<float, eve::ShowCellPopUpEvent<float>>(PopUpEvent);
         return;
     }
-    if (auto const* PopUpEvent = dynamic_cast<ShowCellPopUpEvent<double> const*>(&event)) {
-        NewTableCellPopUp<double, ShowCellPopUpEvent<double>>(PopUpEvent);
+    if (auto const* PopUpEvent = dynamic_cast<eve::ShowCellPopUpEvent<double> const*>(&event)) {
+        NewTableCellPopUp<double, eve::ShowCellPopUpEvent<double>>(PopUpEvent);
         return;
     }
-    if (auto const* PopUpEvent = dynamic_cast<ShowCellPopUpEvent<Color> const*>(&event)) {
+    if (auto const* PopUpEvent = dynamic_cast<eve::ShowCellPopUpEvent<Color> const*>(&event)) {
         NewColorCellPopUp(PopUpEvent);
         return;
     }
 
     // Initial Sound Pop Up
-    if (auto const* PopUpEvent = dynamic_cast<ShowInitialSoundLevelPopUpEvent const*>(&event)) {
+    if (auto const* PopUpEvent = dynamic_cast<eve::ShowInitialSoundLevelPopUpEvent const*>(&event)) {
         NewSoundLevelPopUp(PopUpEvent);
         return;
     }
 
     // Turn Events
-    if (auto const* PopUpEvent = dynamic_cast<ShowValidatePopUp const*>(&event)) {
+    if (auto const* PopUpEvent = dynamic_cast<eve::ShowValidatePopUp const*>(&event)) {
         NewValidatePopUp(PopUpEvent);
         return;
     }
 
     // Fight Result
-    if (auto const* PopUpEvent = dynamic_cast<ShowFightResultEvent const*>(&event)) {
+    if (auto const* PopUpEvent = dynamic_cast<eve::ShowFightResultEvent const*>(&event)) {
         NewFightResultPopUp(PopUpEvent);
         return;
     }
 
     // Close Pop Up
-    if (auto const* PopUpEvent = dynamic_cast<ClosePopUpEvent const*>(&event)) {
+    if (auto const* PopUpEvent = dynamic_cast<eve::ClosePopUpEvent const*>(&event)) {
         DeleteLastPopUp(PopUpEvent->GetPop());
         return;
     }
 }
 
-void ManagerPopUp::NewMessagePopUp(ShowMessagePopUpEvent const* const event) {
+void ManagerPopUp::NewMessagePopUp(eve::ShowMessagePopUpEvent const* const event) {
     AddFocusLayer(true);
 
     m_popUps.push_back(std::make_unique<MessagePopUp>(
@@ -95,7 +95,7 @@ void ManagerPopUp::NewMessagePopUp(ShowMessagePopUpEvent const* const event) {
     ));
 }
 
-void ManagerPopUp::NewDeletePlayerPopUp(ShowDeletePlayerPopUpEvent const* const event) {
+void ManagerPopUp::NewDeletePlayerPopUp(eve::ShowDeletePlayerPopUpEvent const* const event) {
     AddFocusLayer(true);
 
     m_popUps.push_back(std::make_unique<DeletePlayerPopUp>(
@@ -108,7 +108,7 @@ void ManagerPopUp::NewDeletePlayerPopUp(ShowDeletePlayerPopUpEvent const* const 
     ));
 }
 
-void ManagerPopUp::NewValidatePopUp(ShowValidatePopUp const* const event) {
+void ManagerPopUp::NewValidatePopUp(eve::ShowValidatePopUp const* const event) {
     AddFocusLayer(true);
 
     m_popUps.push_back(std::make_unique<ValidatePopUp>(
@@ -122,9 +122,9 @@ void ManagerPopUp::NewValidatePopUp(ShowValidatePopUp const* const event) {
     ));
 }
 
-void ManagerPopUp::NewColorCellPopUp(ShowCellPopUpEvent<Color> const* const event) {
+void ManagerPopUp::NewColorCellPopUp(eve::ShowCellPopUpEvent<Color> const* const event) {
     AppContext_ty_c appContext{ AppContext::GetInstance() };
-    NewFocusPopUpLayerEvent focusEvent;
+    eve::NewFocusPopUpLayerEvent focusEvent;
     appContext.eventManager.InvokeEvent(focusEvent);
 
     m_popUps.push_back(std::make_unique<ColorCellPopUp>(
@@ -138,9 +138,9 @@ void ManagerPopUp::NewColorCellPopUp(ShowCellPopUpEvent<Color> const* const even
     ));
 }
 
-void ManagerPopUp::NewSoundLevelPopUp(ShowInitialSoundLevelPopUpEvent const* const event) {
+void ManagerPopUp::NewSoundLevelPopUp(eve::ShowInitialSoundLevelPopUpEvent const* const event) {
     AppContext_ty_c appContext{ AppContext::GetInstance() };
-    NewFocusPopUpLayerEvent focusEvent;
+    eve::NewFocusPopUpLayerEvent focusEvent;
     appContext.eventManager.InvokeEvent(focusEvent);
 
     m_popUps.push_back(std::make_unique<SoundLevelPopUp>(
@@ -151,9 +151,9 @@ void ManagerPopUp::NewSoundLevelPopUp(ShowInitialSoundLevelPopUpEvent const* con
             const_cast<std::string&>(event->GetSubTitle())
     ));
 }
-void ManagerPopUp::NewFightResultPopUp(ShowFightResultEvent const* const event) {
+void ManagerPopUp::NewFightResultPopUp(eve::ShowFightResultEvent const* const event) {
     AppContext_ty_c appContext{ AppContext::GetInstance() };
-    NewFocusLayerEvent focusEvent;
+    eve::NewFocusLayerEvent focusEvent;
     appContext.eventManager.InvokeEvent(focusEvent);
 
     m_popUps.push_back(std::make_unique<FightResultPopup>(

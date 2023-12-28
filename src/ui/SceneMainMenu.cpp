@@ -84,7 +84,7 @@ void MainMenu::Initialize() {
     );
     continueBtn->SetEnabled(appContext.constants.global.isGameRunning);
     continueBtn->SetOnClick([]() {
-        ResumeGameEvent const event{};
+        eve::ResumeGameEvent const event{};
         AppContext::GetInstance().eventManager.InvokeEvent(event);
     });
     gameBtn->Add(continueBtn, appContext.constants.global.isGameRunning);
@@ -100,7 +100,7 @@ void MainMenu::Initialize() {
             SoundType::ACCEPTED
     );
     newGameBtn->SetOnClick([]() {
-        AppContext::GetInstance().eventManager.InvokeEvent(SwitchSceneEvent(SceneType::NEW_GAME_PLAYER));
+        AppContext::GetInstance().eventManager.InvokeEvent(eve::SwitchSceneEvent(SceneType::NEW_GAME_PLAYER));
     });
     gameBtn->Add(newGameBtn, true);
 
@@ -145,8 +145,8 @@ void MainMenu::Initialize() {
         AppContext_ty appContext_{ AppContext::GetInstance() };
         if (not appContext_.constants.global.isGameSaved) {
             appContext_.constants.global.isGameSaved = true;
-            ShowMessagePopUpEvent const event{ "debug save",
-                                               "set save bool to false\nwill be set later when a game was saved.",
+            eve::ShowMessagePopUpEvent const event{ "debug save",
+                                                    "set save bool to false\nwill be set later when a game was saved.",
                                                []() {} };
             appContext_.eventManager.InvokeEvent(event);
         }
@@ -164,7 +164,7 @@ void MainMenu::Initialize() {
             SoundType::ACCEPTED
     );
     loadGameBtn->SetOnClick([]() {
-        AppContext::GetInstance().eventManager.InvokeEvent(SwitchSceneEvent(SceneType::TEST));
+        AppContext::GetInstance().eventManager.InvokeEvent(eve::SwitchSceneEvent(SceneType::TEST));
     });
     bool constexpr lge{ true };
     savesBtn->Add(loadGameBtn, lge);
@@ -195,7 +195,7 @@ void MainMenu::Initialize() {
             SoundType::CLICKED_RELEASE_STD
     );
     gameSettingsBtn->SetOnClick([]() {
-        AppContext::GetInstance().eventManager.InvokeEvent(SwitchSceneEvent(SceneType::GAME_SETTINGS));
+        AppContext::GetInstance().eventManager.InvokeEvent(eve::SwitchSceneEvent(SceneType::GAME_SETTINGS));
     });
     settingsBtn->Add(gameSettingsBtn, true);
 
@@ -210,7 +210,7 @@ void MainMenu::Initialize() {
             SoundType::CLICKED_RELEASE_STD
     );
     appSettingsBtn->SetOnClick([]() {
-        SwitchSceneEvent const event{ SceneType::APP_SETTINGS };
+        eve::SwitchSceneEvent const event{ SceneType::APP_SETTINGS };
         AppContext::GetInstance().eventManager.InvokeEvent(event);
     });
     settingsBtn->Add(appSettingsBtn, true);
@@ -227,7 +227,7 @@ void MainMenu::Initialize() {
             SoundType::CLICKED_RELEASE_STD
     );
     creditsBtn->SetOnClick([]() {
-        AppContext::GetInstance().eventManager.InvokeEvent(SwitchSceneEvent(SceneType::CREDITS));
+        AppContext::GetInstance().eventManager.InvokeEvent(eve::SwitchSceneEvent(SceneType::CREDITS));
     });
     m_elements.push_back(creditsBtn);
 
@@ -241,7 +241,7 @@ void MainMenu::Initialize() {
             appContext.languageManager.Text("scene_main_menu_quit_btn"),
             SoundType::ACCEPTED
     );
-    quitBtn->SetOnClick([]() { AppContext::GetInstance().eventManager.InvokeEvent(QuitGameEvent{}); });
+    quitBtn->SetOnClick([]() { AppContext::GetInstance().eventManager.InvokeEvent(eve::QuitGameEvent{}); });
     m_elements.push_back(quitBtn);
 }
 

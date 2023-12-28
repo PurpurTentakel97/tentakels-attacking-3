@@ -162,7 +162,7 @@ void TestScene::Initialize([[maybe_unused]] AppContext_ty appContext) {
             SoundType::CLICKED_PRESS_STD
     );
     backBtn->SetOnClick([]() {
-        SwitchSceneEvent const event{ SceneType::MAIN_MENU };
+        eve::SwitchSceneEvent const event{ SceneType::MAIN_MENU };
         AppContext::GetInstance().eventManager.InvokeEvent(event);
     });
     m_elements.push_back(backBtn);

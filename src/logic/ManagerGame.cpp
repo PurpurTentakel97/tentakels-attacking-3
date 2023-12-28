@@ -16,7 +16,7 @@
 
 // help Lambdas
 static auto popup = [](std::string const& text) {
-    ShowMessagePopUpEvent const popupEvent{
+    eve::ShowMessagePopUpEvent const popupEvent{
         AppContext::GetInstance().languageManager.Text("logic_galaxy_invalid_input_headline"),
         text,
         []() {}
@@ -75,7 +75,7 @@ bool GameManager::GetNextPlayer(Player_ty& nextPlayer) const {
     return true;
 }
 
-void GameManager::AddPlayer(AddPlayerEvent const* const event) {
+void GameManager::AddPlayer(eve::AddPlayerEvent const* const event) {
 
     auto name{ event->GetName() };
     auto color{ event->GetColor() };
@@ -83,9 +83,9 @@ void GameManager::AddPlayer(AddPlayerEvent const* const event) {
 
     auto const l{ [&, name, color](bool valid) {
         if (valid) {
-            StopGameEvent const eventRet{};
+            eve::StopGameEvent const eventRet{};
             AppContext::GetInstance().eventManager.InvokeEvent(eventRet);
-            AddPlayerEvent const eventPlay{ name, color };
+            eve::AddPlayerEvent const eventPlay{ name, color };
             this->AddPlayer(&eventPlay);
         }
     } };
@@ -94,8 +94,8 @@ void GameManager::AddPlayer(AddPlayerEvent const* const event) {
     }
 
     if (!ValidAddPlayer()) {
-        ShowMessagePopUpEvent const UIEvent{ appContext.languageManager.Text("ui_popup_max_player_title"),
-                                             appContext.languageManager.Text("ui_popup_max_player_subtitle"),
+        eve::ShowMessagePopUpEvent const UIEvent{ appContext.languageManager.Text("ui_popup_max_player_title"),
+                                                  appContext.languageManager.Text("ui_popup_max_player_subtitle"),
                                              []() {} };
         appContext.eventManager.InvokeEvent(UIEvent);
         return;
@@ -105,16 +105,16 @@ void GameManager::AddPlayer(AddPlayerEvent const* const event) {
     auto const player = std::make_shared<Player>(newID, PlayerType::HUMAN);
     m_players.push_back(player);
 
-    AddPlayerUIEvent const AddEvent{ newID, name, color };
+    eve::AddPlayerUIEvent const AddEvent{ newID, name, color };
     appContext.eventManager.InvokeEvent(AddEvent);
 }
 
-void GameManager::EditPlayer(EditPlayerEvent const* const event) const {
+void GameManager::EditPlayer(eve::EditPlayerEvent const* const event) const {
 
     AppContext_ty_c appContext{ AppContext::GetInstance() };
 
     if (!IsExistingPlayerID(event->GetID())) {
-        ShowMessagePopUpEvent const UIEvent{
+        eve::ShowMessagePopUpEvent const UIEvent{
             appContext.languageManager.Text("helper_invalid_id"),
             appContext.languageManager.Text("ui_popup_invalid_id_subtitle", event->GetID()),
             []() {}
@@ -123,20 +123,20 @@ void GameManager::EditPlayer(EditPlayerEvent const* const event) const {
         return;
     }
 
-    EditPlayerUIEvent const editEvent{ event->GetID(), event->GetName(), event->GetColor() };
+    eve::EditPlayerUIEvent const editEvent{ event->GetID(), event->GetName(), event->GetColor() };
     appContext.eventManager.InvokeEvent(editEvent);
 }
 
-void GameManager::DeletePlayer(DeletePlayerEvent const* const event) {
+void GameManager::DeletePlayer(eve::DeletePlayerEvent const* const event) {
 
     auto id{ event->GetID() };
     AppContext_ty_c appContext{ AppContext::GetInstance() };
 
     auto const l{ [&, id](bool valid) {
         if (valid) {
-            StopGameEvent const eventRet{};
+            eve::StopGameEvent const eventRet{};
             AppContext::GetInstance().eventManager.InvokeEvent(eventRet);
-            DeletePlayerEvent const eventPlay{ id };
+            eve::DeletePlayerEvent const eventPlay{ id };
             this->DeletePlayer(&eventPlay);
         }
     } };
@@ -153,7 +153,7 @@ void GameManager::DeletePlayer(DeletePlayerEvent const* const event) {
     }
 
     if (!toDelete) {
-        ShowMessagePopUpEvent const messageEvent{
+        eve::ShowMessagePopUpEvent const messageEvent{
             appContext.languageManager.Text("helper_invalid_id"),
             appContext.languageManager.Text("ui_popup_invalid_id_subtitle", event->GetID()),
             []() {}
@@ -164,14 +164,14 @@ void GameManager::DeletePlayer(DeletePlayerEvent const* const event) {
 
     m_players.erase(std::remove(m_players.begin(), m_players.end(), toDelete), m_players.end());
 
-    DeletePlayerUIEvent const deleteEvent{ event->GetID() };
+    eve::DeletePlayerUIEvent const deleteEvent{ event->GetID() };
     AppContext::GetInstance().eventManager.InvokeEvent(deleteEvent);
 }
 
 void GameManager::ResetPlayer() {
     auto const l{ [&](bool valid) {
         if (valid) {
-            StopGameEvent const eventRet{};
+            eve::StopGameEvent const eventRet{};
             AppContext::GetInstance().eventManager.InvokeEvent(eventRet);
             this->ResetPlayer();
         }
@@ -182,7 +182,7 @@ void GameManager::ResetPlayer() {
 
     m_players.clear();
 
-    ResetPlayerUIEvent const event{};
+    eve::ResetPlayerUIEvent const event{};
     AppContext::GetInstance().eventManager.InvokeEvent(event);
 }
 
@@ -190,8 +190,8 @@ void GameManager::KillPlayer(Player_ty const& player) {
     AppContext_ty_c appContext{ AppContext::GetInstance() };
     player->Kill();
     m_galaxyManager.KillPlayer(player, m_npcs[PlayerType::NEUTRAL]);
-    ShowMessagePopUpEvent msg{ appContext.languageManager.Text("ui_popup_player_removed_title"),
-                               appContext.languageManager.Text("ui_popup_player_removed_subtitle"),
+    eve::ShowMessagePopUpEvent msg{ appContext.languageManager.Text("ui_popup_player_removed_title"),
+                                    appContext.languageManager.Text("ui_popup_player_removed_subtitle"),
                                [this]() {
                                    if (this->m_currentRoundPlayers.size() <= 1) {
                                        this->NextRound(true);
@@ -206,7 +206,7 @@ void GameManager::CheckPlayerCount() const {
 
     auto const l{ [this](bool valid) {
         if (valid) {
-            StopGameEvent const eventRet{};
+            eve::StopGameEvent const eventRet{};
             AppContext::GetInstance().eventManager.InvokeEvent(eventRet);
             this->CheckPlayerCount();
         }
@@ -219,8 +219,8 @@ void GameManager::CheckPlayerCount() const {
     bool valid;
 
     if (m_players.size() < appContext.constants.player.minPlayerCount) {
-        ShowMessagePopUpEvent const event{ appContext.languageManager.Text("ui_popup_player_count_title"),
-                                           appContext.languageManager.Text(
+        eve::ShowMessagePopUpEvent const event{ appContext.languageManager.Text("ui_popup_player_count_title"),
+                                                appContext.languageManager.Text(
                                                    "ui_popup_player_count_min_subtitle",
                                                    '\n',
                                                    appContext.constants.player.minPlayerCount
@@ -229,8 +229,8 @@ void GameManager::CheckPlayerCount() const {
         appContext.eventManager.InvokeEvent(event);
         valid = false;
     } else if (m_players.size() > appContext.constants.player.maxPlayerCount) {
-        ShowMessagePopUpEvent const event{ appContext.languageManager.Text("ui_popup_player_count_title"),
-                                           appContext.languageManager.Text(
+        eve::ShowMessagePopUpEvent const event{ appContext.languageManager.Text("ui_popup_player_count_title"),
+                                                appContext.languageManager.Text(
                                                    "ui_popup_player_count_max_subtitle",
                                                    '\n',
                                                    appContext.constants.player.maxPlayerCount
@@ -242,7 +242,7 @@ void GameManager::CheckPlayerCount() const {
         valid = true;
     }
 
-    ValidatePlayerCountResultEvent const event{ valid };
+    eve::ValidatePlayerCountResultEvent const event{ valid };
     appContext.eventManager.InvokeEvent(event);
 }
 
@@ -260,8 +260,8 @@ bool GameManager::CheckValidAddRemovePlayer(std::function<void(bool valid)> forP
     AppContext_ty_c appContext{ AppContext::GetInstance() };
 
     if (appContext.constants.global.isGameRunning) {
-        ShowValidatePopUp const event{ appContext.languageManager.Text("ui_popup_game_still_running_title"),
-                                       appContext.languageManager.Text("ui_popup_game_still_running_subtitle"),
+        eve::ShowValidatePopUp const event{ appContext.languageManager.Text("ui_popup_game_still_running_title"),
+                                            appContext.languageManager.Text("ui_popup_game_still_running_subtitle"),
                                        std::move(forPopup) };
         appContext.eventManager.InvokeEvent(event);
         return false;
@@ -279,7 +279,7 @@ void GameManager::SendCurrentPlayerID() {
         ID = 0;
     }
 
-    UpdateCurrentPlayerIDEvent const event{ ID };
+    eve::UpdateCurrentPlayerIDEvent const event{ ID };
     AppContext::GetInstance().eventManager.InvokeEvent(event);
 }
 
@@ -293,7 +293,7 @@ void GameManager::SendNextPlayerID() {
         ID = 0;
     }
 
-    UpdateNextPlayerIDEvent const event{ ID };
+    eve::UpdateNextPlayerIDEvent const event{ ID };
     AppContext::GetInstance().eventManager.InvokeEvent(event);
 }
 
@@ -334,12 +334,12 @@ void GameManager::NextRound(bool const valid) {
     if (validPlayer) {
         if (not m_galaxyManager.HasMovesLeft(player)) {
             player->Kill();
-            AppContext::GetInstance().eventManager.InvokeEvent(ShowSkipTurnEvent{});
+            AppContext::GetInstance().eventManager.InvokeEvent(eve::ShowSkipTurnEvent{});
             return;
         }
     }
 
-    appContext.eventManager.InvokeEvent(ShowEvaluationEvent());
+    appContext.eventManager.InvokeEvent(eve::ShowEvaluationEvent());
 }
 
 void GameManager::NextTurn(bool const valid) {
@@ -369,12 +369,12 @@ void GameManager::NextTurn(bool const valid) {
     if (validPlayer) {
         if (not m_galaxyManager.HasMovesLeft(player)) {
             player->Kill();
-            AppContext::GetInstance().eventManager.InvokeEvent(ShowSkipTurnEvent{});
+            AppContext::GetInstance().eventManager.InvokeEvent(eve::ShowSkipTurnEvent{});
             return;
         }
     }
 
-    AppContext::GetInstance().eventManager.InvokeEvent(ShowNextTurnEvent());
+    AppContext::GetInstance().eventManager.InvokeEvent(eve::ShowNextTurnEvent());
 }
 
 void GameManager::ValidateNextTurn() {
@@ -382,22 +382,23 @@ void GameManager::ValidateNextTurn() {
     AppContext_ty_c appContext{ AppContext::GetInstance() };
 
     if (m_currentRoundPlayers.size() <= 1) {
-        ShowValidatePopUp const event{
+        eve::ShowValidatePopUp const event{
             appContext.languageManager.Text("logic_game_manager_popup_next_round_title", "?"),
             appContext.languageManager.Text("logic_game_manager_popup_next_round_text"),
             [this](bool valid) { this->NextRound(valid); }
         };
         AppContext::GetInstance().eventManager.InvokeEvent(event);
     } else {
-        ShowValidatePopUp const event{ appContext.languageManager.Text("logic_game_manager_popup_next_turn_title", "?"),
-                                       appContext.languageManager.Text("logic_game_manager_popup_next_turn_text"),
+        eve::ShowValidatePopUp const event{
+            appContext.languageManager.Text("logic_game_manager_popup_next_turn_title", "?"),
+            appContext.languageManager.Text("logic_game_manager_popup_next_turn_text"),
                                        [this](bool valid) { this->NextTurn(valid); } };
         AppContext::GetInstance().eventManager.InvokeEvent(event);
     }
 }
 
 // Fleet
-void GameManager::AddFleet(SendFleetInstructionEvent const* const event) {
+void GameManager::AddFleet(eve::SendFleetInstructionEvent const* const event) {
 
     AppContext_ty_c appContext{ AppContext::GetInstance() };
 
@@ -412,11 +413,11 @@ void GameManager::AddFleet(SendFleetInstructionEvent const* const event) {
     }
 
     bool const isValidFleet{ m_galaxyManager.AddFleet(event, currentPlayer) };
-    ReturnFleetInstructionEvent const returnEvent{ isValidFleet };
+    eve::ReturnFleetInstructionEvent const returnEvent{ isValidFleet };
     appContext.eventManager.InvokeEvent(returnEvent);
 }
 
-bool GameManager::ValidateAddFleetInput(SendFleetInstructionEvent const* const event) {
+bool GameManager::ValidateAddFleetInput(eve::SendFleetInstructionEvent const* const event) {
 
     std::string messageText;
     AppContext_ty_c appContext{ AppContext::GetInstance() };
@@ -452,8 +453,9 @@ void GameManager::StartGame() {
     AppContext_ty appContext{ AppContext::GetInstance() };
 
     if (appContext.constants.global.isGameRunning and not appContext.constants.global.isGameSaved) {
-        ShowValidatePopUp const event{ appContext.languageManager.Text("ui_popup_game_still_running_title"),
-                                       appContext.languageManager.Text("ui_popup_game_still_running_subtitle", '\n'),
+        eve::ShowValidatePopUp const event{
+            appContext.languageManager.Text("ui_popup_game_still_running_title"),
+            appContext.languageManager.Text("ui_popup_game_still_running_subtitle", '\n'),
                                        [this](bool valid) {
                                            if (valid) {
                                                GameManager::StopGame();
@@ -484,7 +486,7 @@ void GameManager::StartGame() {
     }
 
     Print(PrintType::ONLY_DEBUG, "game started -> player {}", player->GetID());
-    SwitchSceneEvent const event{ SceneType::MAIN };
+    eve::SwitchSceneEvent const event{ SceneType::MAIN };
     appContext.eventManager.InvokeEvent(event);
 }
 
@@ -504,8 +506,8 @@ void GameManager::PauseGame() {
 void GameManager::ResumeGame() {
     AppContext_ty appContext{ AppContext::GetInstance() };
     if (not appContext.constants.global.isGameRunning) {
-        ShowMessagePopUpEvent const event{ appContext.languageManager.Text("ui_popup_no_game_title"),
-                                           appContext.languageManager.Text("ui_popup_no_game_subtitle"),
+        eve::ShowMessagePopUpEvent const event{ appContext.languageManager.Text("ui_popup_no_game_title"),
+                                                appContext.languageManager.Text("ui_popup_no_game_subtitle"),
                                            []() {} };
         appContext.eventManager.InvokeEvent(event);
         Print(PrintType::ONLY_DEBUG, "not able to resume to game because its no game running");
@@ -513,15 +515,15 @@ void GameManager::ResumeGame() {
     }
     appContext.constants.global.isGamePaused = false;
     Print(PrintType::ONLY_DEBUG, "resumed to game");
-    SwitchSceneEvent const event{ SceneType::MAIN };
+    eve::SwitchSceneEvent const event{ SceneType::MAIN };
     appContext.eventManager.InvokeEvent(event);
 }
 
 void GameManager::QuitGame() {
     AppContext_ty appContext{ AppContext::GetInstance() };
     if (not appContext.constants.global.isGameSaved) {
-        ShowValidatePopUp const event{ appContext.languageManager.Text("ui_popup_not_saved_title"),
-                                       appContext.languageManager.Text("ui_popup_not_saved_subtitle", '\n'),
+        eve::ShowValidatePopUp const event{ appContext.languageManager.Text("ui_popup_not_saved_title"),
+                                            appContext.languageManager.Text("ui_popup_not_saved_subtitle", '\n'),
                                        [this](bool valid) {
                                            if (valid) {
                                                AppContext::GetInstance().constants.global.isGameSaved = true;
@@ -532,7 +534,7 @@ void GameManager::QuitGame() {
         return;
     }
 
-    CloseWindowEvent const event{};
+    eve::CloseWindowEvent const event{};
     appContext.eventManager.InvokeEvent(event);
 }
 
@@ -548,39 +550,39 @@ void GameManager::Update() {
     m_lastUpdateResults = m_galaxyManager.Update();
 }
 
-void GameManager::OnEvent(Event const& event) {
+void GameManager::OnEvent(eve::Event const& event) {
 
     // Player
-    if ([[maybe_unused]] auto const* playerEvent = dynamic_cast<AddPlayerEvent const*>(&event)) {
+    if ([[maybe_unused]] auto const* playerEvent = dynamic_cast<eve::AddPlayerEvent const*>(&event)) {
         AddPlayer(playerEvent);
         return;
     }
-    if ([[maybe_unused]] auto const* playerEvent = dynamic_cast<EditPlayerEvent const*>(&event)) {
+    if ([[maybe_unused]] auto const* playerEvent = dynamic_cast<eve::EditPlayerEvent const*>(&event)) {
         EditPlayer(playerEvent);
         return;
     }
-    if ([[maybe_unused]] auto const* playerEvent = dynamic_cast<DeletePlayerEvent const*>(&event)) {
+    if ([[maybe_unused]] auto const* playerEvent = dynamic_cast<eve::DeletePlayerEvent const*>(&event)) {
         DeletePlayer(playerEvent);
         return;
     }
-    if ([[maybe_unused]] auto const* playerEvent = dynamic_cast<ResetPlayerEvent const*>(&event)) {
+    if ([[maybe_unused]] auto const* playerEvent = dynamic_cast<eve::ResetPlayerEvent const*>(&event)) {
         ResetPlayer();
         return;
     }
-    if ([[maybe_unused]] auto const* playerEvent = dynamic_cast<ValidatePlayerCountEvent const*>(&event)) {
+    if ([[maybe_unused]] auto const* playerEvent = dynamic_cast<eve::ValidatePlayerCountEvent const*>(&event)) {
         CheckPlayerCount();
         return;
     }
-    if ([[maybe_unused]] auto const* playerEvent = dynamic_cast<LoadCurrentPlayerEvent const*>(&event)) {
+    if ([[maybe_unused]] auto const* playerEvent = dynamic_cast<eve::LoadCurrentPlayerEvent const*>(&event)) {
         SendCurrentPlayerID();
         SendNextPlayerID();
         return;
     }
-    if ([[maybe_unused]] auto const* PlayerEvent = dynamic_cast<KillCurrentPlayerEvent const*>(&event)) {
+    if ([[maybe_unused]] auto const* PlayerEvent = dynamic_cast<eve::KillCurrentPlayerEvent const*>(&event)) {
         AppContext_ty_c appContext{ AppContext::GetInstance() };
         auto msgEvent{
-            ShowValidatePopUp{ appContext.languageManager.Text("ui_popup_resign_title", '?'),
-                              appContext.languageManager.Text("ui_popup_resign_subtitle"),
+            eve::ShowValidatePopUp{ appContext.languageManager.Text("ui_popup_resign_title", '?'),
+                                   appContext.languageManager.Text("ui_popup_resign_subtitle"),
                               [this](bool valid) {
                               if (not valid) {
                               return;
@@ -597,53 +599,53 @@ void GameManager::OnEvent(Event const& event) {
     }
 
     // Galaxy
-    if ([[maybe_unused]] auto const* galaxyEvent = dynamic_cast<GenerateGalaxyEvent const*>(&event)) {
+    if ([[maybe_unused]] auto const* galaxyEvent = dynamic_cast<eve::GenerateGalaxyEvent const*>(&event)) {
         m_galaxyManager.GenerateGalaxy();
         return;
     }
-    if ([[maybe_unused]] auto const* galaxyEvent = dynamic_cast<GetGalaxyPointerEvent const*>(&event)) {
-        SendGalaxyPointerEvent const returnEvent{ m_galaxyManager.GetGalaxy(), false };
+    if ([[maybe_unused]] auto const* galaxyEvent = dynamic_cast<eve::GetGalaxyPointerEvent const*>(&event)) {
+        eve::SendGalaxyPointerEvent const returnEvent{ m_galaxyManager.GetGalaxy(), false };
         AppContext::GetInstance().eventManager.InvokeEvent(returnEvent);
         return;
     }
-    if ([[maybe_unused]] auto const* galaxyEvent = dynamic_cast<GetShowGalaxyPointerEvent const*>(&event)) {
+    if ([[maybe_unused]] auto const* galaxyEvent = dynamic_cast<eve::GetShowGalaxyPointerEvent const*>(&event)) {
         m_galaxyManager.GenerateShowGalaxy();
         return;
     }
 
     // Game
-    if ([[maybe_unused]] auto const* gameEvent = dynamic_cast<StartGameEvent const*>(&event)) {
+    if ([[maybe_unused]] auto const* gameEvent = dynamic_cast<eve::StartGameEvent const*>(&event)) {
         StartGame();
         return;
     }
-    if ([[maybe_unused]] auto const* gameEvent = dynamic_cast<StopGameEvent const*>(&event)) {
+    if ([[maybe_unused]] auto const* gameEvent = dynamic_cast<eve::StopGameEvent const*>(&event)) {
         StopGame();
         return;
     }
-    if ([[maybe_unused]] auto const* gameEvent = dynamic_cast<PauseGameEvent const*>(&event)) {
+    if ([[maybe_unused]] auto const* gameEvent = dynamic_cast<eve::PauseGameEvent const*>(&event)) {
         PauseGame();
         return;
     }
-    if ([[maybe_unused]] auto const* gameEvent = dynamic_cast<ResumeGameEvent const*>(&event)) {
+    if ([[maybe_unused]] auto const* gameEvent = dynamic_cast<eve::ResumeGameEvent const*>(&event)) {
         ResumeGame();
         return;
     }
-    if ([[maybe_unused]] auto const* gameEvent = dynamic_cast<QuitGameEvent const*>(&event)) {
+    if ([[maybe_unused]] auto const* gameEvent = dynamic_cast<eve::QuitGameEvent const*>(&event)) {
         QuitGame();
         return;
     }
-    if ([[maybe_unused]] auto const* gameEvent = dynamic_cast<TriggerNextTurnEvent const*>(&event)) {
+    if ([[maybe_unused]] auto const* gameEvent = dynamic_cast<eve::TriggerNextTurnEvent const*>(&event)) {
         ValidateNextTurn();
         return;
     }
-    if ([[maybe_unused]] auto const* gameEvent = dynamic_cast<GetUpdateEvaluation const*>(&event)) {
-        AppContext::GetInstance().eventManager.InvokeEvent(SendUpdateEvaluation{ m_lastUpdateResults.first,
-                                                                                 m_lastUpdateResults.second });
+    if ([[maybe_unused]] auto const* gameEvent = dynamic_cast<eve::GetUpdateEvaluation const*>(&event)) {
+        AppContext::GetInstance().eventManager.InvokeEvent(eve::SendUpdateEvaluation{ m_lastUpdateResults.first,
+                                                                                      m_lastUpdateResults.second });
         return;
     }
 
     // Fleet
-    if (auto const* fleetEvent = dynamic_cast<SendFleetInstructionEvent const*>(&event)) {
+    if (auto const* fleetEvent = dynamic_cast<eve::SendFleetInstructionEvent const*>(&event)) {
         AddFleet(fleetEvent);
         return;
     }

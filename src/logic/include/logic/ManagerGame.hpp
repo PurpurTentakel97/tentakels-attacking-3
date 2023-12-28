@@ -14,7 +14,7 @@
 #include <vector>
 
 
-class GameManager final : public EventListener {
+class GameManager final : public eve::EventListener {
     friend class GalaxyManager;
 
 private:
@@ -36,11 +36,11 @@ private:
 
     [[nodiscard]] bool GetNextPlayer(Player_ty& nextPlayer) const;
 
-    void AddPlayer(AddPlayerEvent const* event);
+    void AddPlayer(eve::AddPlayerEvent const* event);
 
-    void EditPlayer(EditPlayerEvent const* event) const;
+    void EditPlayer(eve::EditPlayerEvent const* event) const;
 
-    void DeletePlayer(DeletePlayerEvent const* event);
+    void DeletePlayer(eve::DeletePlayerEvent const* event);
 
     void ResetPlayer();
 
@@ -64,9 +64,9 @@ private:
     void ValidateNextTurn();
 
     // fleet
-    void AddFleet(SendFleetInstructionEvent const* event);
+    void AddFleet(eve::SendFleetInstructionEvent const* event);
 
-    [[nodiscard]] static bool ValidateAddFleetInput(SendFleetInstructionEvent const* event);
+    [[nodiscard]] static bool ValidateAddFleetInput(eve::SendFleetInstructionEvent const* event);
 
     // game
     void StartGame();
@@ -84,5 +84,5 @@ public:
 
     void Update();
 
-    void OnEvent(Event const& event) override;
+    void OnEvent(eve::Event const& event) override;
 };

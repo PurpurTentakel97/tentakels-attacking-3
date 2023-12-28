@@ -61,7 +61,7 @@ void Title::RenderTitleSequence(AppContext_ty_c appContext) {
 
     if (not dummyText.empty()) {
         if (dummyText.at(dummyText.size() - 1) != ' ') {
-            PlaySoundEvent event{ SoundType::TEXT };
+            eve::PlaySoundEvent event{ SoundType::TEXT };
             appContext.eventManager.InvokeEvent(event);
         }
     }
@@ -103,7 +103,7 @@ void Title::RecalculateCollider(AppContext_ty_c appContext) {
 
 void Title::TitleFinish(AppContext_ty_c appContext) {
     m_titleFinish = true;
-    PlaySoundEvent event{ SoundType::ACCEPTED };
+    eve::PlaySoundEvent event{ SoundType::ACCEPTED };
     appContext.eventManager.InvokeEvent(event);
 }
 

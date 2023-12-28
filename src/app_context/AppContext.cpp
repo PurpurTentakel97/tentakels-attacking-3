@@ -27,7 +27,7 @@ void AppContext::LoadConfig() const {
         SetMasterVolume(constants.sound.masterVolume / 100);
     }
 
-    SetTargetFPSEvent const event{ constants.window.FPS };
+    eve::SetTargetFPSEvent const event{ constants.window.FPS };
     eventManager.InvokeEvent(event);
 }
 
@@ -121,9 +121,9 @@ void AppContext::ValidateConfig() {
     Print(PrintType::INFO, "Config validated");
 }
 
-void AppContext::OnEvent(Event const& event) {
+void AppContext::OnEvent(eve::Event const& event) {
 
-    if (auto const LastRoundEvent = dynamic_cast<SetCurrentLastRoundEvent const*>(&event)) {
+    if (auto const LastRoundEvent = dynamic_cast<eve::SetCurrentLastRoundEvent const*>(&event)) {
         constants.global.currentTargetRound = LastRoundEvent->GetLastRound();
         return;
     }

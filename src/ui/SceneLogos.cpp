@@ -55,7 +55,7 @@ LogoScene::LogoScene()
 void LogoScene::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) {
     bool const nextScene{ IsBackInputPressed() or (m_time + m_sceneLength) < GetTime() };
     if (nextScene) {
-        SwitchSceneEvent event{ m_nextScene };
+        eve::SwitchSceneEvent event{ m_nextScene };
         appContext.eventManager.InvokeEvent(event);
     }
 

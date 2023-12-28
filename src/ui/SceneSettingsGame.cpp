@@ -127,7 +127,7 @@ void GameSettingsScene::Initialize() {
     );
     lastRound->SetActive(true, appContext);
     lastRound->SetOnSave([](size_t value) {
-        SetCurrentLastRoundEvent const event{ value };
+        eve::SetCurrentLastRoundEvent const event{ value };
         AppContext::GetInstance().eventManager.InvokeEvent(event);
     });
     m_elements.push_back(lastRound);

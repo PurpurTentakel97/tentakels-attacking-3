@@ -74,8 +74,8 @@ void HoverRender::Render() {
     handleReturn();
 }
 
-void HoverRender::OnEvent(Event const& event) {
-    if (auto const* HoverEvent = dynamic_cast<RenderHoverEvent const*>(&event)) {
+void HoverRender::OnEvent(eve::Event const& event) {
+    if (auto const* HoverEvent = dynamic_cast<eve::RenderHoverEvent const*>(&event)) {
         m_elements.push_back(HoverEvent->GetHover());
         return;
     }

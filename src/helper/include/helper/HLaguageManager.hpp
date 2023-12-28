@@ -9,7 +9,7 @@
 #include <format>
 #include <nlohmann/json.hpp>
 
-class HLanguageManager final : public EventListener {
+class HLanguageManager final : public eve::EventListener {
 private:
     nlohmann::json m_default_language_json;
     nlohmann::json m_current_language_json;
@@ -43,7 +43,7 @@ public:
     template<typename... Args>
     [[nodiscard]] std::string Text(std::string const& key, Args const&... args) const;
 
-    void OnEvent(Event const& event) override;
+    void OnEvent(eve::Event const& event) override;
 };
 
 template<typename... Args>

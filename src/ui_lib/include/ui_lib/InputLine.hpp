@@ -33,7 +33,7 @@ protected:
         if (validAdd) {
             m_value += static_cast<char>(key);
 
-            PlaySoundEvent const event{ SoundType::TEXT };
+            eve::PlaySoundEvent const event{ SoundType::TEXT };
             AppContext::GetInstance().eventManager.InvokeEvent(event);
 
             m_onValueChanced();
@@ -46,7 +46,7 @@ protected:
         if (not m_value.empty()) {
             m_value.pop_back();
 
-            PlaySoundEvent const event{ SoundType::TEXT };
+            eve::PlaySoundEvent const event{ SoundType::TEXT };
             AppContext::GetInstance().eventManager.InvokeEvent(event);
 
             m_onValueChanced();
@@ -79,7 +79,7 @@ public:
         bool const validSelect{ !IsFocused() and hover and IsMouseButtonPressed(MOUSE_LEFT_BUTTON) };
 
         if (validSelect) {
-            SelectFocusElementEvent const event{ this };
+            eve::SelectFocusElementEvent const event{ this };
             appContext.eventManager.InvokeEvent(event);
         }
 
@@ -129,7 +129,7 @@ public:
             }
 
             if (!AddChar(key)) {
-                ShowMessagePopUpEvent const event{
+                eve::ShowMessagePopUpEvent const event{
                     appContext.languageManager.Text("ui_input_line_popup_max_input_title"),
                     appContext.languageManager.Text("ui_input_line_popup_max_input_text"),
                     []() {}

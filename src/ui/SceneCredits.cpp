@@ -38,7 +38,7 @@ void CreditsScene::Initialize() {
             SoundType::CLICKED_RELEASE_STD
     );
     backBTN->SetOnClick([]() {
-        auto event = SwitchSceneEvent(SceneType::MAIN_MENU);
+        auto event = eve::SwitchSceneEvent(SceneType::MAIN_MENU);
         AppContext::GetInstance().eventManager.InvokeEvent(event);
     });
     m_elements.push_back(backBTN);
@@ -171,7 +171,7 @@ void CreditsScene::Initialize() {
             SoundType::ACCEPTED
     );
     m_endBTN->SetOnClick([]() {
-        auto event = SwitchSceneEvent(SceneType::MAIN_MENU);
+        auto event = eve::SwitchSceneEvent(SceneType::MAIN_MENU);
         AppContext::GetInstance().eventManager.InvokeEvent(event);
     });
     AddMovingElement(m_endBTN);

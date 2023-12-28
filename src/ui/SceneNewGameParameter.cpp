@@ -221,7 +221,7 @@ void NewGameParameterScene::Initialize() {
             SoundType::CLICKED_RELEASE_STD
     );
     backBtn->SetOnClick([]() {
-        AppContext::GetInstance().eventManager.InvokeEvent(SwitchSceneEvent(SceneType::NEW_GAME_PLAYER));
+        AppContext::GetInstance().eventManager.InvokeEvent(eve::SwitchSceneEvent(SceneType::NEW_GAME_PLAYER));
     });
     m_elements.push_back(backBtn);
 
@@ -234,7 +234,7 @@ void NewGameParameterScene::Initialize() {
             SoundType::ACCEPTED
     );
     nextBtn->SetOnClick([]() {
-        auto event = GenerateGalaxyEvent();
+        auto event = eve::GenerateGalaxyEvent();
         AppContext::GetInstance().eventManager.InvokeEvent(event);
     });
     m_elements.push_back(nextBtn);
@@ -268,7 +268,7 @@ void NewGameParameterScene::SetRandom() const {
 }
 
 void NewGameParameterScene::NextScene() {
-    SwitchSceneEvent event{ SceneType::VALIDATE_GALAXY };
+    eve::SwitchSceneEvent event{ SceneType::VALIDATE_GALAXY };
     AppContext::GetInstance().eventManager.InvokeEvent(event);
 }
 
@@ -286,9 +286,9 @@ NewGameParameterScene::~NewGameParameterScene() {
     AppContext::GetInstance().eventManager.RemoveListener(this);
 }
 
-void NewGameParameterScene::OnEvent(Event const& event) {
+void NewGameParameterScene::OnEvent(eve::Event const& event) {
 
-    if ([[maybe_unused]] auto const* GalaxyEvent = dynamic_cast<GalaxyGeneratedUIEvent const*>(&event)) {
+    if ([[maybe_unused]] auto const* GalaxyEvent = dynamic_cast<eve::GalaxyGeneratedUIEvent const*>(&event)) {
         NextScene();
         return;
     }

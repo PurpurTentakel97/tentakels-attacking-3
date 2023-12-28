@@ -38,7 +38,7 @@ void SettingsScene::Initialize() {
     );
     continueBtn->SetEnabled(appContext.constants.global.isGameRunning);
     continueBtn->SetOnClick([]() {
-        ResumeGameEvent const event{};
+        eve::ResumeGameEvent const event{};
         AppContext::GetInstance().eventManager.InvokeEvent(event);
     });
     m_elements.push_back(continueBtn);
@@ -52,7 +52,7 @@ void SettingsScene::Initialize() {
             SoundType::CLICKED_RELEASE_STD
     );
     backBtn->SetOnClick([]() {
-        AppContext::GetInstance().eventManager.InvokeEvent(SwitchSceneEvent{ SceneType::MAIN_MENU });
+        AppContext::GetInstance().eventManager.InvokeEvent(eve::SwitchSceneEvent{ SceneType::MAIN_MENU });
     });
     m_elements.push_back(backBtn);
 }

@@ -10,7 +10,7 @@
 #include <vector>
 
 
-class Focus final : public EventListener {
+class Focus final : public eve::EventListener {
 private:
     Focusable_ty_raw m_currentFocus{ nullptr };
     HLayeredVector<Focusable> m_focus;
@@ -82,7 +82,7 @@ private:
 public:
     Focus();
 
-    void OnEvent(Event const& event) override;
+    void OnEvent(eve::Event const& event) override;
 
     void CheckAndUpdate();
 

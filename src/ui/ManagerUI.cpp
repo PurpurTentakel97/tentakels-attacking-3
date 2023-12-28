@@ -61,7 +61,7 @@ void UIManager::CheckAndSetNewResolution() {
 
 void UIManager::CheckAndUpdate() {
     if (IsQuitInput()) {
-        CloseWindowEvent event;
+        eve::CloseWindowEvent event;
         m_appContext.eventManager.InvokeEvent(event);
     }
 
@@ -140,7 +140,7 @@ void UIManager::SetWindowPosition() {
     ::SetWindowPosition(differenceWidth, differenceHeight);
 }
 
-void UIManager::SetTargetFPS(SetTargetFPSEvent const* const event) {
+void UIManager::SetTargetFPS(eve::SetTargetFPSEvent const* const event) {
     ::SetTargetFPS(static_cast<int>(event->GetFPS()));
     Print(PrintType::INFO, "fps set -> {}", event->GetFPS());
 }
@@ -183,7 +183,7 @@ void UIManager::StartUI() {
         m_nextResolution = Resolution::SCREEN;
         m_isNextFullScreen = true;
 
-        ShowInitialSoundLevelPopUpEvent event{
+        eve::ShowInitialSoundLevelPopUpEvent event{
             m_appContext.languageManager.Text("ui_manager_initial_sound_popup_title"),
             m_appContext.languageManager.Text("ui_manager_initial_sound_popup_text")
         };
@@ -208,7 +208,7 @@ void UIManager::StartUI() {
 
 void UIManager::StartUILoop() {
 
-    SwitchSceneEvent event{ SceneType::LOGO };
+    eve::SwitchSceneEvent event{ SceneType::LOGO };
     m_appContext.eventManager.InvokeEvent(event);
 
     m_sceneManager.SwitchSceneManual();
@@ -221,22 +221,22 @@ void UIManager::StartUILoop() {
     UILoop();
 }
 
-void UIManager::OnEvent(Event const& event) {
-    if ([[maybe_unused]] auto const* CloseEvent = dynamic_cast<CloseWindowEvent const*>(&event)) {
+void UIManager::OnEvent(eve::Event const& event) {
+    if ([[maybe_unused]] auto const* CloseEvent = dynamic_cast<eve::CloseWindowEvent const*>(&event)) {
         m_closeWindow = true;
         return;
     }
 
-    if (auto const* ResolutionEvent = dynamic_cast<SetNewResolutionEvent const*>(&event)) {
+    if (auto const* ResolutionEvent = dynamic_cast<eve::SetNewResolutionEvent const*>(&event)) {
         m_nextResolution = ResolutionEvent->GetResolution();
     }
 
-    if (auto const* ToggleEvent = dynamic_cast<ToggleFullscreenEvent const*>(&event)) {
+    if (auto const* ToggleEvent = dynamic_cast<eve::ToggleFullscreenEvent const*>(&event)) {
         m_isNextFullScreen = ToggleEvent->IsNextFullscreen();
         return;
     }
 
-    if (auto const* FPSEvent = dynamic_cast<SetTargetFPSEvent const*>(&event)) {
+    if (auto const* FPSEvent = dynamic_cast<eve::SetTargetFPSEvent const*>(&event)) {
         SetTargetFPS(FPSEvent);
         return;
     }

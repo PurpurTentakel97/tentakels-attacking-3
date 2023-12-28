@@ -9,7 +9,7 @@
 
 class SliderAndInputLine;
 
-class AppSettingsScene final : public SettingsScene, public EventListener {
+class AppSettingsScene final : public SettingsScene, public eve::EventListener {
 private:
     std::vector<std::pair<Resolution, std::string>> m_rawResolutionEntries;
     std::shared_ptr<SliderAndInputLine> m_volume;
@@ -36,5 +36,5 @@ public:
 
     void Resize(AppContext_ty_c appContext) override;
 
-    void OnEvent(Event const& event) override;
+    void OnEvent(eve::Event const& event) override;
 };

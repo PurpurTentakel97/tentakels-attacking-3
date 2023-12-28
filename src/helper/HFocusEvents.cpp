@@ -9,55 +9,55 @@
 
 void AddFocusLayer(bool const isPopUp) {
     if (isPopUp) {
-        NewFocusPopUpLayerEvent const event{};
+        eve::NewFocusPopUpLayerEvent const event{};
         AppContext::GetInstance().eventManager.InvokeEvent(event);
     } else {
-        NewFocusLayerEvent const event{};
+        eve::NewFocusLayerEvent const event{};
         AppContext::GetInstance().eventManager.InvokeEvent(event);
     }
 }
 
 void DeleteFocusLayer(bool const isPopUp) {
     if (isPopUp) {
-        DeleteFocusPopUpLayerEvent const event{};
+        eve::DeleteFocusPopUpLayerEvent const event{};
         AppContext::GetInstance().eventManager.InvokeEvent(event);
     } else {
-        DeleteFocusLayerEvent const event{};
+        eve::DeleteFocusLayerEvent const event{};
         AppContext::GetInstance().eventManager.InvokeEvent(event);
     }
 }
 
 void AddFocusElement(Focusable_ty_raw focusable, bool const isPopUp) {
     if (isPopUp) {
-        NewFocusPopUpElementEvent const event{ focusable };
+        eve::NewFocusPopUpElementEvent const event{ focusable };
         AppContext::GetInstance().eventManager.InvokeEvent(event);
     } else {
-        NewFocusElementEvent const event{ focusable };
+        eve::NewFocusElementEvent const event{ focusable };
         AppContext::GetInstance().eventManager.InvokeEvent(event);
     }
 }
 
 void DeleteFocusElement(Focusable_ty_raw focusable, bool const isPopUp) {
     if (isPopUp) {
-        DeleteFocusPopUpElementEvent const event{ focusable };
+        eve::DeleteFocusPopUpElementEvent const event{ focusable };
         AppContext::GetInstance().eventManager.InvokeEvent(event);
     } else {
-        DeleteFocusElementEvent const event{ focusable };
+        eve::DeleteFocusElementEvent const event{ focusable };
         AppContext::GetInstance().eventManager.InvokeEvent(event);
     }
 }
 
 void SelectNextFocusElement() {
-    SelectNextFocusElementEvent const event{};
+    eve::SelectNextFocusElementEvent const event{};
     AppContext::GetInstance().eventManager.InvokeEvent(event);
 }
 
 void SelectFocusElement(Focusable_ty_raw focusable, bool const isPopUp) {
     if (isPopUp) {
-        SelectFocusPopUpElementEvent const event{ focusable };
+        eve::SelectFocusPopUpElementEvent const event{ focusable };
         AppContext::GetInstance().eventManager.InvokeEvent(event);
     } else {
-        SelectFocusElementEvent const event{ focusable };
+        eve::SelectFocusElementEvent const event{ focusable };
         AppContext::GetInstance().eventManager.InvokeEvent(event);
     }
 }

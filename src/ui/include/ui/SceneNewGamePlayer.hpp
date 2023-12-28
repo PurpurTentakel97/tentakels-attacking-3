@@ -10,7 +10,7 @@
 #include <ui_lib/TableCellAbstract.hpp>
 
 
-class NewGamePlayerScene final : public Scene, public EventListener {
+class NewGamePlayerScene final : public Scene, public eve::EventListener {
 private:
     InputLine<std::string>* m_inputLine;
     ColorPicker* m_colorPicker;
@@ -56,5 +56,5 @@ public:
 
     void Resize(AppContext_ty_c appContext) override;
 
-    void OnEvent(Event const& event) override;
+    void OnEvent(eve::Event const& event) override;
 };

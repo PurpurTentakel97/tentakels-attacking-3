@@ -14,7 +14,7 @@
 #include <vector>
 
 
-class SoundManager final : public EventListener {
+class SoundManager final : public eve::EventListener {
 private:
     std::unordered_map<SoundType, Sound> m_sounds;
     std::array<std::string, 5> m_files{
@@ -39,7 +39,7 @@ private:
 
     static void SetMasterSoundLevel(float level);
 
-    void OnEvent(Event const& event) override;
+    void OnEvent(eve::Event const& event) override;
 
 public:
     SoundManager();

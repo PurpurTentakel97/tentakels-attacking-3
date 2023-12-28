@@ -7,9 +7,12 @@
 #include <ui_lib/Scene.hpp>
 #pragma once
 
-class SendUpdateEvaluation;
 
-class UpdateEvaluationScene final : public Scene, public EventListener {
+namespace eve {
+    class SendUpdateEvaluation;
+}
+
+class UpdateEvaluationScene final : public Scene, public eve::EventListener {
 private:
     enum class ResultType {
         MERGE,
@@ -25,7 +28,7 @@ private:
     int m_popupCount{ 0 };
     bool m_nextPopup{ false };
 
-    static void TestPrint(SendUpdateEvaluation const* event);
+    static void TestPrint(eve::SendUpdateEvaluation const* event);
 
     void DisplayMergeResult();
 
@@ -40,5 +43,5 @@ public:
 
     void CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) override;
 
-    void OnEvent(Event const& event) override;
+    void OnEvent(eve::Event const& event) override;
 };

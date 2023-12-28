@@ -88,17 +88,17 @@ SoundManager::~SoundManager() {
     CloseAudioDevice();
 }
 
-void SoundManager::OnEvent(Event const& event) {
-    if (auto const soundEvent = dynamic_cast<PlaySoundEvent const*>(&event)) {
+void SoundManager::OnEvent(eve::Event const& event) {
+    if (auto const soundEvent = dynamic_cast<eve::PlaySoundEvent const*>(&event)) {
         PlaySound(soundEvent->GetSoundType());
         return;
     }
 
-    if (auto const LevelEvent = dynamic_cast<SetMasterVolumeEvent const*>(&event)) {
+    if (auto const LevelEvent = dynamic_cast<eve::SetMasterVolumeEvent const*>(&event)) {
         SetMasterSoundLevel(LevelEvent->GetLevel());
         return;
     }
-    if (auto const MuteEvent = dynamic_cast<MuteMasterVolumeEvent const*>(&event)) {
+    if (auto const MuteEvent = dynamic_cast<eve::MuteMasterVolumeEvent const*>(&event)) {
         MuteMasterSoundLevel(MuteEvent->GetMute());
         return;
     }

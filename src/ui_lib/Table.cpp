@@ -255,7 +255,7 @@ void Table::CheckAndUpdateScroll(Vector2 const& mousePosition) {
     m_verticalSlider->SetButtonPosition((-m_absoluteScrollingOffset.y / (size.y - m_collider.height)) * 100);
 
     if (IsNestedFocus()) {
-        RenderFocusEvent event{ false };
+        eve::RenderFocusEvent event{ false };
         AppContext::GetInstance().eventManager.InvokeEvent(event);
     }
 }
@@ -392,7 +392,7 @@ void Table::ScrollPercent(float percent, bool isHorizontal) {
     m_absoluteScrollingOffset.y += offset.y;
 
     if (IsNestedFocus()) {
-        RenderFocusEvent event{ false };
+        eve::RenderFocusEvent event{ false };
         AppContext::GetInstance().eventManager.InvokeEvent(event);
     }
 }

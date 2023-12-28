@@ -15,7 +15,7 @@ class Scene;
 class UIManager;
 
 
-class SceneManager final : public EventListener {
+class SceneManager final : public eve::EventListener {
 private:
     ManagerPopUp m_popUpManager;
     SceneType m_currentSceneType{ SceneType::NONE };
@@ -37,7 +37,7 @@ public:
 
     void Resize(AppContext_ty_c appContext);
 
-    void OnEvent(Event const& event) override;
+    void OnEvent(eve::Event const& event) override;
 
     [[nodiscard]] bool IsValidCurrentScene() const;
 };

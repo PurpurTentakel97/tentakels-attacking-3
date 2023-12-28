@@ -77,7 +77,7 @@ void DropDown::ToggleFoldedOut() {
 
     m_isFoldouts = !m_isFoldouts;
 
-    appContext.eventManager.InvokeEvent(PlaySoundEvent(SoundType::CLICKED_PRESS_STD));
+    appContext.eventManager.InvokeEvent(eve::PlaySoundEvent(SoundType::CLICKED_PRESS_STD));
 
     if (m_isFoldouts) {
         m_arrowTexture = appContext.assetManager.GetTexture(AssetType::ARROW_DOWN);

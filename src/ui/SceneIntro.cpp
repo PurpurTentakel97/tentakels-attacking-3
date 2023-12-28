@@ -46,7 +46,7 @@ void Intro::Initialize() {
 
 
     m_btn->SetOnClick([]() {
-        AppContext::GetInstance().eventManager.InvokeEvent(SwitchSceneEvent(SceneType::MAIN_MENU));
+        AppContext::GetInstance().eventManager.InvokeEvent(eve::SwitchSceneEvent(SceneType::MAIN_MENU));
     });
 }
 
@@ -91,6 +91,6 @@ void Intro::Resize(AppContext_ty_c appContext) {
 
 void Intro::SetActive(bool const active, AppContext_ty_c appContext) {
     Scene::SetActive(active, appContext);
-    SelectFocusElementEvent const event{ m_btn.get() };
+    eve::SelectFocusElementEvent const event{ m_btn.get() };
     appContext.eventManager.InvokeEvent(event);
 }

@@ -16,7 +16,7 @@
 
 // help Lambdas
 static auto popup = [](std::string const& text) {
-    ShowMessagePopUpEvent const popupEvent{
+    eve::ShowMessagePopUpEvent const popupEvent{
         AppContext::GetInstance().languageManager.Text("logic_galaxy_invalid_input_headline"),
         text,
         []() {}
@@ -182,7 +182,7 @@ Fleet_ty Galaxy::GetFleetByID(unsigned int const ID) const {
     return nullptr;
 }
 
-HFleetResult Galaxy::AddFleetFromPlanet(SendFleetInstructionEvent const* event, Player_ty const& currentPlayer) {
+HFleetResult Galaxy::AddFleetFromPlanet(eve::SendFleetInstructionEvent const* event, Player_ty const& currentPlayer) {
     // check origin id
     if (event->GetOrigin() > m_planets.size()) {
         popup(AppContext::GetInstance().languageManager.Text("logic_galaxy_input_origin_planet_high_text"));
@@ -269,7 +269,8 @@ HFleetResult Galaxy::AddFleetFromPlanet(SendFleetInstructionEvent const* event, 
     return { originPlanet, fleet, destination, true };
 }
 
-HFleetResult Galaxy::AddFleetFromFleet(SendFleetInstructionEvent const* const event, Player_ty const& currentPlayer) {
+HFleetResult
+Galaxy::AddFleetFromFleet(eve::SendFleetInstructionEvent const* const event, Player_ty const& currentPlayer) {
     // check if origin ID is existing
     if (not IsValidFleet(event->GetOrigin())) {
         popup(AppContext::GetInstance().languageManager.Text("logic_galaxy_not_existing_fleet_text", event->GetOrigin())
@@ -372,7 +373,7 @@ HFleetResult Galaxy::AddFleetFromFleet(SendFleetInstructionEvent const* const ev
 }
 
 HFleetResult
-Galaxy::AddFleetFromTargetPoint(SendFleetInstructionEvent const* const event, Player_ty const& currentPlayer) {
+Galaxy::AddFleetFromTargetPoint(eve::SendFleetInstructionEvent const* const event, Player_ty const& currentPlayer) {
     // check if origin ID is existing
     if (not IsValidTargetPoint(event->GetOrigin())) {
         popup(AppContext::GetInstance()
@@ -1164,7 +1165,7 @@ bool Galaxy::IsValidPosition(vec2pos_ty_ref_c position) const {
     return true;
 }
 
-HFleetResult Galaxy::AddFleet(SendFleetInstructionEvent const* const event, Player_ty const& currentPlayer) {
+HFleetResult Galaxy::AddFleet(eve::SendFleetInstructionEvent const* const event, Player_ty const& currentPlayer) {
 
     // valid ID?
     if (!IsValidSpaceObjectID(event->GetOrigin())) {
