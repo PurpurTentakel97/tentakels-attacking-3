@@ -7,6 +7,7 @@
 #include "AliasApp.hpp"
 #include "AssetManager.hpp"
 #include "LanguageManager.hpp"
+#include "SoundManager.hpp"
 #include <constants/CConstants.hpp>
 #include <event/EventListener.hpp>
 #include <event/EventManager.hpp>
@@ -15,7 +16,6 @@
 #include <helper/HConcepts.hpp>
 #include <helper/HLogicAlias.hpp>
 #include <helper/HPlayerCollection.hpp>
-#include <helper/HSoundManager.hpp>
 #include <string>
 
 namespace app {

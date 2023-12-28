@@ -5,11 +5,11 @@
 
 #pragma once
 #include "EventMain.hpp"
+#include "app/SoundType.hpp"
 #include <CustomRaylib.hpp>
 #include <functional>
 #include <helper/HFightResult.hpp>
 #include <helper/HLogicAlias.hpp>
-#include <helper/HSoundType.hpp>
 #include <helper/HUIAlias.hpp>
 #include <helper/HVec2.hpp>
 #include <string>

@@ -5,7 +5,7 @@
 
 #pragma once
 
-
+namespace app {
     enum class SoundType {
         ACCEPTED,
         CLICKED_PRESS_STD,
@@ -14,3 +14,4 @@
         HOVER_STD,
         TEXT,
     };
+}

@@ -17,8 +17,6 @@ add_library(helper STATIC
             include/helper/HPrint.hpp
             include/helper/HRandom.hpp
             include/helper/HResolution.hpp
-            include/helper/HSoundManager.hpp
-            include/helper/HSoundType.hpp
             include/helper/HTextProcessing.hpp
             include/helper/HUIAlias.hpp
             include/helper/HVector2Operator.hpp
@@ -37,7 +35,6 @@ add_library(helper STATIC
             HPlayerData.cpp
             HPrint.cpp
             HRandom.cpp
-            HSoundManager.cpp
             HTextProcessing.cpp
             HVector2Operator.cpp
 )

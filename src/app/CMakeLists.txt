@@ -4,9 +4,12 @@ add_library(app_context STATIC
             include/app/AssetType.hpp
             include/app/AssetManager.hpp
             include/app/LanguageManager.hpp
+            include/app/SoundManager.hpp
+            include/app/SoundType.hpp
             AppContext.cpp
             AssetManager.cpp
             LanguageManager.cpp
+            SoundManager.cpp
 )
 
 target_include_directories(app_context
