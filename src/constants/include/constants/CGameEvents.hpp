@@ -9,7 +9,7 @@
 #include <helper/HGameEventTypes.hpp>
 
 namespace cst {
-    struct CGameEvents {
+    struct GameEvents {
         static inline size_t constexpr configEntryCount{ 7 };
 
         HGameEventType events{ 0b11111111 }; // default "global"

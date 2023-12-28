@@ -7,7 +7,7 @@
 #include <cstddef>
 
 namespace cst {
-    struct CPlayer final {
+    struct Player final {
         static inline size_t constexpr configEntryCount{ 3 };
 
         size_t minPlayerCount{ 2 };

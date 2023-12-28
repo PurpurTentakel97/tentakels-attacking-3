@@ -16,9 +16,9 @@ using Resolution_ty = Vector2&;
 using Resolution_ty_c = Vector2 const&;
 
 namespace cst {
-    struct CWindow;
-    using Window_ty = CWindow&;
-    using Window_ty_c = CWindow const&;
+    struct Window;
+    using Window_ty = Window&;
+    using Window_ty_c = Window const&;
 } // namespace cst
 
 // Elements

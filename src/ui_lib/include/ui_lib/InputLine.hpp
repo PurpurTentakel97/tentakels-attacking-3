@@ -189,8 +189,8 @@ public:
             if (time % 2 == 0) {
                 DrawTextEx(
                         *(appContext.assetManager.GetFont()),
-                        &cst::CTextProcessing::cursor,
-                        Vector2(posX + cst::CTextProcessing::cursorOffset + textLength.x,
+                        &cst::TextProcessing::cursor,
+                        Vector2(posX + cst::TextProcessing::cursorOffset + textLength.x,
                                 posY + m_collider.height * 0.05f),
                         fontSize,
                         0,

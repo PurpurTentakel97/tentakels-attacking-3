@@ -7,9 +7,9 @@
 
 namespace cst {
     int Constants::GetConfigValueCount() {
-        return CGlobal::configVersionCount + CFight::configEntryCount + CFleet::configEntryCount
-               + CGameEvents::configEntryCount + CGlobal::configEntryCount + CPlanet::configEntryCount
-               + CPlayer::configEntryCount + CSound::configEntryCount + CWindow::configEntryCount
-               + CWorld::configEntryCount;
+        return Global::configVersionCount + Fight::configEntryCount + Fleet::configEntryCount
+               + GameEvents::configEntryCount + Global::configEntryCount + Planet::configEntryCount
+               + Player::configEntryCount + Sound::configEntryCount + Window::configEntryCount
+               + World::configEntryCount;
     }
 } // namespace cst

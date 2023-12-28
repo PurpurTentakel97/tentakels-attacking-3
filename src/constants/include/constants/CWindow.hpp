@@ -13,7 +13,7 @@
 
 
 namespace cst {
-    struct CWindow final {
+    struct Window final {
         static inline size_t constexpr configEntryCount{ 3 };
 
         Resolution currentResolutionEnum{ Resolution::LAST };

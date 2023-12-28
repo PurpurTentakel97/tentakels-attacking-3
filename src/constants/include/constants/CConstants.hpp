@@ -19,19 +19,19 @@
 namespace cst {
     struct Constants final {
         // config related
-        CGameEvents gameEvents;
-        CFight fight;
-        CFleet fleet;
-        CGlobal global;
-        CPlanet planet;
-        CPlayer player;
-        CSound sound;
-        CWindow window;
-        CWorld world;
+        GameEvents gameEvents;
+        Fight fight;
+        Fleet fleet;
+        Global global;
+        Planet planet;
+        Player player;
+        Sound sound;
+        Window window;
+        World world;
 
         // non config related
-        CTextProcessing textProcessing;
-        CFiles files;
+        TextProcessing textProcessing;
+        Files files;
 
         [[nodiscard]] static int GetConfigValueCount();
     };

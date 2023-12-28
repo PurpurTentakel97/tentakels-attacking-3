@@ -6,7 +6,7 @@
 #include "CGameEvents.hpp"
 
 namespace cst {
-    void CGameEvents::SetFlag(HGameEventType const type, bool const active) {
+    void GameEvents::SetFlag(HGameEventType const type, bool const active) {
         if (active) {
             events |= type;
         } else {
@@ -17,7 +17,7 @@ namespace cst {
             events &= ~type;
         }
     }
-    bool CGameEvents::IsFlag(HGameEventType const type) const {
+    bool GameEvents::IsFlag(HGameEventType const type) const {
         return (events & type) == type;
     }
 } // namespace cst

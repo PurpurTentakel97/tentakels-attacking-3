@@ -7,7 +7,7 @@
 #include <cstddef>
 
 namespace cst {
-    struct CFleet final {
+    struct Fleet final {
         static inline size_t constexpr configEntryCount{ 3 };
 
         int minFleetSpeed{ 1 };

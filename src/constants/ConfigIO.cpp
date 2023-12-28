@@ -3,7 +3,7 @@
 // 27.10.2022
 //
 
-#include "ConfigIO.hpp"
+#include "CConfigIO.hpp"
 #include <AppContext.hpp>
 #include <cassert>
 #include <filesystem>
@@ -149,13 +149,13 @@ namespace cst {
         auto& constants = AppContext::GetInstance().constants;
         std::ifstream file;
 
-        if (!std::filesystem::exists(CFiles::configFile())) {
+        if (!std::filesystem::exists(Files::configFile())) {
             Print(PrintType::EXPECTED_ERROR, "no config existing");
             SaveConfig();
             return;
         }
 
-        file.open(CFiles::configFile());
+        file.open(Files::configFile());
         if (!file.is_open()) {
             Print(PrintType::INFO, "cant open config");
             return;
@@ -171,22 +171,22 @@ namespace cst {
             Print(PrintType::ERROR, "provided config is null {}", defaultValuePrefix);
             return;
         }
-        if (not isMatchingSize(load, ConfigTypes::CONFIG, CGlobal::configSectionCount)) {
+        if (not isMatchingSize(load, ConfigTypes::CONFIG, Global::configSectionCount)) {
             Print(PrintType::ERROR,
                   "config section count is not matching {} -> expected: {} -> provided: {}",
                   defaultValuePrefix,
-                  CGlobal::configSectionCount,
+                  Global::configSectionCount,
                   load.size());
         }
         // version
-        if (nlohmann::json version; loadSection(load, version, ConfigTypes::VERSION, CGlobal::configVersionCount)) {
+        if (nlohmann::json version; loadSection(load, version, ConfigTypes::VERSION, Global::configVersionCount)) {
             if (std::string versionConfig; loadString(version, versionConfig, ConfigTypes::VERSION_CONFIG)) {
-                if (versionConfig != CGlobal::configVersion) {
+                if (versionConfig != Global::configVersion) {
                     Print(PrintType::ERROR,
                           "config version in config is not matching -> expected: {} -> provided: {} -> overwrite "
                           "config by "
                           "save",
-                          CGlobal::configVersion,
+                          Global::configVersion,
                           versionConfig);
                 } else {
                     Print(PrintType::INFO, "config versions matching -> version: {}", versionConfig);
@@ -195,10 +195,10 @@ namespace cst {
                 Print(PrintType::ERROR, "unable to check if config version is matching");
             }
             if (std::string versionGame; loadString(version, versionGame, ConfigTypes::VERSION_GAME)) {
-                if (versionGame != CGlobal::gameVersion) {
+                if (versionGame != Global::gameVersion) {
                     Print(PrintType::ERROR,
                           "game version in config is not matching -> expected: {} -> provided: {} -> overwrite by save",
-                          CGlobal::gameVersion,
+                          Global::gameVersion,
                           versionGame);
                 } else {
                     Print(PrintType::INFO, "game versions matching -> version: {}", versionGame);
@@ -211,7 +211,7 @@ namespace cst {
         }
 
         // fight
-        if (nlohmann::json fight; loadSection(load, fight, ConfigTypes::FIGHT, CFight::configEntryCount)) {
+        if (nlohmann::json fight; loadSection(load, fight, ConfigTypes::FIGHT, Fight::configEntryCount)) {
             // clang-format off
         if (float out; loadFloat(fight, out, ConfigTypes::HIT_CHANCE                     )) { constants.fight.hitChance                     = out; }
         if (int   out;   loadInt(fight, out, ConfigTypes::FLEET_FIGHT_RANGE              )) { constants.fight.fleetFightRange               = out; }
@@ -222,7 +222,7 @@ namespace cst {
         // clang-format on
         }
         // fleet
-        if (nlohmann::json events; loadSection(load, events, ConfigTypes::GAME_EVENTS, CGameEvents::configEntryCount)) {
+        if (nlohmann::json events; loadSection(load, events, ConfigTypes::GAME_EVENTS, GameEvents::configEntryCount)) {
             // clang-format off
         if (bool  out;  loadBool(events, out, ConfigTypes::PIRATES            )) { constants.gameEvents.SetFlag(HGameEventType::PIRATES,        out); }
         if (bool  out;  loadBool(events, out, ConfigTypes::REVOLTS            )) { constants.gameEvents.SetFlag(HGameEventType::REVOLTS,        out); }
@@ -234,7 +234,7 @@ namespace cst {
         // clang-format on
         }
         // game events
-        if (nlohmann::json fleet; loadSection(load, fleet, ConfigTypes::FLEET, CFleet::configEntryCount)) {
+        if (nlohmann::json fleet; loadSection(load, fleet, ConfigTypes::FLEET, Fleet::configEntryCount)) {
             // clang-format off
         if (int out; loadInt(fleet, out, ConfigTypes::FLEET_SPEED_CURRENT)) { constants.fleet.currentFleetSpeed = out; }
         if (int out; loadInt(fleet, out, ConfigTypes::FLEET_SPEED_MAX    )) { constants.fleet.maxFleetSpeed     = out; }
@@ -242,7 +242,7 @@ namespace cst {
         // clang-format on
         }
         // global
-        if (nlohmann::json global; loadSection(load, global, ConfigTypes::GLOBAL, CGlobal::configEntryCount)) {
+        if (nlohmann::json global; loadSection(load, global, ConfigTypes::GLOBAL, Global::configEntryCount)) {
             // clang-format off
         if (std::string out; loadString(global, out, ConfigTypes::CURRENT_LANGUAGE_NAME)) {constants.global.currentLanguageName = out;}
         if (int out; loadInt(global, out, ConfigTypes::GAME_ROUNDS_CURRENT)) { constants.global.currentTargetRound = static_cast<size_t>(out); }
@@ -251,7 +251,7 @@ namespace cst {
         // clang-format on
         }
         // planet
-        if (nlohmann::json planet; loadSection(load, planet, ConfigTypes::PLANET, CPlanet::configEntryCount)) {
+        if (nlohmann::json planet; loadSection(load, planet, ConfigTypes::PLANET, Planet::configEntryCount)) {
             // clang-format off
         if (int   out;   loadInt(planet, out, ConfigTypes::PRODUCTION_HOME_WORLD           )) { constants.planet.homeworldProduction              = static_cast<size_t>(out); }
         if (int   out;   loadInt(planet, out, ConfigTypes::PRODUCTION_MAX                  )) { constants.planet.maxProduction                    = static_cast<size_t>(out); }
@@ -264,7 +264,7 @@ namespace cst {
         // clang-format on
         }
         // player
-        if (nlohmann::json player; loadSection(load, player, ConfigTypes::PLAYER, CPlayer::configEntryCount)) {
+        if (nlohmann::json player; loadSection(load, player, ConfigTypes::PLAYER, Player::configEntryCount)) {
             // clang-format off
         if (int  out;  loadInt(player, out, ConfigTypes::PLAYER_COUNT_MAX)) { constants.player.maxPlayerCount = static_cast<size_t>(out); }
         if (int  out;  loadInt(player, out, ConfigTypes::PLAYER_COUNT_MIN)) { constants.player.minPlayerCount = static_cast<size_t>(out); }
@@ -272,14 +272,14 @@ namespace cst {
         // clang-format on
         }
         // sound
-        if (nlohmann::json sound; loadSection(load, sound, ConfigTypes::SOUND, CSound::configEntryCount)) {
+        if (nlohmann::json sound; loadSection(load, sound, ConfigTypes::SOUND, Sound::configEntryCount)) {
             // clang-format off
         if (float out; loadFloat(sound, out, ConfigTypes::VOLUME_MASTER   )) { constants.sound.masterVolume = out; }
         if (bool  out;  loadBool(sound, out, ConfigTypes::VOLUME_MUTE_BOOL)) { constants.sound.muteVolume   = out; }
         // clang-format on
         }
         // window
-        if (nlohmann::json window; loadSection(load, window, ConfigTypes::WINDOW, CWindow::configEntryCount)) {
+        if (nlohmann::json window; loadSection(load, window, ConfigTypes::WINDOW, Window::configEntryCount)) {
             // clang-format off
         if (int  out;  loadInt(window, out, ConfigTypes::RESOLUTION_AS_ENUM)) { constants.window.currentResolutionEnum = static_cast<Resolution>(out); }
         if (bool out; loadBool(window, out, ConfigTypes::FULL_SCREEN_BOOL  )) { constants.window.isFullScreen          =                         out ; }
@@ -287,7 +287,7 @@ namespace cst {
         // clang-format on
         }
         // world
-        if (nlohmann::json world; loadSection(load, world, ConfigTypes::WORLD, CWorld::configEntryCount)) {
+        if (nlohmann::json world; loadSection(load, world, ConfigTypes::WORLD, World::configEntryCount)) {
             // clang-format off
         if (int out; loadInt(world, out, ConfigTypes::DIMENSION_X_CURRENT     )) { constants.world.currentDimensionX   =                     out;  }
         if (int out; loadInt(world, out, ConfigTypes::DIMENSION_X_MAX         )) { constants.world.maxDimensionX       =                     out;  }
@@ -396,8 +396,8 @@ namespace cst {
         };
         save[CToS(ConfigTypes::VERSION)] = {
   // clang-format off
-        { CToS(ConfigTypes::VERSION_CONFIG), CGlobal::configVersion },
-        { CToS(ConfigTypes::VERSION_GAME  ), CGlobal::gameVersion   },
+        { CToS(ConfigTypes::VERSION_CONFIG), Global::configVersion },
+        { CToS(ConfigTypes::VERSION_GAME  ), Global::gameVersion   },
   // clang-format on
         };
         save[CToS(ConfigTypes::WINDOW)] = {
@@ -428,17 +428,17 @@ namespace cst {
         // saving
         std::ofstream file{};
 
-        if (!std::filesystem::exists(CFiles::savesDir)) {
+        if (!std::filesystem::exists(Files::savesDir)) {
             Print(PrintType::EXPECTED_ERROR, "saves dir does not exists");
-            std::filesystem::create_directory(CFiles::savesDir);
+            std::filesystem::create_directory(Files::savesDir);
             Print(PrintType::INFO, "saves dir generated");
         }
 
-        if (!std::filesystem::exists(CFiles::configFile())) {
+        if (!std::filesystem::exists(Files::configFile())) {
             Print(PrintType::INFO, "config generated");
         }
 
-        file.open(CFiles::configFile());
+        file.open(Files::configFile());
 
         file << save.dump(4);
         file.close();

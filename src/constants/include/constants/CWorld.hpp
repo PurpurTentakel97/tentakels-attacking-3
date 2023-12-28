@@ -8,7 +8,7 @@
 
 
 namespace cst {
-    struct CWorld final {
+    struct World final {
         static inline size_t constexpr configEntryCount{ 13 };
 
         size_t minPlanetCount{ 20 };

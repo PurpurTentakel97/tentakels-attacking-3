@@ -8,7 +8,7 @@
 #include <string>
 
 namespace cst {
-    struct CFiles final {
+    struct Files final {
     private:
         static inline std::string const m_configFile{ "config.tac" };
         static inline std::string m_debugLogFile{ "default.txt" };

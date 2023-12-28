@@ -7,7 +7,7 @@
 #include <cstddef>
 
 namespace cst {
-    struct CSound final {
+    struct Sound final {
         static inline size_t constexpr configEntryCount{ 2 };
 
         bool muteVolume{ false };

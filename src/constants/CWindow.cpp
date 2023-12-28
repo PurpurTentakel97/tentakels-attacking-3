@@ -9,7 +9,7 @@
 
 
 namespace cst {
-    bool CWindow::IsPossibleResolution(Resolution const toProve) const {
+    bool Window::IsPossibleResolution(Resolution const toProve) const {
         auto const value = GetIntFromResolution(toProve);
 
         if (nativeResolutionVec.x < value.x) {
@@ -21,7 +21,7 @@ namespace cst {
         return true;
     }
 
-    std::vector<std::pair<Resolution, std::string>> CWindow::GetAllResolutionsAsString() const {
+    std::vector<std::pair<Resolution, std::string>> Window::GetAllResolutionsAsString() const {
         std::vector<std::pair<Resolution, std::string>> toReturn;
 
         for (int i = 0; i != static_cast<int>(Resolution::LAST); ++i) {
@@ -37,7 +37,7 @@ namespace cst {
         return toReturn;
     }
 
-    std::string CWindow::GetStringFromResolution(Resolution const resolution) const {
+    std::string Window::GetStringFromResolution(Resolution const resolution) const {
 
         switch (resolution) {
 
@@ -95,7 +95,7 @@ namespace cst {
         }
     }
 
-    HVec2<int> CWindow::GetIntFromResolution(Resolution const resolution) const {
+    HVec2<int> Window::GetIntFromResolution(Resolution const resolution) const {
 
         switch (resolution) {
 

@@ -8,7 +8,7 @@
 #include <string>
 
 namespace cst {
-    struct CGlobal final {
+    struct Global final {
         // config counts
         static inline size_t constexpr configEntryCount{ 4 };
         static inline size_t constexpr configVersionCount{ 2 };

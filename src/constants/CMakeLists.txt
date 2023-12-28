@@ -11,7 +11,7 @@ add_library(constants STATIC
             include/constants/CTextProcessing.hpp
             include/constants/CWindow.hpp
             include/constants/CWorld.hpp
-            include/constants/ConfigIO.hpp
+            include/constants/CConfigIO.hpp
             CConstants.cpp
             CGameEvents.cpp
             CWindow.cpp

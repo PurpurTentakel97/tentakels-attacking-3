@@ -7,7 +7,7 @@
 #include <cstddef>
 
 namespace cst {
-    struct CFight final {
+    struct Fight final {
         static inline size_t constexpr configEntryCount{ 6 };
         float hitChance{ 0.3f };
         int fleetFightRange{ 4 };

@@ -7,7 +7,7 @@
 #include <cstddef>
 
 namespace cst {
-    struct CPlanet final {
+    struct Planet final {
         static inline size_t constexpr configEntryCount{ 8 };
 
         size_t maxShipsFactor{ 25 };

@@ -174,7 +174,7 @@ UIManager::~UIManager() {
 
 void UIManager::StartUI() {
 
-    SetWindowTitle(("Tentakels Attacking " + cst::CGlobal::gameVersion).c_str());
+    SetWindowTitle(("Tentakels Attacking " + cst::Global::gameVersion).c_str());
     cst::Window_ty window{ m_appContext.constants.window };
     window.nativeResolutionVec = window.GetIntFromResolution(Resolution::SCREEN);
 

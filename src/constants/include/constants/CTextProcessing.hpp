@@ -7,7 +7,7 @@
 #include <string>
 
 namespace cst {
-    struct CTextProcessing final {
+    struct TextProcessing final {
         static constexpr char cursor{ '_' };
         static inline std::string const prefix{ "..." };
         static constexpr int cursorOffset{ 5 };
