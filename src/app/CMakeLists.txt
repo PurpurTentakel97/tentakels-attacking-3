@@ -1,4 +1,5 @@
 add_library(app_context STATIC
+            include/app/AliasApp.hpp
             include/app/AppContext.hpp
             AppContext.cpp
 )

@@ -7,10 +7,6 @@
 #include <memory>
 #include <vector>
 
-struct AppContext;
-using AppContext_ty = AppContext&;
-using AppContext_ty_c = AppContext const&;
-
 template<typename T>
 struct HVec2;
 using vec2pos_ty = HVec2<int>;
