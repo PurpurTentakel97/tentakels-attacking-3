@@ -6,10 +6,12 @@
 #pragma once
 
 
-class Event {
-protected:
-    Event() = default;
+namespace eve {
+    class Event {
+    protected:
+        Event() = default;
 
-public:
-    virtual ~Event() = default;
-};
+    public:
+        virtual ~Event() = default;
+    };
+} // namespace eve
