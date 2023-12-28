@@ -17,7 +17,7 @@ private:
     std::vector<std::vector<T*>> m_elements;
     size_t m_layer{ 0 };
 
-    [[nodiscard]] bool IsValidIndex(int index) const {
+    [[nodiscard]] bool IsValidIndex(int const index) const {
         return { index >= 0 && index < m_elements.at(m_layer).size() };
     }
 
@@ -61,16 +61,16 @@ public:
     }
 
 
-    void AddElement(T* element) {
+    void AddElement(T* const element) {
         CurrentLayer().push_back(element);
     }
 
-    void RemoveElement(T* element) {
+    void RemoveElement(T* const element) {
         auto& currentLayer{ CurrentLayer() };
         currentLayer.erase(std::remove(currentLayer.begin(), currentLayer.end(), element), currentLayer.end());
     }
 
-    void RemoveElement(int index) {
+    void RemoveElement(int const index) {
         if (!IsValidIndex(index)) {
             throw std::out_of_range(std::to_string(index) + " out of Range");
         }
@@ -101,7 +101,7 @@ public:
         return CurrentLayer().size();
     }
 
-    [[nodiscard]] T* At(int index) {
+    [[nodiscard]] T* At(int const index) {
         if (!IsValidIndex(index)) {
             throw std::out_of_range(std::to_string(index) + " out of Range");
         }
@@ -109,7 +109,7 @@ public:
         return CurrentLayer().at(index);
     }
 
-    [[nodiscard]] T* operator[](int index) {
+    [[nodiscard]] T* operator[](int const index) {
         return At(index);
     }
 };

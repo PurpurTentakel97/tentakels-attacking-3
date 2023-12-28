@@ -47,7 +47,7 @@ public:
 };
 
 template<typename... Args>
-inline std::string HLanguageManager::ReplacePlaceholders(std::string_view text, Args const&... args) const {
+inline std::string HLanguageManager::ReplacePlaceholders(std::string_view const text, Args const&... args) const {
     try {
         return std::vformat(text, std::make_format_args(args...));
     } catch (std::format_error const&) {

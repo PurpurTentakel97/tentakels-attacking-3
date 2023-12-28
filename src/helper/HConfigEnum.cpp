@@ -5,7 +5,7 @@
 
 #include "HConfigEnum.hpp"
 
-std::string CToS(ConfigTypes type) {
+std::string CToS(ConfigTypes const type) {
     switch (type) {
         case ConfigTypes::CONFIG:
             return "config";

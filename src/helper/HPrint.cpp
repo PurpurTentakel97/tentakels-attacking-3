@@ -6,7 +6,7 @@
 #include "HPrint.hpp"
 
 
-void Print(PrintType printType, std::string const& message) {
+void Print(PrintType const printType, std::string const& message) {
 #ifndef _DEBUG
     if (printType == PrintType::ONLY_DEBUG) {
         return;

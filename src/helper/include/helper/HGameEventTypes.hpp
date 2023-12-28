@@ -9,13 +9,15 @@
 
 
 enum class HGameEventType : uint8_t {
-    PIRATES = 0b00000001,        // 1
-    REVOLTS = 0b00000010,        // 2
+    // clang-format off
+    PIRATES        = 0b00000001, // 1
+    REVOLTS        = 0b00000010, // 2
     RENEGADE_SHIPS = 0b00000100, // 4
-    BLACK_HOLE = 0b00001000,     // 8
-    SUPERNOVA = 0b00010000,      // 16
+    BLACK_HOLE     = 0b00001000, // 8
+    SUPERNOVA      = 0b00010000, // 16
     ENGINE_PROBLEM = 0b00100000, // 32
-    GLOBAL = 0b11111111,
+    GLOBAL         = 0b11111111,
+    // clang-format on
 };
 
 inline HGameEventType operator|(HGameEventType lhs, HGameEventType rhs) {

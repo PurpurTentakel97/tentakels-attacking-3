@@ -41,7 +41,7 @@
     return toReturn;
 }
 
-void BreakText(std::string& toBreak, float fontSize, float length, AppContext_ty_c appContext) {
+void BreakText(std::string& toBreak, float const fontSize, float const length, AppContext_ty_c appContext) {
     size_t lhs{ 0 };
     size_t rhs{ 0 };
 
@@ -68,7 +68,7 @@ void BreakText(std::string& toBreak, float fontSize, float length, AppContext_ty
     }
 }
 
-std::vector<std::string> BreakTextInVector(std::string const& toBreak, float fontSize, float length) {
+std::vector<std::string> BreakTextInVector(std::string const& toBreak, float const fontSize, float const length) {
     auto getTextLength = [fontSize](std::string const& text) -> float {
         Vector2 textSize =
                 MeasureTextEx(*(AppContext::GetInstance().assetManager.GetFont()), text.c_str(), fontSize, 0.0f);
@@ -109,12 +109,16 @@ std::vector<std::string> BreakTextInVector(std::string const& toBreak, float fon
     return toReturn;
 }
 
-float GetElementTextHeight(Vector2 const& relativeSize, float absoluteHeight) {
+float GetElementTextHeight(Vector2 const& relativeSize, float const absoluteHeight) {
     return relativeSize.y * absoluteHeight;
 }
 
-std::string
-GetPrintableTextInCollider(std::string const& text, float fontSize, Rectangle collider, AppContext_ty_c appContext) {
+std::string GetPrintableTextInCollider(
+        std::string const& text,
+        float const fontSize,
+        Rectangle const collider,
+        AppContext_ty_c appContext
+) {
     Vector2 textSize = MeasureTextEx(
             *(appContext.assetManager.GetFont()),
             (text + CTextProcessing::cursor).c_str(),
@@ -142,8 +146,8 @@ GetPrintableTextInCollider(std::string const& text, float fontSize, Rectangle co
 
 std::string GetPrintablePlaceholderTextInCollider(
         std::string const& text,
-        float fontSize,
-        Rectangle collider,
+        float const fontSize,
+        Rectangle const collider,
         AppContext_ty_c appContext
 ) {
     Vector2 textSize = MeasureTextEx(*(appContext.assetManager.GetFont()), text.c_str(), fontSize, 0.0f);
@@ -175,8 +179,12 @@ void StripString(std::string& toStrip) {
     toStrip = toStrip.substr(pos1, pos2 - pos1 + 1);
 }
 
-Vector2
-GetVerticalAlignedTextPosition(std::string const& text, float fontSize, Rectangle collider, Alignment alignment) {
+Vector2 GetVerticalAlignedTextPosition(
+        std::string const& text,
+        float const fontSize,
+        Rectangle const collider,
+        Alignment const alignment
+) {
 
     TextAlignment const textAlignment{ GetVerticalTextAlignment(alignment) };
 
@@ -197,8 +205,12 @@ GetVerticalAlignedTextPosition(std::string const& text, float fontSize, Rectangl
     return { collider.x, collider.y + difference };
 }
 
-std::vector<float>
-GetVerticalAlignedOffset(std::vector<std::string> text, float fontSize, Rectangle collider, Alignment alignment) {
+std::vector<float> GetVerticalAlignedOffset(
+        std::vector<std::string> text,
+        float const fontSize,
+        Rectangle const collider,
+        Alignment const alignment
+) {
 
     AppContext_ty_c appContext{ AppContext::GetInstance() };
     TextAlignment const textAlignment{ GetVerticalTextAlignment(alignment) };
@@ -230,7 +242,12 @@ GetVerticalAlignedOffset(std::vector<std::string> text, float fontSize, Rectangl
     return toReturn;
 }
 
-std::string GetHorizontalAlignedText(std::string const& text, Rectangle collider, float fontSize, Alignment alignment) {
+std::string GetHorizontalAlignedText(
+        std::string const& text,
+        Rectangle const collider,
+        float const fontSize,
+        Alignment const alignment
+) {
 
     TextAlignment const textAlignment{ GetHorizontalTextAlignment(alignment) };
 
@@ -270,9 +287,9 @@ std::string GetHorizontalAlignedText(std::string const& text, Rectangle collider
 
 std::vector<float> GetHorizontalAlignedOffset(
         std::vector<std::string> const& text,
-        Rectangle collider,
-        float fontSize,
-        Alignment alignment
+        Rectangle const collider,
+        float const fontSize,
+        Alignment const alignment
 ) {
     AppContext_ty_c appContext{ AppContext::GetInstance() };
     TextAlignment const textAlignment{ GetHorizontalTextAlignment(alignment) };
@@ -304,7 +321,13 @@ std::vector<float> GetHorizontalAlignedOffset(
     return toReturn;
 }
 
-void DrawTextWithOutline(std::string const& text, Vector2 position, float size, Color color, bool background) {
+void DrawTextWithOutline(
+        std::string const& text,
+        Vector2 const position,
+        float const size,
+        Color const color,
+        bool const background
+) {
     AppContext_ty_c appContext{ AppContext::GetInstance() };
     // background text
     if (Colors::NeedBackground(color) and background) {

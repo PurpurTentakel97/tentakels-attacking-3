@@ -13,7 +13,7 @@ template<class T>
 struct HVec2 final {
     T x, y;
 
-    HVec2(T x_, T y_) : x{ x_ }, y{ y_ } { }
+    HVec2(T const x_, T const y_) : x{ x_ }, y{ y_ } { }
 
     HVec2(HVec2<T> const& toCopy) : x{ toCopy.x }, y{ toCopy.y } { }
 
@@ -82,6 +82,6 @@ HVec2<T> operator/(HVec2<T> const& vector, T const number) {
 }
 
 template<typename T>
-inline HVec2<T> Abs(HVec2<T> vec) {
+inline HVec2<T> Abs(HVec2<T> const vec) {
     return { abs(vec.x), abs(vec.y) };
 }
