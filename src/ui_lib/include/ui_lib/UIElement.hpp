@@ -83,7 +83,7 @@ protected:
         Move(diff);
     }
 
-    void Move(Vector2 offset) {
+    void Move(Vector2 const offset) {
         m_pos = { m_pos.x + offset.x, m_pos.y + offset.y };
 
         UpdateCollider();
@@ -111,7 +111,7 @@ protected:
     }
 
 public:
-    UIElement(Vector2 pos, Vector2 size, Alignment alignment) : m_pos{ pos }, m_size{ size }, m_alignment{ alignment } {
+    UIElement(Vector2 const pos, Vector2 const size, Alignment const alignment) : m_pos{ pos }, m_size{ size }, m_alignment{ alignment } {
 
         m_collider = GetAlignedCollider(m_pos, m_size, alignment);
     }
@@ -126,7 +126,7 @@ public:
         return m_alignment;
     }
 
-    virtual void SetPosition(Vector2 pos) {
+    virtual void SetPosition(Vector2 const pos) {
         m_pos = pos;
         m_collider = GetAlignedCollider(m_pos, m_size, m_alignment);
     }
@@ -149,7 +149,7 @@ public:
         return m_size;
     }
 
-    virtual void SetCollider(Rectangle collider) {
+    virtual void SetCollider(Rectangle const collider) {
         m_collider = collider;
         UpdateColliderReverse();
     }
@@ -158,7 +158,7 @@ public:
         return m_collider;
     }
 
-    virtual void MoveBySpeed(float relativeSpeed, float angle) {
+    virtual void MoveBySpeed(float const relativeSpeed, float const angle) {
         m_moveType = MoveType::SPEED_LINEAR;
         m_targetPosition = { 0.0f, 0.0f };
         m_startingPosition = { 0.0f, 0.0f };
@@ -171,7 +171,7 @@ public:
         m_relativeSpeed = { speedX, speedY };
     }
 
-    virtual void MoveToPositionLinear(Vector2 position, float relativeSpeed) {
+    virtual void MoveToPositionLinear(Vector2 const position, float const relativeSpeed) {
         StopMoving();
         m_moveType = MoveType::POINT_LINEAR;
         m_startingPosition = m_pos;
@@ -179,7 +179,7 @@ public:
         m_relativeSpeed = { relativeSpeed, relativeSpeed };
     }
 
-    virtual void MoveToPositionAsymptotic(Vector2 position, float relativeSpeed) {
+    virtual void MoveToPositionAsymptotic(Vector2 const position, float const relativeSpeed) {
         StopMoving();
         m_moveType = MoveType::POINT_ASYMPTOTIC;
         m_startingPosition = m_pos;

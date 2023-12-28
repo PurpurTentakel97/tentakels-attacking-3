@@ -20,13 +20,13 @@ void CountRing::CalculateRing() {
 }
 
 CountRing::CountRing(
-        Vector2 pos,
-        Vector2 size,
-        Alignment alignment,
-        float dotSize,
-        float ringSize,
-        int currentCount,
-        int maxCount
+        Vector2 const pos,
+        Vector2 const size,
+        Alignment const alignment,
+        float const dotSize,
+        float const ringSize,
+        int const currentCount,
+        int const maxCount
 )
     : UIElement{ pos, size, alignment },
       m_relativeDotSize{ dotSize },
@@ -52,7 +52,7 @@ int CountRing::GetMaxCount() const {
     return m_maxCount;
 }
 
-void CountRing::SetMaxCount(int maxCount) {
+void CountRing::SetMaxCount(int const maxCount) {
     m_maxCount = maxCount;
 }
 
@@ -60,7 +60,7 @@ int CountRing::GetCurrentCount() const {
     return m_currentCount;
 }
 
-void CountRing::SetCurrentCount(int currentCount) {
+void CountRing::SetCurrentCount(int const currentCount) {
     m_currentCount = currentCount;
 }
 
@@ -68,7 +68,7 @@ Color CountRing::GetDotColor() const {
     return m_dotColor;
 }
 
-void CountRing::SetDotColor(Color color) {
+void CountRing::SetDotColor(Color const color) {
     m_dotColor = color;
 }
 
@@ -76,11 +76,11 @@ Color CountRing::GetRingColor() const {
     return m_ringColor;
 }
 
-void CountRing::SetRingColor(Color color) {
+void CountRing::SetRingColor(Color const color) {
     m_ringColor = color;
 }
 
-void CountRing::SetPosition(Vector2 newPos) {
+void CountRing::SetPosition(Vector2 const newPos) {
     UIElement::SetPosition(newPos);
     Update();
 }

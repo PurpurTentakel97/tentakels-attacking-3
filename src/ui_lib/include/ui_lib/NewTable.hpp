@@ -138,7 +138,7 @@ public:
     void showHeadline(bool headline);
 
     template<CellValueType T>
-    void setHeadline(size_t column, T value) {
+    void setHeadline(size_t const column, T const value) {
         if (not validColumn(column)) {
             throw std::runtime_error{ IndexOutOfRangeExceptionString(size_t{ 0 }, column) };
         }
@@ -149,7 +149,7 @@ public:
     void clearHeadline(size_t column);
 
     template<CellValueType T>
-    void setHeadlines(std::vector<T> values) {
+    void setHeadlines(std::vector<T> const values) {
         if (values.size() > m_column_count) {
             throw std::runtime_error{ "more headlines provided than columns existing" };
         }

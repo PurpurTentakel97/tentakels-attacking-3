@@ -22,7 +22,7 @@ void CheckBox::Check(AppContext_ty_c appContext) {
     m_onCheck(m_ID, m_isChecked);
 }
 
-CheckBox::CheckBox(unsigned int focusID, Vector2 pos, float height, Alignment alignment, unsigned int checkBoxID)
+CheckBox::CheckBox(unsigned int const focusID, Vector2 const pos, float const height, Alignment const alignment, unsigned int const checkBoxID)
 	: UIElement{ pos, { 0.0f, height }, alignment }, Focusable{ focusID },
 	m_ID{ checkBoxID } {
 
@@ -43,7 +43,7 @@ unsigned int CheckBox::GetID() const {
     return m_ID;
 }
 
-void CheckBox::SetChecked(bool isChecked) {
+void CheckBox::SetChecked(bool const isChecked) {
     m_isChecked = isChecked;
 }
 
@@ -51,7 +51,7 @@ bool CheckBox::IsChecked() const {
     return m_isChecked;
 }
 
-void CheckBox::SetEnabled(bool isEnabled) {
+void CheckBox::SetEnabled(bool const isEnabled) {
     m_isEnabled = isEnabled;
 }
 
@@ -100,7 +100,7 @@ void CheckBox::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appC
     }
 }
 
-void CheckBox::Render([[maybe_unused]] AppContext_ty_c appContext) {
+void CheckBox::Render(AppContext_ty_c) {
     DrawRectangleLinesEx(m_collider, 3.0f, WHITE);
 
     if (m_isChecked) {

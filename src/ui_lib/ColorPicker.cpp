@@ -86,7 +86,13 @@ void ColorPicker::CheckForValidColor(AppContext_ty_c appContext) {
     SetColor(appContext.playerCollection.GetPossibleColor());
 }
 
-ColorPicker::ColorPicker(unsigned int ID, Vector2 pos, Vector2 size, Alignment alignment, bool isPopUp)
+ColorPicker::ColorPicker(
+        unsigned int const ID,
+        Vector2 const pos,
+        Vector2 const size,
+        Alignment const alignment,
+        bool const isPopUp
+)
     : UIElement{ pos, size, alignment },
       Focusable{ ID },
       m_isPopUp{ isPopUp } {
@@ -113,13 +119,13 @@ bool ColorPicker::HasColorChanced() const {
     return m_currentColorCell->GetColor() != m_previousColorCell->GetColor();
 }
 
-bool ColorPicker::SetInitialColor(Color color) {
+bool ColorPicker::SetInitialColor(Color const color) {
     bool const set{ SetColor(color) };
     m_previousColorCell = m_currentColorCell;
     return set;
 }
 
-bool ColorPicker::SetColor(Color color) {
+bool ColorPicker::SetColor(Color const color) {
     for (auto& c : m_cells) {
         if (c->GetColor() == color) {
             if (!c->IsEnabled()) {
@@ -163,7 +169,7 @@ void ColorPicker::SetCellFocuses([[maybe_unused]] AppContext_ty_c appContext) {
     m_isNestedFocus = true;
 }
 
-void ColorPicker::SetEnabled(bool enabled, Color color) {
+void ColorPicker::SetEnabled(bool const enabled, Color const color) {
     for (auto& c : m_cells) {
         if (c->GetColor() == color) {
             c->SetEnabled(enabled);

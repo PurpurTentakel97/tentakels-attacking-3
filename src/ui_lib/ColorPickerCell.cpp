@@ -14,7 +14,7 @@ void ColorPickerCell::SetColor() const {
     m_colorPicker->SetColor(m_color);
 }
 
-ColorPickerCell::ColorPickerCell(unsigned int ID, Vector2 pos, Vector2 size, Alignment alignment, Color color, ColorPicker* colorPicker)
+ColorPickerCell::ColorPickerCell(unsigned int const ID, Vector2 const pos, Vector2 const size, Alignment const alignment, Color const color, ColorPicker* const colorPicker)
 	: UIElement{ pos, size, alignment },Focusable{ ID },
 	m_color{ color }, m_colorPicker{ colorPicker },
 	m_hover{
@@ -38,7 +38,7 @@ bool ColorPickerCell::IsBlankCell() const {
     return m_color == BLANK;
 }
 
-void ColorPickerCell::SetEnabled(bool enabled) {
+void ColorPickerCell::SetEnabled(bool const enabled) {
     if (IsBlankCell()) {
         m_enabled = false;
         return;
@@ -82,7 +82,7 @@ void ColorPickerCell::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty
 }
 
 
-void ColorPickerCell::Render([[maybe_unused]] AppContext_ty_c appContext) {
+void ColorPickerCell::Render(AppContext_ty_c) {
     if (!m_enabled) {
         return;
     }

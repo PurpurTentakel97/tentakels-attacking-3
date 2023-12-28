@@ -67,7 +67,7 @@ bool NewTableCell::IsEnabled() const {
     return m_isEnabled;
 }
 
-void NewTableCell::setEnabled(bool isEnabled) {
+void NewTableCell::setEnabled(bool const isEnabled) {
     m_isEnabled = isEnabled;
 }
 
@@ -75,7 +75,7 @@ bool NewTableCell::is_hovered(Vector2 const& mousePosition) const {
     return CheckCollisionPointRec(mousePosition, m_collider);
 }
 
-void NewTableCell::set_hovered(bool hovered) {
+void NewTableCell::set_hovered(bool const hovered) {
     m_renderHovered = hovered;
 }
 
@@ -101,7 +101,7 @@ void NewTableCell::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c 
     UIElement::CheckAndUpdate(mousePosition, appContext);
 }
 
-void NewTableCell::SetSize(Vector2 size) {
+void NewTableCell::SetSize(Vector2 const size) {
     UIElement::SetSize(size);
     set_text_offset();
 }

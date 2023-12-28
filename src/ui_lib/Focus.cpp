@@ -204,7 +204,7 @@ void Focus::AddPopUpLayer() {
     ++m_PopUpLayerCounter;
 }
 
-void Focus::DeleteLayer(bool setNewFocus) {
+void Focus::DeleteLayer(bool const setNewFocus) {
     for (auto f : m_focus) {
         f->SetFocus(false);
     }
@@ -240,7 +240,7 @@ void Focus::DeletePopUpLayer() {
     }
 }
 
-void Focus::AddElement(Focusable_ty_raw focusable, bool setNewFocus) {
+void Focus::AddElement(Focusable_ty_raw focusable, bool const setNewFocus) {
     CheckNewID(focusable->GetFocusID());
     m_focus.AddElement(focusable);
 
@@ -266,7 +266,7 @@ void Focus::AddPopUpElement(Focusable_ty_raw focusable) {
     AddElement(focusable);
 }
 
-void Focus::DeleteElement(Focusable_ty_raw focusable, bool setNextFocus) {
+void Focus::DeleteElement(Focusable_ty_raw focusable, bool const setNextFocus) {
     m_focus.RemoveElement(focusable);
 
     if (!setNextFocus) {
@@ -356,7 +356,7 @@ void Focus::SetLayerAfterPopUp() {
     }
 }
 
-void Focus::CheckNewID(unsigned int newID) {
+void Focus::CheckNewID(unsigned int const newID) {
     for (auto focus : m_focus) {
         if (focus->GetFocusID() == newID) {
             throw std::invalid_argument("ID already exists, ID: " + std::to_string(newID));

@@ -41,7 +41,7 @@ void DropDown::Initialize(std::vector<std::string> const& elements, unsigned int
     }
 }
 
-void DropDown::OnElementClick(unsigned int ID) {
+void DropDown::OnElementClick(unsigned int const ID) {
     SetCurrentElementByID(ID);
     m_onSave(ID);
 }
@@ -92,7 +92,7 @@ void DropDown::ToggleFoldedOut() {
     }
 }
 
-Rectangle DropDown::GetTemporaryCollider(Rectangle collider) const {
+Rectangle DropDown::GetTemporaryCollider(Rectangle const collider) const {
 
     return GetCollisionRec(m_dropDownCollider, collider);
 }
@@ -104,7 +104,7 @@ void DropDown::CheckAndSetElementsEnabled() {
     }
 }
 
-void DropDown::ScrollMove(float wheel) {
+void DropDown::ScrollMove(float const wheel) {
 
     if (!m_isScrolling) {
         return;
@@ -176,12 +176,12 @@ void DropDown::UpdateCollider() {
 }
 
 DropDown::DropDown(
-        Vector2 pos,
-        Vector2 size,
-        Alignment alignment,
-        float dropDownHeight,
-        unsigned int focusID,
-        unsigned int startElementFocusID,
+        Vector2 const pos,
+        Vector2 const size,
+        Alignment const alignment,
+        float const dropDownHeight,
+        unsigned int const focusID,
+        unsigned int const startElementFocusID,
         std::vector<std::string> const& elements
 )
     : UIElement{ pos, size, alignment },
@@ -216,7 +216,7 @@ std::shared_ptr<DropDownElement> DropDown::GetCurrentElement() const {
     return m_currentElement;
 }
 
-bool DropDown::SetCurrentElementByID(unsigned int ID) {
+bool DropDown::SetCurrentElementByID(unsigned int const ID) {
 
     for (auto const& e : m_dropDownElements) {
         if (e->GetID() == ID) {
@@ -357,7 +357,7 @@ bool DropDown::IsEnabled() const {
     return m_isEnabled;
 }
 
-void DropDown::SetEnabled(bool isEnabled) {
+void DropDown::SetEnabled(bool const isEnabled) {
     m_isEnabled = isEnabled;
 }
 

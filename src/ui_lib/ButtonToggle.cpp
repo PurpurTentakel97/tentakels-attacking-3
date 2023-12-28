@@ -26,12 +26,12 @@ void ToggleButton::UpdateState() {
 }
 
 ToggleButton::ToggleButton(
-        unsigned int focusID,
-        Vector2 pos,
-        Vector2 size,
-        Alignment alignment,
+        unsigned int const focusID,
+        Vector2 const pos,
+        Vector2 const size,
+        Alignment const alignment,
         std::string const& text,
-        SoundType releaseSound
+        SoundType const releaseSound
 )
     : Button{ pos, size, alignment, text, releaseSound },
       Focusable{ focusID } { }
@@ -145,7 +145,7 @@ Rectangle ToggleButton::GetCollider() const {
     return m_collider;
 }
 
-void ToggleButton::SetEnabled(bool enabled) {
+void ToggleButton::SetEnabled(bool const enabled) {
     Button::SetEnabled(enabled);
     UpdateState();
 }
@@ -158,7 +158,7 @@ bool ToggleButton::IsToggled() const {
     return m_isToggled;
 }
 
-void ToggleButton::SetToggleButton(bool isToggled) {
+void ToggleButton::SetToggleButton(bool const isToggled) {
     m_isToggled = isToggled;
     UpdateState();
 }

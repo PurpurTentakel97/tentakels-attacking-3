@@ -7,28 +7,28 @@
 #include <cassert>
 #include <helper/HVec2.hpp>
 
-NewTableCell& NewTable::getSpecialCell(size_t row, size_t column) {
+NewTableCell& NewTable::getSpecialCell(size_t const row, size_t const column) {
     if (not validSpecialIndex(row, column)) {
         throw std::runtime_error{ IndexOutOfRangeExceptionString(row, column) };
     }
     return *m_cells[row][column];
 }
 
-NewTableCell const& NewTable::getSpecialCell(size_t row, size_t column) const {
+NewTableCell const& NewTable::getSpecialCell(size_t const row, size_t const column) const {
     if (not validSpecialIndex(row, column)) {
         throw std::runtime_error{ IndexOutOfRangeExceptionString(row, column) };
     }
     return *m_cells[row][column];
 }
 
-NewTableCell* NewTable::getCellUnsafe(size_t row, size_t column) {
+NewTableCell* NewTable::getCellUnsafe(size_t const row, size_t const column) {
     if (not validIndex(row, column)) {
         return nullptr;
     }
     return m_cells[row][column].get();
 }
 
-NewTableCell const* NewTable::getCellUnsafe(size_t row, size_t column) const {
+NewTableCell const* NewTable::getCellUnsafe(size_t const row, size_t const column) const {
     if (not validIndex(row, column)) {
         return nullptr;
     }
@@ -47,15 +47,15 @@ bool NewTable::validSpecialIndex(size_t const row, size_t const column) const {
     return row <= m_row_count and column <= m_column_count and (validSpecialRow(row) or validSpecialColumn(column));
 }
 
-bool NewTable::validRow(size_t row) const {
+bool NewTable::validRow(size_t const row) const {
     return row > 0 and row <= m_row_count;
 }
 
-bool NewTable::validColumn(size_t column) const {
+bool NewTable::validColumn(size_t const column) const {
     return column > 0 and column <= m_column_count;
 }
 
-bool NewTable::validIndex(size_t row, size_t column) const {
+bool NewTable::validIndex(size_t const row, size_t const column) const {
     return validRow(row) and validColumn(column);
 }
 
@@ -290,13 +290,13 @@ void NewTable::check_and_update_scroll(Vector2 const& mousePosition) {
 }
 
 NewTable::NewTable(
-        unsigned int ID,
-        Vector2 pos,
-        Vector2 size,
-        Alignment alignment,
-        size_t row_count,
-        size_t column_count,
-        float text_size
+        unsigned int const ID,
+        Vector2 const pos,
+        Vector2 const size,
+        Alignment const alignment,
+        size_t const row_count,
+        size_t const column_count,
+        float const text_size
 )
     : UIElement{ pos, size, alignment },
       Focusable{ ID },
@@ -326,11 +326,11 @@ size_t NewTable::columnCount() const {
     return m_column_count;
 }
 
-bool NewTable::hasCell(size_t row, size_t column) const {
+bool NewTable::hasCell(size_t const row, size_t const column) const {
     return validIndex(row, column);
 }
 
-NewTableCell& NewTable::getCell(size_t row, size_t column) {
+NewTableCell& NewTable::getCell(size_t const row, size_t const column) {
     auto* cell{ getCellUnsafe(row, column) };
     if (not cell) {
         throw std::runtime_error(IndexOutOfRangeExceptionString(row, column));
@@ -338,7 +338,7 @@ NewTableCell& NewTable::getCell(size_t row, size_t column) {
     return *cell;
 }
 
-NewTableCell const& NewTable::getCell(size_t row, size_t column) const {
+NewTableCell const& NewTable::getCell(size_t const row, size_t const column) const {
     auto* cell{ getCellUnsafe(row, column) };
     if (not cell) {
         throw std::runtime_error(IndexOutOfRangeExceptionString(row, column));
@@ -354,7 +354,7 @@ void NewTable::clearCell(size_t row, size_t column) {
     cell->clear();
 }
 
-void NewTable::setCellCallback(size_t row, size_t column, NewTableCell::callback_ty const& callback) {
+void NewTable::setCellCallback(size_t const row, size_t const column, NewTableCell::callback_ty const& callback) {
     auto* cell{ getCellUnsafe(row, column) };
     if (not cell) {
         throw std::runtime_error(IndexOutOfRangeExceptionString(row, column));
@@ -369,11 +369,11 @@ void NewTable::update_cells() {
     update_cell_positions();
 }
 
-bool NewTable::hasRow(size_t row) const {
+bool NewTable::hasRow(size_t const row) const {
     return validRow(row);
 }
 
-size_t NewTable::insertRow(size_t row) {
+size_t NewTable::insertRow(size_t const row) {
     if (not validRow(row) and row != 0) {
         throw std::runtime_error{ IndexOutOfRangeExceptionString(row, size_t{ 0 }) };
     }
@@ -392,7 +392,7 @@ size_t NewTable::appendRow() {
     return insertRow(m_row_count);
 }
 
-bool NewTable::removeRow(size_t row) {
+bool NewTable::removeRow(size_t const row) {
     if (m_row_count == 0) {
         return false;
     }
@@ -410,11 +410,11 @@ bool NewTable::popRow() {
     return removeRow(m_row_count);
 }
 
-bool NewTable::hasColumn(size_t column) const {
+bool NewTable::hasColumn(size_t const column) const {
     return validColumn(column);
 }
 
-size_t NewTable::insertColumn(size_t column) {
+size_t NewTable::insertColumn(size_t const column) {
     if (not validColumn(column) and column != 0) {
         throw std::runtime_error{ IndexOutOfRangeExceptionString(size_t{ 0 }, column) };
     }
@@ -430,7 +430,7 @@ size_t NewTable::appendColumn() {
     return insertColumn(m_column_count);
 }
 
-bool NewTable::removeColumn(size_t column) {
+bool NewTable::removeColumn(size_t const column) {
     if (m_column_count == 0) {
         return false;
     }
@@ -454,11 +454,11 @@ bool NewTable::isHeadline() const {
     return m_isHeadline;
 }
 
-void NewTable::showHeadline(bool headline) {
+void NewTable::showHeadline(bool const headline) {
     m_isHeadline = headline;
 }
 
-void NewTable::clearHeadline(size_t column) {
+void NewTable::clearHeadline(size_t const column) {
     if (not validColumn(column)) {
         throw std::runtime_error{ IndexOutOfRangeExceptionString(size_t{ 0 }, column) };
     }
@@ -473,7 +473,7 @@ bool NewTable::isNumbered() const {
     return m_isNumbered;
 }
 
-void NewTable::showNumbers(bool numbers) {
+void NewTable::showNumbers(bool const numbers) {
     m_isNumbered = numbers;
 }
 
@@ -481,7 +481,7 @@ bool NewTable::is_render_hovered() const {
     return m_isRenderHover;
 }
 
-void NewTable::set_render_hovered(bool hovering) {
+void NewTable::set_render_hovered(bool const hovering) {
     m_isRenderHover = hovering;
 }
 
@@ -489,7 +489,7 @@ bool NewTable::is_scrollable() const {
     return m_isScrollable;
 }
 
-void NewTable::set_scrollable(bool scrollable) {
+void NewTable::set_scrollable(bool const scrollable) {
     m_isScrollable = scrollable;
 }
 

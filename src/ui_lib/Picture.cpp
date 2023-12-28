@@ -20,7 +20,13 @@ void Picture::ScaleToFit() {
     UpdateCollider();
 }
 
-Picture::Picture(Vector2 pos, Vector2 size, Alignment alignment, AssetType assetType, bool scaleToFit)
+Picture::Picture(
+        Vector2 const pos,
+        Vector2 const size,
+        Alignment const alignment,
+        AssetType const assetType,
+        bool const scaleToFit
+)
     : UIElement{ pos, size, alignment },
       m_isScaleToFit{ scaleToFit } {
     m_texture = AppContext::GetInstance().assetManager.GetTexture(assetType);

@@ -12,7 +12,7 @@
 #include <helper/HTextProcessing.hpp>
 #include <string>
 
-void PopUp::Initialize(std::string const& title, std::string& subTitle, AssetType infoTexture) {
+void PopUp::Initialize(std::string const& title, std::string& subTitle, AssetType const infoTexture) {
 
     auto icon = std::make_shared<Picture>(
             GetElementPosition(m_pos, m_size, 0.15f, 0.05f),
@@ -54,7 +54,7 @@ void PopUp::LateUpdate() {
     }
 }
 
-Rectangle PopUp::GetColliderWithMaxValues(Texture2D* texture, float maxWidth, float maxHeight) const {
+Rectangle PopUp::GetColliderWithMaxValues(Texture2D* const texture, float const maxWidth, float const maxHeight) const {
     auto const t_with{ static_cast<float>(texture->width) };
     auto const t_height{ static_cast<float>(texture->height) };
 
@@ -77,12 +77,12 @@ Rectangle PopUp::GetColliderWithMaxValues(Texture2D* texture, float maxWidth, fl
 }
 
 PopUp::PopUp(
-        Vector2 pos,
-        Vector2 size,
-        Alignment alignment,
+        Vector2 const pos,
+        Vector2 const size,
+        Alignment const alignment,
         std::string const& title,
         std::string& subTitle,
-        AssetType infoTexture
+        AssetType const infoTexture
 )
     : UIElement{ pos, size, alignment } {
 

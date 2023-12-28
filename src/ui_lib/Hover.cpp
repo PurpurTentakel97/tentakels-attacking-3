@@ -23,7 +23,7 @@ void Hover::CalculateDefault(AppContext_ty_c appContext) {
     m_textPosition = { m_collider.x + textOffset.x / 2, m_collider.y + textOffset.y / 2 };
 }
 
-Hover::Hover(float height, std::string text, Color color, Vector2 hoverOffset)
+Hover::Hover(float const height, std::string text, Color const color, Vector2 const hoverOffset)
 	: UIElement{ { 0.0f, 0.0f }, { 0.0f, 0.0f }, Alignment::BOTTOM_LEFT },
       m_text{ std::move(text) },m_color(color), m_textHeight{ 0.0f } {
 
@@ -50,7 +50,7 @@ Vector2 Hover::GetRenderOffset() const {
     return renderOffset;
 }
 
-void Hover::SetRenderHover(Vector2 mousePosition, AppContext_ty_c appContext) {
+void Hover::SetRenderHover(Vector2 const mousePosition, AppContext_ty_c appContext) {
     Rectangle const newCollider{ mousePosition.x + m_absoluteHoverOffset.x,
                                  mousePosition.y - m_absoluteHoverOffset.y - m_collider.height,
                                  m_collider.width,

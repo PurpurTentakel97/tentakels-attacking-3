@@ -122,7 +122,7 @@ void Slider::SlideIfScroll() {
     CalculateOnSlide();
 }
 
-void Slider::SetOffset(Vector2 mousePosition) {
+void Slider::SetOffset(Vector2 const mousePosition) {
 
     auto const btnCollider{ m_btn.GetCollider() };
 
@@ -142,7 +142,13 @@ void Slider::SetOffset(Vector2 mousePosition) {
     }
 }
 
-Slider::Slider(Vector2 pos, Vector2 size, Alignment alignment, bool isHorizontal, float absoluteDimension)
+Slider::Slider(
+        Vector2 const pos,
+        Vector2 const size,
+        Alignment const alignment,
+        bool const isHorizontal,
+        float const absoluteDimension
+)
     : UIElement{ pos, size, alignment },
       m_isHorizontal{ isHorizontal },
       m_absoluteDimension{ absoluteDimension } {
@@ -187,7 +193,7 @@ void Slider::SetOnSlide(std::function<void(float)> onSlide) {
     m_onSlide = std::move(onSlide);
 }
 
-void Slider::SetButtonPosition(float position) {
+void Slider::SetButtonPosition(float const position) {
     auto btnCollider = m_btn.GetCollider();
 
     float const total{ m_isHorizontal ? m_collider.width - btnCollider.width : m_collider.height - btnCollider.height };
@@ -204,14 +210,14 @@ void Slider::SetButtonPosition(float position) {
     m_btn.SetCollider(btnCollider);
 }
 
-void Slider::SetScrolling(bool isScroll) {
+void Slider::SetScrolling(bool const isScroll) {
     m_isScroll = isScroll;
 }
 bool Slider::IsScrolling() const {
     return m_isScroll;
 }
 
-void Slider::SetAbsoluteDimension(float absolutDimension) {
+void Slider::SetAbsoluteDimension(float const absolutDimension) {
     m_absoluteDimension = absolutDimension;
     CalculateInitialButton();
 }
@@ -220,11 +226,11 @@ float Slider::GetAbsoluteDimension() const {
     return m_absoluteDimension;
 }
 
-void Slider::SetEnabled(bool isEnabled) {
+void Slider::SetEnabled(bool const isEnabled) {
     m_isEnabled = isEnabled;
     m_btn.SetEnabled(isEnabled);
 }
 
-bool Slider::IsColliding(Vector2 point) const {
+bool Slider::IsColliding(Vector2 const point) const {
     return CheckCollisionPointRec(point, m_collider);
 }

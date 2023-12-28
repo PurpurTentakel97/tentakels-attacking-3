@@ -9,7 +9,7 @@
 #include <AppContext.hpp>
 #include <event/EventsUI.hpp>
 
-void ExpandingButton::Initialize(int focusID, std::string const& btnText) {
+void ExpandingButton::Initialize(int const focusID, std::string const& btnText) {
     AppContext_ty_c appContext{ AppContext::GetInstance() };
 
     m_mainButton = std::make_shared<ToggleButton>(
@@ -26,7 +26,7 @@ void ExpandingButton::Initialize(int focusID, std::string const& btnText) {
     appContext.eventManager.InvokeEvent(event);
 }
 
-void ExpandingButton::HandleExpandChance(bool expanding, bool keyInput) {
+void ExpandingButton::HandleExpandChance(bool const expanding, bool const keyInput) {
     m_wasKeyInput = keyInput;
     if (expanding) {
         HandleExpand();
@@ -70,13 +70,13 @@ bool ExpandingButton::IsBtnMoving() const {
 }
 
 ExpandingButton::ExpandingButton(
-        int focusID,
-        Vector2 pos,
-        Vector2 size,
-        Alignment alignment,
-        Direction direction,
-        float spacing,
-        float expandingSpeed,
+        int const focusID,
+        Vector2 const pos,
+        Vector2 const size,
+        Alignment const alignment,
+        Direction const direction,
+        float const spacing,
+        float const expandingSpeed,
         std::string const& btnText
 )
     : UIElement{ pos, size, alignment },
@@ -87,7 +87,7 @@ ExpandingButton::ExpandingButton(
     Initialize(focusID, btnText);
 }
 
-void ExpandingButton::Add(ClassicButton_ty const& btn, bool enabled) {
+void ExpandingButton::Add(ClassicButton_ty const& btn, bool const enabled) {
     m_buttons.emplace_back(btn, enabled, btn->GetPosition());
     NewFocusElementEvent const event{ btn.get() };
     AppContext::GetInstance().eventManager.InvokeEvent(event);
@@ -100,7 +100,7 @@ void ExpandingButton::Remove(ClassicButton_ty const& btn) {
     std::erase_if(m_buttons, [btn](Btn const& current) { return btn == current.btn; });
 }
 
-void ExpandingButton::Remove(size_t ind) {
+void ExpandingButton::Remove(size_t const ind) {
     if (ind >= m_buttons.size()) {
         throw std::runtime_error("index out of range");
     }
@@ -126,11 +126,11 @@ double ExpandingButton::GetDelayedCollapseTime() const {
     return m_delayedCollapseTime;
 }
 
-void ExpandingButton::SetDelayedCollapseTime(double time) {
+void ExpandingButton::SetDelayedCollapseTime(double const time) {
     m_delayedCollapseTime = time;
 }
 
-void ExpandingButton::SetDirection(Direction direction) {
+void ExpandingButton::SetDirection(Direction const direction) {
     m_direction = direction;
 }
 

@@ -6,7 +6,7 @@
 #include "Alignment.hpp"
 #include <AppContext.hpp>
 
-Rectangle GetAlignedCollider(Vector2& pos, Vector2 size, Alignment alignment) {
+Rectangle GetAlignedCollider(Vector2& pos, Vector2 const size, Alignment const alignment) {
     Resolution_ty_c resolution{ AppContext::GetInstance().GetResolution() };
     switch (alignment) {
         case Alignment::TOP_LEFT:
@@ -51,7 +51,7 @@ Rectangle GetAlignedCollider(Vector2& pos, Vector2 size, Alignment alignment) {
     return { resolution.x * pos.x, resolution.y * pos.y, resolution.x * size.x, resolution.y * size.y };
 }
 
-Vector2 GetAlignedPosition(Alignment alignment, Vector2 position, Vector2 size) {
+Vector2 GetAlignedPosition(Alignment const alignment, Vector2 position, Vector2 const size) {
     switch (alignment) {
         case Alignment::TOP_LEFT:
         case Alignment::DEFAULT:
@@ -96,7 +96,7 @@ Vector2 GetAlignedPosition(Alignment alignment, Vector2 position, Vector2 size) 
     return position;
 }
 
-Vector2 GetAlignedPositionReversed(Alignment alignment, Vector2 position, Vector2 size) {
+Vector2 GetAlignedPositionReversed(Alignment const alignment, Vector2 position, Vector2 const size) {
     switch (alignment) {
         case Alignment::TOP_LEFT:
         case Alignment::DEFAULT:
@@ -141,7 +141,7 @@ Vector2 GetAlignedPositionReversed(Alignment alignment, Vector2 position, Vector
     return position;
 }
 
-TextAlignment GetHorizontalTextAlignment(Alignment alignment) {
+TextAlignment GetHorizontalTextAlignment(Alignment const alignment) {
     switch (alignment) {
         case Alignment::TOP_LEFT:
         case Alignment::MID_LEFT:
@@ -162,7 +162,7 @@ TextAlignment GetHorizontalTextAlignment(Alignment alignment) {
     }
 }
 
-TextAlignment GetVerticalTextAlignment(Alignment alignment) {
+TextAlignment GetVerticalTextAlignment(Alignment const alignment) {
     switch (alignment) {
         case Alignment::TOP_LEFT:
         case Alignment::TOP_MID:

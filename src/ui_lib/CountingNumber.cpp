@@ -73,7 +73,7 @@ void CountingNumber::HandleAsymptoticCounting() {
     SetNewNumber(nextNumber);
 }
 
-void CountingNumber::SetNewNumber(int number) {
+void CountingNumber::SetNewNumber(int const number) {
     m_currentNumber = number;
     m_text->SetText(std::to_string(m_currentNumber));
 }
@@ -87,12 +87,12 @@ void CountingNumber::UpdateColor() {
 }
 
 CountingNumber::CountingNumber(
-        Vector2 pos,
-        Vector2 size,
-        Alignment alignment,
-        Alignment textAlignment,
-        float textHeight,
-        int startNumber
+        Vector2 const pos,
+        Vector2 const size,
+        Alignment const alignment,
+        Alignment const textAlignment,
+        float const textHeight,
+        int const startNumber
 )
     : UIElement{ pos, size, alignment },
       m_startNumber{ startNumber },
@@ -101,11 +101,11 @@ CountingNumber::CountingNumber(
     m_text = std::make_shared<Text>(pos, size, alignment, textAlignment, textHeight, std::to_string(startNumber));
 }
 
-void CountingNumber::SetCountingColor(Color color) {
+void CountingNumber::SetCountingColor(Color const color) {
     m_countingColor = color;
     UpdateColor();
 }
-void CountingNumber::SetDefaultColor(Color color) {
+void CountingNumber::SetDefaultColor(Color const color) {
     m_defaultColor = color;
     UpdateColor();
 }
@@ -118,7 +118,7 @@ void CountingNumber::SetCallback(callback_ty callback) {
     m_callback = std::move(callback);
 }
 
-void CountingNumber::CountTo(Type type, int target, double timeIsS) {
+void CountingNumber::CountTo(Type const type, int const target, double const timeIsS) {
     m_countingType = type;
     m_targetNumber = target;
     m_timeInS = timeIsS;
@@ -129,7 +129,7 @@ void CountingNumber::CountTo(Type type, int target, double timeIsS) {
     }
 }
 
-void CountingNumber::SetTo(int target) {
+void CountingNumber::SetTo(int const target) {
     m_targetNumber = target;
     m_currentNumber = m_targetNumber;
     m_text->SetText(std::to_string(m_currentNumber));
