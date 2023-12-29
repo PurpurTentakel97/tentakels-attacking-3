@@ -199,7 +199,7 @@ FightResultPopup::FightResultPopup(
         Vector2 const pos,
         Vector2 const size,
         Alignment const alignment,
-        HFightResult result,
+        utl::FightResult result,
         callback_ty callback
 )
     : PopUp{ pos,           size,

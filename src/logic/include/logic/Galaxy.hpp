@@ -13,9 +13,10 @@
 #include <memory>
 #include <vector>
 
-struct HFleetResult;
-struct HFightResult;
-
+namespace utl {
+    struct FleetResult;
+    struct FightResult;
+} // namespace utl
 
 class Galaxy final {
 private:
@@ -31,7 +32,7 @@ private:
     [[nodiscard]] unsigned int GetNextID() const;
 
     // Planet
-    void InitializePlanets(size_t planetCount, std::vector<Player_ty> const & players, Player_ty const& neutralPlayer);
+    void InitializePlanets(size_t planetCount, std::vector<Player_ty> const& players, Player_ty const& neutralPlayer);
 
     [[nodiscard]] int GenerateHomePlanets(std::vector<Player_ty> const& players);
 
@@ -44,16 +45,16 @@ private:
 
     [[nodiscard]] Fleet_ty GetFleetByID(unsigned int ID) const;
 
-    [[nodiscard]] Fleet_ty TryGetExistingFleetByOriginAndDestination(SpaceObject_ty const& origin, SpaceObject_ty const& destination)
-            const;
+    [[nodiscard]] Fleet_ty
+    TryGetExistingFleetByOriginAndDestination(SpaceObject_ty const& origin, SpaceObject_ty const& destination) const;
 
-    [[nodiscard]] HFleetResult
+    [[nodiscard]] utl::FleetResult
     AddFleetFromPlanet(eve::SendFleetInstructionEvent const* event, Player_ty const& currentPlayer);
 
-    [[nodiscard]] HFleetResult
+    [[nodiscard]] utl::FleetResult
     AddFleetFromFleet(eve::SendFleetInstructionEvent const* event, Player_ty const& currentPlayer);
 
-    [[nodiscard]] HFleetResult
+    [[nodiscard]] utl::FleetResult
     AddFleetFromTargetPoint(eve::SendFleetInstructionEvent const* event, Player_ty const& currentPlayer);
 
     [[nodiscard]] std::vector<Fleet_ty> GetFleetsOfTarget(SpaceObject_ty const& object) const;
@@ -67,13 +68,17 @@ private:
 
     [[nodiscard]] TargetPoint_ty GetTargetPointByID(unsigned int ID) const;
 
-    [[nodiscard]] SpaceObject_ty GetOrGenerateDestination(unsigned int ID, int X, int Y, Player_ty const& currentPlayer);
+    [[nodiscard]] SpaceObject_ty
+    GetOrGenerateDestination(unsigned int ID, int X, int Y, Player_ty const& currentPlayer);
 
     void CheckDeleteTargetPoints();
 
     // update
-    [[nodiscard]] std::vector<Fleet_ty>
-    UpdateFleetTargets(std::vector<Fleet_ty> const& fleets, SpaceObject_ty const& currentFleet, SpaceObject_ty const& target);
+    [[nodiscard]] std::vector<Fleet_ty> UpdateFleetTargets(
+            std::vector<Fleet_ty> const& fleets,
+            SpaceObject_ty const& currentFleet,
+            SpaceObject_ty const& target
+    );
 
     [[nodiscard]] std::vector<HMergeResult> CheckArrivingFriendlyFleets();
 
@@ -81,28 +86,28 @@ private:
 
     void CheckDeleteFleetsWithoutShips();
 
-    [[nodiscard]] std::vector<HFightResult> SimulateFight();
+    [[nodiscard]] std::vector<utl::FightResult> SimulateFight();
 
-    [[nodiscard]] std::vector<HFightResult> SimulateFightFleetPlanet();
+    [[nodiscard]] std::vector<utl::FightResult> SimulateFightFleetPlanet();
 
-    [[nodiscard]] std::vector<HFightResult> SimulateFightFleetTargetPoint();
+    [[nodiscard]] std::vector<utl::FightResult> SimulateFightFleetTargetPoint();
 
-    [[nodiscard]] std::vector<HFightResult> SimulateFightFleetFleet();
+    [[nodiscard]] std::vector<utl::FightResult> SimulateFightFleetFleet();
 
-    [[nodiscard]] std::vector<HFightResult> SimulateFightPlanetFleet();
+    [[nodiscard]] std::vector<utl::FightResult> SimulateFightPlanetFleet();
 
-    [[nodiscard]] std::vector<HFightResult> SimulateFightTargetPointFleet();
+    [[nodiscard]] std::vector<utl::FightResult> SimulateFightTargetPointFleet();
 
-    [[nodiscard]] std::vector<HFightResult> SimulateFightTargetPointTargetPoint();
+    [[nodiscard]] std::vector<utl::FightResult> SimulateFightTargetPointTargetPoint();
 
-    [[nodiscard]] std::vector<HFightResult> SimulateFightPlanetTargetPoint();
+    [[nodiscard]] std::vector<utl::FightResult> SimulateFightPlanetTargetPoint();
 
-    [[nodiscard]] static HFightResult Fight(SpaceObject_ty const& defender, SpaceObject_ty const& attacker);
+    [[nodiscard]] static utl::FightResult Fight(SpaceObject_ty const& defender, SpaceObject_ty const& attacker);
 
     [[nodiscard]] static size_t Salve(SpaceObject_ty const& obj);
 
 public:
-    Galaxy(vec2pos_ty size, size_t planetCount, std::vector<Player_ty> const&  players, Player_ty const& neutralPlayer);
+    Galaxy(vec2pos_ty size, size_t planetCount, std::vector<Player_ty> const& players, Player_ty const& neutralPlayer);
 
     Galaxy(Galaxy const&);
 
@@ -130,13 +135,14 @@ public:
 
     [[nodiscard]] bool IsValidPosition(vec2pos_ty_ref_c position) const;
 
-    [[nodiscard]] HFleetResult AddFleet(eve::SendFleetInstructionEvent const* event, Player_ty const& currentPlayer);
+    [[nodiscard]] utl::FleetResult
+    AddFleet(eve::SendFleetInstructionEvent const* event, Player_ty const& currentPlayer);
 
     void SetDiscoverByPlayer(unsigned int currentPlayerID);
 
     void FilterByDiscovered();
 
-    void HandleFleetResult(HFleetResult const& fleetResult, Player_ty_c currentPlayer);
+    void HandleFleetResult(utl::FleetResult const& fleetResult, Player_ty_c currentPlayer);
 
     // update
     [[nodiscard]] UpdateResult_ty Update();

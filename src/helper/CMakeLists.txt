@@ -1,8 +1,6 @@
 add_library(helper STATIC
             include/helper/HConcepts.hpp
             include/helper/HErrorLog.hpp
-            include/helper/HFightResult.hpp
-            include/helper/HFleetResult.hpp
             include/helper/HFocusEvents.hpp
             include/helper/HGalaxy.hpp
             include/helper/HGameEventTypes.hpp
@@ -21,7 +19,6 @@ add_library(helper STATIC
             include/helper/HLayeredVector.hpp
             include/helper/HVec2.hpp
             HErrorLog.cpp
-            HFightResult.cpp
             HFocusEvents.cpp
             HGalaxy.cpp
             HGeneral.cpp

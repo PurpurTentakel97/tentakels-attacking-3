@@ -52,5 +52,7 @@ using Player_ty_raw = Player const*;
 using Player_ty_raw_c = Player const* const;
 
 struct HMergeResult;
-struct HFightResult;
-using UpdateResult_ty = std::pair<std::vector<HMergeResult>, std::vector<HFightResult>>;
+namespace utl {
+    struct FightResult;
+}
+using UpdateResult_ty = std::pair<std::vector<HMergeResult>, std::vector<utl::FightResult>>;

@@ -8,9 +8,9 @@
 #include "Galaxy.hpp"
 #include "ManagerGame.hpp"
 #include "Player.hpp"
+#include "utils/FleetResult.hpp"
 #include <app/AppContext.hpp>
 #include <event/EventGenerel.hpp>
-#include <helper/HFleetResult.hpp>
 #include <helper/HPrint.hpp>
 #include <helper/HVec2.hpp>
 

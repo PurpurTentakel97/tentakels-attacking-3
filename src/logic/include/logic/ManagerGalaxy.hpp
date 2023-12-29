@@ -10,7 +10,7 @@
 
 class GameManager;
 enum class CopyGalaxyType;
-struct HFightResult;
+struct FightResult;
 
 namespace eve {
     class SendFleetInstructionEvent;

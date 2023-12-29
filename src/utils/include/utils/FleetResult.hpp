@@ -3,13 +3,15 @@
 // 23.05.2023
 //
 
-#include "HLogicAlias.hpp"
+#include <helper/HLogicAlias.hpp>
 #include <memory>
 
 
-struct HFleetResult final {
+namespace utl {
+    struct FleetResult final {
         SpaceObject_ty origin;
         Fleet_ty fleet;
         SpaceObject_ty destination;
         bool valid;
     };
+} // namespace utl

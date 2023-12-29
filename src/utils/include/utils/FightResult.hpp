@@ -4,12 +4,13 @@
 //
 
 #pragma once
-#include "HLogicAlias.hpp"
+#include <helper/HLogicAlias.hpp>
 #include <utility>
 #include <vector>
 
 
-struct HFightResult final {
+namespace utl {
+    struct FightResult final {
     public:
         using rounds_ty = std::vector<std::pair<size_t, size_t>>;
         using player_ty = std::pair<Player_ty, Player_ty>;
@@ -23,7 +24,7 @@ struct HFightResult final {
 
 
     public:
-        HFightResult(player_ty player, spaceObject_ty objects, rounds_ty rounds, bool valid);
+        FightResult(player_ty player, spaceObject_ty objects, rounds_ty rounds, bool valid);
 
 
         [[nodiscard]] player_ty GetPlayer() const;
@@ -31,3 +32,4 @@ struct HFightResult final {
         [[nodiscard]] rounds_ty GetRounds() const;
         [[nodiscard]] bool IsValid() const;
     };
+} // namespace utl

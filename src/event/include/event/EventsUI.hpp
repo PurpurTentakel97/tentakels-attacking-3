@@ -8,11 +8,11 @@
 #include <CustomRaylib.hpp>
 #include <app/SoundType.hpp>
 #include <functional>
-#include <helper/HFightResult.hpp>
 #include <helper/HLogicAlias.hpp>
 #include <helper/HUIAlias.hpp>
 #include <helper/HVec2.hpp>
 #include <string>
+#include <utils/FightResult.hpp>
 
 class Focusable;
 class PopUp;
@@ -283,16 +283,16 @@ namespace eve {
 
     class ShowFightResultEvent final : public Event {
     private:
-        HFightResult m_result;
+        utl::FightResult m_result;
         using callback_ty = std::function<void()>;
         callback_ty m_callback{ []() {} };
 
     public:
-        ShowFightResultEvent(HFightResult result, callback_ty callback)
+        ShowFightResultEvent(utl::FightResult result, callback_ty callback)
             : m_result{ std::move(result) },
               m_callback{ std::move(callback) } { }
 
-        [[nodiscard]] HFightResult GetResult() const {
+        [[nodiscard]] utl::FightResult GetResult() const {
             return m_result;
         }
         [[nodiscard]] callback_ty GetCallback() const {
