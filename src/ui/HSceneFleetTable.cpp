@@ -123,7 +123,7 @@ void FleetAndTargetPointTable::Initialization(PlayerData const& currentPlayer) {
     }
 }
 
-std::string FleetAndTargetPointTable::GetStringFromPosition(vec2pos_ty_ref_c position, bool const getCoordinates)
+std::string FleetAndTargetPointTable::GetStringFromPosition(utl::vec2pos_ty_ref_c position, bool const getCoordinates)
         const {
 
     if (!getCoordinates) {

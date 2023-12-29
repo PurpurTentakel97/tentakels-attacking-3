@@ -437,7 +437,7 @@ void Table::CalculateSlider() {
 }
 
 void Table::CalculateHoverHighlighted(Vector2 mousePosition) {
-    vec2pos_ty newPosition{ -1, -1 };
+    utl::vec2pos_ty newPosition{ -1, -1 };
     if (not m_isHoveredHighlighted) {
         goto found;
     }

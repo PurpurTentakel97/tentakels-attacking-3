@@ -9,10 +9,10 @@
 #include "ManagerGame.hpp"
 #include "Player.hpp"
 #include "utils/FleetResult.hpp"
+#include "utils/Vec2.hpp"
 #include <app/AppContext.hpp>
 #include <event/EventGenerel.hpp>
 #include <helper/HPrint.hpp>
-#include <helper/HVec2.hpp>
 
 void GalaxyManager::FilterCurrentGalaxy() {
     Player_ty currentPlayer{ nullptr };
@@ -29,7 +29,8 @@ GalaxyManager::GalaxyManager(GameManager* const gameManager) : m_gameManager{ ga
 
 void GalaxyManager::GenerateGalaxy() {
     app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
-    vec2pos_ty_c size = { appContext.constants.world.currentDimensionX, appContext.constants.world.currentDimensionY };
+    utl::vec2pos_ty_c size = { appContext.constants.world.currentDimensionX,
+                               appContext.constants.world.currentDimensionY };
     auto const galaxy = std::make_shared<Galaxy>(
             size,
             appContext.constants.world.currentPlanetCount,
@@ -54,7 +55,7 @@ void GalaxyManager::GenerateGalaxy() {
 
 void GalaxyManager::GenerateShowGalaxy() {
     app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
-    vec2pos_ty_c size = {
+    utl::vec2pos_ty_c size = {
         appContext.constants.world.showDimensionX,
         appContext.constants.world.showDimensionY,
     };

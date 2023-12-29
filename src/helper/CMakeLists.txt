@@ -15,8 +15,6 @@ add_library(helper STATIC
             include/helper/HTextProcessing.hpp
             include/helper/HUIAlias.hpp
             include/helper/HVector2Operator.hpp
-            include/helper/HLayeredVector.hpp
-            include/helper/HVec2.hpp
             HErrorLog.cpp
             HFocusEvents.cpp
             HGalaxy.cpp

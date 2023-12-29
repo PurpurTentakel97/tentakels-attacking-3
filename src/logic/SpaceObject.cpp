@@ -12,9 +12,9 @@ bool SpaceObject::IsInRange(SpaceObject_ty_raw first, SpaceObject_ty_raw second,
     return range >= actualRange;
 }
 
-SpaceObject::SpaceObject(unsigned int const ID, vec2pos_ty_ref_c position, Player_ty_c player)
+SpaceObject::SpaceObject(unsigned int const ID, utl::vec2pos_ty_ref_c position, Player_ty_c player)
     : SpaceObject{ ID, position, 0, player } { }
-SpaceObject::SpaceObject(unsigned int ID, vec2pos_ty position, size_t ships, Player_ty player)
+SpaceObject::SpaceObject(unsigned int ID, utl::vec2pos_ty position, size_t ships, Player_ty player)
     : m_ID{ ID },
       m_ships{ ships },
       m_position{ std::move(position) },
@@ -37,11 +37,11 @@ Player_ty SpaceObject::GetPlayer() const {
     return m_player;
 }
 
-void SpaceObject::SetPos(vec2pos_ty_ref_c pos) {
+void SpaceObject::SetPos(utl::vec2pos_ty_ref_c pos) {
     m_position = pos;
 }
 
-vec2pos_ty SpaceObject::GetPos() const {
+utl::vec2pos_ty SpaceObject::GetPos() const {
     return m_position;
 }
 

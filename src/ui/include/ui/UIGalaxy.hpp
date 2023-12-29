@@ -77,7 +77,7 @@ private:
 
     [[nodiscard]] unsigned int GetIDFromPoint(Vector2 point) const;
 
-    [[nodiscard]] vec2pos_ty GetCoordinatesFromPoint(Vector2 point) const;
+    [[nodiscard]] utl::vec2pos_ty GetCoordinatesFromPoint(Vector2 point) const;
 
     void HandleDragLineResult(Vector2 start, Vector2 end);
 

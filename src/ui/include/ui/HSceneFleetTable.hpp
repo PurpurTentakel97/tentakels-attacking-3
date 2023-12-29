@@ -16,7 +16,7 @@ private:
 
     void Initialization(PlayerData const& currentPlayer);
 
-    [[nodiscard]] std::string GetStringFromPosition(vec2pos_ty_ref_c position, bool getCoordinates) const;
+    [[nodiscard]] std::string GetStringFromPosition(utl::vec2pos_ty_ref_c position, bool getCoordinates) const;
 
 public:
     FleetAndTargetPointTable(

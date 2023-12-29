@@ -5,12 +5,12 @@
 
 #pragma once
 #include "EventMain.hpp"
+#include "utils/Vec2.hpp"
 #include <CustomRaylib.hpp>
 #include <app/SoundType.hpp>
 #include <functional>
 #include <helper/HLogicAlias.hpp>
 #include <helper/HUIAlias.hpp>
-#include <helper/HVec2.hpp>
 #include <string>
 #include <utils/FightResult.hpp>
 
@@ -328,13 +328,13 @@ namespace eve {
     private:
         unsigned int m_originID;
         unsigned int m_destID;
-        vec2pos_ty m_destCoordinates;
+        utl::vec2pos_ty m_destCoordinates;
 
     public:
         DragLineFleetInstructionEvent(
                 unsigned int const originID,
                 unsigned int const destID,
-                vec2pos_ty destCoordinates
+                utl::vec2pos_ty destCoordinates
         )
             : m_originID{ originID },
               m_destID{ destID },
@@ -346,7 +346,7 @@ namespace eve {
         [[nodiscard]] unsigned int GetDestID() const {
             return m_destID;
         }
-        [[nodiscard]] vec2pos_ty GetDestCoordinates() const {
+        [[nodiscard]] utl::vec2pos_ty GetDestCoordinates() const {
             return m_destCoordinates;
         }
     };

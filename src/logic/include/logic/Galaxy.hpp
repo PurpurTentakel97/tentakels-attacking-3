@@ -7,9 +7,9 @@
 #include "Fleet.hpp"
 #include "Planet.hpp"
 #include "TargetPoint.hpp"
+#include "utils/Vec2.hpp"
 #include <app/AliasApp.hpp>
 #include <event/EventGenerel.hpp>
-#include <helper/HVec2.hpp>
 #include <memory>
 #include <vector>
 
@@ -26,7 +26,7 @@ private:
     std::vector<Planet_ty> m_planets;
     std::vector<Fleet_ty> m_fleets;
     std::vector<TargetPoint_ty> m_targetPoints;
-    vec2pos_ty m_size;
+    utl::vec2pos_ty m_size;
 
 
     [[nodiscard]] unsigned int GetNextID() const;
@@ -107,7 +107,10 @@ private:
     [[nodiscard]] static size_t Salve(SpaceObject_ty const& obj);
 
 public:
-    Galaxy(vec2pos_ty size, size_t planetCount, std::vector<Player_ty> const& players, Player_ty const& neutralPlayer);
+    Galaxy(utl::vec2pos_ty size,
+           size_t planetCount,
+           std::vector<Player_ty> const& players,
+           Player_ty const& neutralPlayer);
 
     Galaxy(Galaxy const&);
 
@@ -121,7 +124,7 @@ public:
 
     [[nodiscard]] bool IsFiltered() const;
 
-    [[nodiscard]] vec2pos_ty GetSize() const;
+    [[nodiscard]] utl::vec2pos_ty GetSize() const;
 
     [[nodiscard]] std::vector<Planet_ty> GetPlanets() const;
 
@@ -133,7 +136,7 @@ public:
 
     [[nodiscard]] SpaceObject_ty GetSpaceObjectByID(unsigned int ID) const;
 
-    [[nodiscard]] bool IsValidPosition(vec2pos_ty_ref_c position) const;
+    [[nodiscard]] bool IsValidPosition(utl::vec2pos_ty_ref_c position) const;
 
     [[nodiscard]] utl::FleetResult
     AddFleet(eve::SendFleetInstructionEvent const* event, Player_ty const& currentPlayer);

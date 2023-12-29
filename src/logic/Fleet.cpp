@@ -10,11 +10,17 @@
 #include <helper/HGalaxy.hpp>
 #include <helper/HPrint.hpp>
 
-Fleet::Fleet(unsigned int const ID, vec2pos_ty_ref_c position, Player_ty_c player, SpaceObject_ty target)
+Fleet::Fleet(unsigned int const ID, utl::vec2pos_ty_ref_c position, Player_ty_c player, SpaceObject_ty target)
     : SpaceObject{ ID, position, player },
       m_target{ std::move(target) } { }
 
-Fleet::Fleet(unsigned int const ID, vec2pos_ty_ref_c position, size_t ships, Player_ty_c player, SpaceObject_ty target)
+Fleet::Fleet(
+        unsigned int const ID,
+        utl::vec2pos_ty_ref_c position,
+        size_t ships,
+        Player_ty_c player,
+        SpaceObject_ty target
+)
     : SpaceObject{ ID, position, ships, player },
       m_target{ std::move(target) } { }
 
@@ -75,9 +81,9 @@ void Fleet::Update(Galaxy_ty_raw galaxy) {
     int const y2{ target->GetPos().y };
     int const dx{ x2 - x1 };
     int const dy{ y2 - y1 };
-    std::vector<vec2pos_ty> route;
+    std::vector<utl::vec2pos_ty> route;
 
-    auto addPosition = [&](vec2pos_ty_ref_c new_) {
+    auto addPosition = [&](utl::vec2pos_ty_ref_c new_) {
         for (auto const& v : route) {
             if (v == new_) {
                 return;
@@ -87,20 +93,20 @@ void Fleet::Update(Galaxy_ty_raw galaxy) {
     };
     auto generatePosition = [&]() {
         for (float l = 0.0f; l < 1.0f; l += dl) {
-            vec2pos_ty newPos{ x1 + static_cast<int>(std::floor(static_cast<float>(dx) * l + 0.5f)),
-                               y1 + static_cast<int>(std::floor(static_cast<float>(dy) * l + 0.5f)) };
+            utl::vec2pos_ty newPos{ x1 + static_cast<int>(std::floor(static_cast<float>(dx) * l + 0.5f)),
+                                    y1 + static_cast<int>(std::floor(static_cast<float>(dy) * l + 0.5f)) };
             addPosition(newPos);
         }
     };
-    auto setSpeed = [&](vec2pos_ty_ref_c old, vec2pos_ty_ref_c new_) {
-        vec2pos_ty offset = Abs<int>(old - new_);
+    auto setSpeed = [&](utl::vec2pos_ty_ref_c old, utl::vec2pos_ty_ref_c new_) {
+        utl::vec2pos_ty offset = Abs<int>(old - new_);
         speed -= offset.x;
         speed -= offset.y;
     };
-    auto filterPosition = [&]() -> vec2pos_ty {
-        vec2pos_ty new_ = target->GetPos();
+    auto filterPosition = [&]() -> utl::vec2pos_ty {
+        utl::vec2pos_ty new_ = target->GetPos();
         for (size_t i = 1; i < route.size(); ++i) {
-            vec2pos_ty old = route.at(i - 1);
+            utl::vec2pos_ty old = route.at(i - 1);
             new_ = route.at(i);
             if (galaxy->IsValidPosition(new_)) {
                 setSpeed(old, new_);

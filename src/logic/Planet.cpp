@@ -11,7 +11,7 @@
 
 Planet::Planet(
         unsigned int const ID,
-        vec2pos_ty_ref_c position,
+        utl::vec2pos_ty_ref_c position,
         Player_ty player,
         bool const isHomePlanet,
         int planetNumber
@@ -20,7 +20,7 @@ Planet::Planet(
 
 Planet::Planet(
         unsigned int const ID,
-        vec2pos_ty_ref_c position,
+        utl::vec2pos_ty_ref_c position,
         Player_ty player,
         bool const isHomePlanet,
         int planetNumber,

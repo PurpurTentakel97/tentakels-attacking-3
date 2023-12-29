@@ -4,8 +4,8 @@
 //
 
 #pragma once
+#include "utils/LayeredVector.hpp"
 #include <event/EventListener.hpp>
-#include <helper/HLayeredVector.hpp>
 #include <helper/HUIAlias.hpp>
 #include <vector>
 
@@ -13,14 +13,14 @@
 class Focus final : public eve::EventListener {
 private:
     Focusable_ty_raw m_currentFocus{ nullptr };
-    HLayeredVector<Focusable> m_focus;
+    utl::LayeredVector<Focusable> m_focus;
     std::vector<Focusable_ty_raw> m_lastFocus;
     bool m_renderFocus{ false };
 
     size_t m_PopUpLayerCounter{ 0 };
-    HLayeredVector<Focusable> m_addElementRequest;
-    HLayeredVector<Focusable> m_removeElementRequest;
-    HLayeredVector<Focusable> m_toSelectRequest;
+    utl::LayeredVector<Focusable> m_addElementRequest;
+    utl::LayeredVector<Focusable> m_removeElementRequest;
+    utl::LayeredVector<Focusable> m_toSelectRequest;
     std::vector<bool> m_toAddOrDelete;
 
     [[nodiscard]] bool HasAnyEnabledElements() const;

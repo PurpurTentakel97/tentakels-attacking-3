@@ -3,6 +3,8 @@ add_library(utils STATIC
             include/utils/FightResult.hpp
             include/utils/FleetResult.hpp
             include/utils/MergeResult.hpp
+            include/utils/LayeredVector.hpp
+            include/utils/Vec2.hpp
             Colors.cpp
             FightResult.cpp
             MergeResult.cpp

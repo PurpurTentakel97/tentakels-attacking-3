@@ -6,9 +6,9 @@
 #include "Focusable.hpp"
 #include "TableCell.hpp"
 #include "UIElement.hpp"
+#include "utils/Vec2.hpp"
 #include <helper/HFocusEvents.hpp>
 #include <helper/HPrint.hpp>
-#include <helper/HVec2.hpp>
 #include <memory>
 #include <stdexcept>
 
@@ -40,7 +40,7 @@ private:
     bool m_activeVerticalSlider;
 
     bool m_isHoveredHighlighted{ false };
-    vec2pos_ty m_currentHighlighted{ -1, -1 };
+    utl::vec2pos_ty m_currentHighlighted{ -1, -1 };
 
     std::function<void(AbstractTableCell const*, std::string, std::string)> m_updatedStringCell{
         [](AbstractTableCell const*, std::string, std::string) {}

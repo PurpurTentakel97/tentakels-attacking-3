@@ -4,8 +4,8 @@
 //
 
 #include "NewTable.hpp"
+#include "utils/Vec2.hpp"
 #include <cassert>
-#include <helper/HVec2.hpp>
 
 NewTableCell& NewTable::getSpecialCell(size_t const row, size_t const column) {
     if (not validSpecialIndex(row, column)) {
@@ -506,7 +506,7 @@ void NewTable::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c
     UIElement::CheckAndUpdate(mousePosition, appContext);
 
     if (m_isRenderHover and CheckCollisionPointRec(mousePosition, m_collider)) {
-        HVec2<size_t> index{ 0, 0 };
+        utl::Vec2<size_t> index{ 0, 0 };
 
         for (size_t row = 0; row <= m_row_count; ++row) {
             for (size_t column = 0; column <= m_column_count; ++column) {

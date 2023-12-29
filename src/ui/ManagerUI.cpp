@@ -99,7 +99,7 @@ void UIManager::Render() {
 
 void UIManager::SetNativeWindowSize() {
     cst::Window_ty_c window{ m_appContext.constants.window };
-    HVec2<int> values{ window.nativeResolutionVec };
+    utl::Vec2<int> values{ window.nativeResolutionVec };
 
     ::SetWindowSize(values.x, values.y);
 }
@@ -111,7 +111,7 @@ void UIManager::SetWindowSize(bool const force) {
     }
     window.currentResolutionEnum = m_nextResolution;
 
-    HVec2<int> values = window.GetIntFromResolution(m_nextResolution) ;
+    utl::Vec2<int> values = window.GetIntFromResolution(m_nextResolution);
 
     window.currentResolutionVec = { static_cast<float>(values.x), static_cast<float>(values.y) };
     ::SetWindowSize(values.x, values.y);

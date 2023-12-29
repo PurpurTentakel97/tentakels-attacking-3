@@ -310,7 +310,7 @@ unsigned int UIGalaxy::GetIDFromPoint(Vector2 const point) const {
     return 0;
 }
 
-vec2pos_ty UIGalaxy::GetCoordinatesFromPoint(Vector2 const point) const {
+utl::vec2pos_ty UIGalaxy::GetCoordinatesFromPoint(Vector2 const point) const {
     Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
     Vector2 const absolutePoint{ resolution.x * point.x, resolution.y * point.y };
     if (!CheckCollisionPointRec(absolutePoint, m_collider)) {
@@ -329,7 +329,7 @@ vec2pos_ty UIGalaxy::GetCoordinatesFromPoint(Vector2 const point) const {
 void UIGalaxy::HandleDragLineResult(Vector2 const start, Vector2 const end) {
     auto const originID{ GetIDFromPoint(start) };
     auto const destID{ GetIDFromPoint(end) };
-    vec2pos_ty destCo{ -1, -1 };
+    utl::vec2pos_ty destCo{ -1, -1 };
     if (destID <= 0) {
         destCo = GetCoordinatesFromPoint(end);
     }
