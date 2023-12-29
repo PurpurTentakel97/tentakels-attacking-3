@@ -4,10 +4,10 @@
 //
 
 #pragma once
-#include "HSceneSettings.hpp"
-#include <event/EventListener.hpp>
 
-class SliderAndInputLine;
+#include "HSceneSettings.hpp"
+#include <alias/AliasUi.hpp>
+#include <event/EventListener.hpp>
 
 class AppSettingsScene final : public SettingsScene, public eve::EventListener {
 private:
@@ -17,9 +17,7 @@ private:
     DropDown_ty m_resolutionDropDown;
     CheckBox_ty m_toggleFullScreenCBM;
 
-
     void Initialize();
-
 
     [[nodiscard]] std::vector<std::string> GetStringsFromResolutionEntries() const;
 

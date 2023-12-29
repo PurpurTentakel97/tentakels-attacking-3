@@ -4,10 +4,12 @@
 //
 
 #pragma once
-#include "utils/Vec2.hpp"
-#include <helper/HLogicAlias.hpp>
+
+#include <alias/AliasLogic.hpp>
+#include <alias/AliasUtils.hpp>
 #include <memory>
 #include <string>
+#include <utils/Vec2.hpp>
 
 
 class SpaceObject {

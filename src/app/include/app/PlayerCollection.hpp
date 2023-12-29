@@ -4,6 +4,7 @@
 //
 
 #pragma once
+
 #include "PlayerData.hpp"
 #include <array>
 #include <event/EventListener.hpp>

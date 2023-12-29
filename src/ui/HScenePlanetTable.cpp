@@ -5,6 +5,7 @@
 
 #include "HScenePlanetTable.hpp"
 #include <helper/HFocusEvents.hpp>
+#include <logic/Galaxy.hpp>
 #include <logic/Player.hpp>
 
 void PlanetTable::Initialization() {

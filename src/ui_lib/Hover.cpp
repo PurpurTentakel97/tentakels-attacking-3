@@ -4,12 +4,13 @@
 //
 
 #include "Hover.hpp"
+#include <alias/AliasCustomRaylib.hpp>
 #include <app/AppContext.hpp>
 #include <event/EventsUI.hpp>
 #include <helper/HTextProcessing.hpp>
 
 void Hover::CalculateDefault(app::AppContext_ty_c appContext) {
-    Resolution_ty_c resolution{ appContext.GetResolution() };
+    cst::Resolution_ty_c resolution{ appContext.GetResolution() };
     Vector2 const textOffset{
         resolution.x * 0.01f,
         resolution.y * 0.01f,
@@ -28,7 +29,7 @@ Hover::Hover(float const height, std::string text, Color const color, Vector2 co
       m_text{ std::move(text) },m_color(color), m_textHeight{ 0.0f } {
 
     app::AppContext_ty appContext{ app::AppContext::GetInstance() };
-    Resolution_ty_c resolution{ appContext.GetResolution() };
+    cst::Resolution_ty_c resolution{ appContext.GetResolution() };
     m_textHeight = { height * resolution.y };
 
     CalculateDefault(appContext);
@@ -38,7 +39,7 @@ Hover::Hover(float const height, std::string text, Color const color, Vector2 co
 }
 
 Vector2 Hover::GetRenderOffset() const {
-    Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
+    cst::Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
     Vector2 renderOffset{ 0, 0 };
     if (m_collider.x + m_collider.width > resolution.x) {
         renderOffset.x = m_collider.x + m_collider.width - resolution.x;

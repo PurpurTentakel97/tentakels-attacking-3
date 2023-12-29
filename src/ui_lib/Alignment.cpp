@@ -4,10 +4,11 @@
 //
 
 #include "Alignment.hpp"
+#include <alias/AliasCustomRaylib.hpp>
 #include <app/AppContext.hpp>
 
 Rectangle GetAlignedCollider(Vector2& pos, Vector2 const size, Alignment const alignment) {
-    Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
+    cst::Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
     switch (alignment) {
         case Alignment::TOP_LEFT:
         case Alignment::DEFAULT:

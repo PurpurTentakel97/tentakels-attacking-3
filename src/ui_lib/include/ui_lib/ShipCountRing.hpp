@@ -4,6 +4,7 @@
 //
 
 #pragma once
+
 #include "UIElement.hpp"
 
 class CountRing final : public UIElement {

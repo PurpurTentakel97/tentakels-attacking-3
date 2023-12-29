@@ -4,6 +4,7 @@
 //
 
 #pragma once
+
 #include "CResolution.hpp"
 #include <CustomRaylib.hpp>
 #include <cstddef>

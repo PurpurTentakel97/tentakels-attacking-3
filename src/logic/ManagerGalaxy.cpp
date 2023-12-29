@@ -8,11 +8,12 @@
 #include "Galaxy.hpp"
 #include "ManagerGame.hpp"
 #include "Player.hpp"
-#include "utils/FleetResult.hpp"
-#include "utils/Vec2.hpp"
+#include <alias/AliasUtils.hpp>
 #include <app/AppContext.hpp>
-#include <event/EventGenerel.hpp>
+#include <event/EventGeneral.hpp>
 #include <helper/HPrint.hpp>
+#include <utils/FleetResult.hpp>
+#include <utils/Vec2.hpp>
 
 void GalaxyManager::FilterCurrentGalaxy() {
     Player_ty currentPlayer{ nullptr };
@@ -128,6 +129,6 @@ void GalaxyManager::KillPlayer(Player_ty_c player, Player_ty_c neutralPlayer) {
     filter(m_mainGalaxy->GetFleets());
 }
 
-UpdateResult_ty GalaxyManager::Update() {
+utl::UpdateResult_ty GalaxyManager::Update() {
     return m_mainGalaxy->Update();
 }

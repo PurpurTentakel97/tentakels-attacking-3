@@ -3,9 +3,10 @@
 // 05.06.2023
 //
 
+#pragma once
+
 #include <event/EventListener.hpp>
 #include <ui_lib/Scene.hpp>
-#pragma once
 
 
 namespace eve {

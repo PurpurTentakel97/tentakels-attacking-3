@@ -29,8 +29,12 @@ target_include_directories(constants
 
 target_link_libraries(constants
                       PRIVATE
-                      project_options
-                      PUBLIC
-                      helper
                       app
+                      helper
+                      nlohmann_json::nlohmann_json
+                      PUBLIC
+                      alias
+                      custom_raylib
+                      utils
+
 )

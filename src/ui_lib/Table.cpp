@@ -5,6 +5,7 @@
 
 #include "Table.hpp"
 #include "Slider.hpp"
+#include <alias/AliasCustomRaylib.hpp>
 #include <app/AppContext.hpp>
 #include <helper/HInput.hpp>
 
@@ -237,7 +238,7 @@ void Table::CheckAndUpdateScroll(Vector2 const& mousePosition) {
         return;
     }
 
-    Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
+    cst::Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
     Vector2 offset{ 0.0f, 0.0f };
     if (IsKeyDown(KEY_LEFT_SHIFT)) {
         offset.x = mouseWheel * m_scroll_speed * resolution.x;

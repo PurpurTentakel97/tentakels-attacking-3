@@ -4,6 +4,7 @@
 //
 
 #include "CheckBox.hpp"
+#include <alias/AliasCustomRaylib.hpp>
 #include <app/AppContext.hpp>
 #include <event/EventsUI.hpp>
 #include <helper/HInput.hpp>
@@ -27,7 +28,7 @@ CheckBox::CheckBox(unsigned int const focusID, Vector2 const pos, float const he
 	m_ID{ checkBoxID } {
 
     app::AppContext_ty appContext{ app::AppContext::GetInstance() };
-    Resolution_ty_c resolution{ appContext.GetResolution() };
+    cst::Resolution_ty_c resolution{ appContext.GetResolution() };
     m_size.x = resolution.y / resolution.x * m_size.y;
     UpdateCollider();
 
@@ -118,7 +119,7 @@ void CheckBox::Render(app::AppContext_ty_c) {
 
 void CheckBox::Resize(app::AppContext_ty_c appContext) {
 
-    Resolution_ty_c resolution{ appContext.GetResolution() };
+    cst::Resolution_ty_c resolution{ appContext.GetResolution() };
     m_size.x = resolution.y / resolution.x * m_size.y;
 
     UIElement::Resize(appContext);

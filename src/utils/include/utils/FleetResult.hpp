@@ -3,7 +3,9 @@
 // 23.05.2023
 //
 
-#include <helper/HLogicAlias.hpp>
+#pragma once
+
+#include <alias/AliasLogic.hpp>
 #include <memory>
 
 

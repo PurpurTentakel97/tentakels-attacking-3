@@ -7,16 +7,13 @@
 #include "Fleet.hpp"
 #include "Planet.hpp"
 #include "TargetPoint.hpp"
-#include "utils/Vec2.hpp"
-#include <app/AliasApp.hpp>
-#include <event/EventGenerel.hpp>
+#include <alias/AliasApp.hpp>
+#include <alias/AliasUtils.hpp>
+#include <event/EventGeneral.hpp>
 #include <memory>
+#include <utils/Vec2.hpp>
 #include <vector>
 
-namespace utl {
-    struct FleetResult;
-    struct FightResult;
-} // namespace utl
 
 class Galaxy final {
 private:
@@ -148,5 +145,5 @@ public:
     void HandleFleetResult(utl::FleetResult const& fleetResult, Player_ty_c currentPlayer);
 
     // update
-    [[nodiscard]] UpdateResult_ty Update();
+    [[nodiscard]] utl::UpdateResult_ty Update();
 };

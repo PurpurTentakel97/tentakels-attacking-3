@@ -79,7 +79,8 @@ void Planet::Update(Galaxy_ty_raw) {
     hlp::Print(
             hlp::PrintType::ONLY_DEBUG,
             "planet produced -> id: {} -> is human: {} -> ships: {}",
-          m_ID,
-          m_player->IsHumanPlayer(),
-          m_ships);
+            m_ID,
+            m_player->IsHumanPlayer(),
+            m_ships
+    );
 }

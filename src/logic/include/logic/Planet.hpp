@@ -4,8 +4,8 @@
 //
 
 #pragma once
-#include "SpaceObject.hpp"
 
+#include "SpaceObject.hpp"
 
 class Planet final : public SpaceObject {
 private:

@@ -4,9 +4,11 @@
 //
 
 #pragma once
+
 #include "ManagerGalaxy.hpp"
 #include "Player.hpp"
-#include <event/EventGenerel.hpp>
+#include <alias/AliasUtils.hpp>
+#include <event/EventGeneral.hpp>
 #include <event/EventListener.hpp>
 #include <event/EventsUI.hpp>
 #include <memory>
@@ -23,7 +25,7 @@ private:
     std::vector<Player_ty> m_players{};
     std::vector<Player_ty> m_currentRoundPlayers{};
     GalaxyManager m_galaxyManager;
-    UpdateResult_ty m_lastUpdateResults{};
+    utl::UpdateResult_ty m_lastUpdateResults{};
 
     // player
     [[nodiscard]] bool ValidAddPlayer() const;

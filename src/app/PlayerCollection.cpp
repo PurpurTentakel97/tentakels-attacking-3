@@ -6,9 +6,8 @@
 #include <AppContext.hpp>
 #include <PlayerCollection.hpp>
 #include <algorithm>
-#include <event/EventGenerel.hpp>
+#include <event/EventGeneral.hpp>
 #include <event/EventsUI.hpp>
-#include <helper/HLogicAlias.hpp>
 #include <stdexcept>
 
 

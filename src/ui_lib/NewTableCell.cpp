@@ -4,6 +4,7 @@
 //
 
 #include "NewTableCell.hpp"
+#include <alias/AliasCustomRaylib.hpp>
 
 void NewTableCell::setStringValue() {
     if (isA<std::string>()) {
@@ -25,7 +26,7 @@ NewTableCell::index_ty NewTableCell::index() const {
 
 void NewTableCell::set_text_offset() {
     Vector2 constexpr ratio{ 0.05f, 0.25f };
-    Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
+    cst::Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
 
     m_textRenderOffset = Vector2{
         m_size.x * ratio.x * resolution.x,

@@ -4,15 +4,13 @@
 //
 
 #pragma once
+
 #include "app/PlayerData.hpp"
+#include <alias/AliasUi.hpp>
 #include <event/EventListener.hpp>
 #include <memory>
 #include <ui_lib/Scene.hpp>
 #include <ui_lib/SceneType.hpp>
-
-class GalaxyScene;
-class PlanetTable;
-class FleetAndTargetPointTable;
 
 class MainScene : public Scene, public eve::EventListener {
 private:

@@ -4,6 +4,7 @@
 //
 
 #pragma once
+
 #include "ColorPickerCell.hpp"
 #include <functional>
 #include <memory>

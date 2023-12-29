@@ -1,5 +1,4 @@
 add_library(app STATIC
-            include/app/AliasApp.hpp
             include/app/AppContext.hpp
             include/app/AssetType.hpp
             include/app/AssetManager.hpp
@@ -22,11 +21,11 @@ target_include_directories(app
 )
 
 target_link_libraries(app
-                      PRIVATE
-                      project_options
                       PUBLIC
-                      helper
-                      event
+                      alias
                       constants
+                      event
+                      helper
                       utils
+                      custom_raylib
 )

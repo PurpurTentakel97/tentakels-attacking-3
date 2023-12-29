@@ -5,6 +5,7 @@
 
 #include "ManagerUI.hpp"
 #include "HSceneTestScene.hpp"
+#include <alias/AliasConstants.hpp>
 #include <helper/HInput.hpp>
 #include <helper/HPrint.hpp>
 

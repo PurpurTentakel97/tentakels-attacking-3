@@ -5,7 +5,7 @@
 
 #include "HSceneSettings.hpp"
 #include <app/AppContext.hpp>
-#include <event/EventGenerel.hpp>
+#include <event/EventGeneral.hpp>
 #include <ui_lib/ButtonClassic.hpp>
 #include <ui_lib/Line.hpp>
 #include <ui_lib/SceneType.hpp>

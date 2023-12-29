@@ -4,6 +4,7 @@
 //
 
 #pragma once
+
 #include "app/PlayerData.hpp"
 #include <ui_lib/Focusable.hpp>
 #include <ui_lib/Hover.hpp>

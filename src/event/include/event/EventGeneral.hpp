@@ -4,13 +4,13 @@
 //
 
 #pragma once
+
 #include "EventMain.hpp"
-#include "utils/MergeResult.hpp"
 #include <CustomRaylib.hpp>
-#include <helper/HLogicAlias.hpp>
+#include <alias/AliasUtils.hpp>
 #include <string>
 #include <unordered_map>
-#include <utils/FightResult.hpp>
+#include <utils/MergeResult.hpp>
 
 
 namespace eve {

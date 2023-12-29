@@ -4,8 +4,8 @@
 //
 
 #pragma once
-#include <ui_lib/Scene.hpp>
 
+#include <ui_lib/Scene.hpp>
 
 class SettingsScene : public Scene {
 private:

@@ -1,28 +1,18 @@
 //
 // Purpur Tentakel
-// 26.05.2023
+// 28.12.2023
 //
 
+// namespace to come
+
 #pragma once
+
 #include <memory>
 #include <string>
 
-struct AppContext;
-using AppContext_ty = AppContext&;
-using AppContext_ty_c = AppContext const&;
+class Scene;
+enum class SceneType;
 
-struct Vector2;
-using Resolution_ty = Vector2&;
-using Resolution_ty_c = Vector2 const&;
-
-namespace cst {
-    struct Window;
-    using Window_ty = Window&;
-    using Window_ty_c = Window const&;
-} // namespace cst
-
-// Elements
-// Button
 class ClassicButton;
 using ClassicButton_ty = std::shared_ptr<ClassicButton>;
 using ClassicButton_ty_c = std::shared_ptr<ClassicButton> const&;
@@ -35,7 +25,6 @@ class ToggleButton;
 using ToggleButton_ty = std::shared_ptr<ToggleButton>;
 using ToggleButton_ty_c = std::shared_ptr<ToggleButton> const&;
 
-// Color Picker
 class ColorPicker;
 using ColorPicker_ty = std::shared_ptr<ColorPicker>;
 using ColorPicker_ty_c = std::shared_ptr<ColorPicker> const&;
@@ -43,7 +32,7 @@ using ColorPicker_ty_c = std::shared_ptr<ColorPicker> const&;
 class ColorPickerCell;
 using ColorPickerCell_ty = std::shared_ptr<ColorPickerCell>;
 using ColorPickerCell_ty_c = std::shared_ptr<ColorPickerCell> const&;
-// Default
+
 class Arrow;
 using Arrow_ty = std::shared_ptr<Arrow>;
 using Arrow_ty_c = std::shared_ptr<Arrow> const&;
@@ -95,7 +84,6 @@ class Title;
 using Title_ty = std::shared_ptr<Title>;
 using Title_ty_c = std::shared_ptr<Title> const&;
 
-// DropDown
 class DropDown;
 using DropDown_ty = std::shared_ptr<DropDown>;
 using DropDown_ty_c = std::shared_ptr<DropDown> const&;
@@ -103,23 +91,6 @@ using DropDown_ty_c = std::shared_ptr<DropDown> const&;
 class DropDownElement;
 using DropDownElement_ty = std::shared_ptr<DropDownElement>;
 using DropDownElement_ty_c = std::shared_ptr<DropDownElement> const&;
-
-// Galaxy
-class UIGalaxy;
-using UIGalaxy_ty = std::shared_ptr<UIGalaxy>;
-using UIGalaxy_ty_c = std::shared_ptr<UIGalaxy> const&;
-
-class UIGalaxyElement;
-using UIGalaxyElement_ty = std::shared_ptr<UIGalaxyElement>;
-using UIGalaxyElement_ty_c = std::shared_ptr<UIGalaxyElement> const&;
-
-class UIPlanet;
-using UIPlanet_ty = std::shared_ptr<UIPlanet>;
-using UIPlanet_ty_c = std::shared_ptr<UIPlanet> const&;
-
-class UITargetPoint;
-using UITargetPoint_ty = std::shared_ptr<UITargetPoint>;
-using UITargetPoint_ty_c = std::shared_ptr<UITargetPoint> const&;
 
 class UIFleet;
 using UIFleet_ty = std::shared_ptr<UIFleet>;
@@ -129,7 +100,6 @@ class CountRing;
 using CountRing_ty = std::shared_ptr<CountRing>;
 using CountRing_ty_c = std::shared_ptr<CountRing> const&;
 
-// Table
 class AbstractTableCell;
 using AbstractTableCell_ty = std::shared_ptr<AbstractTableCell>;
 using AbstractTableCell_ty_c = std::shared_ptr<AbstractTableCell> const&;
@@ -138,8 +108,5 @@ class Table;
 using Table_ty = std::shared_ptr<Table>;
 using Table_ty_c = std::shared_ptr<Table> const&;
 
-
-// public
-// Focusable
 class Focusable;
 using Focusable_ty_raw = Focusable*;

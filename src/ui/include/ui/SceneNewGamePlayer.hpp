@@ -4,6 +4,7 @@
 //
 
 #pragma once
+
 #include <event/EventListener.hpp>
 #include <ui_lib/InputLine.hpp>
 #include <ui_lib/Scene.hpp>

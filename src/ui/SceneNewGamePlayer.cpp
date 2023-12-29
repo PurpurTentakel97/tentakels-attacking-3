@@ -5,7 +5,7 @@
 
 #include "SceneNewGamePlayer.hpp"
 #include "ManagerUI.hpp"
-#include <event/EventGenerel.hpp>
+#include <event/EventGeneral.hpp>
 #include <helper/HFocusEvents.hpp>
 #include <ui_lib/ButtonClassic.hpp>
 #include <ui_lib/ColorPicker.hpp>

@@ -4,8 +4,7 @@
 //
 
 #pragma once
-#include "constants/CGameEventTypes.hpp"
-#include <app/AppContext.hpp>
+
 #include <ui_lib/Scene.hpp>
 
 

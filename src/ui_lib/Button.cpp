@@ -4,10 +4,11 @@
 //
 
 #include "Button.hpp"
+#include <alias/AliasCustomRaylib.hpp>
 #include <app/AppContext.hpp>
 
 void Button::SetTextSizeAndPosition(app::AppContext_ty_c appContext) {
-    Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
+    cst::Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
     m_textSize = m_collider.height / 2;
     Vector2 textSize = MeasureTextEx(*(appContext.assetManager.GetFont()), m_text.c_str(), m_textSize, 0.0f);
     while (textSize.x + 20 > m_collider.width) {

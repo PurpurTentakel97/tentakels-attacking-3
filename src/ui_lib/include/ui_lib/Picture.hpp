@@ -4,11 +4,9 @@
 //
 
 #pragma once
-#include "UIElement.hpp"
 
-namespace app {
-    enum class AssetType;
-}
+#include "UIElement.hpp"
+#include <alias/AliasApp.hpp>
 
 class Picture final : public UIElement {
 private:

@@ -6,6 +6,7 @@
 #include "ButtonExpanding.hpp"
 #include "ButtonClassic.hpp"
 #include "ButtonToggle.hpp"
+#include <alias/AliasCustomRaylib.hpp>
 #include <app/AppContext.hpp>
 #include <event/EventsUI.hpp>
 
@@ -180,7 +181,7 @@ void ExpandingButton::UpdateCollider() {
         return;
     }
 
-    Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
+    cst::Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
     auto defaultCollider{ m_mainButton->GetCollider() };
     Vector2 extraCollider{ m_spacing * resolution.x, m_spacing * resolution.y };
     for (auto const& btn : m_buttons) {

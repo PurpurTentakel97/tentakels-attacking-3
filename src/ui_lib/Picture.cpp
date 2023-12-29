@@ -4,6 +4,7 @@
 //
 
 #include "Picture.hpp"
+#include <alias/AliasCustomRaylib.hpp>
 #include <app/AppContext.hpp>
 
 void Picture::ScaleToFit() {
@@ -12,7 +13,7 @@ void Picture::ScaleToFit() {
         return;
     }
 
-    Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
+    cst::Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
     float const tempSize{ m_size.x };
     m_size.x = static_cast<float>(m_texture->width) / static_cast<float>(m_texture->height) * resolution.y
                / resolution.x * m_size.y;

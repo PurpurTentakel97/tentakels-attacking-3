@@ -8,6 +8,7 @@
 #include <app/AppContext.hpp>
 #include <logic/Fleet.hpp>
 #include <ui_lib/ShipCountRing.hpp>
+#include <alias/AliasCustomRaylib.hpp>
 
 UIFleet::UIFleet(unsigned int const ID, app::PlayerData const& player, Vector2 const start, Vector2 const end, Vector2 const relativeStart, Vector2 const relativeEnd,
     Fleet_ty_raw_c fleet, std::function<bool(Vector2 const&)> isInGalaxyCollider)
@@ -55,7 +56,7 @@ bool UIFleet::IsColliding(Vector2 const& mousePosition) const {
         return CheckCollisionPointRec(mousePosition, m_collider);
     }
 
-    Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
+    cst::Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
     auto const& lineStart{ m_line.GetStart() };
     auto const& lineEnd{ m_line.GetEnd() };
     Vector2 const start{ lineStart.x * resolution.x, lineStart.y * resolution.y };
@@ -85,7 +86,7 @@ void UIFleet::UpdateHoverText() {
 
 void UIFleet::UpdatePositions(Rectangle const newCollider) {
     // update line
-    Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
+    cst::Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
     Vector2 const start{ (newCollider.x + newCollider.width * m_relativeStart.x) / resolution.x,
                          (newCollider.y + newCollider.height * m_relativeStart.y) / resolution.y };
     Vector2 const end{ (newCollider.x + newCollider.width * m_relativeEnd.x) / resolution.x,

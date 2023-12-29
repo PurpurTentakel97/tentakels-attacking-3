@@ -4,7 +4,6 @@
 //
 
 #include "Focus.hpp"
-#include "Focusable.hpp"
 #include <app/AppContext.hpp>
 #include <event/EventsUI.hpp>
 #include <helper/HPrint.hpp>

@@ -4,10 +4,11 @@
 //
 
 #include "ShipCountRing.hpp"
+#include <alias/AliasCustomRaylib.hpp>
 #include <app/AppContext.hpp>
 
 void CountRing::CalculateRing() {
-    Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
+    cst::Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
     float diff{ m_relativeMaxRingSize - m_relativeDotSize };
     float factor{ static_cast<float>(m_currentCount) / static_cast<float>(m_maxCount) };
     diff *= factor;
@@ -42,7 +43,7 @@ bool CountRing::IsOverlapping(Rectangle const& rect) const {
 }
 
 void CountRing::Update() {
-    Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
+    cst::Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
     m_absolutePos = { m_collider.x + m_collider.width / 2, m_collider.y + m_collider.height / 2 };
     m_absoluteDotSize = { m_relativeDotSize * resolution.x };
     CalculateRing();

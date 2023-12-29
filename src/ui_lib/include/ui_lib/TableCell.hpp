@@ -4,6 +4,7 @@
 //
 
 #pragma once
+
 #include "TableCellAbstract.hpp"
 #include <app/AppContext.hpp>
 #include <event/EventsUI.hpp>

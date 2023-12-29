@@ -4,17 +4,17 @@
 //
 
 #pragma once
-#include "AliasApp.hpp"
+
 #include "AssetManager.hpp"
 #include "LanguageManager.hpp"
 #include "PlayerCollection.hpp"
 #include "SoundManager.hpp"
+#include <alias/AliasApp.hpp>
 #include <constants/CConstants.hpp>
 #include <event/EventListener.hpp>
 #include <event/EventManager.hpp>
 #include <event/EventsUI.hpp>
 #include <helper/HConcepts.hpp>
-#include <helper/HLogicAlias.hpp>
 #include <string>
 #include <utils/Colors.hpp>
 

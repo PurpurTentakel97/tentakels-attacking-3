@@ -4,11 +4,11 @@
 //
 
 #pragma once
+
 #include "app/PlayerData.hpp"
+#include <alias/AliasUi.hpp>
 #include <event/EventListener.hpp>
 #include <functional>
-#include <helper/HLogicAlias.hpp>
-#include <helper/HUIAlias.hpp>
 #include <memory>
 #include <ui_lib/Focusable.hpp>
 #include <ui_lib/UIElement.hpp>

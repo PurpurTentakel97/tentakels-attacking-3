@@ -4,8 +4,8 @@
 //
 
 #include "NewTable.hpp"
-#include "utils/Vec2.hpp"
 #include <cassert>
+#include <utils/Vec2.hpp>
 
 NewTableCell& NewTable::getSpecialCell(size_t const row, size_t const column) {
     if (not validSpecialIndex(row, column)) {

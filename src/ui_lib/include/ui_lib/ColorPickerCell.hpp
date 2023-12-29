@@ -4,11 +4,11 @@
 //
 
 #pragma once
+
 #include "Focusable.hpp"
 #include "Hover.hpp"
 #include "UIElement.hpp"
-
-class ColorPicker;
+#include <alias/AliasUILib.hpp>
 
 class ColorPickerCell final : public UIElement, public Focusable {
 private:

@@ -4,7 +4,8 @@
 //
 
 #pragma once
-#include <helper/HUIAlias.hpp>
+
+#include <alias/AliasApp.hpp>
 #include <ui_lib/Scene.hpp>
 
 

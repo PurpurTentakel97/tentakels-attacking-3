@@ -14,6 +14,7 @@ target_link_libraries(TentakelsAttacking
                       PRIVATE
                       helper
                       ui
+                      PUBLIC
                       project_options
 )
 target_link_options(TentakelsAttacking PRIVATE -lubsan -fsanitize=address)

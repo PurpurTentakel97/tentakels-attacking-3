@@ -3,6 +3,8 @@
 // 03.04.2023
 //
 
+#pragma once
+
 #include "Focusable.hpp"
 #include "TableCell.hpp"
 #include "UIElement.hpp"
@@ -12,7 +14,6 @@
 #include <memory>
 #include <stdexcept>
 
-#pragma once
 
 class Slider;
 

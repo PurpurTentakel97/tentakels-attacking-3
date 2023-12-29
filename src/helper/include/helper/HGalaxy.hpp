@@ -4,7 +4,8 @@
 //
 
 #pragma once
-#include "HLogicAlias.hpp"
+
+#include <alias/AliasLogic.hpp>
 #include <memory>
 #include <utility>
 

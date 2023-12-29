@@ -4,8 +4,8 @@
 //
 
 #pragma once
+
 #include "UIGalaxyElement.hpp"
-#include <helper/HLogicAlias.hpp>
 #include <ui_lib/ShipCountRing.hpp>
 
 

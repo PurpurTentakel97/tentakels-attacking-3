@@ -4,6 +4,7 @@
 //
 
 #include "UIGalaxyElement.hpp"
+#include <alias/AliasCustomRaylib.hpp>
 #include <app/AppContext.hpp>
 #include <ui_lib/ShipCountRing.hpp>
 #include <utils/Colors.hpp>
@@ -26,7 +27,7 @@ UIGalaxyElement::UIGalaxyElement(
       m_hover{ 0.03f, "", player.color, Vector2(0.01f, 0.01f) } { }
 
 void UIGalaxyElement::UpdatePosition(Rectangle const newCollider) {
-    Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
+    cst::Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
     Vector2 const newPos{ (newCollider.x + newCollider.width * m_colliderPos.x) / resolution.x,
                           (newCollider.y + newCollider.height * m_colliderPos.y) / resolution.y };
     SetPosition(newPos);

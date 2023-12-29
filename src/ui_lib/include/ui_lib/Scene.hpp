@@ -4,11 +4,10 @@
 //
 
 #pragma once
+
 #include "UIElement.hpp"
 #include <memory>
 #include <vector>
-
-class UIManager;
 
 class Scene : public UIElement {
 protected:

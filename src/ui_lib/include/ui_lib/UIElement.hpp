@@ -4,14 +4,15 @@
 //
 
 #pragma once
+
 #include "Alignment.hpp"
 #include "app/AssetType.hpp"
 #include "app/SoundType.hpp"
 #include <CustomRaylib.hpp>
+#include <alias/AliasCustomRaylib.hpp>
 #include <app/AppContext.hpp>
 #include <cmath>
 #include <event/EventsUI.hpp>
-#include <helper/HUIAlias.hpp>
 #include <helper/HVector2Operator.hpp>
 #include <numbers>
 
@@ -37,7 +38,7 @@ protected:
 
 
     virtual void UpdateCollider() {
-        Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
+        cst::Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
         m_collider = { m_pos.x * resolution.x,
                        m_pos.y * resolution.y,
                        m_size.x * resolution.x,
@@ -45,7 +46,7 @@ protected:
     }
 
     virtual void UpdateColliderReverse() {
-        Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
+        cst::Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
         m_pos = { m_collider.x / resolution.x, m_collider.y / resolution.y };
         m_size = { m_collider.width / resolution.x, m_collider.height / resolution.y };
     }

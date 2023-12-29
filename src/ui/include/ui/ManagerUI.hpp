@@ -4,7 +4,9 @@
 //
 
 #pragma once
+
 #include "ManagerScene.hpp"
+#include <alias/AliasUiLib.hpp>
 #include <app/AppContext.hpp>
 #include <event/EventListener.hpp>
 #include <logic/ManagerGame.hpp>
@@ -13,8 +15,6 @@
 #include <ui_lib/HoverRender.hpp>
 #include <ui_lib/UIElement.hpp>
 #include <vector>
-
-class Scene;
 
 class UIManager final : public eve::EventListener {
 private:

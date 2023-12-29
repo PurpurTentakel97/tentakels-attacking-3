@@ -6,6 +6,7 @@
 #include "PopUp.hpp"
 #include "Picture.hpp"
 #include "Text.hpp"
+#include <alias/AliasCustomRaylib.hpp>
 #include <app/AppContext.hpp>
 #include <helper/HGeneral.hpp>
 #include <helper/HInput.hpp>
@@ -32,7 +33,7 @@ void PopUp::Initialize(std::string const& title, std::string& subTitle, app::Ass
     );
     m_elements.push_back(textTitle);
 
-    Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
+    cst::Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
     float textHeight = hlp::GetElementTextHeight(m_size, 0.1f);
     hlp::BreakText(subTitle, textHeight * resolution.y, m_size.x * resolution.x * 0.9f, app::AppContext::GetInstance());
 
@@ -107,7 +108,7 @@ void PopUp::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c ap
 }
 
 void PopUp::Render(app::AppContext_ty_c appContext) {
-    Resolution_ty_c resolution{ appContext.GetResolution() };
+    cst::Resolution_ty_c resolution{ appContext.GetResolution() };
     DrawRectangleRec(Rectangle(0.0f, 0.0f, resolution.x, resolution.y), GREY_50);
     DrawRectangleRec(m_collider, GREY_100);
 

@@ -4,7 +4,10 @@
 //
 
 #pragma once
+
 #include "SpaceObject.hpp"
+#include <alias/AliasLogic.hpp>
+#include <alias/AliasUtils.hpp>
 
 class Fleet final : public SpaceObject {
 private:

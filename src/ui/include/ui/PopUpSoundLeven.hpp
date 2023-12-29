@@ -4,12 +4,9 @@
 //
 
 #pragma once
+
+#include <alias/AliasUiLib.hpp>
 #include <ui_lib/PopUp.hpp>
-
-class ClassicButton;
-class Slider;
-class CheckBox;
-
 
 class SoundLevelPopUp final : public PopUp {
 private:

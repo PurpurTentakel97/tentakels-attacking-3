@@ -6,7 +6,7 @@
 #include "SceneValidateGalaxy.hpp"
 #include "HSceneGalaxyAndSlider.hpp"
 #include <app/AppContext.hpp>
-#include <event/EventGenerel.hpp>
+#include <event/EventGeneral.hpp>
 #include <ui_lib/ButtonClassic.hpp>
 #include <ui_lib/SceneType.hpp>
 #include <ui_lib/Text.hpp>

@@ -5,6 +5,7 @@
 
 #include "SceneCredits.hpp"
 #include "HSceneCreditTable.hpp"
+#include <alias/AliasCustomRaylib.hpp>
 #include <app/AppContext.hpp>
 #include <ui_lib/ButtonClassic.hpp>
 #include <ui_lib/Line.hpp>
@@ -203,7 +204,7 @@ void CreditsScene::ToggleSpeedLevel() {
 }
 
 void CreditsScene::CheckCreditsFinished() {
-    Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
+    cst::Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
     float const shouldY{ (resolution.y * 0.75f) - (m_endBTN->GetCollider().height / 2) };
     float const btnY{ m_endBTN->GetCollider().y };
     if (btnY <= shouldY) {

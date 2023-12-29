@@ -4,6 +4,7 @@
 //
 
 #include "Text.hpp"
+#include <alias/AliasCustomRaylib.hpp>
 #include <app/AppContext.hpp>
 #include <cassert>
 #include <helper/HTextProcessing.hpp>
@@ -91,7 +92,7 @@ void Text::Render(app::AppContext_ty_c) {
 }
 
 void Text::Resize(app::AppContext_ty_c appContext) {
-    Resolution_ty_c resolution{ appContext.GetResolution() };
+    cst::Resolution_ty_c resolution{ appContext.GetResolution() };
     UIElement::Resize(appContext);
     m_textSize = m_textHeight * resolution.y;
     CreateToRender();

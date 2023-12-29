@@ -4,8 +4,9 @@
 //
 
 #pragma once
-#include "app/PlayerCollection.hpp"
-#include <helper/HLogicAlias.hpp>
+
+#include <alias/AliasLogic.hpp>
+#include <app/PlayerCollection.hpp>
 #include <ui_lib/Hover.hpp>
 #include <ui_lib/Line.hpp>
 #include <ui_lib/UIElement.hpp>

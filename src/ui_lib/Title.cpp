@@ -4,6 +4,7 @@
 //
 
 #include "Title.hpp"
+#include <alias/AliasCustomRaylib.hpp>
 #include <app/AppContext.hpp>
 #include <helper/HInput.hpp>
 #include <helper/HRandom.hpp>
@@ -80,7 +81,7 @@ void Title::MeasureTitleLength() {
 }
 
 void Title::RecalculateCollider(app::AppContext_ty_c appContext) {
-    Resolution_ty_c resolution{ appContext.GetResolution() };
+    cst::Resolution_ty_c resolution{ appContext.GetResolution() };
     m_fontSize = resolution.y * m_size.y / static_cast<float>(m_title->size());
 
     std::string title{};

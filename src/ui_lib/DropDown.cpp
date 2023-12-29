@@ -5,6 +5,7 @@
 
 #include "DropDown.hpp"
 #include "DropDownElement.hpp"
+#include <alias/AliasCustomRaylib.hpp>
 #include <app/AppContext.hpp>
 #include <event/EventsUI.hpp>
 #include <helper/HFocusEvents.hpp>
@@ -61,7 +62,7 @@ void DropDown::SetCurrentElementOutUpdate(std::shared_ptr<DropDownElement> const
 }
 
 void DropDown::SetText() {
-    Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
+    cst::Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
     m_currentElementText = m_currentElement->GetText();
     hlp::StripString(m_currentElementText);
     m_fontSize = hlp::GetElementTextHeight(m_size, resolution.y);
@@ -167,7 +168,7 @@ void DropDown::CheckIfScrolling() {
 
 void DropDown::UpdateCollider() {
 
-    Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
+    cst::Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
     UIElement::UpdateCollider();
     SetText();
 
@@ -192,7 +193,7 @@ DropDown::DropDown(
       Focusable{ focusID },
       m_dropDownHeight{ dropDownHeight } {
 
-    Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
+    cst::Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
 
     m_arrowTexture = app::AppContext::GetInstance().assetManager.GetTexture(app::AssetType::ARROW_UP);
     m_arrowTextureRec = { 0.0f,

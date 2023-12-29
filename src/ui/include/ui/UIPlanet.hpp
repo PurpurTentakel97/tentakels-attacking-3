@@ -4,8 +4,8 @@
 //
 
 #pragma once
+
 #include "UIGalaxyElement.hpp"
-#include <helper/HLogicAlias.hpp>
 
 
 class UIPlanet final : public UIGalaxyElement {

@@ -15,3 +15,4 @@
 #define LIGHT_GREY_50     CLITERAL(Color){  50,   50,   50,  128 }      // transparent background Grey
 #define TEXT_WHITE        CLITERAL(Color){ 255,  255,  255,  100 }      // background white for dark text
 // clang-format on
+

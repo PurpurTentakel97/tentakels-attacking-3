@@ -5,8 +5,7 @@
 
 #include "AppContext.hpp"
 #include <constants/CConfigIO.hpp>
-#include <event/EventGenerel.hpp>
-#include <event/EventsUI.hpp>
+#include <event/EventGeneral.hpp>
 #include <helper/HPrint.hpp>
 
 

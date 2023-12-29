@@ -4,6 +4,7 @@
 //
 
 #include "HGalaxy.hpp"
+#include <alias/AliasLogic.hpp>
 #include <logic/Fleet.hpp>
 
 namespace hlp {

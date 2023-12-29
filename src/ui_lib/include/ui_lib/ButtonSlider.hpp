@@ -4,6 +4,7 @@
 //
 
 #pragma once
+
 #include "Button.hpp"
 
 class SliderButton final : public Button {

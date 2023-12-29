@@ -5,7 +5,7 @@
 
 #include "PopUpValidate.hpp"
 #include <app/AppContext.hpp>
-#include <event/EventGenerel.hpp>
+#include <event/EventGeneral.hpp>
 #include <helper/HFocusEvents.hpp>
 #include <helper/HInput.hpp>
 #include <ui_lib/ButtonClassic.hpp>

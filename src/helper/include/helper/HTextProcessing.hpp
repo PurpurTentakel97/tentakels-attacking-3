@@ -4,8 +4,9 @@
 //
 
 #pragma once
+
 #include <CustomRaylib.hpp>
-#include <app/AliasApp.hpp>
+#include <alias/AliasApp.hpp>
 #include <string>
 #include <vector>
 

@@ -4,16 +4,15 @@
 //
 
 #pragma once
+
 #include "ManagerPopUp.hpp"
+#include <alias/AliasUi.hpp>
+#include <alias/AliasUiLib.hpp>
 #include <memory>
 #include <ui_lib/PopUp.hpp>
 #include <ui_lib/SceneType.hpp>
 #include <unordered_map>
 #include <vector>
-
-class Scene;
-class UIManager;
-
 
 class SceneManager final : public eve::EventListener {
 private:

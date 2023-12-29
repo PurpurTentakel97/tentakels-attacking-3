@@ -5,6 +5,7 @@
 
 #include "HSceneGalaxyAndSlider.hpp"
 #include "UIGalaxy.hpp"
+#include <alias/AliasCustomRaylib.hpp>
 #include <app/AppContext.hpp>
 #include <ui_lib/ButtonClassic.hpp>
 #include <ui_lib/Line.hpp>
@@ -81,7 +82,7 @@ void GalaxyScene::Initialize(bool const isShowGalaxy, bool const isAcceptingInpu
 
 void GalaxyScene::Zoom(float const scaleFactor, Vector2 const referenceScale) {
 
-    Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
+    cst::Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
     m_verticalSlider->SetAbsoluteDimension(scaleFactor);
     m_horizontalSlider->SetAbsoluteDimension(scaleFactor);
 

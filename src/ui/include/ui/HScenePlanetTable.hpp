@@ -4,7 +4,8 @@
 //
 
 #pragma once
-#include <logic/Galaxy.hpp>
+
+#include <alias/AliasLogic.hpp>
 #include <ui_lib/Scene.hpp>
 #include <ui_lib/Table.hpp>
 

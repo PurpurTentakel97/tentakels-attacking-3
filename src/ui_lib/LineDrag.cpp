@@ -4,6 +4,7 @@
 //
 
 #include "LineDrag.hpp"
+#include <alias/AliasCustomRaylib.hpp>
 #include <app/AppContext.hpp>
 
 LineDrag::LineDrag(float const thick, Color const color, std::function<void(Vector2, Vector2)> callback)
@@ -43,7 +44,7 @@ void LineDrag::ClearCallback() {
 }
 
 void LineDrag::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) {
-    Resolution_ty_c resolution{ appContext.GetResolution() };
+    cst::Resolution_ty_c resolution{ appContext.GetResolution() };
     if (m_render) {
         if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) {
             m_render = false;

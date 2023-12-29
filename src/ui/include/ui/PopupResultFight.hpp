@@ -4,6 +4,7 @@
 //
 
 #pragma once
+
 #include "utils/FightResult.hpp"
 #include <ui_lib/CountingNumber.hpp>
 #include <ui_lib/PopUp.hpp>

@@ -4,15 +4,16 @@
 //
 
 #pragma once
+
 #include "EventMain.hpp"
-#include "utils/Vec2.hpp"
 #include <CustomRaylib.hpp>
-#include <app/SoundType.hpp>
+#include <alias/AliasApp.hpp>
+#include <alias/AliasUiLib.hpp>
+#include <alias/AliasUtils.hpp>
 #include <functional>
-#include <helper/HLogicAlias.hpp>
-#include <helper/HUIAlias.hpp>
 #include <string>
 #include <utils/FightResult.hpp>
+#include <utils/Vec2.hpp>
 
 class Focusable;
 class PopUp;

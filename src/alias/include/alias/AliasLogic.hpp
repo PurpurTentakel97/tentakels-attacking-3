@@ -1,20 +1,15 @@
 //
 // Purpur Tentakel
-// 26.05.2023
+// 28.12.2023
 //
+
+// namespace to come
 
 #pragma once
 #include <memory>
-#include <vector>
 
-namespace utl {
-    template<typename T>
-    struct Vec2;
-    using vec2pos_ty = Vec2<int>;
-    using vec2pos_ty_ref = Vec2<int>&;
-    using vec2pos_ty_c = Vec2<int> const;
-    using vec2pos_ty_ref_c = Vec2<int> const&;
-} // namespace utl
+class GameManager;
+enum class CopyGalaxyType;
 
 class SpaceObject;
 using SpaceObject_ty = std::shared_ptr<SpaceObject>;
@@ -51,9 +46,3 @@ using Player_ty = std::shared_ptr<Player>;
 using Player_ty_c = Player_ty const&;
 using Player_ty_raw = Player const*;
 using Player_ty_raw_c = Player const* const;
-
-namespace utl {
-    struct MergeResult;
-    struct FightResult;
-} // namespace utl
-using UpdateResult_ty = std::pair<std::vector<utl::MergeResult>, std::vector<utl::FightResult>>;

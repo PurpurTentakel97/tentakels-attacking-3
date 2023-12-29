@@ -4,11 +4,11 @@
 //
 
 #pragma once
+
+#include <alias/AliasUiLib.hpp>
 #include <functional>
 #include <ui_lib/Scene.hpp>
 #include <ui_lib/SceneType.hpp>
-
-enum class SceneType;
 
 class LogoScene final : public Scene {
 private:

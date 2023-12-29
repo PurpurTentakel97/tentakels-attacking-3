@@ -4,6 +4,7 @@
 //
 
 #pragma once
+
 #include "PopUpCell.hpp"
 #include <ui_lib/ColorPicker.hpp>
 

@@ -4,12 +4,13 @@
 //
 
 #include "DropDownElement.hpp"
+#include <alias/AliasCustomRaylib.hpp>
 #include <app/AppContext.hpp>
 #include <helper/HInput.hpp>
 #include <helper/HTextProcessing.hpp>
 
 void DropDownElement::CreateToRender() {
-    Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
+    cst::Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
     m_toRender = m_text;
     hlp::StripString(m_toRender);
     m_fontSize = hlp::GetElementTextHeight(m_size, resolution.y);

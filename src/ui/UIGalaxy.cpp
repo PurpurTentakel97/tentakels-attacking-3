@@ -7,8 +7,9 @@
 #include "UIFleet.hpp"
 #include "UIPlanet.hpp"
 #include "UITargetPoint.hpp"
+#include <alias/AliasCustomRaylib.hpp>
 #include <app/AppContext.hpp>
-#include <event/EventGenerel.hpp>
+#include <event/EventGeneral.hpp>
 #include <helper/HFocusEvents.hpp>
 #include <helper/HInput.hpp>
 #include <logic/Galaxy.hpp>
@@ -114,7 +115,7 @@ void UIGalaxy::Initialize(eve::SendGalaxyPointerEvent const* const event) {
 }
 
 Vector2 UIGalaxy::GetAbsolutePosition(Vector2 const pos, app::AppContext_ty_c appContext) const {
-    Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
+    cst::Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
     Vector2 const newPos{
         (m_collider.x) / resolution.x,
         (m_collider.y) / resolution.y,
@@ -288,7 +289,7 @@ bool UIGalaxy::IsCollidingObjectPoint(Vector2 const point) const {
 }
 
 unsigned int UIGalaxy::GetIDFromPoint(Vector2 const point) const {
-    Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
+    cst::Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
     Vector2 absolutePoint{ resolution.x * point.x, resolution.y * point.y };
     // don't check if point is in galaxy collider because the other planets get displayed on the edge of the collider
 
@@ -311,7 +312,7 @@ unsigned int UIGalaxy::GetIDFromPoint(Vector2 const point) const {
 }
 
 utl::vec2pos_ty UIGalaxy::GetCoordinatesFromPoint(Vector2 const point) const {
-    Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
+    cst::Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
     Vector2 const absolutePoint{ resolution.x * point.x, resolution.y * point.y };
     if (!CheckCollisionPointRec(absolutePoint, m_collider)) {
         return { -1, -1 };
@@ -594,7 +595,7 @@ void UIGalaxy::Resize(app::AppContext_ty_c appContext) {
     UIElement::Resize(appContext);
     m_lineDrag->Resize(appContext);
 
-    Resolution_ty_c resolution{ appContext.GetResolution() };
+    cst::Resolution_ty_c resolution{ appContext.GetResolution() };
     m_absoluteSize = {
         m_absoluteSize.x / resolution.x * resolution.x,
         m_absoluteSize.y / resolution.y * resolution.y,

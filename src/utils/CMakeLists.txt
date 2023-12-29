@@ -19,5 +19,6 @@ target_link_libraries(utils
                       PRIVATE
                       app
                       PUBLIC
+                      alias
                       custom_raylib
 )

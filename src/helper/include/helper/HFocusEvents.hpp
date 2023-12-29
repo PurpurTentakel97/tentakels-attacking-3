@@ -4,8 +4,8 @@
 //
 
 #pragma once
-#include "HUIAlias.hpp"
 
+#include <alias/AliasUiLib.hpp>
 
 namespace hlp {
     void AddFocusLayer(bool isPopUp = false);

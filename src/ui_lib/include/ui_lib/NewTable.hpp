@@ -4,6 +4,7 @@
 //
 
 #pragma once
+
 #include "Focusable.hpp"
 #include "NewTableCell.hpp"
 #include "UIElement.hpp"

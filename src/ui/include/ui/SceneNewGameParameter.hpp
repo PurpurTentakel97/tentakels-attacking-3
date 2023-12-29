@@ -4,13 +4,11 @@
 //
 
 #pragma once
+
+#include <alias/AliasUi.hpp>
 #include <event/EventListener.hpp>
 #include <ui_lib/Scene.hpp>
 #include <vector>
-
-class GameEventSettings;
-class SliderAndInputLine;
-enum class SliderType;
 
 class NewGameParameterScene final : public Scene, public eve::EventListener {
 private:

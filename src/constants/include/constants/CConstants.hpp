@@ -4,6 +4,7 @@
 //
 
 #pragma once
+
 #include "CFight.hpp"
 #include "CFiles.hpp"
 #include "CFleet.hpp"

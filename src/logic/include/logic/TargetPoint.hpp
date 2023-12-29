@@ -4,6 +4,7 @@
 //
 
 #pragma once
+
 #include "SpaceObject.hpp"
 
 class TargetPoint : public SpaceObject {

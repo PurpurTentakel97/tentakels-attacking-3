@@ -4,8 +4,8 @@
 //
 
 #pragma once
-#include "app/PlayerData.hpp"
-#include <helper/HLogicAlias.hpp>
+
+#include <alias/AliasUi.hpp>
 #include <ui_lib/Scene.hpp>
 #include <vector>
 

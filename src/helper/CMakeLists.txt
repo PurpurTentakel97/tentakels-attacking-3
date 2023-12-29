@@ -5,11 +5,9 @@ add_library(helper STATIC
             include/helper/HGalaxy.hpp
             include/helper/HGeneral.hpp
             include/helper/HInput.hpp
-            include/helper/HLogicAlias.hpp
             include/helper/HPrint.hpp
             include/helper/HRandom.hpp
             include/helper/HTextProcessing.hpp
-            include/helper/HUIAlias.hpp
             include/helper/HVector2Operator.hpp
             HErrorLog.cpp
             HFocusEvents.cpp
@@ -31,10 +29,10 @@ target_link_libraries(helper
                       PRIVATE
                       app
                       event
+                      constants
                       logic
-                      nlohmann_json::nlohmann_json
-                      project_options
+                      ui_lib
                       PUBLIC
                       custom_raylib
-                      ui_lib
+                      alias
 )

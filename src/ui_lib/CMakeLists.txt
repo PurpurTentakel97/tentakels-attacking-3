@@ -70,10 +70,11 @@ target_include_directories(ui_lib
 )
 
 target_link_libraries(ui_lib
-                      PRIVATE
-                      project_options
                       PUBLIC
-                      helper
-                      event
+                      alias
                       app
+                      custom_raylib
+                      event
+                      helper
+                      utils
 )

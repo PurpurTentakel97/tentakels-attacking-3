@@ -4,6 +4,7 @@
 //
 
 #pragma once
+
 #include <CustomRaylib.hpp>
 #include <array>
 #include <string>

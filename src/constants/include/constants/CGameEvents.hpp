@@ -4,6 +4,7 @@
 //
 
 #pragma once
+
 #include "CGameEventTypes.hpp"
 #include <array>
 #include <cstddef>
