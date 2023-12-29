@@ -4,8 +4,8 @@
 //
 
 #pragma once
+#include "app/PlayerData.hpp"
 #include <event/EventListener.hpp>
-#include <helper/HPlayerData.hpp>
 #include <memory>
 #include <ui_lib/Scene.hpp>
 #include <ui_lib/SceneType.hpp>
@@ -31,8 +31,8 @@ private:
     Text_ty m_nextPlayerName;
     Text_ty m_currentRound;
     Text_ty m_currentTargetRound;
-    PlayerData m_currentPlayer{ 0, "", WHITE };
-    PlayerData m_nextPlayer{ 0, "", WHITE };
+    app::PlayerData m_currentPlayer{ 0, "", WHITE };
+    app::PlayerData m_nextPlayer{ 0, "", WHITE };
 
     InputLine_int_ty m_origin;
     InputLine_int_ty m_destination;

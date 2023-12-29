@@ -9,7 +9,7 @@
 #include <logic/Fleet.hpp>
 #include <ui_lib/ShipCountRing.hpp>
 
-UIFleet::UIFleet(unsigned int const ID, PlayerData const& player, Vector2 const start, Vector2 const end, Vector2 const relativeStart, Vector2 const relativeEnd,
+UIFleet::UIFleet(unsigned int const ID, app::PlayerData const& player, Vector2 const start, Vector2 const end, Vector2 const relativeStart, Vector2 const relativeEnd,
     Fleet_ty_raw_c fleet, std::function<bool(Vector2 const&)> isInGalaxyCollider)
     : UIElement{ start, { 0.005f,0.01f }, Alignment::MID_MID }, m_ID{ ID }, m_player{ player },
     m_relativeStart{ relativeStart }, m_relativeEnd{ relativeEnd }, m_fleet { fleet }, m_isInGalaxyCollider{ std::move(isInGalaxyCollider) },
@@ -71,7 +71,7 @@ bool UIFleet::IsRingOverlappingWithRectangle(Rectangle const& rect) const {
     return m_ring->IsOverlapping(rect);
 }
 
-PlayerData UIFleet::GetPlayer() const {
+app::PlayerData UIFleet::GetPlayer() const {
     return m_player;
 }
 

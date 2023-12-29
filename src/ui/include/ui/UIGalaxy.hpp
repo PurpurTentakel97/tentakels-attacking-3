@@ -4,10 +4,10 @@
 //
 
 #pragma once
+#include "app/PlayerData.hpp"
 #include <event/EventListener.hpp>
 #include <functional>
 #include <helper/HLogicAlias.hpp>
-#include <helper/HPlayerData.hpp>
 #include <helper/HUIAlias.hpp>
 #include <memory>
 #include <ui_lib/Focusable.hpp>
@@ -108,7 +108,7 @@ public:
 
     void Resize(app::AppContext_ty_c appContext) override;
 
-    void FilterByCurrentPlayer(PlayerData const& player);
+    void FilterByCurrentPlayer(app::PlayerData const& player);
 
     void SetEnabled(bool isEnabled);
 

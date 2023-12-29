@@ -145,7 +145,7 @@ Galaxy_ty_raw GalaxyScene::GetGalaxy() const {
     return m_galaxy->GetGalaxy();
 }
 
-void GalaxyScene::FilterByCurrentPlayer(PlayerData const& player) {
+void GalaxyScene::FilterByCurrentPlayer(app::PlayerData const& player) {
     m_galaxy->FilterByCurrentPlayer(player);
 }
 

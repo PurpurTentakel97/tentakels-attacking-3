@@ -269,14 +269,14 @@ void NewGamePlayerScene::UpdatePlayer(unsigned int const ID, std::string const& 
 void NewGamePlayerScene::UpdatePlayerName(AbstractTableCell const*, std::string const& oldValue, std::string const& newValue) {
 
     app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
-    PlayerData const playerData{ appContext.playerCollection.GetPlayerByName(oldValue) };
+    app::PlayerData const playerData{ appContext.playerCollection.GetPlayerByName(oldValue) };
 
     UpdatePlayer(playerData.ID, newValue, playerData.color);
 }
 
 void NewGamePlayerScene::UpdatePlayerColor(AbstractTableCell const*, Color const oldValue, Color const newValue) {
     app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
-    PlayerData const playerData{ appContext.playerCollection.GetPlayerByColor(oldValue) };
+    app::PlayerData const playerData{ appContext.playerCollection.GetPlayerByColor(oldValue) };
 
     UpdatePlayer(playerData.ID, playerData.GetName(), newValue);
 }

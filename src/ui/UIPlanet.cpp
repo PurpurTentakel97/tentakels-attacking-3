@@ -9,7 +9,7 @@
 #include <logic/Planet.hpp>
 #include <ui_lib/ShipCountRing.hpp>
 
-UIPlanet::UIPlanet(unsigned int const focusID, unsigned int const ID, PlayerData const& player, Vector2 const pos,
+UIPlanet::UIPlanet(unsigned int const focusID, unsigned int const ID, app::PlayerData const& player, Vector2 const pos,
 	Vector2 const colliderPos, Planet_ty_raw_c planet)
 	:UIGalaxyElement{ focusID, ID, { 0.015f, 0.025f }, player, pos, colliderPos }, m_planet{ planet } {
 

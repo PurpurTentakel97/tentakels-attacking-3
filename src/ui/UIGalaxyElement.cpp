@@ -12,7 +12,7 @@ UIGalaxyElement::UIGalaxyElement(
         unsigned int const focusID,
         unsigned int const ID,
         Vector2 const size,
-        PlayerData const& player,
+        app::PlayerData const& player,
         Vector2 const pos,
         Vector2 const colliderPos
 )
@@ -37,14 +37,14 @@ void UIGalaxyElement::SetOnClick(std::function<void(UIGalaxyElement*)> onClick) 
     m_onClick = std::move(onClick);
 }
 
-void UIGalaxyElement::SetPlayer(PlayerData const player) {
+void UIGalaxyElement::SetPlayer(app::PlayerData const player) {
     m_currentPlayer = std::move(player);
     if (utl::Colors::AreSame(m_color, GRAY)) {
         m_color = m_currentPlayer.color;
     }
 }
 
-PlayerData UIGalaxyElement::GetPlayer() const {
+app::PlayerData UIGalaxyElement::GetPlayer() const {
     return m_currentPlayer;
 }
 

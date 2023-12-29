@@ -7,10 +7,10 @@
 #include "HSceneFleetTable.hpp"
 #include "HSceneGalaxyAndSlider.hpp"
 #include "HScenePlanetTable.hpp"
+#include "app/PlayerCollection.hpp"
 #include <app/AppContext.hpp>
 #include <cassert>
 #include <event/EventGenerel.hpp>
-#include <helper/HPlayerCollection.hpp>
 #include <logic/Player.hpp>
 #include <ui_lib/ButtonClassic.hpp>
 #include <ui_lib/ButtonExpanding.hpp>

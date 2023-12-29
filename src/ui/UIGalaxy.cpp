@@ -608,7 +608,7 @@ void UIGalaxy::Resize(app::AppContext_ty_c appContext) {
     }
 }
 
-void UIGalaxy::FilterByCurrentPlayer(PlayerData const& player) {
+void UIGalaxy::FilterByCurrentPlayer(app::PlayerData const& player) {
     for (auto const& f : m_uiFleets) {
         f->SetDisplayedAsPoint(f->GetPlayer().ID != player.ID);
     }

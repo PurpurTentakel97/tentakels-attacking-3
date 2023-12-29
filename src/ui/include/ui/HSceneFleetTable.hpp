@@ -4,8 +4,8 @@
 //
 
 #pragma once
+#include "app/PlayerData.hpp"
 #include <helper/HLogicAlias.hpp>
-#include <helper/HPlayerData.hpp>
 #include <ui_lib/Scene.hpp>
 
 
@@ -14,7 +14,7 @@ private:
     Galaxy_ty_raw m_galaxy;
     Table_ty m_table;
 
-    void Initialization(PlayerData const& currentPlayer);
+    void Initialization(app::PlayerData const& currentPlayer);
 
     [[nodiscard]] std::string GetStringFromPosition(utl::vec2pos_ty_ref_c position, bool getCoordinates) const;
 
@@ -24,7 +24,7 @@ public:
             Vector2 size,
             Alignment alignment,
             Galaxy_ty_raw galaxy,
-            PlayerData const& currentPlayer
+            app::PlayerData const& currentPlayer
     );
 
     void SetActive(bool active, app::AppContext_ty_c appContext) override;

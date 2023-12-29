@@ -4,8 +4,8 @@
 //
 
 #pragma once
+#include "app/PlayerCollection.hpp"
 #include <helper/HLogicAlias.hpp>
-#include <helper/HPlayerCollection.hpp>
 #include <ui_lib/Hover.hpp>
 #include <ui_lib/Line.hpp>
 #include <ui_lib/UIElement.hpp>
@@ -13,7 +13,7 @@
 class UIFleet final : public UIElement {
 private:
     unsigned int m_ID;
-    PlayerData m_player;
+    app::PlayerData m_player;
     Vector2 m_relativeStart;
     Vector2 m_relativeEnd;
     Fleet_ty_raw_c m_fleet;
@@ -25,7 +25,7 @@ private:
 
 public:
     UIFleet(unsigned int ID,
-            PlayerData const& player,
+            app::PlayerData const& player,
             Vector2 start,
             Vector2 end,
             Vector2 relativeStart,
@@ -39,7 +39,7 @@ public:
 
     [[nodiscard]] bool IsRingOverlappingWithRectangle(Rectangle const& rect) const;
 
-    [[nodiscard]] PlayerData GetPlayer() const;
+    [[nodiscard]] app::PlayerData GetPlayer() const;
 
     void UpdateHoverText();
 

@@ -7,7 +7,7 @@
 #include <CustomRaylib.hpp>
 #include <string>
 
-
+namespace app {
     struct PlayerData final {
         unsigned int ID{ 0 };
         Color color{ WHITE };
@@ -37,3 +37,4 @@
     [[nodiscard]] inline bool operator!=(PlayerData const& lhs, PlayerData const& rhs) {
         return !(lhs == rhs);
     }
+} // namespace app

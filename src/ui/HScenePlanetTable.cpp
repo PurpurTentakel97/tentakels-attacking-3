@@ -63,7 +63,7 @@ void PlanetTable::Initialization() {
             entry = appContext.languageManager.Text("ui_planet_table_player_name_not_discovered");
             color = WHITE;
         } else {
-            PlayerData const& player{ appContext.playerCollection.GetPlayerOrNpcByID(p->GetPlayer()->GetID()) };
+            app::PlayerData const& player{ appContext.playerCollection.GetPlayerOrNpcByID(p->GetPlayer()->GetID()) };
             entry = player.GetName();
             color = player.color;
         }

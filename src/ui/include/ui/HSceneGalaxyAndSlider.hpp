@@ -4,8 +4,8 @@
 //
 
 #pragma once
+#include "app/PlayerData.hpp"
 #include <helper/HLogicAlias.hpp>
-#include <helper/HPlayerData.hpp>
 #include <ui_lib/Scene.hpp>
 #include <vector>
 
@@ -41,7 +41,7 @@ public:
 
     [[nodiscard]] Galaxy_ty_raw GetGalaxy() const;
 
-    void FilterByCurrentPlayer(PlayerData const& player);
+    void FilterByCurrentPlayer(app::PlayerData const& player);
 
     void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) override;
 

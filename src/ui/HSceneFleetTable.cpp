@@ -10,7 +10,7 @@
 #include <ui_lib/Table.hpp>
 #include <ui_lib/Text.hpp>
 
-void FleetAndTargetPointTable::Initialization(PlayerData const& currentPlayer) {
+void FleetAndTargetPointTable::Initialization(app::PlayerData const& currentPlayer) {
     app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
     auto const fleets{ m_galaxy->GetFleets() };
     auto const targetPoints{ m_galaxy->GetTargetPoints() };
@@ -45,7 +45,7 @@ void FleetAndTargetPointTable::Initialization(PlayerData const& currentPlayer) {
         for (size_t i = 0; i < fleets.size(); ++i) {
             auto const& fleet{ fleets.at(i) };
 
-            PlayerData player{ appContext.playerCollection.GetPlayerOrNpcByID(fleet->GetPlayer()->GetID()) };
+            app::PlayerData player{ appContext.playerCollection.GetPlayerOrNpcByID(fleet->GetPlayer()->GetID()) };
             // fleet ID
             m_table->SetValue<int>(i + startFleets, 0, static_cast<int>(fleet->GetID()));
             m_table->SetSingleCellTextColor(player.color, i + startFleets, 0);
@@ -97,7 +97,7 @@ void FleetAndTargetPointTable::Initialization(PlayerData const& currentPlayer) {
         for (size_t i = 0; i < targetPoints.size(); ++i) {
             auto const& targetPoint{ targetPoints.at(i) };
 
-            PlayerData player{ appContext.playerCollection.GetPlayerOrNpcByID(targetPoint->GetPlayer()->GetID()) };
+            app::PlayerData player{ appContext.playerCollection.GetPlayerOrNpcByID(targetPoint->GetPlayer()->GetID()) };
             // target point ID
             m_table->SetValue<int>(i + startTargetPoints, 0, static_cast<int>(targetPoint->GetID()));
             m_table->SetSingleCellTextColor(player.color, i + startTargetPoints, 0);
@@ -154,7 +154,7 @@ FleetAndTargetPointTable::FleetAndTargetPointTable(
         Vector2 const size,
         Alignment const alignment,
         Galaxy_ty_raw galaxy,
-        PlayerData const& currentPlayer
+        app::PlayerData const& currentPlayer
 )
     : Scene{ pos, size, alignment },
       m_galaxy{ galaxy } {
