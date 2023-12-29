@@ -5,13 +5,13 @@
 
 #include "Planet.hpp"
 #include "Player.hpp"
-#include <AppContext.hpp>
+#include <app/AppContext.hpp>
 #include <helper/HPrint.hpp>
 #include <helper/HRandom.hpp>
 
 Planet::Planet(
         unsigned int const ID,
-        vec2pos_ty_ref_c position,
+        utl::vec2pos_ty_ref_c position,
         Player_ty player,
         bool const isHomePlanet,
         int planetNumber
@@ -20,7 +20,7 @@ Planet::Planet(
 
 Planet::Planet(
         unsigned int const ID,
-        vec2pos_ty_ref_c position,
+        utl::vec2pos_ty_ref_c position,
         Player_ty player,
         bool const isHomePlanet,
         int planetNumber,
@@ -30,7 +30,7 @@ Planet::Planet(
       m_isHomePlanet{ isHomePlanet },
       m_planetNumber{ planetNumber } {
 
-    AppContext const& appContext{ AppContext::GetInstance() };
+    app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
 
     if (m_isHomePlanet) {
         m_production = appContext.constants.planet.homeworldProduction;
@@ -79,7 +79,8 @@ void Planet::Update(Galaxy_ty_raw) {
     hlp::Print(
             hlp::PrintType::ONLY_DEBUG,
             "planet produced -> id: {} -> is human: {} -> ships: {}",
-          m_ID,
-          m_player->IsHumanPlayer(),
-          m_ships);
+            m_ID,
+            m_player->IsHumanPlayer(),
+            m_ships
+    );
 }

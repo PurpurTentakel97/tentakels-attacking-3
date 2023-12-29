@@ -5,11 +5,12 @@
 
 #include "UIFleet.hpp"
 #include "UIGalaxyElement.hpp"
-#include <AppContext.hpp>
+#include <app/AppContext.hpp>
 #include <logic/Fleet.hpp>
 #include <ui_lib/ShipCountRing.hpp>
+#include <alias/AliasCustomRaylib.hpp>
 
-UIFleet::UIFleet(unsigned int const ID, PlayerData const& player, Vector2 const start, Vector2 const end, Vector2 const relativeStart, Vector2 const relativeEnd,
+UIFleet::UIFleet(unsigned int const ID, app::PlayerData const& player, Vector2 const start, Vector2 const end, Vector2 const relativeStart, Vector2 const relativeEnd,
     Fleet_ty_raw_c fleet, std::function<bool(Vector2 const&)> isInGalaxyCollider)
     : UIElement{ start, { 0.005f,0.01f }, Alignment::MID_MID }, m_ID{ ID }, m_player{ player },
     m_relativeStart{ relativeStart }, m_relativeEnd{ relativeEnd }, m_fleet { fleet }, m_isInGalaxyCollider{ std::move(isInGalaxyCollider) },
@@ -55,7 +56,7 @@ bool UIFleet::IsColliding(Vector2 const& mousePosition) const {
         return CheckCollisionPointRec(mousePosition, m_collider);
     }
 
-    Resolution_ty_c resolution{ AppContext::GetInstance().GetResolution() };
+    cst::Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
     auto const& lineStart{ m_line.GetStart() };
     auto const& lineEnd{ m_line.GetEnd() };
     Vector2 const start{ lineStart.x * resolution.x, lineStart.y * resolution.y };
@@ -71,7 +72,7 @@ bool UIFleet::IsRingOverlappingWithRectangle(Rectangle const& rect) const {
     return m_ring->IsOverlapping(rect);
 }
 
-PlayerData UIFleet::GetPlayer() const {
+app::PlayerData UIFleet::GetPlayer() const {
     return m_player;
 }
 
@@ -80,12 +81,12 @@ void UIFleet::UpdateHoverText() {
                                 + ", Y: " + std::to_string(m_fleet->GetPos().y) };
     std::string const text_1{ std::to_string(m_fleet->GetID()) + " | " + position + " |" };
     std::string const text_2{ std::to_string(m_fleet->GetShipCount()) };
-    m_hover.SetText(AppContext::GetInstance().languageManager.Text("ui_fleet_hover", text_1, text_2));
+    m_hover.SetText(app::AppContext::GetInstance().languageManager.Text("ui_fleet_hover", text_1, text_2));
 }
 
 void UIFleet::UpdatePositions(Rectangle const newCollider) {
     // update line
-    Resolution_ty_c resolution{ AppContext::GetInstance().GetResolution() };
+    cst::Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
     Vector2 const start{ (newCollider.x + newCollider.width * m_relativeStart.x) / resolution.x,
                          (newCollider.y + newCollider.height * m_relativeStart.y) / resolution.y };
     Vector2 const end{ (newCollider.x + newCollider.width * m_relativeEnd.x) / resolution.x,
@@ -111,7 +112,7 @@ bool UIFleet::IsDisplayAsPoint() const {
     return m_isDisplayAsPoint;
 }
 
-void UIFleet::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) {
+void UIFleet::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) {
     UIElement::CheckAndUpdate(mousePosition, appContext);
     m_ring->CheckAndUpdate(mousePosition, appContext);
 
@@ -121,7 +122,7 @@ void UIFleet::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appCo
     }
 }
 
-void UIFleet::Render(AppContext_ty_c appContext) {
+void UIFleet::Render(app::AppContext_ty_c appContext) {
 
     if (m_isDisplayAsPoint) {
         DrawCircle(
@@ -136,11 +137,11 @@ void UIFleet::Render(AppContext_ty_c appContext) {
     m_line.Render(appContext);
 }
 
-void UIFleet::RenderRing(AppContext_ty_c appContext) {
+void UIFleet::RenderRing(app::AppContext_ty_c appContext) {
     m_ring->Render(appContext);
 }
 
-void UIFleet::Resize(AppContext_ty_c appContext) {
+void UIFleet::Resize(app::AppContext_ty_c appContext) {
     UIElement::Resize(appContext);
     m_line.Resize(appContext);
     m_hover.Resize(appContext);

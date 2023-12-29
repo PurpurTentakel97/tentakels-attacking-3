@@ -4,6 +4,7 @@
 //
 
 #pragma once
+
 #include "ColorPickerCell.hpp"
 #include <functional>
 #include <memory>
@@ -22,11 +23,11 @@ private:
 
     void Initialize();
 
-    void SetUsedColors(AppContext_ty_c appContext);
+    void SetUsedColors(app::AppContext_ty_c appContext);
 
     void SetColorFromFocus();
 
-    void CheckForValidColor(AppContext_ty_c appContext);
+    void CheckForValidColor(app::AppContext_ty_c appContext);
 
 public:
     ColorPicker(unsigned int ID, Vector2 pos, Vector2 size, Alignment alignment, bool isPopUp = false);
@@ -43,7 +44,7 @@ public:
 
     void SetOnEnter(std::function<void()> onEnter);
 
-    void SetCellFocuses(AppContext_ty_c appContext);
+    void SetCellFocuses(app::AppContext_ty_c appContext);
 
     void SetEnabled(bool enabled, Color color);
 
@@ -51,11 +52,11 @@ public:
 
     [[nodiscard]] bool IsPopUp() const;
 
-    void CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) override;
+    void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) override;
 
-    void Render(AppContext_ty_c appContext) override;
+    void Render(app::AppContext_ty_c appContext) override;
 
-    void Resize(AppContext_ty_c appContext) override;
+    void Resize(app::AppContext_ty_c appContext) override;
 
     [[nodiscard]] Rectangle GetCollider() const override;
 };

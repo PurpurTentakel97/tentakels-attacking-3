@@ -4,15 +4,13 @@
 //
 
 #pragma once
+
+#include "app/PlayerData.hpp"
+#include <alias/AliasUi.hpp>
 #include <event/EventListener.hpp>
-#include <helper/HPlayerData.hpp>
 #include <memory>
 #include <ui_lib/Scene.hpp>
 #include <ui_lib/SceneType.hpp>
-
-class GalaxyScene;
-class PlanetTable;
-class FleetAndTargetPointTable;
 
 class MainScene : public Scene, public eve::EventListener {
 private:
@@ -31,8 +29,8 @@ private:
     Text_ty m_nextPlayerName;
     Text_ty m_currentRound;
     Text_ty m_currentTargetRound;
-    PlayerData m_currentPlayer{ 0, "", WHITE };
-    PlayerData m_nextPlayer{ 0, "", WHITE };
+    app::PlayerData m_currentPlayer{ 0, "", WHITE };
+    app::PlayerData m_nextPlayer{ 0, "", WHITE };
 
     InputLine_int_ty m_origin;
     InputLine_int_ty m_destination;
@@ -80,5 +78,5 @@ public:
 
     void OnEvent(eve::Event const& event) override;
 
-    void CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) override;
+    void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) override;
 };

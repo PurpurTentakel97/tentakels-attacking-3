@@ -5,15 +5,15 @@
 
 #include "HoverRender.hpp"
 #include "Hover.hpp"
-#include <AppContext.hpp>
+#include <app/AppContext.hpp>
 #include <event/EventsUI.hpp>
 
 HoverRender::HoverRender() {
-    AppContext::GetInstance().eventManager.AddListener(this);
+    app::AppContext::GetInstance().eventManager.AddListener(this);
 }
 
 HoverRender::~HoverRender() {
-    AppContext::GetInstance().eventManager.RemoveListener(this);
+    app::AppContext::GetInstance().eventManager.RemoveListener(this);
 }
 
 Vector2 HoverRender::GetStartRenderingOffset() const {
@@ -40,7 +40,7 @@ void HoverRender::Render() {
     }
 
     // one element
-    AppContext_ty appContext = AppContext::GetInstance();
+    app::AppContext_ty appContext = app::AppContext::GetInstance();
     if (m_elements.size() == 1) {
         m_elements.at(0)->Render(appContext);
         handleReturn();

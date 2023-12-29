@@ -5,15 +5,15 @@
 
 #include "SceneValidateGalaxy.hpp"
 #include "HSceneGalaxyAndSlider.hpp"
-#include <AppContext.hpp>
-#include <event/EventGenerel.hpp>
+#include <app/AppContext.hpp>
+#include <event/EventGeneral.hpp>
 #include <ui_lib/ButtonClassic.hpp>
 #include <ui_lib/SceneType.hpp>
 #include <ui_lib/Text.hpp>
 
 void ValidateGalaxyScene::Initialize() {
 
-    AppContext_ty_c appContext{ AppContext::GetInstance() };
+    app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
 
     auto text = std::make_shared<Text>(
             GetElementPosition(0.5f, 0.01f),
@@ -31,10 +31,10 @@ void ValidateGalaxyScene::Initialize() {
             GetElementSize(0.15f, 0.1f),
             Alignment::BOTTOM_LEFT,
             appContext.languageManager.Text("scene_validate_galaxy_back_btn"),
-            SoundType::CLICKED_RELEASE_STD
+            app::SoundType::CLICKED_RELEASE_STD
     );
     backBtn->SetOnClick([]() {
-        AppContext::GetInstance().eventManager.InvokeEvent(eve::SwitchSceneEvent(SceneType::NEW_GAME_PARAMETER));
+        app::AppContext::GetInstance().eventManager.InvokeEvent(eve::SwitchSceneEvent(SceneType::NEW_GAME_PARAMETER));
     });
     m_elements.push_back(backBtn);
 
@@ -44,7 +44,7 @@ void ValidateGalaxyScene::Initialize() {
             GetElementSize(0.15f, 0.1f),
             Alignment::BOTTOM_MID,
             appContext.languageManager.Text("scene_validate_galaxy_regenerate_btn"),
-            SoundType::CLICKED_RELEASE_STD
+            app::SoundType::CLICKED_RELEASE_STD
     );
     reGenerateBtn->SetOnClick([this]() { this->NewGalaxy(); });
     m_elements.push_back(reGenerateBtn);
@@ -55,16 +55,16 @@ void ValidateGalaxyScene::Initialize() {
             GetElementSize(0.15f, 0.1f),
             Alignment::BOTTOM_RIGHT,
             appContext.languageManager.Text("scene_validate_galaxy_next_btn"),
-            SoundType::ACCEPTED
+            app::SoundType::ACCEPTED
     );
     nextBtn->SetOnClick([]() {
         eve::StartGameEvent const event{};
-        AppContext::GetInstance().eventManager.InvokeEvent(event);
+        app::AppContext::GetInstance().eventManager.InvokeEvent(event);
     });
     m_elements.push_back(nextBtn);
 }
 void ValidateGalaxyScene::InitializePlayerLegend() {
-    AppContext_ty_c appContext = AppContext::GetInstance();
+    app::AppContext_ty_c appContext = app::AppContext::GetInstance();
 
     auto const players = appContext.playerCollection.GetPlayerData();
 
@@ -91,7 +91,7 @@ void ValidateGalaxyScene::InitializePlayerLegend() {
 }
 
 void ValidateGalaxyScene::InitializeGalaxy() {
-    AppContext_ty_c appContext{ AppContext::GetInstance() };
+    app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
 
     m_galaxy = std::make_shared<GalaxyScene>(
             GetElementPosition(0.05f, 0.465f),
@@ -105,7 +105,7 @@ void ValidateGalaxyScene::InitializeGalaxy() {
 }
 
 void ValidateGalaxyScene::NewGalaxy() {
-    AppContext_ty_c appContext{ AppContext::GetInstance() };
+    app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
 
     m_galaxy->SetActive(false, appContext);
     m_elements.erase(std::remove(m_elements.begin(), m_elements.end(), m_galaxy), m_elements.end());

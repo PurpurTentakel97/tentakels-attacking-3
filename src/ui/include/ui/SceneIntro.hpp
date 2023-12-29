@@ -4,7 +4,8 @@
 //
 
 #pragma once
-#include <AppContext.hpp>
+
+#include <alias/AliasApp.hpp>
 #include <array>
 #include <functional>
 #include <memory>
@@ -23,11 +24,11 @@ private:
 public:
     Intro();
 
-    void CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) override;
+    void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) override;
 
-    void Render(AppContext_ty_c appContext) override;
+    void Render(app::AppContext_ty_c appContext) override;
 
-    void Resize(AppContext_ty_c appContext) override;
+    void Resize(app::AppContext_ty_c appContext) override;
 
-    void SetActive(bool active, AppContext_ty_c appContext) override;
+    void SetActive(bool active, app::AppContext_ty_c appContext) override;
 };

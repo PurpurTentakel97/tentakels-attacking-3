@@ -3,9 +3,10 @@
 // 05.06.2023
 //
 
+#pragma once
+
 #include <event/EventListener.hpp>
 #include <ui_lib/Scene.hpp>
-#pragma once
 
 
 namespace eve {
@@ -21,8 +22,8 @@ private:
     };
 
 private:
-    std::vector<HMergeResult> m_mergeResults;
-    std::vector<HFightResult> m_fightResults;
+    std::vector<utl::MergeResult> m_mergeResults;
+    std::vector<utl::FightResult> m_fightResults;
     ResultType m_currentResultType{ ResultType::MERGE };
     size_t m_currentIndex{ 0 };
     int m_popupCount{ 0 };
@@ -41,7 +42,7 @@ public:
 
     ~UpdateEvaluationScene() override;
 
-    void CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) override;
+    void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) override;
 
     void OnEvent(eve::Event const& event) override;
 };

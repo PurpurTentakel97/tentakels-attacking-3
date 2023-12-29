@@ -4,8 +4,8 @@
 //
 
 #pragma once
+
 #include "UIGalaxyElement.hpp"
-#include <helper/HLogicAlias.hpp>
 #include <ui_lib/ShipCountRing.hpp>
 
 
@@ -17,7 +17,7 @@ public:
     UITargetPoint(
             unsigned int focusID,
             unsigned int ID,
-            PlayerData const& player,
+            app::PlayerData const& player,
             Vector2 pos,
             Vector2 colliderPos,
             TargetPoint_ty_raw_c targetPoint
@@ -25,9 +25,9 @@ public:
 
     void UpdateHoverText() override;
 
-    void CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) override;
+    void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) override;
 
-    void RenderRing(AppContext_ty_c appContext) override;
+    void RenderRing(app::AppContext_ty_c appContext) override;
 
-    void Render(AppContext_ty_c appContext) override;
+    void Render(app::AppContext_ty_c appContext) override;
 };

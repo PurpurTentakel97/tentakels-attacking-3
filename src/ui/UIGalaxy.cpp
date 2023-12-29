@@ -7,8 +7,9 @@
 #include "UIFleet.hpp"
 #include "UIPlanet.hpp"
 #include "UITargetPoint.hpp"
-#include <AppContext.hpp>
-#include <event/EventGenerel.hpp>
+#include <alias/AliasCustomRaylib.hpp>
+#include <app/AppContext.hpp>
+#include <event/EventGeneral.hpp>
 #include <helper/HFocusEvents.hpp>
 #include <helper/HInput.hpp>
 #include <logic/Galaxy.hpp>
@@ -16,7 +17,7 @@
 #include <ui_lib/LineDrag.hpp>
 
 void UIGalaxy::Initialize(eve::SendGalaxyPointerEvent const* const event) {
-    AppContext_ty_c appContext{ AppContext::GetInstance() };
+    app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
     Galaxy_ty_c_raw galaxy{ event->GetGalaxy() };
 
     m_currentGalaxy = galaxy;
@@ -113,8 +114,8 @@ void UIGalaxy::Initialize(eve::SendGalaxyPointerEvent const* const event) {
     m_onZoom(1.0f, GetCurrentScaleReference());
 }
 
-Vector2 UIGalaxy::GetAbsolutePosition(Vector2 const pos, AppContext_ty_c appContext) const {
-    Resolution_ty_c resolution{ AppContext::GetInstance().GetResolution() };
+Vector2 UIGalaxy::GetAbsolutePosition(Vector2 const pos, app::AppContext_ty_c appContext) const {
+    cst::Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
     Vector2 const newPos{
         (m_collider.x) / resolution.x,
         (m_collider.y) / resolution.y,
@@ -136,7 +137,7 @@ Vector2 UIGalaxy::GetAbsolutePosition(Vector2 const pos, AppContext_ty_c appCont
     }
 }
 
-Vector2 UIGalaxy::GetRelativePosition(Vector2 const pos, AppContext_ty_c appContext) const {
+Vector2 UIGalaxy::GetRelativePosition(Vector2 const pos, app::AppContext_ty_c appContext) const {
     if (m_isShowGalaxy) {
         return {
             pos.x / static_cast<float>(appContext.constants.world.showDimensionX),
@@ -288,7 +289,7 @@ bool UIGalaxy::IsCollidingObjectPoint(Vector2 const point) const {
 }
 
 unsigned int UIGalaxy::GetIDFromPoint(Vector2 const point) const {
-    Resolution_ty_c resolution{ AppContext::GetInstance().GetResolution() };
+    cst::Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
     Vector2 absolutePoint{ resolution.x * point.x, resolution.y * point.y };
     // don't check if point is in galaxy collider because the other planets get displayed on the edge of the collider
 
@@ -310,8 +311,8 @@ unsigned int UIGalaxy::GetIDFromPoint(Vector2 const point) const {
     return 0;
 }
 
-vec2pos_ty UIGalaxy::GetCoordinatesFromPoint(Vector2 const point) const {
-    Resolution_ty_c resolution{ AppContext::GetInstance().GetResolution() };
+utl::vec2pos_ty UIGalaxy::GetCoordinatesFromPoint(Vector2 const point) const {
+    cst::Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
     Vector2 const absolutePoint{ resolution.x * point.x, resolution.y * point.y };
     if (!CheckCollisionPointRec(absolutePoint, m_collider)) {
         return { -1, -1 };
@@ -329,7 +330,7 @@ vec2pos_ty UIGalaxy::GetCoordinatesFromPoint(Vector2 const point) const {
 void UIGalaxy::HandleDragLineResult(Vector2 const start, Vector2 const end) {
     auto const originID{ GetIDFromPoint(start) };
     auto const destID{ GetIDFromPoint(end) };
-    vec2pos_ty destCo{ -1, -1 };
+    utl::vec2pos_ty destCo{ -1, -1 };
     if (destID <= 0) {
         destCo = GetCoordinatesFromPoint(end);
     }
@@ -337,7 +338,7 @@ void UIGalaxy::HandleDragLineResult(Vector2 const start, Vector2 const end) {
     m_updateLineDrag = false;
 
     eve::DragLineFleetInstructionEvent const event{ originID, destID, destCo };
-    AppContext::GetInstance().eventManager.InvokeEvent(event);
+    app::AppContext::GetInstance().eventManager.InvokeEvent(event);
 }
 
 UIGalaxy::UIGalaxy(
@@ -354,7 +355,7 @@ UIGalaxy::UIGalaxy(
       m_isAcceptingInput{ isAcceptInput } {
     m_absoluteSize = m_collider;
 
-    AppContext_ty appContext{ AppContext::GetInstance() };
+    app::AppContext_ty appContext{ app::AppContext::GetInstance() };
     appContext.eventManager.AddListener(this);
 
     m_lineDrag = std::make_shared<LineDrag>(2.0f, WHITE, [this](Vector2 start, Vector2 end) -> void {
@@ -371,7 +372,7 @@ UIGalaxy::UIGalaxy(
 }
 
 UIGalaxy::~UIGalaxy() {
-    AppContext::GetInstance().eventManager.RemoveListener(this);
+    app::AppContext::GetInstance().eventManager.RemoveListener(this);
 }
 
 void UIGalaxy::SetIsScaling(bool const isScaling) {
@@ -462,7 +463,7 @@ void UIGalaxy::SetOnUIGalaxyElementClick(std::function<void(unsigned int)> onUIG
     m_onUIGalaxyElementClick = std::move(onUIGalaxyElementClick);
 }
 
-void UIGalaxy::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) {
+void UIGalaxy::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) {
 
     UIElement::CheckAndUpdate(mousePosition, appContext);
 
@@ -548,7 +549,7 @@ void UIGalaxy::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appC
     }
 }
 
-void UIGalaxy::Render(AppContext_ty_c appContext) {
+void UIGalaxy::Render(app::AppContext_ty_c appContext) {
 
     for (auto const& e : m_uiGalaxyElements) {
         if (IsUIGalaxyElementInCollider(e)) {
@@ -589,12 +590,12 @@ void UIGalaxy::Render(AppContext_ty_c appContext) {
     }
 }
 
-void UIGalaxy::Resize(AppContext_ty_c appContext) {
+void UIGalaxy::Resize(app::AppContext_ty_c appContext) {
 
     UIElement::Resize(appContext);
     m_lineDrag->Resize(appContext);
 
-    Resolution_ty_c resolution{ appContext.GetResolution() };
+    cst::Resolution_ty_c resolution{ appContext.GetResolution() };
     m_absoluteSize = {
         m_absoluteSize.x / resolution.x * resolution.x,
         m_absoluteSize.y / resolution.y * resolution.y,
@@ -608,7 +609,7 @@ void UIGalaxy::Resize(AppContext_ty_c appContext) {
     }
 }
 
-void UIGalaxy::FilterByCurrentPlayer(PlayerData const& player) {
+void UIGalaxy::FilterByCurrentPlayer(app::PlayerData const& player) {
     for (auto const& f : m_uiFleets) {
         f->SetDisplayedAsPoint(f->GetPlayer().ID != player.ID);
     }

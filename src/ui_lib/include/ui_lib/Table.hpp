@@ -3,16 +3,17 @@
 // 03.04.2023
 //
 
+#pragma once
+
 #include "Focusable.hpp"
 #include "TableCell.hpp"
 #include "UIElement.hpp"
+#include "utils/Vec2.hpp"
 #include <helper/HFocusEvents.hpp>
 #include <helper/HPrint.hpp>
-#include <helper/HVec2.hpp>
 #include <memory>
 #include <stdexcept>
 
-#pragma once
 
 class Slider;
 
@@ -40,7 +41,7 @@ private:
     bool m_activeVerticalSlider;
 
     bool m_isHoveredHighlighted{ false };
-    vec2pos_ty m_currentHighlighted{ -1, -1 };
+    utl::vec2pos_ty m_currentHighlighted{ -1, -1 };
 
     std::function<void(AbstractTableCell const*, std::string, std::string)> m_updatedStringCell{
         [](AbstractTableCell const*, std::string, std::string) {}
@@ -79,7 +80,7 @@ private:
 
     void UpdateFirstRowPosition();
 
-    void CheckAndUpdateClickCell(Vector2 const& mousePositon, AppContext_ty_c appContext);
+    void CheckAndUpdateClickCell(Vector2 const& mousePositon, app::AppContext_ty_c appContext);
 
     void CheckAndUpdateScroll(Vector2 const& mousePosition);
 
@@ -97,13 +98,13 @@ private:
 
     void SetHighlightBackground(bool reset);
 
-    void RenderTopLeft(AppContext_ty_c appContext);
+    void RenderTopLeft(app::AppContext_ty_c appContext);
 
-    void RenderHeadline(AppContext_ty_c appContext);
+    void RenderHeadline(app::AppContext_ty_c appContext);
 
-    void RenderFirstColumn(AppContext_ty_c appContext);
+    void RenderFirstColumn(app::AppContext_ty_c appContext);
 
-    void RenderOtherCells(AppContext_ty_c appContext);
+    void RenderOtherCells(app::AppContext_ty_c appContext);
 
     void RenderOutline() const;
 
@@ -361,7 +362,7 @@ public:
 
     [[nodiscard]] Rectangle GetCollider() const noexcept override;
 
-    void CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) override;
+    void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) override;
 
-    void Render(AppContext_ty_c appContext) override;
+    void Render(app::AppContext_ty_c appContext) override;
 };

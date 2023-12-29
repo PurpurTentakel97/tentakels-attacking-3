@@ -4,6 +4,7 @@
 //
 
 #pragma once
+
 #include "PopUpCell.hpp"
 #include <ui_lib/InputLine.hpp>
 
@@ -25,14 +26,14 @@ public:
             Vector2 const size,
             Alignment const alignment,
             std::string const& title,
-            AssetType const infoTexture,
+            app::AssetType const infoTexture,
             T const currentValue,
             std::function<void(T)> const onClick
     )
         : CellPopUp{ pos, size, alignment, title, infoTexture },
           m_onClick{ onClick } {
 
-        AppContext_ty_c appContext{ AppContext::GetInstance() };
+        app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
 
         auto acceptBtn = InitializeAcceptButton();
         acceptBtn->SetOnClick([this]() { this->SetValue(); });

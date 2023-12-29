@@ -4,28 +4,33 @@
 //
 
 #pragma once
-#include "HLogicAlias.hpp"
+
 #include <CustomRaylib.hpp>
+#include <alias/AliasApp.hpp>
 #include <string>
 #include <vector>
 
 enum class Alignment;
 
 namespace hlp {
-    void BreakText(std::string& toBreak, float fontSize, float length, AppContext_ty_c appContext);
+    void BreakText(std::string& toBreak, float fontSize, float length, app::AppContext_ty_c appContext);
 
     [[nodiscard]] std::vector<std::string> BreakTextInVector(std::string const& toBreak, float fontSite, float length);
 
     [[nodiscard]] float GetElementTextHeight(Vector2 const& relativeSize, float absoluteHeight);
 
-    [[nodiscard]] std::string
-    GetPrintableTextInCollider(std::string const& text, float fontSize, Rectangle collider, AppContext_ty_c appContext);
+    [[nodiscard]] std::string GetPrintableTextInCollider(
+            std::string const& text,
+            float fontSize,
+            Rectangle collider,
+            app::AppContext_ty_c appContext
+    );
 
     [[nodiscard]] std::string GetPrintablePlaceholderTextInCollider(
             std::string const& text,
             float fontSize,
             Rectangle collider,
-            AppContext_ty_c appContext
+            app::AppContext_ty_c appContext
     );
 
     void StripString(std::string& toStrip);

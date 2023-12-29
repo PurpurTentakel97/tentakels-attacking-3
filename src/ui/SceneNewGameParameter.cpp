@@ -6,8 +6,8 @@
 #include "SceneNewGameParameter.hpp"
 #include "HSceneGameEventSettings.hpp"
 #include "HSceneSliderAndInputLine.hpp"
-#include <AppContext.hpp>
-#include <event/EventGenerel.hpp>
+#include <app/AppContext.hpp>
+#include <event/EventGeneral.hpp>
 #include <event/EventsUI.hpp>
 #include <ui_lib/ButtonClassic.hpp>
 #include <ui_lib/CheckBox.hpp>
@@ -25,7 +25,7 @@ enum class SliderType {
 };
 
 void NewGameParameterScene::Initialize() {
-    AppContext_ty appContext{ AppContext::GetInstance() };
+    app::AppContext_ty appContext{ app::AppContext::GetInstance() };
 
     // title
     m_elements.push_back(std::make_shared<Title>(
@@ -207,7 +207,7 @@ void NewGameParameterScene::Initialize() {
             GetElementSize(0.15f, 0.1f),
             Alignment::BOTTOM_MID,
             appContext.languageManager.Text("scene_new_game_parameter_random_btn"),
-            SoundType::CLICKED_RELEASE_STD
+            app::SoundType::CLICKED_RELEASE_STD
     );
     randomBtn->SetOnClick([this]() { this->SetRandom(); });
     m_elements.push_back(randomBtn);
@@ -218,10 +218,10 @@ void NewGameParameterScene::Initialize() {
             GetElementSize(0.15f, 0.1f),
             Alignment::BOTTOM_MID,
             appContext.languageManager.Text("scene_new_game_parameter_back_btn"),
-            SoundType::CLICKED_RELEASE_STD
+            app::SoundType::CLICKED_RELEASE_STD
     );
     backBtn->SetOnClick([]() {
-        AppContext::GetInstance().eventManager.InvokeEvent(eve::SwitchSceneEvent(SceneType::NEW_GAME_PLAYER));
+        app::AppContext::GetInstance().eventManager.InvokeEvent(eve::SwitchSceneEvent(SceneType::NEW_GAME_PLAYER));
     });
     m_elements.push_back(backBtn);
 
@@ -231,11 +231,11 @@ void NewGameParameterScene::Initialize() {
             GetElementSize(0.15f, 0.1f),
             Alignment::BOTTOM_MID,
             appContext.languageManager.Text("scene_new_game_parameter_next_btn"),
-            SoundType::ACCEPTED
+            app::SoundType::ACCEPTED
     );
     nextBtn->SetOnClick([]() {
         auto event = eve::GenerateGalaxyEvent();
-        AppContext::GetInstance().eventManager.InvokeEvent(event);
+        app::AppContext::GetInstance().eventManager.InvokeEvent(event);
     });
     m_elements.push_back(nextBtn);
 }
@@ -243,19 +243,19 @@ void NewGameParameterScene::Initialize() {
 void NewGameParameterScene::SetValue(int const value, SliderType const type) {
     switch (type) {
         case SliderType::PLANET_COUNT:
-            AppContext::GetInstance().constants.world.currentPlanetCount = static_cast<size_t>(value);
+            app::AppContext::GetInstance().constants.world.currentPlanetCount = static_cast<size_t>(value);
             return;
         case SliderType::DIMENSION_X:
-            AppContext::GetInstance().constants.world.currentDimensionX = value;
+            app::AppContext::GetInstance().constants.world.currentDimensionX = value;
             return;
         case SliderType::DIMENSION_Y:
-            AppContext::GetInstance().constants.world.currentDimensionY = value;
+            app::AppContext::GetInstance().constants.world.currentDimensionY = value;
             return;
         case SliderType::FLEET_SPEED:
-            AppContext::GetInstance().constants.fleet.currentFleetSpeed = value;
+            app::AppContext::GetInstance().constants.fleet.currentFleetSpeed = value;
             return;
         case SliderType::TARGET_ROUND:
-            AppContext::GetInstance().constants.global.currentTargetRound = static_cast<size_t>(value);
+            app::AppContext::GetInstance().constants.global.currentTargetRound = static_cast<size_t>(value);
             return;
     }
 }
@@ -269,7 +269,7 @@ void NewGameParameterScene::SetRandom() const {
 
 void NewGameParameterScene::NextScene() {
     eve::SwitchSceneEvent event{ SceneType::VALIDATE_GALAXY };
-    AppContext::GetInstance().eventManager.InvokeEvent(event);
+    app::AppContext::GetInstance().eventManager.InvokeEvent(event);
 }
 
 NewGameParameterScene::NewGameParameterScene()
@@ -279,11 +279,11 @@ NewGameParameterScene::NewGameParameterScene()
           Alignment::DEFAULT
 } {
     Initialize();
-    AppContext::GetInstance().eventManager.AddListener(this);
+    app::AppContext::GetInstance().eventManager.AddListener(this);
 }
 
 NewGameParameterScene::~NewGameParameterScene() {
-    AppContext::GetInstance().eventManager.RemoveListener(this);
+    app::AppContext::GetInstance().eventManager.RemoveListener(this);
 }
 
 void NewGameParameterScene::OnEvent(eve::Event const& event) {

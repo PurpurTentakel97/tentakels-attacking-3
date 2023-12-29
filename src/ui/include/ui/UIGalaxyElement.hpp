@@ -4,7 +4,8 @@
 //
 
 #pragma once
-#include <helper/HPlayerData.hpp>
+
+#include "app/PlayerData.hpp"
 #include <ui_lib/Focusable.hpp>
 #include <ui_lib/Hover.hpp>
 #include <ui_lib/UIElement.hpp>
@@ -16,7 +17,7 @@ public:
 
 protected:
     unsigned int m_ID;
-    PlayerData m_currentPlayer;
+    app::PlayerData m_currentPlayer;
     Vector2 m_colliderPos;
     Color m_color;
     std::string m_stringID;
@@ -31,7 +32,7 @@ public:
             unsigned int focusID,
             unsigned int ID,
             Vector2 size,
-            PlayerData const& player,
+            app::PlayerData const& player,
             Vector2 pos,
             Vector2 colliderPos
     );
@@ -42,9 +43,9 @@ public:
 
     void SetOnClick(std::function<void(UIGalaxyElement*)> onClick);
 
-    void SetPlayer(PlayerData player);
+    void SetPlayer(app::PlayerData player);
 
-    [[nodiscard]] PlayerData GetPlayer() const;
+    [[nodiscard]] app::PlayerData GetPlayer() const;
 
     void SetColor(Color color);
 
@@ -60,7 +61,7 @@ public:
 
     [[nodiscard]] Rectangle GetCollider() const override;
 
-    virtual void RenderRing(AppContext_ty_c appContext) = 0;
+    virtual void RenderRing(app::AppContext_ty_c appContext) = 0;
 
-    void Resize(AppContext_ty_c appContext) override;
+    void Resize(app::AppContext_ty_c appContext) override;
 };

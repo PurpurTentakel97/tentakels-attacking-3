@@ -4,7 +4,7 @@
 //
 
 #include "ButtonToggle.hpp"
-#include <AppContext.hpp>
+#include <app/AppContext.hpp>
 #include <helper/HInput.hpp>
 
 void ToggleButton::UpdateState() {
@@ -31,12 +31,12 @@ ToggleButton::ToggleButton(
         Vector2 const size,
         Alignment const alignment,
         std::string const& text,
-        SoundType const releaseSound
+        app::SoundType const releaseSound
 )
     : Button{ pos, size, alignment, text, releaseSound },
       Focusable{ focusID } { }
 
-void ToggleButton::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) {
+void ToggleButton::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) {
 
     switch (m_state) {
         case State::DISABLED: {
@@ -45,7 +45,7 @@ void ToggleButton::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c 
                        or (IsFocused() and hlp::IsConfirmInputPressed()) };
 
             if (play) {
-                eve::PlaySoundEvent const event{ SoundType::CLICKED_DISABLED_STD };
+                eve::PlaySoundEvent const event{ app::SoundType::CLICKED_DISABLED_STD };
                 appContext.eventManager.InvokeEvent(event);
             }
             break;
@@ -54,16 +54,16 @@ void ToggleButton::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c 
         case State::HOVER: {
             if (not CheckCollisionPointRec(mousePosition, m_collider)) {
                 m_state = m_isToggled ? State::PRESSED : State::ENABLED;
-                eve::PlaySoundEvent const event{ SoundType::HOVER_STD };
+                eve::PlaySoundEvent const event{ app::SoundType::HOVER_STD };
                 appContext.eventManager.InvokeEvent(event);
             } else {
                 if (IsMouseButtonPressed(MouseButton::MOUSE_BUTTON_LEFT)) {
                     m_state = State::PRESSED;
-                    eve::PlaySoundEvent const event{ SoundType::CLICKED_PRESS_STD };
+                    eve::PlaySoundEvent const event{ app::SoundType::CLICKED_PRESS_STD };
                     appContext.eventManager.InvokeEvent(event);
                 } else if (IsFocused() and hlp::IsConfirmInputPressed()) {
                     m_state = State::PRESSED;
-                    eve::PlaySoundEvent const event{ SoundType::CLICKED_PRESS_STD };
+                    eve::PlaySoundEvent const event{ app::SoundType::CLICKED_PRESS_STD };
                     appContext.eventManager.InvokeEvent(event);
                 }
             }
@@ -73,12 +73,12 @@ void ToggleButton::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c 
         case State::ENABLED: {
             if (CheckCollisionPointRec(mousePosition, m_collider)) {
                 m_state = State::HOVER;
-                eve::PlaySoundEvent const event{ SoundType::HOVER_STD };
+                eve::PlaySoundEvent const event{ app::SoundType::HOVER_STD };
                 appContext.eventManager.InvokeEvent(event);
             }
             if (IsFocused() and hlp::IsConfirmInputPressed()) {
                 m_state = State::PRESSED;
-                eve::PlaySoundEvent const event{ SoundType::CLICKED_PRESS_STD };
+                eve::PlaySoundEvent const event{ app::SoundType::CLICKED_PRESS_STD };
                 appContext.eventManager.InvokeEvent(event);
             }
             break;
@@ -88,7 +88,7 @@ void ToggleButton::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c 
             if (CheckCollisionPointRec(mousePosition, m_collider)) {
                 if (IsMouseButtonPressed(MouseButton::MOUSE_BUTTON_LEFT)
                     or (IsFocused() and hlp::IsConfirmInputPressed())) {
-                    eve::PlaySoundEvent const event{ SoundType::CLICKED_PRESS_STD };
+                    eve::PlaySoundEvent const event{ app::SoundType::CLICKED_PRESS_STD };
                     appContext.eventManager.InvokeEvent(event);
                 }
                 if (IsMouseButtonUp(MouseButton::MOUSE_BUTTON_LEFT) and not hlp::IsConfirmInputDown()) {
@@ -114,7 +114,7 @@ void ToggleButton::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c 
                 }
             } else {
                 if (IsFocused() and hlp::IsConfirmInputPressed()) {
-                    eve::PlaySoundEvent const event{ SoundType::CLICKED_PRESS_STD };
+                    eve::PlaySoundEvent const event{ app::SoundType::CLICKED_PRESS_STD };
                     appContext.eventManager.InvokeEvent(event);
                 }
                 if (IsMouseButtonReleased(MouseButton::MOUSE_BUTTON_LEFT)) {

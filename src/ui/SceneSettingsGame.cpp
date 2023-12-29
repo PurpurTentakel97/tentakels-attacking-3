@@ -6,14 +6,14 @@
 #include "SceneSettingsGame.hpp"
 #include "HSceneGameEventSettings.hpp"
 #include "HSceneSliderAndInputLine.hpp"
-#include <event/EventGenerel.hpp>
+#include <event/EventGeneral.hpp>
 #include <ui_lib/ButtonClassic.hpp>
 #include <ui_lib/CheckBox.hpp>
 #include <ui_lib/Text.hpp>
 
 void GameSettingsScene::Initialize() {
 
-    AppContext_ty_c appContext{ AppContext::GetInstance() };
+    app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
 
     // headline
     auto settingsText = std::make_shared<Text>(
@@ -32,7 +32,7 @@ void GameSettingsScene::Initialize() {
             GetElementSize(0.15f, 0.1f),
             Alignment::BOTTOM_MID,
             appContext.languageManager.Text("scene_settings_end_game_btn"),
-            SoundType::CLICKED_RELEASE_STD
+            app::SoundType::CLICKED_RELEASE_STD
     );
     finishBtn->SetEnabled(false);
     m_elements.push_back(finishBtn);
@@ -96,7 +96,7 @@ void GameSettingsScene::Initialize() {
             static_cast<int>(appContext.constants.fleet.currentFleetSpeed)
     );
     fleetSpeed->SetActive(true, appContext);
-    fleetSpeed->SetOnSave([](int value) { AppContext::GetInstance().constants.fleet.currentFleetSpeed = value; });
+    fleetSpeed->SetOnSave([](int value) { app::AppContext::GetInstance().constants.fleet.currentFleetSpeed = value; });
     m_elements.push_back(fleetSpeed);
 
     incFIDS(); // two because slider and input line needs two ids
@@ -128,7 +128,7 @@ void GameSettingsScene::Initialize() {
     lastRound->SetActive(true, appContext);
     lastRound->SetOnSave([](size_t value) {
         eve::SetCurrentLastRoundEvent const event{ value };
-        AppContext::GetInstance().eventManager.InvokeEvent(event);
+        app::AppContext::GetInstance().eventManager.InvokeEvent(event);
     });
     m_elements.push_back(lastRound);
 
@@ -146,7 +146,7 @@ void GameSettingsScene::Initialize() {
     );
     playerShuffleCB->SetChecked(appContext.constants.player.shuffle);
     playerShuffleCB->SetOnCheck([](unsigned int, bool isChecked) {
-        AppContext::GetInstance().constants.player.shuffle = isChecked;
+        app::AppContext::GetInstance().constants.player.shuffle = isChecked;
     });
     m_elements.push_back(playerShuffleCB);
 
@@ -186,7 +186,7 @@ void GameSettingsScene::Initialize() {
     );
     fightPlanetFleetCB->SetChecked(appContext.constants.fight.isFightPlanetFleet);
     fightPlanetFleetCB->SetOnCheck([](unsigned int, bool isChecked) {
-        AppContext::GetInstance().constants.fight.isFightPlanetFleet = isChecked;
+        app::AppContext::GetInstance().constants.fight.isFightPlanetFleet = isChecked;
     });
     m_elements.push_back(fightPlanetFleetCB);
 
@@ -211,7 +211,7 @@ void GameSettingsScene::Initialize() {
     );
     fightPlanetTargetPointCB->SetChecked(appContext.constants.fight.isFightPlanetTargetPoint);
     fightPlanetTargetPointCB->SetOnCheck([](unsigned int, bool isChecked) {
-        AppContext::GetInstance().constants.fight.isFightPlanetTargetPoint = isChecked;
+        app::AppContext::GetInstance().constants.fight.isFightPlanetTargetPoint = isChecked;
     });
     m_elements.push_back(fightPlanetTargetPointCB);
 
@@ -238,7 +238,7 @@ void GameSettingsScene::Initialize() {
     );
     fightTargetPointFleetCB->SetChecked(appContext.constants.fight.isFightTargetPointFleet);
     fightTargetPointFleetCB->SetOnCheck([](unsigned int, bool isChecked) {
-        AppContext::GetInstance().constants.fight.isFightTargetPointFleet = isChecked;
+        app::AppContext::GetInstance().constants.fight.isFightTargetPointFleet = isChecked;
     });
     m_elements.push_back(fightTargetPointFleetCB);
 
@@ -263,7 +263,7 @@ void GameSettingsScene::Initialize() {
     );
     fightTargetPointTargetPointCB->SetChecked(appContext.constants.fight.isFightTargetPointTargetPoint);
     fightTargetPointTargetPointCB->SetOnCheck([](unsigned int, bool isChecked) {
-        AppContext::GetInstance().constants.fight.isFightTargetPointTargetPoint = isChecked;
+        app::AppContext::GetInstance().constants.fight.isFightTargetPointTargetPoint = isChecked;
     });
     m_elements.push_back(fightTargetPointTargetPointCB);
 

@@ -8,11 +8,12 @@
 #include "Galaxy.hpp"
 #include "ManagerGame.hpp"
 #include "Player.hpp"
-#include <AppContext.hpp>
-#include <event/EventGenerel.hpp>
-#include <helper/HFleetResult.hpp>
+#include <alias/AliasUtils.hpp>
+#include <app/AppContext.hpp>
+#include <event/EventGeneral.hpp>
 #include <helper/HPrint.hpp>
-#include <helper/HVec2.hpp>
+#include <utils/FleetResult.hpp>
+#include <utils/Vec2.hpp>
 
 void GalaxyManager::FilterCurrentGalaxy() {
     Player_ty currentPlayer{ nullptr };
@@ -28,8 +29,9 @@ void GalaxyManager::FilterCurrentGalaxy() {
 GalaxyManager::GalaxyManager(GameManager* const gameManager) : m_gameManager{ gameManager } { }
 
 void GalaxyManager::GenerateGalaxy() {
-    AppContext_ty_c appContext{ AppContext::GetInstance() };
-    vec2pos_ty_c size = { appContext.constants.world.currentDimensionX, appContext.constants.world.currentDimensionY };
+    app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
+    utl::vec2pos_ty_c size = { appContext.constants.world.currentDimensionX,
+                               appContext.constants.world.currentDimensionY };
     auto const galaxy = std::make_shared<Galaxy>(
             size,
             appContext.constants.world.currentPlanetCount,
@@ -53,8 +55,8 @@ void GalaxyManager::GenerateGalaxy() {
 }
 
 void GalaxyManager::GenerateShowGalaxy() {
-    AppContext_ty_c appContext{ AppContext::GetInstance() };
-    vec2pos_ty_c size = {
+    app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
+    utl::vec2pos_ty_c size = {
         appContext.constants.world.showDimensionX,
         appContext.constants.world.showDimensionY,
     };
@@ -101,7 +103,7 @@ bool GalaxyManager::AddFleet(eve::SendFleetInstructionEvent const* const event, 
         hlp::Print(hlp::PrintType::ONLY_DEBUG, "Not able to add Fleet to main Galaxy");
 
         eve::ReturnFleetInstructionEvent const returnEvent{ result.valid };
-        AppContext::GetInstance().eventManager.InvokeEvent(returnEvent);
+        app::AppContext::GetInstance().eventManager.InvokeEvent(returnEvent);
         return false;
     }
     m_currentGalaxy->HandleFleetResult(result, currentPlayer);
@@ -127,6 +129,6 @@ void GalaxyManager::KillPlayer(Player_ty_c player, Player_ty_c neutralPlayer) {
     filter(m_mainGalaxy->GetFleets());
 }
 
-UpdateResult_ty GalaxyManager::Update() {
+utl::UpdateResult_ty GalaxyManager::Update() {
     return m_mainGalaxy->Update();
 }

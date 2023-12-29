@@ -4,8 +4,10 @@
 //
 
 #pragma once
+
 #include <cstddef>
 #include <string>
+
 
 namespace cst {
     struct Global final {

@@ -4,11 +4,11 @@
 //
 
 #pragma once
+
 #include "Focusable.hpp"
 #include "Hover.hpp"
 #include "UIElement.hpp"
-
-class ColorPicker;
+#include <alias/AliasUiLib.hpp>
 
 class ColorPickerCell final : public UIElement, public Focusable {
 private:
@@ -39,7 +39,7 @@ public:
 
     [[nodiscard]] Rectangle GetCollider() const override;
 
-    void CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) override;
+    void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) override;
 
-    void Render(AppContext_ty_c appContext) override;
+    void Render(app::AppContext_ty_c appContext) override;
 };

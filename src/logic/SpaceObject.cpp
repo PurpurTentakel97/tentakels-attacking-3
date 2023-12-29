@@ -4,7 +4,7 @@
 //
 
 #include "SpaceObject.hpp"
-#include <AppContext.hpp>
+#include <app/AppContext.hpp>
 #include <cassert>
 
 bool SpaceObject::IsInRange(SpaceObject_ty_raw first, SpaceObject_ty_raw second, int const range) {
@@ -12,9 +12,9 @@ bool SpaceObject::IsInRange(SpaceObject_ty_raw first, SpaceObject_ty_raw second,
     return range >= actualRange;
 }
 
-SpaceObject::SpaceObject(unsigned int const ID, vec2pos_ty_ref_c position, Player_ty_c player)
+SpaceObject::SpaceObject(unsigned int const ID, utl::vec2pos_ty_ref_c position, Player_ty_c player)
     : SpaceObject{ ID, position, 0, player } { }
-SpaceObject::SpaceObject(unsigned int ID, vec2pos_ty position, size_t ships, Player_ty player)
+SpaceObject::SpaceObject(unsigned int ID, utl::vec2pos_ty position, size_t ships, Player_ty player)
     : m_ID{ ID },
       m_ships{ ships },
       m_position{ std::move(position) },
@@ -37,11 +37,11 @@ Player_ty SpaceObject::GetPlayer() const {
     return m_player;
 }
 
-void SpaceObject::SetPos(vec2pos_ty_ref_c pos) {
+void SpaceObject::SetPos(utl::vec2pos_ty_ref_c pos) {
     m_position = pos;
 }
 
-vec2pos_ty SpaceObject::GetPos() const {
+utl::vec2pos_ty SpaceObject::GetPos() const {
     return m_position;
 }
 
@@ -66,13 +66,13 @@ bool SpaceObject::IsTargetPoint() const {
 }
 
 bool SpaceObject::IsInDiscoverRange(SpaceObject_ty_c object) const {
-    AppContext_ty_c appContext{ AppContext::GetInstance() };
+    app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
     auto const range = appContext.constants.world.discoverRangeFactor * appContext.constants.fleet.currentFleetSpeed;
     return IsInRange(object.get(), this, range);
 }
 
 bool SpaceObject::IsInFightRange(SpaceObject_ty_c object) const {
-    auto const range = AppContext::GetInstance().constants.fight.fleetFightRange;
+    auto const range = app::AppContext::GetInstance().constants.fight.fleetFightRange;
     return IsInRange(object.get(), this, range);
 }
 

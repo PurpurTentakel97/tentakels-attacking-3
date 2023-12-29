@@ -4,15 +4,15 @@
 //
 
 #include "PopUpValidate.hpp"
-#include <AppContext.hpp>
-#include <event/EventGenerel.hpp>
+#include <app/AppContext.hpp>
+#include <event/EventGeneral.hpp>
 #include <helper/HFocusEvents.hpp>
 #include <helper/HInput.hpp>
 #include <ui_lib/ButtonClassic.hpp>
 
 void ValidatePopUp::Initialize() {
 
-    AppContext_ty_c appContext{ AppContext::GetInstance() };
+    app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
 
     auto acceptBtn = std::make_shared<ClassicButton>(
             2,
@@ -20,7 +20,7 @@ void ValidatePopUp::Initialize() {
             hlp::GetElementSize(m_size, 0.2f, 0.15f),
             Alignment::BOTTOM_MID,
             appContext.languageManager.Text("ui_validate_popup_accept_btn"),
-            SoundType::ACCEPTED
+            app::SoundType::ACCEPTED
     );
     acceptBtn->SetOnClick([this]() {
         this->m_callback(true);
@@ -35,7 +35,7 @@ void ValidatePopUp::Initialize() {
             hlp::GetElementSize(m_size, 0.2f, 0.15f),
             Alignment::BOTTOM_MID,
             appContext.languageManager.Text("ui_validate_popup_cancel_btn"),
-            SoundType::CLICKED_RELEASE_STD
+            app::SoundType::CLICKED_RELEASE_STD
     );
     cancelBtn->SetOnClick([this]() {
         this->m_callback(false);
@@ -56,7 +56,7 @@ ValidatePopUp::ValidatePopUp(
         Alignment const alignment,
         std::string const& title,
         std::string& subTitle,
-        AssetType const infoTexture,
+        app::AssetType const infoTexture,
         std::function<void(bool)> callback
 )
     : PopUp{ pos, size, alignment, title, subTitle, infoTexture },
@@ -69,7 +69,7 @@ ValidatePopUp::ValidatePopUp(
     }
 }
 
-void ValidatePopUp::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) {
+void ValidatePopUp::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) {
     if (!m_firstEnter) {
         PopUp::CheckAndUpdate(mousePosition, appContext);
     } else {

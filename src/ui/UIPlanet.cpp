@@ -4,16 +4,16 @@
 //
 
 #include "UIPlanet.hpp"
-#include <AppContext.hpp>
+#include <app/AppContext.hpp>
 #include <helper/HInput.hpp>
 #include <logic/Planet.hpp>
 #include <ui_lib/ShipCountRing.hpp>
 
-UIPlanet::UIPlanet(unsigned int const focusID, unsigned int const ID, PlayerData const& player, Vector2 const pos,
+UIPlanet::UIPlanet(unsigned int const focusID, unsigned int const ID, app::PlayerData const& player, Vector2 const pos,
 	Vector2 const colliderPos, Planet_ty_raw_c planet)
 	:UIGalaxyElement{ focusID, ID, { 0.015f, 0.025f }, player, pos, colliderPos }, m_planet{ planet } {
 
-    AppContext_ty_c appContext{ AppContext::GetInstance() };
+    app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
     auto const textSize =
             MeasureTextEx(*(appContext.assetManager.GetFont()), m_stringID.c_str(), m_collider.height, 0.0f);
 
@@ -43,14 +43,14 @@ void UIPlanet::UpdateHoverText() {
     if (m_planet->IsDiscovered()) {
         std::string const text_1{ m_currentPlayer.GetName() + " | " + position + " |" };
         std::string const text_2{ std::to_string(m_planet->GetShipCount()) };
-        hover = { AppContext::GetInstance().languageManager.Text("ui_planet_hover", text_1, text_2) };
+        hover = { app::AppContext::GetInstance().languageManager.Text("ui_planet_hover", text_1, text_2) };
     } else {
         hover = { m_currentPlayer.GetName() + " | " + position };
     }
     m_hover.SetText(hover);
 }
 
-void UIPlanet::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) {
+void UIPlanet::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) {
 
     UIElement::CheckAndUpdate(mousePosition, appContext);
     m_ring->CheckAndUpdate(mousePosition, appContext);
@@ -76,13 +76,13 @@ void UIPlanet::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appC
     }
 }
 
-void UIPlanet::RenderRing(AppContext_ty_c appContext) {
+void UIPlanet::RenderRing(app::AppContext_ty_c appContext) {
     if (m_planet->IsDiscovered()) {
         m_ring->Render(appContext);
     }
 }
 
-void UIPlanet::Render(AppContext_ty_c appContext) {
+void UIPlanet::Render(app::AppContext_ty_c appContext) {
 
     DrawCircle(
             static_cast<int>(m_collider.x + m_collider.width / 2),

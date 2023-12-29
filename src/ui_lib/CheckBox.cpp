@@ -4,16 +4,17 @@
 //
 
 #include "CheckBox.hpp"
-#include <AppContext.hpp>
+#include <alias/AliasCustomRaylib.hpp>
+#include <app/AppContext.hpp>
 #include <event/EventsUI.hpp>
 #include <helper/HInput.hpp>
 
-void CheckBox::Check(AppContext_ty_c appContext) {
+void CheckBox::Check(app::AppContext_ty_c appContext) {
     if (m_isChecked) {
-        eve::PlaySoundEvent const event{ SoundType::CLICKED_RELEASE_STD };
+        eve::PlaySoundEvent const event{ app::SoundType::CLICKED_RELEASE_STD };
         appContext.eventManager.InvokeEvent(event);
     } else {
-        eve::PlaySoundEvent const event{ SoundType::CLICKED_PRESS_STD };
+        eve::PlaySoundEvent const event{ app::SoundType::CLICKED_PRESS_STD };
         appContext.eventManager.InvokeEvent(event);
     }
 
@@ -26,12 +27,12 @@ CheckBox::CheckBox(unsigned int const focusID, Vector2 const pos, float const he
 	: UIElement{ pos, { 0.0f, height }, alignment }, Focusable{ focusID },
 	m_ID{ checkBoxID } {
 
-    AppContext_ty appContext{ AppContext::GetInstance() };
-    Resolution_ty_c resolution{ appContext.GetResolution() };
+    app::AppContext_ty appContext{ app::AppContext::GetInstance() };
+    cst::Resolution_ty_c resolution{ appContext.GetResolution() };
     m_size.x = resolution.y / resolution.x * m_size.y;
     UpdateCollider();
 
-    m_texture = appContext.assetManager.GetTexture(AssetType::CHECK);
+    m_texture = appContext.assetManager.GetTexture(app::AssetType::CHECK);
     m_textureRec = { 0.0f, 0.0f, static_cast<float>(m_texture->width), static_cast<float>(m_texture->height) };
 }
 
@@ -63,7 +64,7 @@ Rectangle CheckBox::GetCollider() const {
     return UIElement::GetCollider();
 }
 
-void CheckBox::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) {
+void CheckBox::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) {
 
     UIElement::CheckAndUpdate(mousePosition, appContext);
 
@@ -74,7 +75,7 @@ void CheckBox::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appC
             if (m_isEnabled) {
                 check = true;
             } else {
-                eve::PlaySoundEvent const event{ SoundType::CLICKED_DISABLED_STD };
+                eve::PlaySoundEvent const event{ app::SoundType::CLICKED_DISABLED_STD };
                 appContext.eventManager.InvokeEvent(event);
             }
         }
@@ -87,7 +88,7 @@ void CheckBox::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appC
             if (m_isEnabled) {
                 check = true;
             } else {
-                eve::PlaySoundEvent const event{ SoundType::CLICKED_DISABLED_STD };
+                eve::PlaySoundEvent const event{ app::SoundType::CLICKED_DISABLED_STD };
                 appContext.eventManager.InvokeEvent(event);
             }
         }
@@ -100,7 +101,7 @@ void CheckBox::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appC
     }
 }
 
-void CheckBox::Render(AppContext_ty_c) {
+void CheckBox::Render(app::AppContext_ty_c) {
     DrawRectangleLinesEx(m_collider, 3.0f, WHITE);
 
     if (m_isChecked) {
@@ -116,9 +117,9 @@ void CheckBox::Render(AppContext_ty_c) {
     }
 }
 
-void CheckBox::Resize(AppContext_ty_c appContext) {
+void CheckBox::Resize(app::AppContext_ty_c appContext) {
 
-    Resolution_ty_c resolution{ appContext.GetResolution() };
+    cst::Resolution_ty_c resolution{ appContext.GetResolution() };
     m_size.x = resolution.y / resolution.x * m_size.y;
 
     UIElement::Resize(appContext);

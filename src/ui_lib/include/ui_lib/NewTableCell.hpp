@@ -4,10 +4,10 @@
 //
 
 #pragma once
+
 #include "Focusable.hpp"
 #include "UIElement.hpp"
 #include <functional>
-#include <helper/HPrint.hpp>
 #include <string>
 #include <type_traits>
 #include <variant>
@@ -25,7 +25,7 @@ public:
     using index_callback_ty = std::function<index_ty(NewTableCell const&)>;
 
 private:
-    std::string m_strValue{ };
+    std::string m_strValue{};
     variant_ty m_value{ std::monostate{} };
     variant_ty m_oldValue{ std::monostate{} };
     callback_ty m_callback{ [](NewTableCell&) {} };
@@ -107,7 +107,7 @@ public:
     // UIElement
     void SetSize(Vector2 size) override;
 
-    void CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) override;
+    void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) override;
 
-    void Render(AppContext_ty_c appContext) override;
+    void Render(app::AppContext_ty_c appContext) override;
 };

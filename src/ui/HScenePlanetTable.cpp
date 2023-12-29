@@ -5,11 +5,12 @@
 
 #include "HScenePlanetTable.hpp"
 #include <helper/HFocusEvents.hpp>
+#include <logic/Galaxy.hpp>
 #include <logic/Player.hpp>
 
 void PlanetTable::Initialization() {
     auto const planets{ m_galaxy->GetPlanets() };
-    AppContext_ty_c appContext{ AppContext::GetInstance() };
+    app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
 
     size_t discoveredCount{ 0 };
     for (auto const& p : planets) {
@@ -63,7 +64,7 @@ void PlanetTable::Initialization() {
             entry = appContext.languageManager.Text("ui_planet_table_player_name_not_discovered");
             color = WHITE;
         } else {
-            PlayerData const& player{ appContext.playerCollection.GetPlayerOrNpcByID(p->GetPlayer()->GetID()) };
+            app::PlayerData const& player{ appContext.playerCollection.GetPlayerOrNpcByID(p->GetPlayer()->GetID()) };
             entry = player.GetName();
             color = player.color;
         }
@@ -92,7 +93,7 @@ PlanetTable::PlanetTable(Vector2 const pos, Vector2 const size, Alignment const 
     Initialization();
 }
 
-void PlanetTable::SetActive(bool const active, AppContext_ty_c appContext) {
+void PlanetTable::SetActive(bool const active, app::AppContext_ty_c appContext) {
 
     if (active == m_active) {
         return;

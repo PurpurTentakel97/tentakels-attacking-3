@@ -4,17 +4,12 @@
 //
 
 #pragma once
-#include <helper/HLogicAlias.hpp>
+#include <alias/AliasEvent.hpp>
+#include <alias/AliasLogic.hpp>
+#include <alias/AliasUtils.hpp>
 #include <memory>
 #include <vector>
 
-class GameManager;
-enum class CopyGalaxyType;
-struct HFightResult;
-
-namespace eve {
-    class SendFleetInstructionEvent;
-}
 
 class GalaxyManager final {
     friend class Galaxy;
@@ -45,5 +40,5 @@ public:
 
     void KillPlayer(Player_ty_c player, Player_ty_c neutral_player);
 
-    [[nodiscard]] UpdateResult_ty Update();
+    [[nodiscard]] utl::UpdateResult_ty Update();
 };

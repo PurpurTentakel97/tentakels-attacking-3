@@ -4,6 +4,7 @@
 //
 
 #pragma once
+
 #include "Focusable.hpp"
 #include "UIElement.hpp"
 #include <functional>
@@ -23,7 +24,7 @@ private:
     std::function<void(unsigned int, bool)> m_onCheck{ [](unsigned int, bool) {} };
 
 
-    void Check(AppContext_ty_c appContext);
+    void Check(app::AppContext_ty_c appContext);
 
 public:
     CheckBox(unsigned int focusID, Vector2 pos, float height, Alignment alignment, unsigned int checkBoxID);
@@ -42,9 +43,9 @@ public:
 
     [[nodiscard]] Rectangle GetCollider() const override;
 
-    void CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) override;
+    void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) override;
 
-    void Render(AppContext_ty_c appContext) override;
+    void Render(app::AppContext_ty_c appContext) override;
 
-    void Resize(AppContext_ty_c appContext) override;
+    void Resize(app::AppContext_ty_c appContext) override;
 };

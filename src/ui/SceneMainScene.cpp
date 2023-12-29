@@ -7,11 +7,13 @@
 #include "HSceneFleetTable.hpp"
 #include "HSceneGalaxyAndSlider.hpp"
 #include "HScenePlanetTable.hpp"
-#include <AppContext.hpp>
+#include "app/PlayerCollection.hpp"
+#include <app/AppContext.hpp>
 #include <cassert>
-#include <event/EventGenerel.hpp>
-#include <helper/HPlayerCollection.hpp>
+#include <event/EventGeneral.hpp>
+#include <logic/Galaxy.hpp>
 #include <logic/Player.hpp>
+#include <logic/SpaceObject.hpp>
 #include <ui_lib/ButtonClassic.hpp>
 #include <ui_lib/ButtonExpanding.hpp>
 #include <ui_lib/InputLine.hpp>
@@ -20,7 +22,7 @@
 
 void MainScene::Initialize() {
 
-    AppContext_ty_c appContext{ AppContext::GetInstance() };
+    app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
 
     // Galaxy and tables are Focus ID 1000+
 
@@ -52,10 +54,10 @@ void MainScene::Initialize() {
             Vector2{ 0.0f, 0.0f },
             Alignment::DEFAULT,
             appContext.languageManager.Text("helper_game"),
-            SoundType::CLICKED_RELEASE_STD
+            app::SoundType::CLICKED_RELEASE_STD
     );
     gameSettingsBtn->SetOnClick([]() {
-        AppContext_ty_c appContext_{ AppContext::GetInstance() };
+        app::AppContext_ty_c appContext_{ app::AppContext::GetInstance() };
 
         eve::PauseGameEvent const gameEvent{};
         appContext_.eventManager.InvokeEvent(gameEvent);
@@ -71,10 +73,10 @@ void MainScene::Initialize() {
             Vector2{ 0.0f, 0.0f },
             Alignment::DEFAULT,
             appContext.languageManager.Text("helper_app"),
-            SoundType::CLICKED_RELEASE_STD
+            app::SoundType::CLICKED_RELEASE_STD
     );
     appSettingsBtn->SetOnClick([]() {
-        AppContext_ty_c appContext_{ AppContext::GetInstance() };
+        app::AppContext_ty_c appContext_{ app::AppContext::GetInstance() };
 
         eve::PauseGameEvent const gameEvent{};
         appContext_.eventManager.InvokeEvent(gameEvent);
@@ -90,10 +92,10 @@ void MainScene::Initialize() {
             Vector2{ 0.0f, 0.0f },
             Alignment::DEFAULT,
             appContext.languageManager.Text("scene_settings_main_menu_btn"),
-            SoundType::CLICKED_RELEASE_STD
+            app::SoundType::CLICKED_RELEASE_STD
     );
     mainMenuBtn->SetOnClick([]() {
-        AppContext_ty_c appContext_{ AppContext::GetInstance() };
+        app::AppContext_ty_c appContext_{ app::AppContext::GetInstance() };
 
         eve::PauseGameEvent const gameEvent{};
         appContext_.eventManager.InvokeEvent(gameEvent);
@@ -109,11 +111,11 @@ void MainScene::Initialize() {
             Vector2{ 0.0f, 0.0f },
             Alignment::DEFAULT,
             appContext.languageManager.Text("scene_main_scene_resign_btn"),
-            SoundType::CLICKED_RELEASE_STD
+            app::SoundType::CLICKED_RELEASE_STD
     );
     resignBtn->SetOnClick([settingsBtn]() {
         settingsBtn->Collapse();
-        AppContext::GetInstance().eventManager.InvokeEvent(eve::KillCurrentPlayerEvent());
+        app::AppContext::GetInstance().eventManager.InvokeEvent(eve::KillCurrentPlayerEvent());
     });
     settingsBtn->Add(resignBtn, true);
     settingsBtn->Update();
@@ -124,7 +126,7 @@ void MainScene::Initialize() {
             GetElementSize(0.1f, 0.05f),
             Alignment::TOP_RIGHT,
             appContext.languageManager.Text("scene_main_scene_galaxy_btn"),
-            SoundType::CLICKED_RELEASE_STD
+            app::SoundType::CLICKED_RELEASE_STD
     );
     galaxyBtn->SetOnClick([this]() { this->Switch(MainSceneType::GALAXY); });
     m_elements.push_back(galaxyBtn);
@@ -135,7 +137,7 @@ void MainScene::Initialize() {
             GetElementSize(0.1f, 0.05f),
             Alignment::TOP_RIGHT,
             appContext.languageManager.Text("scene_main_scene_planet_table_btn"),
-            SoundType::CLICKED_RELEASE_STD
+            app::SoundType::CLICKED_RELEASE_STD
     );
     planetTableBtn->SetOnClick([this]() { this->Switch(MainSceneType::PLANET_TABLE); });
     m_elements.push_back(planetTableBtn);
@@ -146,7 +148,7 @@ void MainScene::Initialize() {
             GetElementSize(0.1f, 0.05f),
             Alignment::TOP_RIGHT,
             appContext.languageManager.Text("scene_main_scene_fleet_point_table_btn"),
-            SoundType::CLICKED_RELEASE_STD
+            app::SoundType::CLICKED_RELEASE_STD
     );
     fleetTableBtn->SetOnClick([this]() { this->Switch(MainSceneType::FLEET_TABLE); });
     m_elements.push_back(fleetTableBtn);
@@ -157,9 +159,10 @@ void MainScene::Initialize() {
             GetElementSize(0.1f, 0.05f),
             Alignment::BOTTOM_RIGHT,
             appContext.languageManager.Text("scene_main_scene_next_player_btn"),
-            SoundType::ACCEPTED
+            app::SoundType::ACCEPTED
     );
-    m_nextBtn->SetOnClick([]() { AppContext::GetInstance().eventManager.InvokeEvent(eve::TriggerNextTurnEvent()); });
+    m_nextBtn->SetOnClick([]() { app::AppContext::GetInstance().eventManager.InvokeEvent(eve::TriggerNextTurnEvent()); }
+    );
     m_elements.push_back(m_nextBtn);
 
     // text
@@ -368,7 +371,7 @@ void MainScene::Initialize() {
             GetElementSize(0.04f, 0.04f),
             Alignment::TOP_RIGHT,
             "+",
-            SoundType::ACCEPTED
+            app::SoundType::ACCEPTED
     );
     m_acceptBtn->SetOnClick([this]() { this->SendFleetInstruction(); });
     m_elements.push_back(m_acceptBtn);
@@ -379,14 +382,14 @@ void MainScene::Initialize() {
             GetElementSize(0.04f, 0.04f),
             Alignment::TOP_RIGHT,
             "X",
-            SoundType::ACCEPTED
+            app::SoundType::ACCEPTED
     );
     m_resetBtn->SetOnClick([this]() { this->ClearInputLines(); });
     m_elements.push_back(m_resetBtn);
 }
 
 void MainScene::InitializeGalaxy() {
-    AppContext_ty_c appContext{ AppContext::GetInstance() };
+    app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
     if (m_galaxy) {
         m_galaxy->SetActive(false, appContext);
         m_elements.erase(std::remove(m_elements.begin(), m_elements.end(), m_galaxy), m_elements.end());
@@ -405,7 +408,7 @@ void MainScene::InitializeGalaxy() {
 }
 void MainScene::InitializePlanetTable() {
 
-    AppContext_ty_c appContext = AppContext::GetInstance();
+    app::AppContext_ty_c appContext = app::AppContext::GetInstance();
     if (m_planetTable) {
         m_planetTable->SetActive(false, appContext);
         m_elements.erase(std::remove(m_elements.begin(), m_elements.end(), m_planetTable), m_elements.end());
@@ -423,7 +426,7 @@ void MainScene::InitializePlanetTable() {
 
 void MainScene::InitializeFleetTable() {
 
-    AppContext_ty appContext{ AppContext::GetInstance() };
+    app::AppContext_ty appContext{ app::AppContext::GetInstance() };
     if (m_fleetTable) {
         m_fleetTable->SetActive(false, appContext);
         m_elements.erase(std::remove(m_elements.begin(), m_elements.end(), m_fleetTable), m_elements.end());
@@ -450,7 +453,7 @@ void MainScene::NextTurn() {
 }
 
 void MainScene::NextTurnPopup(bool const skip) {
-    AppContext_ty_c appContext{ AppContext::GetInstance() };
+    app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
     if (skip) {
         eve::ShowMessagePopUpEvent event{
             appContext.languageManager.Text("scene_main_scene_popup_text_skip_turn_title"),
@@ -461,7 +464,7 @@ void MainScene::NextTurnPopup(bool const skip) {
                                      ),
                                      [this]() {
                                          this->Switch(MainSceneType::GALAXY);
-                AppContext::GetInstance().eventManager.InvokeEvent(eve::TriggerNextTurnEvent());
+                app::AppContext::GetInstance().eventManager.InvokeEvent(eve::TriggerNextTurnEvent());
             } };
         appContext.eventManager.InvokeEvent(event);
     } else {
@@ -484,7 +487,7 @@ void MainScene::SetPlayerText() {
 }
 
 void MainScene::Switch(MainSceneType sceneType) {
-    AppContext_ty_c appContext{ AppContext::GetInstance() };
+    app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
 
     assert(m_galaxy);
     assert(m_planetTable);
@@ -547,7 +550,7 @@ void MainScene::SendFleetInstruction() {
                                      m_destinationX->IsEnabled() ? m_destinationX->GetValue() : -1,
                                      m_destinationY->IsEnabled() ? m_destinationY->GetValue() : -1,
                                      static_cast<size_t>(m_shipCount->GetValue()) };
-    AppContext::GetInstance().eventManager.InvokeEvent(event);
+    app::AppContext::GetInstance().eventManager.InvokeEvent(event);
 }
 
 void MainScene::ClearInputLines() {
@@ -559,7 +562,7 @@ void MainScene::ClearInputLines() {
     m_shipCount->Clear();
 
     eve::SelectFocusElementEvent event{ m_origin.get() };
-    AppContext::GetInstance().eventManager.InvokeEvent(event);
+    app::AppContext::GetInstance().eventManager.InvokeEvent(event);
 }
 
 void MainScene::HandleGalaxyDragLineInput(eve::DragLineFleetInstructionEvent const* const event) {
@@ -594,7 +597,7 @@ void MainScene::HandleGalaxyDragLineInput(eve::DragLineFleetInstructionEvent con
 
 
     eve::SelectFocusElementEvent const focusEvent{ m_shipCount.get() };
-    AppContext::GetInstance().eventManager.InvokeEvent(focusEvent);
+    app::AppContext::GetInstance().eventManager.InvokeEvent(focusEvent);
 }
 
 SpaceObject_ty MainScene::GetSpaceObjectFromID(unsigned int const ID) const {
@@ -627,7 +630,7 @@ MainScene::MainScene()
           Alignment::DEFAULT
 } {
 
-    AppContext_ty appContext{ AppContext::GetInstance() };
+    app::AppContext_ty appContext{ app::AppContext::GetInstance() };
     appContext.eventManager.AddListener(this);
     appContext.eventManager.InvokeEvent(eve::LoadCurrentPlayerEvent{});
 
@@ -641,11 +644,11 @@ MainScene::MainScene()
 }
 
 MainScene::~MainScene() {
-    AppContext::GetInstance().eventManager.RemoveListener(this);
+    app::AppContext::GetInstance().eventManager.RemoveListener(this);
 }
 
 void MainScene::OnEvent(eve::Event const& event) {
-    AppContext_ty_c appContext{ AppContext::GetInstance() };
+    app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
 
     // player
     if (auto const* playerEvent = dynamic_cast<eve::UpdateCurrentPlayerIDEvent const*>(&event)) {
@@ -670,7 +673,7 @@ void MainScene::OnEvent(eve::Event const& event) {
     }
     if ([[maybe_unused]] auto const* playerEvent = dynamic_cast<eve::ShowEvaluationEvent const*>(&event)) {
         eve::SwitchSceneEvent sendEvent{ SceneType::UPDATE_EVALUATION };
-        AppContext::GetInstance().eventManager.InvokeEvent(sendEvent);
+        app::AppContext::GetInstance().eventManager.InvokeEvent(sendEvent);
         return;
     }
 
@@ -691,7 +694,7 @@ void MainScene::OnEvent(eve::Event const& event) {
     }
 }
 
-void MainScene::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) {
+void MainScene::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) {
 
     if (!HasAnyInputLineFocus()) {
 

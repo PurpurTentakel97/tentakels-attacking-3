@@ -4,14 +4,15 @@
 //
 
 #pragma once
-#include <helper/HFightResult.hpp>
+
+#include "utils/FightResult.hpp"
 #include <ui_lib/CountingNumber.hpp>
 #include <ui_lib/PopUp.hpp>
 
 class FightResultPopup : public PopUp {
 private:
     using callback_ty = std::function<void()>;
-    HFightResult const m_result;
+    utl::FightResult const m_result;
     size_t m_index{ 1 };
     bool m_finishedCounting{ false };
     callback_ty m_callback{ []() {} };
@@ -34,5 +35,5 @@ private:
     void HandleButton();
 
 public:
-    FightResultPopup(Vector2 pos, Vector2 size, Alignment alignment, HFightResult result, callback_ty callback);
+    FightResultPopup(Vector2 pos, Vector2 size, Alignment alignment, utl::FightResult result, callback_ty callback);
 };

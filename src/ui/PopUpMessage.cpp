@@ -4,12 +4,12 @@
 //
 
 #include "PopUpMessage.hpp"
-#include <AppContext.hpp>
+#include <app/AppContext.hpp>
 #include <helper/HGeneral.hpp>
 #include <memory>
 
 void MessagePopUp::Initialize() {
-    AppContext_ty_c appContext{ AppContext::GetInstance() };
+    app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
 
     auto btn = std::make_shared<ClassicButton>(
             1,
@@ -17,12 +17,12 @@ void MessagePopUp::Initialize() {
             hlp::GetElementSize(m_size, 0.3f, 0.2f),
             Alignment::MID_MID,
             appContext.languageManager.Text("ui_message_popup_ok_btn"),
-            SoundType::CLICKED_RELEASE_STD
+            app::SoundType::CLICKED_RELEASE_STD
     );
 
     btn->SetOnClick([this]() {
         this->m_callback();
-        AppContext::GetInstance().eventManager.InvokeEvent(eve::ClosePopUpEvent(this));
+        app::AppContext::GetInstance().eventManager.InvokeEvent(eve::ClosePopUpEvent(this));
     });
     eve::NewFocusPopUpElementEvent event{ btn.get() };
     appContext.eventManager.InvokeEvent(event);
@@ -36,7 +36,7 @@ MessagePopUp::MessagePopUp(
         Alignment const alignment,
         std::string const& title,
         std::string& subTitle,
-        AssetType const infoTexture,
+        app::AssetType const infoTexture,
         std::function<void()> callback
 )
     : PopUp{ pos, size, alignment, title, subTitle, infoTexture },
@@ -45,7 +45,7 @@ MessagePopUp::MessagePopUp(
     Initialize();
 }
 
-void MessagePopUp::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) {
+void MessagePopUp::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) {
 
     if (!m_firstEnter) {
         PopUp::CheckAndUpdate(mousePosition, appContext);

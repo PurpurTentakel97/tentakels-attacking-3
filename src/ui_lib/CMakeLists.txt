@@ -73,7 +73,10 @@ target_link_libraries(ui_lib
                       PRIVATE
                       project_options
                       PUBLIC
-                      helper
+                      alias
+                      app
+                      custom_raylib
                       event
-                      app_context
+                      helper
+                      utils
 )

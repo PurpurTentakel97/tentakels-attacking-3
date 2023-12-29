@@ -4,11 +4,10 @@
 //
 
 #pragma once
+
 #include "UIElement.hpp"
 #include <memory>
 #include <vector>
-
-class UIManager;
 
 class Scene : public UIElement {
 protected:
@@ -16,7 +15,7 @@ protected:
     std::vector<std::shared_ptr<UIElement>> m_elementsOutUpdates;
     bool m_active{ false };
 
-    void SetFocusActive(AppContext_ty_c appContext);
+    void SetFocusActive(app::AppContext_ty_c appContext);
 
     Vector2 GetElementPosition(float x, float y);
 
@@ -30,17 +29,17 @@ public:
 
     [[nodiscard]] bool IsActive() const;
 
-    virtual void SetActive(bool active, AppContext_ty_c appContext);
+    virtual void SetActive(bool active, app::AppContext_ty_c appContext);
 
     void SetPosition(Vector2 pos) override;
 
     void SetSize(Vector2 size) override;
 
-    void CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) override;
+    void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) override;
 
-    void Render(AppContext_ty_c appContext) override;
+    void Render(app::AppContext_ty_c appContext) override;
 
-    void Resize(AppContext_ty_c appContext) override;
+    void Resize(app::AppContext_ty_c appContext) override;
 
 
     void MoveBySpeed(float relativeSpeed, float angle) override;

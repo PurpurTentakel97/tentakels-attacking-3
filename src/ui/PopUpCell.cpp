@@ -4,7 +4,7 @@
 //
 
 #include "PopUpCell.hpp"
-#include <AppContext.hpp>
+#include <app/AppContext.hpp>
 #include <helper/HFocusEvents.hpp>
 #include <helper/HGeneral.hpp>
 #include <helper/HInput.hpp>
@@ -16,7 +16,7 @@ namespace {
 
 void CellPopUp::Initialize() {
 
-    AppContext_ty_c appContext{ AppContext::GetInstance() };
+    app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
 
     auto cancelBtn = std::make_shared<ClassicButton>(
             2,
@@ -24,7 +24,7 @@ void CellPopUp::Initialize() {
             hlp::GetElementSize(m_size, 0.3f, 0.2f),
             Alignment::BOTTOM_LEFT,
             appContext.languageManager.Text("ui_cell_popup_cancel_btn"),
-            SoundType::CLICKED_RELEASE_STD
+            app::SoundType::CLICKED_RELEASE_STD
     );
 
     hlp::AddFocusElement(cancelBtn.get(), true);
@@ -36,7 +36,7 @@ void CellPopUp::Initialize() {
 
 ClassicButton_ty CellPopUp::InitializeAcceptButton() {
 
-    AppContext_ty_c appContext{ AppContext::GetInstance() };
+    app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
 
     auto acceptBtn = std::make_shared<ClassicButton>(
             1,
@@ -44,7 +44,7 @@ ClassicButton_ty CellPopUp::InitializeAcceptButton() {
             hlp::GetElementSize(m_size, 0.3f, 0.2f),
             Alignment::BOTTOM_RIGHT,
             appContext.languageManager.Text("ui_cell_popup_accept_btn"),
-            SoundType::ACCEPTED
+            app::SoundType::ACCEPTED
     );
 
     hlp::AddFocusElement(acceptBtn.get(), true);
@@ -61,15 +61,15 @@ void CellPopUp::SetShouldClose() {
 void CellPopUp::CheckEnter() {
     bool validEnterClose = (IsKeyReleased(KEY_ENTER) or IsKeyPressed(KEY_KP_ENTER)) && !m_shouldClose && !m_firstEnter;
     if (validEnterClose) {
-        auto event = eve::PlaySoundEvent(SoundType::ACCEPTED);
-        AppContext::GetInstance().eventManager.InvokeEvent(event);
+        auto event = eve::PlaySoundEvent(app::SoundType::ACCEPTED);
+        app::AppContext::GetInstance().eventManager.InvokeEvent(event);
         SetValue();
     }
 
     LateUpdate();
 }
 
-void CellPopUp::Close(AppContext_ty_c appContext) {
+void CellPopUp::Close(app::AppContext_ty_c appContext) {
     if (m_shouldClose) {
         auto event = eve::ClosePopUpEvent(this);
         appContext.eventManager.InvokeEvent(event);
@@ -81,21 +81,21 @@ CellPopUp::CellPopUp(
         Vector2 const size,
         Alignment const alignment,
         std::string const& title,
-        AssetType const infoTexture
+        app::AssetType const infoTexture
 )
     : PopUp{ pos, size, alignment, title, subTitle, infoTexture } {
 
     Initialize();
 }
 
-void CellPopUp::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) {
+void CellPopUp::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) {
 
     PopUp::CheckAndUpdate(mousePosition, appContext);
 
     CheckEnter();
 
     if (hlp::IsBackInputPressed()) {
-        eve::PlaySoundEvent event{ SoundType::CLICKED_RELEASE_STD };
+        eve::PlaySoundEvent event{ app::SoundType::CLICKED_RELEASE_STD };
         appContext.eventManager.InvokeEvent(event);
         SetShouldClose();
     }

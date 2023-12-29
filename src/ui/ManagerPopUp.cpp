@@ -8,12 +8,12 @@
 #include <helper/HPrint.hpp>
 
 ManagerPopUp::ManagerPopUp() {
-    AppContext::GetInstance().eventManager.AddListener(this);
+    app::AppContext::GetInstance().eventManager.AddListener(this);
     hlp::Print(hlp::PrintType::INITIALIZE, "ManagerPopUp");
 }
 
 ManagerPopUp::~ManagerPopUp() {
-    AppContext::GetInstance().eventManager.RemoveListener(this);
+    app::AppContext::GetInstance().eventManager.RemoveListener(this);
 }
 
 bool ManagerPopUp::IsActivePopUp() const {
@@ -90,7 +90,7 @@ void ManagerPopUp::NewMessagePopUp(eve::ShowMessagePopUpEvent const* const event
             Alignment::MID_MID,
             event->GetTitle(),
             const_cast<std::string&>(event->GetSubTitle()),
-            AssetType::EXCLAMATION_MARK,
+            app::AssetType::EXCLAMATION_MARK,
             event->GetCallback()
     ));
 }
@@ -103,7 +103,7 @@ void ManagerPopUp::NewDeletePlayerPopUp(eve::ShowDeletePlayerPopUpEvent const* c
             Vector2(0.5f, 0.5f),
             Alignment::MID_MID,
             event->GetTitle(),
-            AssetType::QUESTION_MARK,
+            app::AssetType::QUESTION_MARK,
             event->GetOnClick()
     ));
 }
@@ -117,13 +117,13 @@ void ManagerPopUp::NewValidatePopUp(eve::ShowValidatePopUp const* const event) {
             Alignment::MID_MID,
             event->GetTitle(),
             const_cast<std::string&>(event->GetSubTitle()),
-            AssetType::QUESTION_MARK,
+            app::AssetType::QUESTION_MARK,
             event->GetCallback()
     ));
 }
 
 void ManagerPopUp::NewColorCellPopUp(eve::ShowCellPopUpEvent<Color> const* const event) {
-    AppContext_ty_c appContext{ AppContext::GetInstance() };
+    app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
     eve::NewFocusPopUpLayerEvent focusEvent;
     appContext.eventManager.InvokeEvent(focusEvent);
 
@@ -132,14 +132,14 @@ void ManagerPopUp::NewColorCellPopUp(eve::ShowCellPopUpEvent<Color> const* const
             Vector2(0.7f, 0.7f),
             Alignment::MID_MID,
             event->GetTitle(),
-            AssetType::LOGO,
+            app::AssetType::LOGO,
             event->GetCurrentValue(),
             event->GetOnClick()
     ));
 }
 
 void ManagerPopUp::NewSoundLevelPopUp(eve::ShowInitialSoundLevelPopUpEvent const* const event) {
-    AppContext_ty_c appContext{ AppContext::GetInstance() };
+    app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
     eve::NewFocusPopUpLayerEvent focusEvent;
     appContext.eventManager.InvokeEvent(focusEvent);
 
@@ -152,7 +152,7 @@ void ManagerPopUp::NewSoundLevelPopUp(eve::ShowInitialSoundLevelPopUpEvent const
     ));
 }
 void ManagerPopUp::NewFightResultPopUp(eve::ShowFightResultEvent const* const event) {
-    AppContext_ty_c appContext{ AppContext::GetInstance() };
+    app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
     eve::NewFocusLayerEvent focusEvent;
     appContext.eventManager.InvokeEvent(focusEvent);
 
@@ -209,7 +209,7 @@ void ManagerPopUp::CheckForDeleteRemainingPopUps() {
     }
 }
 
-void ManagerPopUp::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) {
+void ManagerPopUp::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) {
     if (!IsActivePopUp()) {
         return;
     }
@@ -217,13 +217,13 @@ void ManagerPopUp::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c 
     m_popUps.back()->CheckAndUpdate(mousePosition, appContext);
 }
 
-void ManagerPopUp::Render(AppContext_ty_c appContext) {
+void ManagerPopUp::Render(app::AppContext_ty_c appContext) {
     for (auto& p : m_popUps) {
         p->Render(appContext);
     }
 }
 
-void ManagerPopUp::Resize(AppContext_ty_c appContext) {
+void ManagerPopUp::Resize(app::AppContext_ty_c appContext) {
     for (auto& e : m_popUps) {
         e->Resize(appContext);
     }

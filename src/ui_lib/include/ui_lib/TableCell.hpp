@@ -4,12 +4,13 @@
 //
 
 #pragma once
+
 #include "TableCellAbstract.hpp"
-#include <AppContext.hpp>
+#include <app/AppContext.hpp>
 #include <event/EventsUI.hpp>
-#include <helper/HColors.hpp>
 #include <helper/HInput.hpp>
 #include <helper/HPrint.hpp>
+#include <utils/Colors.hpp>
 
 template<typename T>
 class TableCell final : public AbstractTableCell {
@@ -47,7 +48,7 @@ public:
     }
 
 
-    void Clicked(Vector2 const&, AppContext_ty_c appContext) override {
+    void Clicked(Vector2 const&, app::AppContext_ty_c appContext) override {
 
         if (not IsEditable()) {
             return;
@@ -59,7 +60,7 @@ public:
         appContext.eventManager.InvokeEvent(event);
     }
 
-    void CheckAndUpdate(Vector2 const&, AppContext_ty_c appContext) override {
+    void CheckAndUpdate(Vector2 const&, app::AppContext_ty_c appContext) override {
         if (not IsEditable()) {
             return;
         }
@@ -80,7 +81,7 @@ public:
         }
     }
 
-    void Render(AppContext_ty_c appContext) override {
+    void Render(app::AppContext_ty_c appContext) override {
         AbstractTableCell::Render(appContext);
 
         DrawTextEx(
@@ -115,11 +116,11 @@ inline void TableCell<std::string>::SetStringValue() {
 
 template<>
 inline void TableCell<Color>::SetStringValue() {
-    m_stringValue = hlp::Colors::AsString(m_value);
+    m_stringValue = utl::Colors::AsString(m_value);
 }
 
 template<>
-inline void TableCell<Color>::Render(AppContext_ty_c appContext) {
+inline void TableCell<Color>::Render(app::AppContext_ty_c appContext) {
     AbstractTableCell::Render(appContext);
 
     auto const offset{ m_collider.height / 10.0f };

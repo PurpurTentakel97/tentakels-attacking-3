@@ -4,11 +4,11 @@
 //
 
 #pragma once
+
+#include <alias/AliasUiLib.hpp>
 #include <functional>
 #include <ui_lib/Scene.hpp>
 #include <ui_lib/SceneType.hpp>
-
-enum class SceneType;
 
 class LogoScene final : public Scene {
 private:
@@ -21,9 +21,9 @@ private:
 public:
     LogoScene();
 
-    void CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) override;
+    void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) override;
 
-    void Render(AppContext_ty_c appContext) override;
+    void Render(app::AppContext_ty_c appContext) override;
 
-    void Resize(AppContext_ty_c appContext) override;
+    void Resize(app::AppContext_ty_c appContext) override;
 };

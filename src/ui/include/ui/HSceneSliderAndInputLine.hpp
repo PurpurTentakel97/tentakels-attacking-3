@@ -4,6 +4,7 @@
 //
 
 #pragma once
+
 #include <functional>
 #include <ui_lib/InputLine.hpp>
 #include <ui_lib/Scene.hpp>
@@ -45,7 +46,7 @@ public:
             int currentValue
     );
 
-    void CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) override;
+    void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) override;
 
     void SetEnabled(bool isEnabled);
 

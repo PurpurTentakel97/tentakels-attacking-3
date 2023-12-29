@@ -4,11 +4,11 @@
 //
 
 #pragma once
+
+#include "app/PlayerData.hpp"
+#include <alias/AliasUi.hpp>
 #include <event/EventListener.hpp>
 #include <functional>
-#include <helper/HLogicAlias.hpp>
-#include <helper/HPlayerData.hpp>
-#include <helper/HUIAlias.hpp>
 #include <memory>
 #include <ui_lib/Focusable.hpp>
 #include <ui_lib/UIElement.hpp>
@@ -53,9 +53,9 @@ private:
 
     void Initialize(eve::SendGalaxyPointerEvent const* event);
 
-    [[nodiscard]] Vector2 GetAbsolutePosition(Vector2 pos, AppContext_ty_c appContext) const;
+    [[nodiscard]] Vector2 GetAbsolutePosition(Vector2 pos, app::AppContext_ty_c appContext) const;
 
-    [[nodiscard]] Vector2 GetRelativePosition(Vector2 pos, AppContext_ty_c appContext) const;
+    [[nodiscard]] Vector2 GetRelativePosition(Vector2 pos, app::AppContext_ty_c appContext) const;
 
     [[nodiscard]] bool IsUIGalaxyElementInCollider(UIGalaxyElement_ty const& element) const;
 
@@ -77,7 +77,7 @@ private:
 
     [[nodiscard]] unsigned int GetIDFromPoint(Vector2 point) const;
 
-    [[nodiscard]] vec2pos_ty GetCoordinatesFromPoint(Vector2 point) const;
+    [[nodiscard]] utl::vec2pos_ty GetCoordinatesFromPoint(Vector2 point) const;
 
     void HandleDragLineResult(Vector2 start, Vector2 end);
 
@@ -102,13 +102,13 @@ public:
 
     void SetOnUIGalaxyElementClick(std::function<void(unsigned int)> onPlanetClick);
 
-    void CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) override;
+    void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) override;
 
-    void Render(AppContext_ty_c appContext) override;
+    void Render(app::AppContext_ty_c appContext) override;
 
-    void Resize(AppContext_ty_c appContext) override;
+    void Resize(app::AppContext_ty_c appContext) override;
 
-    void FilterByCurrentPlayer(PlayerData const& player);
+    void FilterByCurrentPlayer(app::PlayerData const& player);
 
     void SetEnabled(bool isEnabled);
 

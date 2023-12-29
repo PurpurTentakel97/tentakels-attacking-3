@@ -4,7 +4,8 @@
 //
 
 #include "Picture.hpp"
-#include <AppContext.hpp>
+#include <alias/AliasCustomRaylib.hpp>
+#include <app/AppContext.hpp>
 
 void Picture::ScaleToFit() {
 
@@ -12,7 +13,7 @@ void Picture::ScaleToFit() {
         return;
     }
 
-    Resolution_ty_c resolution{ AppContext::GetInstance().GetResolution() };
+    cst::Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
     float const tempSize{ m_size.x };
     m_size.x = static_cast<float>(m_texture->width) / static_cast<float>(m_texture->height) * resolution.y
                / resolution.x * m_size.y;
@@ -24,17 +25,17 @@ Picture::Picture(
         Vector2 const pos,
         Vector2 const size,
         Alignment const alignment,
-        AssetType const assetType,
+        app::AssetType const assetType,
         bool const scaleToFit
 )
     : UIElement{ pos, size, alignment },
       m_isScaleToFit{ scaleToFit } {
-    m_texture = AppContext::GetInstance().assetManager.GetTexture(assetType);
+    m_texture = app::AppContext::GetInstance().assetManager.GetTexture(assetType);
 
     ScaleToFit();
 }
 
-void Picture::Render(AppContext_ty_c) {
+void Picture::Render(app::AppContext_ty_c) {
     DrawTexturePro(
             *m_texture,
             Rectangle(0.0f, 0.0f, static_cast<float>(m_texture->width), static_cast<float>(m_texture->height)),
@@ -45,7 +46,7 @@ void Picture::Render(AppContext_ty_c) {
     );
 }
 
-void Picture::Resize(AppContext_ty_c appContext) {
+void Picture::Resize(app::AppContext_ty_c appContext) {
     UIElement::Resize(appContext);
     ScaleToFit();
 }

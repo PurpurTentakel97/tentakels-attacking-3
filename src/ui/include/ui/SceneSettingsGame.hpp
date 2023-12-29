@@ -4,6 +4,7 @@
 //
 
 #pragma once
+
 #include "HSceneSettings.hpp"
 
 class GameSettingsScene : public SettingsScene {

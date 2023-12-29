@@ -4,8 +4,8 @@
 //
 
 #pragma once
-#include <helper/HLogicAlias.hpp>
-#include <helper/HPlayerData.hpp>
+
+#include <alias/AliasUi.hpp>
 #include <ui_lib/Scene.hpp>
 #include <vector>
 
@@ -41,11 +41,11 @@ public:
 
     [[nodiscard]] Galaxy_ty_raw GetGalaxy() const;
 
-    void FilterByCurrentPlayer(PlayerData const& player);
+    void FilterByCurrentPlayer(app::PlayerData const& player);
 
-    void CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) override;
+    void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) override;
 
-    void Render(AppContext_ty_c appContext) override;
+    void Render(app::AppContext_ty_c appContext) override;
 
-    void Resize(AppContext_ty_c appContext) override;
+    void Resize(app::AppContext_ty_c appContext) override;
 };

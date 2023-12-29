@@ -4,6 +4,7 @@
 //
 
 #pragma once
+
 #include <functional>
 #include <ui_lib/ButtonClassic.hpp>
 #include <ui_lib/PopUp.hpp>
@@ -22,9 +23,9 @@ public:
             Alignment alignment,
             std::string const& title,
             std::string& subTitle,
-            AssetType infoTexture,
+            app::AssetType infoTexture,
             std::function<void()> callback
     );
 
-    void CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) override;
+    void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) override;
 };

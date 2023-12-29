@@ -4,6 +4,7 @@
 //
 
 #pragma once
+
 #include "UIElement.hpp"
 #include <functional>
 #include <string>
@@ -19,7 +20,7 @@ protected:
     };
 
     std::string m_text{};
-    SoundType m_sound{};
+    app::SoundType m_sound{};
 
     Vector2 m_textPosition{};
     Texture2D* m_texture{};
@@ -35,22 +36,22 @@ protected:
     std::function<void()> m_onClick{ []() {} };
     std::function<void()> m_onPress{ []() {} };
 
-    void SetTextSizeAndPosition(AppContext_ty_c appContext);
+    void SetTextSizeAndPosition(app::AppContext_ty_c appContext);
 
     [[nodiscard]] bool IsSameState(State state) const;
 
     void UpdateCollider() override;
 
 public:
-    Button(Vector2 pos, Vector2 size, Alignment alignment, std::string text, SoundType releaseSound);
+    Button(Vector2 pos, Vector2 size, Alignment alignment, std::string text, app::SoundType releaseSound);
 
     Button();
 
-    void CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) override;
+    void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) override;
 
-    void Render(AppContext_ty_c appContext) override;
+    void Render(app::AppContext_ty_c appContext) override;
 
-    void Resize(AppContext_ty_c appContext) override;
+    void Resize(app::AppContext_ty_c appContext) override;
 
     void SetOnClick(std::function<void()> onClick);
 

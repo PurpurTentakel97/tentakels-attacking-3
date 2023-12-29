@@ -4,26 +4,28 @@
 //
 
 #pragma once
-#include <helper/HLogicAlias.hpp>
-#include <helper/HVec2.hpp>
+
+#include <alias/AliasLogic.hpp>
+#include <alias/AliasUtils.hpp>
 #include <memory>
 #include <string>
+#include <utils/Vec2.hpp>
 
 
 class SpaceObject {
 protected:
     unsigned int m_ID;
     size_t m_ships;
-    vec2pos_ty m_position;
+    utl::vec2pos_ty m_position;
     Player_ty m_player;
     bool m_isDiscovered{ false };
 
     [[nodiscard]] static bool IsInRange(SpaceObject_ty_raw first, SpaceObject_ty_raw second, int range);
 
 public:
-    SpaceObject(unsigned int ID, vec2pos_ty_ref_c position, Player_ty_c player);
+    SpaceObject(unsigned int ID, utl::vec2pos_ty_ref_c position, Player_ty_c player);
 
-    SpaceObject(unsigned int ID, vec2pos_ty position, size_t ships, Player_ty player);
+    SpaceObject(unsigned int ID, utl::vec2pos_ty position, size_t ships, Player_ty player);
 
     virtual ~SpaceObject() = default;
 
@@ -37,9 +39,9 @@ public:
 
     [[nodiscard]] Player_ty GetPlayer() const;
 
-    void SetPos(vec2pos_ty_ref_c pos);
+    void SetPos(utl::vec2pos_ty_ref_c pos);
 
-    [[nodiscard]] vec2pos_ty GetPos() const;
+    [[nodiscard]] utl::vec2pos_ty GetPos() const;
 
     void SetShipCount(size_t shipCount);
 

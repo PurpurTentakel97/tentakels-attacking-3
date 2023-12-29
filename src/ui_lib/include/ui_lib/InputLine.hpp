@@ -4,9 +4,10 @@
 //
 
 #pragma once
+
 #include "Focusable.hpp"
 #include "UIElement.hpp"
-#include <AppContext.hpp>
+#include <app/AppContext.hpp>
 #include <functional>
 #include <helper/HInput.hpp>
 #include <helper/HTextProcessing.hpp>
@@ -33,8 +34,8 @@ protected:
         if (validAdd) {
             m_value += static_cast<char>(key);
 
-            eve::PlaySoundEvent const event{ SoundType::TEXT };
-            AppContext::GetInstance().eventManager.InvokeEvent(event);
+            eve::PlaySoundEvent const event{ app::SoundType::TEXT };
+            app::AppContext::GetInstance().eventManager.InvokeEvent(event);
 
             m_onValueChanced();
         }
@@ -46,8 +47,8 @@ protected:
         if (not m_value.empty()) {
             m_value.pop_back();
 
-            eve::PlaySoundEvent const event{ SoundType::TEXT };
-            AppContext::GetInstance().eventManager.InvokeEvent(event);
+            eve::PlaySoundEvent const event{ app::SoundType::TEXT };
+            app::AppContext::GetInstance().eventManager.InvokeEvent(event);
 
             m_onValueChanced();
         }
@@ -67,7 +68,7 @@ public:
           Focusable{ focusID },
           m_charLimit{ charLimit } { }
 
-    void CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) override {
+    void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) override {
 
         UIElement::CheckAndUpdate(mousePosition, appContext);
 
@@ -140,7 +141,7 @@ public:
         }
     }
 
-    void Render(AppContext_ty_c appContext) override {
+    void Render(app::AppContext_ty_c appContext) override {
 
         // Update here to make sure its after call of HasValueChanced();
         m_oldValue = m_value;

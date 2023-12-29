@@ -4,11 +4,12 @@
 //
 
 #pragma once
+
 #include <CustomRaylib.hpp>
+#include <alias/AliasUiLib.hpp>
 #include <event/EventListener.hpp>
 #include <vector>
 
-class Hover;
 
 class HoverRender final : public eve::EventListener {
 private:

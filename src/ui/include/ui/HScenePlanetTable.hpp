@@ -4,7 +4,8 @@
 //
 
 #pragma once
-#include <logic/Galaxy.hpp>
+
+#include <alias/AliasLogic.hpp>
 #include <ui_lib/Scene.hpp>
 #include <ui_lib/Table.hpp>
 
@@ -18,5 +19,5 @@ private:
 public:
     PlanetTable(Vector2 pos, Vector2 size, Alignment alignment, Galaxy_ty_raw galaxy);
 
-    void SetActive(bool active, AppContext_ty_c appContext) override;
+    void SetActive(bool active, app::AppContext_ty_c appContext) override;
 };

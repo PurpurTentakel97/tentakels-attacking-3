@@ -4,6 +4,7 @@
 //
 
 #pragma once
+
 #include "UIElement.hpp"
 #include <array>
 #include <vector>
@@ -32,24 +33,24 @@ private:
     bool m_titleFinish;
     bool m_lastFinishedTitle{ false };
 
-    void RenderTitle(AppContext_ty_c appContext);
+    void RenderTitle(app::AppContext_ty_c appContext);
 
-    void RenderTitleSequence(AppContext_ty_c appContext);
+    void RenderTitleSequence(app::AppContext_ty_c appContext);
 
     void MeasureTitleLength();
 
-    void RecalculateCollider(AppContext_ty_c appContext);
+    void RecalculateCollider(app::AppContext_ty_c appContext);
 
-    void TitleFinish(AppContext_ty_c appContext);
+    void TitleFinish(app::AppContext_ty_c appContext);
 
 public:
     Title(Vector2 pos, Vector2 size, Alignment alignment, bool drawTitle);
 
-    void CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) override;
+    void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) override;
 
-    void Render(AppContext_ty_c appContext) override;
+    void Render(app::AppContext_ty_c appContext) override;
 
-    void Resize(AppContext_ty_c appContext) override;
+    void Resize(app::AppContext_ty_c appContext) override;
 
     [[nodiscard]] bool HasFinishedTitle() const;
 

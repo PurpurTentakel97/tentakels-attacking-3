@@ -5,7 +5,7 @@
 
 #include "SceneLogos.hpp"
 #include "ManagerUI.hpp"
-#include <AppContext.hpp>
+#include <app/AppContext.hpp>
 #include <helper/HInput.hpp>
 #include <memory>
 #include <ui_lib/Picture.hpp>
@@ -13,13 +13,13 @@
 
 
 void LogoScene::Initialize() {
-    AppContext_ty_c appContext{ AppContext::GetInstance() };
+    app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
 
     auto logo = std::make_shared<Picture>(
             GetElementPosition(0.5f, 0.1f),
             GetElementSize(0.0f, 0.5f),
             Alignment::TOP_MID,
-            AssetType::LOGO
+            app::AssetType::LOGO
     );
     m_elements.push_back(logo);
 
@@ -52,7 +52,7 @@ LogoScene::LogoScene()
     Initialize();
 }
 
-void LogoScene::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) {
+void LogoScene::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) {
     bool const nextScene{ hlp::IsBackInputPressed() or (m_time + m_sceneLength) < GetTime() };
     if (nextScene) {
         eve::SwitchSceneEvent event{ m_nextScene };
@@ -64,13 +64,13 @@ void LogoScene::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c app
     }
 }
 
-void LogoScene::Render(AppContext_ty_c appContext) {
+void LogoScene::Render(app::AppContext_ty_c appContext) {
     for (auto const& e : m_elements) {
         e->Render(appContext);
     }
 }
 
-void LogoScene::Resize(AppContext_ty_c appContext) {
+void LogoScene::Resize(app::AppContext_ty_c appContext) {
     for (auto const& e : m_elements) {
         e->Resize(appContext);
     }

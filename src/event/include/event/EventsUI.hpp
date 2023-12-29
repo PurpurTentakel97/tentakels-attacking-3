@@ -4,21 +4,25 @@
 //
 
 #pragma once
+
 #include "EventMain.hpp"
 #include <CustomRaylib.hpp>
+#include <alias/AliasApp.hpp>
+#include <alias/AliasUiLib.hpp>
+#include <alias/AliasUtils.hpp>
 #include <functional>
-#include <helper/HFightResult.hpp>
-#include <helper/HLogicAlias.hpp>
-#include <helper/HSoundType.hpp>
-#include <helper/HUIAlias.hpp>
-#include <helper/HVec2.hpp>
 #include <string>
+#include <utils/FightResult.hpp>
+#include <utils/Vec2.hpp>
 
 class Focusable;
 class PopUp;
 class Hover;
 enum class SceneType;
-enum class Resolution;
+
+namespace cst {
+    enum class Resolution;
+}
 
 namespace eve {
     class CloseWindowEvent final : public Event { };
@@ -49,23 +53,23 @@ namespace eve {
 
     class SetNewResolutionEvent final : public Event {
     private:
-        Resolution m_resolution;
+        cst::Resolution m_resolution;
 
     public:
-        explicit SetNewResolutionEvent(Resolution const resolution) : m_resolution{ resolution } { }
+        explicit SetNewResolutionEvent(cst::Resolution const resolution) : m_resolution{ resolution } { }
 
-        [[nodiscard]] Resolution GetResolution() const {
+        [[nodiscard]] cst::Resolution GetResolution() const {
             return m_resolution;
         }
     };
 
     class PlaySoundEvent final : public Event {
     private:
-        SoundType m_soundType;
+        app::SoundType m_soundType;
 
     public:
-        explicit PlaySoundEvent(SoundType const soundType) : m_soundType{ soundType } { }
-        [[nodiscard]] SoundType GetSoundType() const {
+        explicit PlaySoundEvent(app::SoundType const soundType) : m_soundType{ soundType } { }
+        [[nodiscard]] app::SoundType GetSoundType() const {
             return m_soundType;
         }
     };
@@ -283,16 +287,16 @@ namespace eve {
 
     class ShowFightResultEvent final : public Event {
     private:
-        HFightResult m_result;
+        utl::FightResult m_result;
         using callback_ty = std::function<void()>;
         callback_ty m_callback{ []() {} };
 
     public:
-        ShowFightResultEvent(HFightResult result, callback_ty callback)
+        ShowFightResultEvent(utl::FightResult result, callback_ty callback)
             : m_result{ std::move(result) },
               m_callback{ std::move(callback) } { }
 
-        [[nodiscard]] HFightResult GetResult() const {
+        [[nodiscard]] utl::FightResult GetResult() const {
             return m_result;
         }
         [[nodiscard]] callback_ty GetCallback() const {
@@ -328,13 +332,13 @@ namespace eve {
     private:
         unsigned int m_originID;
         unsigned int m_destID;
-        vec2pos_ty m_destCoordinates;
+        utl::vec2pos_ty m_destCoordinates;
 
     public:
         DragLineFleetInstructionEvent(
                 unsigned int const originID,
                 unsigned int const destID,
-                vec2pos_ty destCoordinates
+                utl::vec2pos_ty destCoordinates
         )
             : m_originID{ originID },
               m_destID{ destID },
@@ -346,7 +350,7 @@ namespace eve {
         [[nodiscard]] unsigned int GetDestID() const {
             return m_destID;
         }
-        [[nodiscard]] vec2pos_ty GetDestCoordinates() const {
+        [[nodiscard]] utl::vec2pos_ty GetDestCoordinates() const {
             return m_destCoordinates;
         }
     };

@@ -4,7 +4,8 @@
 //
 
 #include "LineDrag.hpp"
-#include <AppContext.hpp>
+#include <alias/AliasCustomRaylib.hpp>
+#include <app/AppContext.hpp>
 
 LineDrag::LineDrag(float const thick, Color const color, std::function<void(Vector2, Vector2)> callback)
 		: UIElement{ {0.0f,0.0f}, {0.0f,0.0f}, Alignment::DEFAULT },
@@ -42,8 +43,8 @@ void LineDrag::ClearCallback() {
     m_callback = [](Vector2, Vector2) {};
 }
 
-void LineDrag::CheckAndUpdate(Vector2 const& mousePosition, AppContext const& appContext) {
-    Resolution_ty_c resolution{ appContext.GetResolution() };
+void LineDrag::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) {
+    cst::Resolution_ty_c resolution{ appContext.GetResolution() };
     if (m_render) {
         if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) {
             m_render = false;
@@ -63,7 +64,7 @@ void LineDrag::CheckAndUpdate(Vector2 const& mousePosition, AppContext const& ap
     }
 }
 
-void LineDrag::Render(AppContext const&) {
+void LineDrag::Render(app::AppContext_ty_c) {
     if (m_render) {
         DrawLineEx(
                 Vector2{ m_collider.x, m_collider.y },

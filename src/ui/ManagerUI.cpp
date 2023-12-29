@@ -5,6 +5,7 @@
 
 #include "ManagerUI.hpp"
 #include "HSceneTestScene.hpp"
+#include <alias/AliasConstants.hpp>
 #include <helper/HInput.hpp>
 #include <helper/HPrint.hpp>
 
@@ -83,7 +84,7 @@ void UIManager::Render() {
 
 #ifdef _DEBUG
     int const fps{ GetFPS() };
-    cst::Window_ty_c window{ AppContext::GetInstance().constants.window };
+    cst::Window_ty_c window{ app::AppContext::GetInstance().constants.window };
     DrawTextEx(
             *(m_appContext.assetManager.GetFont()),
             ("FPS: " + std::to_string(fps)).c_str(),
@@ -99,7 +100,7 @@ void UIManager::Render() {
 
 void UIManager::SetNativeWindowSize() {
     cst::Window_ty_c window{ m_appContext.constants.window };
-    HVec2<int> values{ window.nativeResolutionVec };
+    utl::Vec2<int> values{ window.nativeResolutionVec };
 
     ::SetWindowSize(values.x, values.y);
 }
@@ -111,7 +112,7 @@ void UIManager::SetWindowSize(bool const force) {
     }
     window.currentResolutionEnum = m_nextResolution;
 
-    HVec2<int> values = window.GetIntFromResolution(m_nextResolution) ;
+    utl::Vec2<int> values = window.GetIntFromResolution(m_nextResolution);
 
     window.currentResolutionVec = { static_cast<float>(values.x), static_cast<float>(values.y) };
     ::SetWindowSize(values.x, values.y);
@@ -159,7 +160,10 @@ void UIManager::UILoop() {
     CloseWindow();
 }
 
-UIManager::UIManager() : m_appContext(AppContext::GetInstance()), m_sceneManager(), m_nextResolution(Resolution::LAST) {
+UIManager::UIManager()
+    : m_appContext(app::AppContext::GetInstance()),
+      m_sceneManager(),
+      m_nextResolution(cst::Resolution::LAST) {
 
     SetExitKey(KeyboardKey::KEY_NULL);
 
@@ -176,21 +180,21 @@ void UIManager::StartUI() {
 
     SetWindowTitle(("Tentakels Attacking " + cst::Global::gameVersion).c_str());
     cst::Window_ty window{ m_appContext.constants.window };
-    window.nativeResolutionVec = window.GetIntFromResolution(Resolution::SCREEN);
+    window.nativeResolutionVec = window.GetIntFromResolution(cst::Resolution::SCREEN);
 
-    if (m_appContext.constants.window.currentResolutionEnum == Resolution::LAST) {
+    if (m_appContext.constants.window.currentResolutionEnum == cst::Resolution::LAST) {
 
-        m_nextResolution = Resolution::SCREEN;
+        m_nextResolution = cst::Resolution::SCREEN;
         m_isNextFullScreen = true;
 
         eve::ShowInitialSoundLevelPopUpEvent event{
             m_appContext.languageManager.Text("ui_manager_initial_sound_popup_title"),
             m_appContext.languageManager.Text("ui_manager_initial_sound_popup_text")
         };
-        AppContext::GetInstance().eventManager.InvokeEvent(event);
+        app::AppContext::GetInstance().eventManager.InvokeEvent(event);
     } else {
         m_nextResolution = window.currentResolutionEnum;
-        window.currentResolutionEnum = Resolution::LAST;
+        window.currentResolutionEnum = cst::Resolution::LAST;
         m_isNextFullScreen = window.isFullScreen;
         window.isFullScreen = false;
 
@@ -199,8 +203,9 @@ void UIManager::StartUI() {
                     hlp::PrintType::ERROR,
                     "invalid resolution: {} -> resolution set to: {}",
                   m_appContext.constants.window.GetStringFromResolution(m_nextResolution),
-                  m_appContext.constants.window.GetStringFromResolution(Resolution::SCREEN));
-            m_nextResolution = Resolution::SCREEN;
+                    m_appContext.constants.window.GetStringFromResolution(cst::Resolution::SCREEN)
+            );
+            m_nextResolution = cst::Resolution::SCREEN;
         }
     }
 

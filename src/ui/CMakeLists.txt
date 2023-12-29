@@ -79,9 +79,11 @@ target_include_directories(ui
 
 target_link_libraries(ui
                       PRIVATE
+                      helper
                       project_options
                       PUBLIC
-                      ui_lib
+                      app
+                      alias
                       logic
-                      helper
+                      ui_lib
 )

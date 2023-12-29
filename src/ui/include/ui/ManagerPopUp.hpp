@@ -4,6 +4,7 @@
 //
 
 #pragma once
+
 #include "PopUpAll.hpp"
 #include <event/EventListener.hpp>
 #include <event/EventsUI.hpp>
@@ -40,7 +41,7 @@ public:
 
     template<typename T, typename eventType>
     void NewTableCellPopUp(eventType const* const event) {
-        AppContext_ty_c appContext{ AppContext::GetInstance() };
+        app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
         eve::NewFocusPopUpLayerEvent const focusEvent;
         appContext.eventManager.InvokeEvent(focusEvent);
 
@@ -49,7 +50,7 @@ public:
                 Vector2(0.7f, 0.7f),
                 Alignment::MID_MID,
                 event->GetTitle(),
-                AssetType::LOGO,
+                app::AssetType::LOGO,
                 event->GetCurrentValue(),
                 event->GetOnClick()
         ));
@@ -59,9 +60,9 @@ public:
 
     void CheckForDeleteRemainingPopUps();
 
-    void CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext);
+    void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext);
 
-    void Render(AppContext_ty_c appContext);
+    void Render(app::AppContext_ty_c appContext);
 
-    void Resize(AppContext_ty_c appContext);
+    void Resize(app::AppContext_ty_c appContext);
 };

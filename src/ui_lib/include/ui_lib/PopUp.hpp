@@ -4,6 +4,7 @@
 //
 
 #pragma once
+
 #include "UIElement.hpp"
 #include <memory>
 #include <vector>
@@ -15,7 +16,7 @@ protected:
     bool m_shouldClose{ false };
     std::vector<std::shared_ptr<UIElement>> m_elements;
 
-    void Initialize(std::string const& title, std::string& subTitle, AssetType infoTexture);
+    void Initialize(std::string const& title, std::string& subTitle, app::AssetType infoTexture);
 
     void LateUpdate();
 
@@ -27,11 +28,11 @@ public:
           Alignment alignment,
           std::string const& title,
           std::string& subTitle,
-          AssetType infoTexture);
+          app::AssetType infoTexture);
 
-    void CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) override;
+    void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) override;
 
-    void Render(AppContext_ty_c appContext) override;
+    void Render(app::AppContext_ty_c appContext) override;
 
-    void Resize(AppContext_ty_c appContext) override;
+    void Resize(app::AppContext_ty_c appContext) override;
 };

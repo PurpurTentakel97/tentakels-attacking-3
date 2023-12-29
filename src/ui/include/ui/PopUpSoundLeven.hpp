@@ -4,12 +4,9 @@
 //
 
 #pragma once
+
+#include <alias/AliasUiLib.hpp>
 #include <ui_lib/PopUp.hpp>
-
-class ClassicButton;
-class Slider;
-class CheckBox;
-
 
 class SoundLevelPopUp final : public PopUp {
 private:
@@ -22,5 +19,5 @@ private:
 public:
     SoundLevelPopUp(Vector2 pos, Vector2 size, Alignment alignment, std::string const& title, std::string& subTitle);
 
-    void Render(AppContext_ty_c appContext) override;
+    void Render(app::AppContext_ty_c appContext) override;
 };

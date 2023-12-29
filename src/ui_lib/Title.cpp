@@ -4,11 +4,12 @@
 //
 
 #include "Title.hpp"
-#include <AppContext.hpp>
+#include <alias/AliasCustomRaylib.hpp>
+#include <app/AppContext.hpp>
 #include <helper/HInput.hpp>
 #include <helper/HRandom.hpp>
 
-void Title::RenderTitle(AppContext_ty_c appContext) {
+void Title::RenderTitle(app::AppContext_ty_c appContext) {
     for (size_t i = 0; i < m_title->size(); ++i) {
         DrawTextEx(
                 *(appContext.assetManager.GetFont()),
@@ -21,7 +22,7 @@ void Title::RenderTitle(AppContext_ty_c appContext) {
     }
 }
 
-void Title::RenderTitleSequence(AppContext_ty_c appContext) {
+void Title::RenderTitleSequence(app::AppContext_ty_c appContext) {
     size_t localCharCount{ 0 };
     std::string dummyText{};
     size_t i{ 0 };
@@ -61,7 +62,7 @@ void Title::RenderTitleSequence(AppContext_ty_c appContext) {
 
     if (not dummyText.empty()) {
         if (dummyText.at(dummyText.size() - 1) != ' ') {
-            eve::PlaySoundEvent event{ SoundType::TEXT };
+            eve::PlaySoundEvent event{ app::SoundType::TEXT };
             appContext.eventManager.InvokeEvent(event);
         }
     }
@@ -79,8 +80,8 @@ void Title::MeasureTitleLength() {
     }
 }
 
-void Title::RecalculateCollider(AppContext_ty_c appContext) {
-    Resolution_ty_c resolution{ appContext.GetResolution() };
+void Title::RecalculateCollider(app::AppContext_ty_c appContext) {
+    cst::Resolution_ty_c resolution{ appContext.GetResolution() };
     m_fontSize = resolution.y * m_size.y / static_cast<float>(m_title->size());
 
     std::string title{};
@@ -101,9 +102,9 @@ void Title::RecalculateCollider(AppContext_ty_c appContext) {
     m_size.x = size;
 }
 
-void Title::TitleFinish(AppContext_ty_c appContext) {
+void Title::TitleFinish(app::AppContext_ty_c appContext) {
     m_titleFinish = true;
-    eve::PlaySoundEvent event{ SoundType::ACCEPTED };
+    eve::PlaySoundEvent event{ app::SoundType::ACCEPTED };
     appContext.eventManager.InvokeEvent(event);
 }
 
@@ -111,13 +112,13 @@ Title::Title(Vector2 const pos, Vector2 const size, Alignment const alignment, b
     : UIElement{ pos, size, alignment },
       m_titleFinish{ !drawTitle } {
 
-    AppContext_ty appContext{ AppContext::GetInstance() };
+    app::AppContext_ty appContext{ app::AppContext::GetInstance() };
     m_title = appContext.assetManager.GetTitle();
     MeasureTitleLength();
     RecalculateCollider(appContext);
 }
 
-void Title::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) {
+void Title::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) {
 
     UIElement::CheckAndUpdate(mousePosition, appContext);
 
@@ -128,7 +129,7 @@ void Title::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appCont
     }
 }
 
-void Title::Render(AppContext_ty_c appContext) {
+void Title::Render(app::AppContext_ty_c appContext) {
     // Update here to make sure the value ist correct
     m_lastFinishedTitle = m_titleFinish;
 
@@ -139,7 +140,7 @@ void Title::Render(AppContext_ty_c appContext) {
     }
 }
 
-void Title::Resize(AppContext_ty_c appContext) {
+void Title::Resize(app::AppContext_ty_c appContext) {
 
     RecalculateCollider(appContext);
     UIElement::Resize(appContext);

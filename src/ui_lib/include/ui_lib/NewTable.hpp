@@ -4,6 +4,7 @@
 //
 
 #pragma once
+
 #include "Focusable.hpp"
 #include "NewTableCell.hpp"
 #include "UIElement.hpp"
@@ -184,7 +185,7 @@ public:
     [[nodiscard]] Rectangle GetCollider() const override;
 
     // UIElement
-    void CheckAndUpdate(Vector2 const&, AppContext_ty_c) override;
+    void CheckAndUpdate(Vector2 const&, app::AppContext_ty_c) override;
 
-    void Render(AppContext_ty_c appContext) override;
+    void Render(app::AppContext_ty_c appContext) override;
 };

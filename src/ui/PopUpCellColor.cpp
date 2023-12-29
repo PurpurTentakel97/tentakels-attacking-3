@@ -4,7 +4,7 @@
 //
 
 #include "PopUpCellColor.hpp"
-#include "AppContext.hpp"
+#include <app/AppContext.hpp>
 #include <helper/HFocusEvents.hpp>
 #include <helper/HGeneral.hpp>
 
@@ -18,14 +18,14 @@ ColorCellPopUp::ColorCellPopUp(
         Vector2 const size,
         Alignment const alignment,
         std::string const& title,
-        AssetType const infoTexture,
+        app::AssetType const infoTexture,
         Color const currentColor,
         std::function<void(Color)> onClick
 )
     : CellPopUp{ pos, size, alignment, title, infoTexture },
       m_onClick{ std::move(onClick) } {
 
-    AppContext_ty_c appContext{ AppContext::GetInstance() };
+    app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
 
     auto acceptBtn = InitializeAcceptButton();
     acceptBtn->SetOnClick([this]() { this->SetValue(); });

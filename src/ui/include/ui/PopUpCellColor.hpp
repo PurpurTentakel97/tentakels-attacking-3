@@ -4,6 +4,7 @@
 //
 
 #pragma once
+
 #include "PopUpCell.hpp"
 #include <ui_lib/ColorPicker.hpp>
 
@@ -21,7 +22,7 @@ public:
             Vector2 size,
             Alignment alignment,
             std::string const& title,
-            AssetType infoTexture,
+            app::AssetType infoTexture,
             Color currentColor,
             std::function<void(Color)> onClick
     );

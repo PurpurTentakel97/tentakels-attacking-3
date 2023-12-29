@@ -5,7 +5,8 @@
 
 #include "Table.hpp"
 #include "Slider.hpp"
-#include <AppContext.hpp>
+#include <alias/AliasCustomRaylib.hpp>
+#include <app/AppContext.hpp>
 #include <helper/HInput.hpp>
 
 
@@ -185,7 +186,7 @@ void Table::UpdateFirstRowPosition() {
     }
 }
 
-void Table::CheckAndUpdateClickCell(Vector2 const& mousePosition, AppContext_ty_c appContext) {
+void Table::CheckAndUpdateClickCell(Vector2 const& mousePosition, app::AppContext_ty_c appContext) {
     if (not CheckCollisionPointRec(mousePosition, m_collider)) {
         return;
     }
@@ -237,7 +238,7 @@ void Table::CheckAndUpdateScroll(Vector2 const& mousePosition) {
         return;
     }
 
-    Resolution_ty_c resolution{ AppContext::GetInstance().GetResolution() };
+    cst::Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
     Vector2 offset{ 0.0f, 0.0f };
     if (IsKeyDown(KEY_LEFT_SHIFT)) {
         offset.x = mouseWheel * m_scroll_speed * resolution.x;
@@ -256,7 +257,7 @@ void Table::CheckAndUpdateScroll(Vector2 const& mousePosition) {
 
     if (IsNestedFocus()) {
         eve::RenderFocusEvent event{ false };
-        AppContext::GetInstance().eventManager.InvokeEvent(event);
+        app::AppContext::GetInstance().eventManager.InvokeEvent(event);
     }
 }
 
@@ -393,7 +394,7 @@ void Table::ScrollPercent(float percent, bool isHorizontal) {
 
     if (IsNestedFocus()) {
         eve::RenderFocusEvent event{ false };
-        AppContext::GetInstance().eventManager.InvokeEvent(event);
+        app::AppContext::GetInstance().eventManager.InvokeEvent(event);
     }
 }
 void Table::ScrollMove(Vector2 const& offset) {
@@ -437,7 +438,7 @@ void Table::CalculateSlider() {
 }
 
 void Table::CalculateHoverHighlighted(Vector2 mousePosition) {
-    vec2pos_ty newPosition{ -1, -1 };
+    utl::vec2pos_ty newPosition{ -1, -1 };
     if (not m_isHoveredHighlighted) {
         goto found;
     }
@@ -502,23 +503,23 @@ void Table::SetHighlightBackground(bool reset) {
     }
 }
 
-void Table::RenderTopLeft(AppContext_ty_c appContext) {
+void Table::RenderTopLeft(app::AppContext_ty_c appContext) {
     m_cells.at(0).at(0)->Render(appContext);
 }
-void Table::RenderHeadline(AppContext_ty_c appContext) {
+void Table::RenderHeadline(app::AppContext_ty_c appContext) {
 
     auto const row{ m_cells.at(0) };
     for (size_t column = 1; column < row.size(); ++column) { // start at 1 because cell 0 is rendered in TopLeft
         row[column]->Render(appContext);
     }
 }
-void Table::RenderFirstColumn(AppContext_ty_c appContext) {
+void Table::RenderFirstColumn(app::AppContext_ty_c appContext) {
 
     for (size_t row = 1; row < m_cells.size(); ++row) { // start at 1 because cell 0 is rendered in TopLeft
         m_cells[row][0]->Render(appContext);
     }
 }
-void Table::RenderOtherCells(AppContext_ty_c appContext) {
+void Table::RenderOtherCells(app::AppContext_ty_c appContext) {
 
     for (size_t row = 1; row < m_cells.size(); ++row) { // start at 1 because cell 0 is rendered in TopLeft or headline
         for (size_t column = 1; column < m_cells.at(row).size();
@@ -815,7 +816,7 @@ Rectangle Table::GetCollider() const noexcept {
     return m_collider;
 }
 
-void Table::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) {
+void Table::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) {
 
     ResizeTable();
     UpdateHeadlinePosition();
@@ -858,7 +859,7 @@ void Table::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appCont
 
     CalculateHoverHighlighted(mousePosition);
 }
-void Table::Render(AppContext_ty_c appContext) {
+void Table::Render(app::AppContext_ty_c appContext) {
 
     BeginScissorMode(
             static_cast<int>(m_collider.x),

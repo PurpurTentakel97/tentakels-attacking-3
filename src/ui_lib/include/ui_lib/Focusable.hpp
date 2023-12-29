@@ -4,8 +4,8 @@
 //
 
 #pragma once
-#include <CustomRaylib.hpp>
 
+#include <CustomRaylib.hpp>
 
 class Focusable {
 private:

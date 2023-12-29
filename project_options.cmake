@@ -33,7 +33,15 @@ set_warnings(warnings ${warnings_as_errors})
 add_library(sanitizers INTERFACE)
 enable_sanitizers(sanitizers ${enable_address_sanitizer} ${enable_undefined_behavior_sanitizer})
 
-add_library(project_options INTERFACE)
+add_library(project_options INTERFACE
+            src/alias/include/alias/AliasConstants.hpp
+            src/alias/include/alias/AliasCustomRaylib.hpp
+            src/alias/include/alias/AliasEvent.hpp
+            src/alias/include/alias/AliasHelper.hpp
+            src/alias/include/alias/AliasLogic.hpp
+            src/alias/include/alias/AliasUi.hpp
+            src/alias/include/alias/AliasUiLib.hpp
+            src/alias/include/alias/AliasUtils.hpp)
 target_link_libraries(project_options
                       INTERFACE warnings
                       INTERFACE sanitizers

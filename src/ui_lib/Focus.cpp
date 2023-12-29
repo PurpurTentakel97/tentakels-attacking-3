@@ -4,8 +4,7 @@
 //
 
 #include "Focus.hpp"
-#include "Focusable.hpp"
-#include <AppContext.hpp>
+#include <app/AppContext.hpp>
 #include <event/EventsUI.hpp>
 #include <helper/HPrint.hpp>
 #include <stdexcept>
@@ -366,7 +365,7 @@ void Focus::CheckNewID(unsigned int const newID) {
 
 Focus::Focus() {
     AddLayer();
-    AppContext_ty appContext{ AppContext::GetInstance() };
+    app::AppContext_ty appContext{ app::AppContext::GetInstance() };
     appContext.eventManager.AddListener(this);
 
     hlp::Print(hlp::PrintType::INITIALIZE, "Focus");

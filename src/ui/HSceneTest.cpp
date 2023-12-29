@@ -4,13 +4,13 @@
 //
 
 #include "HSceneTestScene.hpp"
-#include <AppContext.hpp>
+#include <app/AppContext.hpp>
 #include <helper/HPrint.hpp>
 #include <ui_lib/ButtonClassic.hpp>
 #include <ui_lib/NewTable.hpp>
 #include <ui_lib/SceneType.hpp>
 
-void TestScene::Initialize([[maybe_unused]] AppContext_ty appContext) {
+void TestScene::Initialize(app::AppContext_ty) {
     auto table = std::make_shared<NewTable>(
             1,
             Vector2{ 0.5f, 0.5f },
@@ -45,7 +45,7 @@ void TestScene::Initialize([[maybe_unused]] AppContext_ty appContext) {
             GetElementSize(xs, ys),
             Alignment::TOP_LEFT,
             "+",
-            SoundType::CLICKED_RELEASE_STD
+            app::SoundType::CLICKED_RELEASE_STD
     );
     insertLineBtn->SetOnClick([table]() {
         auto const result = table->insertRow(2);
@@ -62,7 +62,7 @@ void TestScene::Initialize([[maybe_unused]] AppContext_ty appContext) {
             GetElementSize(xs, ys),
             Alignment::TOP_LEFT,
             "+",
-            SoundType::CLICKED_RELEASE_STD
+            app::SoundType::CLICKED_RELEASE_STD
     );
     addLineBtn->SetOnClick([table]() {
         auto const result = table->appendRow();
@@ -79,7 +79,7 @@ void TestScene::Initialize([[maybe_unused]] AppContext_ty appContext) {
             GetElementSize(xs, ys),
             Alignment::TOP_LEFT,
             "-",
-            SoundType::CLICKED_RELEASE_STD
+            app::SoundType::CLICKED_RELEASE_STD
     );
     removeLineBtn->SetOnClick([table]() {
         table->removeRow(2);
@@ -95,7 +95,7 @@ void TestScene::Initialize([[maybe_unused]] AppContext_ty appContext) {
             GetElementSize(xs, ys),
             Alignment::TOP_LEFT,
             "-",
-            SoundType::CLICKED_RELEASE_STD
+            app::SoundType::CLICKED_RELEASE_STD
     );
     popLineBtn->SetOnClick([table]() {
         table->popRow();
@@ -111,7 +111,7 @@ void TestScene::Initialize([[maybe_unused]] AppContext_ty appContext) {
             GetElementSize(xs, ys),
             Alignment::TOP_LEFT,
             "new",
-            SoundType::CLICKED_RELEASE_STD
+            app::SoundType::CLICKED_RELEASE_STD
     );
     button->SetOnClick([table]() {
         table->setValue<std::string>(5, 3, "RESIZE!!!!!!!!!!!!!!!!!\n!!!!!!!!!!!!!!!!!!!");
@@ -127,7 +127,7 @@ void TestScene::Initialize([[maybe_unused]] AppContext_ty appContext) {
             GetElementSize(xs, ys),
             Alignment::TOP_LEFT,
             "new+",
-            SoundType::CLICKED_RELEASE_STD
+            app::SoundType::CLICKED_RELEASE_STD
     );
     button2->SetOnClick([table]() {
         table->setValue<std::string>(5, 2, "RESIZE!!!!!!!!!!!!!!!!!\n!!!!!!!!!!!\n!!!!!!!!");
@@ -143,7 +143,7 @@ void TestScene::Initialize([[maybe_unused]] AppContext_ty appContext) {
             GetElementSize(xs, ys),
             Alignment::TOP_LEFT,
             "scroll",
-            SoundType::CLICKED_RELEASE_STD
+            app::SoundType::CLICKED_RELEASE_STD
     );
     button3->SetOnClick([table]() {
         auto const scroll{ table->is_scrollable() };
@@ -159,11 +159,11 @@ void TestScene::Initialize([[maybe_unused]] AppContext_ty appContext) {
             GetElementSize(0.15f, 0.1f),
             Alignment::BOTTOM_LEFT,
             "Back",
-            SoundType::CLICKED_PRESS_STD
+            app::SoundType::CLICKED_PRESS_STD
     );
     backBtn->SetOnClick([]() {
         eve::SwitchSceneEvent const event{ SceneType::MAIN_MENU };
-        AppContext::GetInstance().eventManager.InvokeEvent(event);
+        app::AppContext::GetInstance().eventManager.InvokeEvent(event);
     });
     m_elements.push_back(backBtn);
 }
@@ -175,11 +175,11 @@ TestScene::TestScene()
           Alignment::MID_MID
 } {
 
-    AppContext_ty appContext{ AppContext::GetInstance() };
+    app::AppContext_ty appContext{ app::AppContext::GetInstance() };
     Initialize(appContext);
 }
 
-void TestScene::SetActive(bool const active, AppContext_ty_c appContext) {
+void TestScene::SetActive(bool const active, app::AppContext_ty_c appContext) {
     Scene::SetActive(active, appContext);
 }
 
@@ -187,14 +187,14 @@ void TestScene::TestLambda(bool const toggled) {
     hlp::Print(hlp::PrintType::DEBUG, "toggled -> {}", toggled);
 }
 
-void TestScene::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) {
+void TestScene::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) {
     Scene::CheckAndUpdate(mousePosition, appContext);
 }
 
-void TestScene::Render(AppContext_ty_c appContext) {
+void TestScene::Render(app::AppContext_ty_c appContext) {
     Scene::Render(appContext);
 }
 
-void TestScene::Resize(AppContext_ty_c appContext) {
+void TestScene::Resize(app::AppContext_ty_c appContext) {
     Scene::Resize(appContext);
 }

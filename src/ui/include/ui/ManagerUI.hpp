@@ -4,8 +4,10 @@
 //
 
 #pragma once
+
 #include "ManagerScene.hpp"
-#include <AppContext.hpp>
+#include <alias/AliasUiLib.hpp>
+#include <app/AppContext.hpp>
 #include <event/EventListener.hpp>
 #include <logic/ManagerGame.hpp>
 #include <memory>
@@ -14,18 +16,16 @@
 #include <ui_lib/UIElement.hpp>
 #include <vector>
 
-class Scene;
-
 class UIManager final : public eve::EventListener {
 private:
-    AppContext_ty m_appContext;
+    app::AppContext_ty m_appContext;
     Focus m_focus;
     SceneManager m_sceneManager;
     GameManager m_gameManager;
     HoverRender m_hover;
     bool m_closeWindow{ false };
     bool m_isNextFullScreen{ false };
-    Resolution m_nextResolution;
+    cst::Resolution m_nextResolution;
 
     void SetFullScreen();
 

@@ -4,6 +4,7 @@
 //
 
 #pragma once
+
 #include <event/EventListener.hpp>
 #include <ui_lib/InputLine.hpp>
 #include <ui_lib/Scene.hpp>
@@ -50,11 +51,11 @@ public:
 
     ~NewGamePlayerScene() override;
 
-    void CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) override;
+    void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) override;
 
-    void Render(AppContext_ty_c appContext) override;
+    void Render(app::AppContext_ty_c appContext) override;
 
-    void Resize(AppContext_ty_c appContext) override;
+    void Resize(app::AppContext_ty_c appContext) override;
 
     void OnEvent(eve::Event const& event) override;
 };

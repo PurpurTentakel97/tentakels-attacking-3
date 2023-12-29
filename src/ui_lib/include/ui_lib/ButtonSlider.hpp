@@ -4,6 +4,7 @@
 //
 
 #pragma once
+
 #include "Button.hpp"
 
 class SliderButton final : public Button {
@@ -11,5 +12,5 @@ public:
     using Button::Button;
     using Button::operator=;
 
-    void CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) override;
+    void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) override;
 };

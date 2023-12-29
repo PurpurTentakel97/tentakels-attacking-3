@@ -5,7 +5,7 @@
 
 #include "NewTable.hpp"
 #include <cassert>
-#include <helper/HVec2.hpp>
+#include <utils/Vec2.hpp>
 
 NewTableCell& NewTable::getSpecialCell(size_t const row, size_t const column) {
     if (not validSpecialIndex(row, column)) {
@@ -502,11 +502,11 @@ Rectangle NewTable::GetCollider() const {
     return m_collider;
 }
 
-void NewTable::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) {
+void NewTable::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) {
     UIElement::CheckAndUpdate(mousePosition, appContext);
 
     if (m_isRenderHover and CheckCollisionPointRec(mousePosition, m_collider)) {
-        HVec2<size_t> index{ 0, 0 };
+        utl::Vec2<size_t> index{ 0, 0 };
 
         for (size_t row = 0; row <= m_row_count; ++row) {
             for (size_t column = 0; column <= m_column_count; ++column) {
@@ -527,7 +527,7 @@ void NewTable::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appC
     check_and_update_scroll(mousePosition);
 }
 
-void NewTable::Render(AppContext_ty_c appContext) {
+void NewTable::Render(app::AppContext_ty_c appContext) {
     BeginScissorMode(
             static_cast<int>(m_collider.x),
             static_cast<int>(m_collider.y),

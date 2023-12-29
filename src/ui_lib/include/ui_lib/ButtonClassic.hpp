@@ -4,6 +4,7 @@
 //
 
 #pragma once
+
 #include "Button.hpp"
 #include "Focusable.hpp"
 
@@ -16,12 +17,12 @@ public:
             Vector2 size,
             Alignment alignment,
             std::string const& text,
-            SoundType releaseSound
+            app::SoundType releaseSound
     );
 
     [[nodiscard]] bool IsEnabled() const override;
 
-    void CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) override;
+    void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) override;
 
     [[nodiscard]] Rectangle GetCollider() const override;
 };

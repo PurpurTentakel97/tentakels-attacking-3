@@ -5,7 +5,8 @@
 
 #include "HSceneGalaxyAndSlider.hpp"
 #include "UIGalaxy.hpp"
-#include <AppContext.hpp>
+#include <alias/AliasCustomRaylib.hpp>
+#include <app/AppContext.hpp>
 #include <ui_lib/ButtonClassic.hpp>
 #include <ui_lib/Line.hpp>
 #include <ui_lib/Slider.hpp>
@@ -53,7 +54,7 @@ void GalaxyScene::Initialize(bool const isShowGalaxy, bool const isAcceptingInpu
             GetElementSize(0.05f, 0.05f),
             Alignment::TOP_LEFT,
             "+",
-            SoundType::CLICKED_RELEASE_STD
+            app::SoundType::CLICKED_RELEASE_STD
     );
     m_zoomInBtn->SetOnPress([this]() { this->m_galaxy->Zoom(true); });
     m_elementsOutUpdates.push_back(m_zoomInBtn);
@@ -64,7 +65,7 @@ void GalaxyScene::Initialize(bool const isShowGalaxy, bool const isAcceptingInpu
             GetElementSize(0.05f, 0.05f),
             Alignment::TOP_LEFT,
             "-",
-            SoundType::CLICKED_RELEASE_STD
+            app::SoundType::CLICKED_RELEASE_STD
     );
     m_zoomOutBtn->SetOnPress([this]() { this->m_galaxy->Zoom(false); });
     m_elementsOutUpdates.push_back(m_zoomOutBtn);
@@ -81,7 +82,7 @@ void GalaxyScene::Initialize(bool const isShowGalaxy, bool const isAcceptingInpu
 
 void GalaxyScene::Zoom(float const scaleFactor, Vector2 const referenceScale) {
 
-    Resolution_ty_c resolution{ AppContext::GetInstance().GetResolution() };
+    cst::Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
     m_verticalSlider->SetAbsoluteDimension(scaleFactor);
     m_horizontalSlider->SetAbsoluteDimension(scaleFactor);
 
@@ -145,11 +146,11 @@ Galaxy_ty_raw GalaxyScene::GetGalaxy() const {
     return m_galaxy->GetGalaxy();
 }
 
-void GalaxyScene::FilterByCurrentPlayer(PlayerData const& player) {
+void GalaxyScene::FilterByCurrentPlayer(app::PlayerData const& player) {
     m_galaxy->FilterByCurrentPlayer(player);
 }
 
-void GalaxyScene::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) {
+void GalaxyScene::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) {
     if (!IsActive()) {
         return;
     }
@@ -167,7 +168,7 @@ void GalaxyScene::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c a
     }
 }
 
-void GalaxyScene::Render(AppContext_ty_c appContext) {
+void GalaxyScene::Render(app::AppContext_ty_c appContext) {
     if (!IsActive()) {
         return;
     }
@@ -187,7 +188,7 @@ void GalaxyScene::Render(AppContext_ty_c appContext) {
     }
 }
 
-void GalaxyScene::Resize(AppContext_ty_c appContext) {
+void GalaxyScene::Resize(app::AppContext_ty_c appContext) {
 
     Scene::Resize(appContext);
 

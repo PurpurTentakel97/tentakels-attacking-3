@@ -4,6 +4,7 @@
 //
 
 #pragma once
+
 #include <ui_lib/ButtonClassic.hpp>
 #include <ui_lib/PopUp.hpp>
 
@@ -22,10 +23,10 @@ protected:
 
     void CheckEnter();
 
-    void Close(AppContext_ty_c appContext);
+    void Close(app::AppContext_ty_c appContext);
 
 public:
-    CellPopUp(Vector2 pos, Vector2 size, Alignment alignment, std::string const& title, AssetType infoTexture);
+    CellPopUp(Vector2 pos, Vector2 size, Alignment alignment, std::string const& title, app::AssetType infoTexture);
 
-    void CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) override;
+    void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) override;
 };

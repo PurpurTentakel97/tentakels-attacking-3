@@ -4,11 +4,12 @@
 //
 
 #pragma once
+
+#include "CResolution.hpp"
 #include <CustomRaylib.hpp>
 #include <cstddef>
-#include <helper/HResolution.hpp>
-#include <helper/HVec2.hpp>
 #include <string>
+#include <utils/Vec2.hpp>
 #include <vector>
 
 
@@ -18,7 +19,7 @@ namespace cst {
 
         Resolution currentResolutionEnum{ Resolution::LAST };
         Vector2 currentResolutionVec{ 800.0f, 600.0f };
-        HVec2<int> nativeResolutionVec{ 800, 600 };
+        utl::Vec2<int> nativeResolutionVec{ 800, 600 };
 
         bool isFullScreen{ true };
         size_t FPS{ 60 };
@@ -29,6 +30,6 @@ namespace cst {
 
         [[nodiscard]] std::string GetStringFromResolution(Resolution resolution) const;
 
-        [[nodiscard]] HVec2<int> GetIntFromResolution(Resolution resolution) const;
+        [[nodiscard]] utl::Vec2<int> GetIntFromResolution(Resolution resolution) const;
     };
 } // namespace cst

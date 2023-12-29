@@ -4,8 +4,8 @@
 //
 
 #pragma once
+
 #include "UIElement.hpp"
-#include <helper/HUIAlias.hpp>
 
 
 class CountingNumber : public UIElement {
@@ -73,9 +73,9 @@ public:
 
     [[nodiscard]] int GetTargetNumber() const;
 
-    void CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) override;
+    void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) override;
 
-    void Render(AppContext_ty_c appContext) override;
+    void Render(app::AppContext_ty_c appContext) override;
 
-    void Resize(AppContext_ty_c appContext) override;
+    void Resize(app::AppContext_ty_c appContext) override;
 };

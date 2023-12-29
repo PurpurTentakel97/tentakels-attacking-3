@@ -10,8 +10,8 @@
 #include <ui_lib/Table.hpp>
 #include <ui_lib/Text.hpp>
 
-void FleetAndTargetPointTable::Initialization(PlayerData const& currentPlayer) {
-    AppContext_ty_c appContext{ AppContext::GetInstance() };
+void FleetAndTargetPointTable::Initialization(app::PlayerData const& currentPlayer) {
+    app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
     auto const fleets{ m_galaxy->GetFleets() };
     auto const targetPoints{ m_galaxy->GetTargetPoints() };
     int constexpr startFleets{ 2 };
@@ -45,7 +45,7 @@ void FleetAndTargetPointTable::Initialization(PlayerData const& currentPlayer) {
         for (size_t i = 0; i < fleets.size(); ++i) {
             auto const& fleet{ fleets.at(i) };
 
-            PlayerData player{ appContext.playerCollection.GetPlayerOrNpcByID(fleet->GetPlayer()->GetID()) };
+            app::PlayerData player{ appContext.playerCollection.GetPlayerOrNpcByID(fleet->GetPlayer()->GetID()) };
             // fleet ID
             m_table->SetValue<int>(i + startFleets, 0, static_cast<int>(fleet->GetID()));
             m_table->SetSingleCellTextColor(player.color, i + startFleets, 0);
@@ -97,7 +97,7 @@ void FleetAndTargetPointTable::Initialization(PlayerData const& currentPlayer) {
         for (size_t i = 0; i < targetPoints.size(); ++i) {
             auto const& targetPoint{ targetPoints.at(i) };
 
-            PlayerData player{ appContext.playerCollection.GetPlayerOrNpcByID(targetPoint->GetPlayer()->GetID()) };
+            app::PlayerData player{ appContext.playerCollection.GetPlayerOrNpcByID(targetPoint->GetPlayer()->GetID()) };
             // target point ID
             m_table->SetValue<int>(i + startTargetPoints, 0, static_cast<int>(targetPoint->GetID()));
             m_table->SetSingleCellTextColor(player.color, i + startTargetPoints, 0);
@@ -123,20 +123,23 @@ void FleetAndTargetPointTable::Initialization(PlayerData const& currentPlayer) {
     }
 }
 
-std::string FleetAndTargetPointTable::GetStringFromPosition(vec2pos_ty_ref_c position, bool const getCoordinates)
+std::string FleetAndTargetPointTable::GetStringFromPosition(utl::vec2pos_ty_ref_c position, bool const getCoordinates)
         const {
 
     if (!getCoordinates) {
         for (auto const& p : m_galaxy->GetPlanets()) {
             auto const& pos{ p->GetPos() };
             if (pos == position) {
-                return AppContext::GetInstance().languageManager.Text("ui_fleet_table_orig_planet", p->GetID());
+                return app::AppContext::GetInstance().languageManager.Text("ui_fleet_table_orig_planet", p->GetID());
             }
         }
         for (auto const& t : m_galaxy->GetTargetPoints()) {
             auto const& pos{ t->GetPos() };
             if (pos == position) {
-                return AppContext::GetInstance().languageManager.Text("ui_fleet_table_orig_target_point", t->GetID());
+                return app::AppContext::GetInstance().languageManager.Text(
+                        "ui_fleet_table_orig_target_point",
+                        t->GetID()
+                );
             }
         }
     }
@@ -151,7 +154,7 @@ FleetAndTargetPointTable::FleetAndTargetPointTable(
         Vector2 const size,
         Alignment const alignment,
         Galaxy_ty_raw galaxy,
-        PlayerData const& currentPlayer
+        app::PlayerData const& currentPlayer
 )
     : Scene{ pos, size, alignment },
       m_galaxy{ galaxy } {
@@ -159,7 +162,7 @@ FleetAndTargetPointTable::FleetAndTargetPointTable(
     Initialization(currentPlayer);
 }
 
-void FleetAndTargetPointTable::SetActive(bool const active, AppContext_ty_c appContext) {
+void FleetAndTargetPointTable::SetActive(bool const active, app::AppContext_ty_c appContext) {
 
     if (active == m_active) {
         return;

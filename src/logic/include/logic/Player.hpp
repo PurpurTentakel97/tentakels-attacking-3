@@ -4,6 +4,7 @@
 //
 
 #pragma once
+
 #include "PlayerType.hpp"
 
 class Player final {

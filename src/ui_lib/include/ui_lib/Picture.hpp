@@ -4,10 +4,9 @@
 //
 
 #pragma once
+
 #include "UIElement.hpp"
-
-enum class AssetType;
-
+#include <alias/AliasApp.hpp>
 
 class Picture final : public UIElement {
 private:
@@ -17,9 +16,9 @@ private:
     void ScaleToFit();
 
 public:
-    Picture(Vector2 pos, Vector2 size, Alignment alignment, AssetType assetType, bool scaleToFit = true);
+    Picture(Vector2 pos, Vector2 size, Alignment alignment, app::AssetType assetType, bool scaleToFit = true);
 
-    void Render(AppContext_ty_c appContext) override;
+    void Render(app::AppContext_ty_c appContext) override;
 
-    void Resize(AppContext_ty_c appContext) override;
+    void Resize(app::AppContext_ty_c appContext) override;
 };

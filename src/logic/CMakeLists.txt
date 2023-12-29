@@ -26,9 +26,12 @@ target_include_directories(logic
 
 target_link_libraries(logic
                       PRIVATE
+                      app
+                      helper
+                      ui_lib
                       project_options
                       PUBLIC
-                      helper
+                      alias
                       event
-                      app_context
+                      utils
 )

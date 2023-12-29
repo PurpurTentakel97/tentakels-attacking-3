@@ -5,10 +5,10 @@
 
 #include "ColorPickerCell.hpp"
 #include "ColorPicker.hpp"
-#include <AppContext.hpp>
-#include <helper/HColors.hpp>
+#include <app/AppContext.hpp>
 #include <helper/HFocusEvents.hpp>
 #include <helper/HInput.hpp>
+#include <utils/Colors.hpp>
 
 void ColorPickerCell::SetColor() const {
     m_colorPicker->SetColor(m_color);
@@ -19,7 +19,7 @@ ColorPickerCell::ColorPickerCell(unsigned int const ID, Vector2 const pos, Vecto
 	m_color{ color }, m_colorPicker{ colorPicker },
 	m_hover{
 		0.05f,
-          hlp::Colors::AsString(color),
+          utl::Colors::AsString(color),
 		WHITE,
 		{0.01f,0.01f}
 	}
@@ -54,7 +54,7 @@ Rectangle ColorPickerCell::GetCollider() const {
     return UIElement::GetCollider();
 }
 
-void ColorPickerCell::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) {
+void ColorPickerCell::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) {
 
     UIElement::CheckAndUpdate(mousePosition, appContext);
     m_hover.CheckAndUpdate(mousePosition, appContext);
@@ -82,7 +82,7 @@ void ColorPickerCell::CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty
 }
 
 
-void ColorPickerCell::Render(AppContext_ty_c) {
+void ColorPickerCell::Render(app::AppContext_ty_c) {
     if (!m_enabled) {
         return;
     }

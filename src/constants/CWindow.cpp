@@ -95,7 +95,7 @@ namespace cst {
         }
     }
 
-    HVec2<int> Window::GetIntFromResolution(Resolution const resolution) const {
+    utl::Vec2<int> Window::GetIntFromResolution(Resolution const resolution) const {
 
         switch (resolution) {
 

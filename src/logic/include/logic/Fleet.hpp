@@ -4,16 +4,19 @@
 //
 
 #pragma once
+
 #include "SpaceObject.hpp"
+#include <alias/AliasLogic.hpp>
+#include <alias/AliasUtils.hpp>
 
 class Fleet final : public SpaceObject {
 private:
     SpaceObject_ty m_target;
 
 public:
-    Fleet(unsigned int ID, vec2pos_ty_ref_c position, Player_ty_c player, SpaceObject_ty target);
+    Fleet(unsigned int ID, utl::vec2pos_ty_ref_c position, Player_ty_c player, SpaceObject_ty target);
 
-    Fleet(unsigned int ID, vec2pos_ty_ref_c position, size_t ships, Player_ty_c player, SpaceObject_ty target);
+    Fleet(unsigned int ID, utl::vec2pos_ty_ref_c position, size_t ships, Player_ty_c player, SpaceObject_ty target);
 
     [[nodiscard]] bool IsFleet() const override;
 
