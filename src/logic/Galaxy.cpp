@@ -667,8 +667,8 @@ std::vector<Fleet_ty> Galaxy::UpdateFleetTargets(
     return emptyFleets;
 }
 
-std::vector<HMergeResult> Galaxy::CheckArrivingFriendlyFleets() {
-    std::vector<HMergeResult> mergeResult{};
+std::vector<utl::MergeResult> Galaxy::CheckArrivingFriendlyFleets() {
+    std::vector<utl::MergeResult> mergeResult{};
     for (auto const& fleet : m_fleets) {
 
         if (fleet->GetShipCount() == 0) {
@@ -716,8 +716,8 @@ std::vector<HMergeResult> Galaxy::CheckArrivingFriendlyFleets() {
     return mergeResult;
 }
 
-std::vector<HMergeResult> Galaxy::CheckMergingFriendlyFleets() {
-    std::vector<HMergeResult> mergeResult{};
+std::vector<utl::MergeResult> Galaxy::CheckMergingFriendlyFleets() {
+    std::vector<utl::MergeResult> mergeResult{};
 
     for (auto const& fleet_lhs : m_fleets) {
         for (auto const& fleet_rhs : m_fleets) {
@@ -1375,9 +1375,9 @@ UpdateResult_ty Galaxy::Update() {
         o->Update(this);
     }
     hlp::Print(hlp::PrintType::ONLY_DEBUG, "-> merge arriving friendly fleets");
-    std::vector<HMergeResult> mergeResults{ CheckArrivingFriendlyFleets() };
+    std::vector<utl::MergeResult> mergeResults{ CheckArrivingFriendlyFleets() };
     hlp::Print(hlp::PrintType::ONLY_DEBUG, "-> merge friendly fleets with other friendly fleets");
-    std::vector<HMergeResult> singleMergeResult{ CheckMergingFriendlyFleets() };
+    std::vector<utl::MergeResult> singleMergeResult{ CheckMergingFriendlyFleets() };
     std::copy(singleMergeResult.begin(), singleMergeResult.end(), std::back_inserter(mergeResults));
 
     hlp::Print(hlp::PrintType::ONLY_DEBUG, "-> delete fleets without ships before fights");

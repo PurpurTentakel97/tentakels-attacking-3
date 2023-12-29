@@ -2,8 +2,10 @@ add_library(utils STATIC
             include/utils/Colors.hpp
             include/utils/FightResult.hpp
             include/utils/FleetResult.hpp
+            include/utils/MergeResult.hpp
             Colors.cpp
             FightResult.cpp
+            MergeResult.cpp
 
 )
 target_include_directories(utils

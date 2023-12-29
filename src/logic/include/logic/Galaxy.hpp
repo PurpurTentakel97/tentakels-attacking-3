@@ -80,9 +80,9 @@ private:
             SpaceObject_ty const& target
     );
 
-    [[nodiscard]] std::vector<HMergeResult> CheckArrivingFriendlyFleets();
+    [[nodiscard]] std::vector<utl::MergeResult> CheckArrivingFriendlyFleets();
 
-    [[nodiscard]] std::vector<HMergeResult> CheckMergingFriendlyFleets();
+    [[nodiscard]] std::vector<utl::MergeResult> CheckMergingFriendlyFleets();
 
     void CheckDeleteFleetsWithoutShips();
 

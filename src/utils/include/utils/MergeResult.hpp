@@ -4,10 +4,10 @@
 //
 
 #pragma once
-#include "HLogicAlias.hpp"
+#include <helper/HLogicAlias.hpp>
 
-
-struct HMergeResult final {
+namespace utl {
+    struct MergeResult final {
     private:
         Player_ty m_player;
         SpaceObject_ty m_origin;
@@ -15,10 +15,11 @@ struct HMergeResult final {
         size_t m_count;
 
     public:
-        HMergeResult(Player_ty player, SpaceObject_ty origin, SpaceObject_ty destination, size_t count);
+        MergeResult(Player_ty player, SpaceObject_ty origin, SpaceObject_ty destination, size_t count);
 
         [[nodiscard]] Player_ty GetPlayer() const;
         [[nodiscard]] SpaceObject_ty GetOrigin() const;
         [[nodiscard]] SpaceObject_ty GetDestination() const;
         [[nodiscard]] size_t GetCount() const;
     };
+} // namespace utl

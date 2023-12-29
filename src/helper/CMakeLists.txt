@@ -7,7 +7,6 @@ add_library(helper STATIC
             include/helper/HGeneral.hpp
             include/helper/HInput.hpp
             include/helper/HLogicAlias.hpp
-            include/helper/HMergeResult.hpp
             include/helper/HPlayerCollection.hpp
             include/helper/HPlayerData.hpp
             include/helper/HPrint.hpp
@@ -23,7 +22,6 @@ add_library(helper STATIC
             HGalaxy.cpp
             HGeneral.cpp
             HInput.cpp
-            HMergeResult.cpp
             HPlayerCollection.cpp
             HPlayerData.cpp
             HPrint.cpp

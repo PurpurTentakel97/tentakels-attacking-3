@@ -5,9 +5,9 @@
 
 #pragma once
 #include "EventMain.hpp"
+#include "utils/MergeResult.hpp"
 #include <CustomRaylib.hpp>
 #include <helper/HLogicAlias.hpp>
-#include <helper/HMergeResult.hpp>
 #include <string>
 #include <unordered_map>
 #include <utils/FightResult.hpp>
@@ -130,15 +130,15 @@ namespace eve {
 
     class SendUpdateEvaluation final : public Event {
     private:
-        std::vector<HMergeResult> m_mergeResults;
+        std::vector<utl::MergeResult> m_mergeResults;
         std::vector<utl::FightResult> m_fightResults;
 
     public:
-        SendUpdateEvaluation(std::vector<HMergeResult> mergeResult, std::vector<utl::FightResult> fightResult)
+        SendUpdateEvaluation(std::vector<utl::MergeResult> mergeResult, std::vector<utl::FightResult> fightResult)
             : m_mergeResults{ std::move(mergeResult) },
               m_fightResults{ std::move(fightResult) } { }
 
-        [[nodiscard]] std::vector<HMergeResult> GetMergeResults() const {
+        [[nodiscard]] std::vector<utl::MergeResult> GetMergeResults() const {
             return m_mergeResults;
         }
         [[nodiscard]] std::vector<utl::FightResult> GetFightResults() const {

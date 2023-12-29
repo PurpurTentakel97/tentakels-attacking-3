@@ -21,7 +21,7 @@ private:
     };
 
 private:
-    std::vector<HMergeResult> m_mergeResults;
+    std::vector<utl::MergeResult> m_mergeResults;
     std::vector<utl::FightResult> m_fightResults;
     ResultType m_currentResultType{ ResultType::MERGE };
     size_t m_currentIndex{ 0 };
