@@ -3,13 +3,11 @@ add_library(helper STATIC
             include/helper/HErrorLog.hpp
             include/helper/HFocusEvents.hpp
             include/helper/HGalaxy.hpp
-            include/helper/HGameEventTypes.hpp
             include/helper/HGeneral.hpp
             include/helper/HInput.hpp
             include/helper/HLogicAlias.hpp
             include/helper/HPrint.hpp
             include/helper/HRandom.hpp
-            include/helper/HResolution.hpp
             include/helper/HTextProcessing.hpp
             include/helper/HUIAlias.hpp
             include/helper/HVector2Operator.hpp

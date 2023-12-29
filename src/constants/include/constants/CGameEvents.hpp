@@ -4,9 +4,9 @@
 //
 
 #pragma once
+#include "CGameEventTypes.hpp"
 #include <array>
 #include <cstddef>
-#include <helper/HGameEventTypes.hpp>
 
 namespace cst {
     struct GameEvents {

@@ -25,7 +25,7 @@ private:
     HoverRender m_hover;
     bool m_closeWindow{ false };
     bool m_isNextFullScreen{ false };
-    Resolution m_nextResolution;
+    cst::Resolution m_nextResolution;
 
     void SetFullScreen();
 

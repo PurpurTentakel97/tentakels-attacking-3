@@ -5,6 +5,7 @@
 
 #pragma once
 
+namespace cst {
     enum class Resolution {
         // 16:9
         UHD2 = 0,
@@ -33,3 +34,4 @@
         NATIVE,
         LAST,
     };
+}

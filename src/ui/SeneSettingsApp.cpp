@@ -212,7 +212,7 @@ std::vector<std::string> AppSettingsScene::GetStringsFromResolutionEntries() con
     return toReturn;
 }
 
-size_t AppSettingsScene::GetIndexFromResolution(Resolution const resolution) const {
+size_t AppSettingsScene::GetIndexFromResolution(cst::Resolution const resolution) const {
     for (size_t i = 0; i < m_rawResolutionEntries.size(); ++i) {
         if (m_rawResolutionEntries[i].first == resolution) {
             return i;

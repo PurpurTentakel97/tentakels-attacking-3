@@ -162,7 +162,7 @@ void UIManager::UILoop() {
 UIManager::UIManager()
     : m_appContext(app::AppContext::GetInstance()),
       m_sceneManager(),
-      m_nextResolution(Resolution::LAST) {
+      m_nextResolution(cst::Resolution::LAST) {
 
     SetExitKey(KeyboardKey::KEY_NULL);
 
@@ -179,11 +179,11 @@ void UIManager::StartUI() {
 
     SetWindowTitle(("Tentakels Attacking " + cst::Global::gameVersion).c_str());
     cst::Window_ty window{ m_appContext.constants.window };
-    window.nativeResolutionVec = window.GetIntFromResolution(Resolution::SCREEN);
+    window.nativeResolutionVec = window.GetIntFromResolution(cst::Resolution::SCREEN);
 
-    if (m_appContext.constants.window.currentResolutionEnum == Resolution::LAST) {
+    if (m_appContext.constants.window.currentResolutionEnum == cst::Resolution::LAST) {
 
-        m_nextResolution = Resolution::SCREEN;
+        m_nextResolution = cst::Resolution::SCREEN;
         m_isNextFullScreen = true;
 
         eve::ShowInitialSoundLevelPopUpEvent event{
@@ -193,7 +193,7 @@ void UIManager::StartUI() {
         app::AppContext::GetInstance().eventManager.InvokeEvent(event);
     } else {
         m_nextResolution = window.currentResolutionEnum;
-        window.currentResolutionEnum = Resolution::LAST;
+        window.currentResolutionEnum = cst::Resolution::LAST;
         m_isNextFullScreen = window.isFullScreen;
         window.isFullScreen = false;
 
@@ -202,8 +202,9 @@ void UIManager::StartUI() {
                     hlp::PrintType::ERROR,
                     "invalid resolution: {} -> resolution set to: {}",
                   m_appContext.constants.window.GetStringFromResolution(m_nextResolution),
-                  m_appContext.constants.window.GetStringFromResolution(Resolution::SCREEN));
-            m_nextResolution = Resolution::SCREEN;
+                    m_appContext.constants.window.GetStringFromResolution(cst::Resolution::SCREEN)
+            );
+            m_nextResolution = cst::Resolution::SCREEN;
         }
     }
 

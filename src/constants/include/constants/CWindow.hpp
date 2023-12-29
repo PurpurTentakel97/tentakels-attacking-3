@@ -4,11 +4,11 @@
 //
 
 #pragma once
-#include "utils/Vec2.hpp"
+#include "CResolution.hpp"
 #include <CustomRaylib.hpp>
 #include <cstddef>
-#include <helper/HResolution.hpp>
 #include <string>
+#include <utils/Vec2.hpp>
 #include <vector>
 
 

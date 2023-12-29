@@ -18,7 +18,10 @@ class Focusable;
 class PopUp;
 class Hover;
 enum class SceneType;
-enum class Resolution;
+
+namespace cst {
+    enum class Resolution;
+}
 
 namespace eve {
     class CloseWindowEvent final : public Event { };
@@ -49,12 +52,12 @@ namespace eve {
 
     class SetNewResolutionEvent final : public Event {
     private:
-        Resolution m_resolution;
+        cst::Resolution m_resolution;
 
     public:
-        explicit SetNewResolutionEvent(Resolution const resolution) : m_resolution{ resolution } { }
+        explicit SetNewResolutionEvent(cst::Resolution const resolution) : m_resolution{ resolution } { }
 
-        [[nodiscard]] Resolution GetResolution() const {
+        [[nodiscard]] cst::Resolution GetResolution() const {
             return m_resolution;
         }
     };
