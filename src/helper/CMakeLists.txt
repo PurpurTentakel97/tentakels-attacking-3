@@ -32,6 +32,7 @@ target_link_libraries(helper
                       constants
                       logic
                       ui_lib
+                      project_options
                       PUBLIC
                       custom_raylib
                       alias

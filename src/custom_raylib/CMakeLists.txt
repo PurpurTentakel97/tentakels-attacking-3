@@ -8,4 +8,5 @@ target_link_libraries(custom_raylib
                       INTERFACE
                       raylib
                       alias
+                      project_options
 )

@@ -21,6 +21,8 @@ target_include_directories(app
 )
 
 target_link_libraries(app
+                      PRIVATE
+                      project_options
                       PUBLIC
                       alias
                       constants

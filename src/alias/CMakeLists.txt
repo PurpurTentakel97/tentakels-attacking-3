@@ -17,4 +17,5 @@ target_include_directories(alias
 target_link_libraries(alias
                       INTERFACE
                       custom_raylib
+                      project_options
 )

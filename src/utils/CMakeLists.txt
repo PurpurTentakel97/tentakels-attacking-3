@@ -18,6 +18,7 @@ target_include_directories(utils
 target_link_libraries(utils
                       PRIVATE
                       app
+                      project_options
                       PUBLIC
                       alias
                       custom_raylib

@@ -29,6 +29,7 @@ target_link_libraries(logic
                       app
                       helper
                       ui_lib
+                      project_options
                       PUBLIC
                       alias
                       event

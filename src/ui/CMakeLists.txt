@@ -80,6 +80,7 @@ target_include_directories(ui
 target_link_libraries(ui
                       PRIVATE
                       helper
+                      project_options
                       PUBLIC
                       app
                       alias

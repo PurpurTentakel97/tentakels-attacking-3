@@ -32,6 +32,7 @@ target_link_libraries(constants
                       app
                       helper
                       nlohmann_json::nlohmann_json
+                      project_options
                       PUBLIC
                       alias
                       custom_raylib

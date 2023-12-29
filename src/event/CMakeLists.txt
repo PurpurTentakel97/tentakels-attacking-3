@@ -13,4 +13,5 @@ target_link_libraries(event
                       alias
                       custom_raylib
                       utils
+                      project_options
 )
