@@ -12,11 +12,11 @@
 #include <event/EventListener.hpp>
 #include <event/EventManager.hpp>
 #include <event/EventsUI.hpp>
-#include <helper/HColors.hpp>
 #include <helper/HConcepts.hpp>
 #include <helper/HLogicAlias.hpp>
 #include <helper/HPlayerCollection.hpp>
 #include <string>
+#include <utils/Colors.hpp>
 
 namespace app {
     struct AppContext final : public eve::EventListener {
@@ -26,7 +26,7 @@ namespace app {
         LanguageManager languageManager;
         eve::EventManager eventManager;
         PlayerCollection playerCollection;
-        hlp::Colors colors;
+        utl::Colors colors;
         cst::Constants constants;
 
         [[nodiscard]] static AppContext_ty GetInstance();

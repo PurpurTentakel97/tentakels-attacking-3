@@ -30,5 +30,5 @@ target_link_libraries(constants
                       project_options
                       PUBLIC
                       helper
-                      app_context
+                      app
 )

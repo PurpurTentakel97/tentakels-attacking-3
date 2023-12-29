@@ -8,6 +8,7 @@
 #include <app/AppContext.hpp>
 #include <cassert>
 #include <ui_lib/Alignment.hpp>
+#include <utils/Colors.hpp>
 
 
 namespace hlp {
@@ -337,7 +338,7 @@ namespace hlp {
     ) {
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
         // background text
-        if (Colors::NeedBackground(color) and background) {
+        if (utl::Colors::NeedBackground(color) and background) {
             DrawTextEx(
                     *(appContext.assetManager.GetFont()),
                     text.c_str(),

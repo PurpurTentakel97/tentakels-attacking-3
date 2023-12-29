@@ -3,11 +3,10 @@
 // 20.10.2022
 //
 
-#include "HColors.hpp"
-#include "HGeneral.hpp"
+#include "Colors.hpp"
 #include <app/AppContext.hpp>
 
-namespace hlp {
+namespace utl {
     bool Colors::CheckValidColor(Color const& color) const {
         return std::find(m_colors.begin(), m_colors.end(), color) == m_colors.end();
     }

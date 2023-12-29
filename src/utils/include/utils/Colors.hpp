@@ -9,7 +9,7 @@
 #include <string>
 
 
-namespace hlp {
+namespace utl {
     struct Colors final {
     private:
         using ColorArray = std::array<Color, 16>;
@@ -45,4 +45,12 @@ namespace hlp {
 
         [[nodiscard]] static bool NeedBackground(Color color);
     };
-} // namespace hlp
+} // namespace utl
+
+[[nodiscard]] inline bool operator==(Color lhs, Color rhs) {
+    return lhs.a == rhs.a and lhs.b == rhs.b and lhs.g == rhs.g and lhs.r == rhs.r;
+}
+
+[[nodiscard]] inline bool operator!=(Color lhs, Color rhs) {
+    return not(lhs == rhs);
+}

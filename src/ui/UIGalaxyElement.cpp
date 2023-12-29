@@ -5,8 +5,8 @@
 
 #include "UIGalaxyElement.hpp"
 #include <app/AppContext.hpp>
-#include <helper/HColors.hpp>
 #include <ui_lib/ShipCountRing.hpp>
+#include <utils/Colors.hpp>
 
 UIGalaxyElement::UIGalaxyElement(
         unsigned int const focusID,
@@ -39,7 +39,7 @@ void UIGalaxyElement::SetOnClick(std::function<void(UIGalaxyElement*)> onClick) 
 
 void UIGalaxyElement::SetPlayer(PlayerData const player) {
     m_currentPlayer = std::move(player);
-    if (hlp::Colors::AreSame(m_color, GRAY)) {
+    if (utl::Colors::AreSame(m_color, GRAY)) {
         m_color = m_currentPlayer.color;
     }
 }

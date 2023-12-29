@@ -7,9 +7,9 @@
 #include "TableCellAbstract.hpp"
 #include <app/AppContext.hpp>
 #include <event/EventsUI.hpp>
-#include <helper/HColors.hpp>
 #include <helper/HInput.hpp>
 #include <helper/HPrint.hpp>
+#include <utils/Colors.hpp>
 
 template<typename T>
 class TableCell final : public AbstractTableCell {
@@ -115,7 +115,7 @@ inline void TableCell<std::string>::SetStringValue() {
 
 template<>
 inline void TableCell<Color>::SetStringValue() {
-    m_stringValue = hlp::Colors::AsString(m_value);
+    m_stringValue = utl::Colors::AsString(m_value);
 }
 
 template<>

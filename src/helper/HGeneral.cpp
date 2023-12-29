@@ -5,15 +5,6 @@
 
 #include "HGeneral.hpp"
 
-// Colors
-bool operator==(Color const lhs, Color const rhs) {
-    return lhs.a == rhs.a and lhs.b == rhs.b and lhs.g == rhs.g and lhs.r == rhs.r;
-}
-
-bool operator!=(Color const lhs, Color const rhs) {
-    return not(lhs == rhs);
-}
-
 namespace hlp {
     // Position
     Vector2 GetElementPosition(Vector2 const& pos, Vector2 const& size, float const x, float const y) {

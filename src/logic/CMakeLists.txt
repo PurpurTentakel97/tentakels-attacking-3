@@ -30,5 +30,5 @@ target_link_libraries(logic
                       PUBLIC
                       helper
                       event
-                      app_context
+                      app
 )

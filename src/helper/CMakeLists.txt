@@ -1,5 +1,4 @@
 add_library(helper STATIC
-            include/helper/HColors.hpp
             include/helper/HConcepts.hpp
             include/helper/HErrorLog.hpp
             include/helper/HFightResult.hpp
@@ -21,7 +20,6 @@ add_library(helper STATIC
             include/helper/HVector2Operator.hpp
             include/helper/HLayeredVector.hpp
             include/helper/HVec2.hpp
-            HColors.cpp
             HErrorLog.cpp
             HFightResult.cpp
             HFocusEvents.cpp
@@ -44,7 +42,7 @@ target_include_directories(helper
 
 target_link_libraries(helper
                       PRIVATE
-                      app_context
+                      app
                       event
                       logic
                       nlohmann_json::nlohmann_json

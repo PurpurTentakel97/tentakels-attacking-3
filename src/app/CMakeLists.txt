@@ -1,4 +1,4 @@
-add_library(app_context STATIC
+add_library(app STATIC
             include/app/AliasApp.hpp
             include/app/AppContext.hpp
             include/app/AssetType.hpp
@@ -12,16 +12,17 @@ add_library(app_context STATIC
             SoundManager.cpp
 )
 
-target_include_directories(app_context
+target_include_directories(app
                            PRIVATE include/app
                            INTERFACE include
 )
 
-target_link_libraries(app_context
+target_link_libraries(app
                       PRIVATE
                       project_options
                       PUBLIC
                       helper
                       event
                       constants
+                      utils
 )

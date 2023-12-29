@@ -6,9 +6,9 @@
 #include "ColorPickerCell.hpp"
 #include "ColorPicker.hpp"
 #include <app/AppContext.hpp>
-#include <helper/HColors.hpp>
 #include <helper/HFocusEvents.hpp>
 #include <helper/HInput.hpp>
+#include <utils/Colors.hpp>
 
 void ColorPickerCell::SetColor() const {
     m_colorPicker->SetColor(m_color);
@@ -19,7 +19,7 @@ ColorPickerCell::ColorPickerCell(unsigned int const ID, Vector2 const pos, Vecto
 	m_color{ color }, m_colorPicker{ colorPicker },
 	m_hover{
 		0.05f,
-          hlp::Colors::AsString(color),
+          utl::Colors::AsString(color),
 		WHITE,
 		{0.01f,0.01f}
 	}

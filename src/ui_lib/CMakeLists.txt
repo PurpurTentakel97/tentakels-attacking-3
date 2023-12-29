@@ -75,5 +75,5 @@ target_link_libraries(ui_lib
                       PUBLIC
                       helper
                       event
-                      app_context
+                      app
 )

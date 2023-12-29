@@ -7,10 +7,6 @@
 #include <CustomRaylib.hpp>
 #include <cstddef>
 
-// Colors
-[[nodiscard]] bool operator==(Color lhs, Color rhs);
-
-[[nodiscard]] bool operator!=(Color lhs, Color rhs);
 
 namespace hlp {
     // Position
