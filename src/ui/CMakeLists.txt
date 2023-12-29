@@ -81,7 +81,7 @@ target_link_libraries(ui
                       PRIVATE
                       helper
                       PUBLIC
-                      app1
+                      app
                       alias
                       logic
                       ui_lib

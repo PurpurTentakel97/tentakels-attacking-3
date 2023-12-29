@@ -12,6 +12,7 @@ add_subdirectory(src)
 add_executable(TentakelsAttacking main.cpp)
 target_link_libraries(TentakelsAttacking
                       PRIVATE
+                      app
                       helper
                       ui
                       PUBLIC
