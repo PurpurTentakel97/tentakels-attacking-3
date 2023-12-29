@@ -8,7 +8,7 @@
 #include "Focusable.hpp"
 #include "Hover.hpp"
 #include "UIElement.hpp"
-#include <alias/AliasUILib.hpp>
+#include <alias/AliasUiLib.hpp>
 
 class ColorPickerCell final : public UIElement, public Focusable {
 private:
