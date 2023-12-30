@@ -10,42 +10,44 @@
 #include <functional>
 
 
-class CheckBox final : public UIElement, public Focusable {
-private:
-    bool m_isEnabled{ true };
-    bool m_isChecked{ false };
-    bool m_isHovered{ false };
+namespace uil {
+    class CheckBox final : public UIElement, public Focusable {
+    private:
+        bool m_isEnabled{ true };
+        bool m_isChecked{ false };
+        bool m_isHovered{ false };
 
-    unsigned int m_ID;
+        unsigned int m_ID;
 
-    Texture* m_texture;
-    Rectangle m_textureRec{};
+        Texture* m_texture;
+        Rectangle m_textureRec{};
 
-    std::function<void(unsigned int, bool)> m_onCheck{ [](unsigned int, bool) {} };
+        std::function<void(unsigned int, bool)> m_onCheck{ [](unsigned int, bool) {} };
 
 
-    void Check(app::AppContext_ty_c appContext);
+        void Check(app::AppContext_ty_c appContext);
 
-public:
-    CheckBox(unsigned int focusID, Vector2 pos, float height, Alignment alignment, unsigned int checkBoxID);
+    public:
+        CheckBox(unsigned int focusID, Vector2 pos, float height, Alignment alignment, unsigned int checkBoxID);
 
-    void SetOnCheck(std::function<void(unsigned int, bool)> onCheck);
+        void SetOnCheck(std::function<void(unsigned int, bool)> onCheck);
 
-    [[nodiscard]] unsigned int GetID() const;
+        [[nodiscard]] unsigned int GetID() const;
 
-    void SetChecked(bool isChecked);
+        void SetChecked(bool isChecked);
 
-    [[nodiscard]] bool IsChecked() const;
+        [[nodiscard]] bool IsChecked() const;
 
-    void SetEnabled(bool isEnabled);
+        void SetEnabled(bool isEnabled);
 
-    [[nodiscard]] bool IsEnabled() const override;
+        [[nodiscard]] bool IsEnabled() const override;
 
-    [[nodiscard]] Rectangle GetCollider() const override;
+        [[nodiscard]] Rectangle GetCollider() const override;
 
-    void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) override;
+        void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) override;
 
-    void Render(app::AppContext_ty_c appContext) override;
+        void Render(app::AppContext_ty_c appContext) override;
 
-    void Resize(app::AppContext_ty_c appContext) override;
-};
+        void Resize(app::AppContext_ty_c appContext) override;
+    };
+} // namespace uil

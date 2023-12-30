@@ -7,35 +7,38 @@
 
 #include <CustomRaylib.hpp>
 
-class Focusable {
-private:
-    unsigned int m_focusID;
-    bool m_isFocus{ false };
-    bool m_wasLastFocus{ false };
 
-protected:
-    bool m_isNestedFocus{ false };
+namespace uil {
+    class Focusable {
+    private:
+        unsigned int m_focusID;
+        bool m_isFocus{ false };
+        bool m_wasLastFocus{ false };
 
-public:
-    explicit Focusable(unsigned int ID);
+    protected:
+        bool m_isNestedFocus{ false };
 
-    virtual ~Focusable();
+    public:
+        explicit Focusable(unsigned int ID);
 
-    [[nodiscard]] bool IsFocused() const;
+        virtual ~Focusable();
 
-    void SetFocus(bool focus);
+        [[nodiscard]] bool IsFocused() const;
 
-    [[nodiscard]] bool GotFocused() const;
+        void SetFocus(bool focus);
 
-    [[nodiscard]] bool IsNestedFocus() const;
+        [[nodiscard]] bool GotFocused() const;
 
-    void SetNestedFocus(bool nestedFocus);
+        [[nodiscard]] bool IsNestedFocus() const;
 
-    [[nodiscard]] virtual bool IsEnabled() const = 0;
+        void SetNestedFocus(bool nestedFocus);
 
-    [[nodiscard]] unsigned int GetFocusID() const;
+        [[nodiscard]] virtual bool IsEnabled() const = 0;
 
-    void SetFocusID(unsigned int focusID) noexcept;
+        [[nodiscard]] unsigned int GetFocusID() const;
 
-    [[nodiscard]] virtual Rectangle GetCollider() const = 0;
-};
+        void SetFocusID(unsigned int focusID) noexcept;
+
+        [[nodiscard]] virtual Rectangle GetCollider() const = 0;
+    };
+} // namespace uil

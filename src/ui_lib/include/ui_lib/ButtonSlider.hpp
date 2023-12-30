@@ -7,10 +7,13 @@
 
 #include "Button.hpp"
 
-class SliderButton final : public Button {
-public:
-    using Button::Button;
-    using Button::operator=;
 
-    void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) override;
-};
+namespace uil {
+    class SliderButton final : public Button {
+    public:
+        using Button::Button;
+        using Button::operator=;
+
+        void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) override;
+    };
+} // namespace uil

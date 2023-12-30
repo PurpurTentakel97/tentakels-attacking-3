@@ -10,53 +10,56 @@
 #include <memory>
 #include <vector>
 
-class ColorPicker final : public UIElement, public Focusable {
-private:
-    bool m_isPopUp{};
 
-    size_t m_countX{};
-    size_t m_countY{};
-    std::vector<std::unique_ptr<ColorPickerCell>> m_cells{};
-    ColorPickerCell* m_currentColorCell{ nullptr };
-    ColorPickerCell* m_previousColorCell{ nullptr };
-    std::function<void()> m_onEnter{ []() {} };
+namespace uil {
+    class ColorPicker final : public UIElement, public Focusable {
+    private:
+        bool m_isPopUp{};
 
-    void Initialize();
+        size_t m_countX{};
+        size_t m_countY{};
+        std::vector<std::unique_ptr<ColorPickerCell>> m_cells{};
+        ColorPickerCell* m_currentColorCell{ nullptr };
+        ColorPickerCell* m_previousColorCell{ nullptr };
+        std::function<void()> m_onEnter{ []() {} };
 
-    void SetUsedColors(app::AppContext_ty_c appContext);
+        void Initialize();
 
-    void SetColorFromFocus();
+        void SetUsedColors(app::AppContext_ty_c appContext);
 
-    void CheckForValidColor(app::AppContext_ty_c appContext);
+        void SetColorFromFocus();
 
-public:
-    ColorPicker(unsigned int ID, Vector2 pos, Vector2 size, Alignment alignment, bool isPopUp = false);
+        void CheckForValidColor(app::AppContext_ty_c appContext);
 
-    ~ColorPicker() override;
+    public:
+        ColorPicker(unsigned int ID, Vector2 pos, Vector2 size, Alignment alignment, bool isPopUp = false);
 
-    [[nodiscard]] Color GetColor() const;
+        ~ColorPicker() override;
 
-    [[nodiscard]] bool HasColorChanced() const;
+        [[nodiscard]] Color GetColor() const;
 
-    bool SetInitialColor(Color color);
+        [[nodiscard]] bool HasColorChanced() const;
 
-    bool SetColor(Color color);
+        bool SetInitialColor(Color color);
 
-    void SetOnEnter(std::function<void()> onEnter);
+        bool SetColor(Color color);
 
-    void SetCellFocuses(app::AppContext_ty_c appContext);
+        void SetOnEnter(std::function<void()> onEnter);
 
-    void SetEnabled(bool enabled, Color color);
+        void SetCellFocuses(app::AppContext_ty_c appContext);
 
-    [[nodiscard]] bool IsEnabled() const override;
+        void SetEnabled(bool enabled, Color color);
 
-    [[nodiscard]] bool IsPopUp() const;
+        [[nodiscard]] bool IsEnabled() const override;
 
-    void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) override;
+        [[nodiscard]] bool IsPopUp() const;
 
-    void Render(app::AppContext_ty_c appContext) override;
+        void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) override;
 
-    void Resize(app::AppContext_ty_c appContext) override;
+        void Render(app::AppContext_ty_c appContext) override;
 
-    [[nodiscard]] Rectangle GetCollider() const override;
-};
+        void Resize(app::AppContext_ty_c appContext) override;
+
+        [[nodiscard]] Rectangle GetCollider() const override;
+    };
+} // namespace uil

@@ -8,33 +8,35 @@
 #include "UIElement.hpp"
 
 
-class Line final : public UIElement {
-private:
-    Vector2 m_start;
-    Vector2 m_end;
-    float m_thick;
-    Color m_color;
+namespace uil {
+    class Line final : public UIElement {
+    private:
+        Vector2 m_start;
+        Vector2 m_end;
+        float m_thick;
+        Color m_color;
 
-public:
-    Line(Vector2 start, Vector2 end, float thick, Color color);
+    public:
+        Line(Vector2 start, Vector2 end, float thick, Color color);
 
-    void Render(app::AppContext_ty_c appContext) override;
+        void Render(app::AppContext_ty_c appContext) override;
 
-    virtual void Update();
+        virtual void Update();
 
-    [[nodiscard]] Vector2 GetStart() const;
+        [[nodiscard]] Vector2 GetStart() const;
 
-    virtual void SetStart(Vector2 start);
+        virtual void SetStart(Vector2 start);
 
-    [[nodiscard]] Vector2 GetEnd() const;
+        [[nodiscard]] Vector2 GetEnd() const;
 
-    virtual void SetEnd(Vector2 end);
+        virtual void SetEnd(Vector2 end);
 
-    [[nodiscard]] float GetThick() const;
+        [[nodiscard]] float GetThick() const;
 
-    void SetThick(float thick);
+        void SetThick(float thick);
 
-    [[nodiscard]] Color GetColor() const;
+        [[nodiscard]] Color GetColor() const;
 
-    void SetColor(Color color);
-};
+        void SetColor(Color color);
+    };
+} // namespace uil

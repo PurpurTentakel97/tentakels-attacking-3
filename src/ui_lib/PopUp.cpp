@@ -13,114 +13,123 @@
 #include <helper/HTextProcessing.hpp>
 #include <string>
 
-void PopUp::Initialize(std::string const& title, std::string& subTitle, app::AssetType const infoTexture) {
 
-    auto icon = std::make_shared<Picture>(
-            hlp::GetElementPosition(m_pos, m_size, 0.15f, 0.05f),
-            hlp::GetElementSize(m_size, 0.25f, 0.3f),
-            Alignment::TOP_MID,
-            infoTexture
-    );
-    m_elements.push_back(icon);
+namespace uil {
+    void PopUp::Initialize(std::string const& title, std::string& subTitle, app::AssetType const infoTexture) {
 
-    auto textTitle = std::make_shared<Text>(
-            hlp::GetElementPosition(m_pos, m_size, 0.6f, 0.1f),
-            hlp::GetElementSize(m_size, 0.7f, 0.2f),
-            Alignment::TOP_MID,
-            Alignment::TOP_MID,
-            hlp::GetElementTextHeight(m_size, 0.18f),
-            title
-    );
-    m_elements.push_back(textTitle);
+        auto icon = std::make_shared<Picture>(
+                hlp::GetElementPosition(m_pos, m_size, 0.15f, 0.05f),
+                hlp::GetElementSize(m_size, 0.25f, 0.3f),
+                Alignment::TOP_MID,
+                infoTexture
+        );
+        m_elements.push_back(icon);
 
-    cst::Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
-    float textHeight = hlp::GetElementTextHeight(m_size, 0.1f);
-    hlp::BreakText(subTitle, textHeight * resolution.y, m_size.x * resolution.x * 0.9f, app::AppContext::GetInstance());
+        auto textTitle = std::make_shared<Text>(
+                hlp::GetElementPosition(m_pos, m_size, 0.6f, 0.1f),
+                hlp::GetElementSize(m_size, 0.7f, 0.2f),
+                Alignment::TOP_MID,
+                Alignment::TOP_MID,
+                hlp::GetElementTextHeight(m_size, 0.18f),
+                title
+        );
+        m_elements.push_back(textTitle);
 
-    auto textSubTitle = std::make_shared<Text>(
-            hlp::GetElementPosition(m_pos, m_size, 0.5f, 0.4f),
-            hlp::GetElementSize(m_size, 0.9f, 0.4f),
-            Alignment::TOP_MID,
-            Alignment::TOP_MID,
-            textHeight,
-            subTitle
-    );
-    textSubTitle->LineBreaks(true);
-    m_elements.push_back(textSubTitle);
-}
+        cst::Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
+        float textHeight = hlp::GetElementTextHeight(m_size, 0.1f);
+        hlp::BreakText(
+                subTitle,
+                textHeight * resolution.y,
+                m_size.x * resolution.x * 0.9f,
+                app::AppContext::GetInstance()
+        );
 
-void PopUp::LateUpdate() {
-    if (m_firstEnter and IsKeyUp(KEY_ENTER)) {
-        m_firstEnter = false;
-    }
-}
-
-Rectangle PopUp::GetColliderWithMaxValues(Texture2D* const texture, float const maxWidth, float const maxHeight) const {
-    auto const t_with{ static_cast<float>(texture->width) };
-    auto const t_height{ static_cast<float>(texture->height) };
-
-    if (maxWidth > t_with and maxHeight > t_height) {
-        return { 0.0f, 0.0f, t_with, t_height };
+        auto textSubTitle = std::make_shared<Text>(
+                hlp::GetElementPosition(m_pos, m_size, 0.5f, 0.4f),
+                hlp::GetElementSize(m_size, 0.9f, 0.4f),
+                Alignment::TOP_MID,
+                Alignment::TOP_MID,
+                textHeight,
+                subTitle
+        );
+        textSubTitle->LineBreaks(true);
+        m_elements.push_back(textSubTitle);
     }
 
-    float const ratio{ t_with / t_height };
-    Rectangle rectangle(0.0f, 0.0f, 0.0f, 0.0f);
-    if (t_with > maxWidth) {
-        rectangle.width = maxWidth;
-        rectangle.height = maxWidth * ratio;
-    }
-    if (t_height > maxHeight) {
-        rectangle.width = maxHeight * ratio;
-        rectangle.height = maxHeight;
+    void PopUp::LateUpdate() {
+        if (m_firstEnter and IsKeyUp(KEY_ENTER)) {
+            m_firstEnter = false;
+        }
     }
 
-    return rectangle;
-}
+    Rectangle PopUp::GetColliderWithMaxValues(Texture2D* const texture, float const maxWidth, float const maxHeight)
+            const {
+        auto const t_with{ static_cast<float>(texture->width) };
+        auto const t_height{ static_cast<float>(texture->height) };
 
-PopUp::PopUp(
-        Vector2 const pos,
-        Vector2 const size,
-        Alignment const alignment,
-        std::string const& title,
-        std::string& subTitle,
-        app::AssetType const infoTexture
-)
-    : UIElement{ pos, size, alignment } {
+        if (maxWidth > t_with and maxHeight > t_height) {
+            return { 0.0f, 0.0f, t_with, t_height };
+        }
 
-    Initialize(title, subTitle, infoTexture);
+        float const ratio{ t_with / t_height };
+        Rectangle rectangle(0.0f, 0.0f, 0.0f, 0.0f);
+        if (t_with > maxWidth) {
+            rectangle.width = maxWidth;
+            rectangle.height = maxWidth * ratio;
+        }
+        if (t_height > maxHeight) {
+            rectangle.width = maxHeight * ratio;
+            rectangle.height = maxHeight;
+        }
 
-    if (hlp::IsConfirmInputDown()) {
-        m_firstEnter = true;
-    }
-}
-
-void PopUp::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) {
-
-    UIElement::CheckAndUpdate(mousePosition, appContext);
-
-    for (auto const& e : m_elements) {
-        e->CheckAndUpdate(mousePosition, appContext);
+        return rectangle;
     }
 
-    if (m_shouldClose) {
-        appContext.eventManager.InvokeEvent(eve::ClosePopUpEvent(this));
+    PopUp::PopUp(
+            Vector2 const pos,
+            Vector2 const size,
+            Alignment const alignment,
+            std::string const& title,
+            std::string& subTitle,
+            app::AssetType const infoTexture
+    )
+        : UIElement{ pos, size, alignment } {
+
+        Initialize(title, subTitle, infoTexture);
+
+        if (hlp::IsConfirmInputDown()) {
+            m_firstEnter = true;
+        }
     }
-}
 
-void PopUp::Render(app::AppContext_ty_c appContext) {
-    cst::Resolution_ty_c resolution{ appContext.GetResolution() };
-    DrawRectangleRec(Rectangle(0.0f, 0.0f, resolution.x, resolution.y), GREY_50);
-    DrawRectangleRec(m_collider, GREY_100);
+    void PopUp::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) {
 
-    for (auto const& e : m_elements) {
-        e->Render(appContext);
+        UIElement::CheckAndUpdate(mousePosition, appContext);
+
+        for (auto const& e : m_elements) {
+            e->CheckAndUpdate(mousePosition, appContext);
+        }
+
+        if (m_shouldClose) {
+            appContext.eventManager.InvokeEvent(eve::ClosePopUpEvent(this));
+        }
     }
 
-    DrawRectangleLinesEx(m_collider, 2.0f, PURPLE);
-}
+    void PopUp::Render(app::AppContext_ty_c appContext) {
+        cst::Resolution_ty_c resolution{ appContext.GetResolution() };
+        DrawRectangleRec(Rectangle(0.0f, 0.0f, resolution.x, resolution.y), GREY_50);
+        DrawRectangleRec(m_collider, GREY_100);
 
-void PopUp::Resize(app::AppContext_ty_c appContext) {
-    for (auto const& e : m_elements) {
-        e->Resize(appContext);
+        for (auto const& e : m_elements) {
+            e->Render(appContext);
+        }
+
+        DrawRectangleLinesEx(m_collider, 2.0f, PURPLE);
     }
-}
+
+    void PopUp::Resize(app::AppContext_ty_c appContext) {
+        for (auto const& e : m_elements) {
+            e->Resize(appContext);
+        }
+    }
+} // namespace uil

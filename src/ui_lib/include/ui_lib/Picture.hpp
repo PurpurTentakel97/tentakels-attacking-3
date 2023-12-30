@@ -8,17 +8,19 @@
 #include "UIElement.hpp"
 #include <alias/AliasApp.hpp>
 
-class Picture final : public UIElement {
-private:
-    Texture2D* m_texture{ nullptr };
-    bool m_isScaleToFit{ true };
+namespace uil {
+    class Picture final : public UIElement {
+    private:
+        Texture2D* m_texture{ nullptr };
+        bool m_isScaleToFit{ true };
 
-    void ScaleToFit();
+        void ScaleToFit();
 
-public:
-    Picture(Vector2 pos, Vector2 size, Alignment alignment, app::AssetType assetType, bool scaleToFit = true);
+    public:
+        Picture(Vector2 pos, Vector2 size, Alignment alignment, app::AssetType assetType, bool scaleToFit = true);
 
-    void Render(app::AppContext_ty_c appContext) override;
+        void Render(app::AppContext_ty_c appContext) override;
 
-    void Resize(app::AppContext_ty_c appContext) override;
-};
+        void Resize(app::AppContext_ty_c appContext) override;
+    };
+} // namespace uil
