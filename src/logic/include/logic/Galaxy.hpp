@@ -14,136 +14,140 @@
 #include <utils/Vec2.hpp>
 #include <vector>
 
+namespace lgk {
+    class Galaxy final {
+    private:
+        bool m_validGalaxy{ true };
+        bool m_isFiltered{ false };
+        std::vector<SpaceObject_ty> m_objects;
+        std::vector<Planet_ty> m_planets;
+        std::vector<Fleet_ty> m_fleets;
+        std::vector<TargetPoint_ty> m_targetPoints;
+        utl::vec2pos_ty m_size;
 
-class Galaxy final {
-private:
-    bool m_validGalaxy{ true };
-    bool m_isFiltered{ false };
-    std::vector<SpaceObject_ty> m_objects;
-    std::vector<Planet_ty> m_planets;
-    std::vector<Fleet_ty> m_fleets;
-    std::vector<TargetPoint_ty> m_targetPoints;
-    utl::vec2pos_ty m_size;
 
+        [[nodiscard]] unsigned int GetNextID() const;
 
-    [[nodiscard]] unsigned int GetNextID() const;
+        // Planet
+        void
+        InitializePlanets(size_t planetCount, std::vector<Player_ty> const& players, Player_ty const& neutralPlayer);
 
-    // Planet
-    void InitializePlanets(size_t planetCount, std::vector<Player_ty> const& players, Player_ty const& neutralPlayer);
+        [[nodiscard]] int GenerateHomePlanets(std::vector<Player_ty> const& players);
 
-    [[nodiscard]] int GenerateHomePlanets(std::vector<Player_ty> const& players);
+        void GenerateOtherPlanets(size_t PlanetCount, int currentPlanet, Player_ty const& player);
 
-    void GenerateOtherPlanets(size_t PlanetCount, int currentPlanet, Player_ty const& player);
+        [[nodiscard]] bool IsValidNewPlanet(Planet_ty const& newPlanet, app::AppContext_ty_c appContext) const;
 
-    [[nodiscard]] bool IsValidNewPlanet(Planet_ty const& newPlanet, app::AppContext_ty_c appContext) const;
+        // Fleet
+        [[nodiscard]] bool IsValidFleet(unsigned int ID) const;
 
-    // Fleet
-    [[nodiscard]] bool IsValidFleet(unsigned int ID) const;
+        [[nodiscard]] Fleet_ty GetFleetByID(unsigned int ID) const;
 
-    [[nodiscard]] Fleet_ty GetFleetByID(unsigned int ID) const;
+        [[nodiscard]] Fleet_ty TryGetExistingFleetByOriginAndDestination(
+                SpaceObject_ty const& origin,
+                SpaceObject_ty const& destination
+        ) const;
 
-    [[nodiscard]] Fleet_ty
-    TryGetExistingFleetByOriginAndDestination(SpaceObject_ty const& origin, SpaceObject_ty const& destination) const;
+        [[nodiscard]] utl::FleetResult
+        AddFleetFromPlanet(eve::SendFleetInstructionEvent const* event, Player_ty const& currentPlayer);
 
-    [[nodiscard]] utl::FleetResult
-    AddFleetFromPlanet(eve::SendFleetInstructionEvent const* event, Player_ty const& currentPlayer);
+        [[nodiscard]] utl::FleetResult
+        AddFleetFromFleet(eve::SendFleetInstructionEvent const* event, Player_ty const& currentPlayer);
 
-    [[nodiscard]] utl::FleetResult
-    AddFleetFromFleet(eve::SendFleetInstructionEvent const* event, Player_ty const& currentPlayer);
+        [[nodiscard]] utl::FleetResult
+        AddFleetFromTargetPoint(eve::SendFleetInstructionEvent const* event, Player_ty const& currentPlayer);
 
-    [[nodiscard]] utl::FleetResult
-    AddFleetFromTargetPoint(eve::SendFleetInstructionEvent const* event, Player_ty const& currentPlayer);
+        [[nodiscard]] std::vector<Fleet_ty> GetFleetsOfTarget(SpaceObject_ty const& object) const;
 
-    [[nodiscard]] std::vector<Fleet_ty> GetFleetsOfTarget(SpaceObject_ty const& object) const;
+        void DeleteFleet(std::vector<Fleet_ty> const& fleets);
 
-    void DeleteFleet(std::vector<Fleet_ty> const& fleets);
+        void DeleteFleet(Fleet_ty const& fleet);
 
-    void DeleteFleet(Fleet_ty const& fleet);
+        // Target Point
+        [[nodiscard]] bool IsValidTargetPoint(unsigned int ID) const;
 
-    // Target Point
-    [[nodiscard]] bool IsValidTargetPoint(unsigned int ID) const;
+        [[nodiscard]] TargetPoint_ty GetTargetPointByID(unsigned int ID) const;
 
-    [[nodiscard]] TargetPoint_ty GetTargetPointByID(unsigned int ID) const;
+        [[nodiscard]] SpaceObject_ty
+        GetOrGenerateDestination(unsigned int ID, int X, int Y, Player_ty const& currentPlayer);
 
-    [[nodiscard]] SpaceObject_ty
-    GetOrGenerateDestination(unsigned int ID, int X, int Y, Player_ty const& currentPlayer);
+        void CheckDeleteTargetPoints();
 
-    void CheckDeleteTargetPoints();
+        // update
+        [[nodiscard]] std::vector<Fleet_ty> UpdateFleetTargets(
+                std::vector<Fleet_ty> const& fleets,
+                SpaceObject_ty const& currentFleet,
+                SpaceObject_ty const& target
+        );
 
-    // update
-    [[nodiscard]] std::vector<Fleet_ty> UpdateFleetTargets(
-            std::vector<Fleet_ty> const& fleets,
-            SpaceObject_ty const& currentFleet,
-            SpaceObject_ty const& target
-    );
+        [[nodiscard]] std::vector<utl::MergeResult> CheckArrivingFriendlyFleets();
 
-    [[nodiscard]] std::vector<utl::MergeResult> CheckArrivingFriendlyFleets();
+        [[nodiscard]] std::vector<utl::MergeResult> CheckMergingFriendlyFleets();
 
-    [[nodiscard]] std::vector<utl::MergeResult> CheckMergingFriendlyFleets();
+        void CheckDeleteFleetsWithoutShips();
 
-    void CheckDeleteFleetsWithoutShips();
+        [[nodiscard]] std::vector<utl::FightResult> SimulateFight();
 
-    [[nodiscard]] std::vector<utl::FightResult> SimulateFight();
+        [[nodiscard]] std::vector<utl::FightResult> SimulateFightFleetPlanet();
 
-    [[nodiscard]] std::vector<utl::FightResult> SimulateFightFleetPlanet();
+        [[nodiscard]] std::vector<utl::FightResult> SimulateFightFleetTargetPoint();
 
-    [[nodiscard]] std::vector<utl::FightResult> SimulateFightFleetTargetPoint();
+        [[nodiscard]] std::vector<utl::FightResult> SimulateFightFleetFleet();
 
-    [[nodiscard]] std::vector<utl::FightResult> SimulateFightFleetFleet();
+        [[nodiscard]] std::vector<utl::FightResult> SimulateFightPlanetFleet();
 
-    [[nodiscard]] std::vector<utl::FightResult> SimulateFightPlanetFleet();
+        [[nodiscard]] std::vector<utl::FightResult> SimulateFightTargetPointFleet();
 
-    [[nodiscard]] std::vector<utl::FightResult> SimulateFightTargetPointFleet();
+        [[nodiscard]] std::vector<utl::FightResult> SimulateFightTargetPointTargetPoint();
 
-    [[nodiscard]] std::vector<utl::FightResult> SimulateFightTargetPointTargetPoint();
+        [[nodiscard]] std::vector<utl::FightResult> SimulateFightPlanetTargetPoint();
 
-    [[nodiscard]] std::vector<utl::FightResult> SimulateFightPlanetTargetPoint();
+        [[nodiscard]] static utl::FightResult Fight(SpaceObject_ty const& defender, SpaceObject_ty const& attacker);
 
-    [[nodiscard]] static utl::FightResult Fight(SpaceObject_ty const& defender, SpaceObject_ty const& attacker);
+        [[nodiscard]] static size_t Salve(SpaceObject_ty const& obj);
 
-    [[nodiscard]] static size_t Salve(SpaceObject_ty const& obj);
+    public:
+        Galaxy(utl::vec2pos_ty size,
+               size_t planetCount,
+               std::vector<Player_ty> const& players,
+               Player_ty const& neutralPlayer);
 
-public:
-    Galaxy(utl::vec2pos_ty size,
-           size_t planetCount,
-           std::vector<Player_ty> const& players,
-           Player_ty const& neutralPlayer);
+        Galaxy(Galaxy const&);
 
-    Galaxy(Galaxy const&);
+        [[nodiscard]] bool IsValid() const;
 
-    [[nodiscard]] bool IsValid() const;
+        [[nodiscard]] bool IsValidSpaceObjectID(unsigned int ID) const;
 
-    [[nodiscard]] bool IsValidSpaceObjectID(unsigned int ID) const;
+        [[nodiscard]] bool HasMovesLeft(Player_ty_c player) const;
 
-    [[nodiscard]] bool HasMovesLeft(Player_ty_c player) const;
+        void SetFiltered(bool isFiltered);
 
-    void SetFiltered(bool isFiltered);
+        [[nodiscard]] bool IsFiltered() const;
 
-    [[nodiscard]] bool IsFiltered() const;
+        [[nodiscard]] utl::vec2pos_ty GetSize() const;
 
-    [[nodiscard]] utl::vec2pos_ty GetSize() const;
+        [[nodiscard]] std::vector<Planet_ty> GetPlanets() const;
 
-    [[nodiscard]] std::vector<Planet_ty> GetPlanets() const;
+        [[nodiscard]] std::vector<Fleet_ty> GetFleets() const;
 
-    [[nodiscard]] std::vector<Fleet_ty> GetFleets() const;
+        [[nodiscard]] std::vector<TargetPoint_ty> GetTargetPoints() const;
 
-    [[nodiscard]] std::vector<TargetPoint_ty> GetTargetPoints() const;
+        [[nodiscard]] Planet_ty GetPlanetByID(unsigned int ID) const;
 
-    [[nodiscard]] Planet_ty GetPlanetByID(unsigned int ID) const;
+        [[nodiscard]] SpaceObject_ty GetSpaceObjectByID(unsigned int ID) const;
 
-    [[nodiscard]] SpaceObject_ty GetSpaceObjectByID(unsigned int ID) const;
+        [[nodiscard]] bool IsValidPosition(utl::vec2pos_ty_ref_c position) const;
 
-    [[nodiscard]] bool IsValidPosition(utl::vec2pos_ty_ref_c position) const;
+        [[nodiscard]] utl::FleetResult
+        AddFleet(eve::SendFleetInstructionEvent const* event, Player_ty const& currentPlayer);
 
-    [[nodiscard]] utl::FleetResult
-    AddFleet(eve::SendFleetInstructionEvent const* event, Player_ty const& currentPlayer);
+        void SetDiscoverByPlayer(unsigned int currentPlayerID);
 
-    void SetDiscoverByPlayer(unsigned int currentPlayerID);
+        void FilterByDiscovered();
 
-    void FilterByDiscovered();
+        void HandleFleetResult(utl::FleetResult const& fleetResult, Player_ty_c currentPlayer);
 
-    void HandleFleetResult(utl::FleetResult const& fleetResult, Player_ty_c currentPlayer);
-
-    // update
-    [[nodiscard]] utl::UpdateResult_ty Update();
-};
+        // update
+        [[nodiscard]] utl::UpdateResult_ty Update();
+    };
+} // namespace lgk

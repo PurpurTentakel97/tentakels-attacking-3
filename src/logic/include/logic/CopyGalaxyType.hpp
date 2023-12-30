@@ -5,7 +5,9 @@
 
 #pragma once
 
-enum class CopyGalaxyType {
-    COPY_ALL,
-    COPY_START,
-};
+namespace lgk {
+    enum class CopyGalaxyType {
+        COPY_ALL,
+        COPY_START,
+    };
+}

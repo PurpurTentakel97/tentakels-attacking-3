@@ -16,75 +16,77 @@
 #include <vector>
 
 
-class GameManager final : public eve::EventListener {
-    friend class GalaxyManager;
+namespace lgk {
+    class GameManager final : public eve::EventListener {
+        friend class GalaxyManager;
 
-private:
-    std::default_random_engine m_random{ std::default_random_engine() };
-    std::unordered_map<PlayerType, Player_ty> m_npcs{};
-    std::vector<Player_ty> m_players{};
-    std::vector<Player_ty> m_currentRoundPlayers{};
-    GalaxyManager m_galaxyManager;
-    utl::UpdateResult_ty m_lastUpdateResults{};
+    private:
+        std::default_random_engine m_random{ std::default_random_engine() };
+        std::unordered_map<PlayerType, Player_ty> m_npcs{};
+        std::vector<Player_ty> m_players{};
+        std::vector<Player_ty> m_currentRoundPlayers{};
+        GalaxyManager m_galaxyManager;
+        utl::UpdateResult_ty m_lastUpdateResults{};
 
-    // player
-    [[nodiscard]] bool ValidAddPlayer() const;
+        // player
+        [[nodiscard]] bool ValidAddPlayer() const;
 
-    [[nodiscard]] unsigned int GetNextPlayerID() const;
+        [[nodiscard]] unsigned int GetNextPlayerID() const;
 
-    [[nodiscard]] bool IsExistingPlayerID(unsigned int ID) const;
+        [[nodiscard]] bool IsExistingPlayerID(unsigned int ID) const;
 
-    [[nodiscard]] bool GetCurrentPlayer(Player_ty& currentPlayer) const;
+        [[nodiscard]] bool GetCurrentPlayer(Player_ty& currentPlayer) const;
 
-    [[nodiscard]] bool GetNextPlayer(Player_ty& nextPlayer) const;
+        [[nodiscard]] bool GetNextPlayer(Player_ty& nextPlayer) const;
 
-    void AddPlayer(eve::AddPlayerEvent const* event);
+        void AddPlayer(eve::AddPlayerEvent const* event);
 
-    void EditPlayer(eve::EditPlayerEvent const* event) const;
+        void EditPlayer(eve::EditPlayerEvent const* event) const;
 
-    void DeletePlayer(eve::DeletePlayerEvent const* event);
+        void DeletePlayer(eve::DeletePlayerEvent const* event);
 
-    void ResetPlayer();
+        void ResetPlayer();
 
-    void KillPlayer(Player_ty const& player);
+        void KillPlayer(Player_ty const& player);
 
-    void CheckPlayerCount() const;
+        void CheckPlayerCount() const;
 
-    void ShuffleCurrentRoundPlayer();
+        void ShuffleCurrentRoundPlayer();
 
-    [[nodiscard]] static bool CheckValidAddRemovePlayer(std::function<void(bool valid)> forPopup);
+        [[nodiscard]] static bool CheckValidAddRemovePlayer(std::function<void(bool valid)> forPopup);
 
-    void SendCurrentPlayerID();
+        void SendCurrentPlayerID();
 
-    void SendNextPlayerID();
+        void SendNextPlayerID();
 
-    // rounds
-    void NextRound(bool valid);
+        // rounds
+        void NextRound(bool valid);
 
-    void NextTurn(bool valid);
+        void NextTurn(bool valid);
 
-    void ValidateNextTurn();
+        void ValidateNextTurn();
 
-    // fleet
-    void AddFleet(eve::SendFleetInstructionEvent const* event);
+        // fleet
+        void AddFleet(eve::SendFleetInstructionEvent const* event);
 
-    [[nodiscard]] static bool ValidateAddFleetInput(eve::SendFleetInstructionEvent const* event);
+        [[nodiscard]] static bool ValidateAddFleetInput(eve::SendFleetInstructionEvent const* event);
 
-    // game
-    void StartGame();
+        // game
+        void StartGame();
 
-    static void StopGame();
+        static void StopGame();
 
-    static void PauseGame();
+        static void PauseGame();
 
-    static void ResumeGame();
+        static void ResumeGame();
 
-    void QuitGame();
+        void QuitGame();
 
-public:
-    GameManager();
+    public:
+        GameManager();
 
-    void Update();
+        void Update();
 
-    void OnEvent(eve::Event const& event) override;
-};
+        void OnEvent(eve::Event const& event) override;
+    };
+} // namespace lgk
