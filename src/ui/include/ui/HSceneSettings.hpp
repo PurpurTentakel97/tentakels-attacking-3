@@ -7,16 +7,19 @@
 
 #include <ui_lib/Scene.hpp>
 
-class SettingsScene : public uil::Scene {
-private:
-    void Initialize();
 
-public:
-    SettingsScene();
+namespace ui {
+    class SettingsScene : public uil::Scene {
+    private:
+        void Initialize();
 
-    void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) override;
+    public:
+        SettingsScene();
 
-    void Render(app::AppContext_ty_c appContext) override;
+        void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) override;
 
-    void Resize(app::AppContext_ty_c appContext) override;
-};
+        void Render(app::AppContext_ty_c appContext) override;
+
+        void Resize(app::AppContext_ty_c appContext) override;
+    };
+} // namespace ui

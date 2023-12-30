@@ -9,30 +9,32 @@
 #include <ui_lib/PopUp.hpp>
 
 
-class CellPopUp : public uil::PopUp {
-protected:
-    bool m_shouldClose{ false };
+namespace ui {
+    class CellPopUp : public uil::PopUp {
+    protected:
+        bool m_shouldClose{ false };
 
-    virtual void Initialize();
+        virtual void Initialize();
 
-    [[nodiscard]] uil::ClassicButton_ty InitializeAcceptButton();
+        [[nodiscard]] uil::ClassicButton_ty InitializeAcceptButton();
 
-    void SetShouldClose();
+        void SetShouldClose();
 
-    virtual void SetValue() = 0;
+        virtual void SetValue() = 0;
 
-    void CheckEnter();
+        void CheckEnter();
 
-    void Close(app::AppContext_ty_c appContext);
+        void Close(app::AppContext_ty_c appContext);
 
-public:
-    CellPopUp(
-            Vector2 pos,
-            Vector2 size,
-            uil::Alignment alignment,
-            std::string const& title,
-            app::AssetType infoTexture
-    );
+    public:
+        CellPopUp(
+                Vector2 pos,
+                Vector2 size,
+                uil::Alignment alignment,
+                std::string const& title,
+                app::AssetType infoTexture
+        );
 
-    void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) override;
-};
+        void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) override;
+    };
+} // namespace ui

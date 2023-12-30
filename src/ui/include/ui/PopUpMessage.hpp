@@ -10,22 +10,24 @@
 #include <ui_lib/PopUp.hpp>
 
 
-class MessagePopUp final : public uil::PopUp {
-private:
-    std::function<void()> m_callback{ []() {} };
+namespace ui {
+    class MessagePopUp final : public uil::PopUp {
+    private:
+        std::function<void()> m_callback{ []() {} };
 
-    void Initialize();
+        void Initialize();
 
-public:
-    MessagePopUp(
-            Vector2 pos,
-            Vector2 size,
-            uil::Alignment alignment,
-            std::string const& title,
-            std::string& subTitle,
-            app::AssetType infoTexture,
-            std::function<void()> callback
-    );
+    public:
+        MessagePopUp(
+                Vector2 pos,
+                Vector2 size,
+                uil::Alignment alignment,
+                std::string const& title,
+                std::string& subTitle,
+                app::AssetType infoTexture,
+                std::function<void()> callback
+        );
 
-    void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) override;
-};
+        void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) override;
+    };
+} // namespace ui

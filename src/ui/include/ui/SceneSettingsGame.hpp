@@ -7,10 +7,12 @@
 
 #include "HSceneSettings.hpp"
 
-class GameSettingsScene : public SettingsScene {
-private:
-    void Initialize();
+namespace ui {
+    class GameSettingsScene : public SettingsScene {
+    private:
+        void Initialize();
 
-public:
-    GameSettingsScene();
-};
+    public:
+        GameSettingsScene();
+    };
+} // namespace ui

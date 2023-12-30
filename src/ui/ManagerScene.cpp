@@ -11,119 +11,121 @@
 #include <ui_lib/SceneType.hpp>
 
 
-void SceneManager::InitializeNewScene(uil::SceneType const sceneType) {
-    switch (sceneType) {
-        case uil::SceneType::TEST:
-            m_currentScene = std::make_shared<TestScene>();
-            return;
+namespace ui {
+    void SceneManager::InitializeNewScene(uil::SceneType const sceneType) {
+        switch (sceneType) {
+            case uil::SceneType::TEST:
+                m_currentScene = std::make_shared<TestScene>();
+                return;
 
-        case uil::SceneType::LOGO:
-            m_currentScene = std::make_shared<LogoScene>();
-            return;
+            case uil::SceneType::LOGO:
+                m_currentScene = std::make_shared<LogoScene>();
+                return;
 
-        case uil::SceneType::INTRO:
-            m_currentScene = std::make_shared<Intro>();
-            return;
+            case uil::SceneType::INTRO:
+                m_currentScene = std::make_shared<Intro>();
+                return;
 
-        case uil::SceneType::MAIN_MENU:
-            m_currentScene = std::make_shared<MainMenu>();
-            return;
+            case uil::SceneType::MAIN_MENU:
+                m_currentScene = std::make_shared<MainMenu>();
+                return;
 
-        case uil::SceneType::NEW_GAME_PLAYER:
-            m_currentScene = std::make_shared<NewGamePlayerScene>();
-            return;
+            case uil::SceneType::NEW_GAME_PLAYER:
+                m_currentScene = std::make_shared<NewGamePlayerScene>();
+                return;
 
-        case uil::SceneType::NEW_GAME_PARAMETER:
-            m_currentScene = std::make_shared<NewGameParameterScene>();
-            return;
+            case uil::SceneType::NEW_GAME_PARAMETER:
+                m_currentScene = std::make_shared<NewGameParameterScene>();
+                return;
 
-        case uil::SceneType::VALIDATE_GALAXY:
-            m_currentScene = std::make_shared<ValidateGalaxyScene>();
-            return;
+            case uil::SceneType::VALIDATE_GALAXY:
+                m_currentScene = std::make_shared<ValidateGalaxyScene>();
+                return;
 
-        case uil::SceneType::MAIN:
-            m_currentScene = std::make_shared<MainScene>();
-            return;
+            case uil::SceneType::MAIN:
+                m_currentScene = std::make_shared<MainScene>();
+                return;
 
-        case uil::SceneType::GAME_SETTINGS:
-            m_currentScene = std::make_shared<GameSettingsScene>();
-            return;
+            case uil::SceneType::GAME_SETTINGS:
+                m_currentScene = std::make_shared<GameSettingsScene>();
+                return;
 
-        case uil::SceneType::APP_SETTINGS:
-            m_currentScene = std::make_shared<AppSettingsScene>();
-            return;
+            case uil::SceneType::APP_SETTINGS:
+                m_currentScene = std::make_shared<AppSettingsScene>();
+                return;
 
-        case uil::SceneType::CREDITS:
-            m_currentScene = std::make_shared<CreditsScene>();
-            return;
+            case uil::SceneType::CREDITS:
+                m_currentScene = std::make_shared<CreditsScene>();
+                return;
 
-        case uil::SceneType::UPDATE_EVALUATION:
-            m_currentScene = std::make_shared<UpdateEvaluationScene>();
-            return;
+            case uil::SceneType::UPDATE_EVALUATION:
+                m_currentScene = std::make_shared<UpdateEvaluationScene>();
+                return;
 
-        case uil::SceneType::NONE:
-            throw std::runtime_error("unexpected scene type NONE in initialize new scene");
-    }
-    throw std::runtime_error("unexpected scene type in initialize new scene");
-}
-
-void SceneManager::SwitchScene(app::AppContext_ty_c appContext) {
-
-    if (m_currentSceneType == m_nextSceneType) {
-        return;
+            case uil::SceneType::NONE:
+                throw std::runtime_error("unexpected scene type NONE in initialize new scene");
+        }
+        throw std::runtime_error("unexpected scene type in initialize new scene");
     }
 
-    eve::ClearFocusEvent const closeEvent;
-    appContext.eventManager.InvokeEvent(closeEvent);
+    void SceneManager::SwitchScene(app::AppContext_ty_c appContext) {
 
-    eve::NewFocusLayerEvent const newLayerEvent;
-    appContext.eventManager.InvokeEvent(newLayerEvent);
+        if (m_currentSceneType == m_nextSceneType) {
+            return;
+        }
 
-    InitializeNewScene(m_nextSceneType);
+        eve::ClearFocusEvent const closeEvent;
+        appContext.eventManager.InvokeEvent(closeEvent);
 
-    m_currentScene->SetActive(true, appContext);
-    m_currentSceneType = m_nextSceneType;
+        eve::NewFocusLayerEvent const newLayerEvent;
+        appContext.eventManager.InvokeEvent(newLayerEvent);
 
-    hlp::Print(hlp::PrintType::INFO, "scene switched to -> {}", GetStringBySceneType(m_currentSceneType));
-}
+        InitializeNewScene(m_nextSceneType);
 
-SceneManager::SceneManager() {
-    app::AppContext::GetInstance().eventManager.AddListener(this);
-    hlp::Print(hlp::PrintType::INITIALIZE, "SceneManager");
-}
+        m_currentScene->SetActive(true, appContext);
+        m_currentSceneType = m_nextSceneType;
 
-void SceneManager::SwitchSceneManual() {
-    SwitchScene(app::AppContext::GetInstance());
-}
-
-void SceneManager::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) {
-
-    SwitchScene(appContext);
-
-    if (!m_popUpManager.IsActivePopUp()) {
-        m_currentScene->CheckAndUpdate(mousePosition, appContext);
+        hlp::Print(hlp::PrintType::INFO, "scene switched to -> {}", GetStringBySceneType(m_currentSceneType));
     }
-    m_popUpManager.CheckAndUpdate(mousePosition, appContext);
-}
 
-void SceneManager::Render(app::AppContext_ty_c appContext) {
-    m_currentScene->Render(appContext);
-    m_popUpManager.Render(appContext);
-}
-
-void SceneManager::Resize(app::AppContext_ty_c appContext) {
-    m_currentScene->Resize(appContext);
-    m_popUpManager.Resize(appContext);
-}
-
-void SceneManager::OnEvent(eve::Event const& event) {
-
-    if (auto const SceneEvent = dynamic_cast<eve::SwitchSceneEvent const*>(&event)) {
-        m_nextSceneType = SceneEvent->GetSceneType();
-        return;
+    SceneManager::SceneManager() {
+        app::AppContext::GetInstance().eventManager.AddListener(this);
+        hlp::Print(hlp::PrintType::INITIALIZE, "SceneManager");
     }
-}
 
-bool SceneManager::IsValidCurrentScene() const {
-    return m_currentScene != nullptr;
-}
+    void SceneManager::SwitchSceneManual() {
+        SwitchScene(app::AppContext::GetInstance());
+    }
+
+    void SceneManager::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) {
+
+        SwitchScene(appContext);
+
+        if (!m_popUpManager.IsActivePopUp()) {
+            m_currentScene->CheckAndUpdate(mousePosition, appContext);
+        }
+        m_popUpManager.CheckAndUpdate(mousePosition, appContext);
+    }
+
+    void SceneManager::Render(app::AppContext_ty_c appContext) {
+        m_currentScene->Render(appContext);
+        m_popUpManager.Render(appContext);
+    }
+
+    void SceneManager::Resize(app::AppContext_ty_c appContext) {
+        m_currentScene->Resize(appContext);
+        m_popUpManager.Resize(appContext);
+    }
+
+    void SceneManager::OnEvent(eve::Event const& event) {
+
+        if (auto const SceneEvent = dynamic_cast<eve::SwitchSceneEvent const*>(&event)) {
+            m_nextSceneType = SceneEvent->GetSceneType();
+            return;
+        }
+    }
+
+    bool SceneManager::IsValidCurrentScene() const {
+        return m_currentScene != nullptr;
+    }
+} // namespace ui

@@ -10,49 +10,51 @@
 #include <ui_lib/Scene.hpp>
 
 
-class SliderAndInputLine : public uil::Scene {
-private:
-    uil::Slider_ty m_slider;
-    uil::InputLine_int_ty m_inputLine;
-    uil::ClassicButton_ty m_btn;
-    std::function<void(int)> m_onSave{ [](int) {} };
+namespace ui {
+    class SliderAndInputLine : public uil::Scene {
+    private:
+        uil::Slider_ty m_slider;
+        uil::InputLine_int_ty m_inputLine;
+        uil::ClassicButton_ty m_btn;
+        std::function<void(int)> m_onSave{ [](int) {} };
 
-    bool m_isEnabled{ true };
-    bool m_slided{ false };
-    int m_minValue;
-    int m_maxValue;
-    int m_currentValue;
+        bool m_isEnabled{ true };
+        bool m_slided{ false };
+        int m_minValue;
+        int m_maxValue;
+        int m_currentValue;
 
-    void Initialize(unsigned int focusID);
+        void Initialize(unsigned int focusID);
 
-    void BtnPressed();
+        void BtnPressed();
 
-    void SaveValue();
+        void SaveValue();
 
-    void Slide(float position);
+        void Slide(float position);
 
-    void ValidateCurrentValue();
+        void ValidateCurrentValue();
 
-    void SetSliderValue() const;
+        void SetSliderValue() const;
 
-public:
-    SliderAndInputLine(
-            unsigned int focusID,
-            Vector2 pos,
-            Vector2 size,
-            uil::Alignment alignment,
-            int minValue,
-            int maxValue,
-            int currentValue
-    );
+    public:
+        SliderAndInputLine(
+                unsigned int focusID,
+                Vector2 pos,
+                Vector2 size,
+                uil::Alignment alignment,
+                int minValue,
+                int maxValue,
+                int currentValue
+        );
 
-    void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) override;
+        void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) override;
 
-    void SetEnabled(bool isEnabled);
+        void SetEnabled(bool isEnabled);
 
-    void SetOnSave(std::function<void(int)> onSave);
+        void SetOnSave(std::function<void(int)> onSave);
 
-    void SetValue(int value);
+        void SetValue(int value);
 
-    void RandomValue();
-};
+        void RandomValue();
+    };
+} // namespace ui

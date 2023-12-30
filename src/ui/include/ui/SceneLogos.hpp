@@ -10,20 +10,23 @@
 #include <ui_lib/Scene.hpp>
 #include <ui_lib/SceneType.hpp>
 
-class LogoScene final : public uil::Scene {
-private:
-    inline static double const m_sceneLength{ 5.0f };
-    uil::SceneType m_nextScene{ uil::SceneType::INTRO };
-    double m_time;
 
-    void Initialize();
+namespace ui {
+    class LogoScene final : public uil::Scene {
+    private:
+        inline static double const m_sceneLength{ 5.0f };
+        uil::SceneType m_nextScene{ uil::SceneType::INTRO };
+        double m_time;
 
-public:
-    LogoScene();
+        void Initialize();
 
-    void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) override;
+    public:
+        LogoScene();
 
-    void Render(app::AppContext_ty_c appContext) override;
+        void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) override;
 
-    void Resize(app::AppContext_ty_c appContext) override;
-};
+        void Render(app::AppContext_ty_c appContext) override;
+
+        void Resize(app::AppContext_ty_c appContext) override;
+    };
+} // namespace ui

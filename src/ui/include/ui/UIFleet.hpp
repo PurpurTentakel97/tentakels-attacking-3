@@ -11,50 +11,53 @@
 #include <ui_lib/Line.hpp>
 #include <ui_lib/UIElement.hpp>
 
-class UIFleet final : public uil::UIElement {
-private:
-    unsigned int m_ID;
-    app::PlayerData m_player;
-    Vector2 m_relativeStart;
-    Vector2 m_relativeEnd;
-    lgk::Fleet_ty_raw_c m_fleet;
-    std::function<bool(Vector2 const&)> m_isInGalaxyCollider;
-    uil::Line m_line;
-    uil::Hover m_hover;
-    bool m_isDisplayAsPoint{ false };
-    uil::CountRing_ty m_ring{ nullptr };
 
-public:
-    UIFleet(unsigned int ID,
-            app::PlayerData const& player,
-            Vector2 start,
-            Vector2 end,
-            Vector2 relativeStart,
-            Vector2 relativeEnd,
-            lgk::Fleet_ty_raw_c fleet,
-            std::function<bool(Vector2 const&)> isInGalaxyCollider);
+namespace ui {
+    class UIFleet final : public uil::UIElement {
+    private:
+        unsigned int m_ID;
+        app::PlayerData m_player;
+        Vector2 m_relativeStart;
+        Vector2 m_relativeEnd;
+        lgk::Fleet_ty_raw_c m_fleet;
+        std::function<bool(Vector2 const&)> m_isInGalaxyCollider;
+        uil::Line m_line;
+        uil::Hover m_hover;
+        bool m_isDisplayAsPoint{ false };
+        uil::CountRing_ty m_ring{ nullptr };
 
-    [[nodiscard]] unsigned int GetID() const;
+    public:
+        UIFleet(unsigned int ID,
+                app::PlayerData const& player,
+                Vector2 start,
+                Vector2 end,
+                Vector2 relativeStart,
+                Vector2 relativeEnd,
+                lgk::Fleet_ty_raw_c fleet,
+                std::function<bool(Vector2 const&)> isInGalaxyCollider);
 
-    [[nodiscard]] bool IsColliding(Vector2 const& mousePosition) const;
+        [[nodiscard]] unsigned int GetID() const;
 
-    [[nodiscard]] bool IsRingOverlappingWithRectangle(Rectangle const& rect) const;
+        [[nodiscard]] bool IsColliding(Vector2 const& mousePosition) const;
 
-    [[nodiscard]] app::PlayerData GetPlayer() const;
+        [[nodiscard]] bool IsRingOverlappingWithRectangle(Rectangle const& rect) const;
 
-    void UpdateHoverText();
+        [[nodiscard]] app::PlayerData GetPlayer() const;
 
-    void UpdatePositions(Rectangle newCollider);
+        void UpdateHoverText();
 
-    void SetDisplayedAsPoint(bool isDisplayedAsPoint);
+        void UpdatePositions(Rectangle newCollider);
 
-    [[nodiscard]] bool IsDisplayAsPoint() const;
+        void SetDisplayedAsPoint(bool isDisplayedAsPoint);
 
-    void CheckAndUpdate(Vector2 const&, app::AppContext_ty_c appContext) override;
+        [[nodiscard]] bool IsDisplayAsPoint() const;
 
-    void Render(app::AppContext_ty_c appContext) override;
+        void CheckAndUpdate(Vector2 const&, app::AppContext_ty_c appContext) override;
 
-    void RenderRing(app::AppContext_ty_c appContext);
+        void Render(app::AppContext_ty_c appContext) override;
 
-    void Resize(app::AppContext_ty_c appContext) override;
-};
+        void RenderRing(app::AppContext_ty_c appContext);
+
+        void Resize(app::AppContext_ty_c appContext) override;
+    };
+} // namespace ui

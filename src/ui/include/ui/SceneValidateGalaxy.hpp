@@ -12,18 +12,20 @@
 #include <ui_lib/Scene.hpp>
 
 
-class ValidateGalaxyScene : public uil::Scene {
-private:
-    std::shared_ptr<GalaxyScene> m_galaxy;
+namespace ui {
+    class ValidateGalaxyScene : public uil::Scene {
+    private:
+        std::shared_ptr<GalaxyScene> m_galaxy;
 
-    void Initialize();
+        void Initialize();
 
-    void InitializePlayerLegend();
+        void InitializePlayerLegend();
 
-    void InitializeGalaxy();
+        void InitializeGalaxy();
 
-    void NewGalaxy();
+        void NewGalaxy();
 
-public:
-    ValidateGalaxyScene();
-};
+    public:
+        ValidateGalaxyScene();
+    };
+} // namespace ui

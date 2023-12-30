@@ -16,47 +16,50 @@
 #include <ui_lib/UIElement.hpp>
 #include <vector>
 
-class UIManager final : public eve::EventListener {
-private:
-    app::AppContext_ty m_appContext;
-    uil::Focus m_focus;
-    SceneManager m_sceneManager;
-    lgk::GameManager m_gameManager;
-    uil::HoverRender m_hover;
-    bool m_closeWindow{ false };
-    bool m_isNextFullScreen{ false };
-    cst::Resolution m_nextResolution;
 
-    void SetFullScreen();
+namespace ui {
+    class UIManager final : public eve::EventListener {
+    private:
+        app::AppContext_ty m_appContext;
+        uil::Focus m_focus;
+        SceneManager m_sceneManager;
+        lgk::GameManager m_gameManager;
+        uil::HoverRender m_hover;
+        bool m_closeWindow{ false };
+        bool m_isNextFullScreen{ false };
+        cst::Resolution m_nextResolution;
 
-    void CheckAndSetToggleFullScreen();
+        void SetFullScreen();
 
-    void CheckAndSetNewResolution();
+        void CheckAndSetToggleFullScreen();
 
-    void CheckAndUpdate();
+        void CheckAndSetNewResolution();
 
-    void Render();
+        void CheckAndUpdate();
 
-    void SetNativeWindowSize();
+        void Render();
 
-    void SetWindowSize(bool force = false);
+        void SetNativeWindowSize();
 
-    void SetWindowPosition();
+        void SetWindowSize(bool force = false);
 
-    static void SetTargetFPS(eve::SetTargetFPSEvent const* event);
+        void SetWindowPosition();
 
-    void UILoop();
+        static void SetTargetFPS(eve::SetTargetFPSEvent const* event);
 
-public:
-    UIManager();
+        void UILoop();
 
-    ~UIManager() override;
+    public:
+        UIManager();
 
-    void StartUI();
+        ~UIManager() override;
 
-    void StartUILoop();
+        void StartUI();
 
-    void OnEvent(eve::Event const& event) override;
+        void StartUILoop();
 
-    [[nodiscard]] uil::Focus& GetFocus();
-};
+        void OnEvent(eve::Event const& event) override;
+
+        [[nodiscard]] uil::Focus& GetFocus();
+    };
+} // namespace ui

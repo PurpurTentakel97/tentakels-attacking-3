@@ -10,23 +10,26 @@
 #include <ui_lib/Scene.hpp>
 #include <vector>
 
-class NewGameParameterScene final : public uil::Scene, public eve::EventListener {
-private:
-    std::shared_ptr<GameEventSettings> m_eventSettings;
-    std::vector<std::shared_ptr<SliderAndInputLine>> m_slider;
 
-    void Initialize();
+namespace ui {
+    class NewGameParameterScene final : public uil::Scene, public eve::EventListener {
+    private:
+        std::shared_ptr<GameEventSettings> m_eventSettings;
+        std::vector<std::shared_ptr<SliderAndInputLine>> m_slider;
 
-    static void SetValue(int value, SliderType type);
+        void Initialize();
 
-    void SetRandom() const;
+        static void SetValue(int value, SliderType type);
 
-    static void NextScene();
+        void SetRandom() const;
 
-public:
-    NewGameParameterScene();
+        static void NextScene();
 
-    ~NewGameParameterScene() override;
+    public:
+        NewGameParameterScene();
 
-    void OnEvent(eve::Event const& event) override;
-};
+        ~NewGameParameterScene() override;
+
+        void OnEvent(eve::Event const& event) override;
+    };
+} // namespace ui

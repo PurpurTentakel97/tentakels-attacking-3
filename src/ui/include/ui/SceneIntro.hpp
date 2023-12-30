@@ -14,21 +14,24 @@
 #include <ui_lib/SceneType.hpp>
 #include <vector>
 
-class Intro final : public uil::Scene {
-private:
-    uil::Title_ty m_title{ nullptr };
-    uil::ClassicButton_ty m_btn{ nullptr };
 
-    void Initialize();
+namespace ui {
+    class Intro final : public uil::Scene {
+    private:
+        uil::Title_ty m_title{ nullptr };
+        uil::ClassicButton_ty m_btn{ nullptr };
 
-public:
-    Intro();
+        void Initialize();
 
-    void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) override;
+    public:
+        Intro();
 
-    void Render(app::AppContext_ty_c appContext) override;
+        void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) override;
 
-    void Resize(app::AppContext_ty_c appContext) override;
+        void Render(app::AppContext_ty_c appContext) override;
 
-    void SetActive(bool active, app::AppContext_ty_c appContext) override;
-};
+        void Resize(app::AppContext_ty_c appContext) override;
+
+        void SetActive(bool active, app::AppContext_ty_c appContext) override;
+    };
+} // namespace ui
