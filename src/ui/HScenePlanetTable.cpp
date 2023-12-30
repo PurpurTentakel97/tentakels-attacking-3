@@ -86,7 +86,12 @@ void PlanetTable::Initialization() {
     }
 }
 
-PlanetTable::PlanetTable(Vector2 const pos, Vector2 const size, Alignment const alignment, Galaxy_ty_raw const galaxy)
+PlanetTable::PlanetTable(
+        Vector2 const pos,
+        Vector2 const size,
+        Alignment const alignment,
+        lgk::Galaxy_ty_raw const galaxy
+)
     : Scene{ pos, size, alignment },
       m_galaxy{ galaxy } {
 

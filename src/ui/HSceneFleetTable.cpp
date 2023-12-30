@@ -153,7 +153,7 @@ FleetAndTargetPointTable::FleetAndTargetPointTable(
         Vector2 const pos,
         Vector2 const size,
         Alignment const alignment,
-        Galaxy_ty_raw galaxy,
+        lgk::Galaxy_ty_raw galaxy,
         app::PlayerData const& currentPlayer
 )
     : Scene{ pos, size, alignment },

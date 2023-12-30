@@ -39,7 +39,7 @@ public:
 
     [[nodiscard]] bool IsEnabled() const;
 
-    [[nodiscard]] Galaxy_ty_raw GetGalaxy() const;
+    [[nodiscard]] lgk::Galaxy_ty_raw GetGalaxy() const;
 
     void FilterByCurrentPlayer(app::PlayerData const& player);
 

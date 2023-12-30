@@ -18,7 +18,7 @@
 
 void UIGalaxy::Initialize(eve::SendGalaxyPointerEvent const* const event) {
     app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
-    Galaxy_ty_c_raw galaxy{ event->GetGalaxy() };
+    lgk::Galaxy_ty_c_raw galaxy{ event->GetGalaxy() };
 
     m_currentGalaxy = galaxy;
     int currentFocusID{ 1 };
@@ -627,7 +627,7 @@ Rectangle UIGalaxy::GetCollider() const {
     return UIElement::GetCollider();
 }
 
-Galaxy_ty_raw UIGalaxy::GetGalaxy() const {
+lgk::Galaxy_ty_raw UIGalaxy::GetGalaxy() const {
     return m_currentGalaxy;
 }
 

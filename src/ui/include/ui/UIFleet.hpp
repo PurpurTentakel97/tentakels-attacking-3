@@ -17,7 +17,7 @@ private:
     app::PlayerData m_player;
     Vector2 m_relativeStart;
     Vector2 m_relativeEnd;
-    Fleet_ty_raw_c m_fleet;
+    lgk::Fleet_ty_raw_c m_fleet;
     std::function<bool(Vector2 const&)> m_isInGalaxyCollider;
     Line m_line;
     Hover m_hover;
@@ -31,7 +31,7 @@ public:
             Vector2 end,
             Vector2 relativeStart,
             Vector2 relativeEnd,
-            Fleet_ty_raw_c fleet,
+            lgk::Fleet_ty_raw_c fleet,
             std::function<bool(Vector2 const&)> isInGalaxyCollider);
 
     [[nodiscard]] unsigned int GetID() const;

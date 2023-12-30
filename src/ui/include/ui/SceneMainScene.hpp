@@ -69,7 +69,7 @@ private:
 
     void HandleGalaxyDragLineInput(eve::DragLineFleetInstructionEvent const* event);
 
-    [[nodiscard]] SpaceObject_ty GetSpaceObjectFromID(unsigned int ID) const;
+    [[nodiscard]] lgk::SpaceObject_ty GetSpaceObjectFromID(unsigned int ID) const;
 
 public:
     MainScene();

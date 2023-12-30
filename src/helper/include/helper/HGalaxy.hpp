@@ -10,5 +10,6 @@
 #include <utility>
 
 namespace hlp {
-    [[nodiscard]] std::pair<bool, SpaceObject_ty> TryGetTarget(Fleet_ty_raw fleet, SpaceObject_ty_c target);
+    [[nodiscard]] std::pair<bool, lgk::SpaceObject_ty>
+    TryGetTarget(lgk::Fleet_ty_raw fleet, lgk::SpaceObject_ty_c target);
 }

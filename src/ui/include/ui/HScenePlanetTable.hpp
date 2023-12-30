@@ -11,13 +11,13 @@
 
 class PlanetTable final : public Scene {
 private:
-    Galaxy_ty_raw m_galaxy;
+    lgk::Galaxy_ty_raw m_galaxy;
     Table_ty m_table;
 
     void Initialization();
 
 public:
-    PlanetTable(Vector2 pos, Vector2 size, Alignment alignment, Galaxy_ty_raw galaxy);
+    PlanetTable(Vector2 pos, Vector2 size, Alignment alignment, lgk::Galaxy_ty_raw galaxy);
 
     void SetActive(bool active, app::AppContext_ty_c appContext) override;
 };

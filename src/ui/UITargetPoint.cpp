@@ -10,7 +10,7 @@
 #include <logic/TargetPoint.hpp>
 
 UITargetPoint::UITargetPoint(unsigned int const focusID, unsigned int const ID, app::PlayerData const& player, Vector2 const pos,
-	Vector2 const colliderPos, TargetPoint_ty_raw_c targetPoint)
+	Vector2 const colliderPos, lgk::TargetPoint_ty_raw_c targetPoint)
 	: UIGalaxyElement{ focusID, ID,{ 0.005f,0.01f },  player, pos, colliderPos }, m_targetPoint{ targetPoint } {
 
     m_ring = std::make_shared<CountRing>(

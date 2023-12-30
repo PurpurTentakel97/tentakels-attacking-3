@@ -10,17 +10,17 @@
 namespace utl {
     struct MergeResult final {
     private:
-        Player_ty m_player;
-        SpaceObject_ty m_origin;
-        SpaceObject_ty m_destination;
+        lgk::Player_ty m_player;
+        lgk::SpaceObject_ty m_origin;
+        lgk::SpaceObject_ty m_destination;
         size_t m_count;
 
     public:
-        MergeResult(Player_ty player, SpaceObject_ty origin, SpaceObject_ty destination, size_t count);
+        MergeResult(lgk::Player_ty player, lgk::SpaceObject_ty origin, lgk::SpaceObject_ty destination, size_t count);
 
-        [[nodiscard]] Player_ty GetPlayer() const;
-        [[nodiscard]] SpaceObject_ty GetOrigin() const;
-        [[nodiscard]] SpaceObject_ty GetDestination() const;
+        [[nodiscard]] lgk::Player_ty GetPlayer() const;
+        [[nodiscard]] lgk::SpaceObject_ty GetOrigin() const;
+        [[nodiscard]] lgk::SpaceObject_ty GetDestination() const;
         [[nodiscard]] size_t GetCount() const;
     };
 } // namespace utl

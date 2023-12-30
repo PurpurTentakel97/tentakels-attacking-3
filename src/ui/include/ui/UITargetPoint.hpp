@@ -11,7 +11,7 @@
 
 class UITargetPoint final : public UIGalaxyElement {
 private:
-    TargetPoint_ty_raw_c m_targetPoint;
+    lgk::TargetPoint_ty_raw_c m_targetPoint;
 
 public:
     UITargetPoint(
@@ -20,7 +20,7 @@ public:
             app::PlayerData const& player,
             Vector2 pos,
             Vector2 colliderPos,
-            TargetPoint_ty_raw_c targetPoint
+            lgk::TargetPoint_ty_raw_c targetPoint
     );
 
     void UpdateHoverText() override;

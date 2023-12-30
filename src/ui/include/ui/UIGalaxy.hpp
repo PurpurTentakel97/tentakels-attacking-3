@@ -37,7 +37,7 @@ private:
     float m_scaleFactor{ 1.0f };
     Vector2 m_lastMousePosition{ 0.0f, 0.0f };
     Rectangle m_absoluteSize{};
-    Galaxy_ty_raw m_currentGalaxy{ nullptr };
+    lgk::Galaxy_ty_raw m_currentGalaxy{ nullptr };
 
     std::vector<UIGalaxyElement_ty> m_uiGalaxyElements;
     std::vector<UIPlanet_ty> m_uiPlanets;
@@ -116,7 +116,7 @@ public:
 
     [[nodiscard]] Rectangle GetCollider() const override;
 
-    [[nodiscard]] Galaxy_ty_raw GetGalaxy() const;
+    [[nodiscard]] lgk::Galaxy_ty_raw GetGalaxy() const;
 
     void OnEvent(eve::Event const& event) override;
 };

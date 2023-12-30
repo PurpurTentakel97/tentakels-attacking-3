@@ -142,7 +142,7 @@ bool GalaxyScene::IsEnabled() const {
     return m_isEnabled;
 }
 
-Galaxy_ty_raw GalaxyScene::GetGalaxy() const {
+lgk::Galaxy_ty_raw GalaxyScene::GetGalaxy() const {
     return m_galaxy->GetGalaxy();
 }
 

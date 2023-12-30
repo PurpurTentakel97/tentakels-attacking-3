@@ -11,9 +11,9 @@
 
 namespace utl {
     struct FleetResult final {
-        SpaceObject_ty origin;
-        Fleet_ty fleet;
-        SpaceObject_ty destination;
+        lgk::SpaceObject_ty origin;
+        lgk::Fleet_ty fleet;
+        lgk::SpaceObject_ty destination;
         bool valid;
     };
 } // namespace utl

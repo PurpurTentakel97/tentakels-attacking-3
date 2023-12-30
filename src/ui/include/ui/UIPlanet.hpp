@@ -10,7 +10,7 @@
 
 class UIPlanet final : public UIGalaxyElement {
 private:
-    Planet_ty_raw_c m_planet;
+    lgk::Planet_ty_raw_c m_planet;
     Vector2 m_renderOffset{};
 
 public:
@@ -20,7 +20,7 @@ public:
             app::PlayerData const& player,
             Vector2 pos,
             Vector2 colliderPos,
-            Planet_ty_raw_c planet
+            lgk::Planet_ty_raw_c planet
     );
 
 

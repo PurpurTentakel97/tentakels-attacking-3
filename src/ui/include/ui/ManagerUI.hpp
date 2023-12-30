@@ -21,7 +21,7 @@ private:
     app::AppContext_ty m_appContext;
     Focus m_focus;
     SceneManager m_sceneManager;
-    GameManager m_gameManager;
+    lgk::GameManager m_gameManager;
     HoverRender m_hover;
     bool m_closeWindow{ false };
     bool m_isNextFullScreen{ false };

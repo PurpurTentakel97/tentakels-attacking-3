@@ -193,15 +193,15 @@ namespace eve {
 
     class SendGalaxyPointerEvent final : public Event {
     private:
-        Galaxy_ty_c_raw m_galaxy;
+        lgk::Galaxy_ty_c_raw m_galaxy;
         bool m_isShowGalaxy;
 
     public:
-        SendGalaxyPointerEvent(Galaxy_ty_c_raw const galaxy, bool const isShowGalaxy)
+        SendGalaxyPointerEvent(lgk::Galaxy_ty_c_raw const galaxy, bool const isShowGalaxy)
             : m_galaxy{ galaxy },
               m_isShowGalaxy{ isShowGalaxy } { }
 
-        [[nodiscard]] Galaxy_ty_raw GetGalaxy() const {
+        [[nodiscard]] lgk::Galaxy_ty_raw GetGalaxy() const {
             return m_galaxy;
         }
         [[nodiscard]] bool IsShowGalaxy() const {

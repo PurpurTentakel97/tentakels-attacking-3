@@ -600,7 +600,7 @@ void MainScene::HandleGalaxyDragLineInput(eve::DragLineFleetInstructionEvent con
     app::AppContext::GetInstance().eventManager.InvokeEvent(focusEvent);
 }
 
-SpaceObject_ty MainScene::GetSpaceObjectFromID(unsigned int const ID) const {
+lgk::SpaceObject_ty MainScene::GetSpaceObjectFromID(unsigned int const ID) const {
     auto const& planetData{ m_galaxy->GetGalaxy()->GetPlanets() };
     for (auto const& planet : planetData) {
         if (planet->GetID() == ID) {
