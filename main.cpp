@@ -23,7 +23,7 @@ int main() {
 
     hlp::Print(hlp::PrintType::BUILD, cst::Global::gameVersion);
 
-    UIManager uiManager;
+    ui::UIManager uiManager;
 
     appContext.LoadConfig();
     appContext.LoadLanguages();
