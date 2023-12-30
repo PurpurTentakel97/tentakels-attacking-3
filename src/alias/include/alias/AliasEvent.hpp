@@ -7,4 +7,5 @@
 
 namespace eve {
     class SendFleetInstructionEvent;
+    class SendGalaxyPointerEvent;
 }

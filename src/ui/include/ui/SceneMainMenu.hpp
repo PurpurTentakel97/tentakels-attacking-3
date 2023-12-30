@@ -8,7 +8,7 @@
 #include <ui_lib/Scene.hpp>
 
 
-class MainMenu final : public Scene {
+class MainMenu final : public uil::Scene {
 private:
     void Initialize();
 

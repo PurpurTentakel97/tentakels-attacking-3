@@ -10,15 +10,15 @@
 #include <vector>
 
 
-class GalaxyScene final : public Scene {
+class GalaxyScene final : public uil::Scene {
 private:
     bool m_isEnabled = true;
-    Line_ty m_scaleLineX;
-    Line_ty m_scaleLineY;
-    Slider_ty m_verticalSlider;
-    Slider_ty m_horizontalSlider;
-    ClassicButton_ty m_zoomInBtn;
-    ClassicButton_ty m_zoomOutBtn;
+    uil::Line_ty m_scaleLineX;
+    uil::Line_ty m_scaleLineY;
+    uil::Slider_ty m_verticalSlider;
+    uil::Slider_ty m_horizontalSlider;
+    uil::ClassicButton_ty m_zoomInBtn;
+    uil::ClassicButton_ty m_zoomOutBtn;
     UIGalaxy_ty m_galaxy;
 
 
@@ -29,7 +29,7 @@ private:
     void Slide(float position, bool isHorizontal);
 
 public:
-    GalaxyScene(Vector2 pos, Vector2 size, Alignment alignment, bool isShowGalaxy, bool isAcceptingInput = false);
+    GalaxyScene(Vector2 pos, Vector2 size, uil::Alignment alignment, bool isShowGalaxy, bool isAcceptingInput = false);
 
     void SetIsScaling(bool isScaling);
 

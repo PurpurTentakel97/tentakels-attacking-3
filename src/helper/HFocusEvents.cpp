@@ -28,7 +28,7 @@ namespace hlp {
         }
     }
 
-    void AddFocusElement(Focusable_ty_raw focusable, bool const isPopUp) {
+    void AddFocusElement(uil::Focusable_ty_raw focusable, bool const isPopUp) {
         if (isPopUp) {
             eve::NewFocusPopUpElementEvent const event{ focusable };
             app::AppContext::GetInstance().eventManager.InvokeEvent(event);
@@ -38,7 +38,7 @@ namespace hlp {
         }
     }
 
-    void DeleteFocusElement(Focusable_ty_raw focusable, bool const isPopUp) {
+    void DeleteFocusElement(uil::Focusable_ty_raw focusable, bool const isPopUp) {
         if (isPopUp) {
             eve::DeleteFocusPopUpElementEvent const event{ focusable };
             app::AppContext::GetInstance().eventManager.InvokeEvent(event);
@@ -53,7 +53,7 @@ namespace hlp {
         app::AppContext::GetInstance().eventManager.InvokeEvent(event);
     }
 
-    void SelectFocusElement(Focusable_ty_raw focusable, bool const isPopUp) {
+    void SelectFocusElement(uil::Focusable_ty_raw focusable, bool const isPopUp) {
         if (isPopUp) {
             eve::SelectFocusPopUpElementEvent const event{ focusable };
             app::AppContext::GetInstance().eventManager.InvokeEvent(event);

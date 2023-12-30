@@ -14,30 +14,30 @@
 
 void Intro::Initialize() {
     app::AppContext_ty appContext = app::AppContext::GetInstance();
-    m_title = std::make_shared<Title>(
+    m_title = std::make_shared<uil::Title>(
             GetElementPosition(0.5f, 0.1f),
             GetElementSize(0.9f, 0.3f),
-            Alignment::TOP_MID,
+            uil::Alignment::TOP_MID,
             true
     );
     m_elements.push_back(m_title);
 
-    m_btn = std::make_shared<ClassicButton>(
+    m_btn = std::make_shared<uil::ClassicButton>(
             1,
             GetElementPosition(0.5f, 1.2f),
             GetElementSize(0.3f, 0.2f),
-            Alignment::MID_MID,
+            uil::Alignment::MID_MID,
             appContext.languageManager.Text("scene_intro_start_btn"),
             app::SoundType::ACCEPTED
     );
     m_btn->SetEnabled(false);
     m_elements.push_back(m_btn);
 
-    auto skipText = std::make_shared<Text>(
+    auto skipText = std::make_shared<uil::Text>(
             GetElementPosition(0.99f, 0.97f),
             GetElementSize(0.2f, 0.03f),
-            Alignment::BOTTOM_RIGHT,
-            Alignment::BOTTOM_RIGHT,
+            uil::Alignment::BOTTOM_RIGHT,
+            uil::Alignment::BOTTOM_RIGHT,
             0.03f,
             appContext.languageManager.Text("scene_intro_skip", "[ESC]")
     );
@@ -46,7 +46,7 @@ void Intro::Initialize() {
 
 
     m_btn->SetOnClick([]() {
-        app::AppContext::GetInstance().eventManager.InvokeEvent(eve::SwitchSceneEvent(SceneType::MAIN_MENU));
+        app::AppContext::GetInstance().eventManager.InvokeEvent(eve::SwitchSceneEvent(uil::SceneType::MAIN_MENU));
     });
 }
 
@@ -54,7 +54,7 @@ Intro::Intro()
     : Scene{
           { 0.0f, 0.0f },
           { 1.0f, 1.0f },
-          Alignment::DEFAULT
+          uil::Alignment::DEFAULT
 } {
     Initialize();
 }

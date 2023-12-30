@@ -14,11 +14,11 @@ void AppSettingsScene::Initialize() {
     app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
 
     // headline
-    auto settingsText = std::make_shared<Text>(
+    auto settingsText = std::make_shared<uil::Text>(
             GetElementPosition(0.5f, 0.2f),
             GetElementSize(0.3f, 0.1f),
-            Alignment::TOP_MID,
-            Alignment::TOP_MID,
+            uil::Alignment::TOP_MID,
+            uil::Alignment::TOP_MID,
             0.07f,
             appContext.languageManager.Text("helper_app_settings")
     );
@@ -38,7 +38,7 @@ void AppSettingsScene::Initialize() {
     // float     constexpr rxwo   { rx + height      };
     // float     constexpr lxwoS  { lx + heightS     };
     float constexpr lxwo{ lx + height };
-    Alignment constexpr a{ Alignment::MID_LEFT };
+    auto constexpr a{ uil::Alignment::MID_LEFT };
 
     // increase
     auto const incFIDS{ [&]() { ++id; } };
@@ -48,7 +48,7 @@ void AppSettingsScene::Initialize() {
 
 
     // first
-    auto volumeText = std::make_shared<Text>(
+    auto volumeText = std::make_shared<uil::Text>(
             GetElementPosition(rx, y),
             GetElementSize(width, height),
             a,
@@ -61,7 +61,7 @@ void AppSettingsScene::Initialize() {
     incPosB();
 
     m_toggleFullScreenCBM =
-            std::make_shared<CheckBox>(id, GetElementPosition(lx, y), GetElementSize(0.0f, height).y, a, 1);
+            std::make_shared<uil::CheckBox>(id, GetElementPosition(lx, y), GetElementSize(0.0f, height).y, a, 1);
     m_toggleFullScreenCBM->SetChecked(appContext.constants.window.isFullScreen);
     m_toggleFullScreenCBM->SetOnCheck([](unsigned int, bool isChecked) {
         eve::ToggleFullscreenEvent const event{ isChecked };
@@ -71,7 +71,7 @@ void AppSettingsScene::Initialize() {
 
     incFIDS();
 
-    auto fullScreenText = std::make_shared<Text>(
+    auto fullScreenText = std::make_shared<uil::Text>(
             GetElementPosition(lxwo, y),
             GetElementSize(width, height),
             a,
@@ -104,7 +104,7 @@ void AppSettingsScene::Initialize() {
     incPosS();
 
     // third
-    auto muteCB = std::make_shared<CheckBox>(id, GetElementPosition(rx, y), GetElementSize(0.0f, heightS).y, a, 1);
+    auto muteCB = std::make_shared<uil::CheckBox>(id, GetElementPosition(rx, y), GetElementSize(0.0f, heightS).y, a, 1);
     muteCB->SetChecked(appContext.constants.sound.muteVolume);
     muteCB->SetOnCheck([this](unsigned int, bool isChecked) {
         eve::MuteMasterVolumeEvent const event{ isChecked };
@@ -115,7 +115,7 @@ void AppSettingsScene::Initialize() {
 
     incFIDS();
 
-    auto muteText = std::make_shared<Text>(
+    auto muteText = std::make_shared<uil::Text>(
             GetElementPosition(rxwoS, y),
             GetElementSize(width, heightS),
             a,
@@ -128,7 +128,7 @@ void AppSettingsScene::Initialize() {
     incPosB();
 
     // fourth
-    auto resolutionText = std::make_shared<Text>(
+    auto resolutionText = std::make_shared<uil::Text>(
             GetElementPosition(lx, y),
             GetElementSize(width, height),
             a,
@@ -138,7 +138,7 @@ void AppSettingsScene::Initialize() {
     );
     m_elements.push_back(resolutionText);
 
-    auto languageText = std::make_shared<Text>(
+    auto languageText = std::make_shared<uil::Text>(
             GetElementPosition(rx, y),
             GetElementSize(width, height),
             a,
@@ -151,7 +151,7 @@ void AppSettingsScene::Initialize() {
     incPosS();
 
     // fifth
-    auto resolutionHintText = std::make_shared<Text>(
+    auto resolutionHintText = std::make_shared<uil::Text>(
             GetElementPosition(lx, y),
             GetElementSize(width, heightS),
             a,
@@ -164,7 +164,7 @@ void AppSettingsScene::Initialize() {
     incPosS();
 
     // sixth
-    m_resolutionDropDown = std::make_shared<DropDown>(
+    m_resolutionDropDown = std::make_shared<uil::DropDown>(
             GetElementPosition(lx, y),
             GetElementSize(width, height),
             a,
@@ -184,7 +184,7 @@ void AppSettingsScene::Initialize() {
 
     incFIDB();
 
-    m_languageDropDown = std::make_shared<DropDown>(
+    m_languageDropDown = std::make_shared<uil::DropDown>(
             GetElementPosition(rx, y),
             GetElementSize(width, height),
             a,

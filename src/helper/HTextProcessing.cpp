@@ -190,12 +190,12 @@ namespace hlp {
             std::string const& text,
             float const fontSize,
             Rectangle const collider,
-            Alignment const alignment
+            uil::Alignment const alignment
     ) {
 
-        TextAlignment const textAlignment{ GetVerticalTextAlignment(alignment) };
+        uil::TextAlignment const textAlignment{ GetVerticalTextAlignment(alignment) };
 
-        if (textAlignment == TextAlignment::TOP) {
+        if (textAlignment == uil::TextAlignment::TOP) {
             return { collider.x, collider.y };
         }
 
@@ -207,7 +207,7 @@ namespace hlp {
         }
 
         float difference{ collider.height - textSize.y };
-        difference = textAlignment == TextAlignment::MID ? difference / 2 : difference;
+        difference = textAlignment == uil::TextAlignment::MID ? difference / 2 : difference;
 
         return { collider.x, collider.y + difference };
     }
@@ -216,11 +216,11 @@ namespace hlp {
             std::vector<std::string> text,
             float const fontSize,
             Rectangle const collider,
-            Alignment const alignment
+            uil::Alignment const alignment
     ) {
 
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
-        TextAlignment const textAlignment{ GetVerticalTextAlignment(alignment) };
+        uil::TextAlignment const textAlignment{ GetVerticalTextAlignment(alignment) };
         std::vector<float> toReturn;
 
         assert(not text.empty());
@@ -229,13 +229,13 @@ namespace hlp {
         Vector2 const textSize =
                 MeasureTextEx(*(appContext.assetManager.GetFont()), text.at(0).c_str(), fontSize, 0.0f);
 
-        if (textAlignment == TextAlignment::TOP) {
+        if (textAlignment == uil::TextAlignment::TOP) {
             value = 0.0f;
         } else {
 
             float const offset{ collider.height - (textSize.y * static_cast<float>(text.size())) };
 
-            if (textAlignment == TextAlignment::MID) {
+            if (textAlignment == uil::TextAlignment::MID) {
                 value = offset / 2;
             } else {
                 value = offset;
@@ -254,12 +254,12 @@ namespace hlp {
             std::string const& text,
             Rectangle const collider,
             float const fontSize,
-            Alignment const alignment
+            uil::Alignment const alignment
     ) {
 
-        TextAlignment const textAlignment{ GetHorizontalTextAlignment(alignment) };
+        uil::TextAlignment const textAlignment{ GetHorizontalTextAlignment(alignment) };
 
-        if (textAlignment == TextAlignment::LEFT) {
+        if (textAlignment == uil::TextAlignment::LEFT) {
             return text;
         }
 
@@ -279,7 +279,7 @@ namespace hlp {
             }
 
             float difference{ collider.width - textSize.x };
-            difference = textAlignment == TextAlignment::MID ? difference / 2 : difference;
+            difference = textAlignment == uil::TextAlignment::MID ? difference / 2 : difference;
 
             char const spaceCount{ static_cast<char>(difference / spaceSize.x) };
 
@@ -297,14 +297,14 @@ namespace hlp {
             std::vector<std::string> const& text,
             Rectangle const collider,
             float const fontSize,
-            Alignment const alignment
+            uil::Alignment const alignment
     ) {
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
-        TextAlignment const textAlignment{ GetHorizontalTextAlignment(alignment) };
+        uil::TextAlignment const textAlignment{ GetHorizontalTextAlignment(alignment) };
 
         std::vector<float> toReturn;
 
-        if (textAlignment == TextAlignment::LEFT) {
+        if (textAlignment == uil::TextAlignment::LEFT) {
             for (size_t i = 0; i < text.size(); ++i) {
                 toReturn.push_back(0.0f);
             }
@@ -321,7 +321,7 @@ namespace hlp {
             }
 
             float difference{ collider.width - textSize.x };
-            difference = textAlignment == TextAlignment::MID ? difference / 2 : difference;
+            difference = textAlignment == uil::TextAlignment::MID ? difference / 2 : difference;
 
             toReturn.push_back(difference);
         }

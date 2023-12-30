@@ -345,7 +345,7 @@ UIGalaxy::UIGalaxy(
         unsigned int const ID,
         Vector2 const pos,
         Vector2 const size,
-        Alignment const alignment,
+        uil::Alignment const alignment,
         bool const isShowGalaxy,
         bool const isAcceptInput
 )
@@ -358,7 +358,7 @@ UIGalaxy::UIGalaxy(
     app::AppContext_ty appContext{ app::AppContext::GetInstance() };
     appContext.eventManager.AddListener(this);
 
-    m_lineDrag = std::make_shared<LineDrag>(2.0f, WHITE, [this](Vector2 start, Vector2 end) -> void {
+    m_lineDrag = std::make_shared<uil::LineDrag>(2.0f, WHITE, [this](Vector2 start, Vector2 end) -> void {
         this->HandleDragLineResult(start, end);
     });
 

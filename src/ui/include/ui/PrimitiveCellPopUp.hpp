@@ -12,7 +12,7 @@
 template<typename T>
 class PrimitiveCellPopUp final : public CellPopUp {
 private:
-    std::shared_ptr<InputLine<T>> m_inputChange;
+    std::shared_ptr<uil::InputLine<T>> m_inputChange;
     std::function<void(T)> m_onClick{ [](T) {} };
 
     void SetValue() override {
@@ -24,7 +24,7 @@ public:
     PrimitiveCellPopUp(
             Vector2 const pos,
             Vector2 const size,
-            Alignment const alignment,
+            uil::Alignment const alignment,
             std::string const& title,
             app::AssetType const infoTexture,
             T const currentValue,
@@ -38,11 +38,11 @@ public:
         auto acceptBtn = InitializeAcceptButton();
         acceptBtn->SetOnClick([this]() { this->SetValue(); });
 
-        auto inputChance = std::make_shared<InputLine<T>>(
+        auto inputChance = std::make_shared<uil::InputLine<T>>(
                 3,
                 hlp::GetElementPosition(m_pos, m_size, 0.5f, 0.55f),
                 hlp::GetElementSize(m_size, 0.9f, 0.2f),
-                Alignment::MID_MID,
+                uil::Alignment::MID_MID,
                 50
         );
 

@@ -28,20 +28,20 @@ void NewGameParameterScene::Initialize() {
     app::AppContext_ty appContext{ app::AppContext::GetInstance() };
 
     // title
-    m_elements.push_back(std::make_shared<Title>(
+    m_elements.push_back(std::make_shared<uil::Title>(
             GetElementPosition(0.5f, 0.025f),
             GetElementSize(0.8f, 0.25f),
-            Alignment::TOP_MID,
+            uil::Alignment::TOP_MID,
             false
     ));
 
 
     // parameters
-    auto parameterText = std::make_shared<Text>(
+    auto parameterText = std::make_shared<uil::Text>(
             GetElementPosition(0.5f, 0.2f),
             GetElementSize(0.3f, 0.1f),
-            Alignment::TOP_MID,
-            Alignment::TOP_MID,
+            uil::Alignment::TOP_MID,
+            uil::Alignment::TOP_MID,
             0.07f,
             appContext.languageManager.Text("scene_new_game_parameter_parameter_headline")
     );
@@ -50,7 +50,7 @@ void NewGameParameterScene::Initialize() {
 
     // line
     m_elements.push_back(
-            std::make_shared<Line>(GetElementPosition(0.5f, 0.28f), GetElementPosition(0.5f, 0.95f), 2.0f, WHITE)
+            std::make_shared<uil::Line>(GetElementPosition(0.5f, 0.28f), GetElementPosition(0.5f, 0.95f), 2.0f, WHITE)
     );
 
     // events
@@ -58,7 +58,7 @@ void NewGameParameterScene::Initialize() {
             1,
             GetElementPosition(0.25f, 0.3f),
             GetElementSize(0.25f, 0.5f),
-            Alignment::TOP_MID
+            uil::Alignment::TOP_MID
     );
     m_eventSettings->SetActive(true, appContext);
     m_elements.push_back(m_eventSettings);
@@ -77,11 +77,11 @@ void NewGameParameterScene::Initialize() {
     };
 
     // slider
-    m_elements.push_back(std::make_shared<Text>(
+    m_elements.push_back(std::make_shared<uil::Text>(
             GetElementPosition(posX, posY),
             GetElementSize(sizeX, sizeY),
-            Alignment::TOP_MID,
-            Alignment::TOP_LEFT,
+            uil::Alignment::TOP_MID,
+            uil::Alignment::TOP_LEFT,
             0.04f,
             appContext.languageManager.Text("scene_new_game_parameter_planet_count_subheadline", ":")
     ));
@@ -90,7 +90,7 @@ void NewGameParameterScene::Initialize() {
             ID,
             GetElementPosition(posX, posY + 0.04f),
             GetElementSize(sizeX, sizeY),
-            Alignment::TOP_MID,
+            uil::Alignment::TOP_MID,
             static_cast<int>(appContext.constants.world.minPlanetCount),
             static_cast<int>(appContext.constants.world.maxPlanetCount),
             static_cast<int>(appContext.constants.world.currentPlanetCount)
@@ -102,11 +102,11 @@ void NewGameParameterScene::Initialize() {
 
     next();
 
-    m_elements.push_back(std::make_shared<Text>(
+    m_elements.push_back(std::make_shared<uil::Text>(
             GetElementPosition(posX, posY),
             GetElementSize(sizeX, sizeY),
-            Alignment::TOP_MID,
-            Alignment::TOP_LEFT,
+            uil::Alignment::TOP_MID,
+            uil::Alignment::TOP_LEFT,
             0.04f,
             appContext.languageManager.Text("scene_new_game_parameter_galaxy_width_subheadline", ":")
     ));
@@ -115,7 +115,7 @@ void NewGameParameterScene::Initialize() {
             ID,
             GetElementPosition(posX, posY + 0.04f),
             GetElementSize(sizeX, sizeY),
-            Alignment::TOP_MID,
+            uil::Alignment::TOP_MID,
             static_cast<int>(appContext.constants.world.minDimensionX),
             static_cast<int>(appContext.constants.world.maxDimensionX),
             static_cast<int>(appContext.constants.world.currentDimensionX)
@@ -127,11 +127,11 @@ void NewGameParameterScene::Initialize() {
 
     next();
 
-    m_elements.push_back(std::make_shared<Text>(
+    m_elements.push_back(std::make_shared<uil::Text>(
             GetElementPosition(posX, posY),
             GetElementSize(sizeX, sizeY),
-            Alignment::TOP_MID,
-            Alignment::TOP_LEFT,
+            uil::Alignment::TOP_MID,
+            uil::Alignment::TOP_LEFT,
             0.04f,
             appContext.languageManager.Text("scene_new_game_parameter_galaxy_height_subheadline", ":")
     ));
@@ -140,7 +140,7 @@ void NewGameParameterScene::Initialize() {
             ID,
             GetElementPosition(posX, posY + 0.04f),
             GetElementSize(sizeX, sizeY),
-            Alignment::TOP_MID,
+            uil::Alignment::TOP_MID,
             static_cast<int>(appContext.constants.world.minDimensionY),
             static_cast<int>(appContext.constants.world.maxDimensionY),
             static_cast<int>(appContext.constants.world.currentDimensionY)
@@ -152,11 +152,11 @@ void NewGameParameterScene::Initialize() {
 
     next();
 
-    m_elements.push_back(std::make_shared<Text>(
+    m_elements.push_back(std::make_shared<uil::Text>(
             GetElementPosition(posX, posY),
             GetElementSize(sizeX, sizeY),
-            Alignment::TOP_MID,
-            Alignment::TOP_LEFT,
+            uil::Alignment::TOP_MID,
+            uil::Alignment::TOP_LEFT,
             0.04f,
             appContext.languageManager.Text("scene_new_game_parameter_fleet_speed_subheadline", ":")
     ));
@@ -165,7 +165,7 @@ void NewGameParameterScene::Initialize() {
             ID,
             GetElementPosition(posX, posY + 0.04f),
             GetElementSize(sizeX, sizeY),
-            Alignment::TOP_MID,
+            uil::Alignment::TOP_MID,
             static_cast<int>(appContext.constants.fleet.minFleetSpeed),
             static_cast<int>(appContext.constants.fleet.maxFleetSpeed),
             static_cast<int>(appContext.constants.fleet.currentFleetSpeed)
@@ -177,11 +177,11 @@ void NewGameParameterScene::Initialize() {
 
     next();
 
-    m_elements.push_back(std::make_shared<Text>(
+    m_elements.push_back(std::make_shared<uil::Text>(
             GetElementPosition(posX, posY),
             GetElementSize(sizeX, sizeY),
-            Alignment::TOP_MID,
-            Alignment::TOP_LEFT,
+            uil::Alignment::TOP_MID,
+            uil::Alignment::TOP_LEFT,
             0.04f,
             appContext.languageManager.Text("scene_new_game_parameter_last_round_subheadline", ":")
     ));
@@ -190,7 +190,7 @@ void NewGameParameterScene::Initialize() {
             ID,
             GetElementPosition(posX, posY + 0.04f),
             GetElementSize(sizeX, sizeY),
-            Alignment::TOP_MID,
+            uil::Alignment::TOP_MID,
             static_cast<int>(appContext.constants.global.minRounds),
             static_cast<int>(appContext.constants.global.maxRounds),
             static_cast<int>(appContext.constants.global.currentTargetRound)
@@ -201,35 +201,35 @@ void NewGameParameterScene::Initialize() {
     m_slider.push_back(lastRound);
 
     // btn
-    auto randomBtn = std::make_shared<ClassicButton>(
+    auto randomBtn = std::make_shared<uil::ClassicButton>(
             1002,
             GetElementPosition(0.625f, 0.95f),
             GetElementSize(0.15f, 0.1f),
-            Alignment::BOTTOM_MID,
+            uil::Alignment::BOTTOM_MID,
             appContext.languageManager.Text("scene_new_game_parameter_random_btn"),
             app::SoundType::CLICKED_RELEASE_STD
     );
     randomBtn->SetOnClick([this]() { this->SetRandom(); });
     m_elements.push_back(randomBtn);
 
-    auto backBtn = std::make_shared<ClassicButton>(
+    auto backBtn = std::make_shared<uil::ClassicButton>(
             1001,
             GetElementPosition(0.25f, 0.95f),
             GetElementSize(0.15f, 0.1f),
-            Alignment::BOTTOM_MID,
+            uil::Alignment::BOTTOM_MID,
             appContext.languageManager.Text("scene_new_game_parameter_back_btn"),
             app::SoundType::CLICKED_RELEASE_STD
     );
     backBtn->SetOnClick([]() {
-        app::AppContext::GetInstance().eventManager.InvokeEvent(eve::SwitchSceneEvent(SceneType::NEW_GAME_PLAYER));
+        app::AppContext::GetInstance().eventManager.InvokeEvent(eve::SwitchSceneEvent(uil::SceneType::NEW_GAME_PLAYER));
     });
     m_elements.push_back(backBtn);
 
-    auto nextBtn = std::make_shared<ClassicButton>(
+    auto nextBtn = std::make_shared<uil::ClassicButton>(
             1000,
             GetElementPosition(0.85f, 0.95f),
             GetElementSize(0.15f, 0.1f),
-            Alignment::BOTTOM_MID,
+            uil::Alignment::BOTTOM_MID,
             appContext.languageManager.Text("scene_new_game_parameter_next_btn"),
             app::SoundType::ACCEPTED
     );
@@ -268,7 +268,7 @@ void NewGameParameterScene::SetRandom() const {
 }
 
 void NewGameParameterScene::NextScene() {
-    eve::SwitchSceneEvent event{ SceneType::VALIDATE_GALAXY };
+    eve::SwitchSceneEvent event{ uil::SceneType::VALIDATE_GALAXY };
     app::AppContext::GetInstance().eventManager.InvokeEvent(event);
 }
 
@@ -276,7 +276,7 @@ NewGameParameterScene::NewGameParameterScene()
     : Scene{
           { 0.0f, 0.0f },
           { 1.0f, 1.0f },
-          Alignment::DEFAULT
+          uil::Alignment::DEFAULT
 } {
     Initialize();
     app::AppContext::GetInstance().eventManager.AddListener(this);

@@ -490,7 +490,7 @@ namespace lgk {
         }
 
         hlp::Print(hlp::PrintType::ONLY_DEBUG, "game started -> player {}", player->GetID());
-        eve::SwitchSceneEvent const event{ SceneType::MAIN };
+        eve::SwitchSceneEvent const event{ uil::SceneType::MAIN };
         appContext.eventManager.InvokeEvent(event);
     }
 
@@ -519,7 +519,7 @@ namespace lgk {
         }
         appContext.constants.global.isGamePaused = false;
         hlp::Print(hlp::PrintType::ONLY_DEBUG, "resumed to game");
-        eve::SwitchSceneEvent const event{ SceneType::MAIN };
+        eve::SwitchSceneEvent const event{ uil::SceneType::MAIN };
         appContext.eventManager.InvokeEvent(event);
     }
 

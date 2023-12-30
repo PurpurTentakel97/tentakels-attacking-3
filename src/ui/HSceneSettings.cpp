@@ -15,24 +15,24 @@ void SettingsScene::Initialize() {
     app::AppContext_ty appContext{ app::AppContext::GetInstance() };
 
     // title
-    m_elements.push_back(std::make_shared<Title>(
+    m_elements.push_back(std::make_shared<uil::Title>(
             GetElementPosition(0.5f, 0.025f),
             GetElementSize(0.8f, 0.25f),
-            Alignment::TOP_MID,
+            uil::Alignment::TOP_MID,
             false
     ));
 
     // line
     m_elements.push_back(
-            std::make_shared<Line>(GetElementPosition(0.5f, 0.3f), GetElementPosition(0.5f, 0.95f), 2.0f, WHITE)
+            std::make_shared<uil::Line>(GetElementPosition(0.5f, 0.3f), GetElementPosition(0.5f, 0.95f), 2.0f, WHITE)
     );
 
     // btn
-    auto continueBtn = std::make_shared<ClassicButton>(
+    auto continueBtn = std::make_shared<uil::ClassicButton>(
             1000,
             GetElementPosition(0.75f, 0.95f),
             GetElementSize(0.15f, 0.1f),
-            Alignment::BOTTOM_MID,
+            uil::Alignment::BOTTOM_MID,
             appContext.languageManager.Text("scene_settings_continue_btn"),
             app::SoundType::ACCEPTED
     );
@@ -43,16 +43,16 @@ void SettingsScene::Initialize() {
     });
     m_elements.push_back(continueBtn);
 
-    auto backBtn = std::make_shared<ClassicButton>(
+    auto backBtn = std::make_shared<uil::ClassicButton>(
             1001,
             GetElementPosition(0.25f, 0.95f),
             GetElementSize(0.15f, 0.1f),
-            Alignment::BOTTOM_MID,
+            uil::Alignment::BOTTOM_MID,
             appContext.languageManager.Text("scene_settings_main_menu_btn"),
             app::SoundType::CLICKED_RELEASE_STD
     );
     backBtn->SetOnClick([]() {
-        app::AppContext::GetInstance().eventManager.InvokeEvent(eve::SwitchSceneEvent{ SceneType::MAIN_MENU });
+        app::AppContext::GetInstance().eventManager.InvokeEvent(eve::SwitchSceneEvent{ uil::SceneType::MAIN_MENU });
     });
     m_elements.push_back(backBtn);
 }
@@ -61,7 +61,7 @@ SettingsScene::SettingsScene()
     : Scene{
           { 0.0f, 0.0f },
           { 1.0f, 1.0f },
-          Alignment::DEFAULT
+          uil::Alignment::DEFAULT
 } {
     Initialize();
 }

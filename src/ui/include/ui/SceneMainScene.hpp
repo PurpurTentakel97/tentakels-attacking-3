@@ -12,7 +12,7 @@
 #include <ui_lib/Scene.hpp>
 #include <ui_lib/SceneType.hpp>
 
-class MainScene : public Scene, public eve::EventListener {
+class MainScene : public uil::Scene, public eve::EventListener {
 private:
     enum class MainSceneType {
         GALAXY,
@@ -24,22 +24,22 @@ private:
     std::shared_ptr<GalaxyScene> m_galaxy;
     std::shared_ptr<PlanetTable> m_planetTable;
     std::shared_ptr<FleetAndTargetPointTable> m_fleetTable;
-    ClassicButton_ty m_nextBtn;
-    Text_ty m_currentPlayerName;
-    Text_ty m_nextPlayerName;
-    Text_ty m_currentRound;
-    Text_ty m_currentTargetRound;
+    uil::ClassicButton_ty m_nextBtn;
+    uil::Text_ty m_currentPlayerName;
+    uil::Text_ty m_nextPlayerName;
+    uil::Text_ty m_currentRound;
+    uil::Text_ty m_currentTargetRound;
     app::PlayerData m_currentPlayer{ 0, "", WHITE };
     app::PlayerData m_nextPlayer{ 0, "", WHITE };
 
-    InputLine_int_ty m_origin;
-    InputLine_int_ty m_destination;
-    InputLine_int_ty m_destinationX;
-    InputLine_int_ty m_destinationY;
-    InputLine_int_ty m_shipCount;
+    uil::InputLine_int_ty m_origin;
+    uil::InputLine_int_ty m_destination;
+    uil::InputLine_int_ty m_destinationX;
+    uil::InputLine_int_ty m_destinationY;
+    uil::InputLine_int_ty m_shipCount;
 
-    ClassicButton_ty m_acceptBtn;
-    ClassicButton_ty m_resetBtn;
+    uil::ClassicButton_ty m_acceptBtn;
+    uil::ClassicButton_ty m_resetBtn;
 
     void Initialize();
 

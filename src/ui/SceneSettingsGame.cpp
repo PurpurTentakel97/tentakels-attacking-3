@@ -16,21 +16,21 @@ void GameSettingsScene::Initialize() {
     app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
 
     // headline
-    auto settingsText = std::make_shared<Text>(
+    auto settingsText = std::make_shared<uil::Text>(
             GetElementPosition(0.5f, 0.2f),
             GetElementSize(0.3f, 0.1f),
-            Alignment::TOP_MID,
-            Alignment::TOP_MID,
+            uil::Alignment::TOP_MID,
+            uil::Alignment::TOP_MID,
             0.07f,
             appContext.languageManager.Text("helper_game_settings")
     );
     m_elements.push_back(settingsText);
 
-    auto finishBtn = std::make_shared<ClassicButton>(
+    auto finishBtn = std::make_shared<uil::ClassicButton>(
             999,
             GetElementPosition(0.25f, 0.81f),
             GetElementSize(0.15f, 0.1f),
-            Alignment::BOTTOM_MID,
+            uil::Alignment::BOTTOM_MID,
             appContext.languageManager.Text("scene_settings_end_game_btn"),
             app::SoundType::CLICKED_RELEASE_STD
     );
@@ -54,7 +54,7 @@ void GameSettingsScene::Initialize() {
     // float     constexpr rx2wo  { rx2 + height     };
     // float     constexpr lxwoS  { lx + heightS     };
     // float     constexpr lxwo   { lx + height      };
-    Alignment constexpr a{ Alignment::MID_LEFT };
+    auto constexpr a{ uil::Alignment::MID_LEFT };
 
     // increase
     auto const incFIDS{ [&]() { ++id; } };
@@ -67,14 +67,14 @@ void GameSettingsScene::Initialize() {
             id,
             GetElementPosition(0.25f, y),
             GetElementSize(width, 0.5f),
-            Alignment::TOP_MID
+            uil::Alignment::TOP_MID
     );
     eventSettings->SetActive(true, appContext);
     m_elements.push_back(eventSettings);
 
     incFIDB(); // big because event settings could increase
 
-    auto fleetSpeedText = std::make_shared<Text>(
+    auto fleetSpeedText = std::make_shared<uil::Text>(
             GetElementPosition(rx, y),
             GetElementSize(width, height),
             a,
@@ -104,7 +104,7 @@ void GameSettingsScene::Initialize() {
     incPosB();
 
     // last round ->
-    auto lastRoundText = std::make_shared<Text>(
+    auto lastRoundText = std::make_shared<uil::Text>(
             GetElementPosition(rx, y),
             GetElementSize(width, height),
             a,
@@ -137,11 +137,11 @@ void GameSettingsScene::Initialize() {
     incPosB();
     incPosS();
 
-    auto playerShuffleCB = std::make_shared<CheckBox>(
+    auto playerShuffleCB = std::make_shared<uil::CheckBox>(
             id,
             GetElementPosition(rx, y),
             GetElementSize(0.0f, height).y,
-            Alignment::MID_LEFT,
+            uil::Alignment::MID_LEFT,
             1
     );
     playerShuffleCB->SetChecked(appContext.constants.player.shuffle);
@@ -152,7 +152,7 @@ void GameSettingsScene::Initialize() {
 
     incFIDS();
 
-    auto shuffleCBText = std::make_shared<Text>(
+    auto shuffleCBText = std::make_shared<uil::Text>(
             GetElementPosition(rxwo, y),
             GetElementSize(width, height),
             a,
@@ -165,7 +165,7 @@ void GameSettingsScene::Initialize() {
     incPosB();
     incPosS();
 
-    auto fightTx = std::make_shared<Text>(
+    auto fightTx = std::make_shared<uil::Text>(
             GetElementPosition(rx, y),
             GetElementSize(width, height),
             a,
@@ -177,11 +177,11 @@ void GameSettingsScene::Initialize() {
 
     incPosB();
 
-    auto fightPlanetFleetCB = std::make_shared<CheckBox>(
+    auto fightPlanetFleetCB = std::make_shared<uil::CheckBox>(
             id,
             GetElementPosition(rx, y),
             GetElementSize(0.0f, heightS).y,
-            Alignment::MID_LEFT,
+            uil::Alignment::MID_LEFT,
             1
     );
     fightPlanetFleetCB->SetChecked(appContext.constants.fight.isFightPlanetFleet);
@@ -192,7 +192,7 @@ void GameSettingsScene::Initialize() {
 
     incFIDS();
 
-    auto fightPlanetFleetCBText = std::make_shared<Text>(
+    auto fightPlanetFleetCBText = std::make_shared<uil::Text>(
             GetElementPosition(rxwoS, y),
             GetElementSize(width, heightS),
             a,
@@ -202,11 +202,11 @@ void GameSettingsScene::Initialize() {
     );
     m_elements.push_back(fightPlanetFleetCBText);
 
-    auto fightPlanetTargetPointCB = std::make_shared<CheckBox>(
+    auto fightPlanetTargetPointCB = std::make_shared<uil::CheckBox>(
             id,
             GetElementPosition(rx2, y),
             GetElementSize(0.0f, heightS).y,
-            Alignment::MID_LEFT,
+            uil::Alignment::MID_LEFT,
             1
     );
     fightPlanetTargetPointCB->SetChecked(appContext.constants.fight.isFightPlanetTargetPoint);
@@ -217,7 +217,7 @@ void GameSettingsScene::Initialize() {
 
     incFIDS();
 
-    auto fightPlanetTargetPointCBText = std::make_shared<Text>(
+    auto fightPlanetTargetPointCBText = std::make_shared<uil::Text>(
             GetElementPosition(rx2woS, y),
             GetElementSize(width, heightS),
             a,
@@ -229,11 +229,11 @@ void GameSettingsScene::Initialize() {
 
     incPosS();
 
-    auto fightTargetPointFleetCB = std::make_shared<CheckBox>(
+    auto fightTargetPointFleetCB = std::make_shared<uil::CheckBox>(
             id,
             GetElementPosition(rx, y),
             GetElementSize(0.0f, heightS).y,
-            Alignment::MID_LEFT,
+            uil::Alignment::MID_LEFT,
             1
     );
     fightTargetPointFleetCB->SetChecked(appContext.constants.fight.isFightTargetPointFleet);
@@ -244,7 +244,7 @@ void GameSettingsScene::Initialize() {
 
     incFIDS();
 
-    auto fightTargetPointFleetCBText = std::make_shared<Text>(
+    auto fightTargetPointFleetCBText = std::make_shared<uil::Text>(
             GetElementPosition(rxwoS, y),
             GetElementSize(width, heightS),
             a,
@@ -254,11 +254,11 @@ void GameSettingsScene::Initialize() {
     );
     m_elements.push_back(fightTargetPointFleetCBText);
 
-    auto fightTargetPointTargetPointCB = std::make_shared<CheckBox>(
+    auto fightTargetPointTargetPointCB = std::make_shared<uil::CheckBox>(
             id,
             GetElementPosition(rx2, y),
             GetElementSize(0.0f, heightS).y,
-            Alignment::MID_LEFT,
+            uil::Alignment::MID_LEFT,
             1
     );
     fightTargetPointTargetPointCB->SetChecked(appContext.constants.fight.isFightTargetPointTargetPoint);
@@ -269,7 +269,7 @@ void GameSettingsScene::Initialize() {
 
     incFIDS();
 
-    auto fightTargetPointTargetPointCBText = std::make_shared<Text>(
+    auto fightTargetPointTargetPointCBText = std::make_shared<uil::Text>(
             GetElementPosition(rx2woS, y),
             GetElementSize(width, heightS),
             a,

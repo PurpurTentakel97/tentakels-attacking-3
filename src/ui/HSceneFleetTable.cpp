@@ -18,10 +18,10 @@ void FleetAndTargetPointTable::Initialization(app::PlayerData const& currentPlay
     auto const startTargetPoints{ startFleets + (not fleets.empty() ? fleets.size() : 1) + 1 };
     auto const tableSize{ startTargetPoints + (not targetPoints.empty() ? targetPoints.size() : 1) };
 
-    m_table = std::make_shared<Table>(
+    m_table = std::make_shared<uil::Table>(
             GetElementPosition(0.0f, 0.0f),
             GetElementSize(1.0f, 1.0f),
-            Alignment::TOP_LEFT,
+            uil::Alignment::TOP_LEFT,
             1000,
             tableSize,
             4,
@@ -152,7 +152,7 @@ std::string FleetAndTargetPointTable::GetStringFromPosition(utl::vec2pos_ty_ref_
 FleetAndTargetPointTable::FleetAndTargetPointTable(
         Vector2 const pos,
         Vector2 const size,
-        Alignment const alignment,
+        uil::Alignment const alignment,
         lgk::Galaxy_ty_raw galaxy,
         app::PlayerData const& currentPlayer
 )

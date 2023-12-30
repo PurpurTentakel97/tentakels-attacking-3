@@ -14,10 +14,10 @@
 #include <ui_lib/SceneType.hpp>
 #include <vector>
 
-class Intro final : public Scene {
+class Intro final : public uil::Scene {
 private:
-    Title_ty m_title{ nullptr };
-    ClassicButton_ty m_btn{ nullptr };
+    uil::Title_ty m_title{ nullptr };
+    uil::ClassicButton_ty m_btn{ nullptr };
 
     void Initialize();
 

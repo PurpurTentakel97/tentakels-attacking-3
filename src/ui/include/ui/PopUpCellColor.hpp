@@ -11,7 +11,7 @@
 
 class ColorCellPopUp final : public CellPopUp {
 private:
-    ColorPicker_ty m_colorPicker;
+    uil::ColorPicker_ty m_colorPicker;
     std::function<void(Color)> m_onClick{ [](Color) {} };
 
     void SetValue() override;
@@ -20,7 +20,7 @@ public:
     ColorCellPopUp(
             Vector2 pos,
             Vector2 size,
-            Alignment alignment,
+            uil::Alignment alignment,
             std::string const& title,
             app::AssetType infoTexture,
             Color currentColor,

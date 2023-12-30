@@ -13,9 +13,9 @@ class AppSettingsScene final : public SettingsScene, public eve::EventListener {
 private:
     std::vector<std::pair<cst::Resolution, std::string>> m_rawResolutionEntries;
     std::shared_ptr<SliderAndInputLine> m_volume;
-    DropDown_ty m_languageDropDown;
-    DropDown_ty m_resolutionDropDown;
-    CheckBox_ty m_toggleFullScreenCBM;
+    uil::DropDown_ty m_languageDropDown;
+    uil::DropDown_ty m_resolutionDropDown;
+    uil::CheckBox_ty m_toggleFullScreenCBM;
 
     void Initialize();
 

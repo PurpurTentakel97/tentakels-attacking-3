@@ -17,29 +17,29 @@
 void NewGamePlayerScene::Initialize() {
     app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
 
-    auto title = std::make_shared<Title>(
+    auto title = std::make_shared<uil::Title>(
             GetElementPosition(0.5f, 0.025f),
             GetElementSize(0.8f, 0.25f),
-            Alignment::TOP_MID,
+            uil::Alignment::TOP_MID,
             false
     );
     m_elements.push_back(title);
 
-    auto addPlayerText = std::make_shared<Text>(
+    auto addPlayerText = std::make_shared<uil::Text>(
             GetElementPosition(0.1f, 0.28f),
             GetElementSize(0.25f, 0.05f),
-            Alignment::TOP_LEFT,
-            Alignment::TOP_LEFT,
+            uil::Alignment::TOP_LEFT,
+            uil::Alignment::TOP_LEFT,
             0.05f,
             appContext.languageManager.Text("scene_new_game_player_add_player_headline", ":")
     );
     m_elements.push_back(addPlayerText);
 
-    auto inputLine = std::make_shared<InputLine<std::string>>(
+    auto inputLine = std::make_shared<uil::InputLine<std::string>>(
             1,
             GetElementPosition(0.1f, 0.35f),
             GetElementSize(0.35f, 0.05f),
-            Alignment::TOP_LEFT,
+            uil::Alignment::TOP_LEFT,
             20
     );
     inputLine->SetPlaceholderText(appContext.languageManager.Text("scene_new_game_player_player_name_placeholder"));
@@ -47,11 +47,11 @@ void NewGamePlayerScene::Initialize() {
     m_elements.push_back(inputLine);
     m_inputLine = inputLine.get();
 
-    auto colorPicker = std::make_shared<ColorPicker>(
+    auto colorPicker = std::make_shared<uil::ColorPicker>(
             2,
             GetElementPosition(0.1f, 0.45f),
             GetElementSize(0.35f, 0.35f),
-            Alignment::TOP_LEFT
+            uil::Alignment::TOP_LEFT
     );
     colorPicker->SetColor(appContext.playerCollection.GetPossibleColor());
     colorPicker->SetOnEnter([this]() { this->AddPlayer(); });
@@ -59,48 +59,49 @@ void NewGamePlayerScene::Initialize() {
     m_nestedFocus.push_back(colorPicker.get());
     m_colorPicker = colorPicker.get();
 
-    auto resetBTN = std::make_shared<ClassicButton>(
+    auto resetBTN = std::make_shared<uil::ClassicButton>(
             7,
             GetElementPosition(0.45f, 0.85f),
             GetElementSize(0.15f, 0.1f),
-            Alignment::TOP_RIGHT,
+            uil::Alignment::TOP_RIGHT,
             appContext.languageManager.Text("scene_new_game_player_reset_btn"),
             app::SoundType::ACCEPTED
     );
     resetBTN->SetOnClick([]() { NewGamePlayerScene::Reset(); });
     m_elements.push_back(resetBTN);
 
-    auto backBtn = std::make_shared<ClassicButton>(
+    auto backBtn = std::make_shared<uil::ClassicButton>(
             8,
             GetElementPosition(0.1f, 0.85f),
             GetElementSize(0.15f, 0.1f),
-            Alignment::TOP_LEFT,
+            uil::Alignment::TOP_LEFT,
             appContext.languageManager.Text("scene_new_game_player_back_btn"),
             app::SoundType::CLICKED_RELEASE_STD
     );
     backBtn->SetOnClick([]() {
-        app::AppContext::GetInstance().eventManager.InvokeEvent(eve::SwitchSceneEvent(SceneType::MAIN_MENU));
+        app::AppContext::GetInstance().eventManager.InvokeEvent(eve::SwitchSceneEvent(uil::SceneType::MAIN_MENU));
     });
     m_elements.push_back(backBtn);
 
-    auto line = std::make_shared<Line>(GetElementPosition(0.5f, 0.25f), GetElementPosition(0.5f, 0.95f), 2.0f, WHITE);
+    auto line =
+            std::make_shared<uil::Line>(GetElementPosition(0.5f, 0.25f), GetElementPosition(0.5f, 0.95f), 2.0f, WHITE);
     m_elements.push_back(line);
 
-    auto currentPlayerText = std::make_shared<Text>(
+    auto currentPlayerText = std::make_shared<uil::Text>(
             GetElementPosition(0.55f, 0.28f),
             GetElementSize(0.25f, 0.05f),
-            Alignment::TOP_LEFT,
-            Alignment::TOP_LEFT,
+            uil::Alignment::TOP_LEFT,
+            uil::Alignment::TOP_LEFT,
             0.05f,
             appContext.languageManager.Text("scene_new_game_player_current_player_headline", ":")
     );
     m_elements.push_back(currentPlayerText);
 
-    auto currentPlayerCount = std::make_shared<Text>(
+    auto currentPlayerCount = std::make_shared<uil::Text>(
             GetElementPosition(0.55f, 0.33f),
             GetElementSize(0.25f, 0.05f),
-            Alignment::TOP_LEFT,
-            Alignment::TOP_LEFT,
+            uil::Alignment::TOP_LEFT,
+            uil::Alignment::TOP_LEFT,
             0.02f,
             appContext.languageManager.Text(
                     "scene_new_game_player_min_player_count_subtext",
@@ -110,10 +111,10 @@ void NewGamePlayerScene::Initialize() {
     );
     m_elements.push_back(currentPlayerCount);
 
-    auto table = std::make_shared<Table>(
+    auto table = std::make_shared<uil::Table>(
             GetElementPosition(0.9f, 0.35f),
             GetElementSize(0.35f, 0.45f),
-            Alignment::TOP_RIGHT,
+            uil::Alignment::TOP_RIGHT,
             5,
             static_cast<int>(appContext.constants.player.maxPlayerCount + 1),
             3,
@@ -129,11 +130,11 @@ void NewGamePlayerScene::Initialize() {
     });
 
     table->SetUpdateSpecificCell<std::string>(
-            [this](AbstractTableCell const* cell, std::string const& oldValue, std::string const& newValue) {
+            [this](uil::AbstractTableCell const* cell, std::string const& oldValue, std::string const& newValue) {
                 this->UpdatePlayerName(cell, oldValue, newValue);
             }
     );
-    table->SetUpdateSpecificCell<Color>([this](AbstractTableCell const* cell, Color oldValue, Color newValue) {
+    table->SetUpdateSpecificCell<Color>([this](uil::AbstractTableCell const* cell, Color oldValue, Color newValue) {
         UpdatePlayerColor(cell, oldValue, newValue);
     });
 
@@ -141,22 +142,22 @@ void NewGamePlayerScene::Initialize() {
     m_nestedFocus.push_back(table.get());
     m_table = table.get();
 
-    auto addPlayerBtn = std::make_shared<ClassicButton>(
+    auto addPlayerBtn = std::make_shared<uil::ClassicButton>(
             3,
             GetElementPosition(0.55f, 0.85f),
             GetElementSize(0.15f, 0.1f),
-            Alignment::TOP_LEFT,
+            uil::Alignment::TOP_LEFT,
             appContext.languageManager.Text("scene_new_game_player_add_player_btn"),
             app::SoundType::ACCEPTED
     );
     addPlayerBtn->SetOnClick([this]() { this->AddPlayer(); });
     m_elements.push_back(addPlayerBtn);
 
-    m_nextBTN = std::make_shared<ClassicButton>(
+    m_nextBTN = std::make_shared<uil::ClassicButton>(
             6,
             GetElementPosition(0.9f, 0.85f),
             GetElementSize(0.15f, 0.1f),
-            Alignment::TOP_RIGHT,
+            uil::Alignment::TOP_RIGHT,
             appContext.languageManager.Text("scene_new_game_player_next_btn"),
             app::SoundType::ACCEPTED
     );
@@ -174,11 +175,11 @@ void NewGamePlayerScene::InitializePlayerButtons() {
     float const initialY{ 0.35f + rowHeight };
 
     for (size_t i = 0; i < maxPlayerCount; ++i) {
-        auto button = std::make_shared<ClassicButton>(
+        auto button = std::make_shared<uil::ClassicButton>(
                 static_cast<int>(100 + i),
                 GetElementPosition(0.905f, initialY + rowHeight * static_cast<float>(i) + 0.005f),
                 GetElementSize(rowHeight * 0.7f, rowHeight - 0.01f),
-                Alignment::TOP_LEFT,
+                uil::Alignment::TOP_LEFT,
                 "X",
                 app::SoundType::CLICKED_RELEASE_STD
         );
@@ -266,7 +267,11 @@ void NewGamePlayerScene::UpdatePlayer(unsigned int const ID, std::string const& 
     UpdateSceneEntries();
 }
 
-void NewGamePlayerScene::UpdatePlayerName(AbstractTableCell const*, std::string const& oldValue, std::string const& newValue) {
+void NewGamePlayerScene::UpdatePlayerName(
+        uil::AbstractTableCell const*,
+        std::string const& oldValue,
+        std::string const& newValue
+) {
 
     app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
     app::PlayerData const playerData{ appContext.playerCollection.GetPlayerByName(oldValue) };
@@ -274,7 +279,7 @@ void NewGamePlayerScene::UpdatePlayerName(AbstractTableCell const*, std::string 
     UpdatePlayer(playerData.ID, newValue, playerData.color);
 }
 
-void NewGamePlayerScene::UpdatePlayerColor(AbstractTableCell const*, Color const oldValue, Color const newValue) {
+void NewGamePlayerScene::UpdatePlayerColor(uil::AbstractTableCell const*, Color const oldValue, Color const newValue) {
     app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
     app::PlayerData const playerData{ appContext.playerCollection.GetPlayerByColor(oldValue) };
 
@@ -298,7 +303,7 @@ void NewGamePlayerScene::NextScene(bool const valid) {
         return;
     }
 
-    eve::SwitchSceneEvent const event{ SceneType::NEW_GAME_PARAMETER };
+    eve::SwitchSceneEvent const event{ uil::SceneType::NEW_GAME_PARAMETER };
     app::AppContext::GetInstance().eventManager.InvokeEvent(event);
 }
 
@@ -324,7 +329,7 @@ NewGamePlayerScene::NewGamePlayerScene()
     : Scene{
           { 0.0f, 0.0f },
           { 1.0f, 1.0f },
-          Alignment::DEFAULT
+          uil::Alignment::DEFAULT
 } {
 
     app::AppContext_ty appContext{ app::AppContext::GetInstance() };

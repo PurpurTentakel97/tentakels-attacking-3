@@ -33,11 +33,11 @@ void FightResultPopup::Initialize() {
         ) };
     }
 
-    auto const subtitle = std::make_shared<Text>(
+    auto const subtitle = std::make_shared<uil::Text>(
             hlp::GetElementPosition(m_pos, m_size, 0.6f, Y),
             hlp::GetElementSize(m_size, 0.7f, textSize * 1.2f),
-            Alignment::MID_MID,
-            Alignment::MID_MID,
+            uil::Alignment::MID_MID,
+            uil::Alignment::MID_MID,
             textSize * 1.2f,
             fightText
     );
@@ -47,11 +47,11 @@ void FightResultPopup::Initialize() {
 
     // player names
     auto player{ appContext.playerCollection.GetPlayerOrNpcByID(m_result.GetPlayer().first->GetID()) };
-    auto playerName = std::make_shared<Text>(
+    auto playerName = std::make_shared<uil::Text>(
             hlp::GetElementPosition(m_pos, m_size, leftX, Y),
             hlp::GetElementSize(m_size, 0.5f, textSize),
-            Alignment::MID_MID,
-            Alignment::MID_MID,
+            uil::Alignment::MID_MID,
+            uil::Alignment::MID_MID,
             textSize,
             player.GetName()
     );
@@ -60,11 +60,11 @@ void FightResultPopup::Initialize() {
     m_elements.push_back(playerName);
 
     player = { appContext.playerCollection.GetPlayerOrNpcByID(m_result.GetPlayer().second->GetID()) };
-    playerName = std::make_shared<Text>(
+    playerName = std::make_shared<uil::Text>(
             hlp::GetElementPosition(m_pos, m_size, rightX, Y),
             hlp::GetElementSize(m_size, 0.5f, textSize),
-            Alignment::MID_MID,
-            Alignment::MID_MID,
+            uil::Alignment::MID_MID,
+            uil::Alignment::MID_MID,
             textSize,
             player.GetName()
     );
@@ -76,29 +76,29 @@ void FightResultPopup::Initialize() {
 
     // numbers
     auto firstNumber{ m_result.GetRounds().at(0).first };
-    m_leftNumber = std::make_shared<CountingNumber>(
+    m_leftNumber = std::make_shared<uil::CountingNumber>(
             hlp::GetElementPosition(m_pos, m_size, leftX, Y),
             hlp::GetElementSize(m_size, 0.5f, textSize * 1.5f),
-            Alignment::MID_MID,
-            Alignment::MID_MID,
+            uil::Alignment::MID_MID,
+            uil::Alignment::MID_MID,
             textSize * 1.5f,
             static_cast<int>(firstNumber)
     );
-    m_leftNumber->SetCallback([this](CountingNumber::Type type, int from, int to, double time) {
+    m_leftNumber->SetCallback([this](uil::CountingNumber::Type type, int from, int to, double time) {
         this->NextNumber(type, from, to, time, false);
     });
     m_elements.push_back(m_leftNumber);
 
     firstNumber = { m_result.GetRounds().at(0).second };
-    m_rightNumber = std::make_shared<CountingNumber>(
+    m_rightNumber = std::make_shared<uil::CountingNumber>(
             hlp::GetElementPosition(m_pos, m_size, rightX, Y),
             hlp::GetElementSize(m_size, 0.5f, textSize * 1.5f),
-            Alignment::MID_MID,
-            Alignment::MID_MID,
+            uil::Alignment::MID_MID,
+            uil::Alignment::MID_MID,
             textSize * 1.5f,
             static_cast<int>(firstNumber)
     );
-    m_rightNumber->SetCallback([this](CountingNumber::Type type, int from, int to, double time) {
+    m_rightNumber->SetCallback([this](uil::CountingNumber::Type type, int from, int to, double time) {
         this->NextNumber(type, from, to, time, true);
     });
     m_elements.push_back(m_rightNumber);
@@ -106,22 +106,22 @@ void FightResultPopup::Initialize() {
     Y += 0.1f;
 
     // win text
-    m_winText = std::make_shared<Text>(
+    m_winText = std::make_shared<uil::Text>(
             hlp::GetElementPosition(m_pos, m_size, 0.5f, Y),
             hlp::GetElementSize(m_size, 0.8f, textSize * 1.5f),
-            Alignment::MID_MID,
-            Alignment::MID_MID,
+            uil::Alignment::MID_MID,
+            uil::Alignment::MID_MID,
             textSize * 1.5f,
             ""
     );
     m_elements.push_back(m_winText);
 
     // button
-    m_closeBtn = std::make_shared<ClassicButton>(
+    m_closeBtn = std::make_shared<uil::ClassicButton>(
             1,
             hlp::GetElementPosition(m_pos, m_size, 0.5f, 0.95f),
             hlp::GetElementSize(m_size, 0.2f, 0.15f),
-            Alignment::BOTTOM_MID,
+            uil::Alignment::BOTTOM_MID,
             appContext.languageManager.Text("helper_skip_big"),
             app::SoundType::CLICKED_RELEASE_STD
     );
@@ -144,17 +144,23 @@ void FightResultPopup::NextNumber(bool const left) {
 
     float constexpr time{ 1.5f };
     if (left) {
-        m_leftNumber
-                ->CountTo(CountingNumber::ASYMPTOTIC, static_cast<int>(m_result.GetRounds().at(m_index).first), time);
+        m_leftNumber->CountTo(
+                uil::CountingNumber::ASYMPTOTIC,
+                static_cast<int>(m_result.GetRounds().at(m_index).first),
+                time
+        );
     } else {
-        m_rightNumber
-                ->CountTo(CountingNumber::ASYMPTOTIC, static_cast<int>(m_result.GetRounds().at(m_index).second), time);
+        m_rightNumber->CountTo(
+                uil::CountingNumber::ASYMPTOTIC,
+                static_cast<int>(m_result.GetRounds().at(m_index).second),
+                time
+        );
     }
 
     ++m_index;
 }
 
-void FightResultPopup::NextNumber(CountingNumber::Type, int, int, double, bool const left) {
+void FightResultPopup::NextNumber(uil::CountingNumber::Type, int, int, double, bool const left) {
     NextNumber(left);
 }
 
@@ -198,7 +204,7 @@ void FightResultPopup::HandleButton() {
 FightResultPopup::FightResultPopup(
         Vector2 const pos,
         Vector2 const size,
-        Alignment const alignment,
+        uil::Alignment const alignment,
         utl::FightResult result,
         callback_ty callback
 )

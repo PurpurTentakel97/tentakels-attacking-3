@@ -16,11 +16,11 @@ void GameEventSettings::Initialize(unsigned int const focusID) {
     app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
 
     // Title
-    auto title = std::make_shared<Text>(
+    auto title = std::make_shared<uil::Text>(
             GetElementPosition(0.5f, 0.0f),
             GetElementSize(0.8f, 0.2f),
-            Alignment::TOP_MID,
-            Alignment::TOP_MID,
+            uil::Alignment::TOP_MID,
+            uil::Alignment::TOP_MID,
             0.07f,
             appContext.languageManager.Text("ui_game_event_settings_title")
     );
@@ -29,7 +29,7 @@ void GameEventSettings::Initialize(unsigned int const focusID) {
 
     // Line
     m_elements.push_back(
-            std::make_shared<Line>(GetElementPosition(0.3f, 0.15f), GetElementPosition(0.7f, 0.15f), 3.0f, WHITE)
+            std::make_shared<uil::Line>(GetElementPosition(0.3f, 0.15f), GetElementPosition(0.7f, 0.15f), 3.0f, WHITE)
     );
 
     // Text and Check Box
@@ -40,22 +40,22 @@ void GameEventSettings::Initialize(unsigned int const focusID) {
 
 
     for (size_t i = 0; i < m_text.size(); ++i) {
-        auto displayText = std::make_shared<Text>(
+        auto displayText = std::make_shared<uil::Text>(
                 GetElementPosition(textX, firstRow + row * static_cast<float>(i) * 2),
                 GetElementSize(textX + 0.15f, row * 3),
-                Alignment::MID_RIGHT,
-                Alignment::MID_RIGHT,
+                uil::Alignment::MID_RIGHT,
+                uil::Alignment::MID_RIGHT,
                 row,
                 m_text.at(i).second
         );
         // displayText->RenderRectangle(true);
         m_elements.push_back(displayText);
 
-        auto element = std::make_shared<CheckBox>(
+        auto element = std::make_shared<uil::CheckBox>(
                 static_cast<unsigned int>(i + focusID),
                 GetElementPosition(cbX, firstRow + row * static_cast<float>(i) * 2),
                 GetElementSize(0.0f, row * 1.5f).y,
-                Alignment::MID_LEFT,
+                uil::Alignment::MID_LEFT,
                 static_cast<unsigned int>(i)
         );
         element->SetOnCheck([this](unsigned int index, bool isChecked) { this->SetChecked(index, isChecked); });
@@ -80,7 +80,7 @@ GameEventSettings::GameEventSettings(
         unsigned int const focusID,
         Vector2 const pos,
         Vector2 const size,
-        Alignment const alignment
+        uil::Alignment const alignment
 )
     : Scene{ pos, size, alignment } {
 

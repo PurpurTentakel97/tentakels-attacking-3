@@ -11,11 +11,11 @@
 #include <memory>
 
 void SliderAndInputLine::Initialize(unsigned int focusID) {
-    m_inputLine = std::make_shared<InputLine<int>>(
+    m_inputLine = std::make_shared<uil::InputLine<int>>(
             focusID,
             GetElementPosition(0.77f, 0.0f),
             GetElementSize(0.13f, 1.0f),
-            Alignment::TOP_LEFT,
+            uil::Alignment::TOP_LEFT,
             5
     );
     m_inputLine->SetOnEnter([this]() { this->BtnPressed(); });
@@ -27,11 +27,11 @@ void SliderAndInputLine::Initialize(unsigned int focusID) {
 
     ++focusID;
 
-    m_btn = std::make_shared<ClassicButton>(
+    m_btn = std::make_shared<uil::ClassicButton>(
             focusID,
             GetElementPosition(0.9f, 0.0f),
             GetElementSize(0.1f, 1.0f),
-            Alignment::TOP_LEFT,
+            uil::Alignment::TOP_LEFT,
             "Set",
             app::SoundType::CLICKED_RELEASE_STD
     );
@@ -39,10 +39,10 @@ void SliderAndInputLine::Initialize(unsigned int focusID) {
     m_btn->SetEnabled(false);
     m_elements.push_back(m_btn);
 
-    m_slider = std::make_shared<Slider>(
+    m_slider = std::make_shared<uil::Slider>(
             GetElementPosition(0.0f, 0.1f),
             GetElementSize(0.75f, 0.8f),
-            Alignment::TOP_LEFT,
+            uil::Alignment::TOP_LEFT,
             true,
             10.0f
     );
@@ -94,7 +94,7 @@ SliderAndInputLine::SliderAndInputLine(
         unsigned int const focusID,
         Vector2 const pos,
         Vector2 const size,
-        Alignment const alignment,
+        uil::Alignment const alignment,
         int const minValue,
         int const maxValue,
         int const initialValue

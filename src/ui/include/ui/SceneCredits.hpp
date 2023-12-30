@@ -8,16 +8,16 @@
 #include <ui_lib/Scene.hpp>
 
 
-class CreditsScene final : public Scene {
+class CreditsScene final : public uil::Scene {
 private:
-    Title_ty m_title;
-    Line_ty m_titleLine;
-    ClassicButton_ty m_endBTN;
-    ClassicButton_ty m_speedBTN;
+    uil::Title_ty m_title;
+    uil::Line_ty m_titleLine;
+    uil::ClassicButton_ty m_endBTN;
+    uil::ClassicButton_ty m_speedBTN;
     float m_speed{ 0.07f };
     int m_maxSpeedLevel{ 3 };
     int m_speedLevel{ 1 };
-    std::vector<std::shared_ptr<UIElement>> m_movingElements;
+    std::vector<std::shared_ptr<uil::UIElement>> m_movingElements;
 
 
     using creditEntries = std::vector<std::vector<std::string>>;

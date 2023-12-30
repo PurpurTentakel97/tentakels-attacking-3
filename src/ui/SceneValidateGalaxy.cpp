@@ -15,45 +15,46 @@ void ValidateGalaxyScene::Initialize() {
 
     app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
 
-    auto text = std::make_shared<Text>(
+    auto text = std::make_shared<uil::Text>(
             GetElementPosition(0.5f, 0.01f),
             GetElementSize(0.4f, 0.07f),
-            Alignment::TOP_MID,
-            Alignment::TOP_MID,
+            uil::Alignment::TOP_MID,
+            uil::Alignment::TOP_MID,
             0.07f,
             appContext.languageManager.Text("scene_validate_galaxy_text", ":")
     );
     m_elements.push_back(text);
 
-    auto backBtn = std::make_shared<ClassicButton>(
+    auto backBtn = std::make_shared<uil::ClassicButton>(
             3,
             GetElementPosition(0.1f, 0.95f),
             GetElementSize(0.15f, 0.1f),
-            Alignment::BOTTOM_LEFT,
+            uil::Alignment::BOTTOM_LEFT,
             appContext.languageManager.Text("scene_validate_galaxy_back_btn"),
             app::SoundType::CLICKED_RELEASE_STD
     );
     backBtn->SetOnClick([]() {
-        app::AppContext::GetInstance().eventManager.InvokeEvent(eve::SwitchSceneEvent(SceneType::NEW_GAME_PARAMETER));
+        app::AppContext::GetInstance().eventManager.InvokeEvent(eve::SwitchSceneEvent(uil::SceneType::NEW_GAME_PARAMETER
+        ));
     });
     m_elements.push_back(backBtn);
 
-    auto reGenerateBtn = std::make_shared<ClassicButton>(
+    auto reGenerateBtn = std::make_shared<uil::ClassicButton>(
             2,
             GetElementPosition(0.5f, 0.95f),
             GetElementSize(0.15f, 0.1f),
-            Alignment::BOTTOM_MID,
+            uil::Alignment::BOTTOM_MID,
             appContext.languageManager.Text("scene_validate_galaxy_regenerate_btn"),
             app::SoundType::CLICKED_RELEASE_STD
     );
     reGenerateBtn->SetOnClick([this]() { this->NewGalaxy(); });
     m_elements.push_back(reGenerateBtn);
 
-    auto nextBtn = std::make_shared<ClassicButton>(
+    auto nextBtn = std::make_shared<uil::ClassicButton>(
             1,
             GetElementPosition(0.9f, 0.95f),
             GetElementSize(0.15f, 0.1f),
-            Alignment::BOTTOM_RIGHT,
+            uil::Alignment::BOTTOM_RIGHT,
             appContext.languageManager.Text("scene_validate_galaxy_next_btn"),
             app::SoundType::ACCEPTED
     );
@@ -74,11 +75,11 @@ void ValidateGalaxyScene::InitializePlayerLegend() {
     float Y{ 0.5f - (height * static_cast<float>(players.size()) / 2.0f) };
 
     for (auto const& player : players) {
-        auto text = std::make_shared<Text>(
+        auto text = std::make_shared<uil::Text>(
                 GetElementPosition(X, Y),
                 GetElementSize(width, height),
-                Alignment::TOP_RIGHT,
-                Alignment::TOP_RIGHT,
+                uil::Alignment::TOP_RIGHT,
+                uil::Alignment::TOP_RIGHT,
                 height,
                 player.GetName()
         );
@@ -96,7 +97,7 @@ void ValidateGalaxyScene::InitializeGalaxy() {
     m_galaxy = std::make_shared<GalaxyScene>(
             GetElementPosition(0.05f, 0.465f),
             GetElementSize(0.75f, 0.75f),
-            Alignment::MID_LEFT,
+            uil::Alignment::MID_LEFT,
             false,
             false
     );
@@ -121,7 +122,7 @@ ValidateGalaxyScene::ValidateGalaxyScene()
     : Scene{
           { 0.0f, 0.0f },
           { 1.0f, 1.0f },
-          Alignment::DEFAULT
+          uil::Alignment::DEFAULT
 } {
 
     Initialize();

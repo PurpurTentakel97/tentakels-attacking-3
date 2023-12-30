@@ -9,7 +9,7 @@
 #include <helper/HInput.hpp>
 #include <helper/HPrint.hpp>
 
-Focus& UIManager::GetFocus() {
+uil::Focus& UIManager::GetFocus() {
     return m_focus;
 }
 
@@ -214,7 +214,7 @@ void UIManager::StartUI() {
 
 void UIManager::StartUILoop() {
 
-    eve::SwitchSceneEvent event{ SceneType::LOGO };
+    eve::SwitchSceneEvent event{ uil::SceneType::LOGO };
     m_appContext.eventManager.InvokeEvent(event);
 
     m_sceneManager.SwitchSceneManual();

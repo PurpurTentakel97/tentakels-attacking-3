@@ -17,7 +17,7 @@ UIGalaxyElement::UIGalaxyElement(
         Vector2 const pos,
         Vector2 const colliderPos
 )
-    : UIElement{ pos, size, Alignment::MID_MID },
+    : UIElement{ pos, size, uil::Alignment::MID_MID },
       Focusable{ focusID },
       m_ID{ ID },
       m_currentPlayer{ player },

@@ -10,10 +10,10 @@
 #include <ui_lib/Scene.hpp>
 #include <ui_lib/SceneType.hpp>
 
-class LogoScene final : public Scene {
+class LogoScene final : public uil::Scene {
 private:
     inline static double const m_sceneLength{ 5.0f };
-    SceneType m_nextScene{ SceneType::INTRO };
+    uil::SceneType m_nextScene{ uil::SceneType::INTRO };
     double m_time;
 
     void Initialize();

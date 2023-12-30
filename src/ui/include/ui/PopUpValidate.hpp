@@ -9,7 +9,7 @@
 #include <ui_lib/PopUp.hpp>
 
 
-class ValidatePopUp : public PopUp {
+class ValidatePopUp : public uil::PopUp {
 private:
     std::function<void(bool)> m_callback{ [](bool) {} };
 
@@ -21,7 +21,7 @@ public:
     ValidatePopUp(
             Vector2 pos,
             Vector2 size,
-            Alignment alignment,
+            uil::Alignment alignment,
             std::string const& title,
             std::string& subTitle,
             app::AssetType infoTexture,

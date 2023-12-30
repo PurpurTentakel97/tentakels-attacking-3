@@ -7,10 +7,9 @@
 
 #include <CustomRaylib.hpp>
 #include <alias/AliasApp.hpp>
+#include <alias/AliasUiLib.hpp>
 #include <string>
 #include <vector>
-
-enum class Alignment;
 
 namespace hlp {
     void BreakText(std::string& toBreak, float fontSize, float length, app::AppContext_ty_c appContext);
@@ -35,20 +34,28 @@ namespace hlp {
 
     void StripString(std::string& toStrip);
 
-    [[nodiscard]] Vector2
-    GetVerticalAlignedTextPosition(std::string const& text, float fontSize, Rectangle collider, Alignment alignment);
+    [[nodiscard]] Vector2 GetVerticalAlignedTextPosition(
+            std::string const& text,
+            float fontSize,
+            Rectangle collider,
+            uil::Alignment alignment
+    );
 
-    [[nodiscard]] std::vector<float>
-    GetVerticalAlignedOffset(std::vector<std::string> text, float fontSize, Rectangle collider, Alignment alignment);
+    [[nodiscard]] std::vector<float> GetVerticalAlignedOffset(
+            std::vector<std::string> text,
+            float fontSize,
+            Rectangle collider,
+            uil::Alignment alignment
+    );
 
     [[nodiscard]] std::string
-    GetHorizontalAlignedText(std::string const& text, Rectangle collider, float fontSize, Alignment alignment);
+    GetHorizontalAlignedText(std::string const& text, Rectangle collider, float fontSize, uil::Alignment alignment);
 
     [[nodiscard]] std::vector<float> GetHorizontalAlignedOffset(
             std::vector<std::string> const& text,
             Rectangle collider,
             float fontSize,
-            Alignment alignment
+            uil::Alignment alignment
     );
 
     void DrawTextWithOutline(std::string const& text, Vector2 position, float size, Color color, bool background);

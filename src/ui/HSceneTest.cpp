@@ -11,11 +11,11 @@
 #include <ui_lib/SceneType.hpp>
 
 void TestScene::Initialize(app::AppContext_ty) {
-    auto table = std::make_shared<NewTable>(
+    auto table = std::make_shared<uil::NewTable>(
             1,
             Vector2{ 0.5f, 0.5f },
             Vector2{ 0.8f, 0.8f },
-            Alignment::MID_MID,
+            uil::Alignment::MID_MID,
             10,
             4,
             30.0f
@@ -39,11 +39,11 @@ void TestScene::Initialize(app::AppContext_ty) {
 
     auto count{ 0.0f };
 
-    auto insertLineBtn = std::make_shared<ClassicButton>(
+    auto insertLineBtn = std::make_shared<uil::ClassicButton>(
             100,
             GetElementPosition(x, y + ys * count),
             GetElementSize(xs, ys),
-            Alignment::TOP_LEFT,
+            uil::Alignment::TOP_LEFT,
             "+",
             app::SoundType::CLICKED_RELEASE_STD
     );
@@ -56,11 +56,11 @@ void TestScene::Initialize(app::AppContext_ty) {
 
     ++count;
 
-    auto addLineBtn = std::make_shared<ClassicButton>(
+    auto addLineBtn = std::make_shared<uil::ClassicButton>(
             101,
             GetElementPosition(x, y + ys * count),
             GetElementSize(xs, ys),
-            Alignment::TOP_LEFT,
+            uil::Alignment::TOP_LEFT,
             "+",
             app::SoundType::CLICKED_RELEASE_STD
     );
@@ -73,11 +73,11 @@ void TestScene::Initialize(app::AppContext_ty) {
 
     ++count;
 
-    auto removeLineBtn = std::make_shared<ClassicButton>(
+    auto removeLineBtn = std::make_shared<uil::ClassicButton>(
             102,
             GetElementPosition(x, y + ys * count),
             GetElementSize(xs, ys),
-            Alignment::TOP_LEFT,
+            uil::Alignment::TOP_LEFT,
             "-",
             app::SoundType::CLICKED_RELEASE_STD
     );
@@ -89,11 +89,11 @@ void TestScene::Initialize(app::AppContext_ty) {
 
     ++count;
 
-    auto popLineBtn = std::make_shared<ClassicButton>(
+    auto popLineBtn = std::make_shared<uil::ClassicButton>(
             103,
             GetElementPosition(x, y + ys * count),
             GetElementSize(xs, ys),
-            Alignment::TOP_LEFT,
+            uil::Alignment::TOP_LEFT,
             "-",
             app::SoundType::CLICKED_RELEASE_STD
     );
@@ -105,11 +105,11 @@ void TestScene::Initialize(app::AppContext_ty) {
 
     ++count;
 
-    auto button = std::make_shared<ClassicButton>(
+    auto button = std::make_shared<uil::ClassicButton>(
             104,
             GetElementPosition(x, y + ys * count),
             GetElementSize(xs, ys),
-            Alignment::TOP_LEFT,
+            uil::Alignment::TOP_LEFT,
             "new",
             app::SoundType::CLICKED_RELEASE_STD
     );
@@ -121,11 +121,11 @@ void TestScene::Initialize(app::AppContext_ty) {
 
     ++count;
 
-    auto button2 = std::make_shared<ClassicButton>(
+    auto button2 = std::make_shared<uil::ClassicButton>(
             105,
             GetElementPosition(x, y + ys * count),
             GetElementSize(xs, ys),
-            Alignment::TOP_LEFT,
+            uil::Alignment::TOP_LEFT,
             "new+",
             app::SoundType::CLICKED_RELEASE_STD
     );
@@ -137,11 +137,11 @@ void TestScene::Initialize(app::AppContext_ty) {
 
     ++count;
 
-    auto button3 = std::make_shared<ClassicButton>(
+    auto button3 = std::make_shared<uil::ClassicButton>(
             106,
             GetElementPosition(x, y + ys * count),
             GetElementSize(xs, ys),
-            Alignment::TOP_LEFT,
+            uil::Alignment::TOP_LEFT,
             "scroll",
             app::SoundType::CLICKED_RELEASE_STD
     );
@@ -153,16 +153,16 @@ void TestScene::Initialize(app::AppContext_ty) {
     m_elements.push_back(button3);
 
     // to get Back No testing
-    auto backBtn = std::make_shared<ClassicButton>(
+    auto backBtn = std::make_shared<uil::ClassicButton>(
             1000,
             GetElementPosition(0.05f, 0.95f),
             GetElementSize(0.15f, 0.1f),
-            Alignment::BOTTOM_LEFT,
+            uil::Alignment::BOTTOM_LEFT,
             "Back",
             app::SoundType::CLICKED_PRESS_STD
     );
     backBtn->SetOnClick([]() {
-        eve::SwitchSceneEvent const event{ SceneType::MAIN_MENU };
+        eve::SwitchSceneEvent const event{ uil::SceneType::MAIN_MENU };
         app::AppContext::GetInstance().eventManager.InvokeEvent(event);
     });
     m_elements.push_back(backBtn);
@@ -172,7 +172,7 @@ TestScene::TestScene()
     : Scene{
           { 0.5f, 0.5f },
           { 1.0f, 1.0f },
-          Alignment::MID_MID
+          uil::Alignment::MID_MID
 } {
 
     app::AppContext_ty appContext{ app::AppContext::GetInstance() };

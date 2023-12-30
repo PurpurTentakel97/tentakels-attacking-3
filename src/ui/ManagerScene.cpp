@@ -11,57 +11,57 @@
 #include <ui_lib/SceneType.hpp>
 
 
-void SceneManager::InitializeNewScene(SceneType const sceneType) {
+void SceneManager::InitializeNewScene(uil::SceneType const sceneType) {
     switch (sceneType) {
-        case SceneType::TEST:
+        case uil::SceneType::TEST:
             m_currentScene = std::make_shared<TestScene>();
             return;
 
-        case SceneType::LOGO:
+        case uil::SceneType::LOGO:
             m_currentScene = std::make_shared<LogoScene>();
             return;
 
-        case SceneType::INTRO:
+        case uil::SceneType::INTRO:
             m_currentScene = std::make_shared<Intro>();
             return;
 
-        case SceneType::MAIN_MENU:
+        case uil::SceneType::MAIN_MENU:
             m_currentScene = std::make_shared<MainMenu>();
             return;
 
-        case SceneType::NEW_GAME_PLAYER:
+        case uil::SceneType::NEW_GAME_PLAYER:
             m_currentScene = std::make_shared<NewGamePlayerScene>();
             return;
 
-        case SceneType::NEW_GAME_PARAMETER:
+        case uil::SceneType::NEW_GAME_PARAMETER:
             m_currentScene = std::make_shared<NewGameParameterScene>();
             return;
 
-        case SceneType::VALIDATE_GALAXY:
+        case uil::SceneType::VALIDATE_GALAXY:
             m_currentScene = std::make_shared<ValidateGalaxyScene>();
             return;
 
-        case SceneType::MAIN:
+        case uil::SceneType::MAIN:
             m_currentScene = std::make_shared<MainScene>();
             return;
 
-        case SceneType::GAME_SETTINGS:
+        case uil::SceneType::GAME_SETTINGS:
             m_currentScene = std::make_shared<GameSettingsScene>();
             return;
 
-        case SceneType::APP_SETTINGS:
+        case uil::SceneType::APP_SETTINGS:
             m_currentScene = std::make_shared<AppSettingsScene>();
             return;
 
-        case SceneType::CREDITS:
+        case uil::SceneType::CREDITS:
             m_currentScene = std::make_shared<CreditsScene>();
             return;
 
-        case SceneType::UPDATE_EVALUATION:
+        case uil::SceneType::UPDATE_EVALUATION:
             m_currentScene = std::make_shared<UpdateEvaluationScene>();
             return;
 
-        case SceneType::NONE:
+        case uil::SceneType::NONE:
             throw std::runtime_error("unexpected scene type NONE in initialize new scene");
     }
     throw std::runtime_error("unexpected scene type in initialize new scene");

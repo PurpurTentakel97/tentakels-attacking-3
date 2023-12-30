@@ -8,7 +8,7 @@
 #include <ui_lib/Scene.hpp>
 
 
-class CreditTableScene : public Scene {
+class CreditTableScene : public uil::Scene {
 private:
     using creditEntries = std::vector<std::vector<std::string>>;
 
@@ -18,7 +18,7 @@ public:
     CreditTableScene(
             Vector2 pos,
             Vector2 size,
-            Alignment alignment,
+            uil::Alignment alignment,
             std::string const& headline,
             creditEntries const& entries,
             bool containsLink = false

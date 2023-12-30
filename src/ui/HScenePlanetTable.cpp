@@ -19,10 +19,10 @@ void PlanetTable::Initialization() {
         }
     }
 
-    m_table = std::make_shared<Table>(
+    m_table = std::make_shared<uil::Table>(
             GetElementPosition(0.0f, 0.0f),
             GetElementSize(1.0f, 1.0f),
-            Alignment::TOP_LEFT,
+            uil::Alignment::TOP_LEFT,
             1000,
             discoveredCount + 1,
             4,
@@ -89,7 +89,7 @@ void PlanetTable::Initialization() {
 PlanetTable::PlanetTable(
         Vector2 const pos,
         Vector2 const size,
-        Alignment const alignment,
+        uil::Alignment const alignment,
         lgk::Galaxy_ty_raw const galaxy
 )
     : Scene{ pos, size, alignment },

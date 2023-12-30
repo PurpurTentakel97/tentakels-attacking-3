@@ -11,14 +11,14 @@
 #include <ui_lib/TableCellAbstract.hpp>
 
 
-class NewGamePlayerScene final : public Scene, public eve::EventListener {
+class NewGamePlayerScene final : public uil::Scene, public eve::EventListener {
 private:
-    InputLine<std::string>* m_inputLine;
-    ColorPicker* m_colorPicker;
-    Table* m_table;
-    ClassicButton_ty m_nextBTN;
-    std::vector<Focusable_ty_raw> m_nestedFocus;
-    std::vector<ClassicButton_ty> m_playerButtons;
+    uil::InputLine<std::string>* m_inputLine;
+    uil::ColorPicker* m_colorPicker;
+    uil::Table* m_table;
+    uil::ClassicButton_ty m_nextBTN;
+    std::vector<uil::Focusable_ty_raw> m_nestedFocus;
+    std::vector<uil::ClassicButton_ty> m_playerButtons;
 
     void Initialize();
 
@@ -32,9 +32,9 @@ private:
 
     void UpdatePlayer(unsigned int ID, std::string const& name, Color color);
 
-    void UpdatePlayerName(AbstractTableCell const* cell, std::string const& oldValue, std::string const& newValue);
+    void UpdatePlayerName(uil::AbstractTableCell const* cell, std::string const& oldValue, std::string const& newValue);
 
-    void UpdatePlayerColor(AbstractTableCell const* cell, Color oldValue, Color newValue);
+    void UpdatePlayerColor(uil::AbstractTableCell const* cell, Color oldValue, Color newValue);
 
     static void DeletePlayer(unsigned int ID);
 

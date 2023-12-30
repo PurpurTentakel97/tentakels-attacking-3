@@ -13,10 +13,10 @@ UITargetPoint::UITargetPoint(unsigned int const focusID, unsigned int const ID, 
 	Vector2 const colliderPos, lgk::TargetPoint_ty_raw_c targetPoint)
 	: UIGalaxyElement{ focusID, ID,{ 0.005f,0.01f },  player, pos, colliderPos }, m_targetPoint{ targetPoint } {
 
-    m_ring = std::make_shared<CountRing>(
+    m_ring = std::make_shared<uil::CountRing>(
             m_pos,
             m_size,
-            Alignment::DEFAULT,
+            uil::Alignment::DEFAULT,
             m_size.x / 2.0f,
             m_size.x * 1.5f,
             static_cast<int>(targetPoint->GetShipCount()),

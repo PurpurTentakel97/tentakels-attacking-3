@@ -18,11 +18,11 @@ void CreditsScene::Initialize() {
     app::AppContext_ty appContext{ app::AppContext::GetInstance() };
 
     // not moving btn
-    m_speedBTN = std::make_shared<ClassicButton>(
+    m_speedBTN = std::make_shared<uil::ClassicButton>(
             1,
             GetElementPosition(0.95f, 0.95f),
             GetElementSize(0.15f, 0.1f),
-            Alignment::BOTTOM_RIGHT,
+            uil::Alignment::BOTTOM_RIGHT,
             appContext.languageManager.Text("scene_credits_speed_toggle_btn", m_speedLevel, m_maxSpeedLevel),
             app::SoundType::CLICKED_RELEASE_STD
     );
@@ -30,47 +30,52 @@ void CreditsScene::Initialize() {
     m_speedBTN->SetEnabled(false);
     m_elements.push_back(m_speedBTN);
 
-    auto backBTN = std::make_shared<ClassicButton>(
+    auto backBTN = std::make_shared<uil::ClassicButton>(
             2,
             GetElementPosition(0.05f, 0.95f),
             GetElementSize(0.15f, 0.1f),
-            Alignment::BOTTOM_LEFT,
+            uil::Alignment::BOTTOM_LEFT,
             appContext.languageManager.Text("scene_credits_back_btn"),
             app::SoundType::CLICKED_RELEASE_STD
     );
     backBTN->SetOnClick([]() {
-        auto event = eve::SwitchSceneEvent(SceneType::MAIN_MENU);
+        auto event = eve::SwitchSceneEvent(uil::SceneType::MAIN_MENU);
         app::AppContext::GetInstance().eventManager.InvokeEvent(event);
     });
     m_elements.push_back(backBTN);
 
     // credits
-    auto creditsText = std::make_shared<Text>(
+    auto creditsText = std::make_shared<uil::Text>(
             GetElementPosition(0.5f, 0.15f),
             GetElementSize(0.5f, 0.15f),
-            Alignment::MID_MID,
-            Alignment::MID_MID,
+            uil::Alignment::MID_MID,
+            uil::Alignment::MID_MID,
             0.15f,
             appContext.languageManager.Text("scene_credits_credits_title")
     );
     // creditsText->RenderRectangle(true);
     AddMovingElement(creditsText);
 
-    auto creditsLine =
-            std::make_shared<Line>(GetElementPosition(0.35f, 0.21f), GetElementPosition(0.65f, 0.21f), 3.0f, WHITE);
+    auto creditsLine = std::make_shared<uil::Line>(
+            GetElementPosition(0.35f, 0.21f),
+            GetElementPosition(0.65f, 0.21f),
+            3.0f,
+            WHITE
+    );
     AddMovingElement(creditsLine);
 
 
     // title
-    m_title = std::make_shared<Title>(
+    m_title = std::make_shared<uil::Title>(
             GetElementPosition(0.5f, 0.5f),
             GetElementSize(0.9f, 0.4f),
-            Alignment::MID_MID,
+            uil::Alignment::MID_MID,
             true
     );
     AddMovingElement(m_title);
 
-    m_titleLine = std::make_shared<Line>(GetElementPosition(0.05f, 0.5f), GetElementPosition(0.95f, 0.5f), 5.0f, WHITE);
+    m_titleLine =
+            std::make_shared<uil::Line>(GetElementPosition(0.05f, 0.5f), GetElementPosition(0.95f, 0.5f), 5.0f, WHITE);
     // Added to Element when moving is true
 
     float Y{ 1.1f };
@@ -82,20 +87,20 @@ void CreditsScene::Initialize() {
     };
 
     // logo
-    auto logo = std::make_shared<Picture>(
+    auto logo = std::make_shared<uil::Picture>(
             GetElementPosition(0.5f, Y),
             GetElementSize(0.5f, height),
-            Alignment::TOP_MID,
+            uil::Alignment::TOP_MID,
             app::AssetType::LOGO
     );
     AddMovingElement(logo);
 
     setHeight(0.1f, 0.02f);
-    auto logoText = std::make_shared<Text>(
+    auto logoText = std::make_shared<uil::Text>(
             GetElementPosition(0.5f, Y),
             GetElementSize(1.0f, height),
-            Alignment::TOP_MID,
-            Alignment::TOP_MID,
+            uil::Alignment::TOP_MID,
+            uil::Alignment::TOP_MID,
             0.08f,
             appContext.languageManager.Text("scene_credits_subtitle", "Purpur Tentakel")
     );
@@ -107,7 +112,7 @@ void CreditsScene::Initialize() {
     auto libTable = std::make_shared<CreditTableScene>(
             GetElementPosition(0.5f, Y),
             GetElementSize(0.5f, height),
-            Alignment::TOP_MID,
+            uil::Alignment::TOP_MID,
             appContext.languageManager.Text("scene_credits_libraries_headline"),
             libVec,
             true
@@ -119,7 +124,7 @@ void CreditsScene::Initialize() {
     auto inspirationTable = std::make_shared<CreditTableScene>(
             GetElementPosition(0.5f, Y),
             GetElementSize(0.5f, height),
-            Alignment::TOP_MID,
+            uil::Alignment::TOP_MID,
             appContext.languageManager.Text("scene_credits_inspiration_headline"),
             inspirationVec
     );
@@ -130,7 +135,7 @@ void CreditsScene::Initialize() {
     auto testersTable = std::make_shared<CreditTableScene>(
             GetElementPosition(0.5f, Y),
             GetElementSize(0.5f, height),
-            Alignment::TOP_MID,
+            uil::Alignment::TOP_MID,
             appContext.languageManager.Text("scene_credits_testers_headline"),
             testerVec
     );
@@ -141,7 +146,7 @@ void CreditsScene::Initialize() {
     auto spatialThanksTable = std::make_shared<CreditTableScene>(
             GetElementPosition(0.5f, Y),
             GetElementSize(0.5f, height),
-            Alignment::TOP_MID,
+            uil::Alignment::TOP_MID,
             appContext.languageManager.Text("scene_credits_special_thanks_headline"),
             specialThanksVec
     );
@@ -152,7 +157,7 @@ void CreditsScene::Initialize() {
     auto contactTable = std::make_shared<CreditTableScene>(
             GetElementPosition(0.5f, Y),
             GetElementSize(0.5f, height),
-            Alignment::TOP_MID,
+            uil::Alignment::TOP_MID,
             appContext.languageManager.Text("scene_credits_contact_headline"),
             contactVec,
             true
@@ -163,16 +168,16 @@ void CreditsScene::Initialize() {
 
     // finish btn
     setHeight(0.1f, 0.0f);
-    m_endBTN = std::make_shared<ClassicButton>(
+    m_endBTN = std::make_shared<uil::ClassicButton>(
             3,
             GetElementPosition(0.5f, Y),
             GetElementSize(0.15f, height),
-            Alignment::TOP_MID,
+            uil::Alignment::TOP_MID,
             appContext.languageManager.Text("scene_credits_end_btn"),
             app::SoundType::ACCEPTED
     );
     m_endBTN->SetOnClick([]() {
-        auto event = eve::SwitchSceneEvent(SceneType::MAIN_MENU);
+        auto event = eve::SwitchSceneEvent(uil::SceneType::MAIN_MENU);
         app::AppContext::GetInstance().eventManager.InvokeEvent(event);
     });
     AddMovingElement(m_endBTN);
@@ -218,7 +223,7 @@ CreditsScene::CreditsScene()
     : Scene{
           { 0.0f, 0.0f },
           { 1.0f, 1.0f },
-          Alignment::DEFAULT
+          uil::Alignment::DEFAULT
 } {
     Initialize();
 }

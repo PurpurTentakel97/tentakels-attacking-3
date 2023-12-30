@@ -16,7 +16,7 @@ void ColorCellPopUp::SetValue() {
 ColorCellPopUp::ColorCellPopUp(
         Vector2 const pos,
         Vector2 const size,
-        Alignment const alignment,
+        uil::Alignment const alignment,
         std::string const& title,
         app::AssetType const infoTexture,
         Color const currentColor,
@@ -30,11 +30,11 @@ ColorCellPopUp::ColorCellPopUp(
     auto acceptBtn = InitializeAcceptButton();
     acceptBtn->SetOnClick([this]() { this->SetValue(); });
 
-    auto colorPicker = std::make_shared<ColorPicker>(
+    auto colorPicker = std::make_shared<uil::ColorPicker>(
             3,
             hlp::GetElementPosition(m_pos, m_size, 0.5f, 0.5f),
             hlp::GetElementSize(m_size, 0.5f, 0.38f),
-            Alignment::MID_MID,
+            uil::Alignment::MID_MID,
             true
     );
 

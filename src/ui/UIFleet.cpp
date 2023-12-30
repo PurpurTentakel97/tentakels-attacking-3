@@ -12,7 +12,7 @@
 
 UIFleet::UIFleet(unsigned int const ID, app::PlayerData const& player, Vector2 const start, Vector2 const end, Vector2 const relativeStart, Vector2 const relativeEnd,
                  lgk::Fleet_ty_raw_c fleet, std::function<bool(Vector2 const&)> isInGalaxyCollider)
-    : UIElement{ start, { 0.005f,0.01f }, Alignment::MID_MID }, m_ID{ ID }, m_player{ player },
+    : UIElement{ start, { 0.005f,0.01f }, uil::Alignment::MID_MID }, m_ID{ ID }, m_player{ player },
     m_relativeStart{ relativeStart }, m_relativeEnd{ relativeEnd }, m_fleet { fleet }, m_isInGalaxyCollider{ std::move(isInGalaxyCollider) },
     m_line{
         start,
@@ -27,10 +27,10 @@ UIFleet::UIFleet(unsigned int const ID, app::PlayerData const& player, Vector2 c
         Vector2(0.01f,0.01f)
     } {
 
-    m_ring = std::make_shared<CountRing>(
+    m_ring = std::make_shared<uil::CountRing>(
             Vector2{ m_pos.x - m_size.x / 2, m_pos.y - m_size.y / 2 },
             m_size,
-            Alignment::MID_MID,
+            uil::Alignment::MID_MID,
             m_size.x,
             m_size.x * 3.0f,
             static_cast<int>(m_fleet->GetShipCount()),

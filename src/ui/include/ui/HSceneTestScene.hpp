@@ -9,7 +9,7 @@
 #include <ui_lib/Scene.hpp>
 
 
-class TestScene : public Scene {
+class TestScene : public uil::Scene {
 private:
     void Initialize(app::AppContext_ty appContext);
 

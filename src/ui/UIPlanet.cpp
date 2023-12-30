@@ -19,10 +19,10 @@ UIPlanet::UIPlanet(unsigned int const focusID, unsigned int const ID, app::Playe
 
     m_renderOffset = { (m_collider.width - textSize.x) / 2, (m_collider.height - textSize.y) / 2 };
 
-    m_ring = std::make_shared<CountRing>(
+    m_ring = std::make_shared<uil::CountRing>(
             m_pos,
             m_size,
-            Alignment::DEFAULT,
+            uil::Alignment::DEFAULT,
             m_size.x / 2.0f,
             m_size.x * 1.5f,
             static_cast<int>(m_planet->GetShipCount()),

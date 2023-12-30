@@ -15,30 +15,30 @@
 void LogoScene::Initialize() {
     app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
 
-    auto logo = std::make_shared<Picture>(
+    auto logo = std::make_shared<uil::Picture>(
             GetElementPosition(0.5f, 0.1f),
             GetElementSize(0.0f, 0.5f),
-            Alignment::TOP_MID,
+            uil::Alignment::TOP_MID,
             app::AssetType::LOGO
     );
     m_elements.push_back(logo);
 
-    auto mainText = std::make_shared<Text>(
+    auto mainText = std::make_shared<uil::Text>(
             GetElementPosition(0.5f, 0.65f),
             GetElementSize(1.0f, 0.1f),
-            Alignment::TOP_MID,
-            Alignment::TOP_MID,
+            uil::Alignment::TOP_MID,
+            uil::Alignment::TOP_MID,
             0.07f,
             appContext.languageManager.Text("scene_logo_subtitle", "Purpur Tentakel")
     );
     //mainText->RenderRectangle(true);
     m_elements.push_back(mainText);
 
-    auto skipText = std::make_shared<Text>(
+    auto skipText = std::make_shared<uil::Text>(
             GetElementPosition(0.99f, 0.97f),
             GetElementSize(0.2f, 0.03f),
-            Alignment::BOTTOM_RIGHT,
-            Alignment::BOTTOM_RIGHT,
+            uil::Alignment::BOTTOM_RIGHT,
+            uil::Alignment::BOTTOM_RIGHT,
             0.03f,
             appContext.languageManager.Text("scene_logo_skip", "[ESC]")
     );
@@ -47,7 +47,7 @@ void LogoScene::Initialize() {
 }
 
 LogoScene::LogoScene()
-	:Scene{ {0.0f, 0.0f}, {1.0f, 1.0f}, Alignment::DEFAULT },
+	:Scene{ {0.0f, 0.0f}, {1.0f, 1.0f}, uil::Alignment::DEFAULT },
 	m_time{ GetTime() } {
     Initialize();
 }

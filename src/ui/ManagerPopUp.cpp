@@ -87,7 +87,7 @@ void ManagerPopUp::NewMessagePopUp(eve::ShowMessagePopUpEvent const* const event
     m_popUps.push_back(std::make_unique<MessagePopUp>(
             Vector2(0.5f, 0.5f),
             Vector2(0.5f, 0.5f),
-            Alignment::MID_MID,
+            uil::Alignment::MID_MID,
             event->GetTitle(),
             const_cast<std::string&>(event->GetSubTitle()),
             app::AssetType::EXCLAMATION_MARK,
@@ -101,7 +101,7 @@ void ManagerPopUp::NewDeletePlayerPopUp(eve::ShowDeletePlayerPopUpEvent const* c
     m_popUps.push_back(std::make_unique<DeletePlayerPopUp>(
             Vector2(0.5f, 0.5f),
             Vector2(0.5f, 0.5f),
-            Alignment::MID_MID,
+            uil::Alignment::MID_MID,
             event->GetTitle(),
             app::AssetType::QUESTION_MARK,
             event->GetOnClick()
@@ -114,7 +114,7 @@ void ManagerPopUp::NewValidatePopUp(eve::ShowValidatePopUp const* const event) {
     m_popUps.push_back(std::make_unique<ValidatePopUp>(
             Vector2(0.5f, 0.5f),
             Vector2(0.5f, 0.5f),
-            Alignment::MID_MID,
+            uil::Alignment::MID_MID,
             event->GetTitle(),
             const_cast<std::string&>(event->GetSubTitle()),
             app::AssetType::QUESTION_MARK,
@@ -130,7 +130,7 @@ void ManagerPopUp::NewColorCellPopUp(eve::ShowCellPopUpEvent<Color> const* const
     m_popUps.push_back(std::make_unique<ColorCellPopUp>(
             Vector2(0.5f, 0.5f),
             Vector2(0.7f, 0.7f),
-            Alignment::MID_MID,
+            uil::Alignment::MID_MID,
             event->GetTitle(),
             app::AssetType::LOGO,
             event->GetCurrentValue(),
@@ -146,7 +146,7 @@ void ManagerPopUp::NewSoundLevelPopUp(eve::ShowInitialSoundLevelPopUpEvent const
     m_popUps.push_back(std::make_unique<SoundLevelPopUp>(
             Vector2(0.5f, 0.5f),
             Vector2(0.5f, 0.5f),
-            Alignment::MID_MID,
+            uil::Alignment::MID_MID,
             event->GetTitle(),
             const_cast<std::string&>(event->GetSubTitle())
     ));
@@ -159,13 +159,13 @@ void ManagerPopUp::NewFightResultPopUp(eve::ShowFightResultEvent const* const ev
     m_popUps.push_back(std::make_unique<FightResultPopup>(
             Vector2(0.5f, 0.5f),
             Vector2(0.8f, 0.8f),
-            Alignment::MID_MID,
+            uil::Alignment::MID_MID,
             event->GetResult(),
             event->GetCallback()
     ));
 }
 
-void ManagerPopUp::DeleteLastPopUp(PopUp* const toDelete) {
+void ManagerPopUp::DeleteLastPopUp(uil::PopUp* const toDelete) {
     if (m_popUps.empty()) {
         return;
     }

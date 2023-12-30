@@ -14,6 +14,11 @@ namespace uil {
     class Scene;
     enum class SceneType;
 
+    enum class Alignment;
+    enum class TextAlignment;
+
+    class PopUp;
+
     class ClassicButton;
     using ClassicButton_ty = std::shared_ptr<ClassicButton>;
     using ClassicButton_ty_c = std::shared_ptr<ClassicButton> const&;

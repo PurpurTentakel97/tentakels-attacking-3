@@ -15,8 +15,8 @@
 
 class ManagerPopUp final : public eve::EventListener {
 private:
-    std::vector<std::unique_ptr<PopUp>> m_popUps;
-    std::vector<PopUp*> m_toDelete;
+    std::vector<std::unique_ptr<uil::PopUp>> m_popUps;
+    std::vector<uil::PopUp*> m_toDelete;
 
 public:
     ManagerPopUp();
@@ -48,7 +48,7 @@ public:
         m_popUps.push_back(std::make_unique<PrimitiveCellPopUp<T>>(
                 Vector2(0.5f, 0.5f),
                 Vector2(0.7f, 0.7f),
-                Alignment::MID_MID,
+                uil::Alignment::MID_MID,
                 event->GetTitle(),
                 app::AssetType::LOGO,
                 event->GetCurrentValue(),
@@ -56,7 +56,7 @@ public:
         ));
     }
 
-    void DeleteLastPopUp(PopUp* toDelete);
+    void DeleteLastPopUp(uil::PopUp* toDelete);
 
     void CheckForDeleteRemainingPopUps();
 

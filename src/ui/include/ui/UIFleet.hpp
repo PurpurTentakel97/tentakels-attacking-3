@@ -11,7 +11,7 @@
 #include <ui_lib/Line.hpp>
 #include <ui_lib/UIElement.hpp>
 
-class UIFleet final : public UIElement {
+class UIFleet final : public uil::UIElement {
 private:
     unsigned int m_ID;
     app::PlayerData m_player;
@@ -19,10 +19,10 @@ private:
     Vector2 m_relativeEnd;
     lgk::Fleet_ty_raw_c m_fleet;
     std::function<bool(Vector2 const&)> m_isInGalaxyCollider;
-    Line m_line;
-    Hover m_hover;
+    uil::Line m_line;
+    uil::Hover m_hover;
     bool m_isDisplayAsPoint{ false };
-    CountRing_ty m_ring{ nullptr };
+    uil::CountRing_ty m_ring{ nullptr };
 
 public:
     UIFleet(unsigned int ID,

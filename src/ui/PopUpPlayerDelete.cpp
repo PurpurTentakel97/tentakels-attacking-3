@@ -12,11 +12,11 @@ void DeletePlayerPopUp::Initialize() {
     auto acceptBtn = InitializeAcceptButton();
     acceptBtn->SetOnClick([this]() { this->SetValue(); });
 
-    auto inputLine = std::make_shared<InputLine<int>>(
+    auto inputLine = std::make_shared<uil::InputLine<int>>(
             3,
             hlp::GetElementPosition(m_pos, m_size, 0.5f, 0.45f),
             hlp::GetElementSize(m_size, 0.5f, 0.1f),
-            Alignment::TOP_MID,
+            uil::Alignment::TOP_MID,
             5
     );
     inputLine->SetPlaceholderText("Player ID");
@@ -38,7 +38,7 @@ void DeletePlayerPopUp::SetValue() {
 DeletePlayerPopUp::DeletePlayerPopUp(
         Vector2 const pos,
         Vector2 const size,
-        Alignment const alignment,
+        uil::Alignment const alignment,
         std::string const& title,
         app::AssetType const inputTexture,
         std::function<void(unsigned int)> onClick

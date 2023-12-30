@@ -8,10 +8,10 @@
 #include <ui_lib/Scene.hpp>
 
 
-class FleetAndTargetPointTable final : public Scene {
+class FleetAndTargetPointTable final : public uil::Scene {
 private:
     lgk::Galaxy_ty_raw m_galaxy;
-    Table_ty m_table;
+    uil::Table_ty m_table;
 
     void Initialization(app::PlayerData const& currentPlayer);
 
@@ -21,7 +21,7 @@ public:
     FleetAndTargetPointTable(
             Vector2 pos,
             Vector2 size,
-            Alignment alignment,
+            uil::Alignment alignment,
             lgk::Galaxy_ty_raw galaxy,
             app::PlayerData const& currentPlayer
     );

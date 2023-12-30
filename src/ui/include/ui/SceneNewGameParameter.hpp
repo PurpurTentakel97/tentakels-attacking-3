@@ -10,7 +10,7 @@
 #include <ui_lib/Scene.hpp>
 #include <vector>
 
-class NewGameParameterScene final : public Scene, public eve::EventListener {
+class NewGameParameterScene final : public uil::Scene, public eve::EventListener {
 private:
     std::shared_ptr<GameEventSettings> m_eventSettings;
     std::vector<std::shared_ptr<SliderAndInputLine>> m_slider;

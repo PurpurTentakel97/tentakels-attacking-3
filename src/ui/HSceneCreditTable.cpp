@@ -12,19 +12,23 @@
 
 void CreditTableScene::Initialize(std::string const& headline, creditEntries const& entries, bool const containsLink) {
     // headline
-    auto headlineText = std::make_shared<Text>(
+    auto headlineText = std::make_shared<uil::Text>(
             GetElementPosition(0.5f, 0.0f),
             GetElementSize(0.8f, 0.15f),
-            Alignment::TOP_MID,
-            Alignment::TOP_MID,
+            uil::Alignment::TOP_MID,
+            uil::Alignment::TOP_MID,
             0.15f * m_size.y,
             headline
     );
     // headlineText->RenderRectangle(true);
     m_elements.push_back(headlineText);
 
-    auto headlineLine =
-            std::make_shared<Line>(GetElementPosition(0.15f, 0.15f), GetElementPosition(0.85f, 0.15f), 3.0f, WHITE);
+    auto headlineLine = std::make_shared<uil::Line>(
+            GetElementPosition(0.15f, 0.15f),
+            GetElementPosition(0.85f, 0.15f),
+            3.0f,
+            WHITE
+    );
     m_elements.push_back(headlineLine);
 
     // elements
@@ -47,11 +51,11 @@ void CreditTableScene::Initialize(std::string const& headline, creditEntries con
 
         size_t position{ 0 };
         if ((e.size() == 2 && !containsLink) or (e.size() == 4 && containsLink)) {
-            auto entry = std::make_shared<Text>(
+            auto entry = std::make_shared<uil::Text>(
                     GetElementPosition(0.49f, 0.2f + textHeight * static_cast<float>(i)),
                     GetElementSize(0.5f, textHeight),
-                    Alignment::TOP_RIGHT,
-                    Alignment::TOP_RIGHT,
+                    uil::Alignment::TOP_RIGHT,
+                    uil::Alignment::TOP_RIGHT,
                     textHeight * m_size.y,
                     e.at(position)
             );
@@ -64,11 +68,11 @@ void CreditTableScene::Initialize(std::string const& headline, creditEntries con
                 ++position;
             }
 
-            entry = std::make_shared<Text>(
+            entry = std::make_shared<uil::Text>(
                     GetElementPosition(0.51f, 0.2f + textHeight * static_cast<float>(i)),
                     GetElementSize(0.5f, textHeight),
-                    Alignment::TOP_LEFT,
-                    Alignment::TOP_LEFT,
+                    uil::Alignment::TOP_LEFT,
+                    uil::Alignment::TOP_LEFT,
                     textHeight * m_size.y,
                     e.at(position)
             );
@@ -81,11 +85,11 @@ void CreditTableScene::Initialize(std::string const& headline, creditEntries con
                 ++position;
             }
         } else {
-            auto entry = std::make_shared<Text>(
+            auto entry = std::make_shared<uil::Text>(
                     GetElementPosition(0.5f, 0.23f + textHeight * static_cast<float>(i)),
                     GetElementSize(1.0f, textHeight),
-                    Alignment::MID_MID,
-                    Alignment::MID_MID,
+                    uil::Alignment::MID_MID,
+                    uil::Alignment::MID_MID,
                     textHeight * m_size.y,
                     e.at(position)
             );
@@ -104,7 +108,7 @@ void CreditTableScene::Initialize(std::string const& headline, creditEntries con
 CreditTableScene::CreditTableScene(
         Vector2 const pos,
         Vector2 const size,
-        Alignment const alignment,
+        uil::Alignment const alignment,
         std::string const& headline,
         creditEntries const& entries,
         bool const containsLink

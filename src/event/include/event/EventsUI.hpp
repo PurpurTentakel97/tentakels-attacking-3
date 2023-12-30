@@ -8,21 +8,13 @@
 #include "EventMain.hpp"
 #include <CustomRaylib.hpp>
 #include <alias/AliasApp.hpp>
+#include <alias/AliasConstants.hpp>
 #include <alias/AliasUiLib.hpp>
 #include <alias/AliasUtils.hpp>
 #include <functional>
 #include <string>
 #include <utils/FightResult.hpp>
 #include <utils/Vec2.hpp>
-
-class Focusable;
-class PopUp;
-class Hover;
-enum class SceneType;
-
-namespace cst {
-    enum class Resolution;
-}
 
 namespace eve {
     class CloseWindowEvent final : public Event { };
@@ -100,24 +92,24 @@ namespace eve {
 
     class RenderHoverEvent final : public Event {
     private:
-        Hover* m_hover;
+        uil::Hover* m_hover;
 
     public:
-        explicit RenderHoverEvent(Hover* const hover) : m_hover{ hover } { }
+        explicit RenderHoverEvent(uil::Hover* const hover) : m_hover{ hover } { }
 
-        [[nodiscard]] Hover* GetHover() const {
+        [[nodiscard]] uil::Hover* GetHover() const {
             return m_hover;
         }
     };
 
     class FocusEvent : public Event {
     protected:
-        Focusable_ty_raw m_focusable;
+        uil::Focusable_ty_raw m_focusable;
 
     public:
-        explicit FocusEvent(Focusable_ty_raw focusable) : m_focusable{ focusable } { }
+        explicit FocusEvent(uil::Focusable_ty_raw focusable) : m_focusable{ focusable } { }
 
-        [[nodiscard]] Focusable_ty_raw GetFocusable() const {
+        [[nodiscard]] uil::Focusable_ty_raw GetFocusable() const {
             return m_focusable;
         }
     };
@@ -179,24 +171,24 @@ namespace eve {
 
     class SwitchSceneEvent final : public Event {
     private:
-        SceneType m_sceneType;
+        uil::SceneType m_sceneType;
 
     public:
-        explicit SwitchSceneEvent(SceneType const sceneType) : m_sceneType{ sceneType } { }
+        explicit SwitchSceneEvent(uil::SceneType const sceneType) : m_sceneType{ sceneType } { }
 
-        [[nodiscard]] SceneType GetSceneType() const {
+        [[nodiscard]] uil::SceneType GetSceneType() const {
             return m_sceneType;
         }
     };
 
     class ClosePopUpEvent final : public Event {
     private:
-        PopUp* m_popUp;
+        uil::PopUp* m_popUp;
 
     public:
-        explicit ClosePopUpEvent(PopUp* const popUp) : m_popUp{ popUp } { }
+        explicit ClosePopUpEvent(uil::PopUp* const popUp) : m_popUp{ popUp } { }
 
-        [[nodiscard]] PopUp* GetPop() const {
+        [[nodiscard]] uil::PopUp* GetPop() const {
             return m_popUp;
         }
     };

@@ -17,11 +17,11 @@
 class SceneManager final : public eve::EventListener {
 private:
     ManagerPopUp m_popUpManager;
-    SceneType m_currentSceneType{ SceneType::NONE };
-    SceneType m_nextSceneType{ SceneType::NONE };
-    std::shared_ptr<Scene> m_currentScene;
+    uil::SceneType m_currentSceneType{ uil::SceneType::NONE };
+    uil::SceneType m_nextSceneType{ uil::SceneType::NONE };
+    std::shared_ptr<uil::Scene> m_currentScene;
 
-    void InitializeNewScene(SceneType sceneType);
+    void InitializeNewScene(uil::SceneType sceneType);
 
     void SwitchScene(app::AppContext_ty_c appContext);
 

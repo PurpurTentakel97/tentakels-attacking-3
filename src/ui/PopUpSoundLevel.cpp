@@ -15,10 +15,10 @@
 void SoundLevelPopUp::Initialize() {
     app::AppContext_ty_c appContext = app::AppContext::GetInstance();
 
-    m_slider = std::make_shared<Slider>(
+    m_slider = std::make_shared<uil::Slider>(
             hlp::GetElementPosition(m_pos, m_size, 0.5f, 0.65f),
             hlp::GetElementSize(m_size, 0.7f, 0.1f),
-            Alignment::BOTTOM_MID,
+            uil::Alignment::BOTTOM_MID,
             true,
             10.0f
     );
@@ -29,11 +29,11 @@ void SoundLevelPopUp::Initialize() {
     });
     m_elements.push_back(m_slider);
 
-    m_checkBox = std::make_shared<CheckBox>(
+    m_checkBox = std::make_shared<uil::CheckBox>(
             4,
             hlp::GetElementPosition(m_pos, m_size, 0.15f, 0.66f),
             hlp::GetElementSize(m_size, 0.0f, 0.04f).y,
-            Alignment::TOP_LEFT,
+            uil::Alignment::TOP_LEFT,
             1
     );
     m_checkBox->SetChecked(appContext.constants.sound.muteVolume);
@@ -45,20 +45,20 @@ void SoundLevelPopUp::Initialize() {
     hlp::AddFocusElement(m_checkBox.get(), true);
     m_elements.push_back(m_checkBox);
 
-    m_elements.push_back(std::make_shared<Text>(
+    m_elements.push_back(std::make_shared<uil::Text>(
             hlp::GetElementPosition(m_pos, m_size, 0.18f, 0.655f),
             hlp::GetElementSize(m_size, 0.2f, 0.3f),
-            Alignment::TOP_LEFT,
-            Alignment::TOP_LEFT,
+            uil::Alignment::TOP_LEFT,
+            uil::Alignment::TOP_LEFT,
             0.025f,
             appContext.languageManager.Text("ui_sound_level_popup_mute")
     ));
 
-    m_acceptBtn = std::make_shared<ClassicButton>(
+    m_acceptBtn = std::make_shared<uil::ClassicButton>(
             1,
             hlp::GetElementPosition(m_pos, m_size, 0.5f, 0.95f),
             hlp::GetElementSize(m_size, 0.2f, 0.15f),
-            Alignment::BOTTOM_MID,
+            uil::Alignment::BOTTOM_MID,
             appContext.languageManager.Text("ui_sound_level_popup_accept_btn"),
             app::SoundType::ACCEPTED
     );
@@ -73,7 +73,7 @@ void SoundLevelPopUp::Initialize() {
 SoundLevelPopUp::SoundLevelPopUp(
         Vector2 const pos,
         Vector2 const size,
-        Alignment const alignment,
+        uil::Alignment const alignment,
         std::string const& title,
         std::string& subTitle
 )

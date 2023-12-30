@@ -14,11 +14,11 @@ void ValidatePopUp::Initialize() {
 
     app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
 
-    auto acceptBtn = std::make_shared<ClassicButton>(
+    auto acceptBtn = std::make_shared<uil::ClassicButton>(
             2,
             hlp::GetElementPosition(m_pos, m_size, 0.33f, 0.9f),
             hlp::GetElementSize(m_size, 0.2f, 0.15f),
-            Alignment::BOTTOM_MID,
+            uil::Alignment::BOTTOM_MID,
             appContext.languageManager.Text("ui_validate_popup_accept_btn"),
             app::SoundType::ACCEPTED
     );
@@ -29,11 +29,11 @@ void ValidatePopUp::Initialize() {
     hlp::AddFocusElement(acceptBtn.get(), true);
     m_elements.push_back(acceptBtn);
 
-    auto cancelBtn = std::make_shared<ClassicButton>(
+    auto cancelBtn = std::make_shared<uil::ClassicButton>(
             1,
             hlp::GetElementPosition(m_pos, m_size, 0.66f, 0.9f),
             hlp::GetElementSize(m_size, 0.2f, 0.15f),
-            Alignment::BOTTOM_MID,
+            uil::Alignment::BOTTOM_MID,
             appContext.languageManager.Text("ui_validate_popup_cancel_btn"),
             app::SoundType::CLICKED_RELEASE_STD
     );
@@ -53,7 +53,7 @@ void ValidatePopUp::Close() {
 ValidatePopUp::ValidatePopUp(
         Vector2 const pos,
         Vector2 const size,
-        Alignment const alignment,
+        uil::Alignment const alignment,
         std::string const& title,
         std::string& subTitle,
         app::AssetType const infoTexture,

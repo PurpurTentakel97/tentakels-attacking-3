@@ -12,7 +12,7 @@
 
 class DeletePlayerPopUp final : public CellPopUp {
 private:
-    InputLine_int_ty m_inputLine;
+    uil::InputLine_int_ty m_inputLine;
     std::function<void(unsigned int)> m_onClick;
 
     void Initialize() override;
@@ -23,7 +23,7 @@ public:
     DeletePlayerPopUp(
             Vector2 pos,
             Vector2 size,
-            Alignment alignment,
+            uil::Alignment alignment,
             std::string const& title,
             app::AssetType inputTexture,
             std::function<void(unsigned int)> onClick

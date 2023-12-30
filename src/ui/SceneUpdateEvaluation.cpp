@@ -143,7 +143,7 @@ void UpdateEvaluationScene::HandleNextPopup() {
                 appContext.languageManager.Text("ui_popup_end_of_evaluation_title"),
                 appContext.languageManager.Text("ui_popup_end_of_evaluation_subtitle"),
                                                []() {
-                    eve::SwitchSceneEvent const e{ SceneType::MAIN };
+                    eve::SwitchSceneEvent const e{ uil::SceneType::MAIN };
                     app::AppContext::GetInstance().eventManager.InvokeEvent(e);
                 } };
             appContext.eventManager.InvokeEvent(event);
@@ -154,7 +154,7 @@ void UpdateEvaluationScene::HandleNextPopup() {
     ++m_currentIndex;
 }
 
-UpdateEvaluationScene::UpdateEvaluationScene() : Scene({ 0.0f, 0.0f }, { 1.0f, 1.0f }, Alignment::DEFAULT) {
+UpdateEvaluationScene::UpdateEvaluationScene() : Scene({ 0.0f, 0.0f }, { 1.0f, 1.0f }, uil::Alignment::DEFAULT) {
 
     app::AppContext_ty appContext{ app::AppContext::GetInstance() };
     appContext.eventManager.AddListener(this);

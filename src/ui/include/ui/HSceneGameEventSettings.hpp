@@ -8,9 +8,9 @@
 #include <ui_lib/Scene.hpp>
 
 
-class GameEventSettings : public Scene {
+class GameEventSettings : public uil::Scene {
 private:
-    std::vector<CheckBox_ty> m_checkBoxes;
+    std::vector<uil::CheckBox_ty> m_checkBoxes;
     std::array<std::pair<cst::HGameEventType, std::string>, 7> m_text{
         {
          // clang-format off
@@ -30,7 +30,7 @@ private:
     void SetChecked(unsigned int index, bool isChecked);
 
 public:
-    GameEventSettings(unsigned int focusID, Vector2 pos, Vector2 size, Alignment alignment);
+    GameEventSettings(unsigned int focusID, Vector2 pos, Vector2 size, uil::Alignment alignment);
 
     void SetRandom();
 };

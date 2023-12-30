@@ -10,7 +10,7 @@
 #include <ui_lib/PopUp.hpp>
 
 
-class MessagePopUp final : public PopUp {
+class MessagePopUp final : public uil::PopUp {
 private:
     std::function<void()> m_callback{ []() {} };
 
@@ -20,7 +20,7 @@ public:
     MessagePopUp(
             Vector2 pos,
             Vector2 size,
-            Alignment alignment,
+            uil::Alignment alignment,
             std::string const& title,
             std::string& subTitle,
             app::AssetType infoTexture,

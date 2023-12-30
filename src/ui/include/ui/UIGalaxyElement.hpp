@@ -10,7 +10,7 @@
 #include <ui_lib/Hover.hpp>
 #include <ui_lib/UIElement.hpp>
 
-class UIGalaxyElement : public UIElement, public Focusable {
+class UIGalaxyElement : public uil::UIElement, public uil::Focusable {
 public:
     static constexpr int s_maxShipCount{ 300 };
     static constexpr int s_ringColorAlpha{ 100 };
@@ -21,11 +21,11 @@ protected:
     Vector2 m_colliderPos;
     Color m_color;
     std::string m_stringID;
-    Hover m_hover;
+    uil::Hover m_hover;
     bool m_isEnabled{ true };
     std::function<void(UIGalaxyElement*)> m_onClick{ [](UIGalaxyElement*) {} };
     bool m_renderHover{ false };
-    CountRing_ty m_ring{ nullptr };
+    uil::CountRing_ty m_ring{ nullptr };
 
 public:
     UIGalaxyElement(

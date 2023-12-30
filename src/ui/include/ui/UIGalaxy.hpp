@@ -6,6 +6,7 @@
 #pragma once
 
 #include "app/PlayerData.hpp"
+#include <alias/AliasEvent.hpp>
 #include <alias/AliasUi.hpp>
 #include <event/EventListener.hpp>
 #include <functional>
@@ -14,13 +15,8 @@
 #include <ui_lib/UIElement.hpp>
 #include <vector>
 
-class UIPlanet;
 
-namespace eve {
-    class SendGalaxyPointerEvent;
-}
-
-class UIGalaxy final : public UIElement, public eve::EventListener, public Focusable {
+class UIGalaxy final : public uil::UIElement, public eve::EventListener, public uil::Focusable {
 private:
     enum class Direction {
         UP,
@@ -49,7 +45,7 @@ private:
     std::function<void(unsigned int)> m_onUIGalaxyElementClick{ [](unsigned int) {} };
 
     bool m_updateLineDrag{ false };
-    LineDrag_ty m_lineDrag;
+    uil::LineDrag_ty m_lineDrag;
 
     void Initialize(eve::SendGalaxyPointerEvent const* event);
 
@@ -82,7 +78,14 @@ private:
     void HandleDragLineResult(Vector2 start, Vector2 end);
 
 public:
-    UIGalaxy(unsigned int ID, Vector2 pos, Vector2 size, Alignment alignment, bool isShowGalaxy, bool isAcceptInput);
+    UIGalaxy(
+            unsigned int ID,
+            Vector2 pos,
+            Vector2 size,
+            uil::Alignment alignment,
+            bool isShowGalaxy,
+            bool isAcceptInput
+    );
 
     ~UIGalaxy() override;
 

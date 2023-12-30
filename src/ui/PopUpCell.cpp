@@ -18,11 +18,11 @@ void CellPopUp::Initialize() {
 
     app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
 
-    auto cancelBtn = std::make_shared<ClassicButton>(
+    auto cancelBtn = std::make_shared<uil::ClassicButton>(
             2,
             hlp::GetElementPosition(m_pos, m_size, 0.1f, 0.95f),
             hlp::GetElementSize(m_size, 0.3f, 0.2f),
-            Alignment::BOTTOM_LEFT,
+            uil::Alignment::BOTTOM_LEFT,
             appContext.languageManager.Text("ui_cell_popup_cancel_btn"),
             app::SoundType::CLICKED_RELEASE_STD
     );
@@ -34,15 +34,15 @@ void CellPopUp::Initialize() {
     m_elements.push_back(cancelBtn);
 }
 
-ClassicButton_ty CellPopUp::InitializeAcceptButton() {
+uil::ClassicButton_ty CellPopUp::InitializeAcceptButton() {
 
     app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
 
-    auto acceptBtn = std::make_shared<ClassicButton>(
+    auto acceptBtn = std::make_shared<uil::ClassicButton>(
             1,
             hlp::GetElementPosition(m_pos, m_size, 0.9f, 0.95f),
             hlp::GetElementSize(m_size, 0.3f, 0.2f),
-            Alignment::BOTTOM_RIGHT,
+            uil::Alignment::BOTTOM_RIGHT,
             appContext.languageManager.Text("ui_cell_popup_accept_btn"),
             app::SoundType::ACCEPTED
     );
@@ -79,7 +79,7 @@ void CellPopUp::Close(app::AppContext_ty_c appContext) {
 CellPopUp::CellPopUp(
         Vector2 const pos,
         Vector2 const size,
-        Alignment const alignment,
+        uil::Alignment const alignment,
         std::string const& title,
         app::AssetType const infoTexture
 )

@@ -12,11 +12,11 @@ namespace hlp {
 
     void DeleteFocusLayer(bool isPopUp = false);
 
-    void AddFocusElement(Focusable_ty_raw focusable, bool isPopUp = false);
+    void AddFocusElement(uil::Focusable_ty_raw focusable, bool isPopUp = false);
 
-    void DeleteFocusElement(Focusable_ty_raw focusable, bool isPopUp = false);
+    void DeleteFocusElement(uil::Focusable_ty_raw focusable, bool isPopUp = false);
 
     void SelectNextFocusElement();
 
-    void SelectFocusElement(Focusable_ty_raw focusable, bool isPopUp = false);
+    void SelectFocusElement(uil::Focusable_ty_raw focusable, bool isPopUp = false);
 } // namespace hlp

@@ -19,7 +19,7 @@ void MainMenu::Initialize() {
     auto galaxy = std::make_shared<GalaxyScene>(
             GetElementPosition(0.95f, 0.95f),
             GetElementSize(0.7f, 0.7f),
-            Alignment::BOTTOM_RIGHT,
+            uil::Alignment::BOTTOM_RIGHT,
             true,
             false
     );
@@ -28,19 +28,19 @@ void MainMenu::Initialize() {
     galaxy->SetIsEnabled(false);
     m_elements.push_back(galaxy);
 
-    auto title = std::make_shared<Title>(
+    auto title = std::make_shared<uil::Title>(
             GetElementPosition(0.625f, 0.025f),
             GetElementSize(0.7f, 0.2f),
-            Alignment::TOP_MID,
+            uil::Alignment::TOP_MID,
             false
     );
     m_elements.push_back(title);
 
-    auto versionAndCopyRight = std::make_shared<Text>(
+    auto versionAndCopyRight = std::make_shared<uil::Text>(
             GetElementPosition(0.99f, 0.98f),
             GetElementSize(0.1f, 0.1f),
-            Alignment::BOTTOM_RIGHT,
-            Alignment::BOTTOM_RIGHT,
+            uil::Alignment::BOTTOM_RIGHT,
+            uil::Alignment::BOTTOM_RIGHT,
             0.02f,
             cst::Global::gameVersion + '\n' + cst::Global::copyRight
     );
@@ -60,12 +60,12 @@ void MainMenu::Initialize() {
         incFID();
     } };
 
-    auto gameBtn = std::make_shared<ExpandingButton>(
+    auto gameBtn = std::make_shared<uil::ExpandingButton>(
             focusID,
             GetElementPosition(btnPosX, btnPosY),
             GetElementSize(btnSizX, btnSizY),
-            Alignment::MID_RIGHT,
-            ExpandingButton::RIGHT,
+            uil::Alignment::MID_RIGHT,
+            uil::ExpandingButton::RIGHT,
             0.005f,
             10.0f,
             appContext.languageManager.Text("helper_game")
@@ -74,11 +74,11 @@ void MainMenu::Initialize() {
 
     incFID();
 
-    auto continueBtn = std::make_shared<ClassicButton>(
+    auto continueBtn = std::make_shared<uil::ClassicButton>(
             focusID,
             Vector2{ 0.0f, 0.0f },
             Vector2{ 0.0f, 0.0f },
-            Alignment::DEFAULT,
+            uil::Alignment::DEFAULT,
             appContext.languageManager.Text("scene_main_menu_continue_btn"),
             app::SoundType::ACCEPTED
     );
@@ -91,26 +91,26 @@ void MainMenu::Initialize() {
 
     incFID();
 
-    auto newGameBtn = std::make_shared<ClassicButton>(
+    auto newGameBtn = std::make_shared<uil::ClassicButton>(
             focusID,
             Vector2{ 0.0f, 0.0f },
             Vector2{ 0.0f, 0.0f },
-            Alignment::DEFAULT,
+            uil::Alignment::DEFAULT,
             appContext.languageManager.Text("scene_main_menu_new_game_btn"),
             app::SoundType::ACCEPTED
     );
     newGameBtn->SetOnClick([]() {
-        app::AppContext::GetInstance().eventManager.InvokeEvent(eve::SwitchSceneEvent(SceneType::NEW_GAME_PLAYER));
+        app::AppContext::GetInstance().eventManager.InvokeEvent(eve::SwitchSceneEvent(uil::SceneType::NEW_GAME_PLAYER));
     });
     gameBtn->Add(newGameBtn, true);
 
     incFID();
 
-    auto networkBtn = std::make_shared<ClassicButton>(
+    auto networkBtn = std::make_shared<uil::ClassicButton>(
             focusID,
             Vector2{ 0.0f, 0.0f },
             Vector2{ 0.0f, 0.0f },
-            Alignment::DEFAULT,
+            uil::Alignment::DEFAULT,
             appContext.languageManager.Text("helper_network"),
             app::SoundType::ACCEPTED
     );
@@ -119,12 +119,12 @@ void MainMenu::Initialize() {
 
     incAll();
 
-    auto savesBtn = std::make_shared<ExpandingButton>(
+    auto savesBtn = std::make_shared<uil::ExpandingButton>(
             focusID,
             GetElementPosition(btnPosX, btnPosY),
             GetElementSize(btnSizX, btnSizY),
-            Alignment::MID_RIGHT,
-            ExpandingButton::RIGHT,
+            uil::Alignment::MID_RIGHT,
+            uil::ExpandingButton::RIGHT,
             0.005f,
             10.0f,
             appContext.languageManager.Text("helper_saves")
@@ -133,11 +133,11 @@ void MainMenu::Initialize() {
 
     incFID();
 
-    auto saveGameBtn = std::make_shared<ClassicButton>(
+    auto saveGameBtn = std::make_shared<uil::ClassicButton>(
             focusID,
             Vector2{ 0.0f, 0.0f },
             Vector2{ 0.0f, 0.0f },
-            Alignment::DEFAULT,
+            uil::Alignment::DEFAULT,
             appContext.languageManager.Text("scene_main_menu_save_btn"),
             app::SoundType::ACCEPTED
     );
@@ -155,16 +155,16 @@ void MainMenu::Initialize() {
 
     incFID();
 
-    auto loadGameBtn = std::make_shared<ClassicButton>(
+    auto loadGameBtn = std::make_shared<uil::ClassicButton>(
             focusID,
             Vector2{ 0.0f, 0.0f },
             Vector2{ 0.0f, 0.0f },
-            Alignment::DEFAULT,
+            uil::Alignment::DEFAULT,
             appContext.languageManager.Text("scene_main_menu_load_btn"),
             app::SoundType::ACCEPTED
     );
     loadGameBtn->SetOnClick([]() {
-        app::AppContext::GetInstance().eventManager.InvokeEvent(eve::SwitchSceneEvent(SceneType::TEST));
+        app::AppContext::GetInstance().eventManager.InvokeEvent(eve::SwitchSceneEvent(uil::SceneType::TEST));
     });
     bool constexpr lge{ true };
     savesBtn->Add(loadGameBtn, lge);
@@ -172,12 +172,12 @@ void MainMenu::Initialize() {
 
     incAll();
 
-    auto settingsBtn = std::make_shared<ExpandingButton>(
+    auto settingsBtn = std::make_shared<uil::ExpandingButton>(
             focusID,
             GetElementPosition(btnPosX, btnPosY),
             GetElementSize(btnSizX, btnSizY),
-            Alignment::MID_RIGHT,
-            ExpandingButton::RIGHT,
+            uil::Alignment::MID_RIGHT,
+            uil::ExpandingButton::RIGHT,
             0.005f,
             10.0f,
             appContext.languageManager.Text("helper_settings")
@@ -186,31 +186,31 @@ void MainMenu::Initialize() {
 
     incFID();
 
-    auto gameSettingsBtn = std::make_shared<ClassicButton>(
+    auto gameSettingsBtn = std::make_shared<uil::ClassicButton>(
             focusID,
             Vector2{ 0.0f, 0.0f },
             Vector2{ 0.0f, 0.0f },
-            Alignment::DEFAULT,
+            uil::Alignment::DEFAULT,
             appContext.languageManager.Text("helper_game"),
             app::SoundType::CLICKED_RELEASE_STD
     );
     gameSettingsBtn->SetOnClick([]() {
-        app::AppContext::GetInstance().eventManager.InvokeEvent(eve::SwitchSceneEvent(SceneType::GAME_SETTINGS));
+        app::AppContext::GetInstance().eventManager.InvokeEvent(eve::SwitchSceneEvent(uil::SceneType::GAME_SETTINGS));
     });
     settingsBtn->Add(gameSettingsBtn, true);
 
     incFID();
 
-    auto appSettingsBtn = std::make_shared<ClassicButton>(
+    auto appSettingsBtn = std::make_shared<uil::ClassicButton>(
             focusID,
             Vector2{ 0.0f, 0.0f },
             Vector2{ 0.0f, 0.0f },
-            Alignment::DEFAULT,
+            uil::Alignment::DEFAULT,
             appContext.languageManager.Text("helper_app"),
             app::SoundType::CLICKED_RELEASE_STD
     );
     appSettingsBtn->SetOnClick([]() {
-        eve::SwitchSceneEvent const event{ SceneType::APP_SETTINGS };
+        eve::SwitchSceneEvent const event{ uil::SceneType::APP_SETTINGS };
         app::AppContext::GetInstance().eventManager.InvokeEvent(event);
     });
     settingsBtn->Add(appSettingsBtn, true);
@@ -218,26 +218,26 @@ void MainMenu::Initialize() {
 
     incAll();
 
-    auto creditsBtn = std::make_shared<ClassicButton>(
+    auto creditsBtn = std::make_shared<uil::ClassicButton>(
             focusID,
             GetElementPosition(btnPosX, btnPosY),
             GetElementSize(btnSizX, btnSizY),
-            Alignment::MID_RIGHT,
+            uil::Alignment::MID_RIGHT,
             appContext.languageManager.Text("scene_main_menu_credits_btn"),
             app::SoundType::CLICKED_RELEASE_STD
     );
     creditsBtn->SetOnClick([]() {
-        app::AppContext::GetInstance().eventManager.InvokeEvent(eve::SwitchSceneEvent(SceneType::CREDITS));
+        app::AppContext::GetInstance().eventManager.InvokeEvent(eve::SwitchSceneEvent(uil::SceneType::CREDITS));
     });
     m_elements.push_back(creditsBtn);
 
     incAll();
 
-    auto quitBtn = std::make_shared<ClassicButton>(
+    auto quitBtn = std::make_shared<uil::ClassicButton>(
             focusID,
             GetElementPosition(btnPosX, btnPosY),
             GetElementSize(btnSizX, btnSizY),
-            Alignment::MID_RIGHT,
+            uil::Alignment::MID_RIGHT,
             appContext.languageManager.Text("scene_main_menu_quit_btn"),
             app::SoundType::ACCEPTED
     );
@@ -249,7 +249,7 @@ MainMenu::MainMenu()
     : Scene{
           { 0.0f, 0.0f },
           { 1.0f, 1.0f },
-          Alignment::DEFAULT
+          uil::Alignment::DEFAULT
 } {
 
     Initialize();

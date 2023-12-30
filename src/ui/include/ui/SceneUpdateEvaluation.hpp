@@ -13,7 +13,7 @@ namespace eve {
     class SendUpdateEvaluation;
 }
 
-class UpdateEvaluationScene final : public Scene, public eve::EventListener {
+class UpdateEvaluationScene final : public uil::Scene, public eve::EventListener {
 private:
     enum class ResultType {
         MERGE,

@@ -10,11 +10,11 @@
 #include <ui_lib/Scene.hpp>
 
 
-class SliderAndInputLine : public Scene {
+class SliderAndInputLine : public uil::Scene {
 private:
-    Slider_ty m_slider;
-    InputLine_int_ty m_inputLine;
-    ClassicButton_ty m_btn;
+    uil::Slider_ty m_slider;
+    uil::InputLine_int_ty m_inputLine;
+    uil::ClassicButton_ty m_btn;
     std::function<void(int)> m_onSave{ [](int) {} };
 
     bool m_isEnabled{ true };
@@ -40,7 +40,7 @@ public:
             unsigned int focusID,
             Vector2 pos,
             Vector2 size,
-            Alignment alignment,
+            uil::Alignment alignment,
             int minValue,
             int maxValue,
             int currentValue

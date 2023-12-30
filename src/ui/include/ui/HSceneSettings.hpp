@@ -7,7 +7,7 @@
 
 #include <ui_lib/Scene.hpp>
 
-class SettingsScene : public Scene {
+class SettingsScene : public uil::Scene {
 private:
     void Initialize();
 

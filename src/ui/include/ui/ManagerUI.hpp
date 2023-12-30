@@ -19,10 +19,10 @@
 class UIManager final : public eve::EventListener {
 private:
     app::AppContext_ty m_appContext;
-    Focus m_focus;
+    uil::Focus m_focus;
     SceneManager m_sceneManager;
     lgk::GameManager m_gameManager;
-    HoverRender m_hover;
+    uil::HoverRender m_hover;
     bool m_closeWindow{ false };
     bool m_isNextFullScreen{ false };
     cst::Resolution m_nextResolution;
@@ -58,5 +58,5 @@ public:
 
     void OnEvent(eve::Event const& event) override;
 
-    [[nodiscard]] Focus& GetFocus();
+    [[nodiscard]] uil::Focus& GetFocus();
 };
