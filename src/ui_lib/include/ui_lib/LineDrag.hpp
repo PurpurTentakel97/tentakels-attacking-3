@@ -4,37 +4,41 @@
 //
 
 #pragma once
+
 #include "UIElement.hpp"
 
-class LineDrag final : public UIElement {
-private:
-    Vector2 m_start;
-    Vector2 m_end;
-    float m_thick;
-    Color m_color;
-    std::function<void(Vector2, Vector2)> m_callback;
-    bool m_render{ false };
 
-public:
-    LineDrag(float thick, Color color, std::function<void(Vector2, Vector2)> callback);
+namespace uil {
+    class LineDrag final : public UIElement {
+    private:
+        Vector2 m_start;
+        Vector2 m_end;
+        float m_thick;
+        Color m_color;
+        std::function<void(Vector2, Vector2)> m_callback;
+        bool m_render{ false };
 
-    [[nodiscard]] Vector2 GetStart() const;
+    public:
+        LineDrag(float thick, Color color, std::function<void(Vector2, Vector2)> callback);
 
-    [[nodiscard]] Vector2 GetEnd() const;
+        [[nodiscard]] Vector2 GetStart() const;
 
-    void SetThick(float thick);
+        [[nodiscard]] Vector2 GetEnd() const;
 
-    [[nodiscard]] float GetThick() const;
+        void SetThick(float thick);
 
-    void SetColor(Color color);
+        [[nodiscard]] float GetThick() const;
 
-    [[nodiscard]] Color GetColor() const;
+        void SetColor(Color color);
 
-    void SetCallback(std::function<void(Vector2, Vector2)> callback);
+        [[nodiscard]] Color GetColor() const;
 
-    void ClearCallback();
+        void SetCallback(std::function<void(Vector2, Vector2)> callback);
 
-    void CheckAndUpdate(Vector2 const& mousePosition, AppContext const&) override;
+        void ClearCallback();
 
-    void Render(AppContext const&) override;
-};
+        void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c) override;
+
+        void Render(app::AppContext_ty_c) override;
+    };
+} // namespace uil

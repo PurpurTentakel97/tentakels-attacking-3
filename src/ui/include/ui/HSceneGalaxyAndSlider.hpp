@@ -4,48 +4,56 @@
 //
 
 #pragma once
-#include <helper/HLogicAlias.hpp>
-#include <helper/HPlayerData.hpp>
+
+#include <alias/AliasUi.hpp>
 #include <ui_lib/Scene.hpp>
 #include <vector>
 
 
-class GalaxyScene final : public Scene {
-private:
-    bool m_isEnabled = true;
-    Line_ty m_scaleLineX;
-    Line_ty m_scaleLineY;
-    Slider_ty m_verticalSlider;
-    Slider_ty m_horizontalSlider;
-    ClassicButton_ty m_zoomInBtn;
-    ClassicButton_ty m_zoomOutBtn;
-    UIGalaxy_ty m_galaxy;
+namespace ui {
+    class GalaxyScene final : public uil::Scene {
+    private:
+        bool m_isEnabled = true;
+        uil::Line_ty m_scaleLineX;
+        uil::Line_ty m_scaleLineY;
+        uil::Slider_ty m_verticalSlider;
+        uil::Slider_ty m_horizontalSlider;
+        uil::ClassicButton_ty m_zoomInBtn;
+        uil::ClassicButton_ty m_zoomOutBtn;
+        UIGalaxy_ty m_galaxy;
 
 
-    void Initialize(bool isShowGalaxy, bool isAcceptingInput);
+        void Initialize(bool isShowGalaxy, bool isAcceptingInput);
 
-    void Zoom(float scaleFactor, Vector2 referenceScale);
+        void Zoom(float scaleFactor, Vector2 referenceScale);
 
-    void Slide(float position, bool isHorizontal);
+        void Slide(float position, bool isHorizontal);
 
-public:
-    GalaxyScene(Vector2 pos, Vector2 size, Alignment alignment, bool isShowGalaxy, bool isAcceptingInput = false);
+    public:
+        GalaxyScene(
+                Vector2 pos,
+                Vector2 size,
+                uil::Alignment alignment,
+                bool isShowGalaxy,
+                bool isAcceptingInput = false
+        );
 
-    void SetIsScaling(bool isScaling);
+        void SetIsScaling(bool isScaling);
 
-    [[nodiscard]] bool IsScaling() const;
+        [[nodiscard]] bool IsScaling() const;
 
-    void SetIsEnabled(bool isEnabled);
+        void SetIsEnabled(bool isEnabled);
 
-    [[nodiscard]] bool IsEnabled() const;
+        [[nodiscard]] bool IsEnabled() const;
 
-    [[nodiscard]] Galaxy_ty_raw GetGalaxy() const;
+        [[nodiscard]] lgk::Galaxy_ty_raw GetGalaxy() const;
 
-    void FilterByCurrentPlayer(PlayerData const& player);
+        void FilterByCurrentPlayer(app::PlayerData const& player);
 
-    void CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) override;
+        void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) override;
 
-    void Render(AppContext_ty_c appContext) override;
+        void Render(app::AppContext_ty_c appContext) override;
 
-    void Resize(AppContext_ty_c appContext) override;
-};
+        void Resize(app::AppContext_ty_c appContext) override;
+    };
+} // namespace ui

@@ -4,32 +4,35 @@
 //
 
 #pragma once
+
 #include "UIElement.hpp"
 
 
-class Hover final : public UIElement {
-private:
-    std::string m_text;
-    Color m_color;
+namespace uil {
+    class Hover final : public UIElement {
+    private:
+        std::string m_text;
+        Color m_color;
 
-    float m_textHeight;
-    Vector2 m_textPosition{};
-    Vector2 m_absoluteHoverOffset{};
+        float m_textHeight;
+        Vector2 m_textPosition{};
+        Vector2 m_absoluteHoverOffset{};
 
-    void CalculateDefault(AppContext_ty_c appContext);
+        void CalculateDefault(app::AppContext_ty_c appContext);
 
-public:
-    Hover(float height, std::string text, Color color, Vector2 hoverOffset);
+    public:
+        Hover(float height, std::string text, Color color, Vector2 hoverOffset);
 
-    [[nodiscard]] Vector2 GetRenderOffset() const;
+        [[nodiscard]] Vector2 GetRenderOffset() const;
 
-    void SetRenderHover(Vector2 mousePosition, AppContext_ty_c appContext);
+        void SetRenderHover(Vector2 mousePosition, app::AppContext_ty_c appContext);
 
-    void SetText(std::string const& text);
+        void SetText(std::string const& text);
 
-    void Render(AppContext_ty_c appContext) override;
+        void Render(app::AppContext_ty_c appContext) override;
 
-    float RenderOffset(AppContext_ty_c appContext, Vector2 const& offset) const;
+        float RenderOffset(app::AppContext_ty_c appContext, Vector2 const& offset) const;
 
-    void Resize(AppContext_ty_c appContext) override;
-};
+        void Resize(app::AppContext_ty_c appContext) override;
+    };
+} // namespace uil

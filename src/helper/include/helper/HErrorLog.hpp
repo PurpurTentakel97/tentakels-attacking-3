@@ -4,9 +4,11 @@
 //
 
 #pragma once
+
 #include <string>
 
+namespace hlp {
+    void LogError(std::string const& error);
 
-void LogError(std::string const& error);
-
-void CloseErrorStream();
+    void CloseErrorStream();
+} // namespace hlp

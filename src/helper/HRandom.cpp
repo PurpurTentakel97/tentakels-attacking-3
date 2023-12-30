@@ -7,33 +7,36 @@
 #include "HRandom.hpp"
 #include <chrono>
 
-Random& Random::GetInstance() {
-    static Random random{};
-    return random;
-}
+namespace hlp {
+    Random& Random::GetInstance() {
+        static Random random{};
+        return random;
+    }
 
-Random::Random() {
-    randomize();
-}
+    Random::Random() {
+        randomize();
+    }
 
-auto Random::random(std::mt19937_64::result_type upperBoundExclusive) -> std::mt19937_64::result_type {
-    return mUniformIntDistribution(mGenerator) % upperBoundExclusive;
-}
+    auto Random::random(std::mt19937_64::result_type upperBoundExclusive) -> std::mt19937_64::result_type {
+        return mUniformIntDistribution(mGenerator) % upperBoundExclusive;
+    }
 
-auto Random::random() -> float {
-    return mUniformRealDistribution(mGenerator);
-}
+    auto Random::random() -> float {
+        return mUniformRealDistribution(mGenerator);
+    }
 
-auto Random::setRandomSeed(std::mt19937_64::result_type seed) -> void {
-    mGenerator.seed(seed);
-    mSeed = seed;
-}
+    auto Random::setRandomSeed(std::mt19937_64::result_type seed) -> void {
+        mGenerator.seed(seed);
+        mSeed = seed;
+    }
 
-auto Random::getRandomSeed() const -> std::mt19937_64::result_type {
-    return mSeed;
-}
+    auto Random::getRandomSeed() const -> std::mt19937_64::result_type {
+        return mSeed;
+    }
 
-auto Random::randomize() -> void {
-    setRandomSeed(static_cast<std::mt19937_64::result_type>(std::chrono::system_clock::now().time_since_epoch().count())
-    );
-}
+    auto Random::randomize() -> void {
+        setRandomSeed(
+                static_cast<std::mt19937_64::result_type>(std::chrono::system_clock::now().time_since_epoch().count())
+        );
+    }
+} // namespace hlp

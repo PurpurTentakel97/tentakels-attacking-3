@@ -5,18 +5,19 @@
 
 #include "CGameEvents.hpp"
 
-
-void CGameEvents::SetFlag(HGameEventType const type, bool const active) {
-    if (active) {
-        events |= type;
-    } else {
-        if ((type & HGameEventType::GLOBAL) == HGameEventType::GLOBAL) {
-            events = static_cast<HGameEventType>(0b11000000);
-            return;
+namespace cst {
+    void GameEvents::SetFlag(HGameEventType const type, bool const active) {
+        if (active) {
+            events |= type;
+        } else {
+            if ((type & HGameEventType::GLOBAL) == HGameEventType::GLOBAL) {
+                events = static_cast<HGameEventType>(0b11000000);
+                return;
+            }
+            events &= ~type;
         }
-        events &= ~type;
     }
-}
-bool CGameEvents::IsFlag(HGameEventType const type) const {
-    return (events & type) == type;
-}
+    bool GameEvents::IsFlag(HGameEventType const type) const {
+        return (events & type) == type;
+    }
+} // namespace cst

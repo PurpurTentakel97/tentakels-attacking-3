@@ -4,22 +4,25 @@
 //
 
 #pragma once
+
 #include <ui_lib/Scene.hpp>
 
 
-class CreditTableScene : public Scene {
-private:
-    using creditEntries = std::vector<std::vector<std::string>>;
+namespace ui {
+    class CreditTableScene : public uil::Scene {
+    private:
+        using creditEntries = std::vector<std::vector<std::string>>;
 
-    void Initialize(std::string const& headline, creditEntries const& entries, bool containsLink);
+        void Initialize(std::string const& headline, creditEntries const& entries, bool containsLink);
 
-public:
-    CreditTableScene(
-            Vector2 pos,
-            Vector2 size,
-            Alignment alignment,
-            std::string const& headline,
-            creditEntries const& entries,
-            bool containsLink = false
-    );
-};
+    public:
+        CreditTableScene(
+                Vector2 pos,
+                Vector2 size,
+                uil::Alignment alignment,
+                std::string const& headline,
+                creditEntries const& entries,
+                bool containsLink = false
+        );
+    };
+} // namespace ui

@@ -4,57 +4,61 @@
 //
 
 #pragma once
+
 #include "ButtonSlider.hpp"
 
 
-class Slider final : public UIElement {
-private:
-    bool m_isEnabled{ true };
-    bool m_isHorizontal;
-    bool m_isPressed{ false };
-    bool m_isScroll{ false };
-    float m_absoluteDimension{ 1.0f };
-    float m_btnOffset{ 0.0f };
+namespace uil {
 
-    SliderButton m_btn;
-    std::function<void(float)> m_onSlide{ [](float) {} };
+    class Slider final : public UIElement {
+    private:
+        bool m_isEnabled{ true };
+        bool m_isHorizontal;
+        bool m_isPressed{ false };
+        bool m_isScroll{ false };
+        float m_absoluteDimension{ 1.0f };
+        float m_btnOffset{ 0.0f };
 
-    void CalculateInitialButton();
+        SliderButton m_btn;
+        std::function<void(float)> m_onSlide{ [](float) {} };
 
-    void CalculateOnSlide() const;
+        void CalculateInitialButton();
 
-    void Slide();
+        void CalculateOnSlide() const;
 
-    void SlideIfPressed();
+        void Slide();
 
-    void MoveButtonIfColliderIsPressed(Vector2 const& mousePosition);
+        void SlideIfPressed();
 
-    void SlideIfScroll();
+        void MoveButtonIfColliderIsPressed(Vector2 const& mousePosition);
 
-    void SetOffset(Vector2 mousePosition);
+        void SlideIfScroll();
 
-public:
-    Slider(Vector2 pos, Vector2 size, Alignment alignment, bool isHorizontal, float absoluteDimension);
+        void SetOffset(Vector2 mousePosition);
 
-    void CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) override;
+    public:
+        Slider(Vector2 pos, Vector2 size, Alignment alignment, bool isHorizontal, float absoluteDimension);
 
-    void Render(AppContext_ty_c appContext) override;
+        void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) override;
 
-    void Resize(AppContext_ty_c appContext) override;
+        void Render(app::AppContext_ty_c appContext) override;
 
-    void SetOnSlide(std::function<void(float)> onSlide);
+        void Resize(app::AppContext_ty_c appContext) override;
 
-    void SetButtonPosition(float position);
+        void SetOnSlide(std::function<void(float)> onSlide);
 
-    void SetScrolling(bool isScroll);
+        void SetButtonPosition(float position);
 
-    [[nodiscard]] bool IsScrolling() const;
+        void SetScrolling(bool isScroll);
 
-    void SetAbsoluteDimension(float absolutDimension);
+        [[nodiscard]] bool IsScrolling() const;
 
-    [[nodiscard]] float GetAbsoluteDimension() const;
+        void SetAbsoluteDimension(float absolutDimension);
 
-    void SetEnabled(bool isEnabled);
+        [[nodiscard]] float GetAbsoluteDimension() const;
 
-    [[nodiscard]] bool IsColliding(Vector2 point) const;
-};
+        void SetEnabled(bool isEnabled);
+
+        [[nodiscard]] bool IsColliding(Vector2 point) const;
+    };
+} // namespace uil

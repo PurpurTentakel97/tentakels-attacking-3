@@ -5,9 +5,11 @@
 
 #pragma once
 
-enum class PlayerType {
-    DEFAULT,
-    HUMAN,
-    NEUTRAL,
-    PIRATE,
-};
+namespace lgk {
+    enum class PlayerType {
+        DEFAULT,
+        HUMAN,
+        NEUTRAL,
+        PIRATE,
+    };
+}

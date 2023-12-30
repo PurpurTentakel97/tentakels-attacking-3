@@ -21,10 +21,12 @@ Vector2 operator/(Vector2 const& lhs, int const rhs) {
     return { lhs.x / static_cast<float>(rhs), lhs.y / static_cast<float>(rhs) };
 }
 
-float LenVec2(Vector2 const& value) {
-    return std::sqrt(value.x * value.x + value.y * value.y);
-}
+namespace hlp {
+    float LenVec2(Vector2 const& value) {
+        return std::sqrt(value.x * value.x + value.y * value.y);
+    }
 
-std::string ToString(Vector2 const& value) {
-    return "x: " + std::to_string(value.x) + " | y: " + std::to_string(value.y);
-}
+    std::string ToString(Vector2 const& value) {
+        return "x: " + std::to_string(value.x) + " | y: " + std::to_string(value.y);
+    }
+} // namespace hlp

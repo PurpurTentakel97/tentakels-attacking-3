@@ -4,22 +4,23 @@
 //
 
 #pragma once
+
 #include "UIElement.hpp"
+#include <alias/AliasApp.hpp>
 
-enum class AssetType;
+namespace uil {
+    class Picture final : public UIElement {
+    private:
+        Texture2D* m_texture{ nullptr };
+        bool m_isScaleToFit{ true };
 
+        void ScaleToFit();
 
-class Picture final : public UIElement {
-private:
-    Texture2D* m_texture{ nullptr };
-    bool m_isScaleToFit{ true };
+    public:
+        Picture(Vector2 pos, Vector2 size, Alignment alignment, app::AssetType assetType, bool scaleToFit = true);
 
-    void ScaleToFit();
+        void Render(app::AppContext_ty_c appContext) override;
 
-public:
-    Picture(Vector2 pos, Vector2 size, Alignment alignment, AssetType assetType, bool scaleToFit = true);
-
-    void Render(AppContext_ty_c appContext) override;
-
-    void Resize(AppContext_ty_c appContext) override;
-};
+        void Resize(app::AppContext_ty_c appContext) override;
+    };
+} // namespace uil

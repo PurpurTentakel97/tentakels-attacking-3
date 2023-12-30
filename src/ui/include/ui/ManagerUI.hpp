@@ -4,8 +4,10 @@
 //
 
 #pragma once
+
 #include "ManagerScene.hpp"
-#include <AppContext.hpp>
+#include <alias/AliasUiLib.hpp>
+#include <app/AppContext.hpp>
 #include <event/EventListener.hpp>
 #include <logic/ManagerGame.hpp>
 #include <memory>
@@ -14,49 +16,50 @@
 #include <ui_lib/UIElement.hpp>
 #include <vector>
 
-class Scene;
 
-class UIManager final : public EventListener {
-private:
-    AppContext_ty m_appContext;
-    Focus m_focus;
-    SceneManager m_sceneManager;
-    GameManager m_gameManager;
-    HoverRender m_hover;
-    bool m_closeWindow{ false };
-    bool m_isNextFullScreen{ false };
-    Resolution m_nextResolution;
+namespace ui {
+    class UIManager final : public eve::EventListener {
+    private:
+        app::AppContext_ty m_appContext;
+        uil::Focus m_focus;
+        SceneManager m_sceneManager;
+        lgk::GameManager m_gameManager;
+        uil::HoverRender m_hover;
+        bool m_closeWindow{ false };
+        bool m_isNextFullScreen{ false };
+        cst::Resolution m_nextResolution;
 
-    void SetFullScreen();
+        void SetFullScreen();
 
-    void CheckAndSetToggleFullScreen();
+        void CheckAndSetToggleFullScreen();
 
-    void CheckAndSetNewResolution();
+        void CheckAndSetNewResolution();
 
-    void CheckAndUpdate();
+        void CheckAndUpdate();
 
-    void Render();
+        void Render();
 
-    void SetNativeWindowSize();
+        void SetNativeWindowSize();
 
-    void SetWindowSize(bool force = false);
+        void SetWindowSize(bool force = false);
 
-    void SetWindowPosition();
+        void SetWindowPosition();
 
-    static void SetTargetFPS(SetTargetFPSEvent const* event);
+        static void SetTargetFPS(eve::SetTargetFPSEvent const* event);
 
-    void UILoop();
+        void UILoop();
 
-public:
-    UIManager();
+    public:
+        UIManager();
 
-    ~UIManager() override;
+        ~UIManager() override;
 
-    void StartUI();
+        void StartUI();
 
-    void StartUILoop();
+        void StartUILoop();
 
-    void OnEvent(Event const& event) override;
+        void OnEvent(eve::Event const& event) override;
 
-    [[nodiscard]] Focus& GetFocus();
-};
+        [[nodiscard]] uil::Focus& GetFocus();
+    };
+} // namespace ui

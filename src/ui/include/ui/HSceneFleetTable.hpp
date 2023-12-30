@@ -4,28 +4,29 @@
 //
 
 #pragma once
-#include <helper/HLogicAlias.hpp>
-#include <helper/HPlayerData.hpp>
+
 #include <ui_lib/Scene.hpp>
 
 
-class FleetAndTargetPointTable final : public Scene {
-private:
-    Galaxy_ty_raw m_galaxy;
-    Table_ty m_table;
+namespace ui {
+    class FleetAndTargetPointTable final : public uil::Scene {
+    private:
+        lgk::Galaxy_ty_raw m_galaxy;
+        uil::Table_ty m_table;
 
-    void Initialization(PlayerData const& currentPlayer);
+        void Initialization(app::PlayerData const& currentPlayer);
 
-    [[nodiscard]] std::string GetStringFromPosition(vec2pos_ty_ref_c position, bool getCoordinates) const;
+        [[nodiscard]] std::string GetStringFromPosition(utl::vec2pos_ty_ref_c position, bool getCoordinates) const;
 
-public:
-    FleetAndTargetPointTable(
-            Vector2 pos,
-            Vector2 size,
-            Alignment alignment,
-            Galaxy_ty_raw galaxy,
-            PlayerData const& currentPlayer
-    );
+    public:
+        FleetAndTargetPointTable(
+                Vector2 pos,
+                Vector2 size,
+                uil::Alignment alignment,
+                lgk::Galaxy_ty_raw galaxy,
+                app::PlayerData const& currentPlayer
+        );
 
-    void SetActive(bool active, AppContext_ty_c appContext) override;
-};
+        void SetActive(bool active, app::AppContext_ty_c appContext) override;
+    };
+} // namespace ui

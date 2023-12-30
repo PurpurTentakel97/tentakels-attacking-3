@@ -4,26 +4,30 @@
 //
 
 #pragma once
+
 #include "PlayerType.hpp"
 
-class Player final {
-private:
-    unsigned int m_ID;
-    PlayerType m_playerType;
-    bool m_isAlive{ true };
 
-public:
-    Player(unsigned int ID, PlayerType playerType);
+namespace lgk {
+    class Player final {
+    private:
+        unsigned int m_ID;
+        PlayerType m_playerType;
+        bool m_isAlive{ true };
 
-    [[nodiscard]] bool IsHumanPlayer() const;
+    public:
+        Player(unsigned int ID, PlayerType playerType);
 
-    [[nodiscard]] unsigned int GetID() const;
+        [[nodiscard]] bool IsHumanPlayer() const;
 
-    [[nodiscard]] bool IsAlive() const;
+        [[nodiscard]] unsigned int GetID() const;
 
-    void Kill();
+        [[nodiscard]] bool IsAlive() const;
 
-    void Revive();
+        void Kill();
 
-    friend bool operator==(Player const& lhs, Player const& rhs);
-};
+        void Revive();
+
+        friend bool operator==(Player const& lhs, Player const& rhs);
+    };
+} // namespace lgk

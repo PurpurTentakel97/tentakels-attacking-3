@@ -4,61 +4,65 @@
 //
 
 #pragma once
+
 #include "UIElement.hpp"
 
-class CountRing final : public UIElement {
-private:
-    Vector2 m_absolutePos{};
-    float m_relativeDotSize;
-    float m_absoluteDotSize{};
-    float m_relativeMaxRingSize;
-    float m_absoluteRingSize{};
-    int m_currentCount;
-    int m_maxCount;
-    Color m_dotColor{ BLACK };
-    Color m_ringColor{ GREY_50 };
+
+namespace uil {
+    class CountRing final : public UIElement {
+    private:
+        Vector2 m_absolutePos{};
+        float m_relativeDotSize;
+        float m_absoluteDotSize{};
+        float m_relativeMaxRingSize;
+        float m_absoluteRingSize{};
+        int m_currentCount;
+        int m_maxCount;
+        Color m_dotColor{ BLACK };
+        Color m_ringColor{ GREY_50 };
 
 
-    void CalculateRing();
+        void CalculateRing();
 
-public:
-    CountRing(
-            Vector2 pos,
-            Vector2 size,
-            Alignment alignment,
-            float innerSize,
-            float ringSize,
-            int currentCount,
-            int maxCount
-    );
-
-
-    [[nodiscard]] bool IsOverlapping(Rectangle const& rect) const;
+    public:
+        CountRing(
+                Vector2 pos,
+                Vector2 size,
+                Alignment alignment,
+                float innerSize,
+                float ringSize,
+                int currentCount,
+                int maxCount
+        );
 
 
-    void Update();
+        [[nodiscard]] bool IsOverlapping(Rectangle const& rect) const;
 
-    [[nodiscard]] int GetMaxCount() const;
 
-    void SetMaxCount(int maxCount);
+        void Update();
 
-    [[nodiscard]] int GetCurrentCount() const;
+        [[nodiscard]] int GetMaxCount() const;
 
-    void SetCurrentCount(int currentCount);
+        void SetMaxCount(int maxCount);
 
-    [[nodiscard]] Color GetDotColor() const;
+        [[nodiscard]] int GetCurrentCount() const;
 
-    void SetDotColor(Color color);
+        void SetCurrentCount(int currentCount);
 
-    [[nodiscard]] Color GetRingColor() const;
+        [[nodiscard]] Color GetDotColor() const;
 
-    void SetRingColor(Color color);
+        void SetDotColor(Color color);
 
-    void SetPosition(Vector2 newPos) override;
+        [[nodiscard]] Color GetRingColor() const;
 
-    void CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) override;
+        void SetRingColor(Color color);
 
-    void Render(AppContext_ty_c appContext) override;
+        void SetPosition(Vector2 newPos) override;
 
-    void Resize(AppContext_ty_c appContext) override;
-};
+        void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) override;
+
+        void Render(app::AppContext_ty_c appContext) override;
+
+        void Resize(app::AppContext_ty_c appContext) override;
+    };
+} // namespace uil

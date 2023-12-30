@@ -11,11 +11,15 @@ add_library(constants STATIC
             include/constants/CTextProcessing.hpp
             include/constants/CWindow.hpp
             include/constants/CWorld.hpp
-            include/constants/ConfigIO.hpp
+            include/constants/CConfigIO.hpp
+            include/constants/CConfigEnum.hpp
+            include/constants/CResolution.hpp
+            include/constants/CGameEventTypes.hpp
             CConstants.cpp
             CGameEvents.cpp
             CWindow.cpp
             ConfigIO.cpp
+            ConfigEnum.cpp
 )
 
 target_include_directories(constants
@@ -25,8 +29,13 @@ target_include_directories(constants
 
 target_link_libraries(constants
                       PRIVATE
+                      app
+                      helper
+                      nlohmann_json::nlohmann_json
                       project_options
                       PUBLIC
-                      helper
-                      app_context
+                      alias
+                      custom_raylib
+                      utils
+
 )

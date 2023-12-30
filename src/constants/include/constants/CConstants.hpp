@@ -4,6 +4,7 @@
 //
 
 #pragma once
+
 #include "CFight.hpp"
 #include "CFiles.hpp"
 #include "CFleet.hpp"
@@ -16,21 +17,23 @@
 #include "CWindow.hpp"
 #include "CWorld.hpp"
 
-struct Constants final {
-    // config related
-    CGameEvents gameEvents;
-    CFight fight;
-    CFleet fleet;
-    CGlobal global;
-    CPlanet planet;
-    CPlayer player;
-    CSound sound;
-    CWindow window;
-    CWorld world;
+namespace cst {
+    struct Constants final {
+        // config related
+        GameEvents gameEvents;
+        Fight fight;
+        Fleet fleet;
+        Global global;
+        Planet planet;
+        Player player;
+        Sound sound;
+        Window window;
+        World world;
 
-    // non config related
-    CTextProcessing textProcessing;
-    CFiles files;
+        // non config related
+        TextProcessing textProcessing;
+        Files files;
 
-    [[nodiscard]] static int GetConfigValueCount();
-};
+        [[nodiscard]] static int GetConfigValueCount();
+    };
+} // namespace cst

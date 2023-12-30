@@ -4,31 +4,32 @@
 //
 
 #pragma once
+
+#include <alias/AliasUi.hpp>
 #include <event/EventListener.hpp>
 #include <ui_lib/Scene.hpp>
 #include <vector>
 
-class GameEventSettings;
-class SliderAndInputLine;
-enum class SliderType;
 
-class NewGameParameterScene final : public Scene, public EventListener {
-private:
-    std::shared_ptr<GameEventSettings> m_eventSettings;
-    std::vector<std::shared_ptr<SliderAndInputLine>> m_slider;
+namespace ui {
+    class NewGameParameterScene final : public uil::Scene, public eve::EventListener {
+    private:
+        std::shared_ptr<GameEventSettings> m_eventSettings;
+        std::vector<std::shared_ptr<SliderAndInputLine>> m_slider;
 
-    void Initialize();
+        void Initialize();
 
-    static void SetValue(int value, SliderType type);
+        static void SetValue(int value, SliderType type);
 
-    void SetRandom() const;
+        void SetRandom() const;
 
-    static void NextScene();
+        static void NextScene();
 
-public:
-    NewGameParameterScene();
+    public:
+        NewGameParameterScene();
 
-    ~NewGameParameterScene() override;
+        ~NewGameParameterScene() override;
 
-    void OnEvent(Event const& event) override;
-};
+        void OnEvent(eve::Event const& event) override;
+    };
+} // namespace ui

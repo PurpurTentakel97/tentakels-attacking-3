@@ -1,48 +1,21 @@
 add_library(helper STATIC
-            include/helper/HAssetManager.hpp
-            include/helper/HAssetType.hpp
-            include/helper/HColors.hpp
             include/helper/HConcepts.hpp
-            include/helper/HConfigEnum.hpp
             include/helper/HErrorLog.hpp
-            include/helper/HFightResult.hpp
-            include/helper/HFleetResult.hpp
             include/helper/HFocusEvents.hpp
             include/helper/HGalaxy.hpp
-            include/helper/HGameEventTypes.hpp
             include/helper/HGeneral.hpp
             include/helper/HInput.hpp
-            include/helper/HLaguageManager.hpp
-            include/helper/HLogicAlias.hpp
-            include/helper/HMergeResult.hpp
-            include/helper/HPlayerCollection.hpp
-            include/helper/HPlayerData.hpp
             include/helper/HPrint.hpp
             include/helper/HRandom.hpp
-            include/helper/HResolution.hpp
-            include/helper/HSoundManager.hpp
-            include/helper/HSoundType.hpp
             include/helper/HTextProcessing.hpp
-            include/helper/HUIAlias.hpp
             include/helper/HVector2Operator.hpp
-            include/helper/HLayeredVector.hpp
-            include/helper/HVec2.hpp
-            HAssetManager.cpp
-            HColors.cpp
-            HConfigEnum.cpp
             HErrorLog.cpp
-            HFightResult.cpp
             HFocusEvents.cpp
             HGalaxy.cpp
             HGeneral.cpp
             HInput.cpp
-            HLaguageManager.cpp
-            HMergeResult.cpp
-            HPlayerCollection.cpp
-            HPlayerData.cpp
             HPrint.cpp
             HRandom.cpp
-            HSoundManager.cpp
             HTextProcessing.cpp
             HVector2Operator.cpp
 )
@@ -54,12 +27,13 @@ target_include_directories(helper
 
 target_link_libraries(helper
                       PRIVATE
-                      app_context
+                      app
                       event
+                      constants
                       logic
-                      nlohmann_json::nlohmann_json
+                      ui_lib
                       project_options
                       PUBLIC
                       custom_raylib
-                      ui_lib
+                      alias
 )

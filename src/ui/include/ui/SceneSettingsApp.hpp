@@ -4,37 +4,37 @@
 //
 
 #pragma once
+
 #include "HSceneSettings.hpp"
+#include <alias/AliasUi.hpp>
 #include <event/EventListener.hpp>
 
-class SliderAndInputLine;
+namespace ui {
+    class AppSettingsScene final : public SettingsScene, public eve::EventListener {
+    private:
+        std::vector<std::pair<cst::Resolution, std::string>> m_rawResolutionEntries;
+        std::shared_ptr<SliderAndInputLine> m_volume;
+        uil::DropDown_ty m_languageDropDown;
+        uil::DropDown_ty m_resolutionDropDown;
+        uil::CheckBox_ty m_toggleFullScreenCBM;
 
-class AppSettingsScene final : public SettingsScene, public EventListener {
-private:
-    std::vector<std::pair<Resolution, std::string>> m_rawResolutionEntries;
-    std::shared_ptr<SliderAndInputLine> m_volume;
-    DropDown_ty m_languageDropDown;
-    DropDown_ty m_resolutionDropDown;
-    CheckBox_ty m_toggleFullScreenCBM;
+        void Initialize();
 
+        [[nodiscard]] std::vector<std::string> GetStringsFromResolutionEntries() const;
 
-    void Initialize();
+        [[nodiscard]] size_t GetIndexFromResolution(cst::Resolution resolution) const;
 
+    public:
+        AppSettingsScene();
 
-    [[nodiscard]] std::vector<std::string> GetStringsFromResolutionEntries() const;
+        ~AppSettingsScene() override;
 
-    [[nodiscard]] size_t GetIndexFromResolution(Resolution resolution) const;
+        void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) override;
 
-public:
-    AppSettingsScene();
+        void Render(app::AppContext_ty_c appContext) override;
 
-    ~AppSettingsScene() override;
+        void Resize(app::AppContext_ty_c appContext) override;
 
-    void CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) override;
-
-    void Render(AppContext_ty_c appContext) override;
-
-    void Resize(AppContext_ty_c appContext) override;
-
-    void OnEvent(Event const& event) override;
-};
+        void OnEvent(eve::Event const& event) override;
+    };
+} // namespace ui

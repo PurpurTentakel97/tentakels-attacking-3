@@ -4,12 +4,14 @@
 //
 
 #pragma once
+
 #include <cstddef>
 
+namespace cst {
+    struct Sound final {
+        static inline size_t constexpr configEntryCount{ 2 };
 
-struct CSound final {
-    static inline size_t constexpr configEntryCount{ 2 };
-
-    bool muteVolume{ false };
-    float masterVolume{ 50.0f };
-};
+        bool muteVolume{ false };
+        float masterVolume{ 50.0f };
+    };
+} // namespace cst

@@ -4,35 +4,45 @@
 //
 
 #pragma once
-#include <helper/HFightResult.hpp>
+
+#include "utils/FightResult.hpp"
 #include <ui_lib/CountingNumber.hpp>
 #include <ui_lib/PopUp.hpp>
 
-class FightResultPopup : public PopUp {
-private:
-    using callback_ty = std::function<void()>;
-    HFightResult const m_result;
-    size_t m_index{ 1 };
-    bool m_finishedCounting{ false };
-    callback_ty m_callback{ []() {} };
-    CountingNumber_ty m_leftNumber;
-    CountingNumber_ty m_rightNumber;
-    static inline std::string s_emptyString{};
-    Text_ty m_winText;
-    ClassicButton_ty m_closeBtn;
 
-    void Initialize();
+namespace ui {
+    class FightResultPopup : public uil::PopUp {
+    private:
+        using callback_ty = std::function<void()>;
+        utl::FightResult const m_result;
+        size_t m_index{ 1 };
+        bool m_finishedCounting{ false };
+        callback_ty m_callback{ []() {} };
+        uil::CountingNumber_ty m_leftNumber;
+        uil::CountingNumber_ty m_rightNumber;
+        static inline std::string s_emptyString{};
+        uil::Text_ty m_winText;
+        uil::ClassicButton_ty m_closeBtn;
 
-    void NextNumber(bool left);
+        void Initialize();
 
-    void NextNumber(CountingNumber::Type, int, int, double, bool left);
+        void NextNumber(bool left);
 
-    void SetLastStep();
+        void NextNumber(uil::CountingNumber::Type, int, int, double, bool left);
 
-    void SetEnd();
+        void SetLastStep();
 
-    void HandleButton();
+        void SetEnd();
 
-public:
-    FightResultPopup(Vector2 pos, Vector2 size, Alignment alignment, HFightResult result, callback_ty callback);
-};
+        void HandleButton();
+
+    public:
+        FightResultPopup(
+                Vector2 pos,
+                Vector2 size,
+                uil::Alignment alignment,
+                utl::FightResult result,
+                callback_ty callback
+        );
+    };
+} // namespace ui

@@ -5,11 +5,12 @@
 
 #pragma once
 
+namespace eve {
+    class Event {
+    protected:
+        Event() = default;
 
-class Event {
-protected:
-    Event() = default;
-
-public:
-    virtual ~Event() = default;
-};
+    public:
+        virtual ~Event() = default;
+    };
+} // namespace eve

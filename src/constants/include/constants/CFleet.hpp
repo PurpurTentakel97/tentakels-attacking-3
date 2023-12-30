@@ -4,12 +4,15 @@
 //
 
 #pragma once
+
 #include <cstddef>
 
-struct CFleet final {
-    static inline size_t constexpr configEntryCount{ 3 };
+namespace cst {
+    struct Fleet final {
+        static inline size_t constexpr configEntryCount{ 3 };
 
-    int minFleetSpeed{ 1 };
-    int currentFleetSpeed{ 5 };
-    int maxFleetSpeed{ 20 };
-};
+        int minFleetSpeed{ 1 };
+        int currentFleetSpeed{ 5 };
+        int maxFleetSpeed{ 20 };
+    };
+} // namespace cst

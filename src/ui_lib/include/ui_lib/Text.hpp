@@ -4,70 +4,74 @@
 //
 
 #pragma once
+
 #include "UIElement.hpp"
 #include <string>
 
 
-class Text final : public UIElement {
-private:
-    using render_ty = std::vector<std::pair<std::string const, Vector2>>;
-    std::string m_text;
-    render_ty m_toRender{};
-    std::string m_URL{};
-    float m_textHeight;
-    float m_textSize;
-    Alignment m_textAlignment;
-    Color m_color{ WHITE };
+namespace uil {
+    class Text final : public UIElement {
+    private:
+        using render_ty = std::vector<std::pair<std::string const, Vector2>>;
+        std::string m_text;
+        render_ty m_toRender{};
+        std::string m_URL{};
+        float m_textHeight;
+        float m_textSize;
+        Alignment m_textAlignment;
+        Color m_color{ WHITE };
 
-    bool m_lineBreaks{ false };
-    bool m_renderRectangle{ false };
-    bool m_renderBackground{ false };
+        bool m_lineBreaks{ false };
+        bool m_renderRectangle{ false };
+        bool m_renderBackground{ false };
 
 
-    void CreateToRender();
+        void CreateToRender();
 
-    [[nodiscard]] std::vector<std::string> BreakLines(std::string const& toBreak) const;
+        [[nodiscard]] std::vector<std::string> BreakLines(std::string const& toBreak) const;
 
-    void OpenURL() const;
+        void OpenURL() const;
 
-    void UpdateCollider() override;
+        void UpdateCollider() override;
 
-public:
-    Text(Vector2 pos, Vector2 size, Alignment alignment, Alignment textAlignment, float textHeight, std::string text);
+    public:
+        Text(Vector2 pos, Vector2 size, Alignment alignment, Alignment textAlignment, float textHeight, std::string text
+        );
 
-    void CheckAndUpdate(Vector2 const& mousePosition, AppContext_ty_c appContext) override;
+        void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) override;
 
-    void Render(AppContext_ty_c appContext) override;
+        void Render(app::AppContext_ty_c appContext) override;
 
-    void Resize(AppContext_ty_c appContext) override;
+        void Resize(app::AppContext_ty_c appContext) override;
 
-    void SetPosition(Vector2 pos) override;
+        void SetPosition(Vector2 pos) override;
 
-    void SetSize(Vector2 size) override;
+        void SetSize(Vector2 size) override;
 
-    void SetCollider(Rectangle collider) override;
+        void SetCollider(Rectangle collider) override;
 
-    [[nodiscard]] float GetRelativeTextHeight() const;
+        [[nodiscard]] float GetRelativeTextHeight() const;
 
-    void SetText(std::string text);
+        void SetText(std::string text);
 
-    [[nodiscard]] std::string GetText() const;
+        [[nodiscard]] std::string GetText() const;
 
-    void SetColor(Color color);
+        void SetColor(Color color);
 
-    [[nodiscard]] Color GetColor() const;
+        [[nodiscard]] Color GetColor() const;
 
-    void SetURL(std::string URL);
+        void SetURL(std::string URL);
 
-    void ClearURL();
+        void ClearURL();
 
-    [[nodiscard]] std::string GetURL() const;
+        [[nodiscard]] std::string GetURL() const;
 
-    void LineBreaks(bool lineBreaks);
+        void LineBreaks(bool lineBreaks);
 
-    void RenderRectangle(bool renderRectangle);
+        void RenderRectangle(bool renderRectangle);
 
-    void SetRenderBackground(bool isRenderBackground);
+        void SetRenderBackground(bool isRenderBackground);
 
-    [[nodiscard]] bool GetRenderBackground() const;
-};
+        [[nodiscard]] bool GetRenderBackground() const;
+    };
+} // namespace uil

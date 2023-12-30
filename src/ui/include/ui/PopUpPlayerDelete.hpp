@@ -4,27 +4,30 @@
 //
 
 #pragma once
+
 #include "PopUpCell.hpp"
 #include <functional>
 #include <ui_lib/InputLine.hpp>
 
 
-class DeletePlayerPopUp final : public CellPopUp {
-private:
-    InputLine_int_ty m_inputLine;
-    std::function<void(unsigned int)> m_onClick;
+namespace ui {
+    class DeletePlayerPopUp final : public CellPopUp {
+    private:
+        uil::InputLine_int_ty m_inputLine;
+        std::function<void(unsigned int)> m_onClick;
 
-    void Initialize() override;
+        void Initialize() override;
 
-    void SetValue() override;
+        void SetValue() override;
 
-public:
-    DeletePlayerPopUp(
-            Vector2 pos,
-            Vector2 size,
-            Alignment alignment,
-            std::string const& title,
-            AssetType inputTexture,
-            std::function<void(unsigned int)> onClick
-    );
-};
+    public:
+        DeletePlayerPopUp(
+                Vector2 pos,
+                Vector2 size,
+                uil::Alignment alignment,
+                std::string const& title,
+                app::AssetType inputTexture,
+                std::function<void(unsigned int)> onClick
+        );
+    };
+} // namespace ui

@@ -6,25 +6,24 @@
 
 // original Random by coder2k (https://gist.github.com/mgerhold/353e39da27ae9b22c614bc264c8a3d18)
 
-#include "AppContext.hpp"
-#include "helper/HErrorLog.hpp"
-#include "helper/HLogicAlias.hpp"
-#include "helper/HPrint.hpp"
-#include "ui/ManagerUI.hpp"
+#include <app/AppContext.hpp>
+#include <helper/HErrorLog.hpp>
+#include <helper/HPrint.hpp>
+#include <ui/ManagerUI.hpp>
 
 int main() {
     SetConfigFlags(FLAG_VSYNC_HINT);
     InitWindow(100, 100, "");
-    AppContext_ty appContext{ AppContext::GetInstance() };
+    app::AppContext_ty appContext{ app::AppContext::GetInstance() };
 #ifdef _DEBUG
-    Print(PrintType::BUILD, "Debug");
+    hlp::Print(hlp::PrintType::BUILD, "Debug");
 #else
-    Print(PrintType::BUILD, "Release");
+    hlp::Print(hlp::PrintType::BUILD, "Release");
 #endif // _DEBUG
 
-    Print(PrintType::BUILD, appContext.constants.global.gameVersion);
+    hlp::Print(hlp::PrintType::BUILD, cst::Global::gameVersion);
 
-    UIManager uiManager;
+    ui::UIManager uiManager;
 
     appContext.LoadConfig();
     appContext.LoadLanguages();
@@ -35,9 +34,9 @@ int main() {
 
     uiManager.StartUILoop();
 
-    appContext.SaveConfig();
+    app::AppContext::SaveConfig();
 
-    CloseErrorStream();
+    hlp::CloseErrorStream();
 
     return 0;
 }

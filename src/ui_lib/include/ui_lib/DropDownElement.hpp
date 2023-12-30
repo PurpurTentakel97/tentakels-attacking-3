@@ -4,54 +4,58 @@
 //
 
 #pragma once
+
 #include "Focusable.hpp"
 #include "UIElement.hpp"
 #include <functional>
 
-class DropDownElement : public UIElement, public Focusable {
-private:
-    bool m_isEnabled{ true };
-    bool m_hover{ false };
-    unsigned int m_ID;
-    float m_fontSize{};
-    std::string m_toRender;
-    std::string m_text;
-    Vector2 m_textPosition{};
-    std::function<void(unsigned int)> m_onClick{ [](unsigned int) {} };
-    std::function<Rectangle(Rectangle)> m_getTemporaryCollider;
 
-    void CreateToRender();
+namespace uil {
+    class DropDownElement : public UIElement, public Focusable {
+    private:
+        bool m_isEnabled{ true };
+        bool m_hover{ false };
+        unsigned int m_ID;
+        float m_fontSize{};
+        std::string m_toRender;
+        std::string m_text;
+        Vector2 m_textPosition{};
+        std::function<void(unsigned int)> m_onClick{ [](unsigned int) {} };
+        std::function<Rectangle(Rectangle)> m_getTemporaryCollider;
 
-    void UpdateCollider() override;
+        void CreateToRender();
 
-    void UpdateColliderReverse() override;
+        void UpdateCollider() override;
 
-public:
-    DropDownElement(
-            Vector2 pos,
-            Vector2 size,
-            Alignment alignment,
-            unsigned int focusID,
-            unsigned int ID,
-            std::string text,
-            std::function<Rectangle(Rectangle)> getTemporaryCollider
-    );
+        void UpdateColliderReverse() override;
 
-    void CheckAndUpdate(Vector2 const&, AppContext_ty_c) override;
+    public:
+        DropDownElement(
+                Vector2 pos,
+                Vector2 size,
+                Alignment alignment,
+                unsigned int focusID,
+                unsigned int ID,
+                std::string text,
+                std::function<Rectangle(Rectangle)> getTemporaryCollider
+        );
 
-    void Render(AppContext_ty_c appContext) override;
+        void CheckAndUpdate(Vector2 const&, app::AppContext_ty_c) override;
 
-    [[nodiscard]] bool IsEnabled() const override;
+        void Render(app::AppContext_ty_c appContext) override;
 
-    void SetEnabled(bool isEnabled);
+        [[nodiscard]] bool IsEnabled() const override;
 
-    void SetText(std::string text);
+        void SetEnabled(bool isEnabled);
 
-    [[nodiscard]] std::string GetText() const;
+        void SetText(std::string text);
 
-    [[nodiscard]] unsigned int GetID() const;
+        [[nodiscard]] std::string GetText() const;
 
-    void SetOnClick(std::function<void(unsigned int)> onClick);
+        [[nodiscard]] unsigned int GetID() const;
 
-    [[nodiscard]] Rectangle GetCollider() const override;
-};
+        void SetOnClick(std::function<void(unsigned int)> onClick);
+
+        [[nodiscard]] Rectangle GetCollider() const override;
+    };
+} // namespace uil

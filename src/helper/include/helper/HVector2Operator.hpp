@@ -4,6 +4,7 @@
 //
 
 #pragma once
+
 #include <CustomRaylib.hpp>
 #include <string>
 
@@ -16,6 +17,8 @@
 
 [[nodiscard]] Vector2 operator/(Vector2 const& lhs, int rhs);
 
-[[nodiscard]] float LenVec2(Vector2 const& value);
+namespace hlp {
+    [[nodiscard]] float LenVec2(Vector2 const& value);
 
-[[nodiscard]] std::string ToString(Vector2 const& value);
+    [[nodiscard]] std::string ToString(Vector2 const& value);
+} // namespace hlp

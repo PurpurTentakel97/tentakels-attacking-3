@@ -4,25 +4,28 @@
 //
 
 #pragma once
+
 #include <CustomRaylib.hpp>
+#include <alias/AliasUiLib.hpp>
 #include <event/EventListener.hpp>
 #include <vector>
 
-class Hover;
 
-class HoverRender final : public EventListener {
-private:
-    std::vector<Hover*> m_elements;
-    static float constexpr m_renderGap{ 3.0f };
+namespace uil {
+    class HoverRender final : public eve::EventListener {
+    private:
+        std::vector<Hover*> m_elements;
+        static float constexpr m_renderGap{ 3.0f };
 
-    [[nodiscard]] Vector2 GetStartRenderingOffset() const;
+        [[nodiscard]] Vector2 GetStartRenderingOffset() const;
 
-public:
-    HoverRender();
+    public:
+        HoverRender();
 
-    ~HoverRender() override;
+        ~HoverRender() override;
 
-    void Render();
+        void Render();
 
-    void OnEvent(Event const& event) override;
-};
+        void OnEvent(eve::Event const& event) override;
+    };
+} // namespace uil

@@ -36,7 +36,7 @@ add_library(ui STATIC
             include/ui/SceneUpdateEvaluation.hpp
             include/ui/SceneValidateGalaxy.hpp
             include/ui/PopUpValidate.hpp
-            SeneSettingsApp.cpp
+            SceneSettingsApp.cpp
             PopUpCellColor.cpp
             HSceneCreditTable.cpp
             SceneCredits.cpp
@@ -79,9 +79,11 @@ target_include_directories(ui
 
 target_link_libraries(ui
                       PRIVATE
+                      helper
                       project_options
                       PUBLIC
-                      ui_lib
+                      app
+                      alias
                       logic
-                      helper
+                      ui_lib
 )

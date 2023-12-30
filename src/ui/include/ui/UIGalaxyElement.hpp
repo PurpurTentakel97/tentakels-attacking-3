@@ -4,63 +4,67 @@
 //
 
 #pragma once
-#include <helper/HPlayerData.hpp>
+
+#include "app/PlayerData.hpp"
 #include <ui_lib/Focusable.hpp>
 #include <ui_lib/Hover.hpp>
 #include <ui_lib/UIElement.hpp>
 
-class UIGalaxyElement : public UIElement, public Focusable {
-public:
-    static constexpr int s_maxShipCount{ 300 };
-    static constexpr int s_ringColorAlpha{ 100 };
 
-protected:
-    unsigned int m_ID;
-    PlayerData m_currentPlayer;
-    Vector2 m_colliderPos;
-    Color m_color;
-    std::string m_stringID;
-    Hover m_hover;
-    bool m_isEnabled{ true };
-    std::function<void(UIGalaxyElement*)> m_onClick{ [](UIGalaxyElement*) {} };
-    bool m_renderHover{ false };
-    CountRing_ty m_ring{ nullptr };
+namespace ui {
+    class UIGalaxyElement : public uil::UIElement, public uil::Focusable {
+    public:
+        static constexpr int s_maxShipCount{ 300 };
+        static constexpr int s_ringColorAlpha{ 100 };
 
-public:
-    UIGalaxyElement(
-            unsigned int focusID,
-            unsigned int ID,
-            Vector2 size,
-            PlayerData const& player,
-            Vector2 pos,
-            Vector2 colliderPos
-    );
+    protected:
+        unsigned int m_ID;
+        app::PlayerData m_currentPlayer;
+        Vector2 m_colliderPos;
+        Color m_color;
+        std::string m_stringID;
+        uil::Hover m_hover;
+        bool m_isEnabled{ true };
+        std::function<void(UIGalaxyElement*)> m_onClick{ [](UIGalaxyElement*) {} };
+        bool m_renderHover{ false };
+        uil::CountRing_ty m_ring{ nullptr };
 
-    void UpdatePosition(Rectangle newCollider);
+    public:
+        UIGalaxyElement(
+                unsigned int focusID,
+                unsigned int ID,
+                Vector2 size,
+                app::PlayerData const& player,
+                Vector2 pos,
+                Vector2 colliderPos
+        );
 
-    virtual void UpdateHoverText() = 0;
+        void UpdatePosition(Rectangle newCollider);
 
-    void SetOnClick(std::function<void(UIGalaxyElement*)> onClick);
+        virtual void UpdateHoverText() = 0;
 
-    void SetPlayer(PlayerData player);
+        void SetOnClick(std::function<void(UIGalaxyElement*)> onClick);
 
-    [[nodiscard]] PlayerData GetPlayer() const;
+        void SetPlayer(app::PlayerData player);
 
-    void SetColor(Color color);
+        [[nodiscard]] app::PlayerData GetPlayer() const;
 
-    [[nodiscard]] Color GetColor() const;
+        void SetColor(Color color);
 
-    [[nodiscard]] unsigned int GetID() const;
+        [[nodiscard]] Color GetColor() const;
 
-    [[nodiscard]] bool IsHover() const;
+        [[nodiscard]] unsigned int GetID() const;
 
-    void SetEnabled(bool isEnabled);
+        [[nodiscard]] bool IsHover() const;
 
-    [[nodiscard]] bool IsEnabled() const override;
+        void SetEnabled(bool isEnabled);
 
-    [[nodiscard]] Rectangle GetCollider() const override;
+        [[nodiscard]] bool IsEnabled() const override;
 
-    virtual void RenderRing(AppContext_ty_c appContext) = 0;
+        [[nodiscard]] Rectangle GetCollider() const override;
 
-    void Resize(AppContext_ty_c appContext) override;
-};
+        virtual void RenderRing(app::AppContext_ty_c appContext) = 0;
+
+        void Resize(app::AppContext_ty_c appContext) override;
+    };
+} // namespace ui

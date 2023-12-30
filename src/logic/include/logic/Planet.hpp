@@ -4,34 +4,41 @@
 //
 
 #pragma once
+
 #include "SpaceObject.hpp"
+namespace lgk {
+    class Planet final : public SpaceObject {
+    private:
+        using vec2pos = utl::vec2pos_ty;
+        bool m_isHomePlanet{};
+        bool m_isDestroyed{ false };
+        int m_planetNumber;
+        size_t m_maxShips;
+        size_t m_production;
 
+    public:
+        Planet(unsigned int ID, utl::vec2pos_ty_ref_c position, Player_ty player, bool isHomePlanet, int m_planetNumber
+        );
 
-class Planet final : public SpaceObject {
-private:
-    using vec2pos = vec2pos_ty;
-    bool m_isHomePlanet{};
-    bool m_isDestroyed{ false };
-    int m_planetNumber;
-    size_t m_maxShips;
-    size_t m_production;
+        Planet(unsigned int ID,
+               utl::vec2pos_ty_ref_c position,
+               Player_ty player,
+               bool isHomePlanet,
+               int m_planetNumber,
+               size_t ships);
 
-public:
-    Planet(unsigned int ID, vec2pos_ty_ref_c position, Player_ty player, bool isHomePlanet, int m_planetNumber);
+        [[nodiscard]] bool IsHomePlanet() const;
 
-    Planet(unsigned int ID, vec2pos_ty_ref_c position, Player_ty player, bool isHomePlanet, int m_planetNumber, size_t ships);
+        [[nodiscard]] bool IsPlanet() const override;
 
-    [[nodiscard]] bool IsHomePlanet() const;
+        [[nodiscard]] size_t GetProduction() const;
 
-    [[nodiscard]] bool IsPlanet() const override;
+        [[nodiscard]] int GetPlanetNumber() const;
 
-    [[nodiscard]] size_t GetProduction() const;
+        void SetDestroyed(bool isDestroyed);
 
-    [[nodiscard]] int GetPlanetNumber() const;
+        [[nodiscard]] bool IsDestroyed() const;
 
-    void SetDestroyed(bool isDestroyed);
-
-    [[nodiscard]] bool IsDestroyed() const;
-
-    void Update(Galaxy_ty_raw galaxy) override;
-};
+        void Update(Galaxy_ty_raw galaxy) override;
+    };
+} // namespace lgk

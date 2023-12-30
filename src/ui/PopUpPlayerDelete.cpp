@@ -7,48 +7,51 @@
 #include <helper/HFocusEvents.hpp>
 #include <helper/HGeneral.hpp>
 
-void DeletePlayerPopUp::Initialize() {
 
-    auto acceptBtn = InitializeAcceptButton();
-    acceptBtn->SetOnClick([this]() { this->SetValue(); });
+namespace ui {
+    void DeletePlayerPopUp::Initialize() {
 
-    auto inputLine = std::make_shared<InputLine<int>>(
-            3,
-            GetElementPosition(m_pos, m_size, 0.5f, 0.45f),
-            GetElementSize(m_size, 0.5f, 0.1f),
-            Alignment::TOP_MID,
-            5
-    );
-    inputLine->SetPlaceholderText("Player ID");
-    m_inputLine = inputLine;
-    m_elements.push_back(inputLine);
+        auto acceptBtn = InitializeAcceptButton();
+        acceptBtn->SetOnClick([this]() { this->SetValue(); });
 
-    AddFocusElement(m_inputLine.get(), true);
-    SelectFocusElement(m_inputLine.get(), true);
-}
+        auto inputLine = std::make_shared<uil::InputLine<int>>(
+                3,
+                hlp::GetElementPosition(m_pos, m_size, 0.5f, 0.45f),
+                hlp::GetElementSize(m_size, 0.5f, 0.1f),
+                uil::Alignment::TOP_MID,
+                5
+        );
+        inputLine->SetPlaceholderText("Player ID");
+        m_inputLine = inputLine;
+        m_elements.push_back(inputLine);
 
-void DeletePlayerPopUp::SetValue() {
-    unsigned int const ID{ static_cast<unsigned int>(m_inputLine->GetValue()) };
-
-    m_onClick(ID);
-
-    SetShouldClose();
-}
-
-DeletePlayerPopUp::DeletePlayerPopUp(
-        Vector2 const pos,
-        Vector2 const size,
-        Alignment const alignment,
-        std::string const& title,
-        AssetType const inputTexture,
-        std::function<void(unsigned int)> onClick
-)
-    : CellPopUp{ pos, size, alignment, title, inputTexture },
-      m_onClick{ std::move(onClick) } {
-
-    Initialize();
-
-    if (IsKeyReleased(KEY_ENTER) or IsKeyReleased(KEY_KP_ENTER)) {
-        m_firstEnter = true;
+        hlp::AddFocusElement(m_inputLine.get(), true);
+        hlp::SelectFocusElement(m_inputLine.get(), true);
     }
-}
+
+    void DeletePlayerPopUp::SetValue() {
+        unsigned int const ID{ static_cast<unsigned int>(m_inputLine->GetValue()) };
+
+        m_onClick(ID);
+
+        SetShouldClose();
+    }
+
+    DeletePlayerPopUp::DeletePlayerPopUp(
+            Vector2 const pos,
+            Vector2 const size,
+            uil::Alignment const alignment,
+            std::string const& title,
+            app::AssetType const inputTexture,
+            std::function<void(unsigned int)> onClick
+    )
+        : CellPopUp{ pos, size, alignment, title, inputTexture },
+          m_onClick{ std::move(onClick) } {
+
+        Initialize();
+
+        if (IsKeyReleased(KEY_ENTER) or IsKeyReleased(KEY_KP_ENTER)) {
+            m_firstEnter = true;
+        }
+    }
+} // namespace ui
