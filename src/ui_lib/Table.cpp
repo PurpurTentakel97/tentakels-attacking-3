@@ -27,7 +27,7 @@ namespace uil {
     void Table::UpdateCellFocusID() {
         for (utl::usize row = 0; row < m_cells.size(); ++row) {
             for (utl::usize column = 0; column < m_cells.at(row).size(); ++column) {
-                m_cells.at(row).at(column)->SetFocusID(static_cast<unsigned int>(row * m_columnCount + column));
+                m_cells.at(row).at(column)->SetFocusID(row * m_columnCount + column);
             }
         }
     }
@@ -539,7 +539,7 @@ namespace uil {
             Vector2 pos,
             Vector2 size,
             Alignment alignment,
-            unsigned int focusID,
+            utl::usize focusID,
             utl::usize rowCount,
             utl::usize columnCount,
             Vector2 minCellSize,
@@ -566,7 +566,7 @@ namespace uil {
                                 m_pos.y + cellHeight * static_cast<float>(row)),
                         Vector2(cellWidth, cellHeight),
                         Alignment::TOP_LEFT,
-                        static_cast<unsigned int>(row * columnCount + column),
+                        row * columnCount + column,
                         "",
                         [this](AbstractTableCell const* c, std::string oldValue, std::string newValue) {
                             this->CellUpdated<std::string>(c, oldValue, newValue);

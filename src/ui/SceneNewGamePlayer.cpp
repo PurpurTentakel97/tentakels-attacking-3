@@ -192,7 +192,7 @@ namespace ui {
             );
 
             button->SetEnabled(i < currentPlayerCount);
-            button->SetOnClick([i]() { NewGamePlayerScene::DeletePlayer(static_cast<unsigned int>(i + 1)); });
+            button->SetOnClick([i]() { NewGamePlayerScene::DeletePlayer(i + 1); });
 
             m_elements.push_back(button);
             m_playerButtons.push_back(button);
@@ -244,7 +244,7 @@ namespace ui {
             m_table->SetSingleEditable(index, 1, true);
             m_table->SetSingleEditable(index, 2, true);
 
-            unsigned int ID_{ p.ID };
+            utl::usize ID_{ p.ID };
             m_playerButtons.at(index - 1)->SetEnabled(true);
             m_playerButtons.at(index - 1)->SetOnClick([ID_]() { NewGamePlayerScene::DeletePlayer(ID_); });
 
@@ -266,7 +266,7 @@ namespace ui {
         appContext.eventManager.InvokeEvent(event);
     }
 
-    void NewGamePlayerScene::UpdatePlayer(unsigned int const ID, std::string const& name, Color const color) {
+    void NewGamePlayerScene::UpdatePlayer(utl::usize const ID, std::string const& name, Color const color) {
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
         eve::EditPlayerEvent const event{ ID, name, color };
         appContext.eventManager.InvokeEvent(event);
@@ -294,7 +294,7 @@ namespace ui {
         UpdatePlayer(playerData.ID, playerData.GetName(), newValue);
     }
 
-    void NewGamePlayerScene::DeletePlayer(unsigned int const ID) {
+    void NewGamePlayerScene::DeletePlayer(utl::usize const ID) {
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
 
         eve::DeletePlayerEvent const event{ ID };

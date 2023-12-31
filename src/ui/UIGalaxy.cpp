@@ -292,7 +292,7 @@ namespace ui {
         return false;
     }
 
-    unsigned int UIGalaxy::GetIDFromPoint(Vector2 const point) const {
+    utl::usize UIGalaxy::GetIDFromPoint(Vector2 const point) const {
         cst::Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
         Vector2 absolutePoint{ resolution.x * point.x, resolution.y * point.y };
         // don't check if point is in galaxy collider because the other planets get displayed on the edge of the collider
@@ -346,7 +346,7 @@ namespace ui {
     }
 
     UIGalaxy::UIGalaxy(
-            unsigned int const ID,
+            utl::usize const ID,
             Vector2 const pos,
             Vector2 const size,
             uil::Alignment const alignment,
@@ -463,7 +463,7 @@ namespace ui {
         m_onSlide = std::move(onSlide);
     }
 
-    void UIGalaxy::SetOnUIGalaxyElementClick(std::function<void(unsigned int)> onUIGalaxyElementClick) {
+    void UIGalaxy::SetOnUIGalaxyElementClick(std::function<void(utl::usize)> onUIGalaxyElementClick) {
         m_onUIGalaxyElementClick = std::move(onUIGalaxyElementClick);
     }
 

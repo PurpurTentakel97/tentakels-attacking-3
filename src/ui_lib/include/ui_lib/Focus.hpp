@@ -81,7 +81,7 @@ namespace uil {
 
         void SetLayerAfterPopUp();
 
-        void CheckNewID(unsigned int newID);
+        void CheckNewID(utl::usize newID);
 
     public:
         Focus();

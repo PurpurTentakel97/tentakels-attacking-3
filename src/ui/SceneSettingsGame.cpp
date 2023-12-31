@@ -150,7 +150,7 @@ namespace ui {
                 1
         );
         playerShuffleCB->SetChecked(appContext.constants.player.shuffle);
-        playerShuffleCB->SetOnCheck([](unsigned int, bool isChecked) {
+        playerShuffleCB->SetOnCheck([](utl::usize, bool isChecked) {
             app::AppContext::GetInstance().constants.player.shuffle = isChecked;
         });
         m_elements.push_back(playerShuffleCB);
@@ -190,7 +190,7 @@ namespace ui {
                 1
         );
         fightPlanetFleetCB->SetChecked(appContext.constants.fight.isFightPlanetFleet);
-        fightPlanetFleetCB->SetOnCheck([](unsigned int, bool isChecked) {
+        fightPlanetFleetCB->SetOnCheck([](utl::usize, bool isChecked) {
             app::AppContext::GetInstance().constants.fight.isFightPlanetFleet = isChecked;
         });
         m_elements.push_back(fightPlanetFleetCB);
@@ -215,7 +215,7 @@ namespace ui {
                 1
         );
         fightPlanetTargetPointCB->SetChecked(appContext.constants.fight.isFightPlanetTargetPoint);
-        fightPlanetTargetPointCB->SetOnCheck([](unsigned int, bool isChecked) {
+        fightPlanetTargetPointCB->SetOnCheck([](utl::usize, bool isChecked) {
             app::AppContext::GetInstance().constants.fight.isFightPlanetTargetPoint = isChecked;
         });
         m_elements.push_back(fightPlanetTargetPointCB);
@@ -242,7 +242,7 @@ namespace ui {
                 1
         );
         fightTargetPointFleetCB->SetChecked(appContext.constants.fight.isFightTargetPointFleet);
-        fightTargetPointFleetCB->SetOnCheck([](unsigned int, bool isChecked) {
+        fightTargetPointFleetCB->SetOnCheck([](utl::usize, bool isChecked) {
             app::AppContext::GetInstance().constants.fight.isFightTargetPointFleet = isChecked;
         });
         m_elements.push_back(fightTargetPointFleetCB);
@@ -267,7 +267,7 @@ namespace ui {
                 1
         );
         fightTargetPointTargetPointCB->SetChecked(appContext.constants.fight.isFightTargetPointTargetPoint);
-        fightTargetPointTargetPointCB->SetOnCheck([](unsigned int, bool isChecked) {
+        fightTargetPointTargetPointCB->SetOnCheck([](utl::usize, bool isChecked) {
             app::AppContext::GetInstance().constants.fight.isFightTargetPointTargetPoint = isChecked;
         });
         m_elements.push_back(fightTargetPointTargetPointCB);

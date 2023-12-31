@@ -15,10 +15,9 @@ namespace lgk {
         SpaceObject_ty m_target;
 
     public:
-        Fleet(unsigned int ID, utl::vec2pos_ty_ref_c position, Player_ty_c player, SpaceObject_ty target);
+        Fleet(utl::usize ID, utl::vec2pos_ty_ref_c position, Player_ty_c player, SpaceObject_ty target);
 
-        Fleet(unsigned int ID,
-              utl::vec2pos_ty_ref_c position,
+        Fleet(utl::usize ID, utl::vec2pos_ty_ref_c position,
               utl::usize ships,
               Player_ty_c player,
               SpaceObject_ty target);

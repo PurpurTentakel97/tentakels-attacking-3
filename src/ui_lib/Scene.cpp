@@ -48,7 +48,7 @@ namespace uil {
         return { x * m_size.x, y * m_size.y };
     }
 
-    Focusable_ty_raw Scene::GetFocusableByFocusID(unsigned int const ID) const {
+    Focusable_ty_raw Scene::GetFocusableByFocusID(utl::usize const ID) const {
         for (auto const& element : m_elements) {
             if (auto focus = dynamic_cast<Focusable_ty_raw>(element.get())) {
                 if (focus->GetFocusID() == ID) {

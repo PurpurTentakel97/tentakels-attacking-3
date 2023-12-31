@@ -246,14 +246,14 @@ namespace eve {
     };
 
     class ShowDeletePlayerPopUpEvent final : public PopUpEvent {
-        std::function<void(unsigned int)> m_onClick;
+        std::function<void(utl::usize)> m_onClick;
 
     public:
-        ShowDeletePlayerPopUpEvent(std::string title, std::string subTitle, std::function<void(unsigned int)> onClick)
+        ShowDeletePlayerPopUpEvent(std::string title, std::string subTitle, std::function<void(utl::usize)> onClick)
             : PopUpEvent{ std::move(title), std::move(subTitle) },
               m_onClick{ std::move(onClick) } { }
 
-        [[nodiscard]] std::function<void(unsigned int)> GetOnClick() const {
+        [[nodiscard]] std::function<void(utl::usize)> GetOnClick() const {
             return m_onClick;
         }
     };
@@ -322,24 +322,24 @@ namespace eve {
 
     class DragLineFleetInstructionEvent final : public Event {
     private:
-        unsigned int m_originID;
-        unsigned int m_destID;
+        utl::usize m_originID;
+        utl::usize m_destID;
         utl::vec2pos_ty m_destCoordinates;
 
     public:
         DragLineFleetInstructionEvent(
-                unsigned int const originID,
-                unsigned int const destID,
+                utl::usize const originID,
+                utl::usize const destID,
                 utl::vec2pos_ty destCoordinates
         )
             : m_originID{ originID },
               m_destID{ destID },
               m_destCoordinates{ std::move(destCoordinates) } { }
 
-        [[nodiscard]] unsigned int GetOriginID() const {
+        [[nodiscard]] utl::usize GetOriginID() const {
             return m_originID;
         }
-        [[nodiscard]] unsigned int GetDestID() const {
+        [[nodiscard]] utl::usize GetDestID() const {
             return m_destID;
         }
         [[nodiscard]] utl::vec2pos_ty GetDestCoordinates() const {

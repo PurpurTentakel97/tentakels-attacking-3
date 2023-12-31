@@ -36,7 +36,7 @@ namespace uil {
         };
     }
 
-    NewTableCell::NewTableCell(unsigned int const ID, Vector2 const pos, Vector2 const size, index_callback_ty callback)
+    NewTableCell::NewTableCell(utl::usize const ID, Vector2 const pos, Vector2 const size, index_callback_ty callback)
         : UIElement{ pos, size, Alignment::DEFAULT },
           Focusable{ ID },
           m_indexCallback{ std::move(callback) } {

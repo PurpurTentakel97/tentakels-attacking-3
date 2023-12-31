@@ -7,13 +7,13 @@
 
 
 namespace lgk {
-    Player::Player(unsigned int const ID, PlayerType const playerType) : m_ID{ ID }, m_playerType{ playerType } { }
+    Player::Player(utl::usize const ID, PlayerType const playerType) : m_ID{ ID }, m_playerType{ playerType } { }
 
     bool Player::IsHumanPlayer() const {
         return m_playerType == PlayerType::HUMAN;
     }
 
-    unsigned int Player::GetID() const {
+    utl::usize Player::GetID() const {
         return m_ID;
     }
 

@@ -11,7 +11,7 @@
 
 
 namespace ui {
-    UIPlanet::UIPlanet(unsigned int const focusID, unsigned int const ID, app::PlayerData const& player, Vector2 const pos,
+    UIPlanet::UIPlanet(utl::usize const focusID, utl::usize const ID, app::PlayerData const& player, Vector2 const pos,
 	Vector2 const colliderPos, lgk::Planet_ty_raw_c planet)
 	:UIGalaxyElement{ focusID, ID, { 0.015f, 0.025f }, player, pos, colliderPos }, m_planet{ planet } {
 

@@ -32,14 +32,14 @@ namespace eve {
 
     class PlayerWithIDEvent : public PlayerEvent {
     private:
-        unsigned int m_ID;
+        utl::usize m_ID;
 
     public:
-        PlayerWithIDEvent(unsigned int ID, std::string const& name, Color const color)
+        PlayerWithIDEvent(utl::usize ID, std::string const& name, Color const color)
             : PlayerEvent{ name, color },
               m_ID{ ID } { }
 
-        [[nodiscard]] unsigned int GetID() const {
+        [[nodiscard]] utl::usize GetID() const {
             return m_ID;
         }
     };
@@ -57,12 +57,12 @@ namespace eve {
 
     class DeletePlayerEvent final : public Event {
     private:
-        unsigned int m_ID;
+        utl::usize m_ID;
 
     public:
-        explicit DeletePlayerEvent(unsigned int const ID) : m_ID{ ID } { }
+        explicit DeletePlayerEvent(utl::usize const ID) : m_ID{ ID } { }
 
-        [[nodiscard]] unsigned int GetID() const {
+        [[nodiscard]] utl::usize GetID() const {
             return m_ID;
         }
     };
@@ -85,12 +85,12 @@ namespace eve {
 
     class DeletePlayerUIEvent final : public Event {
     private:
-        unsigned int m_ID;
+        utl::usize m_ID;
 
     public:
-        explicit DeletePlayerUIEvent(unsigned int const ID) : m_ID{ ID } { }
+        explicit DeletePlayerUIEvent(utl::usize const ID) : m_ID{ ID } { }
 
-        [[nodiscard]] unsigned int GetID() const {
+        [[nodiscard]] utl::usize GetID() const {
             return m_ID;
         }
     };
@@ -99,11 +99,11 @@ namespace eve {
 
     class PlayerIDEvent : public Event {
     private:
-        unsigned int m_ID;
+        utl::usize m_ID;
 
     public:
-        explicit PlayerIDEvent(unsigned int const ID) : m_ID{ ID } { }
-        [[nodiscard]] unsigned int GetID() const {
+        explicit PlayerIDEvent(utl::usize const ID) : m_ID{ ID } { }
+        [[nodiscard]] utl::usize GetID() const {
             return m_ID;
         }
     };
@@ -211,16 +211,16 @@ namespace eve {
 
     class SendFleetInstructionEvent final : public Event {
     private:
-        unsigned int m_origin;
-        unsigned int m_destination;
+        utl::usize m_origin;
+        utl::usize m_destination;
         int m_destinationX;
         int m_destinationY;
         utl::usize m_shipCount;
 
     public:
         SendFleetInstructionEvent(
-                unsigned int const origin,
-                unsigned int const destination,
+                utl::usize const origin,
+                utl::usize const destination,
                 int const destinationX,
                 int const destinationY,
                 utl::usize const shipCount
@@ -231,10 +231,10 @@ namespace eve {
               m_destinationY{ destinationY },
               m_shipCount{ shipCount } { }
 
-        [[nodiscard]] unsigned int GetOrigin() const {
+        [[nodiscard]] utl::usize GetOrigin() const {
             return m_origin;
         }
-        [[nodiscard]] unsigned int GetDestination() const {
+        [[nodiscard]] utl::usize GetDestination() const {
             return m_destination;
         }
         [[nodiscard]] int GetDestinationX() const {

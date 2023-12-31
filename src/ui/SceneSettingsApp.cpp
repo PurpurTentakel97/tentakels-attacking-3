@@ -65,7 +65,7 @@ namespace ui {
         m_toggleFullScreenCBM =
                 std::make_shared<uil::CheckBox>(id, GetElementPosition(lx, y), GetElementSize(0.0f, height).y, a, 1);
         m_toggleFullScreenCBM->SetChecked(appContext.constants.window.isFullScreen);
-        m_toggleFullScreenCBM->SetOnCheck([](unsigned int, bool isChecked) {
+        m_toggleFullScreenCBM->SetOnCheck([](utl::usize, bool isChecked) {
             eve::ToggleFullscreenEvent const event{ isChecked };
             app::AppContext::GetInstance().eventManager.InvokeEvent(event);
         });
@@ -109,7 +109,7 @@ namespace ui {
         auto muteCB =
                 std::make_shared<uil::CheckBox>(id, GetElementPosition(rx, y), GetElementSize(0.0f, heightS).y, a, 1);
         muteCB->SetChecked(appContext.constants.sound.muteVolume);
-        muteCB->SetOnCheck([this](unsigned int, bool isChecked) {
+        muteCB->SetOnCheck([this](utl::usize, bool isChecked) {
             eve::MuteMasterVolumeEvent const event{ isChecked };
             app::AppContext::GetInstance().eventManager.InvokeEvent(event);
             this->m_volume->SetEnabled(!isChecked);
@@ -177,9 +177,9 @@ namespace ui {
                 GetStringsFromResolutionEntries()
         );
         m_resolutionDropDown->SetCurrentElementByID(
-                static_cast<unsigned int>(GetIndexFromResolution(appContext.constants.window.currentResolutionEnum) + 1)
+                GetIndexFromResolution(appContext.constants.window.currentResolutionEnum) + 1
         );
-        m_resolutionDropDown->SetOnSave([this](unsigned int ID) {
+        m_resolutionDropDown->SetOnSave([this](utl::usize ID) {
             eve::SetNewResolutionEvent const event{ this->m_rawResolutionEntries[ID - 1].first };
             app::AppContext::GetInstance().eventManager.InvokeEvent(event);
         });
@@ -197,7 +197,7 @@ namespace ui {
                 app::LanguageManager::GetAvailableLanguages()
         );
         m_languageDropDown->SetCurrentElementByString(appContext.constants.global.currentLanguageName);
-        m_languageDropDown->SetOnSave([](unsigned int ID) {
+        m_languageDropDown->SetOnSave([](utl::usize ID) {
             auto const language{ app::LanguageManager::GetAvailableLanguages().at(ID - 1) };
             auto const event{ eve::ChangeLanguageEvent(language) };
             app::AppContext::GetInstance().eventManager.InvokeEvent(event);

@@ -13,7 +13,7 @@
 
 
 namespace ui {
-    void SliderAndInputLine::Initialize(unsigned int focusID) {
+    void SliderAndInputLine::Initialize(utl::usize focusID) {
         m_inputLine = std::make_shared<uil::InputLine<int>>(
                 focusID,
                 GetElementPosition(0.77f, 0.0f),
@@ -94,7 +94,7 @@ namespace ui {
     }
 
     SliderAndInputLine::SliderAndInputLine(
-            unsigned int const focusID,
+            utl::usize const focusID,
             Vector2 const pos,
             Vector2 const size,
             uil::Alignment const alignment,

@@ -115,7 +115,7 @@ namespace uil {
 
         for (utl::usize row = 0; row < m_cells.size(); ++row) {
             for (utl::usize column = 0; column < m_cells[0].size(); ++column) {
-                m_cells[row][column]->SetFocusID(static_cast<unsigned int>(id(row, column)));
+                m_cells[row][column]->SetFocusID(id(row, column));
             }
         }
     }
@@ -296,7 +296,7 @@ namespace uil {
     }
 
     NewTable::NewTable(
-            unsigned int const ID,
+            utl::usize const ID,
             Vector2 const pos,
             Vector2 const size,
             Alignment const alignment,
@@ -388,7 +388,7 @@ namespace uil {
             throw std::runtime_error{ IndexOutOfRangeExceptionString(row, utl::usize{ 0 }) };
         }
         std::vector<std::shared_ptr<NewTableCell>> new_row{};
-        for (unsigned int column = 0; column <= m_column_count; ++column) {
+        for (utl::usize column = 0; column <= m_column_count; ++column) {
             new_row.push_back(generate_cell());
         }
 

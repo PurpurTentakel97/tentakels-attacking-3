@@ -17,22 +17,22 @@ namespace uil {
         bool m_isChecked{ false };
         bool m_isHovered{ false };
 
-        unsigned int m_ID;
+        utl::usize m_ID;
 
         Texture* m_texture;
         Rectangle m_textureRec{};
 
-        std::function<void(unsigned int, bool)> m_onCheck{ [](unsigned int, bool) {} };
+        std::function<void(utl::usize, bool)> m_onCheck{ [](utl::usize, bool) {} };
 
 
         void Check(app::AppContext_ty_c appContext);
 
     public:
-        CheckBox(unsigned int focusID, Vector2 pos, float height, Alignment alignment, unsigned int checkBoxID);
+        CheckBox(utl::usize focusID, Vector2 pos, float height, Alignment alignment, utl::usize checkBoxID);
 
-        void SetOnCheck(std::function<void(unsigned int, bool)> onCheck);
+        void SetOnCheck(std::function<void(utl::usize, bool)> onCheck);
 
-        [[nodiscard]] unsigned int GetID() const;
+        [[nodiscard]] utl::usize GetID() const;
 
         void SetChecked(bool isChecked);
 

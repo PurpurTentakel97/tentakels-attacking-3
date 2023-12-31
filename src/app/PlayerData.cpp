@@ -7,7 +7,7 @@
 #include "AppContext.hpp"
 
 namespace app {
-    PlayerData::PlayerData(unsigned int const id, std::string name, Color const col, std::string key)
+    PlayerData::PlayerData(utl::usize const id, std::string name, Color const col, std::string key)
         : ID{ id },
           color{ col },
           m_name{ std::move(name) },

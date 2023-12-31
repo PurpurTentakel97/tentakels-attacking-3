@@ -6,14 +6,15 @@
 #pragma once
 
 #include <CustomRaylib.hpp>
+#include <alias/AliasUtils.hpp>
 #include <string>
 
 namespace app {
     struct PlayerData final {
-        unsigned int ID{ 0 };
+        utl::usize ID{ 0 };
         Color color{ WHITE };
 
-        PlayerData(unsigned int id, std::string name, Color col, std::string key = "");
+        PlayerData(utl::usize id, std::string name, Color col, std::string key = "");
 
         void SetName(std::string const& name);
         [[nodiscard]] std::string GetName() const;

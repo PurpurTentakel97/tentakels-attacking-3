@@ -22,7 +22,7 @@ namespace uil {
         bool m_shouldClearByFocus{ false };
         bool m_isClearNextInput{ false };
         bool m_alreadyCleared{ false };
-        unsigned int m_charLimit;
+        utl::usize m_charLimit;
         std::string m_value;
         std::string m_oldValue;
         std::string m_placeholderText;
@@ -60,11 +60,11 @@ namespace uil {
 
     public:
         InputLine(
-                unsigned int const focusID,
+                utl::usize const focusID,
                 Vector2 const pos,
                 Vector2 const size,
                 Alignment const alignment,
-                unsigned int const charLimit
+                utl::usize const charLimit
         )
             : UIElement{ pos, size, alignment },
               Focusable{ focusID },

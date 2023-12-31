@@ -33,7 +33,7 @@ namespace uil {
         void CheckForValidColor(app::AppContext_ty_c appContext);
 
     public:
-        ColorPicker(unsigned int ID, Vector2 pos, Vector2 size, Alignment alignment, bool isPopUp = false);
+        ColorPicker(utl::usize ID, Vector2 pos, Vector2 size, Alignment alignment, bool isPopUp = false);
 
         ~ColorPicker() override;
 

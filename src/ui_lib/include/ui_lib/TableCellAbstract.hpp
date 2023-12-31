@@ -23,7 +23,7 @@ namespace uil {
 	 * ctor.
 	 * initializes the table with empty cells.
 	 */
-        AbstractTableCell(Vector2 pos, Vector2 size, Alignment alignment, unsigned int focusID);
+        AbstractTableCell(Vector2 pos, Vector2 size, Alignment alignment, utl::usize focusID);
 
         /**
 	 * calculates the text size.

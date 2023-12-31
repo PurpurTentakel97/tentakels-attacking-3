@@ -50,7 +50,7 @@ namespace uil {
         void set_text_offset();
 
     public:
-        NewTableCell(unsigned int ID, Vector2 pos, Vector2 size, index_callback_ty callback);
+        NewTableCell(utl::usize ID, Vector2 pos, Vector2 size, index_callback_ty callback);
 
         [[nodiscard]] bool isEmpty() const;
 

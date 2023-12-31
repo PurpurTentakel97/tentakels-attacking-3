@@ -31,8 +31,8 @@ namespace lgk {
         return app::AppContext::GetInstance().constants.player.maxPlayerCount > m_players.size();
     }
 
-    unsigned int GameManager::GetNextPlayerID() const {
-        unsigned int nextID{ 1 };
+    utl::usize GameManager::GetNextPlayerID() const {
+        utl::usize nextID{ 1 };
         while (true) {
             bool freeID{ true };
             for (auto const& p : m_players) {
@@ -50,7 +50,7 @@ namespace lgk {
         }
     }
 
-    bool GameManager::IsExistingPlayerID(unsigned int const ID) const {
+    bool GameManager::IsExistingPlayerID(utl::usize const ID) const {
         for (auto const& p : m_players) {
             if (p->GetID() == ID) {
                 return true;
@@ -103,7 +103,7 @@ namespace lgk {
             return;
         }
 
-        unsigned int const newID{ GetNextPlayerID() };
+        utl::usize const newID{ GetNextPlayerID() };
         auto const player = std::make_shared<Player>(newID, PlayerType::HUMAN);
         m_players.push_back(player);
 
@@ -272,7 +272,7 @@ namespace lgk {
     }
 
     void GameManager::SendCurrentPlayerID() {
-        unsigned int ID;
+        utl::usize ID;
         Player_ty player{ nullptr };
 
         if (GetCurrentPlayer(player)) {
@@ -286,7 +286,7 @@ namespace lgk {
     }
 
     void GameManager::SendNextPlayerID() {
-        unsigned int ID;
+        utl::usize ID;
         Player_ty player{ nullptr };
 
         if (GetNextPlayer(player)) {

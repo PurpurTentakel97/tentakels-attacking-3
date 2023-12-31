@@ -550,8 +550,8 @@ namespace ui {
 
     void MainScene::SendFleetInstruction() {
 
-        eve::SendFleetInstructionEvent event{ static_cast<unsigned int>(m_origin->GetValue()),
-                                              static_cast<unsigned int>(m_destination->GetValue()),
+        eve::SendFleetInstructionEvent event{ static_cast<utl::usize>(m_origin->GetValue()),
+                                              static_cast<utl::usize>(m_destination->GetValue()),
                                               m_destinationX->IsEnabled() ? m_destinationX->GetValue() : -1,
                                               m_destinationY->IsEnabled() ? m_destinationY->GetValue() : -1,
                                               static_cast<utl::usize>(m_shipCount->GetValue()) };
@@ -605,7 +605,7 @@ namespace ui {
         app::AppContext::GetInstance().eventManager.InvokeEvent(focusEvent);
     }
 
-    lgk::SpaceObject_ty MainScene::GetSpaceObjectFromID(unsigned int const ID) const {
+    lgk::SpaceObject_ty MainScene::GetSpaceObjectFromID(utl::usize const ID) const {
         auto const& planetData{ m_galaxy->GetGalaxy()->GetPlanets() };
         for (auto const& planet : planetData) {
             if (planet->GetID() == ID) {

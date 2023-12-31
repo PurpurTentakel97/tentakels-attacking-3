@@ -32,15 +32,15 @@ namespace app {
 
         void CheckRemainingName(std::string& name);
 
-        [[nodiscard]] PlayerData& GetPlayerByIDmut(unsigned int ID);
+        [[nodiscard]] PlayerData& GetPlayerByIDmut(utl::usize ID);
 
         void SortPlayers();
 
-        void AddPlayer(unsigned int ID, std::string name, Color color);
+        void AddPlayer(utl::usize ID, std::string name, Color color);
 
-        void EditPlayer(unsigned int ID, std::string name, Color color);
+        void EditPlayer(utl::usize ID, std::string name, Color color);
 
-        void DeletePlayer(unsigned int ID);
+        void DeletePlayer(utl::usize ID);
 
         void ResetPlayer();
 
@@ -49,17 +49,17 @@ namespace app {
 
         [[nodiscard]] std::vector<PlayerData> GetPlayerData() const;
 
-        [[nodiscard]] PlayerData GetPlayerByID(unsigned int ID) const;
+        [[nodiscard]] PlayerData GetPlayerByID(utl::usize ID) const;
 
-        [[nodiscard]] PlayerData GetPlayerOrNpcByID(unsigned int ID) const;
+        [[nodiscard]] PlayerData GetPlayerOrNpcByID(utl::usize ID) const;
 
-        [[nodiscard]] PlayerData GetPlayerByIDOrDefaultPlayer(unsigned int ID) const;
+        [[nodiscard]] PlayerData GetPlayerByIDOrDefaultPlayer(utl::usize ID) const;
 
         [[nodiscard]] PlayerData GetPlayerByName(std::string const& name) const;
 
         [[nodiscard]] PlayerData GetPlayerByColor(Color color) const;
 
-        [[nodiscard]] Color GetColorByID(unsigned int ID) const;
+        [[nodiscard]] Color GetColorByID(utl::usize ID) const;
 
         [[nodiscard]] utl::usize GetPlayerCount() const;
 

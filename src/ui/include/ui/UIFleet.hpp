@@ -15,7 +15,7 @@
 namespace ui {
     class UIFleet final : public uil::UIElement {
     private:
-        unsigned int m_ID;
+        utl::usize m_ID;
         app::PlayerData m_player;
         Vector2 m_relativeStart;
         Vector2 m_relativeEnd;
@@ -27,7 +27,7 @@ namespace ui {
         uil::CountRing_ty m_ring{ nullptr };
 
     public:
-        UIFleet(unsigned int ID,
+        UIFleet(utl::usize ID,
                 app::PlayerData const& player,
                 Vector2 start,
                 Vector2 end,
@@ -36,7 +36,7 @@ namespace ui {
                 lgk::Fleet_ty_raw_c fleet,
                 std::function<bool(Vector2 const&)> isInGalaxyCollider);
 
-        [[nodiscard]] unsigned int GetID() const;
+        [[nodiscard]] utl::usize GetID() const;
 
         [[nodiscard]] bool IsColliding(Vector2 const& mousePosition) const;
 

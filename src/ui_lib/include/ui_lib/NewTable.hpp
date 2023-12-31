@@ -75,7 +75,7 @@ namespace uil {
 
     public:
         NewTable(
-                unsigned int ID,
+                utl::usize ID,
                 Vector2 pos,
                 Vector2 size,
                 Alignment alignment,

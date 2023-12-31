@@ -24,7 +24,7 @@ namespace ui {
         int m_maxValue;
         int m_currentValue;
 
-        void Initialize(unsigned int focusID);
+        void Initialize(utl::usize focusID);
 
         void BtnPressed();
 
@@ -38,7 +38,7 @@ namespace ui {
 
     public:
         SliderAndInputLine(
-                unsigned int focusID,
+                utl::usize focusID,
                 Vector2 pos,
                 Vector2 size,
                 uil::Alignment alignment,

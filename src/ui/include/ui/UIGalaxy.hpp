@@ -43,7 +43,7 @@ namespace ui {
 
         std::function<void(float, Vector2)> m_onZoom{ [](float, Vector2) {} };
         std::function<void(float, bool)> m_onSlide{ [](float, bool) {} };
-        std::function<void(unsigned int)> m_onUIGalaxyElementClick{ [](unsigned int) {} };
+        std::function<void(utl::usize)> m_onUIGalaxyElementClick{ [](utl::usize) {} };
 
         bool m_updateLineDrag{ false };
         uil::LineDrag_ty m_lineDrag;
@@ -72,7 +72,7 @@ namespace ui {
 
         [[nodiscard]] bool IsCollidingObjectPoint(Vector2 point) const;
 
-        [[nodiscard]] unsigned int GetIDFromPoint(Vector2 point) const;
+        [[nodiscard]] utl::usize GetIDFromPoint(Vector2 point) const;
 
         [[nodiscard]] utl::vec2pos_ty GetCoordinatesFromPoint(Vector2 point) const;
 
@@ -80,7 +80,7 @@ namespace ui {
 
     public:
         UIGalaxy(
-                unsigned int ID,
+                utl::usize ID,
                 Vector2 pos,
                 Vector2 size,
                 uil::Alignment alignment,
@@ -104,7 +104,7 @@ namespace ui {
 
         void SetOnSlide(std::function<void(float, bool)> onSlide);
 
-        void SetOnUIGalaxyElementClick(std::function<void(unsigned int)> onPlanetClick);
+        void SetOnUIGalaxyElementClick(std::function<void(utl::usize)> onPlanetClick);
 
         void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) override;
 

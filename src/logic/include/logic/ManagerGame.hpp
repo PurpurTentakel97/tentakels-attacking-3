@@ -31,9 +31,9 @@ namespace lgk {
         // player
         [[nodiscard]] bool ValidAddPlayer() const;
 
-        [[nodiscard]] unsigned int GetNextPlayerID() const;
+        [[nodiscard]] utl::usize GetNextPlayerID() const;
 
-        [[nodiscard]] bool IsExistingPlayerID(unsigned int ID) const;
+        [[nodiscard]] bool IsExistingPlayerID(utl::usize ID) const;
 
         [[nodiscard]] bool GetCurrentPlayer(Player_ty& currentPlayer) const;
 

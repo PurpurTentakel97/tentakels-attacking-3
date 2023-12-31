@@ -32,11 +32,11 @@ namespace uil {
 
         float m_dropDownHeight;
         Rectangle m_dropDownCollider{};
-        std::function<void(unsigned int)> m_onSave{ [](unsigned int) {} };
+        std::function<void(utl::usize)> m_onSave{ [](utl::usize) {} };
 
-        void Initialize(std::vector<std::string> const& elements, unsigned int startFocusID);
+        void Initialize(std::vector<std::string> const& elements, utl::usize startFocusID);
 
-        void OnElementClick(unsigned int ID);
+        void OnElementClick(utl::usize ID);
 
         void SetCurrentElement(std::shared_ptr<DropDownElement> const& element);
 
@@ -64,14 +64,14 @@ namespace uil {
                 Vector2 size,
                 Alignment alignment,
                 float dropDownSize,
-                unsigned int focusID,
-                unsigned int startElementFocusID,
+                utl::usize focusID,
+                utl::usize startElementFocusID,
                 std::vector<std::string> const& elements
         );
 
         [[nodiscard]] std::shared_ptr<DropDownElement> GetCurrentElement() const;
 
-        bool SetCurrentElementByID(unsigned int ID);
+        bool SetCurrentElementByID(utl::usize ID);
 
         bool SetCurrentElementByString(std::string const& element);
 
@@ -89,6 +89,6 @@ namespace uil {
 
         [[nodiscard]] Rectangle GetCollider() const override;
 
-        void SetOnSave(std::function<void(unsigned int)> onSave);
+        void SetOnSave(std::function<void(utl::usize)> onSave);
     };
 } // namespace uil

@@ -19,10 +19,9 @@ namespace lgk {
         utl::usize m_production;
 
     public:
-        Planet(unsigned int ID, utl::vec2pos_ty_ref_c position, Player_ty player, bool isHomePlanet, int m_planetNumber
-        );
+        Planet(utl::usize ID, utl::vec2pos_ty_ref_c position, Player_ty player, bool isHomePlanet, int m_planetNumber);
 
-        Planet(unsigned int ID,
+        Planet(utl::usize ID,
                utl::vec2pos_ty_ref_c position,
                Player_ty player,
                bool isHomePlanet,

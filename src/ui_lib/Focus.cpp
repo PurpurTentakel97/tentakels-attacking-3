@@ -69,7 +69,7 @@ namespace uil {
     }
 
     Focusable_ty_raw Focus::GetNextFocus() {
-        unsigned int const currentID{ m_currentFocus ? m_currentFocus->GetFocusID() : 0 };
+        utl::usize const currentID{ m_currentFocus ? m_currentFocus->GetFocusID() : 0 };
         Focusable_ty_raw nextFocus{ nullptr };
         bool const hasAnyEnabledElements{ HasAnyEnabledElements() };
 
@@ -95,10 +95,9 @@ namespace uil {
     }
 
     Focusable_ty_raw Focus::GetPreviousFocus() {
-        unsigned int const currentID{ m_currentFocus ? m_currentFocus->GetFocusID()
-                                                     : static_cast<unsigned int>(m_focus.size()) };
+        auto const currentID{ m_currentFocus ? m_currentFocus->GetFocusID() : m_focus.size() };
         Focusable_ty_raw previousFocus{ nullptr };
-        bool const hasAnyEnabledElements{ HasAnyEnabledElements() };
+        auto const hasAnyEnabledElements{ HasAnyEnabledElements() };
 
         for (auto focus : m_focus) {
             if (hasAnyEnabledElements and !focus->IsEnabled()) {
@@ -357,7 +356,7 @@ namespace uil {
         }
     }
 
-    void Focus::CheckNewID(unsigned int const newID) {
+    void Focus::CheckNewID(utl::usize const newID) {
         for (auto focus : m_focus) {
             if (focus->GetFocusID() == newID) {
                 throw std::invalid_argument("ID already exists, ID: " + std::to_string(newID));

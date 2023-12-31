@@ -13,9 +13,9 @@ namespace lgk {
         return range >= actualRange;
     }
 
-    SpaceObject::SpaceObject(unsigned int const ID, utl::vec2pos_ty_ref_c position, Player_ty_c player)
+    SpaceObject::SpaceObject(utl::usize const ID, utl::vec2pos_ty_ref_c position, Player_ty_c player)
         : SpaceObject{ ID, position, 0, player } { }
-    SpaceObject::SpaceObject(unsigned int ID, utl::vec2pos_ty position, utl::usize ships, Player_ty player)
+    SpaceObject::SpaceObject(utl::usize ID, utl::vec2pos_ty position, utl::usize ships, Player_ty player)
         : m_ID{ ID },
           m_ships{ ships },
           m_position{ std::move(position) },
@@ -26,7 +26,7 @@ namespace lgk {
         origin->SetShipCount(0);
     }
 
-    unsigned int SpaceObject::GetID() const {
+    utl::usize SpaceObject::GetID() const {
         return m_ID;
     }
 

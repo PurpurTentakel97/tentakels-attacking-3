@@ -12,7 +12,7 @@
 
 namespace lgk {
     Planet::Planet(
-            unsigned int const ID,
+            utl::usize const ID,
             utl::vec2pos_ty_ref_c position,
             Player_ty player,
             bool const isHomePlanet,
@@ -21,7 +21,7 @@ namespace lgk {
         : Planet{ ID, position, std::move(player), isHomePlanet, planetNumber, 0 } { }
 
     Planet::Planet(
-            unsigned int const ID,
+            utl::usize const ID,
             utl::vec2pos_ty_ref_c position,
             Player_ty player,
             bool const isHomePlanet,

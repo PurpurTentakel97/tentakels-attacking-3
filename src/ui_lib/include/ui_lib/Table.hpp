@@ -137,7 +137,7 @@ namespace uil {
         Table(Vector2 pos,
               Vector2 size,
               Alignment alignment,
-              unsigned int focusID,
+              utl::usize focusID,
               utl::usize rowCount,
               utl::usize columnCount,
               Vector2 minCellSize,

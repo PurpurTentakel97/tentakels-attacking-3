@@ -11,12 +11,12 @@
 #include <helper/HPrint.hpp>
 
 namespace lgk {
-    Fleet::Fleet(unsigned int const ID, utl::vec2pos_ty_ref_c position, Player_ty_c player, SpaceObject_ty target)
+    Fleet::Fleet(utl::usize const ID, utl::vec2pos_ty_ref_c position, Player_ty_c player, SpaceObject_ty target)
         : SpaceObject{ ID, position, player },
           m_target{ std::move(target) } { }
 
     Fleet::Fleet(
-            unsigned int const ID,
+            utl::usize const ID,
             utl::vec2pos_ty_ref_c position,
             utl::usize ships,
             Player_ty_c player,

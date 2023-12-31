@@ -26,12 +26,12 @@ namespace ui {
             }
         };
 
-        void Initialize(unsigned int focusID);
+        void Initialize(utl::usize focusID);
 
-        void SetChecked(unsigned int index, bool isChecked);
+        void SetChecked(utl::usize index, bool isChecked);
 
     public:
-        GameEventSettings(unsigned int focusID, Vector2 pos, Vector2 size, uil::Alignment alignment);
+        GameEventSettings(utl::usize focusID, Vector2 pos, Vector2 size, uil::Alignment alignment);
 
         void SetRandom();
     };

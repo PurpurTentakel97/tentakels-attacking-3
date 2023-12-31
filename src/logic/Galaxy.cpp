@@ -28,13 +28,13 @@ namespace lgk {
     };
 
     // helper
-    unsigned int Galaxy::GetNextID() const {
+    utl::usize Galaxy::GetNextID() const {
 
         if (m_objects.empty()) {
             return 1;
         }
 
-        unsigned int nextID{ 1 };
+        utl::usize nextID{ 1 };
         while (true) {
             bool freeID{ true };
             for (auto& o : m_objects) {
@@ -149,7 +149,7 @@ namespace lgk {
     }
 
     // Fleet
-    bool Galaxy::IsValidFleet(unsigned int const ID) const {
+    bool Galaxy::IsValidFleet(utl::usize const ID) const {
 
         for (auto const& f : m_fleets) {
             if (f->GetID() == ID) {
@@ -159,7 +159,7 @@ namespace lgk {
         return false;
     }
 
-    Fleet_ty Galaxy::GetFleetByID(unsigned int const ID) const {
+    Fleet_ty Galaxy::GetFleetByID(utl::usize const ID) const {
         for (auto const& f : m_fleets) {
             if (f->GetID() == ID) {
                 return f;
@@ -572,7 +572,7 @@ namespace lgk {
         );
     }
 
-    bool Galaxy::IsValidTargetPoint(unsigned int const ID) const {
+    bool Galaxy::IsValidTargetPoint(utl::usize const ID) const {
         for (auto const& tp : m_targetPoints) {
             if (tp->GetID() == ID) {
                 return true;
@@ -581,7 +581,7 @@ namespace lgk {
         return false;
     }
 
-    TargetPoint_ty Galaxy::GetTargetPointByID(unsigned int const ID) const {
+    TargetPoint_ty Galaxy::GetTargetPointByID(utl::usize const ID) const {
         for (auto const& tp : m_targetPoints) {
             if (tp->GetID() == ID) {
                 return tp;
@@ -592,7 +592,7 @@ namespace lgk {
     }
 
     SpaceObject_ty
-    Galaxy::GetOrGenerateDestination(unsigned int const ID, int const X, int const Y, Player_ty const& currentPlayer) {
+    Galaxy::GetOrGenerateDestination(utl::usize const ID, int const X, int const Y, Player_ty const& currentPlayer) {
 
         for (auto& object : m_objects) {
 
@@ -1166,7 +1166,7 @@ namespace lgk {
         return m_validGalaxy;
     }
 
-    bool Galaxy::IsValidSpaceObjectID(unsigned int const ID) const {
+    bool Galaxy::IsValidSpaceObjectID(utl::usize const ID) const {
 
         for (auto const& object : m_objects) {
             if (object->GetID() == ID) {
@@ -1210,7 +1210,7 @@ namespace lgk {
         return m_targetPoints;
     }
 
-    Planet_ty Galaxy::GetPlanetByID(unsigned int const ID) const {
+    Planet_ty Galaxy::GetPlanetByID(utl::usize const ID) const {
         for (auto const& planet : m_planets) {
             if (planet->GetID() == ID) {
                 return planet;
@@ -1220,7 +1220,7 @@ namespace lgk {
         throw std::runtime_error("no planet with this ID: " + std::to_string(ID));
     }
 
-    SpaceObject_ty Galaxy::GetSpaceObjectByID(unsigned int const ID) const {
+    SpaceObject_ty Galaxy::GetSpaceObjectByID(utl::usize const ID) const {
 
         for (auto const& object : m_objects) {
             if (object->GetID() == ID) {
@@ -1308,7 +1308,7 @@ namespace lgk {
         return { nullptr, nullptr, nullptr, false };
     }
 
-    void Galaxy::SetDiscoverByPlayer(unsigned int currentPlayerID) {
+    void Galaxy::SetDiscoverByPlayer(utl::usize currentPlayerID) {
         // discover all space objects with player
         for (auto const& object : m_objects) {
             object->SetDiscovered(false);

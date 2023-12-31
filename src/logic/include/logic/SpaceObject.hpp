@@ -15,7 +15,7 @@
 namespace lgk {
     class SpaceObject {
     protected:
-        unsigned int m_ID;
+        utl::usize m_ID;
         utl::usize m_ships;
         utl::vec2pos_ty m_position;
         Player_ty m_player;
@@ -24,9 +24,9 @@ namespace lgk {
         [[nodiscard]] static bool IsInRange(SpaceObject_ty_raw first, SpaceObject_ty_raw second, int range);
 
     public:
-        SpaceObject(unsigned int ID, utl::vec2pos_ty_ref_c position, Player_ty_c player);
+        SpaceObject(utl::usize ID, utl::vec2pos_ty_ref_c position, Player_ty_c player);
 
-        SpaceObject(unsigned int ID, utl::vec2pos_ty position, utl::usize ships, Player_ty player);
+        SpaceObject(utl::usize ID, utl::vec2pos_ty position, utl::usize ships, Player_ty player);
 
         virtual ~SpaceObject() = default;
 
@@ -34,7 +34,7 @@ namespace lgk {
 
         virtual void Update(Galaxy_ty_raw galaxy) = 0;
 
-        [[nodiscard]] unsigned int GetID() const;
+        [[nodiscard]] utl::usize GetID() const;
 
         void SetPlayer(Player_ty player);
 

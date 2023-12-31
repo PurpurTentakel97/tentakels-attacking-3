@@ -25,7 +25,7 @@ namespace uil {
         for (utl::usize row = 0; row < m_countY; ++row) {
             for (utl::usize column = 0; column < m_countX; ++column) {
 
-                utl::usize const index{ hlp::GetIndexFromRowAndColumn(row, column, m_countX) };
+                auto const index{ hlp::GetIndexFromRowAndColumn(row, column, m_countX) };
                 // start					offset
                 float const posX{ (1.0f / static_cast<float>((2 * m_countX)))
                                   + (1.0f / static_cast<float>(m_countX * column)) };
@@ -37,7 +37,7 @@ namespace uil {
                 Color const color{ colors.size() > index ? colors.at(index) : BLANK };
 
                 m_cells.push_back(std::make_unique<ColorPickerCell>(
-                        static_cast<unsigned int>(index + 1),
+                        index + 1,
                         hlp::GetElementPosition(m_pos, m_size, posX, posY),
                         hlp::GetElementSize(m_size, sizeX, sizeY),
                         Alignment::MID_MID,
@@ -88,7 +88,7 @@ namespace uil {
     }
 
     ColorPicker::ColorPicker(
-            unsigned int const ID,
+            utl::usize const ID,
             Vector2 const pos,
             Vector2 const size,
             Alignment const alignment,

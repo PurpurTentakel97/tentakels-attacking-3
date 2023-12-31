@@ -15,7 +15,7 @@
 
 
 namespace uil {
-    void DropDown::Initialize(std::vector<std::string> const& elements, unsigned int startFocusID) {
+    void DropDown::Initialize(std::vector<std::string> const& elements, utl::usize startFocusID) {
 
         float const x{ m_pos.x + m_size.x * 0.01f };
         float y{ m_pos.y + m_size.y };
@@ -28,11 +28,11 @@ namespace uil {
                     Vector2(width, height),
                     Alignment::DEFAULT,
                     startFocusID,
-                    static_cast<unsigned int>(i + 1),
+                    i + 1,
                     elements.at(i),
                     [this](Rectangle collider) -> Rectangle { return this->GetTemporaryCollider(collider); }
             );
-            entry->SetOnClick([this](unsigned int ID) { this->OnElementClick(ID); });
+            entry->SetOnClick([this](utl::usize ID) { this->OnElementClick(ID); });
             entry->SetEnabled(false);
             m_dropDownElements.push_back(entry);
             ++startFocusID;
@@ -44,7 +44,7 @@ namespace uil {
         }
     }
 
-    void DropDown::OnElementClick(unsigned int const ID) {
+    void DropDown::OnElementClick(utl::usize const ID) {
         SetCurrentElementByID(ID);
         m_onSave(ID);
     }
@@ -187,8 +187,8 @@ namespace uil {
             Vector2 const size,
             Alignment const alignment,
             float const dropDownHeight,
-            unsigned int const focusID,
-            unsigned int const startElementFocusID,
+            utl::usize const focusID,
+            utl::usize const startElementFocusID,
             std::vector<std::string> const& elements
     )
         : UIElement{ pos, size, alignment },
@@ -223,7 +223,7 @@ namespace uil {
         return m_currentElement;
     }
 
-    bool DropDown::SetCurrentElementByID(unsigned int const ID) {
+    bool DropDown::SetCurrentElementByID(utl::usize const ID) {
 
         for (auto const& e : m_dropDownElements) {
             if (e->GetID() == ID) {
@@ -376,7 +376,7 @@ namespace uil {
         return m_collider;
     }
 
-    void DropDown::SetOnSave(std::function<void(unsigned int)> onSave) {
+    void DropDown::SetOnSave(std::function<void(utl::usize)> onSave) {
         m_onSave = std::move(onSave);
     }
 } // namespace uil

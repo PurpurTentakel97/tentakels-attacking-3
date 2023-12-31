@@ -6,12 +6,13 @@
 #pragma once
 
 #include <CustomRaylib.hpp>
+#include <alias/AliasUtils.hpp>
 
 
 namespace uil {
     class Focusable {
     private:
-        unsigned int m_focusID;
+        utl::usize m_focusID;
         bool m_isFocus{ false };
         bool m_wasLastFocus{ false };
 
@@ -19,7 +20,7 @@ namespace uil {
         bool m_isNestedFocus{ false };
 
     public:
-        explicit Focusable(unsigned int ID);
+        explicit Focusable(utl::usize ID);
 
         virtual ~Focusable();
 
@@ -35,9 +36,9 @@ namespace uil {
 
         [[nodiscard]] virtual bool IsEnabled() const = 0;
 
-        [[nodiscard]] unsigned int GetFocusID() const;
+        [[nodiscard]] utl::usize GetFocusID() const;
 
-        void SetFocusID(unsigned int focusID) noexcept;
+        void SetFocusID(utl::usize focusID) noexcept;
 
         [[nodiscard]] virtual Rectangle GetCollider() const = 0;
     };

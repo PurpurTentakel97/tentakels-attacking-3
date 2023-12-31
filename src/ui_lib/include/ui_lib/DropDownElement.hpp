@@ -15,12 +15,12 @@ namespace uil {
     private:
         bool m_isEnabled{ true };
         bool m_hover{ false };
-        unsigned int m_ID;
+        utl::usize m_ID;
         float m_fontSize{};
         std::string m_toRender;
         std::string m_text;
         Vector2 m_textPosition{};
-        std::function<void(unsigned int)> m_onClick{ [](unsigned int) {} };
+        std::function<void(utl::usize)> m_onClick{ [](utl::usize) {} };
         std::function<Rectangle(Rectangle)> m_getTemporaryCollider;
 
         void CreateToRender();
@@ -34,8 +34,8 @@ namespace uil {
                 Vector2 pos,
                 Vector2 size,
                 Alignment alignment,
-                unsigned int focusID,
-                unsigned int ID,
+                utl::usize focusID,
+                utl::usize ID,
                 std::string text,
                 std::function<Rectangle(Rectangle)> getTemporaryCollider
         );
@@ -52,9 +52,9 @@ namespace uil {
 
         [[nodiscard]] std::string GetText() const;
 
-        [[nodiscard]] unsigned int GetID() const;
+        [[nodiscard]] utl::usize GetID() const;
 
-        void SetOnClick(std::function<void(unsigned int)> onClick);
+        void SetOnClick(std::function<void(utl::usize)> onClick);
 
         [[nodiscard]] Rectangle GetCollider() const override;
     };

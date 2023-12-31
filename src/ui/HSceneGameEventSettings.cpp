@@ -13,7 +13,7 @@
 
 
 namespace ui {
-    void GameEventSettings::Initialize(unsigned int const focusID) {
+    void GameEventSettings::Initialize(utl::usize const focusID) {
 
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
 
@@ -57,20 +57,20 @@ namespace ui {
             m_elements.push_back(displayText);
 
             auto element = std::make_shared<uil::CheckBox>(
-                    static_cast<unsigned int>(i + focusID),
+                    i + focusID,
                     GetElementPosition(cbX, firstRow + row * static_cast<float>(i) * 2),
                     GetElementSize(0.0f, row * 1.5f).y,
                     uil::Alignment::MID_LEFT,
-                    static_cast<unsigned int>(i)
+                    i
             );
-            element->SetOnCheck([this](unsigned int index, bool isChecked) { this->SetChecked(index, isChecked); });
+            element->SetOnCheck([this](utl::usize index, bool isChecked) { this->SetChecked(index, isChecked); });
             element->SetChecked(appContext.constants.gameEvents.IsFlag(m_text.at(i).first));
             m_checkBoxes.push_back(element);
             m_elements.push_back(element);
         }
     }
 
-    void GameEventSettings::SetChecked(unsigned int const index, bool const isChecked) {
+    void GameEventSettings::SetChecked(utl::usize const index, bool const isChecked) {
         app::AppContext_ty appContext{ app::AppContext::GetInstance() };
         appContext.constants.gameEvents.SetFlag(m_text.at(index).first, isChecked);
 
@@ -82,7 +82,7 @@ namespace ui {
     }
 
     GameEventSettings::GameEventSettings(
-            unsigned int const focusID,
+            utl::usize const focusID,
             Vector2 const pos,
             Vector2 const size,
             uil::Alignment const alignment

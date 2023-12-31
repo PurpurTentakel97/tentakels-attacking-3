@@ -12,8 +12,8 @@
 
 namespace ui {
     UIGalaxyElement::UIGalaxyElement(
-            unsigned int const focusID,
-            unsigned int const ID,
+            utl::usize const focusID,
+            utl::usize const ID,
             Vector2 const size,
             app::PlayerData const& player,
             Vector2 const pos,
@@ -59,7 +59,7 @@ namespace ui {
         return m_color;
     }
 
-    unsigned int UIGalaxyElement::GetID() const {
+    utl::usize UIGalaxyElement::GetID() const {
         return m_ID;
     }
 
