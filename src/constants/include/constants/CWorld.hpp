@@ -10,12 +10,12 @@
 
 namespace cst {
     struct World final {
-        static inline size_t constexpr configEntryCount{ 13 };
+        static inline utl::usize constexpr configEntryCount{ 13 };
 
-        size_t minPlanetCount{ 20 };
-        size_t currentPlanetCount{ 50 };
-        size_t maxPlanetCount{ 100 };
-        size_t showPlanetCount{ 25 };
+        utl::usize minPlanetCount{ 20 };
+        utl::usize currentPlanetCount{ 50 };
+        utl::usize maxPlanetCount{ 100 };
+        utl::usize showPlanetCount{ 25 };
 
         int minDimensionX{ 60 };
         int currentDimensionX{ 150 };

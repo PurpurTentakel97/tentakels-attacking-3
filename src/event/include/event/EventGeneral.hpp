@@ -173,12 +173,12 @@ namespace eve {
 
     class SetCurrentLastRoundEvent final : public Event {
     private:
-        size_t m_lastRound;
+        utl::usize m_lastRound;
 
     public:
-        explicit SetCurrentLastRoundEvent(size_t const lastRound) : m_lastRound{ lastRound } { }
+        explicit SetCurrentLastRoundEvent(utl::usize const lastRound) : m_lastRound{ lastRound } { }
 
-        [[nodiscard]] size_t GetLastRound() const {
+        [[nodiscard]] utl::usize GetLastRound() const {
             return m_lastRound;
         }
     };
@@ -215,7 +215,7 @@ namespace eve {
         unsigned int m_destination;
         int m_destinationX;
         int m_destinationY;
-        size_t m_shipCount;
+        utl::usize m_shipCount;
 
     public:
         SendFleetInstructionEvent(
@@ -223,7 +223,7 @@ namespace eve {
                 unsigned int const destination,
                 int const destinationX,
                 int const destinationY,
-                size_t const shipCount
+                utl::usize const shipCount
         )
             : m_origin{ origin },
               m_destination{ destination },
@@ -243,7 +243,7 @@ namespace eve {
         [[nodiscard]] int GetDestinationY() const {
             return m_destinationY;
         }
-        [[nodiscard]] size_t GetShipCount() const {
+        [[nodiscard]] utl::usize GetShipCount() const {
             return m_shipCount;
         }
     };

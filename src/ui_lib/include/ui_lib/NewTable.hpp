@@ -8,6 +8,7 @@
 #include "Focusable.hpp"
 #include "NewTableCell.hpp"
 #include "UIElement.hpp"
+#include <alias/AliasUtils.hpp>
 #include <functional>
 #include <memory>
 #include <unordered_map>
@@ -15,8 +16,8 @@
 
 
 namespace uil {
-    static inline std::function<std::string(size_t, size_t)> const IndexOutOfRangeExceptionString{
-        [](size_t const row, size_t const column) -> std::string {
+    static inline std::function<std::string(utl::usize, utl::usize)> const IndexOutOfRangeExceptionString{
+        [](utl::usize const row, utl::usize const column) -> std::string {
             return "no such cell - row: " + std::to_string(row) + " | column: " + std::to_string(column);
         }
     };
@@ -24,11 +25,11 @@ namespace uil {
     class NewTable final : public UIElement, public Focusable {
     public:
         using cell_vec_ty = std::vector<std::vector<std::shared_ptr<NewTableCell>>>;
-        using headlines_ty = std::unordered_map<size_t, NewTableCell::variant_ty>;
+        using headlines_ty = std::unordered_map<utl::usize, NewTableCell::variant_ty>;
 
     private:
         cell_vec_ty m_cells{};
-        size_t m_row_count, m_column_count;
+        utl::usize m_row_count, m_column_count;
         headlines_ty m_headlines{};
         Vector2 m_scroll_offset = Vector2(0.0f, 0.0f);
         float m_preference_text_size;
@@ -38,26 +39,26 @@ namespace uil {
         bool m_isRenderHover{ false };
         bool m_isScrollable{ false };
 
-        [[nodiscard]] NewTableCell& getSpecialCell(size_t row, size_t column);
+        [[nodiscard]] NewTableCell& getSpecialCell(utl::usize row, utl::usize column);
 
-        [[nodiscard]] NewTableCell const& getSpecialCell(size_t row, size_t column) const;
+        [[nodiscard]] NewTableCell const& getSpecialCell(utl::usize row, utl::usize column) const;
 
-        [[nodiscard]] NewTableCell* getCellUnsafe(size_t row, size_t column);
+        [[nodiscard]] NewTableCell* getCellUnsafe(utl::usize row, utl::usize column);
 
-        [[nodiscard]] NewTableCell const* getCellUnsafe(size_t row, size_t column) const;
+        [[nodiscard]] NewTableCell const* getCellUnsafe(utl::usize row, utl::usize column) const;
 
 
-        [[nodiscard]] static bool validSpecialRow(size_t row);
+        [[nodiscard]] static bool validSpecialRow(utl::usize row);
 
-        [[nodiscard]] static bool validSpecialColumn(size_t column);
+        [[nodiscard]] static bool validSpecialColumn(utl::usize column);
 
-        [[nodiscard]] bool validSpecialIndex(size_t row, size_t column) const;
+        [[nodiscard]] bool validSpecialIndex(utl::usize row, utl::usize column) const;
 
-        [[nodiscard]] bool validRow(size_t row) const;
+        [[nodiscard]] bool validRow(utl::usize row) const;
 
-        [[nodiscard]] bool validColumn(size_t column) const;
+        [[nodiscard]] bool validColumn(utl::usize column) const;
 
-        [[nodiscard]] bool validIndex(size_t row, size_t column) const;
+        [[nodiscard]] bool validIndex(utl::usize row, utl::usize column) const;
 
         [[nodiscard]] NewTableCell::index_ty index(NewTableCell const& cell) const;
 
@@ -78,26 +79,26 @@ namespace uil {
                 Vector2 pos,
                 Vector2 size,
                 Alignment alignment,
-                size_t row,
-                size_t column,
+                utl::usize row,
+                utl::usize column,
                 float text_size
         );
 
-        [[nodiscard]] size_t rowCount() const;
+        [[nodiscard]] utl::usize rowCount() const;
 
-        [[nodiscard]] size_t columnCount() const;
+        [[nodiscard]] utl::usize columnCount() const;
 
         // cells
-        [[nodiscard]] bool hasCell(size_t row, size_t column) const;
+        [[nodiscard]] bool hasCell(utl::usize row, utl::usize column) const;
 
-        [[nodiscard]] NewTableCell& getCell(size_t row, size_t column);
+        [[nodiscard]] NewTableCell& getCell(utl::usize row, utl::usize column);
 
-        [[nodiscard]] NewTableCell const& getCell(size_t row, size_t column) const;
+        [[nodiscard]] NewTableCell const& getCell(utl::usize row, utl::usize column) const;
 
-        void clearCell(size_t row, size_t column);
+        void clearCell(utl::usize row, utl::usize column);
 
         template<CellValueType T>
-        NewTableCell& setValue(size_t const row, size_t const column, T const value) {
+        NewTableCell& setValue(utl::usize const row, utl::usize const column, T const value) {
             if (not validIndex(row, column)) {
                 throw std::runtime_error{ IndexOutOfRangeExceptionString(row, column) };
             }
@@ -109,29 +110,29 @@ namespace uil {
             return *cell;
         }
 
-        void setCellCallback(size_t row, size_t column, NewTableCell::callback_ty const& callback);
+        void setCellCallback(utl::usize row, utl::usize column, NewTableCell::callback_ty const& callback);
 
         void update_cells();
 
         // row
-        [[nodiscard]] bool hasRow(size_t row) const;
+        [[nodiscard]] bool hasRow(utl::usize row) const;
 
-        size_t insertRow(size_t row);
+        utl::usize insertRow(utl::usize row);
 
-        size_t appendRow();
+        utl::usize appendRow();
 
-        bool removeRow(size_t row);
+        bool removeRow(utl::usize row);
 
         bool popRow();
 
         // column
-        [[nodiscard]] bool hasColumn(size_t column) const;
+        [[nodiscard]] bool hasColumn(utl::usize column) const;
 
-        size_t insertColumn(size_t column);
+        utl::usize insertColumn(utl::usize column);
 
-        size_t appendColumn();
+        utl::usize appendColumn();
 
-        bool removeColumn(size_t column);
+        bool removeColumn(utl::usize column);
 
         bool popColumn();
 
@@ -141,15 +142,15 @@ namespace uil {
         void showHeadline(bool headline);
 
         template<CellValueType T>
-        void setHeadline(size_t const column, T const value) {
+        void setHeadline(utl::usize const column, T const value) {
             if (not validColumn(column)) {
-                throw std::runtime_error{ IndexOutOfRangeExceptionString(size_t{ 0 }, column) };
+                throw std::runtime_error{ IndexOutOfRangeExceptionString(utl::usize{ 0 }, column) };
             }
 
             m_headlines[column] = value;
         }
 
-        void clearHeadline(size_t column);
+        void clearHeadline(utl::usize column);
 
         template<CellValueType T>
         void setHeadlines(std::vector<T> const values) {
@@ -159,7 +160,7 @@ namespace uil {
 
             m_headlines.clear();
 
-            for (size_t i = 0; i < values.size(); ++i) {
+            for (utl::usize i = 0; i < values.size(); ++i) {
                 m_headlines[i + 1] = values[i];
             }
         }

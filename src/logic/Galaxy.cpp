@@ -53,7 +53,7 @@ namespace lgk {
     }
 
     void Galaxy::InitializePlanets(
-            size_t planetCount,
+            utl::usize planetCount,
             std::vector<Player_ty> const& players,
             Player_ty const& neutralPlayer
     ) {
@@ -74,8 +74,8 @@ namespace lgk {
         for (auto& p : players) {
             int counter{ 0 };
             while (true) {
-                utl::vec2pos_ty_c newPosition{ static_cast<int>(random.random(static_cast<size_t>(m_size.x))),
-                                               static_cast<int>(random.random(static_cast<size_t>(m_size.y))) };
+                utl::vec2pos_ty_c newPosition{ static_cast<int>(random.random(static_cast<utl::usize>(m_size.x))),
+                                               static_cast<int>(random.random(static_cast<utl::usize>(m_size.y))) };
 
                 auto const newPlanet = std::make_shared<Planet>(GetNextID(), newPosition, p, true, currentPlanet);
                 //newPlanet->SetDiscovered(true);
@@ -99,17 +99,17 @@ namespace lgk {
         return currentPlanet;
     }
 
-    void Galaxy::GenerateOtherPlanets(size_t const planetCount, int currentPlanet, Player_ty const& player) {
+    void Galaxy::GenerateOtherPlanets(utl::usize const planetCount, int currentPlanet, Player_ty const& player) {
 
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
         auto& random{ hlp::Random::GetInstance() };
 
 
-        for (; static_cast<size_t>(currentPlanet) <= planetCount; ++currentPlanet) {
+        for (; static_cast<utl::usize>(currentPlanet) <= planetCount; ++currentPlanet) {
             int counter{ 0 };
             while (true) {
-                utl::vec2pos_ty_c newPosition{ static_cast<int>(random.random(static_cast<size_t>(m_size.x))),
-                                               static_cast<int>(random.random(static_cast<size_t>(m_size.y))) };
+                utl::vec2pos_ty_c newPosition{ static_cast<int>(random.random(static_cast<utl::usize>(m_size.x))),
+                                               static_cast<int>(random.random(static_cast<utl::usize>(m_size.y))) };
 
                 auto const newPlanet = std::make_shared<Planet>(GetNextID(), newPosition, player, false, currentPlanet);
 
@@ -1115,12 +1115,12 @@ namespace lgk {
         };
     }
 
-    size_t Galaxy::Salve(SpaceObject_ty const& obj) {
+    utl::usize Galaxy::Salve(SpaceObject_ty const& obj) {
         float const hitChance{ app::AppContext::GetInstance().constants.fight.hitChance * 100 };
         auto& random_{ hlp::Random::GetInstance() };
-        size_t hitCount{ 0 };
+        utl::usize hitCount{ 0 };
 
-        for (size_t i = 0; i < obj->GetShipCount(); ++i) {
+        for (utl::usize i = 0; i < obj->GetShipCount(); ++i) {
             auto result{ random_.random(101) };
             if (hitChance >= static_cast<float>(result)) {
                 ++hitCount;
@@ -1132,7 +1132,7 @@ namespace lgk {
 
     Galaxy::Galaxy(
             utl::vec2pos_ty size,
-            size_t planetCount,
+            utl::usize planetCount,
             std::vector<Player_ty> const& players,
             Player_ty const& neutralPlayer
     )

@@ -4,6 +4,7 @@
 //
 
 #include "HSceneCreditTable.hpp"
+#include <alias/AliasUtils.hpp>
 #include <app/AppContext.hpp>
 #include <stdexcept>
 #include <ui_lib/Line.hpp>
@@ -36,7 +37,7 @@ namespace ui {
         // elements
         float const textHeight{ 0.07f };
 
-        for (size_t i = 0; i < entries.size(); ++i) {
+        for (utl::usize i = 0; i < entries.size(); ++i) {
             auto e{ entries.at(i) };
             if (e.empty()) {
                 continue;
@@ -51,7 +52,7 @@ namespace ui {
                 throw std::out_of_range("too many Entries without link");
             }
 
-            size_t position{ 0 };
+            utl::usize position{ 0 };
             if ((e.size() == 2 && !containsLink) or (e.size() == 4 && containsLink)) {
                 auto entry = std::make_shared<uil::Text>(
                         GetElementPosition(0.49f, 0.2f + textHeight * static_cast<float>(i)),

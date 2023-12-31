@@ -29,12 +29,15 @@ namespace lgk {
         [[nodiscard]] unsigned int GetNextID() const;
 
         // Planet
-        void
-        InitializePlanets(size_t planetCount, std::vector<Player_ty> const& players, Player_ty const& neutralPlayer);
+        void InitializePlanets(
+                utl::usize planetCount,
+                std::vector<Player_ty> const& players,
+                Player_ty const& neutralPlayer
+        );
 
         [[nodiscard]] int GenerateHomePlanets(std::vector<Player_ty> const& players);
 
-        void GenerateOtherPlanets(size_t PlanetCount, int currentPlanet, Player_ty const& player);
+        void GenerateOtherPlanets(utl::usize PlanetCount, int currentPlanet, Player_ty const& player);
 
         [[nodiscard]] bool IsValidNewPlanet(Planet_ty const& newPlanet, app::AppContext_ty_c appContext) const;
 
@@ -104,11 +107,11 @@ namespace lgk {
 
         [[nodiscard]] static utl::FightResult Fight(SpaceObject_ty const& defender, SpaceObject_ty const& attacker);
 
-        [[nodiscard]] static size_t Salve(SpaceObject_ty const& obj);
+        [[nodiscard]] static utl::usize Salve(SpaceObject_ty const& obj);
 
     public:
         Galaxy(utl::vec2pos_ty size,
-               size_t planetCount,
+               utl::usize planetCount,
                std::vector<Player_ty> const& players,
                Player_ty const& neutralPlayer);
 

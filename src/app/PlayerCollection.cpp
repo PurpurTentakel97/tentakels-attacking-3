@@ -96,7 +96,7 @@ namespace app {
         }
 
         if (invalidName) {
-            static size_t invalidNameCounter{ 1 };
+            static utl::usize invalidNameCounter{ 1 };
             name = appContext.languageManager.Text("helper_player_collection_invalid_name_popup_title") + " "
                    + std::to_string(invalidNameCounter);
             ++invalidNameCounter;
@@ -248,7 +248,7 @@ namespace app {
         return WHITE;
     }
 
-    size_t PlayerCollection::GetPlayerCount() const {
+    utl::usize PlayerCollection::GetPlayerCount() const {
         return m_playerData.size();
     }
 

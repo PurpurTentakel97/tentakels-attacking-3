@@ -6,6 +6,7 @@
 #pragma once
 
 #include <CustomRaylib.hpp>
+#include <alias/AliasUtils.hpp>
 #include <cstddef>
 
 
@@ -20,5 +21,5 @@ namespace hlp {
     Vector2 GetElementSizeReversed(Vector2 const& sizeP, Vector2 const& sizeC);
 
     // Index
-    size_t GetIndexFromRowAndColumn(size_t row, size_t column, size_t maxColumn);
+    utl::usize GetIndexFromRowAndColumn(utl::usize row, utl::usize column, utl::usize maxColumn);
 } // namespace hlp

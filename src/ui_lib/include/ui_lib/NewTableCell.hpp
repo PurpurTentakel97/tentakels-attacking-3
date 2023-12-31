@@ -7,6 +7,7 @@
 
 #include "Focusable.hpp"
 #include "UIElement.hpp"
+#include <alias/AliasUtils.hpp>
 #include <functional>
 #include <helper/HConcepts.hpp>
 #include <string>
@@ -18,7 +19,7 @@ namespace uil {
     public:
         using variant_ty = std::variant<int, double, std::monostate, std::string, Color>;
         using callback_ty = std::function<void(NewTableCell&)>;
-        using index_ty = std::pair<size_t, size_t>;
+        using index_ty = std::pair<utl::usize, utl::usize>;
         using index_callback_ty = std::function<index_ty(NewTableCell const&)>;
 
     private:

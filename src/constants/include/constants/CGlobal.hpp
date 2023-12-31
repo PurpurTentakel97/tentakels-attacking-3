@@ -12,9 +12,9 @@
 namespace cst {
     struct Global final {
         // config counts
-        static inline size_t constexpr configEntryCount{ 4 };
-        static inline size_t constexpr configVersionCount{ 2 };
-        static inline size_t constexpr configSectionCount{ 10 };
+        static inline utl::usize constexpr configEntryCount{ 4 };
+        static inline utl::usize constexpr configVersionCount{ 2 };
+        static inline utl::usize constexpr configSectionCount{ 10 };
 
         // versions
         static inline std::string const languageVersion{ "v0.1.5.4" };
@@ -26,10 +26,10 @@ namespace cst {
         std::string currentLanguageName{ "english" };
 
         // game rounds
-        size_t minRounds{ 20 };
-        size_t currentTargetRound{ 50 };
-        size_t maxRounds{ 100 };
-        size_t currentRound{ 0 };
+        utl::usize minRounds{ 20 };
+        utl::usize currentTargetRound{ 50 };
+        utl::usize maxRounds{ 100 };
+        utl::usize currentRound{ 0 };
 
         // game
         bool isGameRunning{ false };

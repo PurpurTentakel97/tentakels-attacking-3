@@ -7,6 +7,7 @@
 
 #include "Focusable.hpp"
 #include "UIElement.hpp"
+#include <alias/AliasUtils.hpp>
 #include <app/AppContext.hpp>
 #include <functional>
 #include <helper/HInput.hpp>
@@ -184,7 +185,7 @@ namespace uil {
 
 
             if (IsFocused()) {
-                size_t const time{ static_cast<size_t>(GetTime() * 2.0) };
+                utl::usize const time{ static_cast<utl::usize>(GetTime() * 2.0) };
                 Vector2 textLength =
                         MeasureTextEx(*(appContext.assetManager.GetFont()), printableInput.c_str(), fontSize, 0.0f);
 

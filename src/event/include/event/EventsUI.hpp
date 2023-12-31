@@ -21,12 +21,12 @@ namespace eve {
 
     class SetTargetFPSEvent final : public Event {
     private:
-        size_t m_fps;
+        utl::usize m_fps;
 
     public:
-        explicit SetTargetFPSEvent(size_t const fps) : m_fps{ fps } { }
+        explicit SetTargetFPSEvent(utl::usize const fps) : m_fps{ fps } { }
 
-        [[nodiscard]] size_t GetFPS() const {
+        [[nodiscard]] utl::usize GetFPS() const {
             return m_fps;
         }
     };

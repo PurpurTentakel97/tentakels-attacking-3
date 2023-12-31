@@ -6,6 +6,7 @@
 #include "DropDown.hpp"
 #include "DropDownElement.hpp"
 #include <alias/AliasCustomRaylib.hpp>
+#include <alias/AliasUtils.hpp>
 #include <app/AppContext.hpp>
 #include <event/EventsUI.hpp>
 #include <helper/HFocusEvents.hpp>
@@ -21,7 +22,7 @@ namespace uil {
         float const width{ m_size.x * 0.98f };
         float const height{ m_size.y * 2 / 3 };
 
-        for (size_t i = 0; i < elements.size(); ++i) {
+        for (utl::usize i = 0; i < elements.size(); ++i) {
             auto entry = std::make_shared<DropDownElement>(
                     Vector2(x, y),
                     Vector2(width, height),

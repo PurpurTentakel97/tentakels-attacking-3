@@ -18,7 +18,7 @@ namespace lgk {
     Fleet::Fleet(
             unsigned int const ID,
             utl::vec2pos_ty_ref_c position,
-            size_t ships,
+            utl::usize ships,
             Player_ty_c player,
             SpaceObject_ty target
     )
@@ -106,7 +106,7 @@ namespace lgk {
         };
         auto filterPosition = [&]() -> utl::vec2pos_ty {
             utl::vec2pos_ty new_ = target->GetPos();
-            for (size_t i = 1; i < route.size(); ++i) {
+            for (utl::usize i = 1; i < route.size(); ++i) {
                 utl::vec2pos_ty old = route.at(i - 1);
                 new_ = route.at(i);
                 if (galaxy->IsValidPosition(new_)) {

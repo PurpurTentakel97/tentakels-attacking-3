@@ -9,10 +9,10 @@
 
 namespace cst {
     struct Player final {
-        static inline size_t constexpr configEntryCount{ 3 };
+        static inline utl::usize constexpr configEntryCount{ 3 };
 
-        size_t minPlayerCount{ 2 };
-        size_t maxPlayerCount{ 7 };
+        utl::usize minPlayerCount{ 2 };
+        utl::usize maxPlayerCount{ 7 };
         bool shuffle{ false };
     };
 } // namespace cst

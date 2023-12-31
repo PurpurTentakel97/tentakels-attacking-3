@@ -8,6 +8,7 @@
 #include "HSceneGalaxyAndSlider.hpp"
 #include "HScenePlanetTable.hpp"
 #include "app/PlayerCollection.hpp"
+#include <alias/AliasUtils.hpp>
 #include <app/AppContext.hpp>
 #include <cassert>
 #include <event/EventGeneral.hpp>
@@ -553,7 +554,7 @@ namespace ui {
                                               static_cast<unsigned int>(m_destination->GetValue()),
                                               m_destinationX->IsEnabled() ? m_destinationX->GetValue() : -1,
                                               m_destinationY->IsEnabled() ? m_destinationY->GetValue() : -1,
-                                              static_cast<size_t>(m_shipCount->GetValue()) };
+                                              static_cast<utl::usize>(m_shipCount->GetValue()) };
         app::AppContext::GetInstance().eventManager.InvokeEvent(event);
     }
 

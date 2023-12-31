@@ -12,7 +12,7 @@
 
 namespace uil {
     void Title::RenderTitle(app::AppContext_ty_c appContext) {
-        for (size_t i = 0; i < m_title->size(); ++i) {
+        for (utl::usize i = 0; i < m_title->size(); ++i) {
             DrawTextEx(
                     *(appContext.assetManager.GetFont()),
                     m_title->at(i).c_str(),
@@ -25,9 +25,9 @@ namespace uil {
     }
 
     void Title::RenderTitleSequence(app::AppContext_ty_c appContext) {
-        size_t localCharCount{ 0 };
+        utl::usize localCharCount{ 0 };
         std::string dummyText{};
-        size_t i{ 0 };
+        utl::usize i{ 0 };
         for (; i < m_title->size(); ++i) {
             dummyText = m_title->at(i);
             if (localCharCount + dummyText.size() > m_charCount) {

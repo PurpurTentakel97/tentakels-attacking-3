@@ -19,13 +19,13 @@ namespace uil {
         auto const colors{ appContext.colors.GetColors() };
 
         double const countX_D{ std::ceil(std::sqrt(colors.size())) };
-        m_countX = static_cast<size_t>(countX_D);
-        m_countY = static_cast<size_t>(std::ceil(colors.size() / countX_D));
+        m_countX = static_cast<utl::usize>(countX_D);
+        m_countY = static_cast<utl::usize>(std::ceil(colors.size() / countX_D));
 
-        for (size_t row = 0; row < m_countY; ++row) {
-            for (size_t column = 0; column < m_countX; ++column) {
+        for (utl::usize row = 0; row < m_countY; ++row) {
+            for (utl::usize column = 0; column < m_countX; ++column) {
 
-                size_t const index{ hlp::GetIndexFromRowAndColumn(row, column, m_countX) };
+                utl::usize const index{ hlp::GetIndexFromRowAndColumn(row, column, m_countX) };
                 // start					offset
                 float const posX{ (1.0f / static_cast<float>((2 * m_countX)))
                                   + (1.0f / static_cast<float>(m_countX * column)) };

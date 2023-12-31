@@ -15,7 +15,7 @@ namespace lgk {
 
     SpaceObject::SpaceObject(unsigned int const ID, utl::vec2pos_ty_ref_c position, Player_ty_c player)
         : SpaceObject{ ID, position, 0, player } { }
-    SpaceObject::SpaceObject(unsigned int ID, utl::vec2pos_ty position, size_t ships, Player_ty player)
+    SpaceObject::SpaceObject(unsigned int ID, utl::vec2pos_ty position, utl::usize ships, Player_ty player)
         : m_ID{ ID },
           m_ships{ ships },
           m_position{ std::move(position) },
@@ -46,11 +46,11 @@ namespace lgk {
         return m_position;
     }
 
-    void SpaceObject::SetShipCount(size_t const shipCount) {
+    void SpaceObject::SetShipCount(utl::usize const shipCount) {
         m_ships = shipCount;
     }
 
-    size_t SpaceObject::GetShipCount() const {
+    utl::usize SpaceObject::GetShipCount() const {
         return m_ships;
     }
 
@@ -86,7 +86,7 @@ namespace lgk {
         return m_isDiscovered;
     }
 
-    SpaceObject& SpaceObject::operator+=(size_t const ships) {
+    SpaceObject& SpaceObject::operator+=(utl::usize const ships) {
         m_ships += ships;
         return *this;
     }
@@ -96,7 +96,7 @@ namespace lgk {
         return *this;
     }
 
-    SpaceObject& SpaceObject::operator-=(size_t const ships) {
+    SpaceObject& SpaceObject::operator-=(utl::usize const ships) {
         assert(m_ships >= ships);
         m_ships -= ships;
         return *this;
@@ -114,38 +114,38 @@ namespace lgk {
 
 
     // operator
-    size_t operator+(SpaceObject const& object, size_t const ships) {
+    utl::usize operator+(SpaceObject const& object, utl::usize const ships) {
         return object.m_ships + ships;
     }
 
-    size_t operator+(size_t ships, SpaceObject const& object) {
+    utl::usize operator+(utl::usize ships, SpaceObject const& object) {
         return object + ships;
     }
 
-    size_t operator+(SpaceObject const& lhs, SpaceObject const& rhs) {
+    utl::usize operator+(SpaceObject const& lhs, SpaceObject const& rhs) {
         return lhs.m_ships + rhs.m_ships;
     }
 
-    size_t operator-(SpaceObject const& object, size_t const ships) {
+    utl::usize operator-(SpaceObject const& object, utl::usize const ships) {
         assert(object.m_ships >= ships);
         return object.m_ships - ships;
     }
 
-    size_t operator-(size_t ships, SpaceObject const& object) {
+    utl::usize operator-(utl::usize ships, SpaceObject const& object) {
         assert(ships >= object.m_ships);
         return ships - object.m_ships;
     }
 
-    size_t operator-(SpaceObject const& lhs, SpaceObject const& rhs) {
+    utl::usize operator-(SpaceObject const& lhs, SpaceObject const& rhs) {
         assert(lhs.m_ships >= rhs.m_ships);
         return lhs.m_ships - rhs.m_ships;
     }
 
-    bool operator<(SpaceObject const& object, size_t const ships) {
+    bool operator<(SpaceObject const& object, utl::usize const ships) {
         return object.m_ships < ships;
     }
 
-    bool operator<(size_t ships, SpaceObject const& object) {
+    bool operator<(utl::usize ships, SpaceObject const& object) {
         return ships < object.m_ships;
     }
 
@@ -153,11 +153,11 @@ namespace lgk {
         return lhs.m_ships < rhs.m_ships;
     }
 
-    bool operator<=(SpaceObject const& object, size_t const ships) {
+    bool operator<=(SpaceObject const& object, utl::usize const ships) {
         return !(object > ships);
     }
 
-    bool operator<=(size_t ships, SpaceObject const& object) {
+    bool operator<=(utl::usize ships, SpaceObject const& object) {
         return !(ships > object);
     }
 
@@ -165,11 +165,11 @@ namespace lgk {
         return !(lhs > rhs);
     }
 
-    bool operator>(SpaceObject const& object, size_t const ships) {
+    bool operator>(SpaceObject const& object, utl::usize const ships) {
         return object.m_ships > ships;
     }
 
-    bool operator>(size_t ships, SpaceObject const& object) {
+    bool operator>(utl::usize ships, SpaceObject const& object) {
         return ships > object.m_ships;
     }
 
@@ -177,11 +177,11 @@ namespace lgk {
         return lhs.m_ships > rhs.m_ships;
     }
 
-    bool operator>=(SpaceObject const& object, size_t const ships) {
+    bool operator>=(SpaceObject const& object, utl::usize const ships) {
         return !(object < ships);
     }
 
-    bool operator>=(size_t ships, SpaceObject const& object) {
+    bool operator>=(utl::usize ships, SpaceObject const& object) {
         return !(ships < object);
     }
 

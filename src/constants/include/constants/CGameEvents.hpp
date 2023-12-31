@@ -6,12 +6,13 @@
 #pragma once
 
 #include "CGameEventTypes.hpp"
+#include <alias/AliasUtils.hpp>
 #include <array>
 #include <cstddef>
 
 namespace cst {
     struct GameEvents {
-        static inline size_t constexpr configEntryCount{ 7 };
+        static inline utl::usize constexpr configEntryCount{ 7 };
 
         HGameEventType events{ 0b11111111 }; // default "global"
         float globalEventChance{ 25.0f };

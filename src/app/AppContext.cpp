@@ -37,20 +37,20 @@ namespace app {
 
     void AppContext::ValidateConfig() {
         // Global
-        ValidateMinMax<size_t>(
+        ValidateMinMax<utl::usize>(
                 constants.global.minRounds,
                 constants.global.maxRounds,
                 "Min Game Rounds",
                 "Max Game Rounds"
         );
-        ValidateMinCurrentMax<size_t>(
+        ValidateMinCurrentMax<utl::usize>(
                 constants.global.minRounds,
                 constants.global.currentTargetRound,
                 constants.global.maxRounds
         );
 
         // Player
-        ValidateMinMax<size_t>(
+        ValidateMinMax<utl::usize>(
                 constants.player.minPlayerCount,
                 constants.player.maxPlayerCount,
                 "Min Player Count",
@@ -58,13 +58,13 @@ namespace app {
         );
 
         // World
-        ValidateMinMax<size_t>(
+        ValidateMinMax<utl::usize>(
                 constants.world.minPlanetCount,
                 constants.world.maxPlanetCount,
                 "Min Planet Count",
                 "Max Planet Count"
         );
-        ValidateMinCurrentMax<size_t>(
+        ValidateMinCurrentMax<utl::usize>(
                 constants.world.minPlanetCount,
                 constants.world.currentPlanetCount,
                 constants.world.maxPlanetCount

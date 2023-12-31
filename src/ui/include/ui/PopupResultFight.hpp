@@ -8,6 +8,7 @@
 #include "utils/FightResult.hpp"
 #include <ui_lib/CountingNumber.hpp>
 #include <ui_lib/PopUp.hpp>
+#include <alias/AliasUtils.hpp>
 
 
 namespace ui {
@@ -15,7 +16,7 @@ namespace ui {
     private:
         using callback_ty = std::function<void()>;
         utl::FightResult const m_result;
-        size_t m_index{ 1 };
+        utl::usize m_index{ 1 };
         bool m_finishedCounting{ false };
         callback_ty m_callback{ []() {} };
         uil::CountingNumber_ty m_leftNumber;

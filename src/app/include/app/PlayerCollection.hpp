@@ -6,6 +6,7 @@
 #pragma once
 
 #include "PlayerData.hpp"
+#include <alias/AliasUtils.hpp>
 #include <array>
 #include <event/EventListener.hpp>
 #include <helper/HGeneral.hpp>
@@ -60,7 +61,7 @@ namespace app {
 
         [[nodiscard]] Color GetColorByID(unsigned int ID) const;
 
-        [[nodiscard]] size_t GetPlayerCount() const;
+        [[nodiscard]] utl::usize GetPlayerCount() const;
 
         void OnEvent(eve::Event const& event) override;
     };

@@ -6,6 +6,8 @@
 #pragma once
 
 #include "SpaceObject.hpp"
+#include <alias/AliasUtils.hpp>
+
 namespace lgk {
     class Planet final : public SpaceObject {
     private:
@@ -13,8 +15,8 @@ namespace lgk {
         bool m_isHomePlanet{};
         bool m_isDestroyed{ false };
         int m_planetNumber;
-        size_t m_maxShips;
-        size_t m_production;
+        utl::usize m_maxShips;
+        utl::usize m_production;
 
     public:
         Planet(unsigned int ID, utl::vec2pos_ty_ref_c position, Player_ty player, bool isHomePlanet, int m_planetNumber
@@ -25,13 +27,13 @@ namespace lgk {
                Player_ty player,
                bool isHomePlanet,
                int m_planetNumber,
-               size_t ships);
+               utl::usize ships);
 
         [[nodiscard]] bool IsHomePlanet() const;
 
         [[nodiscard]] bool IsPlanet() const override;
 
-        [[nodiscard]] size_t GetProduction() const;
+        [[nodiscard]] utl::usize GetProduction() const;
 
         [[nodiscard]] int GetPlanetNumber() const;
 

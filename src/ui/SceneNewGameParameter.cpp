@@ -6,6 +6,7 @@
 #include "SceneNewGameParameter.hpp"
 #include "HSceneGameEventSettings.hpp"
 #include "HSceneSliderAndInputLine.hpp"
+#include <alias/AliasUtils.hpp>
 #include <app/AppContext.hpp>
 #include <event/EventGeneral.hpp>
 #include <event/EventsUI.hpp>
@@ -250,7 +251,7 @@ namespace ui {
     void NewGameParameterScene::SetValue(int const value, SliderType const type) {
         switch (type) {
             case SliderType::PLANET_COUNT:
-                app::AppContext::GetInstance().constants.world.currentPlanetCount = static_cast<size_t>(value);
+                app::AppContext::GetInstance().constants.world.currentPlanetCount = static_cast<utl::usize>(value);
                 return;
             case SliderType::DIMENSION_X:
                 app::AppContext::GetInstance().constants.world.currentDimensionX = value;
@@ -262,7 +263,7 @@ namespace ui {
                 app::AppContext::GetInstance().constants.fleet.currentFleetSpeed = value;
                 return;
             case SliderType::TARGET_ROUND:
-                app::AppContext::GetInstance().constants.global.currentTargetRound = static_cast<size_t>(value);
+                app::AppContext::GetInstance().constants.global.currentTargetRound = static_cast<utl::usize>(value);
                 return;
         }
     }

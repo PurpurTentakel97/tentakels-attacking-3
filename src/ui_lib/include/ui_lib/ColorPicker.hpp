@@ -6,6 +6,7 @@
 #pragma once
 
 #include "ColorPickerCell.hpp"
+#include <alias/AliasUtils.hpp>
 #include <functional>
 #include <memory>
 #include <vector>
@@ -16,8 +17,8 @@ namespace uil {
     private:
         bool m_isPopUp{};
 
-        size_t m_countX{};
-        size_t m_countY{};
+        utl::usize m_countX{};
+        utl::usize m_countY{};
         std::vector<std::unique_ptr<ColorPickerCell>> m_cells{};
         ColorPickerCell* m_currentColorCell{ nullptr };
         ColorPickerCell* m_previousColorCell{ nullptr };

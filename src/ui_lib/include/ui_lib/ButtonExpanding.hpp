@@ -6,6 +6,7 @@
 #pragma once
 
 #include "UIElement.hpp"
+#include <alias/AliasUtils.hpp>
 
 
 namespace uil {
@@ -57,7 +58,7 @@ namespace uil {
 
         void Remove(ClassicButton_ty const& btn);
 
-        void Remove(size_t ind);
+        void Remove(utl::usize ind);
 
         void Expand();
 

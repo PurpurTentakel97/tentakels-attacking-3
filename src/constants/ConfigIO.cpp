@@ -23,8 +23,9 @@ namespace cst {
     auto static const printMissingEntry{ [](ConfigTypes const entry) {
         hlp::Print(hlp::PrintType::ERROR, "entry \"{}\" in config missing {}", CToS(entry), defaultValuePrefix);
     } };
-    auto static const printNotMatchingCount{ [](ConfigTypes const section, size_t const expected, size_t const provided
-                                             ) {
+    auto static const printNotMatchingCount{ [](ConfigTypes const section,
+                                                utl::usize const expected,
+                                                utl::usize const provided) {
         hlp::Print(
                 hlp::PrintType::ERROR,
                 R"(section "{}" entry count in config is not matching -> expected: "{}" -> provided: "{}")",
@@ -66,7 +67,7 @@ namespace cst {
         }
         return true;
     } };
-    auto static const isMatchingSize{ [](nlohmann::json const& son, ConfigTypes const section, size_t const count
+    auto static const isMatchingSize{ [](nlohmann::json const& son, ConfigTypes const section, utl::usize const count
                                       ) -> bool {
         assert(son.size() == count);
         if (son.size() != count) {
@@ -78,7 +79,7 @@ namespace cst {
 
     // load
     auto static const loadSection{
-        [](nlohmann::json const& son, nlohmann::json& out, ConfigTypes const section, size_t const count) -> bool {
+        [](nlohmann::json const& son, nlohmann::json& out, ConfigTypes const section, utl::usize const count) -> bool {
             if (not isExistingSection(son, section)) {
                 return false;
             }
@@ -254,29 +255,29 @@ namespace cst {
         if (nlohmann::json global; loadSection(load, global, ConfigTypes::GLOBAL, Global::configEntryCount)) {
             // clang-format off
         if (std::string out; loadString(global, out, ConfigTypes::CURRENT_LANGUAGE_NAME)) {constants.global.currentLanguageName = out;}
-        if (int out; loadInt(global, out, ConfigTypes::GAME_ROUNDS_CURRENT)) { constants.global.currentTargetRound = static_cast<size_t>(out); }
-        if (int out; loadInt(global, out, ConfigTypes::GAME_ROUNDS_MAX))     { constants.global.maxRounds          = static_cast<size_t>(out); }
-        if (int out; loadInt(global, out, ConfigTypes::GAME_ROUNDS_MIN))     { constants.global.minRounds          = static_cast<size_t>(out); }
+        if (int out; loadInt(global, out, ConfigTypes::GAME_ROUNDS_CURRENT)) { constants.global.currentTargetRound = static_cast<utl::usize>(out); }
+        if (int out; loadInt(global, out, ConfigTypes::GAME_ROUNDS_MAX))     { constants.global.maxRounds          = static_cast<utl::usize>(out); }
+        if (int out; loadInt(global, out, ConfigTypes::GAME_ROUNDS_MIN))     { constants.global.minRounds          = static_cast<utl::usize>(out); }
         // clang-format on
         }
         // planet
         if (nlohmann::json planet; loadSection(load, planet, ConfigTypes::PLANET, Planet::configEntryCount)) {
             // clang-format off
-        if (int   out;   loadInt(planet, out, ConfigTypes::PRODUCTION_HOME_WORLD           )) { constants.planet.homeworldProduction              = static_cast<size_t>(out); }
-        if (int   out;   loadInt(planet, out, ConfigTypes::PRODUCTION_MAX                  )) { constants.planet.maxProduction                    = static_cast<size_t>(out); }
-        if (int   out;   loadInt(planet, out, ConfigTypes::PRODUCTION_MIN                  )) { constants.planet.minProduction                    = static_cast<size_t>(out); }
-        if (int   out;   loadInt(planet, out, ConfigTypes::SHIPS_MAX_FACTOR                )) { constants.planet.maxShipsFactor                   = static_cast<size_t>(out); }
+        if (int   out;   loadInt(planet, out, ConfigTypes::PRODUCTION_HOME_WORLD           )) { constants.planet.homeworldProduction              = static_cast<utl::usize>(out); }
+        if (int   out;   loadInt(planet, out, ConfigTypes::PRODUCTION_MAX                  )) { constants.planet.maxProduction                    = static_cast<utl::usize>(out); }
+        if (int   out;   loadInt(planet, out, ConfigTypes::PRODUCTION_MIN                  )) { constants.planet.minProduction                    = static_cast<utl::usize>(out); }
+        if (int   out;   loadInt(planet, out, ConfigTypes::SHIPS_MAX_FACTOR                )) { constants.planet.maxShipsFactor                   = static_cast<utl::usize>(out); }
         if (float out; loadFloat(planet, out, ConfigTypes::SPACING_GLOBAL                  )) { constants.planet.globalSpacing                    =                     out ; }
         if (float out; loadFloat(planet, out, ConfigTypes::SPACING_HOME_WORLD              )) { constants.planet.homeworldSpacing                 =                     out ; }
-        if (int   out;   loadInt(planet, out, ConfigTypes::STARTING_SHIPS_MULTIPLIER_GLOBAL)) { constants.planet.startingGlobalShipsMultiplicator = static_cast<size_t>(out); }
-        if (int   out;   loadInt(planet, out, ConfigTypes::STARTING_SHIPS_MULTIPLIER_HUMAN )) { constants.planet.startingHumanShipsMultiplicator  = static_cast<size_t>(out); }
+        if (int   out;   loadInt(planet, out, ConfigTypes::STARTING_SHIPS_MULTIPLIER_GLOBAL)) { constants.planet.startingGlobalShipsMultiplicator = static_cast<utl::usize>(out); }
+        if (int   out;   loadInt(planet, out, ConfigTypes::STARTING_SHIPS_MULTIPLIER_HUMAN )) { constants.planet.startingHumanShipsMultiplicator  = static_cast<utl::usize>(out); }
         // clang-format on
         }
         // player
         if (nlohmann::json player; loadSection(load, player, ConfigTypes::PLAYER, Player::configEntryCount)) {
             // clang-format off
-        if (int  out;  loadInt(player, out, ConfigTypes::PLAYER_COUNT_MAX)) { constants.player.maxPlayerCount = static_cast<size_t>(out); }
-        if (int  out;  loadInt(player, out, ConfigTypes::PLAYER_COUNT_MIN)) { constants.player.minPlayerCount = static_cast<size_t>(out); }
+        if (int  out;  loadInt(player, out, ConfigTypes::PLAYER_COUNT_MAX)) { constants.player.maxPlayerCount = static_cast<utl::usize>(out); }
+        if (int  out;  loadInt(player, out, ConfigTypes::PLAYER_COUNT_MIN)) { constants.player.minPlayerCount = static_cast<utl::usize>(out); }
         if (bool out; loadBool(player, out, ConfigTypes::Player_SHUFFLE  )) { constants.player.shuffle        =                     out ; }
         // clang-format on
         }
@@ -292,7 +293,7 @@ namespace cst {
             // clang-format off
         if (int  out;  loadInt(window, out, ConfigTypes::RESOLUTION_AS_ENUM)) { constants.window.currentResolutionEnum = static_cast<Resolution>(out); }
         if (bool out; loadBool(window, out, ConfigTypes::FULL_SCREEN_BOOL  )) { constants.window.isFullScreen          =                         out ; }
-        if (int  out;  loadInt(window, out, ConfigTypes::TARGET_FPS        )) { constants.window.FPS                   = static_cast<size_t>    (out); }
+        if (int  out;  loadInt(window, out, ConfigTypes::TARGET_FPS        )) { constants.window.FPS                   = static_cast<utl::usize>    (out); }
         // clang-format on
         }
         // world
@@ -307,10 +308,10 @@ namespace cst {
         if (int out; loadInt(world, out, ConfigTypes::DIMENSION_Y_MIN         )) { constants.world.minDimensionY       =                     out;  }
         if (int out; loadInt(world, out, ConfigTypes::DIMENSION_Y_SHOW_GALAXY )) { constants.world.showDimensionY      =                     out;  }
         if (int out; loadInt(world, out, ConfigTypes::DISCOVER_RANGE_FACTOR   )) { constants.world.discoverRangeFactor =                     out;  }
-        if (int out; loadInt(world, out, ConfigTypes::PLANET_COUNT_CURRENT    )) { constants.world.currentPlanetCount  = static_cast<size_t>(out); }
-        if (int out; loadInt(world, out, ConfigTypes::PLANET_COUNT_MAX        )) { constants.world.maxPlanetCount      = static_cast<size_t>(out); }
-        if (int out; loadInt(world, out, ConfigTypes::PLANET_COUNT_MIN        )) { constants.world.minPlanetCount      = static_cast<size_t>(out); }
-        if (int out; loadInt(world, out, ConfigTypes::PLANET_COUNT_SHOW_GALAXY)) { constants.world.showPlanetCount     = static_cast<size_t>(out); }
+        if (int out; loadInt(world, out, ConfigTypes::PLANET_COUNT_CURRENT    )) { constants.world.currentPlanetCount  = static_cast<utl::usize>(out); }
+        if (int out; loadInt(world, out, ConfigTypes::PLANET_COUNT_MAX        )) { constants.world.maxPlanetCount      = static_cast<utl::usize>(out); }
+        if (int out; loadInt(world, out, ConfigTypes::PLANET_COUNT_MIN        )) { constants.world.minPlanetCount      = static_cast<utl::usize>(out); }
+        if (int out; loadInt(world, out, ConfigTypes::PLANET_COUNT_SHOW_GALAXY)) { constants.world.showPlanetCount     = static_cast<utl::usize>(out); }
         // clang-format on
         }
 
@@ -412,7 +413,7 @@ namespace cst {
         };
         save[CToS(ConfigTypes::WINDOW)] = {
   // clang-format off
-        { CToS(ConfigTypes::RESOLUTION_AS_ENUM), static_cast<size_t>(constants.window.currentResolutionEnum) },
+        { CToS(ConfigTypes::RESOLUTION_AS_ENUM), static_cast<utl::usize>(constants.window.currentResolutionEnum) },
         { CToS(ConfigTypes::FULL_SCREEN_BOOL  ),                     constants.window.isFullScreen           },
         { CToS(ConfigTypes::TARGET_FPS        ),                     constants.window.FPS                    },
   // clang-format on

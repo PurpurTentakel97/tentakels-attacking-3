@@ -4,6 +4,7 @@
 //
 
 #include "HSceneTestScene.hpp"
+#include <alias/AliasUtils.hpp>
 #include <app/AppContext.hpp>
 #include <helper/HPrint.hpp>
 #include <ui_lib/ButtonClassic.hpp>
@@ -26,7 +27,7 @@ namespace ui {
 
         std::vector<std::string> const headlines{ "first column", "best column" };
         table->setHeadlines(headlines);
-        table->setHeadline<std::string>(size_t{ 4 }, "extra column");
+        table->setHeadline<std::string>(utl::usize{ 4 }, "extra column");
         table->showHeadline(true);
         table->showNumbers(true);
         table->set_render_hovered(true);

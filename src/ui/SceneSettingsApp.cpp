@@ -215,8 +215,8 @@ namespace ui {
         return toReturn;
     }
 
-    size_t AppSettingsScene::GetIndexFromResolution(cst::Resolution const resolution) const {
-        for (size_t i = 0; i < m_rawResolutionEntries.size(); ++i) {
+    utl::usize AppSettingsScene::GetIndexFromResolution(cst::Resolution const resolution) const {
+        for (utl::usize i = 0; i < m_rawResolutionEntries.size(); ++i) {
             if (m_rawResolutionEntries[i].first == resolution) {
                 return i;
             }

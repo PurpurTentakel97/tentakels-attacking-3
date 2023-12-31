@@ -5,6 +5,7 @@
 
 #include "HTextProcessing.hpp"
 #include <CustomRaylib.hpp>
+#include <alias/AliasUtils.hpp>
 #include <app/AppContext.hpp>
 #include <cassert>
 #include <ui_lib/Alignment.hpp>
@@ -13,8 +14,8 @@
 
 namespace hlp {
     [[nodiscard]] std::vector<std::string> GetSerializedText(std::string const& text) {
-        size_t lhs{ 0 };
-        size_t rhs{ 0 };
+        utl::usize lhs{ 0 };
+        utl::usize rhs{ 0 };
         std::vector<std::string> toReturn;
 
         while (true) {
@@ -45,8 +46,8 @@ namespace hlp {
     }
 
     void BreakText(std::string& toBreak, float const fontSize, float const length, app::AppContext_ty_c appContext) {
-        size_t lhs{ 0 };
-        size_t rhs{ 0 };
+        utl::usize lhs{ 0 };
+        utl::usize rhs{ 0 };
 
         while (true) {
             rhs = toBreak.find_first_of(' ', rhs + 1);
@@ -82,8 +83,8 @@ namespace hlp {
             return textSize.x;
         };
 
-        size_t lhs{ 0 };
-        size_t rhs{ 0 };
+        utl::usize lhs{ 0 };
+        utl::usize rhs{ 0 };
         std::vector<std::string> toReturn;
 
 
@@ -175,14 +176,14 @@ namespace hlp {
     }
 
     void StripString(std::string& toStrip) {
-        size_t const pos1{ toStrip.find_first_not_of(' ') };
+        utl::usize const pos1{ toStrip.find_first_not_of(' ') };
 
         if (pos1 == std::string::npos) {
             toStrip = std::string();
             return;
         }
 
-        size_t const pos2{ toStrip.find_last_not_of(' ') };
+        utl::usize const pos2{ toStrip.find_last_not_of(' ') };
         toStrip = toStrip.substr(pos1, pos2 - pos1 + 1);
     }
 
@@ -242,7 +243,7 @@ namespace hlp {
             }
         }
 
-        for (size_t i = 0; i < text.size(); ++i) {
+        for (utl::usize i = 0; i < text.size(); ++i) {
             toReturn.push_back(value);
             value += textSize.y;
         }
@@ -305,7 +306,7 @@ namespace hlp {
         std::vector<float> toReturn;
 
         if (textAlignment == uil::TextAlignment::LEFT) {
-            for (size_t i = 0; i < text.size(); ++i) {
+            for (utl::usize i = 0; i < text.size(); ++i) {
                 toReturn.push_back(0.0f);
             }
             return toReturn;

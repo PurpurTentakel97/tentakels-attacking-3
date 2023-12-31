@@ -6,6 +6,7 @@
 #include "SceneSettingsGame.hpp"
 #include "HSceneGameEventSettings.hpp"
 #include "HSceneSliderAndInputLine.hpp"
+#include <alias/AliasUtils.hpp>
 #include <event/EventGeneral.hpp>
 #include <ui_lib/ButtonClassic.hpp>
 #include <ui_lib/CheckBox.hpp>
@@ -130,7 +131,7 @@ namespace ui {
                 static_cast<int>(appContext.constants.global.currentTargetRound)
         );
         lastRound->SetActive(true, appContext);
-        lastRound->SetOnSave([](size_t value) {
+        lastRound->SetOnSave([](utl::usize value) {
             eve::SetCurrentLastRoundEvent const event{ value };
             app::AppContext::GetInstance().eventManager.InvokeEvent(event);
         });

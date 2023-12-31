@@ -5,11 +5,12 @@
 
 #pragma once
 
+#include <alias/AliasUtils.hpp>
 #include <cstddef>
 
 namespace cst {
     struct Fight final {
-        static inline size_t constexpr configEntryCount{ 6 };
+        static inline utl::usize constexpr configEntryCount{ 6 };
         float hitChance{ 0.3f };
         int fleetFightRange{ 4 };
 

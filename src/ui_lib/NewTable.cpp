@@ -9,61 +9,61 @@
 
 
 namespace uil {
-    NewTableCell& NewTable::getSpecialCell(size_t const row, size_t const column) {
+    NewTableCell& NewTable::getSpecialCell(utl::usize const row, utl::usize const column) {
         if (not validSpecialIndex(row, column)) {
             throw std::runtime_error{ IndexOutOfRangeExceptionString(row, column) };
         }
         return *m_cells[row][column];
     }
 
-    NewTableCell const& NewTable::getSpecialCell(size_t const row, size_t const column) const {
+    NewTableCell const& NewTable::getSpecialCell(utl::usize const row, utl::usize const column) const {
         if (not validSpecialIndex(row, column)) {
             throw std::runtime_error{ IndexOutOfRangeExceptionString(row, column) };
         }
         return *m_cells[row][column];
     }
 
-    NewTableCell* NewTable::getCellUnsafe(size_t const row, size_t const column) {
+    NewTableCell* NewTable::getCellUnsafe(utl::usize const row, utl::usize const column) {
         if (not validIndex(row, column)) {
             return nullptr;
         }
         return m_cells[row][column].get();
     }
 
-    NewTableCell const* NewTable::getCellUnsafe(size_t const row, size_t const column) const {
+    NewTableCell const* NewTable::getCellUnsafe(utl::usize const row, utl::usize const column) const {
         if (not validIndex(row, column)) {
             return nullptr;
         }
         return m_cells[row][column].get();
     }
 
-    bool NewTable::validSpecialRow(size_t const row) {
+    bool NewTable::validSpecialRow(utl::usize const row) {
         return row == 0;
     }
 
-    bool NewTable::validSpecialColumn(size_t const column) {
+    bool NewTable::validSpecialColumn(utl::usize const column) {
         return column == 0;
     }
 
-    bool NewTable::validSpecialIndex(size_t const row, size_t const column) const {
+    bool NewTable::validSpecialIndex(utl::usize const row, utl::usize const column) const {
         return row <= m_row_count and column <= m_column_count and (validSpecialRow(row) or validSpecialColumn(column));
     }
 
-    bool NewTable::validRow(size_t const row) const {
+    bool NewTable::validRow(utl::usize const row) const {
         return row > 0 and row <= m_row_count;
     }
 
-    bool NewTable::validColumn(size_t const column) const {
+    bool NewTable::validColumn(utl::usize const column) const {
         return column > 0 and column <= m_column_count;
     }
 
-    bool NewTable::validIndex(size_t const row, size_t const column) const {
+    bool NewTable::validIndex(utl::usize const row, utl::usize const column) const {
         return validRow(row) and validColumn(column);
     }
 
     NewTableCell::index_ty NewTable::index(NewTableCell const& cell) const {
-        for (size_t row = 0; row <= m_row_count; ++row) {
-            for (size_t column = 0; column <= m_column_count; ++column) {
+        for (utl::usize row = 0; row <= m_row_count; ++row) {
+            for (utl::usize column = 0; column <= m_column_count; ++column) {
                 if (cell.GetFocusID() == cell.GetFocusID()) {
                     return { row, column };
                 }
@@ -89,7 +89,7 @@ namespace uil {
         }
         m_cells[firstRow][firstColumn]->clear();
 
-        for (size_t i = 1; i <= m_column_count; ++i) {
+        for (utl::usize i = 1; i <= m_column_count; ++i) {
             if (m_isHeadline) {
                 if (m_headlines.contains(i)) {
                     m_cells[firstRow][i]->setValueVariant(m_headlines[i]);
@@ -103,31 +103,33 @@ namespace uil {
             }
         }
 
-        for (size_t i = 1; i <= m_row_count; ++i) {
+        for (utl::usize i = 1; i <= m_row_count; ++i) {
             m_cells[i][firstColumn]->setValue(static_cast<int>(i));
         }
     }
 
     void NewTable::update_cell_focus_ids() {
-        auto const id{ [this](size_t row, size_t column) -> size_t { return row * m_column_count + column + 1; } };
+        auto const id{ [this](utl::usize row, utl::usize column) -> utl::usize {
+            return row * m_column_count + column + 1;
+        } };
 
-        for (size_t row = 0; row < m_cells.size(); ++row) {
-            for (size_t column = 0; column < m_cells[0].size(); ++column) {
+        for (utl::usize row = 0; row < m_cells.size(); ++row) {
+            for (utl::usize column = 0; column < m_cells[0].size(); ++column) {
                 m_cells[row][column]->SetFocusID(static_cast<unsigned int>(id(row, column)));
             }
         }
     }
 
     void NewTable::update_cell_sizes() {
-        size_t const first_row{ m_isHeadline or m_isNumbered ? size_t{ 0 } : size_t{ 1 } };
-        size_t const first_column{ m_isNumbered ? size_t{ 0 } : size_t{ 1 } };
+        utl::usize const first_row{ m_isHeadline or m_isNumbered ? utl::usize{ 0 } : utl::usize{ 1 } };
+        utl::usize const first_column{ m_isNumbered ? utl::usize{ 0 } : utl::usize{ 1 } };
         std::vector<float> row_heights{};
         row_heights.resize(m_row_count + 1);
         std::vector<float> column_widths{};
         column_widths.resize(m_column_count + 1);
 
-        for (size_t row = first_row; row <= m_row_count; ++row) {
-            for (size_t column = first_column; column <= m_column_count; ++column) {
+        for (utl::usize row = first_row; row <= m_row_count; ++row) {
+            for (utl::usize column = first_column; column <= m_column_count; ++column) {
                 auto const size = m_cells[row][column]->needed_cell_size(m_preference_text_size);
                 if (size.x > column_widths[column]) {
                     column_widths[column] = size.x;
@@ -155,8 +157,8 @@ namespace uil {
             }
         }
 
-        for (size_t row = first_row; row <= m_row_count; ++row) {
-            for (size_t column = first_column; column <= m_column_count; ++column) {
+        for (utl::usize row = first_row; row <= m_row_count; ++row) {
+            for (utl::usize column = first_column; column <= m_column_count; ++column) {
                 Vector2 size{ column_widths[column], row_heights[row] };
                 m_cells[row][column]->SetSize(size);
             }
@@ -164,12 +166,12 @@ namespace uil {
     }
 
     void NewTable::update_cell_positions() {
-        size_t const first_row{ m_isHeadline or m_isNumbered ? size_t{ 0 } : size_t{ 1 } };
-        size_t const first_column{ m_isNumbered ? size_t{ 0 } : size_t{ 1 } };
+        utl::usize const first_row{ m_isHeadline or m_isNumbered ? utl::usize{ 0 } : utl::usize{ 1 } };
+        utl::usize const first_column{ m_isNumbered ? utl::usize{ 0 } : utl::usize{ 1 } };
         Vector2 const scroll_offset = m_isScrollable ? m_scroll_offset : Vector2(0.0f, 0.0f);
 
-        for (size_t row = first_row; row <= m_row_count; ++row) {
-            for (size_t column = first_column; column <= m_column_count; ++column) {
+        for (utl::usize row = first_row; row <= m_row_count; ++row) {
+            for (utl::usize column = first_column; column <= m_column_count; ++column) {
                 if (row == first_row and column == first_column) {
                     if (row == 0 and column == 0) {
                         m_cells[row][column]->SetPositionUnaligned(m_pos);
@@ -212,8 +214,8 @@ namespace uil {
     }
 
     void NewTable::clamp_scroll_offset(Vector2& offset) const {
-        size_t const first_row{ m_isHeadline or m_isNumbered ? size_t{ 0 } : size_t{ 1 } };
-        size_t const first_column{ m_isNumbered ? size_t{ 0 } : size_t{ 1 } };
+        utl::usize const first_row{ m_isHeadline or m_isNumbered ? utl::usize{ 0 } : utl::usize{ 1 } };
+        utl::usize const first_column{ m_isNumbered ? utl::usize{ 0 } : utl::usize{ 1 } };
 
         if (m_row_count < first_row + 1) {
             hlp::Print(hlp::PrintType::EXPECTED_ERROR, "not enough rows in table for clamping");
@@ -298,8 +300,8 @@ namespace uil {
             Vector2 const pos,
             Vector2 const size,
             Alignment const alignment,
-            size_t const row_count,
-            size_t const column_count,
+            utl::usize const row_count,
+            utl::usize const column_count,
             float const text_size
     )
         : UIElement{ pos, size, alignment },
@@ -311,9 +313,9 @@ namespace uil {
         assert(m_column_count > 0);
 
 
-        for (size_t row = 0; row <= m_row_count; ++row) {
+        for (utl::usize row = 0; row <= m_row_count; ++row) {
             std::vector<std::shared_ptr<NewTableCell>> cells{};
-            for (size_t column = 0; column <= m_column_count; ++column) {
+            for (utl::usize column = 0; column <= m_column_count; ++column) {
                 cells.push_back(generate_cell());
             }
             m_cells.push_back(cells);
@@ -322,19 +324,19 @@ namespace uil {
         update_cells();
     }
 
-    size_t NewTable::rowCount() const {
+    utl::usize NewTable::rowCount() const {
         return m_row_count;
     }
 
-    size_t NewTable::columnCount() const {
+    utl::usize NewTable::columnCount() const {
         return m_column_count;
     }
 
-    bool NewTable::hasCell(size_t const row, size_t const column) const {
+    bool NewTable::hasCell(utl::usize const row, utl::usize const column) const {
         return validIndex(row, column);
     }
 
-    NewTableCell& NewTable::getCell(size_t const row, size_t const column) {
+    NewTableCell& NewTable::getCell(utl::usize const row, utl::usize const column) {
         auto* cell{ getCellUnsafe(row, column) };
         if (not cell) {
             throw std::runtime_error(IndexOutOfRangeExceptionString(row, column));
@@ -342,7 +344,7 @@ namespace uil {
         return *cell;
     }
 
-    NewTableCell const& NewTable::getCell(size_t const row, size_t const column) const {
+    NewTableCell const& NewTable::getCell(utl::usize const row, utl::usize const column) const {
         auto* cell{ getCellUnsafe(row, column) };
         if (not cell) {
             throw std::runtime_error(IndexOutOfRangeExceptionString(row, column));
@@ -350,7 +352,7 @@ namespace uil {
         return *cell;
     }
 
-    void NewTable::clearCell(size_t row, size_t column) {
+    void NewTable::clearCell(utl::usize row, utl::usize column) {
         auto* cell{ getCellUnsafe(row, column) };
         if (not cell) {
             throw std::runtime_error(IndexOutOfRangeExceptionString(row, column));
@@ -358,7 +360,11 @@ namespace uil {
         cell->clear();
     }
 
-    void NewTable::setCellCallback(size_t const row, size_t const column, NewTableCell::callback_ty const& callback) {
+    void NewTable::setCellCallback(
+            utl::usize const row,
+            utl::usize const column,
+            NewTableCell::callback_ty const& callback
+    ) {
         auto* cell{ getCellUnsafe(row, column) };
         if (not cell) {
             throw std::runtime_error(IndexOutOfRangeExceptionString(row, column));
@@ -373,13 +379,13 @@ namespace uil {
         update_cell_positions();
     }
 
-    bool NewTable::hasRow(size_t const row) const {
+    bool NewTable::hasRow(utl::usize const row) const {
         return validRow(row);
     }
 
-    size_t NewTable::insertRow(size_t const row) {
+    utl::usize NewTable::insertRow(utl::usize const row) {
         if (not validRow(row) and row != 0) {
-            throw std::runtime_error{ IndexOutOfRangeExceptionString(row, size_t{ 0 }) };
+            throw std::runtime_error{ IndexOutOfRangeExceptionString(row, utl::usize{ 0 }) };
         }
         std::vector<std::shared_ptr<NewTableCell>> new_row{};
         for (unsigned int column = 0; column <= m_column_count; ++column) {
@@ -392,16 +398,16 @@ namespace uil {
         return row;
     }
 
-    size_t NewTable::appendRow() {
+    utl::usize NewTable::appendRow() {
         return insertRow(m_row_count);
     }
 
-    bool NewTable::removeRow(size_t const row) {
+    bool NewTable::removeRow(utl::usize const row) {
         if (m_row_count == 0) {
             return false;
         }
         if (not validRow(row)) {
-            throw std::runtime_error{ IndexOutOfRangeExceptionString(row, size_t{ 0 }) };
+            throw std::runtime_error{ IndexOutOfRangeExceptionString(row, utl::usize{ 0 }) };
         }
 
         m_cells.erase(m_cells.begin() + static_cast<int>(row));
@@ -414,13 +420,13 @@ namespace uil {
         return removeRow(m_row_count);
     }
 
-    bool NewTable::hasColumn(size_t const column) const {
+    bool NewTable::hasColumn(utl::usize const column) const {
         return validColumn(column);
     }
 
-    size_t NewTable::insertColumn(size_t const column) {
+    utl::usize NewTable::insertColumn(utl::usize const column) {
         if (not validColumn(column) and column != 0) {
-            throw std::runtime_error{ IndexOutOfRangeExceptionString(size_t{ 0 }, column) };
+            throw std::runtime_error{ IndexOutOfRangeExceptionString(utl::usize{ 0 }, column) };
         }
         for (auto& row : m_cells) {
             row.insert(row.begin() + static_cast<int>(column) + 1, generate_cell());
@@ -430,16 +436,16 @@ namespace uil {
         return column;
     }
 
-    size_t NewTable::appendColumn() {
+    utl::usize NewTable::appendColumn() {
         return insertColumn(m_column_count);
     }
 
-    bool NewTable::removeColumn(size_t const column) {
+    bool NewTable::removeColumn(utl::usize const column) {
         if (m_column_count == 0) {
             return false;
         }
         if (not validColumn(column)) {
-            throw std::runtime_error{ IndexOutOfRangeExceptionString(size_t{ 0 }, column) };
+            throw std::runtime_error{ IndexOutOfRangeExceptionString(utl::usize{ 0 }, column) };
         }
 
         for (auto& row : m_cells) {
@@ -462,9 +468,9 @@ namespace uil {
         m_isHeadline = headline;
     }
 
-    void NewTable::clearHeadline(size_t const column) {
+    void NewTable::clearHeadline(utl::usize const column) {
         if (not validColumn(column)) {
-            throw std::runtime_error{ IndexOutOfRangeExceptionString(size_t{ 0 }, column) };
+            throw std::runtime_error{ IndexOutOfRangeExceptionString(utl::usize{ 0 }, column) };
         }
         m_headlines.erase(column);
     }
@@ -509,20 +515,20 @@ namespace uil {
         UIElement::CheckAndUpdate(mousePosition, appContext);
 
         if (m_isRenderHover and CheckCollisionPointRec(mousePosition, m_collider)) {
-            utl::Vec2<size_t> index{ 0, 0 };
+            utl::Vec2<utl::usize> index{ 0, 0 };
 
-            for (size_t row = 0; row <= m_row_count; ++row) {
-                for (size_t column = 0; column <= m_column_count; ++column) {
+            for (utl::usize row = 0; row <= m_row_count; ++row) {
+                for (utl::usize column = 0; column <= m_column_count; ++column) {
                     if (m_cells[row][column]->is_hovered(mousePosition)) {
                         index = { column, row };
                     }
                 }
             }
 
-            for (size_t row = 0; row <= m_row_count; ++row) {
+            for (utl::usize row = 0; row <= m_row_count; ++row) {
                 m_cells[row][index.x]->set_hovered(true);
             }
-            for (size_t column = 0; column <= m_column_count; ++column) {
+            for (utl::usize column = 0; column <= m_column_count; ++column) {
                 m_cells[index.y][column]->set_hovered(true);
             }
         }
@@ -538,8 +544,8 @@ namespace uil {
                 static_cast<int>(m_collider.height)
         );
 
-        for (size_t row = 1; row <= m_row_count; ++row) {
-            for (size_t column = 1; column <= m_column_count; ++column) {
+        for (utl::usize row = 1; row <= m_row_count; ++row) {
+            for (utl::usize column = 1; column <= m_column_count; ++column) {
                 m_cells[row][column]->Render(appContext);
             }
         }
@@ -550,7 +556,7 @@ namespace uil {
             goto cleanup;
         }
 
-        for (size_t column = 1; column <= m_column_count; ++column) {
+        for (utl::usize column = 1; column <= m_column_count; ++column) {
             m_cells[first_row][column]->Render(appContext);
         }
 
@@ -558,7 +564,7 @@ namespace uil {
             goto cleanup;
         }
 
-        for (size_t row = 1; row <= m_row_count; ++row) {
+        for (utl::usize row = 1; row <= m_row_count; ++row) {
             m_cells[row][first_column]->Render(appContext);
         }
 
