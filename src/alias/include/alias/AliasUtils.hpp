@@ -9,6 +9,8 @@
 #include <vector>
 
 namespace utl {
+    using usize = std::size_t;
+
     template<typename T>
     struct Vec2;
     using vec2pos_ty = Vec2<int>;
