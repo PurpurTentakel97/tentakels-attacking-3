@@ -17,7 +17,7 @@ namespace utl {
     class LayeredVector final {
     private:
         std::vector<std::vector<T*>> m_elements;
-        utl::usize m_layer{ 0 };
+        usize m_layer{ 0 };
 
         [[nodiscard]] bool IsValidIndex(int const index) const {
             return { index >= 0 && index < m_elements.at(m_layer).size() };
@@ -95,11 +95,11 @@ namespace utl {
             return CurrentLayer().data() + CurrentLayer().size();
         }
 
-        [[nodiscard]] utl::usize size() const {
+        [[nodiscard]] usize size() const {
             return CurrentLayer().size();
         }
 
-        [[nodiscard]] utl::usize size() {
+        [[nodiscard]] usize size() {
             return CurrentLayer().size();
         }
 

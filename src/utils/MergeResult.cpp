@@ -10,7 +10,7 @@ namespace utl {
             lgk::Player_ty player,
             lgk::SpaceObject_ty origin,
             lgk::SpaceObject_ty destination,
-            utl::usize count
+            usize count
     )
         : m_player{ std::move(player) },
           m_origin{ std::move(origin) },
@@ -26,7 +26,7 @@ namespace utl {
     lgk::SpaceObject_ty MergeResult::GetDestination() const {
         return m_destination;
     }
-    utl::usize MergeResult::GetCount() const {
+    usize MergeResult::GetCount() const {
         return m_count;
     }
 } // namespace utl

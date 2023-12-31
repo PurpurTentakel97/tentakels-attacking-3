@@ -14,19 +14,17 @@ namespace utl {
         lgk::Player_ty m_player;
         lgk::SpaceObject_ty m_origin;
         lgk::SpaceObject_ty m_destination;
-        utl::usize m_count;
+        usize m_count;
 
     public:
         MergeResult(
                 lgk::Player_ty player,
                 lgk::SpaceObject_ty origin,
-                lgk::SpaceObject_ty destination,
-                utl::usize count
-        );
+                lgk::SpaceObject_ty destination, usize count);
 
         [[nodiscard]] lgk::Player_ty GetPlayer() const;
         [[nodiscard]] lgk::SpaceObject_ty GetOrigin() const;
         [[nodiscard]] lgk::SpaceObject_ty GetDestination() const;
-        [[nodiscard]] utl::usize GetCount() const;
+        [[nodiscard]] usize GetCount() const;
     };
 } // namespace utl

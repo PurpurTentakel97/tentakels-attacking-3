@@ -14,7 +14,7 @@
 namespace utl {
     struct FightResult final {
     public:
-        using rounds_ty = std::vector<std::pair<utl::usize, utl::usize>>;
+        using rounds_ty = std::vector<std::pair<usize, usize>>;
         using player_ty = std::pair<lgk::Player_ty, lgk::Player_ty>;
         using spaceObject_ty = std::pair<lgk::SpaceObject_ty, lgk::SpaceObject_ty>;
 
