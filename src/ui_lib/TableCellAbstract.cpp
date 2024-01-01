@@ -7,7 +7,7 @@
 
 
 namespace uil {
-    AbstractTableCell::AbstractTableCell(Vector2 pos, Vector2 size, Alignment alignment, unsigned int focusID)
+    AbstractTableCell::AbstractTableCell(Vector2 pos, Vector2 size, Alignment alignment, utl::usize focusID)
         : UIElement{ pos, size, alignment },
           Focusable{ focusID },
           m_textSize{ 0.0f },

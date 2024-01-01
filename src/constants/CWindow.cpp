@@ -24,7 +24,7 @@ namespace cst {
     std::vector<std::pair<Resolution, std::string>> Window::GetAllResolutionsAsString() const {
         std::vector<std::pair<Resolution, std::string>> toReturn;
 
-        for (int i = 0; i != static_cast<int>(Resolution::LAST); ++i) {
+        for (utl::usize i = 0; i != static_cast<utl::usize>(Resolution::LAST); ++i) {
 
             Resolution const entry{ static_cast<Resolution>(i) };
 
@@ -90,12 +90,16 @@ namespace cst {
             }
             case Resolution::LAST:
             default:
-                hlp::Print(hlp::PrintType::ERROR, "invalid resolution selected {}", static_cast<int>(resolution));
+                hlp::Print(
+                        hlp::PrintType::ERROR,
+                        "invalid resolution selected {}",
+                        static_cast<utl::usize>(resolution)
+                );
                 return "invalid resolution";
         }
     }
 
-    utl::Vec2<int> Window::GetIntFromResolution(Resolution const resolution) const {
+    utl::Vec2<utl::usize> Window::GetIntFromResolution(Resolution const resolution) const {
 
         switch (resolution) {
 
@@ -143,15 +147,19 @@ namespace cst {
             case Resolution::NATIVE:
                 return nativeResolutionVec;
             case Resolution::SCREEN: {
-                int const screen{ GetCurrentMonitor() };
-                int const height{ GetMonitorHeight(screen) };
-                int const width{ GetMonitorWidth(screen) };
+                auto const screen{ GetCurrentMonitor() };
+                auto const height{ static_cast<utl::usize>(GetMonitorHeight(screen)) };
+                auto const width{ static_cast<utl::usize>(GetMonitorWidth(screen)) };
 
                 return { width, height };
             }
             case Resolution::LAST:
             default:
-                hlp::Print(hlp::PrintType::ERROR, "invalid resolution selected {}", static_cast<int>(resolution));
+                hlp::Print(
+                        hlp::PrintType::ERROR,
+                        "invalid resolution selected {}",
+                        static_cast<utl::usize>(resolution)
+                );
                 return { 100, 100 };
         }
     }

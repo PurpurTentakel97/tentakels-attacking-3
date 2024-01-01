@@ -11,6 +11,6 @@ namespace cst {
     struct TextProcessing final {
         static constexpr char cursor{ '_' };
         static inline std::string const prefix{ "..." };
-        static constexpr int cursorOffset{ 5 };
+        static constexpr utl::usize cursorOffset{ 5 };
     };
 } // namespace cst

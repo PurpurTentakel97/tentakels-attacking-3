@@ -11,13 +11,13 @@
 
 
 namespace uil {
-    bool Table::IsValidIndex(size_t row, size_t column) const {
+    bool Table::IsValidIndex(utl::usize row, utl::usize column) const {
         return IsValidRow(row) and IsValidColumn(column);
     }
-    bool Table::IsValidRow(size_t row) const {
+    bool Table::IsValidRow(utl::usize row) const {
         return row < m_cells.size();
     }
-    bool Table::IsValidColumn(size_t column) const {
+    bool Table::IsValidColumn(utl::usize column) const {
         if (m_cells.size() < 1) {
             return false;
         }
@@ -25,9 +25,9 @@ namespace uil {
     }
 
     void Table::UpdateCellFocusID() {
-        for (size_t row = 0; row < m_cells.size(); ++row) {
-            for (size_t column = 0; column < m_cells.at(row).size(); ++column) {
-                m_cells.at(row).at(column)->SetFocusID(static_cast<unsigned int>(row * m_columnCount + column));
+        for (utl::usize row = 0; row < m_cells.size(); ++row) {
+            for (utl::usize column = 0; column < m_cells.at(row).size(); ++column) {
+                m_cells.at(row).at(column)->SetFocusID(row * m_columnCount + column);
             }
         }
     }
@@ -54,8 +54,8 @@ namespace uil {
             cellHeight = m_size.y / static_cast<float>(m_rowCount);
         }
 
-        for (size_t row = 0; row < m_cells.size(); ++row) {
-            for (size_t column = 0; column < m_cells.at(row).size(); ++column) {
+        for (utl::usize row = 0; row < m_cells.size(); ++row) {
+            for (utl::usize column = 0; column < m_cells.at(row).size(); ++column) {
                 auto const& cell = m_cells.at(row).at(column);
                 cell->SetPosition({ m_pos.x + cellWidth * static_cast<float>(column),
                                     m_pos.y + cellHeight * static_cast<float>(row) });
@@ -161,7 +161,7 @@ namespace uil {
         m_isFixedFirstColumn = m_setFixedFirstColumn;
 
         if (m_isFixedFirstColumn) {
-            for (size_t row = 0; row < m_cells.size(); ++row) {
+            for (utl::usize row = 0; row < m_cells.size(); ++row) {
                 auto const cell{ m_cells.at(row).at(0) };
                 auto col{ cell->GetCollider() };
                 col.x = m_collider.x;
@@ -177,7 +177,7 @@ namespace uil {
             float const width{ m_cells.at(0).at(0)->GetCollider().width };
             float const pos{ m_cells.at(0).at(1)->GetCollider().x };
 
-            for (size_t row = 0; row < m_cells.size(); ++row) {
+            for (utl::usize row = 0; row < m_cells.size(); ++row) {
                 auto const cell{ m_cells.at(row).at(0) };
                 auto col{ cell->GetCollider() };
                 col.x = pos - width;
@@ -200,22 +200,22 @@ namespace uil {
             goto clicked;
         }
 
-        for (size_t row = 1; row < m_rowCount; ++row) {
+        for (utl::usize row = 1; row < m_rowCount; ++row) {
             cell = m_cells.at(row).at(0);
             if (cell->IsColliding(mousePosition)) {
                 goto clicked;
             }
         }
 
-        for (size_t column = 1; column < m_columnCount; ++column) {
+        for (utl::usize column = 1; column < m_columnCount; ++column) {
             cell = m_cells.at(0).at(column);
             if (cell->IsColliding(mousePosition)) {
                 goto clicked;
             }
         }
 
-        for (size_t row = 1; row < m_rowCount; ++row) {
-            for (size_t column = 1; column < m_columnCount; ++column) {
+        for (utl::usize row = 1; row < m_rowCount; ++row) {
+            for (utl::usize column = 1; column < m_columnCount; ++column) {
                 cell = m_cells.at(row).at(column);
                 if (cell->IsColliding(mousePosition)) {
                     goto clicked;
@@ -269,7 +269,7 @@ namespace uil {
         for (auto const& cell : m_cells.at(0)) {
             toReturn.x += cell->GetCollider().width;
         }
-        for (size_t i = 0; i < m_rowCount; ++i) {
+        for (utl::usize i = 0; i < m_rowCount; ++i) {
             auto const cell = m_cells.at(i).at(0);
             toReturn.y += cell->GetCollider().height;
         }
@@ -331,8 +331,8 @@ namespace uil {
         }
 
         AbstractTableCell_ty cell{ nullptr };
-        for (size_t row = 0; row < m_cells.size(); ++row) {
-            for (size_t column = 0; column < m_cells.at(row).size(); ++column) {
+        for (utl::usize row = 0; row < m_cells.size(); ++row) {
+            for (utl::usize column = 0; column < m_cells.at(row).size(); ++column) {
                 auto const cCell = m_cells.at(row).at(column);
                 if (cCell->IsFocused()) {
                     cell = cCell;
@@ -399,8 +399,8 @@ namespace uil {
         }
     }
     void Table::ScrollMove(Vector2 const& offset) {
-        for (size_t row = 0; row < m_cells.size(); ++row) {
-            for (size_t column = 0; column < m_cells.at(row).size(); ++column) {
+        for (utl::usize row = 0; row < m_cells.size(); ++row) {
+            for (utl::usize column = 0; column < m_cells.at(row).size(); ++column) {
                 Vector2 individualOffset{ offset };
                 if (row == 0 and m_isFixedHeadline) {
                     individualOffset.y = 0.0f;
@@ -429,7 +429,7 @@ namespace uil {
         m_horizontalSlider->SetAbsoluteDimension(width * widthFactor);
 
         float height{ 0.0f };
-        for (size_t i = 0; i < m_rowCount; ++i) {
+        for (utl::usize i = 0; i < m_rowCount; ++i) {
             auto const& cell = m_cells[i][1];
             height += cell->GetSize().y;
         }
@@ -439,7 +439,7 @@ namespace uil {
     }
 
     void Table::CalculateHoverHighlighted(Vector2 mousePosition) {
-        utl::vec2pos_ty newPosition{ -1, -1 };
+        utl::vec2pos_ty newPosition{ 0, 0 };
         if (not m_isHoveredHighlighted) {
             goto found;
         }
@@ -452,27 +452,27 @@ namespace uil {
             goto found;
         }
 
-        for (size_t column = 1; column < m_columnCount; ++column) {
+        for (utl::usize column = 1; column < m_columnCount; ++column) {
             auto const& cell = m_cells[0][column];
             if (cell->IsColliding(mousePosition)) {
-                newPosition = { 0, static_cast<int>(column) };
+                newPosition = { 0, column };
                 goto found;
             }
         }
 
-        for (size_t row = 1; row < m_rowCount; ++row) {
+        for (utl::usize row = 1; row < m_rowCount; ++row) {
             auto const& cell = m_cells[row][0];
             if (cell->IsColliding(mousePosition)) {
-                newPosition = { static_cast<int>(row), 0 };
+                newPosition = { row, 0 };
                 goto found;
             }
         }
 
-        for (size_t row = 1; row < m_rowCount; ++row) {
-            for (size_t column = 1; column < m_columnCount; ++column) {
+        for (utl::usize row = 1; row < m_rowCount; ++row) {
+            for (utl::usize column = 1; column < m_columnCount; ++column) {
                 auto const& cell = m_cells[row][column];
                 if (cell->IsColliding(mousePosition)) {
-                    newPosition = { static_cast<int>(row), static_cast<int>(column) };
+                    newPosition = { row, column };
                     goto found;
                 }
             }
@@ -490,17 +490,14 @@ namespace uil {
     void Table::SetHighlightBackground(bool reset) {
         Color const newColor{ reset ? BLACK : LIGHT_GREY_100 };
 
-        if (m_currentHighlighted.x >= 0) {
-            for (auto const& cell : m_cells[static_cast<size_t>(m_currentHighlighted.x)]) {
-                cell->SetBackgroundColor(newColor);
-            }
+        for (auto const& cell : m_cells[static_cast<utl::usize>(m_currentHighlighted.x)]) {
+            cell->SetBackgroundColor(newColor);
         }
 
-        if (m_currentHighlighted.y >= 0) {
-            for (size_t i = 0; i < m_rowCount; ++i) {
-                auto const& cell = m_cells[i][static_cast<size_t>(m_currentHighlighted.y)];
-                cell->SetBackgroundColor(newColor);
-            }
+
+        for (utl::usize i = 0; i < m_rowCount; ++i) {
+            auto const& cell = m_cells[i][static_cast<utl::usize>(m_currentHighlighted.y)];
+            cell->SetBackgroundColor(newColor);
         }
     }
 
@@ -510,21 +507,21 @@ namespace uil {
     void Table::RenderHeadline(app::AppContext_ty_c appContext) {
 
         auto const row{ m_cells.at(0) };
-        for (size_t column = 1; column < row.size(); ++column) { // start at 1 because cell 0 is rendered in TopLeft
+        for (utl::usize column = 1; column < row.size(); ++column) { // start at 1 because cell 0 is rendered in TopLeft
             row[column]->Render(appContext);
         }
     }
     void Table::RenderFirstColumn(app::AppContext_ty_c appContext) {
 
-        for (size_t row = 1; row < m_cells.size(); ++row) { // start at 1 because cell 0 is rendered in TopLeft
+        for (utl::usize row = 1; row < m_cells.size(); ++row) { // start at 1 because cell 0 is rendered in TopLeft
             m_cells[row][0]->Render(appContext);
         }
     }
     void Table::RenderOtherCells(app::AppContext_ty_c appContext) {
 
-        for (size_t row = 1; row < m_cells.size();
+        for (utl::usize row = 1; row < m_cells.size();
              ++row) { // start at 1 because cell 0 is rendered in TopLeft or headline
-            for (size_t column = 1; column < m_cells.at(row).size();
+            for (utl::usize column = 1; column < m_cells.at(row).size();
                  ++column) { // start at 1 because cell 0 is renderd in TopLeft or first column
                 m_cells[row][column]->Render(appContext);
             }
@@ -539,9 +536,9 @@ namespace uil {
             Vector2 pos,
             Vector2 size,
             Alignment alignment,
-            unsigned int focusID,
-            size_t rowCount,
-            size_t columnCount,
+            utl::usize focusID,
+            utl::usize rowCount,
+            utl::usize columnCount,
             Vector2 minCellSize,
             float scrollSpeed
     )
@@ -558,15 +555,15 @@ namespace uil {
         float const cellHeight{ m_size.y / static_cast<float>(m_rowCount) };
 
         m_cells.clear();
-        for (size_t row = 0; row < m_rowCount; ++row) {
+        for (utl::usize row = 0; row < m_rowCount; ++row) {
             auto line{ std::vector<AbstractTableCell_ty>() };
-            for (size_t column = 0; column < columnCount; ++column) {
+            for (utl::usize column = 0; column < columnCount; ++column) {
                 auto cell = std::make_shared<TableCell<std::string>>(
                         Vector2(m_pos.x + cellWidth * static_cast<float>(column),
                                 m_pos.y + cellHeight * static_cast<float>(row)),
                         Vector2(cellWidth, cellHeight),
                         Alignment::TOP_LEFT,
-                        static_cast<unsigned int>(row * columnCount + column),
+                        row * columnCount + column,
                         "",
                         [this](AbstractTableCell const* c, std::string oldValue, std::string newValue) {
                             this->CellUpdated<std::string>(c, oldValue, newValue);
@@ -578,8 +575,8 @@ namespace uil {
             m_cells.push_back(line);
         }
 
-        m_editableRowsColumns = { std::vector<bool>(static_cast<size_t>(m_rowCount), true),
-                                  std::vector<bool>(static_cast<size_t>(m_columnCount), true) };
+        m_editableRowsColumns = { std::vector<bool>(static_cast<utl::usize>(m_rowCount), true),
+                                  std::vector<bool>(static_cast<utl::usize>(m_columnCount), true) };
 
         m_verticalSlider = std::make_shared<Slider>(
                 hlp::GetElementPosition(m_pos, m_size, 0.995f, 0.5f),
@@ -600,7 +597,7 @@ namespace uil {
         CalculateSlider();
     }
 
-    void Table::SetRowCount(size_t newRowCount) {
+    void Table::SetRowCount(utl::usize newRowCount) {
         if (newRowCount <= 0) {
             hlp::Print(
                     hlp::PrintType::ERROR,
@@ -611,11 +608,11 @@ namespace uil {
 
         m_rowCount = newRowCount;
     }
-    size_t Table::GetRowCount() const {
+    utl::usize Table::GetRowCount() const {
         return m_rowCount;
     }
 
-    void Table::SetColumnCount(size_t newColumnCount) {
+    void Table::SetColumnCount(utl::usize newColumnCount) {
         if (newColumnCount <= 0) {
             hlp::Print(
                     hlp::PrintType::ERROR,
@@ -626,12 +623,12 @@ namespace uil {
 
         m_columnCount = newColumnCount;
     }
-    size_t Table::GetColumnCount() const {
+    utl::usize Table::GetColumnCount() const {
         return m_columnCount;
     }
 
 
-    void Table::RemoveSpecificRow(size_t row) {
+    void Table::RemoveSpecificRow(utl::usize row) {
         if (!IsValidRow(row)) {
             hlp::Print(hlp::PrintType::ERROR, "row out of range"), throw std::out_of_range("row index");
         }
@@ -643,7 +640,7 @@ namespace uil {
     void Table::RemoveLastRow() {
         RemoveSpecificRow(m_cells.size() - 1);
     }
-    void Table::RemoveSpecificColumn(size_t column) {
+    void Table::RemoveSpecificColumn(utl::usize column) {
         if (!IsValidColumn(column)) {
             hlp::Print(hlp::PrintType::ERROR, "column index out of range"), throw std::out_of_range("column index");
         }
@@ -676,7 +673,7 @@ namespace uil {
         return m_isScrollable;
     }
 
-    void Table::SetSingleEditable(size_t row, size_t column, bool isEditable) {
+    void Table::SetSingleEditable(utl::usize row, utl::usize column, bool isEditable) {
         if (!IsValidIndex(row, column)) {
             hlp::Print(hlp::PrintType::ERROR, "row or column index out auf range");
             throw std::out_of_range("invalid index");
@@ -684,7 +681,7 @@ namespace uil {
 
         m_cells.at(row).at(column)->SetEditable(isEditable);
     }
-    bool Table::IsSingleEditable(size_t row, size_t column) const {
+    bool Table::IsSingleEditable(utl::usize row, utl::usize column) const {
         if (!IsValidIndex(row, column)) {
             hlp::Print(hlp::PrintType::ERROR, "row or column index out auf range");
             throw std::out_of_range("invalid index");
@@ -698,8 +695,8 @@ namespace uil {
                 cell->SetEditable(isEditable);
             }
         }
-        for (size_t i = 0; i < m_editableRowsColumns.size(); ++i) {
-            for (size_t j = 0; j < m_editableRowsColumns.at(i).size(); ++j) {
+        for (utl::usize i = 0; i < m_editableRowsColumns.size(); ++i) {
+            for (utl::usize j = 0; j < m_editableRowsColumns.at(i).size(); ++j) {
                 m_editableRowsColumns.at(i).at(j) = isEditable;
             }
         }
@@ -716,7 +713,7 @@ namespace uil {
         return true;
     }
 
-    void Table::SetRowEditable(size_t row, bool isEditable) {
+    void Table::SetRowEditable(utl::usize row, bool isEditable) {
         if (!IsValidRow(row)) {
             hlp::Print(hlp::PrintType::ERROR, "row out of range"), throw std::out_of_range("row index");
         }
@@ -726,7 +723,7 @@ namespace uil {
         }
         m_editableRowsColumns.at(0).at(row) = isEditable;
     }
-    bool Table::IsRowEditable(size_t row) const {
+    bool Table::IsRowEditable(utl::usize row) const {
         if (!IsValidRow(row)) {
             hlp::Print(hlp::PrintType::ERROR, "row out of range"), throw std::out_of_range("row index");
         }
@@ -734,7 +731,7 @@ namespace uil {
         return m_editableRowsColumns.at(0).at(row);
     }
 
-    void Table::SetColumnEditable(size_t column, bool isEditable) {
+    void Table::SetColumnEditable(utl::usize column, bool isEditable) {
         if (!IsValidColumn(column)) {
             hlp::Print(hlp::PrintType::ERROR, "column out of Range");
             throw std::out_of_range("column index");
@@ -745,7 +742,7 @@ namespace uil {
         }
         m_editableRowsColumns.at(1).at(column) = isEditable;
     }
-    bool Table::IsColumnEditable(size_t column) const {
+    bool Table::IsColumnEditable(utl::usize column) const {
         if (!IsValidColumn(column)) {
             hlp::Print(hlp::PrintType::ERROR, "column out of Range");
             throw std::out_of_range("column index");
@@ -754,7 +751,7 @@ namespace uil {
         return m_editableRowsColumns.at(1).at(column);
     }
 
-    void Table::SetSingleCellTextColor(Color color, size_t row, size_t column) {
+    void Table::SetSingleCellTextColor(Color color, utl::usize row, utl::usize column) {
         if (!IsValidIndex(row, column)) {
             hlp::Print(hlp::PrintType::ERROR, "row or column index out auf range");
             throw std::out_of_range("invalid index");
@@ -762,7 +759,7 @@ namespace uil {
 
         m_cells.at(row).at(column)->SetTextColor(color);
     }
-    Color Table::GetSingleCellTextColor(size_t row, size_t column) const {
+    Color Table::GetSingleCellTextColor(utl::usize row, utl::usize column) const {
         if (!IsValidIndex(row, column)) {
             hlp::Print(hlp::PrintType::ERROR, "row or column index out auf range");
             throw std::out_of_range("invalid index");
@@ -777,7 +774,7 @@ namespace uil {
             }
         }
     }
-    void Table::SetRowCellTextColor(Color color, size_t row) {
+    void Table::SetRowCellTextColor(Color color, utl::usize row) {
         if (!IsValidRow(row)) {
             hlp::Print(hlp::PrintType::ERROR, "row out of range"), throw std::out_of_range("row index");
         }
@@ -786,7 +783,7 @@ namespace uil {
             cell->SetTextColor(color);
         }
     }
-    void Table::SetColumnCellTextColor(Color color, size_t column) {
+    void Table::SetColumnCellTextColor(Color color, utl::usize column) {
         if (!IsValidColumn(column)) {
             hlp::Print(hlp::PrintType::ERROR, "column out of Range");
             throw std::out_of_range("column index");

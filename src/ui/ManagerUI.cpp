@@ -84,7 +84,7 @@ namespace ui {
         m_hover.Render();
 
 #ifdef _DEBUG
-        int const fps{ GetFPS() };
+        utl::usize const fps{ static_cast<utl::usize>(GetFPS()) };
         cst::Window_ty_c window{ app::AppContext::GetInstance().constants.window };
         DrawTextEx(
                 *(m_appContext.assetManager.GetFont()),
@@ -101,9 +101,9 @@ namespace ui {
 
     void UIManager::SetNativeWindowSize() {
         cst::Window_ty_c window{ m_appContext.constants.window };
-        utl::Vec2<int> values{ window.nativeResolutionVec };
+        utl::vec2pos_ty_c values{ window.nativeResolutionVec };
 
-        ::SetWindowSize(values.x, values.y);
+        ::SetWindowSize(static_cast<int>(values.x), static_cast<int>(values.y));
     }
 
     void UIManager::SetWindowSize(bool const force) {
@@ -113,10 +113,10 @@ namespace ui {
         }
         window.currentResolutionEnum = m_nextResolution;
 
-        utl::Vec2<int> values = window.GetIntFromResolution(m_nextResolution);
+        utl::vec2pos_ty_c values = window.GetIntFromResolution(m_nextResolution);
 
         window.currentResolutionVec = { static_cast<float>(values.x), static_cast<float>(values.y) };
-        ::SetWindowSize(values.x, values.y);
+        ::SetWindowSize(static_cast<int>(values.x), static_cast<int>(values.y));
     }
 
     void UIManager::SetWindowPosition() {
@@ -125,12 +125,14 @@ namespace ui {
             return;
         }
 
-        int const screen{ GetCurrentMonitor() };
-        int const screenHeight{ GetMonitorHeight(screen) };
-        int const screenWidth{ GetMonitorWidth(screen) };
+        auto const screen{ GetCurrentMonitor() };
+        auto const screenHeight{ GetMonitorHeight(screen) };
+        auto const screenWidth{ GetMonitorWidth(screen) };
 
-        int differenceWidth{ (screenWidth - static_cast<int>(window.currentResolutionVec.x)) / 2 };
-        int differenceHeight{ (screenHeight - static_cast<int>(window.currentResolutionVec.y)) / 2 };
+        auto differenceWidth{ static_cast<int>((static_cast<float>(screenWidth) - window.currentResolutionVec.x) / 2) };
+        auto differenceHeight{
+            static_cast<int>((static_cast<float>(screenHeight) - window.currentResolutionVec.y) / 2)
+        };
 
         if (differenceWidth < 0) {
             differenceWidth = 0;
@@ -158,7 +160,6 @@ namespace ui {
                 break;
             }
         }
-        CloseWindow();
     }
 
     UIManager::UIManager()

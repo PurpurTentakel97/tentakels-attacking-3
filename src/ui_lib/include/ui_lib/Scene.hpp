@@ -22,7 +22,7 @@ namespace uil {
 
         Vector2 GetElementSize(float x, float y);
 
-        [[nodiscard]] Focusable_ty_raw GetFocusableByFocusID(unsigned int ID) const;
+        [[nodiscard]] Focusable_ty_raw GetFocusableByFocusID(utl::usize ID) const;
 
 
     public:

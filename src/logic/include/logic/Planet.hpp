@@ -6,34 +6,39 @@
 #pragma once
 
 #include "SpaceObject.hpp"
+#include <alias/AliasUtils.hpp>
+
 namespace lgk {
     class Planet final : public SpaceObject {
     private:
         using vec2pos = utl::vec2pos_ty;
         bool m_isHomePlanet{};
         bool m_isDestroyed{ false };
-        int m_planetNumber;
-        size_t m_maxShips;
-        size_t m_production;
+        utl::usize m_planetNumber;
+        utl::usize m_maxShips;
+        utl::usize m_production;
 
     public:
-        Planet(unsigned int ID, utl::vec2pos_ty_ref_c position, Player_ty player, bool isHomePlanet, int m_planetNumber
-        );
-
-        Planet(unsigned int ID,
+        Planet(utl::usize ID,
                utl::vec2pos_ty_ref_c position,
                Player_ty player,
                bool isHomePlanet,
-               int m_planetNumber,
-               size_t ships);
+               utl::usize m_planetNumber);
+
+        Planet(utl::usize ID,
+               utl::vec2pos_ty_ref_c position,
+               Player_ty player,
+               bool isHomePlanet,
+               utl::usize m_planetNumber,
+               utl::usize ships);
 
         [[nodiscard]] bool IsHomePlanet() const;
 
         [[nodiscard]] bool IsPlanet() const override;
 
-        [[nodiscard]] size_t GetProduction() const;
+        [[nodiscard]] utl::usize GetProduction() const;
 
-        [[nodiscard]] int GetPlanetNumber() const;
+        [[nodiscard]] utl::usize GetPlanetNumber() const;
 
         void SetDestroyed(bool isDestroyed);
 

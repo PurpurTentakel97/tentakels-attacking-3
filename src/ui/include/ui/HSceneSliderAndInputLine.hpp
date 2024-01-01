@@ -16,15 +16,15 @@ namespace ui {
         uil::Slider_ty m_slider;
         uil::InputLine_int_ty m_inputLine;
         uil::ClassicButton_ty m_btn;
-        std::function<void(int)> m_onSave{ [](int) {} };
+        std::function<void(utl::usize)> m_onSave{ [](utl::usize) {} };
 
         bool m_isEnabled{ true };
         bool m_slided{ false };
-        int m_minValue;
-        int m_maxValue;
-        int m_currentValue;
+        utl::usize m_minValue;
+        utl::usize m_maxValue;
+        utl::usize m_currentValue;
 
-        void Initialize(unsigned int focusID);
+        void Initialize(utl::usize focusID);
 
         void BtnPressed();
 
@@ -38,22 +38,22 @@ namespace ui {
 
     public:
         SliderAndInputLine(
-                unsigned int focusID,
+                utl::usize focusID,
                 Vector2 pos,
                 Vector2 size,
                 uil::Alignment alignment,
-                int minValue,
-                int maxValue,
-                int currentValue
+                utl::usize minValue,
+                utl::usize maxValue,
+                utl::usize currentValue
         );
 
         void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) override;
 
         void SetEnabled(bool isEnabled);
 
-        void SetOnSave(std::function<void(int)> onSave);
+        void SetOnSave(std::function<void(utl::usize)> onSave);
 
-        void SetValue(int value);
+        void SetValue(utl::usize value);
 
         void RandomValue();
     };

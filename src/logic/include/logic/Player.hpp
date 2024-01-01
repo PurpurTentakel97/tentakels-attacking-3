@@ -6,21 +6,22 @@
 #pragma once
 
 #include "PlayerType.hpp"
+#include <alias/AliasUtils.hpp>
 
 
 namespace lgk {
     class Player final {
     private:
-        unsigned int m_ID;
+        utl::usize m_ID;
         PlayerType m_playerType;
         bool m_isAlive{ true };
 
     public:
-        Player(unsigned int ID, PlayerType playerType);
+        Player(utl::usize ID, PlayerType playerType);
 
         [[nodiscard]] bool IsHumanPlayer() const;
 
-        [[nodiscard]] unsigned int GetID() const;
+        [[nodiscard]] utl::usize GetID() const;
 
         [[nodiscard]] bool IsAlive() const;
 

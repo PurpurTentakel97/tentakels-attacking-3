@@ -27,19 +27,19 @@ namespace ui {
         m_elements.push_back(settingsText);
 
         // constants
-        int id{ 1 };
-        float y{ 0.3f };
-        float constexpr lx{ 0.05f };
-        float constexpr rx{ 0.55f };
-        float constexpr width{ 0.4f };
-        float constexpr heightS{ 0.025f };
-        float constexpr height{ 0.05f };
-        float constexpr offset{ height + 0.005f };
-        float constexpr offsetS{ heightS + 0.015f };
-        float constexpr rxwoS{ rx + heightS };
-        // float     constexpr rxwo   { rx + height      };
-        // float     constexpr lxwoS  { lx + heightS     };
-        float constexpr lxwo{ lx + height };
+        auto id{ 1 };
+        auto y{ 0.3f };
+        auto constexpr lx{ 0.05f };
+        auto constexpr rx{ 0.55f };
+        auto constexpr width{ 0.4f };
+        auto constexpr heightS{ 0.025f };
+        auto constexpr height{ 0.05f };
+        auto constexpr offset{ height + 0.005f };
+        auto constexpr offsetS{ heightS + 0.015f };
+        auto constexpr rxwoS{ rx + heightS };
+        // auto     constexpr rxwo   { rx + height      };
+        // auto     constexpr lxwoS  { lx + heightS     };
+        auto constexpr lxwo{ lx + height };
         auto constexpr a{ uil::Alignment::MID_LEFT };
 
         // increase
@@ -65,7 +65,7 @@ namespace ui {
         m_toggleFullScreenCBM =
                 std::make_shared<uil::CheckBox>(id, GetElementPosition(lx, y), GetElementSize(0.0f, height).y, a, 1);
         m_toggleFullScreenCBM->SetChecked(appContext.constants.window.isFullScreen);
-        m_toggleFullScreenCBM->SetOnCheck([](unsigned int, bool isChecked) {
+        m_toggleFullScreenCBM->SetOnCheck([](utl::usize, bool isChecked) {
             eve::ToggleFullscreenEvent const event{ isChecked };
             app::AppContext::GetInstance().eventManager.InvokeEvent(event);
         });
@@ -95,7 +95,7 @@ namespace ui {
         );
         m_volume->SetActive(true, appContext);
         m_volume->SetEnabled(!appContext.constants.sound.muteVolume);
-        m_volume->SetOnSave([](int value) {
+        m_volume->SetOnSave([](utl::usize value) {
             eve::SetMasterVolumeEvent const event{ static_cast<float>(value) };
             app::AppContext::GetInstance().eventManager.InvokeEvent(event);
         });
@@ -109,7 +109,7 @@ namespace ui {
         auto muteCB =
                 std::make_shared<uil::CheckBox>(id, GetElementPosition(rx, y), GetElementSize(0.0f, heightS).y, a, 1);
         muteCB->SetChecked(appContext.constants.sound.muteVolume);
-        muteCB->SetOnCheck([this](unsigned int, bool isChecked) {
+        muteCB->SetOnCheck([this](utl::usize, bool isChecked) {
             eve::MuteMasterVolumeEvent const event{ isChecked };
             app::AppContext::GetInstance().eventManager.InvokeEvent(event);
             this->m_volume->SetEnabled(!isChecked);
@@ -177,9 +177,9 @@ namespace ui {
                 GetStringsFromResolutionEntries()
         );
         m_resolutionDropDown->SetCurrentElementByID(
-                static_cast<unsigned int>(GetIndexFromResolution(appContext.constants.window.currentResolutionEnum) + 1)
+                GetIndexFromResolution(appContext.constants.window.currentResolutionEnum) + 1
         );
-        m_resolutionDropDown->SetOnSave([this](unsigned int ID) {
+        m_resolutionDropDown->SetOnSave([this](utl::usize ID) {
             eve::SetNewResolutionEvent const event{ this->m_rawResolutionEntries[ID - 1].first };
             app::AppContext::GetInstance().eventManager.InvokeEvent(event);
         });
@@ -197,7 +197,7 @@ namespace ui {
                 app::LanguageManager::GetAvailableLanguages()
         );
         m_languageDropDown->SetCurrentElementByString(appContext.constants.global.currentLanguageName);
-        m_languageDropDown->SetOnSave([](unsigned int ID) {
+        m_languageDropDown->SetOnSave([](utl::usize ID) {
             auto const language{ app::LanguageManager::GetAvailableLanguages().at(ID - 1) };
             auto const event{ eve::ChangeLanguageEvent(language) };
             app::AppContext::GetInstance().eventManager.InvokeEvent(event);
@@ -215,8 +215,8 @@ namespace ui {
         return toReturn;
     }
 
-    size_t AppSettingsScene::GetIndexFromResolution(cst::Resolution const resolution) const {
-        for (size_t i = 0; i < m_rawResolutionEntries.size(); ++i) {
+    utl::usize AppSettingsScene::GetIndexFromResolution(cst::Resolution const resolution) const {
+        for (utl::usize i = 0; i < m_rawResolutionEntries.size(); ++i) {
             if (m_rawResolutionEntries[i].first == resolution) {
                 return i;
             }

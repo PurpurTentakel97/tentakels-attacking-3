@@ -16,8 +16,8 @@ namespace ui {
 
     public:
         UIPlanet(
-                unsigned int focusID,
-                unsigned int ID,
+                utl::usize focusID,
+                utl::usize ID,
                 app::PlayerData const& player,
                 Vector2 pos,
                 Vector2 colliderPos,

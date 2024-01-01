@@ -13,7 +13,7 @@ namespace uil {
     class ClassicButton final : public Button, public Focusable {
     public:
         ClassicButton(
-                unsigned int focusID,
+                utl::usize focusID,
                 Vector2 pos,
                 Vector2 size,
                 Alignment alignment,

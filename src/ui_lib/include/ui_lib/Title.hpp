@@ -6,6 +6,7 @@
 #pragma once
 
 #include "UIElement.hpp"
+#include <alias/AliasUtils.hpp>
 #include <array>
 #include <vector>
 
@@ -29,8 +30,8 @@ namespace uil {
         };
         std::vector<std::string>* m_title;
         float m_fontSize{};
-        size_t m_charCount{ 0 };
-        size_t m_maxCharCount{};
+        utl::usize m_charCount{ 0 };
+        utl::usize m_maxCharCount{};
         bool m_titleFinish;
         bool m_lastFinishedTitle{ false };
 

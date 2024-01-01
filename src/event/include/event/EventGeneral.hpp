@@ -32,14 +32,14 @@ namespace eve {
 
     class PlayerWithIDEvent : public PlayerEvent {
     private:
-        unsigned int m_ID;
+        utl::usize m_ID;
 
     public:
-        PlayerWithIDEvent(unsigned int ID, std::string const& name, Color const color)
+        PlayerWithIDEvent(utl::usize ID, std::string const& name, Color const color)
             : PlayerEvent{ name, color },
               m_ID{ ID } { }
 
-        [[nodiscard]] unsigned int GetID() const {
+        [[nodiscard]] utl::usize GetID() const {
             return m_ID;
         }
     };
@@ -57,12 +57,12 @@ namespace eve {
 
     class DeletePlayerEvent final : public Event {
     private:
-        unsigned int m_ID;
+        utl::usize m_ID;
 
     public:
-        explicit DeletePlayerEvent(unsigned int const ID) : m_ID{ ID } { }
+        explicit DeletePlayerEvent(utl::usize const ID) : m_ID{ ID } { }
 
-        [[nodiscard]] unsigned int GetID() const {
+        [[nodiscard]] utl::usize GetID() const {
             return m_ID;
         }
     };
@@ -85,12 +85,12 @@ namespace eve {
 
     class DeletePlayerUIEvent final : public Event {
     private:
-        unsigned int m_ID;
+        utl::usize m_ID;
 
     public:
-        explicit DeletePlayerUIEvent(unsigned int const ID) : m_ID{ ID } { }
+        explicit DeletePlayerUIEvent(utl::usize const ID) : m_ID{ ID } { }
 
-        [[nodiscard]] unsigned int GetID() const {
+        [[nodiscard]] utl::usize GetID() const {
             return m_ID;
         }
     };
@@ -99,11 +99,11 @@ namespace eve {
 
     class PlayerIDEvent : public Event {
     private:
-        unsigned int m_ID;
+        utl::usize m_ID;
 
     public:
-        explicit PlayerIDEvent(unsigned int const ID) : m_ID{ ID } { }
-        [[nodiscard]] unsigned int GetID() const {
+        explicit PlayerIDEvent(utl::usize const ID) : m_ID{ ID } { }
+        [[nodiscard]] utl::usize GetID() const {
             return m_ID;
         }
     };
@@ -173,12 +173,12 @@ namespace eve {
 
     class SetCurrentLastRoundEvent final : public Event {
     private:
-        size_t m_lastRound;
+        utl::usize m_lastRound;
 
     public:
-        explicit SetCurrentLastRoundEvent(size_t const lastRound) : m_lastRound{ lastRound } { }
+        explicit SetCurrentLastRoundEvent(utl::usize const lastRound) : m_lastRound{ lastRound } { }
 
-        [[nodiscard]] size_t GetLastRound() const {
+        [[nodiscard]] utl::usize GetLastRound() const {
             return m_lastRound;
         }
     };
@@ -211,40 +211,46 @@ namespace eve {
 
     class SendFleetInstructionEvent final : public Event {
     private:
-        unsigned int m_origin;
-        unsigned int m_destination;
-        int m_destinationX;
-        int m_destinationY;
-        size_t m_shipCount;
+        utl::usize m_origin;
+        utl::usize m_destination;
+        utl::usize m_destinationX;
+        utl::usize m_destinationY;
+        utl::usize m_shipCount;
+        utl::FleetInstructionType m_type;
 
     public:
         SendFleetInstructionEvent(
-                unsigned int const origin,
-                unsigned int const destination,
-                int const destinationX,
-                int const destinationY,
-                size_t const shipCount
+                utl::usize const origin,
+                utl::usize const destination,
+                utl::usize const destinationX,
+                utl::usize const destinationY,
+                utl::usize const shipCount,
+                utl::FleetInstructionType const type
         )
             : m_origin{ origin },
               m_destination{ destination },
               m_destinationX{ destinationX },
               m_destinationY{ destinationY },
-              m_shipCount{ shipCount } { }
+              m_shipCount{ shipCount },
+              m_type{ type } { }
 
-        [[nodiscard]] unsigned int GetOrigin() const {
+        [[nodiscard]] utl::usize GetOrigin() const {
             return m_origin;
         }
-        [[nodiscard]] unsigned int GetDestination() const {
+        [[nodiscard]] utl::usize GetDestination() const {
             return m_destination;
         }
-        [[nodiscard]] int GetDestinationX() const {
+        [[nodiscard]] utl::usize GetDestinationX() const {
             return m_destinationX;
         }
-        [[nodiscard]] int GetDestinationY() const {
+        [[nodiscard]] utl::usize GetDestinationY() const {
             return m_destinationY;
         }
-        [[nodiscard]] size_t GetShipCount() const {
+        [[nodiscard]] utl::usize GetShipCount() const {
             return m_shipCount;
+        }
+        [[nodiscard]] utl::FleetInstructionType GetType() const {
+            return m_type;
         }
     };
 

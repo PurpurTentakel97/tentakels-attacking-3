@@ -71,7 +71,7 @@ namespace ui {
 
         void HandleGalaxyDragLineInput(eve::DragLineFleetInstructionEvent const* event);
 
-        [[nodiscard]] lgk::SpaceObject_ty GetSpaceObjectFromID(unsigned int ID) const;
+        [[nodiscard]] lgk::SpaceObject_ty GetSpaceObjectFromID(utl::usize ID) const;
 
     public:
         MainScene();

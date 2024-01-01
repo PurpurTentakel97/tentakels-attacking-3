@@ -10,7 +10,7 @@
 
 namespace uil {
     ClassicButton::ClassicButton(
-            unsigned int const focusID,
+            utl::usize const focusID,
             Vector2 const pos,
             Vector2 const size,
             Alignment const alignment,

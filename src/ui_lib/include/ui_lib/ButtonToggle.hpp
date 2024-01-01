@@ -20,7 +20,7 @@ namespace uil {
 
     public:
         ToggleButton(
-                unsigned int focusID,
+                utl::usize focusID,
                 Vector2 pos,
                 Vector2 size,
                 Alignment alignment,

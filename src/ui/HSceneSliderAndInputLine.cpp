@@ -4,6 +4,7 @@
 //
 
 #include "HSceneSliderAndInputLine.hpp"
+#include <alias/AliasUtils.hpp>
 #include <helper/HRandom.hpp>
 #include <memory>
 #include <ui_lib/ButtonClassic.hpp>
@@ -12,7 +13,7 @@
 
 
 namespace ui {
-    void SliderAndInputLine::Initialize(unsigned int focusID) {
+    void SliderAndInputLine::Initialize(utl::usize focusID) {
         m_inputLine = std::make_shared<uil::InputLine<int>>(
                 focusID,
                 GetElementPosition(0.77f, 0.0f),
@@ -21,7 +22,7 @@ namespace ui {
                 5
         );
         m_inputLine->SetOnEnter([this]() { this->BtnPressed(); });
-        m_inputLine->SetValue(m_currentValue);
+        m_inputLine->SetValue(static_cast<int>(m_currentValue));
         ValidateCurrentValue();
         m_slided = true;
         m_inputLine->SetPlaceholderText("%");
@@ -66,16 +67,15 @@ namespace ui {
     }
 
     void SliderAndInputLine::Slide(float const position) {
-        m_currentValue = static_cast<int>(
-                (static_cast<float>(m_maxValue - m_minValue) * position / 100.0f) + static_cast<float>(m_minValue)
-        );
-        m_inputLine->SetValue(m_currentValue);
+        m_currentValue =
+                static_cast<utl::usize>(static_cast<float>(m_maxValue - m_minValue) * position / 100.0f) + m_minValue;
+        m_inputLine->SetValue(static_cast<int>(m_currentValue));
         SaveValue();
         m_slided = true;
     }
 
     void SliderAndInputLine::ValidateCurrentValue() {
-        m_currentValue = m_inputLine->GetValue();
+        m_currentValue = static_cast<utl::usize>(m_inputLine->GetValue());
 
         if (m_currentValue < m_minValue) {
             m_currentValue = m_minValue;
@@ -83,7 +83,7 @@ namespace ui {
             m_currentValue = m_maxValue;
         }
 
-        m_inputLine->SetValue(m_currentValue);
+        m_inputLine->SetValue(static_cast<int>(m_currentValue));
     }
 
     void SliderAndInputLine::SetSliderValue() const {
@@ -93,13 +93,13 @@ namespace ui {
     }
 
     SliderAndInputLine::SliderAndInputLine(
-            unsigned int const focusID,
+            utl::usize const focusID,
             Vector2 const pos,
             Vector2 const size,
             uil::Alignment const alignment,
-            int const minValue,
-            int const maxValue,
-            int const initialValue
+            utl::usize const minValue,
+            utl::usize const maxValue,
+            utl::usize const initialValue
     )
         : Scene{ pos, size, alignment },
           m_minValue{ minValue },
@@ -132,7 +132,7 @@ namespace ui {
         m_slider->SetEnabled(isEnabled);
         m_inputLine->SetEnabled(isEnabled);
         if (isEnabled) {
-            if (m_currentValue != m_inputLine->GetValue()) {
+            if (static_cast<int>(m_currentValue) != m_inputLine->GetValue()) {
                 m_btn->SetEnabled(isEnabled);
             }
         } else {
@@ -140,22 +140,22 @@ namespace ui {
         }
     }
 
-    void SliderAndInputLine::SetOnSave(std::function<void(int)> onSave) {
+    void SliderAndInputLine::SetOnSave(std::function<void(utl::usize)> onSave) {
         m_onSave = std::move(onSave);
     }
 
-    void SliderAndInputLine::SetValue(int const value) {
+    void SliderAndInputLine::SetValue(utl::usize const value) {
         m_currentValue = value;
         ValidateCurrentValue();
-        m_inputLine->SetValue(m_currentValue);
+        m_inputLine->SetValue(static_cast<int>(m_currentValue));
         m_slider->SetButtonPosition(static_cast<float>(m_currentValue));
         m_slided = true;
     }
 
     void SliderAndInputLine::RandomValue() {
         auto& random{ hlp::Random::GetInstance() };
-        m_currentValue = static_cast<int>(random.random(static_cast<size_t>(m_maxValue - m_minValue))) + m_minValue;
-        m_inputLine->SetValue(m_currentValue);
+        m_currentValue = random.random(m_maxValue - m_minValue) + m_minValue;
+        m_inputLine->SetValue(static_cast<int>(m_currentValue));
         SetSliderValue();
         SaveValue();
     }

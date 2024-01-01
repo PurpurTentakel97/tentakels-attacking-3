@@ -15,18 +15,18 @@
 namespace lgk {
     class SpaceObject {
     protected:
-        unsigned int m_ID;
-        size_t m_ships;
+        utl::usize m_ID;
+        utl::usize m_ships;
         utl::vec2pos_ty m_position;
         Player_ty m_player;
         bool m_isDiscovered{ false };
 
-        [[nodiscard]] static bool IsInRange(SpaceObject_ty_raw first, SpaceObject_ty_raw second, int range);
+        [[nodiscard]] static bool IsInRange(SpaceObject_ty_raw first, SpaceObject_ty_raw second, utl::usize range);
 
     public:
-        SpaceObject(unsigned int ID, utl::vec2pos_ty_ref_c position, Player_ty_c player);
+        SpaceObject(utl::usize ID, utl::vec2pos_ty_ref_c position, Player_ty_c player);
 
-        SpaceObject(unsigned int ID, utl::vec2pos_ty position, size_t ships, Player_ty player);
+        SpaceObject(utl::usize ID, utl::vec2pos_ty position, utl::usize ships, Player_ty player);
 
         virtual ~SpaceObject() = default;
 
@@ -34,7 +34,7 @@ namespace lgk {
 
         virtual void Update(Galaxy_ty_raw galaxy) = 0;
 
-        [[nodiscard]] unsigned int GetID() const;
+        [[nodiscard]] utl::usize GetID() const;
 
         void SetPlayer(Player_ty player);
 
@@ -44,9 +44,9 @@ namespace lgk {
 
         [[nodiscard]] utl::vec2pos_ty GetPos() const;
 
-        void SetShipCount(size_t shipCount);
+        void SetShipCount(utl::usize shipCount);
 
-        [[nodiscard]] size_t GetShipCount() const;
+        [[nodiscard]] utl::usize GetShipCount() const;
 
         [[nodiscard]] virtual bool IsPlanet() const;
 
@@ -62,74 +62,74 @@ namespace lgk {
 
         [[nodiscard]] bool IsDiscovered() const;
 
-        friend size_t operator+(SpaceObject const& object, size_t ships);
+        friend utl::usize operator+(SpaceObject const& object, utl::usize ships);
 
-        friend size_t operator+(size_t ships, SpaceObject const& object);
+        friend utl::usize operator+(utl::usize ships, SpaceObject const& object);
 
-        friend size_t operator+(SpaceObject const& lhs, SpaceObject const& rhs);
+        friend utl::usize operator+(SpaceObject const& lhs, SpaceObject const& rhs);
 
-        friend size_t operator-(SpaceObject const& object, size_t ships);
+        friend utl::usize operator-(SpaceObject const& object, utl::usize ships);
 
-        friend size_t operator-(size_t ships, SpaceObject const& object);
+        friend utl::usize operator-(utl::usize ships, SpaceObject const& object);
 
-        friend size_t operator-(SpaceObject const& lhs, SpaceObject const& rhs);
+        friend utl::usize operator-(SpaceObject const& lhs, SpaceObject const& rhs);
 
-        friend bool operator<(SpaceObject const& object, size_t ships);
+        friend bool operator<(SpaceObject const& object, utl::usize ships);
 
-        friend bool operator<(size_t ships, SpaceObject const& object);
+        friend bool operator<(utl::usize ships, SpaceObject const& object);
 
         friend bool operator<(SpaceObject const& lhs, SpaceObject const& rhs);
 
-        friend bool operator<=(SpaceObject const& object, size_t ships);
+        friend bool operator<=(SpaceObject const& object, utl::usize ships);
 
-        friend bool operator<=(size_t ships, SpaceObject const& object);
+        friend bool operator<=(utl::usize ships, SpaceObject const& object);
 
         friend bool operator<=(SpaceObject const& lhs, SpaceObject const& rhs);
 
-        friend bool operator>(SpaceObject const& object, size_t ships);
+        friend bool operator>(SpaceObject const& object, utl::usize ships);
 
-        friend bool operator>(size_t ships, SpaceObject const& object);
+        friend bool operator>(utl::usize ships, SpaceObject const& object);
 
         friend bool operator>(SpaceObject const& lhs, SpaceObject const& rhs);
 
-        friend bool operator>=(SpaceObject const& object, size_t ships);
+        friend bool operator>=(SpaceObject const& object, utl::usize ships);
 
-        friend bool operator>=(size_t ships, SpaceObject const& object);
+        friend bool operator>=(utl::usize ships, SpaceObject const& object);
 
         friend bool operator>=(SpaceObject const& lhs, SpaceObject const& rhs);
 
-        SpaceObject& operator+=(size_t ships);
+        SpaceObject& operator+=(utl::usize ships);
 
         SpaceObject& operator+=(SpaceObject const& object);
 
-        SpaceObject& operator-=(size_t ships);
+        SpaceObject& operator-=(utl::usize ships);
 
         SpaceObject& operator-=(SpaceObject const& object);
 
         [[nodiscard]] bool operator==(SpaceObject const& other) const;
     };
 
-    [[nodiscard]] size_t operator+(SpaceObject const& object, size_t ships);
-    [[nodiscard]] size_t operator+(size_t ships, SpaceObject& object);
-    [[nodiscard]] size_t operator+(SpaceObject const& lhs, SpaceObject const& rhs);
+    [[nodiscard]] utl::usize operator+(SpaceObject const& object, utl::usize ships);
+    [[nodiscard]] utl::usize operator+(utl::usize ships, SpaceObject& object);
+    [[nodiscard]] utl::usize operator+(SpaceObject const& lhs, SpaceObject const& rhs);
 
-    [[nodiscard]] size_t operator-(SpaceObject const& object, size_t ships);
-    [[nodiscard]] size_t operator-(size_t ships, SpaceObject const& object);
-    [[nodiscard]] size_t operator-(SpaceObject const& lhs, SpaceObject const& rhs);
+    [[nodiscard]] utl::usize operator-(SpaceObject const& object, utl::usize ships);
+    [[nodiscard]] utl::usize operator-(utl::usize ships, SpaceObject const& object);
+    [[nodiscard]] utl::usize operator-(SpaceObject const& lhs, SpaceObject const& rhs);
 
-    [[nodiscard]] bool operator<(SpaceObject const& object, size_t ships);
-    [[nodiscard]] bool operator<(size_t ships, SpaceObject const& object);
+    [[nodiscard]] bool operator<(SpaceObject const& object, utl::usize ships);
+    [[nodiscard]] bool operator<(utl::usize ships, SpaceObject const& object);
     [[nodiscard]] bool operator<(SpaceObject const& lhs, SpaceObject const& rhs);
 
-    [[nodiscard]] bool operator<=(SpaceObject const& object, size_t ships);
-    [[nodiscard]] bool operator<=(size_t ships, SpaceObject const& object);
+    [[nodiscard]] bool operator<=(SpaceObject const& object, utl::usize ships);
+    [[nodiscard]] bool operator<=(utl::usize ships, SpaceObject const& object);
     [[nodiscard]] bool operator<=(SpaceObject const& lhs, SpaceObject const& rhs);
 
-    [[nodiscard]] bool operator>(SpaceObject const& object, size_t ships);
-    [[nodiscard]] bool operator>(size_t ships, SpaceObject const& object);
+    [[nodiscard]] bool operator>(SpaceObject const& object, utl::usize ships);
+    [[nodiscard]] bool operator>(utl::usize ships, SpaceObject const& object);
     [[nodiscard]] bool operator>(SpaceObject const& lhs, SpaceObject const& rhs);
 
-    [[nodiscard]] bool operator>=(SpaceObject const& object, size_t ships);
-    [[nodiscard]] bool operator>=(size_t ships, SpaceObject const& object);
+    [[nodiscard]] bool operator>=(SpaceObject const& object, utl::usize ships);
+    [[nodiscard]] bool operator>=(utl::usize ships, SpaceObject const& object);
     [[nodiscard]] bool operator>=(SpaceObject const& lhs, SpaceObject const& rhs);
 } // namespace lgk

@@ -5,9 +5,11 @@
 
 #include "Text.hpp"
 #include <alias/AliasCustomRaylib.hpp>
+#include <alias/AliasUtils.hpp>
 #include <app/AppContext.hpp>
 #include <cassert>
 #include <helper/HTextProcessing.hpp>
+
 
 namespace uil {
     void Text::CreateToRender() {
@@ -23,7 +25,7 @@ namespace uil {
         assert(spitedText.size() == verticalOffset.size());
 
         m_toRender.clear();
-        for (size_t i = 0; i < spitedText.size(); ++i) {
+        for (utl::usize i = 0; i < spitedText.size(); ++i) {
             std::pair<std::string, Vector2> const a = {
                 spitedText[i],
                 { horizontalOffset[i] + m_collider.x, verticalOffset[i] + m_collider.y }

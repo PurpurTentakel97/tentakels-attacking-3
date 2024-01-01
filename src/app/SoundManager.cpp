@@ -12,7 +12,7 @@
 
 namespace app {
     void SoundManager::LoadSounds() {
-        for (size_t i = 0; i < m_files.size(); ++i) {
+        for (utl::usize i = 0; i < m_files.size(); ++i) {
             auto const filename{ "Assets/Sounds/" + m_files[i] };
 
             if (!std::filesystem::exists(filename)) {
@@ -82,7 +82,8 @@ namespace app {
         InitAudioDevice();
         LoadSounds();
     }
-    SoundManager::~SoundManager() {
+
+    void SoundManager::Unload() {
         for (auto const& [_, sound] : m_sounds) {
             UnloadSound(sound);
         }
@@ -104,4 +105,5 @@ namespace app {
             return;
         }
     }
+
 } // namespace app

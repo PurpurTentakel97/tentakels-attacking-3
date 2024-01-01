@@ -38,5 +38,9 @@ int main() {
 
     hlp::CloseErrorStream();
 
+    appContext.Unload();
+
+    CloseWindow();
+
     return 0;
 }

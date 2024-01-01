@@ -11,14 +11,14 @@
 #include <helper/HPrint.hpp>
 
 namespace lgk {
-    Fleet::Fleet(unsigned int const ID, utl::vec2pos_ty_ref_c position, Player_ty_c player, SpaceObject_ty target)
+    Fleet::Fleet(utl::usize const ID, utl::vec2pos_ty_ref_c position, Player_ty_c player, SpaceObject_ty target)
         : SpaceObject{ ID, position, player },
           m_target{ std::move(target) } { }
 
     Fleet::Fleet(
-            unsigned int const ID,
+            utl::usize const ID,
             utl::vec2pos_ty_ref_c position,
-            size_t ships,
+            utl::usize ships,
             Player_ty_c player,
             SpaceObject_ty target
     )
@@ -74,14 +74,14 @@ namespace lgk {
             target = m_target;
         }
 
-        int speed = app::AppContext::GetInstance().constants.fleet.currentFleetSpeed;
+        int speed = static_cast<int>(app::AppContext::GetInstance().constants.fleet.currentFleetSpeed);
         float constexpr dl{ 0.001f };
-        int const x1{ m_position.x };
-        int const y1{ m_position.y };
-        int const x2{ target->GetPos().x };
-        int const y2{ target->GetPos().y };
-        int const dx{ x2 - x1 };
-        int const dy{ y2 - y1 };
+        utl::usize const x1{ m_position.x };
+        utl::usize const y1{ m_position.y };
+        utl::usize const x2{ target->GetPos().x };
+        utl::usize const y2{ target->GetPos().y };
+        utl::usize const dx{ x2 - x1 };
+        utl::usize const dy{ y2 - y1 };
         std::vector<utl::vec2pos_ty> route;
 
         auto addPosition = [&](utl::vec2pos_ty_ref_c new_) {
@@ -94,19 +94,20 @@ namespace lgk {
         };
         auto generatePosition = [&]() {
             for (float l = 0.0f; l < 1.0f; l += dl) {
-                utl::vec2pos_ty newPos{ x1 + static_cast<int>(std::floor(static_cast<float>(dx) * l + 0.5f)),
-                                        y1 + static_cast<int>(std::floor(static_cast<float>(dy) * l + 0.5f)) };
+                utl::vec2pos_ty newPos{ x1 + static_cast<utl::usize>(std::floor(static_cast<float>(dx) * l + 0.5f)),
+                                        y1 + static_cast<utl::usize>(std::floor(static_cast<float>(dy) * l + 0.5f)) };
                 addPosition(newPos);
             }
         };
         auto setSpeed = [&](utl::vec2pos_ty_ref_c old, utl::vec2pos_ty_ref_c new_) {
-            utl::vec2pos_ty offset = Abs<int>(old - new_);
+            utl::Vec2<int> offset{ static_cast<int>(old.x - new_.x), static_cast<int>(old.y - new_.y) };
+            offset = Abs<int>(offset);
             speed -= offset.x;
             speed -= offset.y;
         };
         auto filterPosition = [&]() -> utl::vec2pos_ty {
             utl::vec2pos_ty new_ = target->GetPos();
-            for (size_t i = 1; i < route.size(); ++i) {
+            for (utl::usize i = 1; i < route.size(); ++i) {
                 utl::vec2pos_ty old = route.at(i - 1);
                 new_ = route.at(i);
                 if (galaxy->IsValidPosition(new_)) {

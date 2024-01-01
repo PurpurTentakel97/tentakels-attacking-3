@@ -6,6 +6,7 @@
 #pragma once
 
 #include "ColorPickerCell.hpp"
+#include <alias/AliasUtils.hpp>
 #include <functional>
 #include <memory>
 #include <vector>
@@ -16,8 +17,8 @@ namespace uil {
     private:
         bool m_isPopUp{};
 
-        size_t m_countX{};
-        size_t m_countY{};
+        utl::usize m_countX{};
+        utl::usize m_countY{};
         std::vector<std::unique_ptr<ColorPickerCell>> m_cells{};
         ColorPickerCell* m_currentColorCell{ nullptr };
         ColorPickerCell* m_previousColorCell{ nullptr };
@@ -32,7 +33,7 @@ namespace uil {
         void CheckForValidColor(app::AppContext_ty_c appContext);
 
     public:
-        ColorPicker(unsigned int ID, Vector2 pos, Vector2 size, Alignment alignment, bool isPopUp = false);
+        ColorPicker(utl::usize ID, Vector2 pos, Vector2 size, Alignment alignment, bool isPopUp = false);
 
         ~ColorPicker() override;
 

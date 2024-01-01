@@ -16,8 +16,8 @@ namespace uil {
         float m_absoluteDotSize{};
         float m_relativeMaxRingSize;
         float m_absoluteRingSize{};
-        int m_currentCount;
-        int m_maxCount;
+        utl::usize m_currentCount;
+        utl::usize m_maxCount;
         Color m_dotColor{ BLACK };
         Color m_ringColor{ GREY_50 };
 
@@ -31,8 +31,8 @@ namespace uil {
                 Alignment alignment,
                 float innerSize,
                 float ringSize,
-                int currentCount,
-                int maxCount
+                utl::usize currentCount,
+                utl::usize maxCount
         );
 
 
@@ -41,13 +41,13 @@ namespace uil {
 
         void Update();
 
-        [[nodiscard]] int GetMaxCount() const;
+        [[nodiscard]] utl::usize GetMaxCount() const;
 
-        void SetMaxCount(int maxCount);
+        void SetMaxCount(utl::usize maxCount);
 
-        [[nodiscard]] int GetCurrentCount() const;
+        [[nodiscard]] utl::usize GetCurrentCount() const;
 
-        void SetCurrentCount(int currentCount);
+        void SetCurrentCount(utl::usize currentCount);
 
         [[nodiscard]] Color GetDotColor() const;
 

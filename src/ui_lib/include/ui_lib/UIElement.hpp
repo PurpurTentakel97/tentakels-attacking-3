@@ -6,11 +6,11 @@
 #pragma once
 
 #include "Alignment.hpp"
-#include "app/AssetType.hpp"
-#include "app/SoundType.hpp"
 #include <CustomRaylib.hpp>
 #include <alias/AliasCustomRaylib.hpp>
 #include <app/AppContext.hpp>
+#include <app/AssetType.hpp>
+#include <app/SoundType.hpp>
 #include <cmath>
 #include <event/EventsUI.hpp>
 #include <helper/HVector2Operator.hpp>

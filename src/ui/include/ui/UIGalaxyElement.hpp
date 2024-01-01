@@ -14,11 +14,11 @@
 namespace ui {
     class UIGalaxyElement : public uil::UIElement, public uil::Focusable {
     public:
-        static constexpr int s_maxShipCount{ 300 };
-        static constexpr int s_ringColorAlpha{ 100 };
+        static constexpr utl::usize s_maxShipCount{ 300 };
+        static constexpr utl::usize s_ringColorAlpha{ 100 };
 
     protected:
-        unsigned int m_ID;
+        utl::usize m_ID;
         app::PlayerData m_currentPlayer;
         Vector2 m_colliderPos;
         Color m_color;
@@ -31,8 +31,8 @@ namespace ui {
 
     public:
         UIGalaxyElement(
-                unsigned int focusID,
-                unsigned int ID,
+                utl::usize focusID,
+                utl::usize ID,
                 Vector2 size,
                 app::PlayerData const& player,
                 Vector2 pos,
@@ -53,7 +53,7 @@ namespace ui {
 
         [[nodiscard]] Color GetColor() const;
 
-        [[nodiscard]] unsigned int GetID() const;
+        [[nodiscard]] utl::usize GetID() const;
 
         [[nodiscard]] bool IsHover() const;
 

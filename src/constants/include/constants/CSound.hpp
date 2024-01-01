@@ -9,7 +9,7 @@
 
 namespace cst {
     struct Sound final {
-        static inline size_t constexpr configEntryCount{ 2 };
+        static inline utl::usize constexpr configEntryCount{ 2 };
 
         bool muteVolume{ false };
         float masterVolume{ 50.0f };

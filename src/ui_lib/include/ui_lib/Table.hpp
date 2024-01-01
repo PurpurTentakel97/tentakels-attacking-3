@@ -10,6 +10,7 @@
 #include "UIElement.hpp"
 #include "utils/Vec2.hpp"
 #include <alias/AliasUiLib.hpp>
+#include <alias/AliasUtils.hpp>
 #include <helper/HFocusEvents.hpp>
 #include <helper/HPrint.hpp>
 #include <memory>
@@ -20,8 +21,8 @@ namespace uil {
     class Table final : public UIElement, public Focusable {
     private:
         using cells_ty = std::vector<std::vector<AbstractTableCell_ty>>;
-        size_t m_rowCount;
-        size_t m_columnCount;
+        utl::usize m_rowCount;
+        utl::usize m_columnCount;
         cells_ty m_cells;
         Vector2 m_minCellSize;
         std::array<std::vector<bool>, 2> m_editableRowsColumns;
@@ -41,7 +42,7 @@ namespace uil {
         bool m_activeVerticalSlider;
 
         bool m_isHoveredHighlighted{ false };
-        utl::vec2pos_ty m_currentHighlighted{ -1, -1 };
+        utl::vec2pos_ty m_currentHighlighted{ 0, 0 };
 
         std::function<void(AbstractTableCell const*, std::string, std::string)> m_updatedStringCell{
             [](AbstractTableCell const*, std::string, std::string) {}
@@ -58,11 +59,11 @@ namespace uil {
             [](AbstractTableCell const*, Color, Color) {}
         }; ///< color
 
-        [[nodiscard]] bool IsValidIndex(size_t row, size_t column) const;
+        [[nodiscard]] bool IsValidIndex(utl::usize row, utl::usize column) const;
 
-        [[nodiscard]] bool IsValidRow(size_t row) const;
+        [[nodiscard]] bool IsValidRow(utl::usize row) const;
 
-        [[nodiscard]] bool IsValidColumn(size_t column) const;
+        [[nodiscard]] bool IsValidColumn(utl::usize column) const;
 
         void UpdateCellFocusID();
 
@@ -136,14 +137,14 @@ namespace uil {
         Table(Vector2 pos,
               Vector2 size,
               Alignment alignment,
-              unsigned int focusID,
-              size_t rowCount,
-              size_t columnCount,
+              utl::usize focusID,
+              utl::usize rowCount,
+              utl::usize columnCount,
               Vector2 minCellSize,
               float scrollSpeed);
 
         template<typename T>
-        void SetValue(size_t row, size_t column, T input) {
+        void SetValue(utl::usize row, utl::usize column, T input) {
             if (not IsValidIndex(row, column)) {
                 hlp::Print(hlp::PrintType::ERROR, "Index out of range"), throw std::out_of_range("index");
             }
@@ -171,7 +172,7 @@ namespace uil {
         }
 
         template<typename T>
-        [[nodiscard]] T GetValue(size_t row, size_t column) const {
+        [[nodiscard]] T GetValue(utl::usize row, utl::usize column) const {
             if (not IsValidIndex(row, column)) {
                 hlp::Print(hlp::PrintType::ERROR, "index out of range");
                 throw std::out_of_range("index");
@@ -181,7 +182,7 @@ namespace uil {
             return std::any_cast<T>(value);
         }
 
-        [[nodiscard]] std::string GetValueAsString(size_t row, size_t column) const {
+        [[nodiscard]] std::string GetValueAsString(utl::usize row, utl::usize column) const {
             if (not IsValidIndex(row, column)) {
                 hlp::Print(hlp::PrintType::ERROR, "index out of range");
                 throw std::out_of_range("index");
@@ -190,9 +191,9 @@ namespace uil {
             return m_cells.at(row).at(column)->GetValueAsString();
         }
 
-        void SetRowCount(size_t newRowCount);
+        void SetRowCount(utl::usize newRowCount);
 
-        [[nodiscard]] size_t GetRowCount() const;
+        [[nodiscard]] utl::usize GetRowCount() const;
 
         template<typename T>
         void SetUpdateSpecificCell(std::function<void(AbstractTableCell const*, T, T)> updateCell) {
@@ -218,12 +219,12 @@ namespace uil {
             }
         }
 
-        void SetColumnCount(size_t newColumnCount);
+        void SetColumnCount(utl::usize newColumnCount);
 
-        [[nodiscard]] size_t GetColumnCount() const;
+        [[nodiscard]] utl::usize GetColumnCount() const;
 
         template<typename T>
-        void AddSpecificRow(size_t row, T defaultValue) {
+        void AddSpecificRow(utl::usize row, T defaultValue) {
             if (row == m_cells.size()) { /* nothing */
             } else if (!IsValidRow(row)) {
                 hlp::Print(hlp::PrintType::ERROR, "invalid row index"), throw std::out_of_range("row-index");
@@ -231,7 +232,7 @@ namespace uil {
 
             auto line{ std::vector<AbstractTableCell_ty>() };
 
-            for (size_t column = 0; column < m_columnCount; ++column) {
+            for (utl::usize column = 0; column < m_columnCount; ++column) {
 
                 auto cell = std::make_shared<TableCell<T>>(
                         Vector2(0.0f, 0.0f),
@@ -260,7 +261,7 @@ namespace uil {
         }
 
         template<typename T>
-        void AddSpecificColumn(size_t column, T defaultValue) {
+        void AddSpecificColumn(utl::usize column, T defaultValue) {
             if (m_cells.size() == 0) {
                 hlp::Print(hlp::PrintType::ERROR, "no rows available in the table"), throw std::out_of_range("no rows");
             } else if (column == m_cells.at(0).size()) { /* nothing */
@@ -268,7 +269,7 @@ namespace uil {
                 hlp::Print(hlp::PrintType::ERROR, "column-index out of range"), throw std::out_of_range("column index");
             }
 
-            for (size_t i = 0; i < m_rowCount; ++i) {
+            for (utl::usize i = 0; i < m_rowCount; ++i) {
                 auto row = m_cells.at(i);
                 auto cell = std::make_shared<TableCell<T>>(
                         Vector2(0.0f, 0.0f),
@@ -298,11 +299,11 @@ namespace uil {
         }
 
 
-        void RemoveSpecificRow(size_t row);
+        void RemoveSpecificRow(utl::usize row);
 
         void RemoveLastRow();
 
-        void RemoveSpecificColumn(size_t column);
+        void RemoveSpecificColumn(utl::usize column);
 
         void RemoveLastColum();
 
@@ -314,31 +315,31 @@ namespace uil {
 
         [[nodiscard]] bool IsScrollable() const;
 
-        void SetSingleEditable(size_t row, size_t column, bool isEditable);
+        void SetSingleEditable(utl::usize row, utl::usize column, bool isEditable);
 
-        [[nodiscard]] bool IsSingleEditable(size_t row, size_t column) const;
+        [[nodiscard]] bool IsSingleEditable(utl::usize row, utl::usize column) const;
 
         void SetAllEditable(bool IsEditable) noexcept;
 
         [[nodiscard]] bool IsAllEditable() const noexcept;
 
-        void SetRowEditable(size_t row, bool isEditable);
+        void SetRowEditable(utl::usize row, bool isEditable);
 
-        [[nodiscard]] bool IsRowEditable(size_t row) const;
+        [[nodiscard]] bool IsRowEditable(utl::usize row) const;
 
-        void SetColumnEditable(size_t column, bool isEditable);
+        void SetColumnEditable(utl::usize column, bool isEditable);
 
-        [[nodiscard]] bool IsColumnEditable(size_t column) const;
+        [[nodiscard]] bool IsColumnEditable(utl::usize column) const;
 
-        void SetSingleCellTextColor(Color color, size_t row, size_t column);
+        void SetSingleCellTextColor(Color color, utl::usize row, utl::usize column);
 
-        [[nodiscard]] Color GetSingleCellTextColor(size_t row, size_t column) const;
+        [[nodiscard]] Color GetSingleCellTextColor(utl::usize row, utl::usize column) const;
 
         void SetAllCellTextColor(Color color);
 
-        void SetRowCellTextColor(Color color, size_t row);
+        void SetRowCellTextColor(Color color, utl::usize row);
 
-        void SetColumnCellTextColor(Color color, size_t column);
+        void SetColumnCellTextColor(Color color, utl::usize column);
 
         void SetFixedHeadline(bool isFixedHeadline);
 
@@ -350,7 +351,7 @@ namespace uil {
 
         template<typename T>
         void SetHeadlineValues(std::vector<T> values) {
-            for (size_t i = 0; i < m_columnCount; ++i) {
+            for (utl::usize i = 0; i < m_columnCount; ++i) {
                 if (i >= values.size()) {
                     break;
                 }

@@ -16,8 +16,8 @@ namespace ui {
         uil::ClassicButton_ty m_endBTN;
         uil::ClassicButton_ty m_speedBTN;
         float m_speed{ 0.07f };
-        int m_maxSpeedLevel{ 3 };
-        int m_speedLevel{ 1 };
+        utl::usize m_maxSpeedLevel{ 3 };
+        utl::usize m_speedLevel{ 1 };
         std::vector<std::shared_ptr<uil::UIElement>> m_movingElements;
 
 

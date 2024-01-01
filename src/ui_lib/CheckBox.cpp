@@ -25,7 +25,7 @@ namespace uil {
         m_onCheck(m_ID, m_isChecked);
     }
 
-    CheckBox::CheckBox(unsigned int const focusID, Vector2 const pos, float const height, Alignment const alignment, unsigned int const checkBoxID)
+    CheckBox::CheckBox(utl::usize const focusID, Vector2 const pos, float const height, Alignment const alignment, utl::usize const checkBoxID)
 	: UIElement{ pos, { 0.0f, height }, alignment }, Focusable{ focusID },
 	m_ID{ checkBoxID } {
 
@@ -38,11 +38,11 @@ namespace uil {
         m_textureRec = { 0.0f, 0.0f, static_cast<float>(m_texture->width), static_cast<float>(m_texture->height) };
     }
 
-    void CheckBox::SetOnCheck(std::function<void(unsigned int, bool)> onCheck) {
+    void CheckBox::SetOnCheck(std::function<void(utl::usize, bool)> onCheck) {
         m_onCheck = std::move(onCheck);
     }
 
-    unsigned int CheckBox::GetID() const {
+    utl::usize CheckBox::GetID() const {
         return m_ID;
     }
 

@@ -49,12 +49,12 @@ namespace ui {
         m_elements.push_back(versionAndCopyRight);
 
 
-        float constexpr btnPosX{ 0.23f };
-        float btnPosY{ 0.25f };
-        float constexpr btnSizX{ 0.2f };
-        float constexpr btnSizY{ 0.1f };
-        float constexpr btnOffset{ 0.13f };
-        int focusID{ 1 };
+        auto constexpr btnPosX{ 0.23f };
+        auto btnPosY{ 0.25f };
+        auto constexpr btnSizX{ 0.2f };
+        auto constexpr btnSizY{ 0.1f };
+        auto constexpr btnOffset{ 0.13f };
+        auto focusID{ 1 };
 
         auto const incFID{ [&]() { ++focusID; } };
         auto const incAll{ [&]() {

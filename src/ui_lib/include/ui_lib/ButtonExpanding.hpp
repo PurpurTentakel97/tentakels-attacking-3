@@ -6,6 +6,7 @@
 #pragma once
 
 #include "UIElement.hpp"
+#include <alias/AliasUtils.hpp>
 
 
 namespace uil {
@@ -31,7 +32,7 @@ namespace uil {
         Direction m_direction;
         ToggleButton_ty m_mainButton;
 
-        void Initialize(int focusID, std::string const& btnText);
+        void Initialize(utl::usize focusID, std::string const& btnText);
 
         void HandleExpandChance(bool expanding, bool keyInput);
 
@@ -43,7 +44,7 @@ namespace uil {
 
     public:
         ExpandingButton(
-                int focusID,
+                utl::usize focusID,
                 Vector2 pos,
                 Vector2 size,
                 Alignment alignment,
@@ -57,7 +58,7 @@ namespace uil {
 
         void Remove(ClassicButton_ty const& btn);
 
-        void Remove(size_t ind);
+        void Remove(utl::usize ind);
 
         void Expand();
 

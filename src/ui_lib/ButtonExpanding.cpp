@@ -12,7 +12,7 @@
 
 
 namespace uil {
-    void ExpandingButton::Initialize(int const focusID, std::string const& btnText) {
+    void ExpandingButton::Initialize(utl::usize const focusID, std::string const& btnText) {
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
 
         m_mainButton = std::make_shared<ToggleButton>(
@@ -73,7 +73,7 @@ namespace uil {
     }
 
     ExpandingButton::ExpandingButton(
-            int const focusID,
+            utl::usize const focusID,
             Vector2 const pos,
             Vector2 const size,
             Alignment const alignment,
@@ -103,7 +103,7 @@ namespace uil {
         std::erase_if(m_buttons, [btn](Btn const& current) { return btn == current.btn; });
     }
 
-    void ExpandingButton::Remove(size_t const ind) {
+    void ExpandingButton::Remove(utl::usize const ind) {
         if (ind >= m_buttons.size()) {
             throw std::runtime_error("index out of range");
         }
@@ -165,7 +165,7 @@ namespace uil {
             }
         } };
 
-        for (size_t i = 0; i < m_buttons.size(); ++i) {
+        for (utl::usize i = 0; i < m_buttons.size(); ++i) {
             auto& btn{ m_buttons.at(i) };
             increase(i == 0);
             btn.btn->SetEnabled(m_isExpanded ? btn.enabled : false);

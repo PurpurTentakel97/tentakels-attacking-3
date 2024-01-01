@@ -31,9 +31,9 @@ namespace lgk {
         // player
         [[nodiscard]] bool ValidAddPlayer() const;
 
-        [[nodiscard]] unsigned int GetNextPlayerID() const;
+        [[nodiscard]] utl::usize GetNextPlayerID() const;
 
-        [[nodiscard]] bool IsExistingPlayerID(unsigned int ID) const;
+        [[nodiscard]] bool IsExistingPlayerID(utl::usize ID) const;
 
         [[nodiscard]] bool GetCurrentPlayer(Player_ty& currentPlayer) const;
 
@@ -69,8 +69,6 @@ namespace lgk {
         // fleet
         void AddFleet(eve::SendFleetInstructionEvent const* event);
 
-        [[nodiscard]] static bool ValidateAddFleetInput(eve::SendFleetInstructionEvent const* event);
-
         // game
         void StartGame();
 
@@ -84,6 +82,8 @@ namespace lgk {
 
     public:
         GameManager();
+
+        ~GameManager() override;
 
         void Update();
 

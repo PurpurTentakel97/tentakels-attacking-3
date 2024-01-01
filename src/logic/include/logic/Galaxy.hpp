@@ -26,22 +26,25 @@ namespace lgk {
         utl::vec2pos_ty m_size;
 
 
-        [[nodiscard]] unsigned int GetNextID() const;
+        [[nodiscard]] utl::usize GetNextID() const;
 
         // Planet
-        void
-        InitializePlanets(size_t planetCount, std::vector<Player_ty> const& players, Player_ty const& neutralPlayer);
+        void InitializePlanets(
+                utl::usize planetCount,
+                std::vector<Player_ty> const& players,
+                Player_ty const& neutralPlayer
+        );
 
-        [[nodiscard]] int GenerateHomePlanets(std::vector<Player_ty> const& players);
+        [[nodiscard]] utl::usize GenerateHomePlanets(std::vector<Player_ty> const& players);
 
-        void GenerateOtherPlanets(size_t PlanetCount, int currentPlanet, Player_ty const& player);
+        void GenerateOtherPlanets(utl::usize PlanetCount, utl::usize currentPlanet, Player_ty const& player);
 
         [[nodiscard]] bool IsValidNewPlanet(Planet_ty const& newPlanet, app::AppContext_ty_c appContext) const;
 
         // Fleet
-        [[nodiscard]] bool IsValidFleet(unsigned int ID) const;
+        [[nodiscard]] bool IsValidFleet(utl::usize ID) const;
 
-        [[nodiscard]] Fleet_ty GetFleetByID(unsigned int ID) const;
+        [[nodiscard]] Fleet_ty GetFleetByID(utl::usize ID) const;
 
         [[nodiscard]] Fleet_ty TryGetExistingFleetByOriginAndDestination(
                 SpaceObject_ty const& origin,
@@ -64,12 +67,12 @@ namespace lgk {
         void DeleteFleet(Fleet_ty const& fleet);
 
         // Target Point
-        [[nodiscard]] bool IsValidTargetPoint(unsigned int ID) const;
+        [[nodiscard]] bool IsValidTargetPoint(utl::usize ID) const;
 
-        [[nodiscard]] TargetPoint_ty GetTargetPointByID(unsigned int ID) const;
+        [[nodiscard]] TargetPoint_ty GetTargetPointByID(utl::usize ID) const;
 
         [[nodiscard]] SpaceObject_ty
-        GetOrGenerateDestination(unsigned int ID, int X, int Y, Player_ty const& currentPlayer);
+        GetOrGenerateDestination(utl::usize ID, utl::usize X, utl::usize Y, Player_ty const& currentPlayer);
 
         void CheckDeleteTargetPoints();
 
@@ -104,11 +107,11 @@ namespace lgk {
 
         [[nodiscard]] static utl::FightResult Fight(SpaceObject_ty const& defender, SpaceObject_ty const& attacker);
 
-        [[nodiscard]] static size_t Salve(SpaceObject_ty const& obj);
+        [[nodiscard]] static utl::usize Salve(SpaceObject_ty const& obj);
 
     public:
         Galaxy(utl::vec2pos_ty size,
-               size_t planetCount,
+               utl::usize planetCount,
                std::vector<Player_ty> const& players,
                Player_ty const& neutralPlayer);
 
@@ -116,7 +119,7 @@ namespace lgk {
 
         [[nodiscard]] bool IsValid() const;
 
-        [[nodiscard]] bool IsValidSpaceObjectID(unsigned int ID) const;
+        [[nodiscard]] bool IsValidSpaceObjectID(utl::usize ID) const;
 
         [[nodiscard]] bool HasMovesLeft(Player_ty_c player) const;
 
@@ -132,16 +135,16 @@ namespace lgk {
 
         [[nodiscard]] std::vector<TargetPoint_ty> GetTargetPoints() const;
 
-        [[nodiscard]] Planet_ty GetPlanetByID(unsigned int ID) const;
+        [[nodiscard]] Planet_ty GetPlanetByID(utl::usize ID) const;
 
-        [[nodiscard]] SpaceObject_ty GetSpaceObjectByID(unsigned int ID) const;
+        [[nodiscard]] SpaceObject_ty GetSpaceObjectByID(utl::usize ID) const;
 
         [[nodiscard]] bool IsValidPosition(utl::vec2pos_ty_ref_c position) const;
 
         [[nodiscard]] utl::FleetResult
         AddFleet(eve::SendFleetInstructionEvent const* event, Player_ty const& currentPlayer);
 
-        void SetDiscoverByPlayer(unsigned int currentPlayerID);
+        void SetDiscoverByPlayer(utl::usize currentPlayerID);
 
         void FilterByDiscovered();
 

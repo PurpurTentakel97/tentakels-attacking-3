@@ -30,7 +30,7 @@ namespace ui {
     }
 
     void DeletePlayerPopUp::SetValue() {
-        unsigned int const ID{ static_cast<unsigned int>(m_inputLine->GetValue()) };
+        utl::usize const ID{ static_cast<utl::usize>(m_inputLine->GetValue()) };
 
         m_onClick(ID);
 
@@ -43,7 +43,7 @@ namespace ui {
             uil::Alignment const alignment,
             std::string const& title,
             app::AssetType const inputTexture,
-            std::function<void(unsigned int)> onClick
+            std::function<void(utl::usize)> onClick
     )
         : CellPopUp{ pos, size, alignment, title, inputTexture },
           m_onClick{ std::move(onClick) } {

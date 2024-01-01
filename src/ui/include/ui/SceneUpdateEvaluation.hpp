@@ -5,9 +5,10 @@
 
 #pragma once
 
+#include <alias/AliasEvent.hpp>
+#include <alias/AliasUtils.hpp>
 #include <event/EventListener.hpp>
 #include <ui_lib/Scene.hpp>
-#include <alias/AliasEvent.hpp>
 
 
 namespace ui {
@@ -23,8 +24,8 @@ namespace ui {
         std::vector<utl::MergeResult> m_mergeResults;
         std::vector<utl::FightResult> m_fightResults;
         ResultType m_currentResultType{ ResultType::MERGE };
-        size_t m_currentIndex{ 0 };
-        int m_popupCount{ 0 };
+        utl::usize m_currentIndex{ 0 };
+        utl::usize m_popupCount{ 0 };
         bool m_nextPopup{ false };
 
         static void TestPrint(eve::SendUpdateEvaluation const* event);

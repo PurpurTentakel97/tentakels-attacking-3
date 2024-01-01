@@ -16,7 +16,7 @@ namespace uil {
         m_colorPicker->SetColor(m_color);
     }
 
-    ColorPickerCell::ColorPickerCell(unsigned int const ID, Vector2 const pos, Vector2 const size, Alignment const alignment, Color const color, ColorPicker* const colorPicker)
+    ColorPickerCell::ColorPickerCell(utl::usize const ID, Vector2 const pos, Vector2 const size, Alignment const alignment, Color const color, ColorPicker* const colorPicker)
 	: UIElement{ pos, size, alignment },Focusable{ ID },
 	m_color{ color }, m_colorPicker{ colorPicker },
 	m_hover{

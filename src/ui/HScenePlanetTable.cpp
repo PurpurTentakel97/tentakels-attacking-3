@@ -4,6 +4,7 @@
 //
 
 #include "HScenePlanetTable.hpp"
+#include <alias/AliasUtils.hpp>
 #include <helper/HFocusEvents.hpp>
 #include <logic/Galaxy.hpp>
 #include <logic/Player.hpp>
@@ -14,7 +15,7 @@ namespace ui {
         auto const planets{ m_galaxy->GetPlanets() };
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
 
-        size_t discoveredCount{ 0 };
+        utl::usize discoveredCount{ 0 };
         for (auto const& p : planets) {
             if (p->IsDiscovered()) {
                 ++discoveredCount;
@@ -43,7 +44,7 @@ namespace ui {
         );
         m_elements.push_back(m_table);
 
-        size_t addedCount{ 0 };
+        utl::usize addedCount{ 0 };
         for (auto const& p : planets) {
             //testing
             if (discoveredCount == addedCount) {

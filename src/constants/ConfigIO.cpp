@@ -15,7 +15,7 @@
 namespace cst {
     // string defaults
     static std::string const defaultValuePrefix{ "-> using default value -> overwrite config by save" };
-    static int loadEntryCount{ 0 };
+    static utl::usize loadEntryCount{ 0 };
     // print
     auto static const printMissingSection{ [](ConfigTypes const section) {
         hlp::Print(hlp::PrintType::ERROR, "section \"{}\" in config missing {}", CToS(section), defaultValuePrefix);
@@ -23,8 +23,9 @@ namespace cst {
     auto static const printMissingEntry{ [](ConfigTypes const entry) {
         hlp::Print(hlp::PrintType::ERROR, "entry \"{}\" in config missing {}", CToS(entry), defaultValuePrefix);
     } };
-    auto static const printNotMatchingCount{ [](ConfigTypes const section, size_t const expected, size_t const provided
-                                             ) {
+    auto static const printNotMatchingCount{ [](ConfigTypes const section,
+                                                utl::usize const expected,
+                                                utl::usize const provided) {
         hlp::Print(
                 hlp::PrintType::ERROR,
                 R"(section "{}" entry count in config is not matching -> expected: "{}" -> provided: "{}")",
@@ -66,7 +67,7 @@ namespace cst {
         }
         return true;
     } };
-    auto static const isMatchingSize{ [](nlohmann::json const& son, ConfigTypes const section, size_t const count
+    auto static const isMatchingSize{ [](nlohmann::json const& son, ConfigTypes const section, utl::usize const count
                                       ) -> bool {
         assert(son.size() == count);
         if (son.size() != count) {
@@ -78,7 +79,7 @@ namespace cst {
 
     // load
     auto static const loadSection{
-        [](nlohmann::json const& son, nlohmann::json& out, ConfigTypes const section, size_t const count) -> bool {
+        [](nlohmann::json const& son, nlohmann::json& out, ConfigTypes const section, utl::usize const count) -> bool {
             if (not isExistingSection(son, section)) {
                 return false;
             }
@@ -106,6 +107,7 @@ namespace cst {
         son.at(CToS(entry)).get_to(out);
         return true;
     } };
+    /*
     auto static const loadInt{ [](nlohmann::json const& son, int& out, ConfigTypes const entry) -> bool {
         ++loadEntryCount;
         if (not isExistingEntry(son, entry)) {
@@ -119,7 +121,22 @@ namespace cst {
 
         son.at(CToS(entry)).get_to(out);
         return true;
-    } };
+ } };
+*/
+    auto static const loadUSize([](nlohmann::json const& son, utl::usize& out, ConfigTypes const entry) -> bool {
+        ++loadEntryCount;
+        if (not isExistingEntry(son, entry)) {
+            return false;
+        }
+        assert(son.at(CToS(entry)).is_number_unsigned());
+        if (not son.at(CToS(entry)).is_number_unsigned()) {
+            printWrongDatatype(entry);
+            return false;
+        }
+
+        son.at(CToS(entry)).get_to(out);
+        return true;
+    });
     auto static const loadFloat{ [](nlohmann::json const& son, float& out, ConfigTypes const entry) -> bool {
         ++loadEntryCount;
         if (not isExistingEntry(son, entry)) {
@@ -222,13 +239,13 @@ namespace cst {
         // fight
         if (nlohmann::json fight; loadSection(load, fight, ConfigTypes::FIGHT, Fight::configEntryCount)) {
             // clang-format off
-        if (float out; loadFloat(fight, out, ConfigTypes::HIT_CHANCE                     )) { constants.fight.hitChance                     = out; }
-        if (int   out;   loadInt(fight, out, ConfigTypes::FLEET_FIGHT_RANGE              )) { constants.fight.fleetFightRange               = out; }
-        if (bool  out;  loadBool(fight, out, ConfigTypes::FIGHT_PLANET_FLEET             )) { constants.fight.isFightPlanetFleet            = out; }
-        if (bool  out;  loadBool(fight, out, ConfigTypes::FIGHT_PLANET_TARGET_POINT      )) { constants.fight.isFightPlanetTargetPoint      = out; }
-        if (bool  out;  loadBool(fight, out, ConfigTypes::FIGHT_TARGET_POINT_FLEET       )) { constants.fight.isFightTargetPointFleet       = out; }
-        if (bool  out;  loadBool(fight, out, ConfigTypes::FIGHT_TARGET_POINT_TARGET_POINT)) { constants.fight.isFightTargetPointTargetPoint = out; }
-        // clang-format on
+        if (float      out; loadFloat(fight, out, ConfigTypes::HIT_CHANCE                     )) { constants.fight.hitChance                     = out; }
+        if (utl::usize out; loadUSize(fight, out, ConfigTypes::FLEET_FIGHT_RANGE              )) { constants.fight.fleetFightRange               = out; }
+        if (bool       out; loadBool(fight, out, ConfigTypes::FIGHT_PLANET_FLEET             )) { constants.fight.isFightPlanetFleet            = out; }
+        if (bool       out; loadBool(fight, out, ConfigTypes::FIGHT_PLANET_TARGET_POINT      )) { constants.fight.isFightPlanetTargetPoint      = out; }
+        if (bool       out; loadBool(fight, out, ConfigTypes::FIGHT_TARGET_POINT_FLEET       )) { constants.fight.isFightTargetPointFleet       = out; }
+        if (bool       out; loadBool(fight, out, ConfigTypes::FIGHT_TARGET_POINT_TARGET_POINT)) { constants.fight.isFightTargetPointTargetPoint = out; }
+            // clang-format on
         }
         // fleet
         if (nlohmann::json events; loadSection(load, events, ConfigTypes::GAME_EVENTS, GameEvents::configEntryCount)) {
@@ -239,46 +256,46 @@ namespace cst {
         if (bool  out;  loadBool(events, out, ConfigTypes::BLACK_HOLE         )) { constants.gameEvents.SetFlag(HGameEventType::BLACK_HOLE,     out); }
         if (bool  out;  loadBool(events, out, ConfigTypes::SUPERNOVA          )) { constants.gameEvents.SetFlag(HGameEventType::SUPERNOVA,      out); }
         if (bool  out;  loadBool(events, out, ConfigTypes::ENGINE_PROBLEM     )) { constants.gameEvents.SetFlag(HGameEventType::ENGINE_PROBLEM, out); }
-        if (float out; loadFloat(events, out, ConfigTypes::GLOBAL_EVENT_CHANCE)) { constants.gameEvents.globalEventChance                     = out ; }
+        if (float out;  loadFloat(events, out, ConfigTypes::GLOBAL_EVENT_CHANCE)) { constants.gameEvents.globalEventChance                     = out ; }
         // clang-format on
         }
         // game events
         if (nlohmann::json fleet; loadSection(load, fleet, ConfigTypes::FLEET, Fleet::configEntryCount)) {
             // clang-format off
-        if (int out; loadInt(fleet, out, ConfigTypes::FLEET_SPEED_CURRENT)) { constants.fleet.currentFleetSpeed = out; }
-        if (int out; loadInt(fleet, out, ConfigTypes::FLEET_SPEED_MAX    )) { constants.fleet.maxFleetSpeed     = out; }
-        if (int out; loadInt(fleet, out, ConfigTypes::FLEET_SPEED_MIN    )) { constants.fleet.minFleetSpeed     = out; }
-        // clang-format on
+        if (utl::usize out; loadUSize(fleet, out, ConfigTypes::FLEET_SPEED_CURRENT)) { constants.fleet.currentFleetSpeed = out; }
+        if (utl::usize out; loadUSize(fleet, out, ConfigTypes::FLEET_SPEED_MAX    )) { constants.fleet.maxFleetSpeed     = out; }
+        if (utl::usize out; loadUSize(fleet, out, ConfigTypes::FLEET_SPEED_MIN    )) { constants.fleet.minFleetSpeed     = out; }
+            // clang-format on
         }
         // global
         if (nlohmann::json global; loadSection(load, global, ConfigTypes::GLOBAL, Global::configEntryCount)) {
             // clang-format off
         if (std::string out; loadString(global, out, ConfigTypes::CURRENT_LANGUAGE_NAME)) {constants.global.currentLanguageName = out;}
-        if (int out; loadInt(global, out, ConfigTypes::GAME_ROUNDS_CURRENT)) { constants.global.currentTargetRound = static_cast<size_t>(out); }
-        if (int out; loadInt(global, out, ConfigTypes::GAME_ROUNDS_MAX))     { constants.global.maxRounds          = static_cast<size_t>(out); }
-        if (int out; loadInt(global, out, ConfigTypes::GAME_ROUNDS_MIN))     { constants.global.minRounds          = static_cast<size_t>(out); }
+        if (utl::usize  out; loadUSize(global, out, ConfigTypes::GAME_ROUNDS_CURRENT)) { constants.global.currentTargetRound = static_cast<utl::usize>(out); }
+        if (utl::usize  out; loadUSize(global, out, ConfigTypes::GAME_ROUNDS_MAX))     { constants.global.maxRounds          = static_cast<utl::usize>(out); }
+        if (utl::usize  out; loadUSize(global, out, ConfigTypes::GAME_ROUNDS_MIN))     { constants.global.minRounds          = static_cast<utl::usize>(out); }
         // clang-format on
         }
         // planet
         if (nlohmann::json planet; loadSection(load, planet, ConfigTypes::PLANET, Planet::configEntryCount)) {
             // clang-format off
-        if (int   out;   loadInt(planet, out, ConfigTypes::PRODUCTION_HOME_WORLD           )) { constants.planet.homeworldProduction              = static_cast<size_t>(out); }
-        if (int   out;   loadInt(planet, out, ConfigTypes::PRODUCTION_MAX                  )) { constants.planet.maxProduction                    = static_cast<size_t>(out); }
-        if (int   out;   loadInt(planet, out, ConfigTypes::PRODUCTION_MIN                  )) { constants.planet.minProduction                    = static_cast<size_t>(out); }
-        if (int   out;   loadInt(planet, out, ConfigTypes::SHIPS_MAX_FACTOR                )) { constants.planet.maxShipsFactor                   = static_cast<size_t>(out); }
-        if (float out; loadFloat(planet, out, ConfigTypes::SPACING_GLOBAL                  )) { constants.planet.globalSpacing                    =                     out ; }
-        if (float out; loadFloat(planet, out, ConfigTypes::SPACING_HOME_WORLD              )) { constants.planet.homeworldSpacing                 =                     out ; }
-        if (int   out;   loadInt(planet, out, ConfigTypes::STARTING_SHIPS_MULTIPLIER_GLOBAL)) { constants.planet.startingGlobalShipsMultiplicator = static_cast<size_t>(out); }
-        if (int   out;   loadInt(planet, out, ConfigTypes::STARTING_SHIPS_MULTIPLIER_HUMAN )) { constants.planet.startingHumanShipsMultiplicator  = static_cast<size_t>(out); }
-        // clang-format on
+        if (utl::usize out; loadUSize(planet, out, ConfigTypes::PRODUCTION_HOME_WORLD           )) { constants.planet.homeworldProduction              = static_cast<utl::usize>(out); }
+        if (utl::usize out; loadUSize(planet, out, ConfigTypes::PRODUCTION_MAX                  )) { constants.planet.maxProduction                    = static_cast<utl::usize>(out); }
+        if (utl::usize out; loadUSize(planet, out, ConfigTypes::PRODUCTION_MIN                  )) { constants.planet.minProduction                    = static_cast<utl::usize>(out); }
+        if (utl::usize out; loadUSize(planet, out, ConfigTypes::SHIPS_MAX_FACTOR                )) { constants.planet.maxShipsFactor                   = static_cast<utl::usize>(out); }
+        if (float      out; loadFloat(planet, out, ConfigTypes::SPACING_GLOBAL                  )) { constants.planet.globalSpacing                    =                     out ; }
+        if (float      out; loadFloat(planet, out, ConfigTypes::SPACING_HOME_WORLD              )) { constants.planet.homeworldSpacing                 =                     out ; }
+        if (utl::usize out; loadUSize(planet, out, ConfigTypes::STARTING_SHIPS_MULTIPLIER_GLOBAL)) { constants.planet.startingGlobalShipsMultiplicator = static_cast<utl::usize>(out); }
+        if (utl::usize out; loadUSize(planet, out, ConfigTypes::STARTING_SHIPS_MULTIPLIER_HUMAN )) { constants.planet.startingHumanShipsMultiplicator  = static_cast<utl::usize>(out); }
+            // clang-format on
         }
         // player
         if (nlohmann::json player; loadSection(load, player, ConfigTypes::PLAYER, Player::configEntryCount)) {
             // clang-format off
-        if (int  out;  loadInt(player, out, ConfigTypes::PLAYER_COUNT_MAX)) { constants.player.maxPlayerCount = static_cast<size_t>(out); }
-        if (int  out;  loadInt(player, out, ConfigTypes::PLAYER_COUNT_MIN)) { constants.player.minPlayerCount = static_cast<size_t>(out); }
-        if (bool out; loadBool(player, out, ConfigTypes::Player_SHUFFLE  )) { constants.player.shuffle        =                     out ; }
-        // clang-format on
+        if (utl::usize out; loadUSize(player, out, ConfigTypes::PLAYER_COUNT_MAX)) { constants.player.maxPlayerCount = static_cast<utl::usize>(out); }
+        if (utl::usize out; loadUSize(player, out, ConfigTypes::PLAYER_COUNT_MIN)) { constants.player.minPlayerCount = static_cast<utl::usize>(out); }
+        if (bool       out;  loadBool(player, out, ConfigTypes::Player_SHUFFLE  )) { constants.player.shuffle        =                     out ; }
+            // clang-format on
         }
         // sound
         if (nlohmann::json sound; loadSection(load, sound, ConfigTypes::SOUND, Sound::configEntryCount)) {
@@ -290,34 +307,34 @@ namespace cst {
         // window
         if (nlohmann::json window; loadSection(load, window, ConfigTypes::WINDOW, Window::configEntryCount)) {
             // clang-format off
-        if (int  out;  loadInt(window, out, ConfigTypes::RESOLUTION_AS_ENUM)) { constants.window.currentResolutionEnum = static_cast<Resolution>(out); }
-        if (bool out; loadBool(window, out, ConfigTypes::FULL_SCREEN_BOOL  )) { constants.window.isFullScreen          =                         out ; }
-        if (int  out;  loadInt(window, out, ConfigTypes::TARGET_FPS        )) { constants.window.FPS                   = static_cast<size_t>    (out); }
-        // clang-format on
+        if (utl::usize out; loadUSize(window, out, ConfigTypes::RESOLUTION_AS_ENUM)) { constants.window.currentResolutionEnum = static_cast<Resolution>(out); }
+        if (bool       out;  loadBool(window, out, ConfigTypes::FULL_SCREEN_BOOL  )) { constants.window.isFullScreen          =                         out ; }
+        if (utl::usize out; loadUSize(window, out, ConfigTypes::TARGET_FPS        )) { constants.window.FPS                   = static_cast<utl::usize>    (out); }
+            // clang-format on
         }
         // world
         if (nlohmann::json world; loadSection(load, world, ConfigTypes::WORLD, World::configEntryCount)) {
             // clang-format off
-        if (int out; loadInt(world, out, ConfigTypes::DIMENSION_X_CURRENT     )) { constants.world.currentDimensionX   =                     out;  }
-        if (int out; loadInt(world, out, ConfigTypes::DIMENSION_X_MAX         )) { constants.world.maxDimensionX       =                     out;  }
-        if (int out; loadInt(world, out, ConfigTypes::DIMENSION_X_MIN         )) { constants.world.minDimensionX       =                     out;  }
-        if (int out; loadInt(world, out, ConfigTypes::DIMENSION_X_SHOW_GALAXY )) { constants.world.showDimensionX      =                     out;  }
-        if (int out; loadInt(world, out, ConfigTypes::DIMENSION_Y_CURRENT     )) { constants.world.currentDimensionY   =                     out;  }
-        if (int out; loadInt(world, out, ConfigTypes::DIMENSION_Y_MAX         )) { constants.world.maxDimensionY       =                     out;  }
-        if (int out; loadInt(world, out, ConfigTypes::DIMENSION_Y_MIN         )) { constants.world.minDimensionY       =                     out;  }
-        if (int out; loadInt(world, out, ConfigTypes::DIMENSION_Y_SHOW_GALAXY )) { constants.world.showDimensionY      =                     out;  }
-        if (int out; loadInt(world, out, ConfigTypes::DISCOVER_RANGE_FACTOR   )) { constants.world.discoverRangeFactor =                     out;  }
-        if (int out; loadInt(world, out, ConfigTypes::PLANET_COUNT_CURRENT    )) { constants.world.currentPlanetCount  = static_cast<size_t>(out); }
-        if (int out; loadInt(world, out, ConfigTypes::PLANET_COUNT_MAX        )) { constants.world.maxPlanetCount      = static_cast<size_t>(out); }
-        if (int out; loadInt(world, out, ConfigTypes::PLANET_COUNT_MIN        )) { constants.world.minPlanetCount      = static_cast<size_t>(out); }
-        if (int out; loadInt(world, out, ConfigTypes::PLANET_COUNT_SHOW_GALAXY)) { constants.world.showPlanetCount     = static_cast<size_t>(out); }
-        // clang-format on
+        if (utl::usize out; loadUSize(world, out, ConfigTypes::DIMENSION_X_CURRENT     )) { constants.world.currentDimensionX   =                     out;  }
+        if (utl::usize out; loadUSize(world, out, ConfigTypes::DIMENSION_X_MAX         )) { constants.world.maxDimensionX       =                     out;  }
+        if (utl::usize out; loadUSize(world, out, ConfigTypes::DIMENSION_X_MIN         )) { constants.world.minDimensionX       =                     out;  }
+        if (utl::usize out; loadUSize(world, out, ConfigTypes::DIMENSION_X_SHOW_GALAXY )) { constants.world.showDimensionX      =                     out;  }
+        if (utl::usize out; loadUSize(world, out, ConfigTypes::DIMENSION_Y_CURRENT     )) { constants.world.currentDimensionY   =                     out;  }
+        if (utl::usize out; loadUSize(world, out, ConfigTypes::DIMENSION_Y_MAX         )) { constants.world.maxDimensionY       =                     out;  }
+        if (utl::usize out; loadUSize(world, out, ConfigTypes::DIMENSION_Y_MIN         )) { constants.world.minDimensionY       =                     out;  }
+        if (utl::usize out; loadUSize(world, out, ConfigTypes::DIMENSION_Y_SHOW_GALAXY )) { constants.world.showDimensionY      =                     out;  }
+        if (utl::usize out; loadUSize(world, out, ConfigTypes::DISCOVER_RANGE_FACTOR   )) { constants.world.discoverRangeFactor =                     out;  }
+        if (utl::usize out; loadUSize(world, out, ConfigTypes::PLANET_COUNT_CURRENT    )) { constants.world.currentPlanetCount  = static_cast<utl::usize>(out); }
+        if (utl::usize out; loadUSize(world, out, ConfigTypes::PLANET_COUNT_MAX        )) { constants.world.maxPlanetCount      = static_cast<utl::usize>(out); }
+        if (utl::usize out; loadUSize(world, out, ConfigTypes::PLANET_COUNT_MIN        )) { constants.world.minPlanetCount      = static_cast<utl::usize>(out); }
+        if (utl::usize out; loadUSize(world, out, ConfigTypes::PLANET_COUNT_SHOW_GALAXY)) { constants.world.showPlanetCount     = static_cast<utl::usize>(out); }
+            // clang-format on
         }
 
 
         // check if all values are loaded
         assert(loadEntryCount == Constants::GetConfigValueCount());
-        if (int count = Constants::GetConfigValueCount(); loadEntryCount != count) {
+        if (auto count = Constants::GetConfigValueCount(); loadEntryCount != count) {
             hlp::Print(
                     hlp::PrintType::ERROR,
                     "Entry count in config is not matching -> expected: {} -> provided: {} -> some values will use the "
@@ -412,7 +429,7 @@ namespace cst {
         };
         save[CToS(ConfigTypes::WINDOW)] = {
   // clang-format off
-        { CToS(ConfigTypes::RESOLUTION_AS_ENUM), static_cast<size_t>(constants.window.currentResolutionEnum) },
+        { CToS(ConfigTypes::RESOLUTION_AS_ENUM), static_cast<utl::usize>(constants.window.currentResolutionEnum) },
         { CToS(ConfigTypes::FULL_SCREEN_BOOL  ),                     constants.window.isFullScreen           },
         { CToS(ConfigTypes::TARGET_FPS        ),                     constants.window.FPS                    },
   // clang-format on

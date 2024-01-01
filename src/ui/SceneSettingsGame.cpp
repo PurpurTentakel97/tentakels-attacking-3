@@ -6,6 +6,7 @@
 #include "SceneSettingsGame.hpp"
 #include "HSceneGameEventSettings.hpp"
 #include "HSceneSliderAndInputLine.hpp"
+#include <alias/AliasUtils.hpp>
 #include <event/EventGeneral.hpp>
 #include <ui_lib/ButtonClassic.hpp>
 #include <ui_lib/CheckBox.hpp>
@@ -40,22 +41,22 @@ namespace ui {
         m_elements.push_back(finishBtn);
 
         // constants
-        int id{ 1 };
-        float y{ 0.32f };
-        // float     constexpr lx     { 0.05f   };
-        float constexpr rx{ 0.55f };
-        float constexpr rx2{ 0.75f };
-        float constexpr width{ 0.40f };
-        float constexpr heightS{ 0.025f };
-        float constexpr height{ 0.05f };
-        float constexpr offset{ height + 0.005f };
-        float constexpr offsetS{ heightS + 0.005f };
-        float constexpr rxwoS{ rx + heightS };
-        float constexpr rx2woS{ rx2 + heightS };
-        float constexpr rxwo{ rx + height };
-        // float     constexpr rx2wo  { rx2 + height     };
-        // float     constexpr lxwoS  { lx + heightS     };
-        // float     constexpr lxwo   { lx + height      };
+        auto id{ 1 };
+        auto y{ 0.32f };
+        // auto     constexpr lx     { 0.05f   };
+        auto constexpr rx{ 0.55f };
+        auto constexpr rx2{ 0.75f };
+        auto constexpr width{ 0.40f };
+        auto constexpr heightS{ 0.025f };
+        auto constexpr height{ 0.05f };
+        auto constexpr offset{ height + 0.005f };
+        auto constexpr offsetS{ heightS + 0.005f };
+        auto constexpr rxwoS{ rx + heightS };
+        auto constexpr rx2woS{ rx2 + heightS };
+        auto constexpr rxwo{ rx + height };
+        // auto     constexpr rx2wo  { rx2 + height     };
+        // auto     constexpr lxwoS  { lx + heightS     };
+        // auto     constexpr lxwo   { lx + height      };
         auto constexpr a{ uil::Alignment::MID_LEFT };
 
         // increase
@@ -98,7 +99,7 @@ namespace ui {
                 static_cast<int>(appContext.constants.fleet.currentFleetSpeed)
         );
         fleetSpeed->SetActive(true, appContext);
-        fleetSpeed->SetOnSave([](int value) {
+        fleetSpeed->SetOnSave([](utl::usize value) {
             app::AppContext::GetInstance().constants.fleet.currentFleetSpeed = value;
         });
         m_elements.push_back(fleetSpeed);
@@ -130,7 +131,7 @@ namespace ui {
                 static_cast<int>(appContext.constants.global.currentTargetRound)
         );
         lastRound->SetActive(true, appContext);
-        lastRound->SetOnSave([](size_t value) {
+        lastRound->SetOnSave([](utl::usize value) {
             eve::SetCurrentLastRoundEvent const event{ value };
             app::AppContext::GetInstance().eventManager.InvokeEvent(event);
         });
@@ -149,7 +150,7 @@ namespace ui {
                 1
         );
         playerShuffleCB->SetChecked(appContext.constants.player.shuffle);
-        playerShuffleCB->SetOnCheck([](unsigned int, bool isChecked) {
+        playerShuffleCB->SetOnCheck([](utl::usize, bool isChecked) {
             app::AppContext::GetInstance().constants.player.shuffle = isChecked;
         });
         m_elements.push_back(playerShuffleCB);
@@ -189,7 +190,7 @@ namespace ui {
                 1
         );
         fightPlanetFleetCB->SetChecked(appContext.constants.fight.isFightPlanetFleet);
-        fightPlanetFleetCB->SetOnCheck([](unsigned int, bool isChecked) {
+        fightPlanetFleetCB->SetOnCheck([](utl::usize, bool isChecked) {
             app::AppContext::GetInstance().constants.fight.isFightPlanetFleet = isChecked;
         });
         m_elements.push_back(fightPlanetFleetCB);
@@ -214,7 +215,7 @@ namespace ui {
                 1
         );
         fightPlanetTargetPointCB->SetChecked(appContext.constants.fight.isFightPlanetTargetPoint);
-        fightPlanetTargetPointCB->SetOnCheck([](unsigned int, bool isChecked) {
+        fightPlanetTargetPointCB->SetOnCheck([](utl::usize, bool isChecked) {
             app::AppContext::GetInstance().constants.fight.isFightPlanetTargetPoint = isChecked;
         });
         m_elements.push_back(fightPlanetTargetPointCB);
@@ -241,7 +242,7 @@ namespace ui {
                 1
         );
         fightTargetPointFleetCB->SetChecked(appContext.constants.fight.isFightTargetPointFleet);
-        fightTargetPointFleetCB->SetOnCheck([](unsigned int, bool isChecked) {
+        fightTargetPointFleetCB->SetOnCheck([](utl::usize, bool isChecked) {
             app::AppContext::GetInstance().constants.fight.isFightTargetPointFleet = isChecked;
         });
         m_elements.push_back(fightTargetPointFleetCB);
@@ -266,7 +267,7 @@ namespace ui {
                 1
         );
         fightTargetPointTargetPointCB->SetChecked(appContext.constants.fight.isFightTargetPointTargetPoint);
-        fightTargetPointTargetPointCB->SetOnCheck([](unsigned int, bool isChecked) {
+        fightTargetPointTargetPointCB->SetOnCheck([](utl::usize, bool isChecked) {
             app::AppContext::GetInstance().constants.fight.isFightTargetPointTargetPoint = isChecked;
         });
         m_elements.push_back(fightTargetPointTargetPointCB);

@@ -7,6 +7,7 @@
 
 #include "Focusable.hpp"
 #include <alias/AliasUiLib.hpp>
+#include <alias/AliasUtils.hpp>
 #include <event/EventListener.hpp>
 #include <utils/LayeredVector.hpp>
 #include <vector>
@@ -20,7 +21,7 @@ namespace uil {
         std::vector<Focusable_ty_raw> m_lastFocus;
         bool m_renderFocus{ false };
 
-        size_t m_PopUpLayerCounter{ 0 };
+        utl::usize m_PopUpLayerCounter{ 0 };
         utl::LayeredVector<Focusable> m_addElementRequest;
         utl::LayeredVector<Focusable> m_removeElementRequest;
         utl::LayeredVector<Focusable> m_toSelectRequest;
@@ -80,7 +81,7 @@ namespace uil {
 
         void SetLayerAfterPopUp();
 
-        void CheckNewID(unsigned int newID);
+        void CheckNewID(utl::usize newID);
 
     public:
         Focus();

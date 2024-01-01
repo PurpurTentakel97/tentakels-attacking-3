@@ -4,6 +4,7 @@
 //
 
 #include "AssetManager.hpp"
+#include <alias/AliasUtils.hpp>
 #include <filesystem>
 #include <fstream>
 #include <helper/HPrint.hpp>
@@ -45,7 +46,7 @@ namespace app {
     }
 
     void AssetManager::LoadFiles() {
-        for (size_t i = 0; i < m_files.size(); ++i) {
+        for (utl::usize i = 0; i < m_files.size(); ++i) {
             auto const filename{ "Assets/Pictures/" + m_files.at(i) };
 
             if (!std::filesystem::exists(filename)) {
@@ -63,7 +64,8 @@ namespace app {
         LoadTitle();
         LoadFont();
     }
-    AssetManager::~AssetManager() {
+
+    void AssetManager::Unload() {
         for (auto const& [type, asset] : m_assets) {
             UnloadTexture(asset);
         }

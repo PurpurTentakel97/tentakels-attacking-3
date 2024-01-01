@@ -9,10 +9,10 @@
 
 namespace cst {
     struct Fleet final {
-        static inline size_t constexpr configEntryCount{ 3 };
+        static inline utl::usize constexpr configEntryCount{ 3 };
 
-        int minFleetSpeed{ 1 };
-        int currentFleetSpeed{ 5 };
-        int maxFleetSpeed{ 20 };
+        utl::usize minFleetSpeed{ 1 };
+        utl::usize currentFleetSpeed{ 5 };
+        utl::usize maxFleetSpeed{ 20 };
     };
 } // namespace cst

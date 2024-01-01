@@ -12,6 +12,7 @@
 #include <helper/HRandom.hpp>
 #include <stdexcept>
 #include <utils/FightResult.hpp>
+#include <utils/FleetInstructionType.hpp>
 #include <utils/FleetResult.hpp>
 #include <utils/MergeResult.hpp>
 #include <vector>
@@ -28,13 +29,13 @@ namespace lgk {
     };
 
     // helper
-    unsigned int Galaxy::GetNextID() const {
+    utl::usize Galaxy::GetNextID() const {
 
         if (m_objects.empty()) {
             return 1;
         }
 
-        unsigned int nextID{ 1 };
+        utl::usize nextID{ 1 };
         while (true) {
             bool freeID{ true };
             for (auto& o : m_objects) {
@@ -53,29 +54,29 @@ namespace lgk {
     }
 
     void Galaxy::InitializePlanets(
-            size_t planetCount,
+            utl::usize planetCount,
             std::vector<Player_ty> const& players,
             Player_ty const& neutralPlayer
     ) {
 
-        int const currentPlanet{ GenerateHomePlanets(players) };
+        auto const currentPlanet{ GenerateHomePlanets(players) };
         if (m_validGalaxy) {
             GenerateOtherPlanets(planetCount, currentPlanet, neutralPlayer);
         }
     }
 
-    int Galaxy::GenerateHomePlanets(std::vector<Player_ty> const& players) {
+    utl::usize Galaxy::GenerateHomePlanets(std::vector<Player_ty> const& players) {
 
         auto& random{ hlp::Random::GetInstance() };
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
-        int currentPlanet{ 1 };
+        utl::usize currentPlanet{ 1 };
 
 
         for (auto& p : players) {
-            int counter{ 0 };
+            utl::usize counter{ 0 };
             while (true) {
-                utl::vec2pos_ty_c newPosition{ static_cast<int>(random.random(static_cast<size_t>(m_size.x))),
-                                               static_cast<int>(random.random(static_cast<size_t>(m_size.y))) };
+                utl::vec2pos_ty_c newPosition{ random.random(static_cast<utl::usize>(m_size.x)),
+                                               random.random(static_cast<utl::usize>(m_size.y)) };
 
                 auto const newPlanet = std::make_shared<Planet>(GetNextID(), newPosition, p, true, currentPlanet);
                 //newPlanet->SetDiscovered(true);
@@ -99,17 +100,16 @@ namespace lgk {
         return currentPlanet;
     }
 
-    void Galaxy::GenerateOtherPlanets(size_t const planetCount, int currentPlanet, Player_ty const& player) {
+    void Galaxy::GenerateOtherPlanets(utl::usize const planetCount, utl::usize currentPlanet, Player_ty const& player) {
 
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
         auto& random{ hlp::Random::GetInstance() };
 
 
-        for (; static_cast<size_t>(currentPlanet) <= planetCount; ++currentPlanet) {
-            int counter{ 0 };
+        for (; static_cast<utl::usize>(currentPlanet) <= planetCount; ++currentPlanet) {
+            utl::usize counter{ 0 };
             while (true) {
-                utl::vec2pos_ty_c newPosition{ static_cast<int>(random.random(static_cast<size_t>(m_size.x))),
-                                               static_cast<int>(random.random(static_cast<size_t>(m_size.y))) };
+                utl::vec2pos_ty_c newPosition{ random.random(m_size.x), random.random(m_size.y) };
 
                 auto const newPlanet = std::make_shared<Planet>(GetNextID(), newPosition, player, false, currentPlanet);
 
@@ -133,9 +133,9 @@ namespace lgk {
         bool validPlanet{ true };
 
         // works because Home Planets are generated first.
-        double const factor = newPlanet->IsHomePlanet() ? appContext.constants.planet.homeworldSpacing
-                                                        : appContext.constants.planet.globalSpacing;
-        double const spacing{ m_size.Length() * factor };
+        auto const factor = newPlanet->IsHomePlanet() ? appContext.constants.planet.homeworldSpacing
+                                                      : appContext.constants.planet.globalSpacing;
+        double const spacing{ m_size.Length() * static_cast<double>(factor) };
 
         for (auto& p : m_planets) {
             double const currentSpacing{ (p->GetPos() - newPlanet->GetPos()).Length() };
@@ -149,7 +149,7 @@ namespace lgk {
     }
 
     // Fleet
-    bool Galaxy::IsValidFleet(unsigned int const ID) const {
+    bool Galaxy::IsValidFleet(utl::usize const ID) const {
 
         for (auto const& f : m_fleets) {
             if (f->GetID() == ID) {
@@ -159,7 +159,7 @@ namespace lgk {
         return false;
     }
 
-    Fleet_ty Galaxy::GetFleetByID(unsigned int const ID) const {
+    Fleet_ty Galaxy::GetFleetByID(utl::usize const ID) const {
         for (auto const& f : m_fleets) {
             if (f->GetID() == ID) {
                 return f;
@@ -226,7 +226,7 @@ namespace lgk {
                 popup(app::AppContext::GetInstance().languageManager.Text("logic_galaxy_are_same_planets_text"));
                 hlp::Print(
                         hlp::PrintType::ONLY_DEBUG,
-                        "origin and destination if are the same -> origin: {} -> destination: {}",
+                        "origin and destination are the same -> origin: {} -> destination: {}",
                         originPlanet->GetID(),
                         destination->GetID()
                 );
@@ -572,7 +572,7 @@ namespace lgk {
         );
     }
 
-    bool Galaxy::IsValidTargetPoint(unsigned int const ID) const {
+    bool Galaxy::IsValidTargetPoint(utl::usize const ID) const {
         for (auto const& tp : m_targetPoints) {
             if (tp->GetID() == ID) {
                 return true;
@@ -581,7 +581,7 @@ namespace lgk {
         return false;
     }
 
-    TargetPoint_ty Galaxy::GetTargetPointByID(unsigned int const ID) const {
+    TargetPoint_ty Galaxy::GetTargetPointByID(utl::usize const ID) const {
         for (auto const& tp : m_targetPoints) {
             if (tp->GetID() == ID) {
                 return tp;
@@ -591,8 +591,12 @@ namespace lgk {
         throw std::runtime_error("no Target Point with ID " + std::to_string(ID));
     }
 
-    SpaceObject_ty
-    Galaxy::GetOrGenerateDestination(unsigned int const ID, int const X, int const Y, Player_ty const& currentPlayer) {
+    SpaceObject_ty Galaxy::GetOrGenerateDestination(
+            utl::usize const ID,
+            utl::usize const X,
+            utl::usize const Y,
+            Player_ty const& currentPlayer
+    ) {
 
         for (auto& object : m_objects) {
 
@@ -1115,12 +1119,12 @@ namespace lgk {
         };
     }
 
-    size_t Galaxy::Salve(SpaceObject_ty const& obj) {
+    utl::usize Galaxy::Salve(SpaceObject_ty const& obj) {
         float const hitChance{ app::AppContext::GetInstance().constants.fight.hitChance * 100 };
         auto& random_{ hlp::Random::GetInstance() };
-        size_t hitCount{ 0 };
+        utl::usize hitCount{ 0 };
 
-        for (size_t i = 0; i < obj->GetShipCount(); ++i) {
+        for (utl::usize i = 0; i < obj->GetShipCount(); ++i) {
             auto result{ random_.random(101) };
             if (hitChance >= static_cast<float>(result)) {
                 ++hitCount;
@@ -1132,7 +1136,7 @@ namespace lgk {
 
     Galaxy::Galaxy(
             utl::vec2pos_ty size,
-            size_t planetCount,
+            utl::usize planetCount,
             std::vector<Player_ty> const& players,
             Player_ty const& neutralPlayer
     )
@@ -1166,7 +1170,7 @@ namespace lgk {
         return m_validGalaxy;
     }
 
-    bool Galaxy::IsValidSpaceObjectID(unsigned int const ID) const {
+    bool Galaxy::IsValidSpaceObjectID(utl::usize const ID) const {
 
         for (auto const& object : m_objects) {
             if (object->GetID() == ID) {
@@ -1210,7 +1214,7 @@ namespace lgk {
         return m_targetPoints;
     }
 
-    Planet_ty Galaxy::GetPlanetByID(unsigned int const ID) const {
+    Planet_ty Galaxy::GetPlanetByID(utl::usize const ID) const {
         for (auto const& planet : m_planets) {
             if (planet->GetID() == ID) {
                 return planet;
@@ -1220,7 +1224,7 @@ namespace lgk {
         throw std::runtime_error("no planet with this ID: " + std::to_string(ID));
     }
 
-    SpaceObject_ty Galaxy::GetSpaceObjectByID(unsigned int const ID) const {
+    SpaceObject_ty Galaxy::GetSpaceObjectByID(utl::usize const ID) const {
 
         for (auto const& object : m_objects) {
             if (object->GetID() == ID) {
@@ -1250,8 +1254,51 @@ namespace lgk {
             hlp::Print(hlp::PrintType::ONLY_DEBUG, "origin is not available: {}", event->GetOrigin());
             return { nullptr, nullptr, nullptr, false };
         }
+
+        switch (event->GetType()) {
+            case utl::FleetInstructionType::ID: {
+                // check for valid ID in general
+                if (not IsValidSpaceObjectID(event->GetDestination())) {
+                    popup(app::AppContext::GetInstance().languageManager.Text(
+                            "logic_galaxy_not_existing_destination_id_text",
+                            event->GetDestination()
+                    ));
+                    hlp::Print(hlp::PrintType::ONLY_DEBUG, "destination id not available: {}", event->GetDestination());
+                    return { nullptr, nullptr, nullptr, false };
+                }
+                break;
+            }
+            case utl::FleetInstructionType::COORDINATES: {
+                // check for valid Coordinates in general
+                bool const validCoordinates{ (event->GetDestinationX() <= m_size.x)
+                                             and (event->GetDestinationY() <= m_size.y) };
+
+                if (!validCoordinates) {
+                    popup(app::AppContext::GetInstance().languageManager.Text(
+                            "logic_galaxy_destination_coordinate_outside_of_map_text",
+                            event->GetDestinationX(),
+                            event->GetDestinationY()
+                    ));
+                    hlp::Print(
+                            hlp::PrintType::ONLY_DEBUG,
+                            "destination coordinates out of map -> destination x: {} -> destination y: {}",
+                            event->GetDestinationX(),
+                            event->GetDestinationY()
+                    );
+                    return { nullptr, nullptr, nullptr, false };
+                }
+                break;
+            }
+
+            case utl::FleetInstructionType::INVALID: {
+                popup(app::AppContext::GetInstance().languageManager.Text("ui_popup_add_fleet_invalid_input_send"));
+                hlp::Print(hlp::PrintType::ERROR, R"(FleetInstructionType was set to "INVALID")");
+                return { nullptr, nullptr, nullptr, false };
+            }
+        }
+
         // destination is 0 by default if no destination ID exists
-        if (event->GetDestination() == 0) {
+        /*if (event->GetDestination() == 0) {
             bool const validCoordinates{ (event->GetDestinationX() >= 0 and event->GetDestinationX() <= m_size.x)
                                          and (event->GetDestinationY() >= 0 and event->GetDestinationY() <= m_size.y) };
             bool const coordinateInput{ event->GetDestinationX() >= 0 and event->GetDestinationY() >= 0 };
@@ -1278,7 +1325,7 @@ namespace lgk {
             hlp::Print(hlp::PrintType::ONLY_DEBUG, "destination id not available: {}", event->GetDestination());
             return { nullptr, nullptr, nullptr, false };
         }
-
+*/
         // get origin and set new fleet
         auto const& origin{ GetSpaceObjectByID(event->GetOrigin()) };
 
@@ -1297,8 +1344,7 @@ namespace lgk {
         hlp::Print(
                 hlp::PrintType::ERROR,
                 "not able to recognize fleet input -> origin: {} -> destination: {} -> destination x: {} -> "
-                "destination y: "
-                "{} -> ships: {}",
+                "destination y: {} -> ships: {}",
                 event->GetOrigin(),
                 event->GetDestination(),
                 event->GetDestinationX(),
@@ -1308,7 +1354,7 @@ namespace lgk {
         return { nullptr, nullptr, nullptr, false };
     }
 
-    void Galaxy::SetDiscoverByPlayer(unsigned int currentPlayerID) {
+    void Galaxy::SetDiscoverByPlayer(utl::usize currentPlayerID) {
         // discover all space objects with player
         for (auto const& object : m_objects) {
             object->SetDiscovered(false);

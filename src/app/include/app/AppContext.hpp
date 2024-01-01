@@ -95,6 +95,8 @@ namespace app {
 
         [[nodiscard]] Vector2 GetResolution() const;
 
+        void Unload();
+
         AppContext(AppContext const&) = delete;
         AppContext(AppContext&&) = delete;
         AppContext& operator=(AppContext const&) = delete;

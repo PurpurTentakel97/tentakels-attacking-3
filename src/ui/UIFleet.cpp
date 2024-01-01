@@ -12,7 +12,7 @@
 
 
 namespace ui {
-    UIFleet::UIFleet(unsigned int const ID, app::PlayerData const& player, Vector2 const start, Vector2 const end, Vector2 const relativeStart, Vector2 const relativeEnd,
+    UIFleet::UIFleet(utl::usize const ID, app::PlayerData const& player, Vector2 const start, Vector2 const end, Vector2 const relativeStart, Vector2 const relativeEnd,
                  lgk::Fleet_ty_raw_c fleet, std::function<bool(Vector2 const&)> isInGalaxyCollider)
     : UIElement{ start, { 0.005f,0.01f }, uil::Alignment::MID_MID }, m_ID{ ID }, m_player{ player },
     m_relativeStart{ relativeStart }, m_relativeEnd{ relativeEnd }, m_fleet { fleet }, m_isInGalaxyCollider{ std::move(isInGalaxyCollider) },
@@ -45,7 +45,7 @@ namespace ui {
         UpdateHoverText();
     }
 
-    unsigned int UIFleet::GetID() const {
+    utl::usize UIFleet::GetID() const {
         return m_ID;
     }
 

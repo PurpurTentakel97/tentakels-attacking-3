@@ -8,7 +8,7 @@
 
 
 namespace uil {
-    Focusable::Focusable(unsigned int const ID) : m_focusID(ID) { }
+    Focusable::Focusable(utl::usize const ID) : m_focusID(ID) { }
 
     Focusable::~Focusable() {
         hlp::DeleteFocusElement(this);
@@ -35,11 +35,11 @@ namespace uil {
         m_isNestedFocus = nestedFocus;
     }
 
-    unsigned int Focusable::GetFocusID() const {
+    utl::usize Focusable::GetFocusID() const {
         return m_focusID;
     }
 
-    void Focusable::SetFocusID(unsigned int const focusID) noexcept {
+    void Focusable::SetFocusID(utl::usize const focusID) noexcept {
         m_focusID = focusID;
     }
 } // namespace uil

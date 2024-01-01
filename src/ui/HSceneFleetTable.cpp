@@ -4,6 +4,7 @@
 //
 
 #include "HSceneFleetTable.hpp"
+#include <alias/AliasUtils.hpp>
 #include <helper/HFocusEvents.hpp>
 #include <logic/Galaxy.hpp>
 #include <logic/Player.hpp>
@@ -16,7 +17,7 @@ namespace ui {
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
         auto const fleets{ m_galaxy->GetFleets() };
         auto const targetPoints{ m_galaxy->GetTargetPoints() };
-        int constexpr startFleets{ 2 };
+        utl::usize constexpr startFleets{ 2 };
         auto const startTargetPoints{ startFleets + (not fleets.empty() ? fleets.size() : 1) + 1 };
         auto const tableSize{ startTargetPoints + (not targetPoints.empty() ? targetPoints.size() : 1) };
 
@@ -44,7 +45,7 @@ namespace ui {
 
         m_table->SetValue<std::string>(1, 0, appContext.languageManager.Text("ui_fleet_table_headline_fleets", ":"));
         if (not fleets.empty()) {
-            for (size_t i = 0; i < fleets.size(); ++i) {
+            for (utl::usize i = 0; i < fleets.size(); ++i) {
                 auto const& fleet{ fleets.at(i) };
 
                 app::PlayerData player{ appContext.playerCollection.GetPlayerOrNpcByID(fleet->GetPlayer()->GetID()) };
@@ -96,7 +97,7 @@ namespace ui {
                 appContext.languageManager.Text("ui_fleet_table_headline_target_point", ":")
         );
         if (not targetPoints.empty()) {
-            for (size_t i = 0; i < targetPoints.size(); ++i) {
+            for (utl::usize i = 0; i < targetPoints.size(); ++i) {
                 auto const& targetPoint{ targetPoints.at(i) };
 
                 app::PlayerData player{ appContext.playerCollection.GetPlayerOrNpcByID(targetPoint->GetPlayer()->GetID()

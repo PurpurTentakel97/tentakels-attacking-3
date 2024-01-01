@@ -36,8 +36,8 @@ namespace uil {
             Vector2 const pos,
             Vector2 const size,
             Alignment const alignment,
-            unsigned int const focusID,
-            unsigned int const ID,
+            utl::usize const focusID,
+            utl::usize const ID,
             std::string text,
             std::function<Rectangle(Rectangle)> getTemporaryCollider
     )
@@ -105,11 +105,11 @@ namespace uil {
         return m_text;
     }
 
-    unsigned int DropDownElement::GetID() const {
+    utl::usize DropDownElement::GetID() const {
         return m_ID;
     }
 
-    void DropDownElement::SetOnClick(std::function<void(unsigned int)> onClick) {
+    void DropDownElement::SetOnClick(std::function<void(utl::usize)> onClick) {
         m_onClick = std::move(onClick);
     }
 

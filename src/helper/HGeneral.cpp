@@ -24,7 +24,7 @@ namespace hlp {
     }
 
     // Index
-    size_t GetIndexFromRowAndColumn(size_t const row, size_t const column, size_t const maxColumn) {
+    utl::usize GetIndexFromRowAndColumn(utl::usize const row, utl::usize const column, utl::usize const maxColumn) {
         return row * maxColumn + column;
     }
 } // namespace hlp

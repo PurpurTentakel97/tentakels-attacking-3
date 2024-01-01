@@ -17,10 +17,10 @@ namespace ui {
     void FightResultPopup::Initialize() {
         // constants
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
-        float constexpr leftX{ 0.25f };
-        float constexpr rightX{ 0.75f };
-        float Y{ 0.35f };
-        float const textSize{ hlp::GetElementTextHeight(m_size, 0.07f) };
+        auto constexpr leftX{ 0.25f };
+        auto constexpr rightX{ 0.75f };
+        auto Y{ 0.35f };
+        auto const textSize{ hlp::GetElementTextHeight(m_size, 0.07f) };
 
         // subtitle
         std::string fightText{ "invalid" };
@@ -144,7 +144,7 @@ namespace ui {
             return;
         }
 
-        float constexpr time{ 1.5f };
+        auto constexpr time{ 1.5 };
         if (left) {
             m_leftNumber->CountTo(
                     uil::CountingNumber::ASYMPTOTIC,

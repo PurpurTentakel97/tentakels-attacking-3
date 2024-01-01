@@ -7,6 +7,7 @@
 
 #include "HSceneSettings.hpp"
 #include <alias/AliasUi.hpp>
+#include <alias/AliasUtils.hpp>
 #include <event/EventListener.hpp>
 
 namespace ui {
@@ -22,7 +23,7 @@ namespace ui {
 
         [[nodiscard]] std::vector<std::string> GetStringsFromResolutionEntries() const;
 
-        [[nodiscard]] size_t GetIndexFromResolution(cst::Resolution resolution) const;
+        [[nodiscard]] utl::usize GetIndexFromResolution(cst::Resolution resolution) const;
 
     public:
         AppSettingsScene();

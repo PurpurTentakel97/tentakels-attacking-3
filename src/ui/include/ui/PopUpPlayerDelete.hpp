@@ -14,7 +14,7 @@ namespace ui {
     class DeletePlayerPopUp final : public CellPopUp {
     private:
         uil::InputLine_int_ty m_inputLine;
-        std::function<void(unsigned int)> m_onClick;
+        std::function<void(utl::usize)> m_onClick;
 
         void Initialize() override;
 
@@ -27,7 +27,7 @@ namespace ui {
                 uil::Alignment alignment,
                 std::string const& title,
                 app::AssetType inputTexture,
-                std::function<void(unsigned int)> onClick
+                std::function<void(utl::usize)> onClick
         );
     };
 } // namespace ui

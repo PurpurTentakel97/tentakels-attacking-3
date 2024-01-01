@@ -31,14 +31,14 @@ namespace ui {
 
         void AddPlayer();
 
-        void UpdatePlayer(unsigned int ID, std::string const& name, Color color);
+        void UpdatePlayer(utl::usize ID, std::string const& name, Color color);
 
         void
         UpdatePlayerName(uil::AbstractTableCell const* cell, std::string const& oldValue, std::string const& newValue);
 
         void UpdatePlayerColor(uil::AbstractTableCell const* cell, Color oldValue, Color newValue);
 
-        static void DeletePlayer(unsigned int ID);
+        static void DeletePlayer(utl::usize ID);
 
         static void CheckPlayerCount();
 

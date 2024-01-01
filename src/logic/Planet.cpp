@@ -12,21 +12,21 @@
 
 namespace lgk {
     Planet::Planet(
-            unsigned int const ID,
+            utl::usize const ID,
             utl::vec2pos_ty_ref_c position,
             Player_ty player,
             bool const isHomePlanet,
-            int planetNumber
+            utl::usize planetNumber
     )
         : Planet{ ID, position, std::move(player), isHomePlanet, planetNumber, 0 } { }
 
     Planet::Planet(
-            unsigned int const ID,
+            utl::usize const ID,
             utl::vec2pos_ty_ref_c position,
             Player_ty player,
             bool const isHomePlanet,
-            int planetNumber,
-            size_t ships
+            utl::usize planetNumber,
+            utl::usize ships
     )
         : SpaceObject{ ID, position, ships, std::move(player) },
           m_isHomePlanet{ isHomePlanet },
@@ -39,7 +39,7 @@ namespace lgk {
             m_ships = m_production * appContext.constants.planet.startingHumanShipsMultiplicator;
         } else {
             auto& random{ hlp::Random::GetInstance() };
-            size_t const r{
+            utl::usize const r{
                 random.random(appContext.constants.planet.maxProduction - appContext.constants.planet.minProduction)
             };
             m_production = r + appContext.constants.planet.minProduction;
@@ -57,7 +57,7 @@ namespace lgk {
         return true;
     }
 
-    size_t Planet::GetProduction() const {
+    utl::usize Planet::GetProduction() const {
         return m_production;
     }
 
@@ -69,7 +69,7 @@ namespace lgk {
         return m_isDestroyed;
     }
 
-    int Planet::GetPlanetNumber() const {
+    utl::usize Planet::GetPlanetNumber() const {
         return m_planetNumber;
     }
 

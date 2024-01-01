@@ -5,6 +5,7 @@
 
 #include "SceneNewGamePlayer.hpp"
 #include "ManagerUI.hpp"
+#include <alias/AliasUtils.hpp>
 #include <event/EventGeneral.hpp>
 #include <helper/HFocusEvents.hpp>
 #include <ui_lib/ButtonClassic.hpp>
@@ -175,12 +176,12 @@ namespace ui {
 
     void NewGamePlayerScene::InitializePlayerButtons() {
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
-        size_t const maxPlayerCount{ appContext.constants.player.maxPlayerCount };
-        size_t const currentPlayerCount{ appContext.playerCollection.GetPlayerCount() };
+        utl::usize const maxPlayerCount{ appContext.constants.player.maxPlayerCount };
+        utl::usize const currentPlayerCount{ appContext.playerCollection.GetPlayerCount() };
         float const rowHeight{ 0.45f / static_cast<float>(maxPlayerCount + 1) };
         float const initialY{ 0.35f + rowHeight };
 
-        for (size_t i = 0; i < maxPlayerCount; ++i) {
+        for (utl::usize i = 0; i < maxPlayerCount; ++i) {
             auto button = std::make_shared<uil::ClassicButton>(
                     static_cast<int>(100 + i),
                     GetElementPosition(0.905f, initialY + rowHeight * static_cast<float>(i) + 0.005f),
@@ -191,7 +192,7 @@ namespace ui {
             );
 
             button->SetEnabled(i < currentPlayerCount);
-            button->SetOnClick([i]() { NewGamePlayerScene::DeletePlayer(static_cast<unsigned int>(i + 1)); });
+            button->SetOnClick([i]() { NewGamePlayerScene::DeletePlayer(i + 1); });
 
             m_elements.push_back(button);
             m_playerButtons.push_back(button);
@@ -234,7 +235,7 @@ namespace ui {
 
         auto const PlayerData{ appContext.playerCollection.GetPlayerData() };
 
-        size_t index{ 1 };
+        utl::usize index{ 1 };
         for (auto& p : PlayerData) {
             m_table->SetValue<int>(index, 0, static_cast<int>(p.ID));
             m_table->SetValue<std::string>(index, 1, p.GetName());
@@ -243,14 +244,14 @@ namespace ui {
             m_table->SetSingleEditable(index, 1, true);
             m_table->SetSingleEditable(index, 2, true);
 
-            unsigned int ID_{ p.ID };
+            utl::usize ID_{ p.ID };
             m_playerButtons.at(index - 1)->SetEnabled(true);
             m_playerButtons.at(index - 1)->SetOnClick([ID_]() { NewGamePlayerScene::DeletePlayer(ID_); });
 
             ++index;
         }
-        for (size_t row = index; row < m_table->GetRowCount(); ++row) {
-            for (size_t column = 0; column < m_table->GetColumnCount(); ++column) {
+        for (utl::usize row = index; row < m_table->GetRowCount(); ++row) {
+            for (utl::usize column = 0; column < m_table->GetColumnCount(); ++column) {
                 m_table->SetValue<std::string>(row, column, "");
                 m_table->SetSingleEditable(row, column, false);
             }
@@ -265,7 +266,7 @@ namespace ui {
         appContext.eventManager.InvokeEvent(event);
     }
 
-    void NewGamePlayerScene::UpdatePlayer(unsigned int const ID, std::string const& name, Color const color) {
+    void NewGamePlayerScene::UpdatePlayer(utl::usize const ID, std::string const& name, Color const color) {
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
         eve::EditPlayerEvent const event{ ID, name, color };
         appContext.eventManager.InvokeEvent(event);
@@ -293,7 +294,7 @@ namespace ui {
         UpdatePlayer(playerData.ID, playerData.GetName(), newValue);
     }
 
-    void NewGamePlayerScene::DeletePlayer(unsigned int const ID) {
+    void NewGamePlayerScene::DeletePlayer(utl::usize const ID) {
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
 
         eve::DeletePlayerEvent const event{ ID };
@@ -323,7 +324,7 @@ namespace ui {
 
     void NewGamePlayerScene::SetNextButton() {
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
-        size_t const playerCount{ appContext.playerCollection.GetPlayerData().size() };
+        utl::usize const playerCount{ appContext.playerCollection.GetPlayerData().size() };
         bool const validPlayerCount{ playerCount >= appContext.constants.player.minPlayerCount
                                      and playerCount <= appContext.constants.player.maxPlayerCount };
 

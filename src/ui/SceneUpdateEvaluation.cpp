@@ -111,7 +111,7 @@ namespace ui {
 
         auto const setNext{ [&]() {
             m_currentIndex = 0;
-            int value = static_cast<int>(m_currentResultType);
+            auto value = static_cast<utl::usize>(m_currentResultType);
             ++value;
             m_currentResultType = static_cast<ResultType>(value);
         } };

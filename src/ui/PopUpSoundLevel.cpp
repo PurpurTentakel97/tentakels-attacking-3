@@ -39,7 +39,7 @@ namespace ui {
                 1
         );
         m_checkBox->SetChecked(appContext.constants.sound.muteVolume);
-        m_checkBox->SetOnCheck([this](unsigned int, bool isChecked) {
+        m_checkBox->SetOnCheck([this](utl::usize, bool isChecked) {
             auto event = eve::MuteMasterVolumeEvent(isChecked);
             app::AppContext::GetInstance().eventManager.InvokeEvent(event);
             m_slider->SetEnabled(!isChecked);

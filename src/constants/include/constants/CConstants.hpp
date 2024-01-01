@@ -34,6 +34,6 @@ namespace cst {
         TextProcessing textProcessing;
         Files files;
 
-        [[nodiscard]] static int GetConfigValueCount();
+        [[nodiscard]] static utl::usize GetConfigValueCount();
     };
 } // namespace cst

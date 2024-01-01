@@ -38,7 +38,7 @@ namespace uil {
                 Vector2 pos,
                 Vector2 size,
                 Alignment alignment,
-                unsigned int focusID,
+                utl::usize focusID,
                 T value,
                 std::function<void(TableCell*, T, T)> updated
         )

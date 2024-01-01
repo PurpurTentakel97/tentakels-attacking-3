@@ -6,6 +6,7 @@
 #pragma once
 
 #include <alias/AliasLogic.hpp>
+#include <alias/AliasUtils.hpp>
 
 namespace utl {
     struct MergeResult final {
@@ -13,14 +14,17 @@ namespace utl {
         lgk::Player_ty m_player;
         lgk::SpaceObject_ty m_origin;
         lgk::SpaceObject_ty m_destination;
-        size_t m_count;
+        usize m_count;
 
     public:
-        MergeResult(lgk::Player_ty player, lgk::SpaceObject_ty origin, lgk::SpaceObject_ty destination, size_t count);
+        MergeResult(
+                lgk::Player_ty player,
+                lgk::SpaceObject_ty origin,
+                lgk::SpaceObject_ty destination, usize count);
 
         [[nodiscard]] lgk::Player_ty GetPlayer() const;
         [[nodiscard]] lgk::SpaceObject_ty GetOrigin() const;
         [[nodiscard]] lgk::SpaceObject_ty GetDestination() const;
-        [[nodiscard]] size_t GetCount() const;
+        [[nodiscard]] usize GetCount() const;
     };
 } // namespace utl

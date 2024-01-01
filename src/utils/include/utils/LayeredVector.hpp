@@ -6,6 +6,7 @@
 #pragma once
 
 #include <algorithm>
+#include <alias/AliasUtils.hpp>
 #include <memory>
 #include <stdexcept>
 #include <string>
@@ -16,7 +17,7 @@ namespace utl {
     class LayeredVector final {
     private:
         std::vector<std::vector<T*>> m_elements;
-        size_t m_layer{ 0 };
+        usize m_layer{ 0 };
 
         [[nodiscard]] bool IsValidIndex(int const index) const {
             return { index >= 0 && index < m_elements.at(m_layer).size() };
@@ -94,11 +95,11 @@ namespace utl {
             return CurrentLayer().data() + CurrentLayer().size();
         }
 
-        [[nodiscard]] size_t size() const {
+        [[nodiscard]] usize size() const {
             return CurrentLayer().size();
         }
 
-        [[nodiscard]] size_t size() {
+        [[nodiscard]] usize size() {
             return CurrentLayer().size();
         }
 
