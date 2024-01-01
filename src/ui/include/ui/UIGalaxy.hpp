@@ -96,7 +96,7 @@ namespace ui {
 
         [[nodiscard]] float GetScaleFactor() const;
 
-        void Zoom(bool zoomIn, int factor = 2);
+        void Zoom(bool zoomIn, utl::usize factor = 2);
 
         void Slide(float position, bool isHorizontal);
 

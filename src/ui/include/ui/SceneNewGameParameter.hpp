@@ -19,7 +19,7 @@ namespace ui {
 
         void Initialize();
 
-        static void SetValue(int value, SliderType type);
+        static void SetValue(utl::usize value, SliderType type);
 
         void SetRandom() const;
 

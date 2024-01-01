@@ -23,7 +23,7 @@ namespace ui {
         lgk::Galaxy_ty_c_raw galaxy{ event->GetGalaxy() };
 
         m_currentGalaxy = galaxy;
-        int currentFocusID{ 1 };
+        auto currentFocusID{ 1 };
         for (auto const& p : galaxy->GetPlanets()) {
             currentFocusID = static_cast<int>(p->GetID());
             auto planet = std::make_shared<UIPlanet>(
@@ -319,7 +319,7 @@ namespace ui {
         cst::Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
         Vector2 const absolutePoint{ resolution.x * point.x, resolution.y * point.y };
         if (!CheckCollisionPointRec(absolutePoint, m_collider)) {
-            return { -1, -1 };
+            return { 0, 0 };
         }
 
         auto const galaxySize{ m_currentGalaxy->GetSize() };
@@ -328,13 +328,14 @@ namespace ui {
                 { m_absoluteSize.width, m_absoluteSize.height },
                 absolutePoint
         );
-        return { static_cast<int>(relative.x) * galaxySize.x, static_cast<int>(relative.y) * galaxySize.y };
+        return { static_cast<utl::usize>(relative.x) * galaxySize.x,
+                 static_cast<utl::usize>(relative.y) * galaxySize.y };
     }
 
     void UIGalaxy::HandleDragLineResult(Vector2 const start, Vector2 const end) {
         auto const originID{ GetIDFromPoint(start) };
         auto const destID{ GetIDFromPoint(end) };
-        utl::vec2pos_ty destCo{ -1, -1 };
+        utl::vec2pos_ty destCo{ 0, 0 };
         if (destID <= 0) {
             destCo = GetCoordinatesFromPoint(end);
         }
@@ -391,7 +392,7 @@ namespace ui {
         return m_scaleFactor;
     }
 
-    void UIGalaxy::Zoom(bool const zoomIn, int const factor) {
+    void UIGalaxy::Zoom(bool const zoomIn, utl::usize const factor) {
         if (!m_isScaling) {
             return;
         }

@@ -6,7 +6,7 @@
 #include "CConstants.hpp"
 
 namespace cst {
-    int Constants::GetConfigValueCount() {
+    utl::usize Constants::GetConfigValueCount() {
         return Global::configVersionCount + Fight::configEntryCount + Fleet::configEntryCount
                + GameEvents::configEntryCount + Global::configEntryCount + Planet::configEntryCount
                + Player::configEntryCount + Sound::configEntryCount + Window::configEntryCount

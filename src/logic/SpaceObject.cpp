@@ -8,9 +8,9 @@
 #include <cassert>
 
 namespace lgk {
-    bool SpaceObject::IsInRange(SpaceObject_ty_raw first, SpaceObject_ty_raw second, int const range) {
+    bool SpaceObject::IsInRange(SpaceObject_ty_raw first, SpaceObject_ty_raw second, utl::usize const range) {
         auto const actualRange{ (first->GetPos() - second->GetPos()).Length() };
-        return range >= actualRange;
+        return static_cast<double>(range) >= actualRange;
     }
 
     SpaceObject::SpaceObject(utl::usize const ID, utl::vec2pos_ty_ref_c position, Player_ty_c player)

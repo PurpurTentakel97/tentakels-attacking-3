@@ -17,7 +17,7 @@ namespace ui {
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
         auto const fleets{ m_galaxy->GetFleets() };
         auto const targetPoints{ m_galaxy->GetTargetPoints() };
-        int constexpr startFleets{ 2 };
+        utl::usize constexpr startFleets{ 2 };
         auto const startTargetPoints{ startFleets + (not fleets.empty() ? fleets.size() : 1) + 1 };
         auto const tableSize{ startTargetPoints + (not targetPoints.empty() ? targetPoints.size() : 1) };
 

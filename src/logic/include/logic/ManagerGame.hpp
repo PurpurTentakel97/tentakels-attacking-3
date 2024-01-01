@@ -69,8 +69,6 @@ namespace lgk {
         // fleet
         void AddFleet(eve::SendFleetInstructionEvent const* event);
 
-        [[nodiscard]] static bool ValidateAddFleetInput(eve::SendFleetInstructionEvent const* event);
-
         // game
         void StartGame();
 
@@ -84,6 +82,8 @@ namespace lgk {
 
     public:
         GameManager();
+
+        ~GameManager() override;
 
         void Update();
 

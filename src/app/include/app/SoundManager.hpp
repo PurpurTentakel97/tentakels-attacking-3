@@ -45,6 +45,6 @@ namespace app {
     public:
         SoundManager();
 
-        ~SoundManager() override;
+        void Unload();
     };
 } // namespace app

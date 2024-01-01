@@ -405,10 +405,6 @@ namespace lgk {
 
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
 
-        if (!ValidateAddFleetInput(event)) {
-            return;
-        }
-
         Player_ty currentPlayer{ nullptr };
         if (!GetCurrentPlayer(currentPlayer)) {
             popup(appContext.languageManager.Text("ui_popup_no_player_subtitle"));
@@ -418,37 +414,6 @@ namespace lgk {
         bool const isValidFleet{ m_galaxyManager.AddFleet(event, currentPlayer) };
         eve::ReturnFleetInstructionEvent const returnEvent{ isValidFleet };
         appContext.eventManager.InvokeEvent(returnEvent);
-    }
-
-    bool GameManager::ValidateAddFleetInput(eve::SendFleetInstructionEvent const* const event) {
-
-        std::string messageText;
-        app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
-
-        if (event->GetOrigin() <= 0) {
-            messageText = { appContext.languageManager.Text("ui_popup_add_fleet_origin_too_low") };
-        }
-        if (event->GetDestination() <= 0) {
-            if ((event->GetDestinationX() < 0) || (event->GetDestinationY() < 0)) {
-                messageText = { appContext.languageManager.Text("ui_popup_add_fleet_destination_too_low") };
-            }
-        }
-        if (event->GetShipCount() <= 0) {
-            messageText = { appContext.languageManager.Text("ui_popup_add_fleet_ship_count_too_low") };
-        }
-        if (!messageText.empty()) {
-            popup(messageText);
-            return false;
-        }
-
-        bool const doubleDestination{ event->GetDestination() > 0
-                                      && (event->GetDestinationX() >= 0 || event->GetDestinationY() >= 0) };
-        if (doubleDestination) {
-            popup(appContext.languageManager.Text("ui_popup_add_fleet_to_many_destination_inputs"));
-            return false;
-        }
-
-        return true;
     }
 
     // game
@@ -549,6 +514,10 @@ namespace lgk {
         m_npcs[PlayerType::NEUTRAL] = std::make_shared<Player>(100, PlayerType::NEUTRAL);
 
         hlp::Print(hlp::PrintType::INITIALIZE, "GameManager");
+    }
+
+    GameManager::~GameManager() {
+        app::AppContext::GetInstance().eventManager.RemoveListener(this);
     }
 
     void GameManager::Update() {

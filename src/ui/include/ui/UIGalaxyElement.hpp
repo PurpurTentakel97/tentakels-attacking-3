@@ -14,8 +14,8 @@
 namespace ui {
     class UIGalaxyElement : public uil::UIElement, public uil::Focusable {
     public:
-        static constexpr int s_maxShipCount{ 300 };
-        static constexpr int s_ringColorAlpha{ 100 };
+        static constexpr utl::usize s_maxShipCount{ 300 };
+        static constexpr utl::usize s_ringColorAlpha{ 100 };
 
     protected:
         utl::usize m_ID;

@@ -28,8 +28,8 @@ namespace uil {
             Alignment const alignment,
             float const dotSize,
             float const ringSize,
-            int const currentCount,
-            int const maxCount
+            utl::usize const currentCount,
+            utl::usize const maxCount
     )
         : UIElement{ pos, size, alignment },
           m_relativeDotSize{ dotSize },
@@ -51,19 +51,19 @@ namespace uil {
         CalculateRing();
     }
 
-    int CountRing::GetMaxCount() const {
+    utl::usize CountRing::GetMaxCount() const {
         return m_maxCount;
     }
 
-    void CountRing::SetMaxCount(int const maxCount) {
+    void CountRing::SetMaxCount(utl::usize const maxCount) {
         m_maxCount = maxCount;
     }
 
-    int CountRing::GetCurrentCount() const {
+    utl::usize CountRing::GetCurrentCount() const {
         return m_currentCount;
     }
 
-    void CountRing::SetCurrentCount(int const currentCount) {
+    void CountRing::SetCurrentCount(utl::usize const currentCount) {
         m_currentCount = currentCount;
     }
 

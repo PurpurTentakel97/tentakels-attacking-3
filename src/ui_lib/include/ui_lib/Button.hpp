@@ -31,7 +31,7 @@ namespace uil {
         bool m_isPressed{ false };
 
         State m_state{ State::ENABLED };
-        int m_buttonParts{ 4 };
+        utl::usize m_buttonParts{ 4 };
 
 
         std::function<void()> m_onClick{ []() {} };

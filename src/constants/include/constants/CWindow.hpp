@@ -20,7 +20,7 @@ namespace cst {
 
         Resolution currentResolutionEnum{ Resolution::LAST };
         Vector2 currentResolutionVec{ 800.0f, 600.0f };
-        utl::Vec2<int> nativeResolutionVec{ 800, 600 };
+        utl::Vec2<utl::usize> nativeResolutionVec{ 800, 600 };
 
         bool isFullScreen{ true };
         utl::usize FPS{ 60 };
@@ -31,6 +31,6 @@ namespace cst {
 
         [[nodiscard]] std::string GetStringFromResolution(Resolution resolution) const;
 
-        [[nodiscard]] utl::Vec2<int> GetIntFromResolution(Resolution resolution) const;
+        [[nodiscard]] utl::Vec2<utl::usize> GetIntFromResolution(Resolution resolution) const;
     };
 } // namespace cst

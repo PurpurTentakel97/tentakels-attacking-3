@@ -82,7 +82,8 @@ namespace app {
         InitAudioDevice();
         LoadSounds();
     }
-    SoundManager::~SoundManager() {
+
+    void SoundManager::Unload() {
         for (auto const& [_, sound] : m_sounds) {
             UnloadSound(sound);
         }
@@ -104,4 +105,5 @@ namespace app {
             return;
         }
     }
+
 } // namespace app

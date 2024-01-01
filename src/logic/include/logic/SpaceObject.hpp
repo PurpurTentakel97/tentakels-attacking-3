@@ -21,7 +21,7 @@ namespace lgk {
         Player_ty m_player;
         bool m_isDiscovered{ false };
 
-        [[nodiscard]] static bool IsInRange(SpaceObject_ty_raw first, SpaceObject_ty_raw second, int range);
+        [[nodiscard]] static bool IsInRange(SpaceObject_ty_raw first, SpaceObject_ty_raw second, utl::usize range);
 
     public:
         SpaceObject(utl::usize ID, utl::vec2pos_ty_ref_c position, Player_ty_c player);

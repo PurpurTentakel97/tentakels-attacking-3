@@ -41,22 +41,22 @@ namespace ui {
         m_elements.push_back(finishBtn);
 
         // constants
-        int id{ 1 };
-        float y{ 0.32f };
-        // float     constexpr lx     { 0.05f   };
-        float constexpr rx{ 0.55f };
-        float constexpr rx2{ 0.75f };
-        float constexpr width{ 0.40f };
-        float constexpr heightS{ 0.025f };
-        float constexpr height{ 0.05f };
-        float constexpr offset{ height + 0.005f };
-        float constexpr offsetS{ heightS + 0.005f };
-        float constexpr rxwoS{ rx + heightS };
-        float constexpr rx2woS{ rx2 + heightS };
-        float constexpr rxwo{ rx + height };
-        // float     constexpr rx2wo  { rx2 + height     };
-        // float     constexpr lxwoS  { lx + heightS     };
-        // float     constexpr lxwo   { lx + height      };
+        auto id{ 1 };
+        auto y{ 0.32f };
+        // auto     constexpr lx     { 0.05f   };
+        auto constexpr rx{ 0.55f };
+        auto constexpr rx2{ 0.75f };
+        auto constexpr width{ 0.40f };
+        auto constexpr heightS{ 0.025f };
+        auto constexpr height{ 0.05f };
+        auto constexpr offset{ height + 0.005f };
+        auto constexpr offsetS{ heightS + 0.005f };
+        auto constexpr rxwoS{ rx + heightS };
+        auto constexpr rx2woS{ rx2 + heightS };
+        auto constexpr rxwo{ rx + height };
+        // auto     constexpr rx2wo  { rx2 + height     };
+        // auto     constexpr lxwoS  { lx + heightS     };
+        // auto     constexpr lxwo   { lx + height      };
         auto constexpr a{ uil::Alignment::MID_LEFT };
 
         // increase
@@ -99,7 +99,7 @@ namespace ui {
                 static_cast<int>(appContext.constants.fleet.currentFleetSpeed)
         );
         fleetSpeed->SetActive(true, appContext);
-        fleetSpeed->SetOnSave([](int value) {
+        fleetSpeed->SetOnSave([](utl::usize value) {
             app::AppContext::GetInstance().constants.fleet.currentFleetSpeed = value;
         });
         m_elements.push_back(fleetSpeed);

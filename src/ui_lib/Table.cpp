@@ -439,7 +439,7 @@ namespace uil {
     }
 
     void Table::CalculateHoverHighlighted(Vector2 mousePosition) {
-        utl::vec2pos_ty newPosition{ -1, -1 };
+        utl::vec2pos_ty newPosition{ 0, 0 };
         if (not m_isHoveredHighlighted) {
             goto found;
         }
@@ -455,7 +455,7 @@ namespace uil {
         for (utl::usize column = 1; column < m_columnCount; ++column) {
             auto const& cell = m_cells[0][column];
             if (cell->IsColliding(mousePosition)) {
-                newPosition = { 0, static_cast<int>(column) };
+                newPosition = { 0, column };
                 goto found;
             }
         }
@@ -463,7 +463,7 @@ namespace uil {
         for (utl::usize row = 1; row < m_rowCount; ++row) {
             auto const& cell = m_cells[row][0];
             if (cell->IsColliding(mousePosition)) {
-                newPosition = { static_cast<int>(row), 0 };
+                newPosition = { row, 0 };
                 goto found;
             }
         }
@@ -472,7 +472,7 @@ namespace uil {
             for (utl::usize column = 1; column < m_columnCount; ++column) {
                 auto const& cell = m_cells[row][column];
                 if (cell->IsColliding(mousePosition)) {
-                    newPosition = { static_cast<int>(row), static_cast<int>(column) };
+                    newPosition = { row, column };
                     goto found;
                 }
             }
@@ -490,17 +490,14 @@ namespace uil {
     void Table::SetHighlightBackground(bool reset) {
         Color const newColor{ reset ? BLACK : LIGHT_GREY_100 };
 
-        if (m_currentHighlighted.x >= 0) {
-            for (auto const& cell : m_cells[static_cast<utl::usize>(m_currentHighlighted.x)]) {
-                cell->SetBackgroundColor(newColor);
-            }
+        for (auto const& cell : m_cells[static_cast<utl::usize>(m_currentHighlighted.x)]) {
+            cell->SetBackgroundColor(newColor);
         }
 
-        if (m_currentHighlighted.y >= 0) {
-            for (utl::usize i = 0; i < m_rowCount; ++i) {
-                auto const& cell = m_cells[i][static_cast<utl::usize>(m_currentHighlighted.y)];
-                cell->SetBackgroundColor(newColor);
-            }
+
+        for (utl::usize i = 0; i < m_rowCount; ++i) {
+            auto const& cell = m_cells[i][static_cast<utl::usize>(m_currentHighlighted.y)];
+            cell->SetBackgroundColor(newColor);
         }
     }
 

@@ -64,7 +64,8 @@ namespace app {
         LoadTitle();
         LoadFont();
     }
-    AssetManager::~AssetManager() {
+
+    void AssetManager::Unload() {
         for (auto const& [type, asset] : m_assets) {
             UnloadTexture(asset);
         }

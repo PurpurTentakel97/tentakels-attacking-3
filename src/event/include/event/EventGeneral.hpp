@@ -213,23 +213,26 @@ namespace eve {
     private:
         utl::usize m_origin;
         utl::usize m_destination;
-        int m_destinationX;
-        int m_destinationY;
+        utl::usize m_destinationX;
+        utl::usize m_destinationY;
         utl::usize m_shipCount;
+        utl::FleetInstructionType m_type;
 
     public:
         SendFleetInstructionEvent(
                 utl::usize const origin,
                 utl::usize const destination,
-                int const destinationX,
-                int const destinationY,
-                utl::usize const shipCount
+                utl::usize const destinationX,
+                utl::usize const destinationY,
+                utl::usize const shipCount,
+                utl::FleetInstructionType const type
         )
             : m_origin{ origin },
               m_destination{ destination },
               m_destinationX{ destinationX },
               m_destinationY{ destinationY },
-              m_shipCount{ shipCount } { }
+              m_shipCount{ shipCount },
+              m_type{ type } { }
 
         [[nodiscard]] utl::usize GetOrigin() const {
             return m_origin;
@@ -237,14 +240,17 @@ namespace eve {
         [[nodiscard]] utl::usize GetDestination() const {
             return m_destination;
         }
-        [[nodiscard]] int GetDestinationX() const {
+        [[nodiscard]] utl::usize GetDestinationX() const {
             return m_destinationX;
         }
-        [[nodiscard]] int GetDestinationY() const {
+        [[nodiscard]] utl::usize GetDestinationY() const {
             return m_destinationY;
         }
         [[nodiscard]] utl::usize GetShipCount() const {
             return m_shipCount;
+        }
+        [[nodiscard]] utl::FleetInstructionType GetType() const {
+            return m_type;
         }
     };
 

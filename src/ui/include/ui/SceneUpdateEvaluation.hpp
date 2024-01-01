@@ -25,7 +25,7 @@ namespace ui {
         std::vector<utl::FightResult> m_fightResults;
         ResultType m_currentResultType{ ResultType::MERGE };
         utl::usize m_currentIndex{ 0 };
-        int m_popupCount{ 0 };
+        utl::usize m_popupCount{ 0 };
         bool m_nextPopup{ false };
 
         static void TestPrint(eve::SendUpdateEvaluation const* event);

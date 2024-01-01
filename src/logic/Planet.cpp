@@ -16,7 +16,7 @@ namespace lgk {
             utl::vec2pos_ty_ref_c position,
             Player_ty player,
             bool const isHomePlanet,
-            int planetNumber
+            utl::usize planetNumber
     )
         : Planet{ ID, position, std::move(player), isHomePlanet, planetNumber, 0 } { }
 
@@ -25,7 +25,7 @@ namespace lgk {
             utl::vec2pos_ty_ref_c position,
             Player_ty player,
             bool const isHomePlanet,
-            int planetNumber,
+            utl::usize planetNumber,
             utl::usize ships
     )
         : SpaceObject{ ID, position, ships, std::move(player) },
@@ -69,7 +69,7 @@ namespace lgk {
         return m_isDestroyed;
     }
 
-    int Planet::GetPlanetNumber() const {
+    utl::usize Planet::GetPlanetNumber() const {
         return m_planetNumber;
     }
 

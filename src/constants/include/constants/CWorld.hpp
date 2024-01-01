@@ -17,17 +17,17 @@ namespace cst {
         utl::usize maxPlanetCount{ 100 };
         utl::usize showPlanetCount{ 25 };
 
-        int minDimensionX{ 60 };
-        int currentDimensionX{ 150 };
-        int maxDimensionX{ 300 };
+        utl::usize minDimensionX{ 60 };
+        utl::usize currentDimensionX{ 150 };
+        utl::usize maxDimensionX{ 300 };
 
-        int minDimensionY{ 20 };
-        int currentDimensionY{ 80 };
-        int maxDimensionY{ 160 };
+        utl::usize minDimensionY{ 20 };
+        utl::usize currentDimensionY{ 80 };
+        utl::usize maxDimensionY{ 160 };
 
-        int showDimensionX{ 200 };
-        int showDimensionY{ 150 };
+        utl::usize showDimensionX{ 200 };
+        utl::usize showDimensionY{ 150 };
 
-        int discoverRangeFactor{ 3 };
+        utl::usize discoverRangeFactor{ 3 };
     };
 } // namespace cst

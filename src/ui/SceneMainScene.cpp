@@ -20,6 +20,7 @@
 #include <ui_lib/InputLine.hpp>
 #include <ui_lib/Text.hpp>
 #include <ui_lib/Title.hpp>
+#include <utils/FleetInstructionType.hpp>
 
 
 namespace ui {
@@ -550,11 +551,18 @@ namespace ui {
 
     void MainScene::SendFleetInstruction() {
 
-        eve::SendFleetInstructionEvent event{ static_cast<utl::usize>(m_origin->GetValue()),
-                                              static_cast<utl::usize>(m_destination->GetValue()),
-                                              m_destinationX->IsEnabled() ? m_destinationX->GetValue() : -1,
-                                              m_destinationY->IsEnabled() ? m_destinationY->GetValue() : -1,
-                                              static_cast<utl::usize>(m_shipCount->GetValue()) };
+        auto const type{ m_destinationX->IsEnabled() and m_destinationY->IsEnabled()
+                                 ? utl::FleetInstructionType::COORDINATES
+                                 : utl::FleetInstructionType::ID };
+
+        eve::SendFleetInstructionEvent event{
+            static_cast<utl::usize>(m_origin->GetValue()),
+            static_cast<utl::usize>(m_destination->GetValue()),
+            static_cast<utl::usize>(m_destinationX->IsEnabled() ? m_destinationX->GetValue() : 0),
+            static_cast<utl::usize>(m_destinationY->IsEnabled() ? m_destinationY->GetValue() : 0),
+            static_cast<utl::usize>(m_shipCount->GetValue()),
+            type
+        };
         app::AppContext::GetInstance().eventManager.InvokeEvent(event);
     }
 
@@ -583,9 +591,9 @@ namespace ui {
             m_destination->SetValue(static_cast<int>(event->GetDestID()));
         } else {
             auto const& co{ event->GetDestCoordinates() };
-            if (co.x >= 0 and co.y >= 0) {
-                m_destinationX->SetValue(co.x);
-                m_destinationY->SetValue(co.y);
+            if (co.x > 0 and co.y > 0) {
+                m_destinationX->SetValue(static_cast<int>(co.x));
+                m_destinationY->SetValue(static_cast<int>(co.y));
             }
         }
 

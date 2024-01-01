@@ -110,7 +110,7 @@ namespace uil {
             }
 
             while (true) {
-                int const key{ GetCharPressed() };
+                auto const key{ GetCharPressed() };
 
                 if (key <= 0) {
                     break;

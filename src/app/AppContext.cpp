@@ -70,25 +70,25 @@ namespace app {
                 constants.world.maxPlanetCount
         );
 
-        ValidateMinMax<int>(
+        ValidateMinMax<utl::usize>(
                 constants.world.minDimensionX,
                 constants.world.maxDimensionX,
                 "Min World Width",
                 "Max World Width"
         );
-        ValidateMinCurrentMax<int>(
+        ValidateMinCurrentMax<utl::usize>(
                 constants.world.minDimensionX,
                 constants.world.currentDimensionX,
                 constants.world.maxDimensionX
         );
 
-        ValidateMinMax<int>(
+        ValidateMinMax<utl::usize>(
                 constants.world.minDimensionY,
                 constants.world.maxDimensionY,
                 "Min World Height",
                 "Max World Height"
         );
-        ValidateMinCurrentMax<int>(
+        ValidateMinCurrentMax<utl::usize>(
                 constants.world.minDimensionY,
                 constants.world.currentDimensionY,
                 constants.world.maxDimensionY
@@ -106,13 +106,13 @@ namespace app {
         ValidateGreaterEqual<float>(constants.planet.globalSpacing, 0.0f, "Global Spacing");
 
         // Fleet
-        ValidateMinMax<int>(
+        ValidateMinMax<utl::usize>(
                 constants.fleet.minFleetSpeed,
                 constants.fleet.maxFleetSpeed,
                 "Min Fleet Movement",
                 "Max Fleet Movement"
         );
-        ValidateMinCurrentMax<int>(
+        ValidateMinCurrentMax<utl::usize>(
                 constants.fleet.minFleetSpeed,
                 constants.fleet.currentFleetSpeed,
                 constants.fleet.maxFleetSpeed
@@ -148,5 +148,9 @@ namespace app {
         eventManager.RemoveListener(&languageManager);
         eventManager.RemoveListener(this);
         hlp::Print(hlp::PrintType::INFO, "AppContext deleted");
+    }
+    void AppContext::Unload() {
+        soundManager.Unload();
+        assetManager.Unload();
     }
 } // namespace app

@@ -35,9 +35,9 @@ namespace lgk {
                 Player_ty const& neutralPlayer
         );
 
-        [[nodiscard]] int GenerateHomePlanets(std::vector<Player_ty> const& players);
+        [[nodiscard]] utl::usize GenerateHomePlanets(std::vector<Player_ty> const& players);
 
-        void GenerateOtherPlanets(utl::usize PlanetCount, int currentPlanet, Player_ty const& player);
+        void GenerateOtherPlanets(utl::usize PlanetCount, utl::usize currentPlanet, Player_ty const& player);
 
         [[nodiscard]] bool IsValidNewPlanet(Planet_ty const& newPlanet, app::AppContext_ty_c appContext) const;
 
@@ -72,7 +72,7 @@ namespace lgk {
         [[nodiscard]] TargetPoint_ty GetTargetPointByID(utl::usize ID) const;
 
         [[nodiscard]] SpaceObject_ty
-        GetOrGenerateDestination(utl::usize ID, int X, int Y, Player_ty const& currentPlayer);
+        GetOrGenerateDestination(utl::usize ID, utl::usize X, utl::usize Y, Player_ty const& currentPlayer);
 
         void CheckDeleteTargetPoints();
 

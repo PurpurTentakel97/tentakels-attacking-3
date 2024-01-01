@@ -12,7 +12,7 @@
 
 
 namespace uil {
-    void ExpandingButton::Initialize(int const focusID, std::string const& btnText) {
+    void ExpandingButton::Initialize(utl::usize const focusID, std::string const& btnText) {
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
 
         m_mainButton = std::make_shared<ToggleButton>(
@@ -73,7 +73,7 @@ namespace uil {
     }
 
     ExpandingButton::ExpandingButton(
-            int const focusID,
+            utl::usize const focusID,
             Vector2 const pos,
             Vector2 const size,
             Alignment const alignment,

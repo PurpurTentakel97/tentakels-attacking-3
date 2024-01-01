@@ -69,13 +69,13 @@ namespace ui {
         m_eventSettings->SetActive(true, appContext);
         m_elements.push_back(m_eventSettings);
 
-        int ID = 100;
-        int constexpr IDOffset = 100;
-        float constexpr posX = 0.75f;
-        float posY = 0.28f;
-        float constexpr offsetY = 0.1f;
-        float constexpr sizeX = 0.4f;
-        float constexpr sizeY = 0.05f;
+        auto ID = 100;
+        auto constexpr IDOffset = 100;
+        auto constexpr posX = 0.75f;
+        auto posY = 0.28f;
+        auto constexpr offsetY = 0.1f;
+        auto constexpr sizeX = 0.4f;
+        auto constexpr sizeY = 0.05f;
 
         auto next = [&]() {
             ID += IDOffset;
@@ -102,7 +102,9 @@ namespace ui {
                 static_cast<int>(appContext.constants.world.currentPlanetCount)
         );
         planetCount->SetActive(true, appContext);
-        planetCount->SetOnSave([](int value) { NewGameParameterScene::SetValue(value, SliderType::PLANET_COUNT); });
+        planetCount->SetOnSave([](utl::usize value) {
+            NewGameParameterScene::SetValue(value, SliderType::PLANET_COUNT);
+        });
         m_elements.push_back(planetCount);
         m_slider.push_back(planetCount);
 
@@ -127,7 +129,8 @@ namespace ui {
                 static_cast<int>(appContext.constants.world.currentDimensionX)
         );
         galaxyWidth->SetActive(true, appContext);
-        galaxyWidth->SetOnSave([](int value) { NewGameParameterScene::SetValue(value, SliderType::DIMENSION_X); });
+        galaxyWidth->SetOnSave([](utl::usize value) { NewGameParameterScene::SetValue(value, SliderType::DIMENSION_X); }
+        );
         m_elements.push_back(galaxyWidth);
         m_slider.push_back(galaxyWidth);
 
@@ -152,7 +155,9 @@ namespace ui {
                 static_cast<int>(appContext.constants.world.currentDimensionY)
         );
         galaxyHeight->SetActive(true, appContext);
-        galaxyHeight->SetOnSave([](int value) { NewGameParameterScene::SetValue(value, SliderType::DIMENSION_Y); });
+        galaxyHeight->SetOnSave([](utl::usize value) {
+            NewGameParameterScene::SetValue(value, SliderType::DIMENSION_Y);
+        });
         m_elements.push_back(galaxyHeight);
         m_slider.push_back(galaxyHeight);
 
@@ -177,7 +182,8 @@ namespace ui {
                 static_cast<int>(appContext.constants.fleet.currentFleetSpeed)
         );
         fleetSpeed->SetActive(true, appContext);
-        fleetSpeed->SetOnSave([](int value) { NewGameParameterScene::SetValue(value, SliderType::FLEET_SPEED); });
+        fleetSpeed->SetOnSave([](utl::usize value) { NewGameParameterScene::SetValue(value, SliderType::FLEET_SPEED); }
+        );
         m_elements.push_back(fleetSpeed);
         m_slider.push_back(fleetSpeed);
 
@@ -202,7 +208,8 @@ namespace ui {
                 static_cast<int>(appContext.constants.global.currentTargetRound)
         );
         lastRound->SetActive(true, appContext);
-        lastRound->SetOnSave([](int value) { NewGameParameterScene::SetValue(value, SliderType::TARGET_ROUND); });
+        lastRound->SetOnSave([](utl::usize value) { NewGameParameterScene::SetValue(value, SliderType::TARGET_ROUND); }
+        );
         m_elements.push_back(lastRound);
         m_slider.push_back(lastRound);
 
@@ -248,7 +255,7 @@ namespace ui {
         m_elements.push_back(nextBtn);
     }
 
-    void NewGameParameterScene::SetValue(int const value, SliderType const type) {
+    void NewGameParameterScene::SetValue(utl::usize const value, SliderType const type) {
         switch (type) {
             case SliderType::PLANET_COUNT:
                 app::AppContext::GetInstance().constants.world.currentPlanetCount = static_cast<utl::usize>(value);

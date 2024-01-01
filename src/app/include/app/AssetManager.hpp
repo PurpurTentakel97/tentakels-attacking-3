@@ -42,7 +42,7 @@ namespace app {
     public:
         AssetManager();
 
-        ~AssetManager();
+        void Unload();
 
         [[nodiscard]] Texture* GetTexture(AssetType assetType);
 
