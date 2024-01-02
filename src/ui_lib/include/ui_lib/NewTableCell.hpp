@@ -23,8 +23,8 @@ namespace uil {
 
     private:
         std::string m_strValue{};
-        utl::variant_col_ty m_value{ std::monostate{} };
-        utl::variant_col_ty m_oldValue{ std::monostate{} };
+        utl::input_variant_col_ty m_value{ "" };
+        utl::input_variant_col_ty m_oldValue{ "" };
         callback_ty m_callback{ [](NewTableCell&) {} };
         index_callback_ty m_indexCallback;
 
@@ -36,7 +36,7 @@ namespace uil {
         void setStringValue();
 
         template<typename T>
-        [[nodiscard]] T specificValue(utl::variant_col_ty const& value) const {
+        [[nodiscard]] T specificValue(utl::input_variant_col_ty const& value) const {
             if (auto const* ptr = std::get_if<T>(&value)) {
                 return *ptr;
             } else {
@@ -82,7 +82,7 @@ namespace uil {
             m_callback(*this);
         }
 
-        void setValueVariant(utl::variant_col_ty const& value);
+        void setValueVariant(utl::input_variant_col_ty const& value);
 
         void clear();
 

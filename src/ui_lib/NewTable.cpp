@@ -94,7 +94,7 @@ namespace uil {
                 if (m_headlines.contains(i)) {
                     m_cells[firstRow][i]->setValueVariant(m_headlines[i]);
                 } else {
-                    m_cells[firstRow][i]->setValue(std::monostate{});
+                    m_cells[firstRow][i]->setValue<std::string>("");
                 }
             } else {
                 m_cells[firstRow][i]->setValue(i);

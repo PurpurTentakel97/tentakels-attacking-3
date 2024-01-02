@@ -25,7 +25,7 @@ namespace uil {
     class NewTable final : public UIElement, public Focusable {
     public:
         using cell_vec_ty = std::vector<std::vector<std::shared_ptr<NewTableCell>>>;
-        using headlines_ty = std::unordered_map<utl::usize, utl::variant_col_ty>;
+        using headlines_ty = std::unordered_map<utl::usize, utl::input_variant_col_ty>;
 
     private:
         cell_vec_ty m_cells{};

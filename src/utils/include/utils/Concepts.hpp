@@ -13,7 +13,7 @@ namespace utl {
     template<typename T, typename... U>
     concept AnyOf = std::disjunction_v<std::is_same<T, U>...>;
     template<typename T>
-    concept InputValueTypeCol = AnyOf<T, utl::usize, double, std::monostate, std::string, Color>;
+    concept InputValueTypeCol = AnyOf<T, utl::usize, double, std::string, Color>;
     template<typename T>
-    concept InputValueType = AnyOf<T, utl::usize, double, std::monostate, std::string>;
+    concept InputValueType = AnyOf<T, utl::usize, double, std::string>;
 } // namespace utl

@@ -15,8 +15,6 @@ namespace uil {
             m_strValue = std::to_string(value<utl::usize>());
         } else if (isA<double>()) {
             m_strValue = std::to_string(value<double>());
-        } else if (isA<Color>() or isA<std::monostate>()) {
-            m_strValue.clear();
         } else {
             throw std::runtime_error{ "invalid datatype while setting string value in table cell." };
         }
@@ -44,14 +42,14 @@ namespace uil {
     }
 
     bool NewTableCell::isEmpty() const {
-        return isA<std::monostate>();
+        return m_strValue.empty();
     }
 
     std::string NewTableCell::strValue() const {
         return m_strValue;
     }
 
-    void NewTableCell::setValueVariant(utl::variant_col_ty const& value) {
+    void NewTableCell::setValueVariant(utl::input_variant_col_ty const& value) {
         m_oldValue = m_value;
         m_value = value;
         setStringValue();
@@ -59,7 +57,7 @@ namespace uil {
     }
 
     void NewTableCell::clear() {
-        setValue(std::monostate());
+        assert(false && "need to be implemented");
     }
 
     void NewTableCell::setCallback(callback_ty const& callback) {
@@ -112,8 +110,7 @@ namespace uil {
     void NewTableCell::Render(app::AppContext_ty_c) {
         DrawRectangleRec(m_collider, BLACK);
 
-        if (isA<std::monostate>()) { /*nothing to do here*/
-        } else if (isA<Color>()) {
+        if (isA<Color>()) {
             DrawRectangleRec(
                     { m_collider.x + m_textRenderOffset.x / 2,
                       m_collider.y + m_textRenderOffset.y / 2,

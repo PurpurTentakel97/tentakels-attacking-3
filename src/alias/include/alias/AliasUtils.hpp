@@ -13,8 +13,8 @@
 
 namespace utl {
     using usize = std::size_t;
-    using variant_col_ty = std::variant<utl::usize, double, std::monostate, std::string, Color>;
-    using variant_ty = std::variant<utl::usize, double, std::monostate, std::string>;
+    using input_variant_col_ty = std::variant<utl::usize, double, std::string, Color>;
+    using input_variant_ty = std::variant<utl::usize, double, std::string>;
 
     template<typename T>
     struct Vec2;
