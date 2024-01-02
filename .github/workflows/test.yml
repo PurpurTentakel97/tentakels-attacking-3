@@ -36,12 +36,14 @@ jobs:
             triplet: x64-linux
             preset: ninja
     env:
-      # Indicates the location of the vcpkg as a Git submodule of the project repository.
-      VCPKG_ROOT: ${{ github.workspace }}/vcpkg
       # Tells vcpkg where binary packages are stored.
-      VCPKG_DEFAULT_BINARY_CACHE: ${{ github.workspace }}/vcpkg/bincache
+      VCPKG_DEFAULT_BINARY_CACHE: ${{ github.workspace }}/vcpkg_cache
 
     steps:
+      - name: "Set environment variables"
+        shell: bash
+        run: |
+          echo "VCPKG_ROOT=$VCPKG_INSTALLATION_ROOT" >> $GITHUB_ENV
       - name: "Update apt chache to install raylib dependencies"
         run: sudo apt-get update -q
         if: ${{ matrix.os == 'ubuntu-latest' }}
@@ -63,21 +65,12 @@ jobs:
       - name: Restore vcpkg and its artifacts.
         uses: actions/cache@v3
         with:
-          # The first path is the location of vcpkg: it contains the vcpkg executable and data files, as long as the
-          # built package archives (aka binary cache) which are located by VCPKG_DEFAULT_BINARY_CACHE env var.
-          # The other paths starting with '!' are exclusions: they contain termporary files generated during the build of the installed packages.
-          path: |
-            ${{ env.VCPKG_ROOT }}
-            !${{ env.VCPKG_ROOT }}/buildtrees
-            !${{ env.VCPKG_ROOT }}/packages
-            !${{ env.VCPKG_ROOT }}/downloads
-            !${{ env.VCPKG_ROOT }}/installed
+          path: ${{ env.VCPKG_DEFAULT_BINARY_CACHE }}
           # The key is composed in a way that it gets properly invalidated: this must happen whenever vcpkg's Git commit id changes, or the list of packages changes. In this case a cache miss must happen and a new entry with a new key with be pushed to GitHub the cache service.
           # The key includes: hash of the vcpkg.json file, the hash of the vcpkg Git commit id, and the used vcpkg's triplet. The vcpkg's commit id would suffice, but computing an hash out it does not harm.
           # Note: given a key, the cache content is immutable. If a cache entry has been created improperly, in order the recreate the right content the key must be changed as well, and it must be brand new (i.e. not existing already).
           key: |
-            ${{ hashFiles( 'vcpkg.json' ) }}-${{ hashFiles( '.git/modules/vcpkg/HEAD' )}}-${{ matrix.triplet }}
-        if: ${{ matrix.os != 'ubuntu-latest' }}
+            ${{ hashFiles( 'vcpkg.json' ) }}-${{ hashFiles( '${{ env.VCPKG_ROOT }}/.git/HEAD' )}}-${{ matrix.triplet }}
 
       - name: Show content of workspace after cache has been restored
         run: find $RUNNER_WORKSPACE
@@ -95,19 +88,11 @@ jobs:
           sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-13 100
         if: ${{ matrix.os == 'ubuntu-latest' }}
 
-      # Run CMake to generate Ninja project files
-      - name: Install dependencies and generate project files on Ubuntu
-        run: |
-          cmake -S . -B build -G "Ninja" -DCMAKE_TOOLCHAIN_FILE=/usr/local/share/vcpkg/scripts/buildsystems/vcpkg.cmake
-        working-directory: "${{ github.workspace }}"
-        if: ${{ matrix.os == 'ubuntu-latest' }}
-
       # Run CMake to generate Ninja project files, using the vcpkg's toolchain file to resolve and install the dependencies as specified in vcpkg.json.
-      - name: Install dependencies and generate project files on Windows
+      - name: Install dependencies and generate project files
         run: |
           cmake -S . -B build -G "Ninja" -DCMAKE_TOOLCHAIN_FILE="${{ env.VCPKG_ROOT }}/scripts/buildsystems/vcpkg.cmake" -DVCPKG_TARGET_TRIPLET=${{ matrix.triplet }}
         working-directory: "${{ github.workspace }}"
-        if: ${{ matrix.os != 'ubuntu-latest' }}
 
       # Build the whole project with Ninja (which is spawn by CMake).
       - name: Build ${{matrix.os}} / ${{matrix.build}}
