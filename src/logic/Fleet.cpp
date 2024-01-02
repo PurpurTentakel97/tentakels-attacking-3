@@ -74,14 +74,14 @@ namespace lgk {
             target = m_target;
         }
 
-        int speed = static_cast<int>(app::AppContext::GetInstance().constants.fleet.currentFleetSpeed);
-        float constexpr dl{ 0.001f };
-        utl::usize const x1{ m_position.x };
-        utl::usize const y1{ m_position.y };
-        utl::usize const x2{ target->GetPos().x };
-        utl::usize const y2{ target->GetPos().y };
-        utl::usize const dx{ x2 - x1 };
-        utl::usize const dy{ y2 - y1 };
+        auto speed = static_cast<int>(app::AppContext::GetInstance().constants.fleet.currentFleetSpeed);
+        auto constexpr dl{ 0.001f };
+        auto const x1{ m_position.x };
+        auto const y1{ m_position.y };
+        auto const x2{ target->GetPos().x };
+        auto const y2{ target->GetPos().y };
+        auto const dx{ x2 - x1 };
+        auto const dy{ y2 - y1 };
         std::vector<utl::vec2pos_ty> route;
 
         auto addPosition = [&](utl::vec2pos_ty_ref_c new_) {
@@ -94,13 +94,13 @@ namespace lgk {
         };
         auto generatePosition = [&]() {
             for (float l = 0.0f; l < 1.0f; l += dl) {
-                utl::vec2pos_ty newPos{ x1 + static_cast<utl::usize>(std::floor(static_cast<float>(dx) * l + 0.5f)),
-                                        y1 + static_cast<utl::usize>(std::floor(static_cast<float>(dy) * l + 0.5f)) };
+                utl::vec2pos_ty newPos{ x1 + static_cast<int>(std::floor(static_cast<float>(dx) * l + 0.5f)),
+                                        y1 + static_cast<int>(std::floor(static_cast<float>(dy) * l + 0.5f)) };
                 addPosition(newPos);
             }
         };
         auto setSpeed = [&](utl::vec2pos_ty_ref_c old, utl::vec2pos_ty_ref_c new_) {
-            utl::Vec2<int> offset{ static_cast<int>(old.x - new_.x), static_cast<int>(old.y - new_.y) };
+            utl::vec2pos_ty offset{ old.x - new_.x, old.y - new_.y };
             offset = Abs<int>(offset);
             speed -= offset.x;
             speed -= offset.y;

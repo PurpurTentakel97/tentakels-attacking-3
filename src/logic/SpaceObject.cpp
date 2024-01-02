@@ -9,15 +9,7 @@
 
 namespace lgk {
     bool SpaceObject::IsInRange(SpaceObject_ty_raw first, SpaceObject_ty_raw second, utl::usize const range) {
-        auto const fPos = utl::Vec2<long long int>(
-                static_cast<long long int>(first->GetPos().x),
-                static_cast<long long int>(first->GetPos().y)
-        );
-        auto const sPos = utl::Vec2<long long int>(
-                static_cast<long long int>(second->GetPos().x),
-                static_cast<long long int>(second->GetPos().y)
-        );
-        auto const actualRange{ (fPos - sPos).Length() };
+        auto const actualRange{ (first->GetPos() - second->GetPos()).Length() };
         return static_cast<double>(range) >= actualRange;
     }
 

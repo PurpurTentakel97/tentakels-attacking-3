@@ -72,7 +72,7 @@ namespace lgk {
         [[nodiscard]] TargetPoint_ty GetTargetPointByID(utl::usize ID) const;
 
         [[nodiscard]] SpaceObject_ty
-        GetOrGenerateDestination(utl::usize ID, utl::usize X, utl::usize Y, Player_ty const& currentPlayer);
+        GetOrGenerateDestination(utl::usize ID, int X, int Y, Player_ty const& currentPlayer);
 
         void CheckDeleteTargetPoints();
 

@@ -455,7 +455,7 @@ namespace uil {
         for (utl::usize column = 1; column < m_columnCount; ++column) {
             auto const& cell = m_cells[0][column];
             if (cell->IsColliding(mousePosition)) {
-                newPosition = { 0, column };
+                newPosition = { 0, static_cast<int>(column) };
                 goto found;
             }
         }
@@ -463,7 +463,7 @@ namespace uil {
         for (utl::usize row = 1; row < m_rowCount; ++row) {
             auto const& cell = m_cells[row][0];
             if (cell->IsColliding(mousePosition)) {
-                newPosition = { row, 0 };
+                newPosition = { static_cast<int>(row), 0 };
                 goto found;
             }
         }
@@ -472,7 +472,7 @@ namespace uil {
             for (utl::usize column = 1; column < m_columnCount; ++column) {
                 auto const& cell = m_cells[row][column];
                 if (cell->IsColliding(mousePosition)) {
-                    newPosition = { row, column };
+                    newPosition = { static_cast<int>(row), static_cast<int>(column) };
                     goto found;
                 }
             }

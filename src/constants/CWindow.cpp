@@ -99,7 +99,7 @@ namespace cst {
         }
     }
 
-    utl::Vec2<utl::usize> Window::GetIntFromResolution(Resolution const resolution) const {
+    utl::vec2pos_ty Window::GetIntFromResolution(Resolution const resolution) const {
 
         switch (resolution) {
 
@@ -148,8 +148,8 @@ namespace cst {
                 return nativeResolutionVec;
             case Resolution::SCREEN: {
                 auto const screen{ GetCurrentMonitor() };
-                auto const height{ static_cast<utl::usize>(GetMonitorHeight(screen)) };
-                auto const width{ static_cast<utl::usize>(GetMonitorWidth(screen)) };
+                auto const height{ GetMonitorHeight(screen) };
+                auto const width{ GetMonitorWidth(screen) };
 
                 return { width, height };
             }

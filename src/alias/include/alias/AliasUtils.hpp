@@ -13,10 +13,10 @@ namespace utl {
 
     template<typename T>
     struct Vec2;
-    using vec2pos_ty = Vec2<utl::usize>;
-    using vec2pos_ty_ref = Vec2<utl::usize>&;
-    using vec2pos_ty_c = Vec2<utl::usize> const;
-    using vec2pos_ty_ref_c = Vec2<utl::usize> const&;
+    using vec2pos_ty = Vec2<int>;
+    using vec2pos_ty_ref = Vec2<int>&;
+    using vec2pos_ty_c = Vec2<int> const;
+    using vec2pos_ty_ref_c = Vec2<int> const&;
 
     struct MergeResult;
     struct FightResult;
