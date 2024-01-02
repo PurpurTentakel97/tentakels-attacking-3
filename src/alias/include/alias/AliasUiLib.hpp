@@ -62,6 +62,10 @@ namespace uil {
     using InputLine_str_ty = std::shared_ptr<InputLine<std::string>>;
     using InputLine_str_ty_c = std::shared_ptr<InputLine<std::string>> const&;
 
+    class NewInputLine;
+    using NewInputLine_ty = std::shared_ptr<NewInputLine>;
+    using NewInputLine_ty_c = std::shared_ptr<NewInputLine> const&;
+
     class Line;
     using Line_ty = std::shared_ptr<Line>;
     using Line_ty_c = std::shared_ptr<Line> const&;
