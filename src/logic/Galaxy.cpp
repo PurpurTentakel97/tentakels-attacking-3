@@ -1277,7 +1277,8 @@ namespace lgk {
             case utl::FleetInstructionType::COORDINATES: {
                 // check for valid Coordinates in general
                 bool const validCoordinates{ std::cmp_less_equal(event->GetDestinationX(), m_size.x)
-                                             and std::cmp_less_equal(event->GetDestinationY(), m_size.y) };
+                                             and std::cmp_less_equal(event->GetDestinationY(), m_size.y)
+                                             and event->GetDestinationX() != 0 and event->GetDestinationY() != 0 };
 
                 if (!validCoordinates) {
                     popup(app::AppContext::GetInstance().languageManager.Text(
