@@ -128,6 +128,7 @@ namespace uil {
     }
 
     void PopUp::Resize(app::AppContext_ty_c appContext) {
+        UIElement::Resize(appContext);
         for (auto const& e : m_elements) {
             e->Resize(appContext);
         }
