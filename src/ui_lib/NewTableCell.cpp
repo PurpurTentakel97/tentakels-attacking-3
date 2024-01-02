@@ -11,8 +11,8 @@ namespace uil {
     void NewTableCell::setStringValue() {
         if (isA<std::string>()) {
             m_strValue = value<std::string>();
-        } else if (isA<int>()) {
-            m_strValue = std::to_string(value<int>());
+        } else if (isA<utl::usize>()) {
+            m_strValue = std::to_string(value<utl::usize>());
         } else if (isA<double>()) {
             m_strValue = std::to_string(value<double>());
         } else if (isA<Color>() or isA<std::monostate>()) {
@@ -51,7 +51,7 @@ namespace uil {
         return m_strValue;
     }
 
-    void NewTableCell::setValueVariant(variant_ty const& value) {
+    void NewTableCell::setValueVariant(utl::variant_col_ty const& value) {
         m_oldValue = m_value;
         m_value = value;
         setStringValue();

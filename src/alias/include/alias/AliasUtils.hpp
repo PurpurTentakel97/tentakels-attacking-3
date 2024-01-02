@@ -5,11 +5,16 @@
 
 #pragma once
 
+#include <CustomRaylib.hpp>
+#include <string>
 #include <utility>
+#include <variant>
 #include <vector>
 
 namespace utl {
     using usize = std::size_t;
+    using variant_col_ty = std::variant<utl::usize, double, std::monostate, std::string, Color>;
+    using variant_ty = std::variant<utl::usize, double, std::monostate, std::string>;
 
     template<typename T>
     struct Vec2;

@@ -25,7 +25,7 @@ namespace uil {
     class NewTable final : public UIElement, public Focusable {
     public:
         using cell_vec_ty = std::vector<std::vector<std::shared_ptr<NewTableCell>>>;
-        using headlines_ty = std::unordered_map<utl::usize, NewTableCell::variant_ty>;
+        using headlines_ty = std::unordered_map<utl::usize, utl::variant_col_ty>;
 
     private:
         cell_vec_ty m_cells{};
@@ -97,7 +97,7 @@ namespace uil {
 
         void clearCell(utl::usize row, utl::usize column);
 
-        template<CellValueType T>
+        template<utl::InputValueTypeCol T>
         NewTableCell& setValue(utl::usize const row, utl::usize const column, T const value) {
             if (not validIndex(row, column)) {
                 throw std::runtime_error{ IndexOutOfRangeExceptionString(row, column) };
@@ -141,7 +141,7 @@ namespace uil {
 
         void showHeadline(bool headline);
 
-        template<CellValueType T>
+        template<utl::InputValueTypeCol T>
         void setHeadline(utl::usize const column, T const value) {
             if (not validColumn(column)) {
                 throw std::runtime_error{ IndexOutOfRangeExceptionString(utl::usize{ 0 }, column) };
@@ -152,7 +152,7 @@ namespace uil {
 
         void clearHeadline(utl::usize column);
 
-        template<CellValueType T>
+        template<utl::InputValueTypeCol T>
         void setHeadlines(std::vector<T> const values) {
             if (values.size() > m_column_count) {
                 throw std::runtime_error{ "more headlines provided than columns existing" };

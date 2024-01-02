@@ -7,9 +7,9 @@
 
 #include "Focusable.hpp"
 #include "UIElement.hpp"
+#include "utils/Concepts.hpp"
 #include <alias/AliasUtils.hpp>
 #include <functional>
-#include <helper/HConcepts.hpp>
 #include <string>
 #include <type_traits>
 #include <variant>
@@ -17,15 +17,14 @@
 namespace uil {
     class NewTableCell final : public UIElement, public Focusable {
     public:
-        using variant_ty = std::variant<int, double, std::monostate, std::string, Color>;
         using callback_ty = std::function<void(NewTableCell&)>;
         using index_ty = std::pair<utl::usize, utl::usize>;
         using index_callback_ty = std::function<index_ty(NewTableCell const&)>;
 
     private:
         std::string m_strValue{};
-        variant_ty m_value{ std::monostate{} };
-        variant_ty m_oldValue{ std::monostate{} };
+        utl::variant_col_ty m_value{ std::monostate{} };
+        utl::variant_col_ty m_oldValue{ std::monostate{} };
         callback_ty m_callback{ [](NewTableCell&) {} };
         index_callback_ty m_indexCallback;
 
@@ -37,7 +36,7 @@ namespace uil {
         void setStringValue();
 
         template<typename T>
-        [[nodiscard]] T specificValue(variant_ty const& value) const {
+        [[nodiscard]] T specificValue(utl::variant_col_ty const& value) const {
             if (auto const* ptr = std::get_if<T>(&value)) {
                 return *ptr;
             } else {
@@ -75,7 +74,7 @@ namespace uil {
 
         [[nodiscard]] std::string strValue() const;
 
-        template<CellValueType T>
+        template<utl::InputValueTypeCol T>
         void setValue(T const& value) {
             m_oldValue = m_value;
             m_value = value;
@@ -83,7 +82,7 @@ namespace uil {
             m_callback(*this);
         }
 
-        void setValueVariant(variant_ty const& value);
+        void setValueVariant(utl::variant_col_ty const& value);
 
         void clear();
 

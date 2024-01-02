@@ -93,18 +93,16 @@ namespace uil {
             if (m_isHeadline) {
                 if (m_headlines.contains(i)) {
                     m_cells[firstRow][i]->setValueVariant(m_headlines[i]);
-                } else if (m_isNumbered) {
-                    m_cells[firstRow][i]->setValue(static_cast<int>(i));
                 } else {
                     m_cells[firstRow][i]->setValue(std::monostate{});
                 }
             } else {
-                m_cells[firstRow][i]->setValue(static_cast<int>(i));
+                m_cells[firstRow][i]->setValue(i);
             }
         }
 
         for (utl::usize i = 1; i <= m_row_count; ++i) {
-            m_cells[i][firstColumn]->setValue(static_cast<int>(i));
+            m_cells[i][firstColumn]->setValue(i);
         }
     }
 
