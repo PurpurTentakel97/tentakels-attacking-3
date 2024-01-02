@@ -94,23 +94,20 @@ namespace ui {
 
     void GalaxyScene::Zoom(float const scaleFactor, Vector2 const referenceScale) {
 
-        cst::Resolution_ty_c resolution{ app::AppContext::GetInstance().GetResolution() };
         m_verticalSlider->SetAbsoluteDimension(scaleFactor);
         m_horizontalSlider->SetAbsoluteDimension(scaleFactor);
 
         auto const startX{ m_scaleLineX->GetStart() };
         auto endX{ m_scaleLineX->GetEnd() };
-        auto const sizeX{ referenceScale.x / resolution.x };
 
-        endX.x = startX.x + sizeX;
+        endX.x = startX.x + GetElementPosition(referenceScale.x, 0.0f).x * 0.2f;
         m_scaleLineX->SetEnd(endX);
         m_scaleLineX->Update();
 
         auto startY{ m_scaleLineY->GetStart() };
         auto const endY{ m_scaleLineY->GetEnd() };
-        auto const sizeY{ referenceScale.y / resolution.y };
 
-        startY.y = endY.y - sizeY;
+        startY.y = endY.y - GetElementPosition(0.0f, referenceScale.y).y * 0.2f;
         m_scaleLineY->SetStart(startY);
         m_scaleLineY->Update();
     }
