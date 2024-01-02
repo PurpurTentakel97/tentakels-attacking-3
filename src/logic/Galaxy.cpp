@@ -75,11 +75,12 @@ namespace lgk {
         for (auto& p : players) {
             utl::usize counter{ 0 };
             while (true) {
-                utl::vec2pos_ty_c newPosition{ random.random(static_cast<utl::usize>(m_size.x)),
-                                               random.random(static_cast<utl::usize>(m_size.y)) };
+                utl::vec2pos_ty_c newPosition{
+                    static_cast<int>(random.random(static_cast<std::mt19937_64::result_type>(m_size.x))),
+                    static_cast<int>(random.random(static_cast<std::mt19937_64::result_type>(m_size.y)))
+                };
 
                 auto const newPlanet = std::make_shared<Planet>(GetNextID(), newPosition, p, true, currentPlanet);
-                //newPlanet->SetDiscovered(true);
 
                 if (IsValidNewPlanet(newPlanet, appContext)) {
                     m_objects.push_back(newPlanet);
@@ -109,7 +110,10 @@ namespace lgk {
         for (; static_cast<utl::usize>(currentPlanet) <= planetCount; ++currentPlanet) {
             utl::usize counter{ 0 };
             while (true) {
-                utl::vec2pos_ty_c newPosition{ random.random(m_size.x), random.random(m_size.y) };
+                utl::vec2pos_ty_c newPosition{
+                    static_cast<int>(random.random(static_cast<std::mt19937_64::result_type>(m_size.x))),
+                    static_cast<int>(random.random(static_cast<std::mt19937_64::result_type>(m_size.y)))
+                };
 
                 auto const newPlanet = std::make_shared<Planet>(GetNextID(), newPosition, player, false, currentPlanet);
 
@@ -216,8 +220,8 @@ namespace lgk {
         // get destination
         auto const destination = GetOrGenerateDestination(
                 event->GetDestination(),
-                event->GetDestinationX(),
-                event->GetDestinationY(),
+                static_cast<int>(event->GetDestinationX()),
+                static_cast<int>(event->GetDestinationY()),
                 currentPlayer
         );
 
@@ -313,8 +317,8 @@ namespace lgk {
         // get destination
         auto const destination{ GetOrGenerateDestination(
                 event->GetDestination(),
-                event->GetDestinationX(),
-                event->GetDestinationY(),
+                static_cast<int>(event->GetDestinationX()),
+                static_cast<int>(event->GetDestinationY()),
                 currentPlayer
         ) };
 
@@ -432,8 +436,8 @@ namespace lgk {
         // get destination
         auto const destination{ GetOrGenerateDestination(
                 event->GetDestination(),
-                event->GetDestinationX(),
-                event->GetDestinationY(),
+                static_cast<int>(event->GetDestinationX()),
+                static_cast<int>(event->GetDestinationY()),
                 currentPlayer
         ) };
 
@@ -591,12 +595,8 @@ namespace lgk {
         throw std::runtime_error("no Target Point with ID " + std::to_string(ID));
     }
 
-    SpaceObject_ty Galaxy::GetOrGenerateDestination(
-            utl::usize const ID,
-            utl::usize const X,
-            utl::usize const Y,
-            Player_ty const& currentPlayer
-    ) {
+    SpaceObject_ty
+    Galaxy::GetOrGenerateDestination(utl::usize const ID, int const X, int const Y, Player_ty const& currentPlayer) {
 
         for (auto& object : m_objects) {
 
@@ -1255,6 +1255,12 @@ namespace lgk {
             return { nullptr, nullptr, nullptr, false };
         }
 
+        if (event->GetShipCount() == 0) {
+            popup(app::AppContext::GetInstance().languageManager.Text("ui_popup_add_fleet_ship_count_too_low"));
+            hlp::Print(hlp::PrintType::ONLY_DEBUG, "ship count to low: {}", event->GetShipCount());
+            return { nullptr, nullptr, nullptr, false };
+        }
+
         switch (event->GetType()) {
             case utl::FleetInstructionType::ID: {
                 // check for valid ID in general
@@ -1270,8 +1276,9 @@ namespace lgk {
             }
             case utl::FleetInstructionType::COORDINATES: {
                 // check for valid Coordinates in general
-                bool const validCoordinates{ (event->GetDestinationX() <= m_size.x)
-                                             and (event->GetDestinationY() <= m_size.y) };
+                bool const validCoordinates{ std::cmp_less_equal(event->GetDestinationX(), m_size.x)
+                                             and std::cmp_less_equal(event->GetDestinationY(), m_size.y)
+                                             and event->GetDestinationX() != 0 and event->GetDestinationY() != 0 };
 
                 if (!validCoordinates) {
                     popup(app::AppContext::GetInstance().languageManager.Text(
@@ -1297,35 +1304,6 @@ namespace lgk {
             }
         }
 
-        // destination is 0 by default if no destination ID exists
-        /*if (event->GetDestination() == 0) {
-            bool const validCoordinates{ (event->GetDestinationX() >= 0 and event->GetDestinationX() <= m_size.x)
-                                         and (event->GetDestinationY() >= 0 and event->GetDestinationY() <= m_size.y) };
-            bool const coordinateInput{ event->GetDestinationX() >= 0 and event->GetDestinationY() >= 0 };
-
-            if (!validCoordinates && coordinateInput) {
-                popup(app::AppContext::GetInstance().languageManager.Text(
-                        "logic_galaxy_destination_coordinate_outside_of_map_text",
-                        event->GetDestinationX(),
-                        event->GetDestinationY()
-                ));
-                hlp::Print(
-                        hlp::PrintType::ONLY_DEBUG,
-                        "destination coordinates out of map -> destination x: {} -> destination y: {}",
-                        event->GetDestinationX(),
-                        event->GetDestinationY()
-                );
-                return { nullptr, nullptr, nullptr, false };
-            }
-        } else if (!IsValidSpaceObjectID(event->GetDestination())) {
-            popup(app::AppContext::GetInstance().languageManager.Text(
-                    "logic_galaxy_not_existing_destination_id_text",
-                    event->GetDestination()
-            ));
-            hlp::Print(hlp::PrintType::ONLY_DEBUG, "destination id not available: {}", event->GetDestination());
-            return { nullptr, nullptr, nullptr, false };
-        }
-*/
         // get origin and set new fleet
         auto const& origin{ GetSpaceObjectByID(event->GetOrigin()) };
 
@@ -1445,24 +1423,26 @@ namespace lgk {
             }
         };
         auto handle = [this, add, currentPlayer](SpaceObject_ty_c obj) {
+            if (not obj) {
+                return;
+            }
+
             if (currentPlayer->GetID() != obj->GetPlayer()->GetID()) {
                 return;
             }
 
-            if (obj) {
-                auto const& my_obj{ this->GetSpaceObjectByID(obj->GetID()) };
-                if (my_obj) {
-                    my_obj->SetShipCount(obj->GetShipCount());
-                    if (my_obj->IsFleet()) {
-                        auto* const my_fleet{ dynamic_cast<Fleet* const>(&*my_obj) };
-                        auto const* const obj_fleet{ dynamic_cast<Fleet const* const>(&*obj) };
-                        if (obj_fleet) {
-                            my_fleet->SetTarget(obj_fleet->GetTarget());
-                        }
+            auto const& my_obj{ this->GetSpaceObjectByID(obj->GetID()) };
+            if (my_obj) {
+                my_obj->SetShipCount(obj->GetShipCount());
+                if (my_obj->IsFleet()) {
+                    auto* const my_fleet{ dynamic_cast<Fleet* const>(&*my_obj) };
+                    auto const* const obj_fleet{ dynamic_cast<Fleet const* const>(&*obj) };
+                    if (obj_fleet) {
+                        my_fleet->SetTarget(obj_fleet->GetTarget());
                     }
-                } else {
-                    add(obj);
                 }
+            } else {
+                add(obj);
             }
         };
 

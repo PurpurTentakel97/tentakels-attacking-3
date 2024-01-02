@@ -328,8 +328,8 @@ namespace ui {
                 { m_absoluteSize.width, m_absoluteSize.height },
                 absolutePoint
         );
-        return { static_cast<utl::usize>(relative.x) * galaxySize.x,
-                 static_cast<utl::usize>(relative.y) * galaxySize.y };
+        return { static_cast<int>(relative.x * static_cast<float>(galaxySize.x)),
+                 static_cast<int>(relative.y * static_cast<float>(galaxySize.y)) };
     }
 
     void UIGalaxy::HandleDragLineResult(Vector2 const start, Vector2 const end) {

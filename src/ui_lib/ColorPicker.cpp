@@ -27,10 +27,10 @@ namespace uil {
 
                 auto const index{ hlp::GetIndexFromRowAndColumn(row, column, m_countX) };
                 // start					offset
-                float const posX{ (1.0f / static_cast<float>((2 * m_countX)))
-                                  + (1.0f / static_cast<float>(m_countX * column)) };
-                float const posY{ (1.0f / static_cast<float>((2 * m_countY)))
-                                  + (1.0f / static_cast<float>(m_countY * row)) };
+                float const posX{ (1.0f / static_cast<float>(2 * m_countX))
+                                  + ((1.0f / static_cast<float>(m_countX)) * static_cast<float>(column)) };
+                float const posY{ (1.0f / static_cast<float>(2 * m_countY))
+                                  + ((1.0f / static_cast<float>(m_countY)) * static_cast<float>(row)) };
                 float const sizeX{ 0.8f / static_cast<float>(m_countX) };
                 float const sizeY{ 0.7f / static_cast<float>(m_countY) };
 

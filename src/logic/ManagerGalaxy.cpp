@@ -31,8 +31,8 @@ namespace lgk {
 
     void GalaxyManager::GenerateGalaxy() {
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
-        utl::vec2pos_ty_c size = { appContext.constants.world.currentDimensionX,
-                                   appContext.constants.world.currentDimensionY };
+        utl::vec2pos_ty_c size = { static_cast<int>(appContext.constants.world.currentDimensionX),
+                                   static_cast<int>(appContext.constants.world.currentDimensionY) };
         auto const galaxy = std::make_shared<Galaxy>(
                 size,
                 appContext.constants.world.currentPlanetCount,
@@ -58,8 +58,8 @@ namespace lgk {
     void GalaxyManager::GenerateShowGalaxy() {
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
         utl::vec2pos_ty_c size = {
-            appContext.constants.world.showDimensionX,
-            appContext.constants.world.showDimensionY,
+            static_cast<int>(appContext.constants.world.showDimensionX),
+            static_cast<int>(appContext.constants.world.showDimensionY),
         };
 
         auto const galaxy = std::make_shared<Galaxy>(
