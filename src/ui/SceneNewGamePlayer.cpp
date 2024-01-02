@@ -38,29 +38,29 @@ namespace ui {
         );
         m_elements.push_back(addPlayerText);
 
-        auto inputLine = std::make_shared<uil::InputLine<std::string>>(
+        m_inputLine = std::make_shared<uil::NewInputLine>(
                 1,
                 GetElementPosition(0.1f, 0.35f),
                 GetElementSize(0.35f, 0.05f),
                 uil::Alignment::TOP_LEFT,
-                20
+                std::string()
         );
-        inputLine->SetPlaceholderText(appContext.languageManager.Text("scene_new_game_player_player_name_placeholder"));
-        inputLine->SetOnEnter([this]() { this->AddPlayer(); });
-        m_elements.push_back(inputLine);
-        m_inputLine = inputLine.get();
+        m_inputLine->SetPlaceholderText(appContext.languageManager.Text("scene_new_game_player_player_name_placeholder")
+        );
+        m_inputLine->SetOnEnter([this](uil::NewInputLine&) { this->AddPlayer(); });
+        m_elements.push_back(m_inputLine);
 
-        auto colorPicker = std::make_shared<uil::ColorPicker>(
+
+        m_colorPicker = std::make_shared<uil::ColorPicker>(
                 2,
                 GetElementPosition(0.1f, 0.45f),
                 GetElementSize(0.35f, 0.35f),
                 uil::Alignment::TOP_LEFT
         );
-        colorPicker->SetColor(appContext.playerCollection.GetPossibleColor());
-        colorPicker->SetOnEnter([this]() { this->AddPlayer(); });
-        m_elements.push_back(colorPicker);
-        m_nestedFocus.push_back(colorPicker.get());
-        m_colorPicker = colorPicker.get();
+        m_colorPicker->SetColor(appContext.playerCollection.GetPossibleColor());
+        m_colorPicker->SetOnEnter([this]() { this->AddPlayer(); });
+        m_elements.push_back(m_colorPicker);
+        m_nestedFocus.push_back(m_colorPicker.get());
 
         auto resetBTN = std::make_shared<uil::ClassicButton>(
                 7,
@@ -118,7 +118,7 @@ namespace ui {
         );
         m_elements.push_back(currentPlayerCount);
 
-        auto table = std::make_shared<uil::Table>(
+        m_table = std::make_shared<uil::Table>(
                 GetElementPosition(0.9f, 0.35f),
                 GetElementSize(0.35f, 0.45f),
                 uil::Alignment::TOP_RIGHT,
@@ -128,26 +128,25 @@ namespace ui {
                 Vector2(0.33f, 0.1f),
                 0.1f
         );
-        table->SetRowEditable(0, false);
-        table->SetColumnEditable(0, false);
-        table->SetHeadlineValues<std::string>({
+        m_table->SetRowEditable(0, false);
+        m_table->SetColumnEditable(0, false);
+        m_table->SetHeadlineValues<std::string>({
                 appContext.languageManager.Text("scene_new_game_player_table_headline_id"),
                 appContext.languageManager.Text("scene_new_game_player_table_headline_name"),
                 appContext.languageManager.Text("scene_new_game_player_table_headline_color"),
         });
 
-        table->SetUpdateSpecificCell<std::string>(
+        m_table->SetUpdateSpecificCell<std::string>(
                 [this](uil::AbstractTableCell const* cell, std::string const& oldValue, std::string const& newValue) {
                     this->UpdatePlayerName(cell, oldValue, newValue);
                 }
         );
-        table->SetUpdateSpecificCell<Color>([this](uil::AbstractTableCell const* cell, Color oldValue, Color newValue) {
-            UpdatePlayerColor(cell, oldValue, newValue);
+        m_table->SetUpdateSpecificCell<Color>([this](uil::AbstractTableCell const* cell, Color oldValue, Color newValue
+                                              ) { UpdatePlayerColor(cell, oldValue, newValue);
         });
 
-        m_elements.push_back(table);
-        m_nestedFocus.push_back(table.get());
-        m_table = table.get();
+        m_elements.push_back(m_table);
+        m_nestedFocus.push_back(m_table.get());
 
         auto addPlayerBtn = std::make_shared<uil::ClassicButton>(
                 3,
@@ -230,7 +229,7 @@ namespace ui {
             appContext.eventManager.InvokeEvent(focusEvent);
         }
 
-        eve::SelectFocusElementEvent const event{ m_inputLine };
+        eve::SelectFocusElementEvent const event{ m_inputLine.get() };
         appContext.eventManager.InvokeEvent(event);
 
         auto const PlayerData{ appContext.playerCollection.GetPlayerData() };
@@ -262,7 +261,7 @@ namespace ui {
     void NewGamePlayerScene::AddPlayer() {
         app::AppContext_ty_c appContext = app::AppContext::GetInstance();
 
-        eve::AddPlayerEvent const event{ m_inputLine->GetValue(), m_colorPicker->GetColor() };
+        eve::AddPlayerEvent const event{ m_inputLine->Value<std::string>(), m_colorPicker->GetColor() };
         appContext.eventManager.InvokeEvent(event);
     }
 
