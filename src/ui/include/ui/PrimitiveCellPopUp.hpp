@@ -6,18 +6,18 @@
 #pragma once
 
 #include "PopUpCell.hpp"
-#include <ui_lib/InputLine.hpp>
+#include <ui_lib/NewInputLine.hpp>
 
 
 namespace ui {
     template<typename T>
     class PrimitiveCellPopUp final : public CellPopUp {
     private:
-        std::shared_ptr<uil::InputLine<T>> m_inputChange;
+        std::shared_ptr<uil::NewInputLine> m_inputChange;
         std::function<void(T)> m_onClick{ [](T) {} };
 
         void SetValue() override {
-            m_onClick(m_inputChange->GetValue());
+            m_onClick(m_inputChange->Value<T>());
             SetShouldClose();
         }
 
@@ -39,12 +39,12 @@ namespace ui {
             auto acceptBtn = InitializeAcceptButton();
             acceptBtn->SetOnClick([this]() { this->SetValue(); });
 
-            auto inputChance = std::make_shared<uil::InputLine<T>>(
+            auto inputChance = std::make_shared<uil::NewInputLine>(
                     3,
                     hlp::GetElementPosition(m_pos, m_size, 0.5f, 0.55f),
                     hlp::GetElementSize(m_size, 0.9f, 0.2f),
                     uil::Alignment::MID_MID,
-                    50
+                    T{}
             );
 
             eve::NewFocusPopUpElementEvent event{ inputChance.get() };

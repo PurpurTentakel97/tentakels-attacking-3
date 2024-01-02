@@ -8,9 +8,6 @@
 // Message PopUp
 #include "PopUpMessage.hpp"
 
-// Delete Player PopUp
-#include "PopUpPlayerDelete.hpp"
-
 // Next Turn PopUp
 #include "PopUpValidate.hpp"
 

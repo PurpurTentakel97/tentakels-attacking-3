@@ -245,19 +245,6 @@ namespace eve {
         }
     };
 
-    class ShowDeletePlayerPopUpEvent final : public PopUpEvent {
-        std::function<void(utl::usize)> m_onClick;
-
-    public:
-        ShowDeletePlayerPopUpEvent(std::string title, std::string subTitle, std::function<void(utl::usize)> onClick)
-            : PopUpEvent{ std::move(title), std::move(subTitle) },
-              m_onClick{ std::move(onClick) } { }
-
-        [[nodiscard]] std::function<void(utl::usize)> GetOnClick() const {
-            return m_onClick;
-        }
-    };
-
     class ShowValidatePopUp final : public PopUpEvent {
     private:
         std::function<void(bool)> m_callback;

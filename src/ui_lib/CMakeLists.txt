@@ -14,7 +14,6 @@ add_library(ui_lib STATIC
             include/ui_lib/Focusable.hpp
             include/ui_lib/Hover.hpp
             include/ui_lib/HoverRender.hpp
-            include/ui_lib/InputLine.hpp
             include/ui_lib/Line.hpp
             include/ui_lib/LineDrag.hpp
             include/ui_lib/Picture.hpp

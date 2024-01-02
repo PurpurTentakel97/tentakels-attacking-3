@@ -5,7 +5,6 @@ add_library(ui STATIC
             include/ui/PopUpCellColor.hpp
             include/ui/HSceneCreditTable.hpp
             include/ui/SceneCredits.hpp
-            include/ui/PopUpPlayerDelete.hpp
             include/ui/PopupResultFight.hpp
             include/ui/HSceneFleetTable.hpp
             include/ui/HSceneGalaxyAndSlider.hpp
@@ -40,7 +39,6 @@ add_library(ui STATIC
             PopUpCellColor.cpp
             HSceneCreditTable.cpp
             SceneCredits.cpp
-            PopUpPlayerDelete.cpp
             PopupResultFight.cpp
             HSceneFleetTable.cpp
             HSceneGalaxyAndSlider.cpp

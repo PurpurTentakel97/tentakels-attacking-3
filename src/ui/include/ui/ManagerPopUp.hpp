@@ -30,8 +30,6 @@ namespace ui {
 
         void NewMessagePopUp(eve::ShowMessagePopUpEvent const* event);
 
-        void NewDeletePlayerPopUp(eve::ShowDeletePlayerPopUpEvent const* event);
-
         void NewValidatePopUp(eve::ShowValidatePopUp const* event);
 
         void NewColorCellPopUp(eve::ShowCellPopUpEvent<Color> const* event);
@@ -41,20 +39,8 @@ namespace ui {
         void NewFightResultPopUp(eve::ShowFightResultEvent const* event);
 
         template<typename T, typename eventType>
-        void NewTableCellPopUp(eventType const* const event) {
-            app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
-            eve::NewFocusPopUpLayerEvent const focusEvent;
-            appContext.eventManager.InvokeEvent(focusEvent);
-
-            m_popUps.push_back(std::make_unique<PrimitiveCellPopUp<T>>(
-                    Vector2(0.5f, 0.5f),
-                    Vector2(0.7f, 0.7f),
-                    uil::Alignment::MID_MID,
-                    event->GetTitle(),
-                    app::AssetType::LOGO,
-                    event->GetCurrentValue(),
-                    event->GetOnClick()
-            ));
+        void NewTableCellPopUp(eventType const* const) {
+            hlp::Print(hlp::PrintType::ERROR, "not implemented anymore");
         }
 
         void DeleteLastPopUp(uil::PopUp* toDelete);

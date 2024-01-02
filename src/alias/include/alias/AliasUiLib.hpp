@@ -51,17 +51,6 @@ namespace uil {
     using Hover_ty = std::shared_ptr<Hover>;
     using Hover_ty_c = std::shared_ptr<Hover> const&;
 
-    template<typename T>
-    class InputLine;
-    using InputLine_int_ty = std::shared_ptr<InputLine<int>>;
-    using InputLine_int_ty_c = std::shared_ptr<InputLine<int>> const&;
-    using InputLine_float_ty = std::shared_ptr<InputLine<float>>;
-    using InputLine_float_ty_c = std::shared_ptr<InputLine<float>> const&;
-    using InputLine_double_ty = std::shared_ptr<InputLine<double>>;
-    using InputLine_double_ty_c = std::shared_ptr<InputLine<double>> const&;
-    using InputLine_str_ty = std::shared_ptr<InputLine<std::string>>;
-    using InputLine_str_ty_c = std::shared_ptr<InputLine<std::string>> const&;
-
     class NewInputLine;
     using NewInputLine_ty = std::shared_ptr<NewInputLine>;
     using NewInputLine_ty_c = std::shared_ptr<NewInputLine> const&;

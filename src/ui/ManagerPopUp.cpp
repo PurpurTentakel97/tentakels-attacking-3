@@ -30,23 +30,17 @@ namespace ui {
             return;
         }
 
-        // Delete Player Pop Up
-        if (auto const* PopUpEvent = dynamic_cast<eve::ShowDeletePlayerPopUpEvent const*>(&event)) {
-            NewDeletePlayerPopUp(PopUpEvent);
-            return;
-        }
-
         // Table Pop Up
         if (auto const* PopUpEvent = dynamic_cast<eve::ShowCellPopUpEvent<std::string> const*>(&event)) {
             NewTableCellPopUp<std::string, eve::ShowCellPopUpEvent<std::string>>(PopUpEvent);
             return;
         }
         if (auto const* PopUpEvent = dynamic_cast<eve::ShowCellPopUpEvent<int> const*>(&event)) {
-            NewTableCellPopUp<int, eve::ShowCellPopUpEvent<int>>(PopUpEvent);
+            NewTableCellPopUp<utl::usize, eve::ShowCellPopUpEvent<int>>(PopUpEvent);
             return;
         }
         if (auto const* PopUpEvent = dynamic_cast<eve::ShowCellPopUpEvent<float> const*>(&event)) {
-            NewTableCellPopUp<float, eve::ShowCellPopUpEvent<float>>(PopUpEvent);
+            hlp::Print(hlp::PrintType::ERROR, "float popup not implemented anymore");
             return;
         }
         if (auto const* PopUpEvent = dynamic_cast<eve::ShowCellPopUpEvent<double> const*>(&event)) {
@@ -94,19 +88,6 @@ namespace ui {
                 const_cast<std::string&>(event->GetSubTitle()),
                 app::AssetType::EXCLAMATION_MARK,
                 event->GetCallback()
-        ));
-    }
-
-    void ManagerPopUp::NewDeletePlayerPopUp(eve::ShowDeletePlayerPopUpEvent const* const event) {
-        hlp::AddFocusLayer(true);
-
-        m_popUps.push_back(std::make_unique<DeletePlayerPopUp>(
-                Vector2(0.5f, 0.5f),
-                Vector2(0.5f, 0.5f),
-                uil::Alignment::MID_MID,
-                event->GetTitle(),
-                app::AssetType::QUESTION_MARK,
-                event->GetOnClick()
         ));
     }
 
