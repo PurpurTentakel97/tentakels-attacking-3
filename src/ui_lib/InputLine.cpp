@@ -4,7 +4,7 @@
 //
 
 
-#include "NewInputLine.hpp"
+#include "InputLine.hpp"
 
 #include "helper/HInput.hpp"
 #include "helper/HTextProcessing.hpp"
@@ -12,7 +12,7 @@
 
 
 namespace uil {
-    void NewInputLine::UpdateValue() {
+    void InputLine::UpdateValue() {
         try {
             m_oldValue = m_value;
             if (IsA<std::string>()) {
@@ -31,7 +31,7 @@ namespace uil {
         } catch (std::exception const&) { }
     }
 
-    bool NewInputLine::AddChar(utl::usize key) {
+    bool InputLine::AddChar(utl::usize key) {
         auto const validAdd{ m_charLimit > m_strValue.size() };
 
         if (not validAdd) {
@@ -49,7 +49,7 @@ namespace uil {
         return true;
     }
 
-    void NewInputLine::RemoveChar() {
+    void InputLine::RemoveChar() {
         if (m_strValue.empty()) {
             return;
         }
@@ -63,7 +63,7 @@ namespace uil {
         m_onValueChanced(*this);
     }
 
-    bool NewInputLine::IsValidKey(utl::usize key) const {
+    bool InputLine::IsValidKey(utl::usize key) const {
         if (IsA<utl::usize>()) {
             auto const isInteger{ key >= m_keyLockup.at(KeyType::FIRST_NUMBER)
                                   and key <= m_keyLockup.at(KeyType::LAST_NUMBER) };
@@ -102,7 +102,7 @@ namespace uil {
         return false;
     }
 
-    void NewInputLine::UpdateStringValue() {
+    void InputLine::UpdateStringValue() {
         if (IsA<std::string>()) {
             m_strValue = std::get<std::string>(m_value);
         } else if (IsA<utl::usize>()) {
@@ -112,16 +112,16 @@ namespace uil {
         }
     }
 
-    NewInputLine::NewInputLine(
+    InputLine::InputLine(
             utl::usize const focusID,
             Vector2 const pos,
             Vector2 const size,
             Alignment const alignment,
             utl::input_variant_ty const& startValue
     )
-        : NewInputLine{ focusID, pos, size, alignment, startValue, 20 } {};
+        : InputLine{ focusID, pos, size, alignment, startValue, 20 } {};
 
-    NewInputLine::NewInputLine(
+    InputLine::InputLine(
             utl::usize const focusID,
             Vector2 const pos,
             Vector2 const size,
@@ -138,84 +138,84 @@ namespace uil {
         UpdateStringValue();
     }
 
-    void NewInputLine::SetPlaceholderText(std::string placeholderText) {
+    void InputLine::SetPlaceholderText(std::string placeholderText) {
         m_placeholderText = std::move(placeholderText);
     }
 
-    std::string NewInputLine::PlaceholderText() const {
+    std::string InputLine::PlaceholderText() const {
         return m_placeholderText;
     }
 
-    bool NewInputLine::HasValue() const {
+    bool InputLine::HasValue() const {
         return not m_strValue.empty();
     }
 
-    bool NewInputLine::HasValueChanced() const {
+    bool InputLine::HasValueChanced() const {
         return m_value != m_valueLastFrame;
     }
 
-    std::string NewInputLine::GetStrValue() const {
+    std::string InputLine::GetStrValue() const {
         return m_strValue;
     }
 
-    void NewInputLine::Clear() {
+    void InputLine::Clear() {
         m_strValue.clear();
         UpdateValue();
     }
 
-    void NewInputLine::SetOnEnter(NewInputLine::on_enter_callback_ty callback) {
+    void InputLine::SetOnEnter(InputLine::on_enter_callback_ty callback) {
         m_onEnter = std::move(callback);
     }
 
-    void NewInputLine::SetOnValueChanced(NewInputLine::on_value_chanced_callback_ty callback) {
+    void InputLine::SetOnValueChanced(InputLine::on_value_chanced_callback_ty callback) {
         m_onValueChanced = std::move(callback);
     }
 
-    bool NewInputLine::IsClearByFocus() const {
+    bool InputLine::IsClearByFocus() const {
         return m_isClearByFocus;
     }
 
-    void NewInputLine::SetClearByFocus(bool const clear) {
+    void InputLine::SetClearByFocus(bool const clear) {
         m_isClearByFocus = clear;
     }
 
-    bool NewInputLine::IsClearByNextInput() const {
+    bool InputLine::IsClearByNextInput() const {
         return m_isClearNextInput;
     }
 
-    void NewInputLine::SetClearByNextInput(bool const clear) {
+    void InputLine::SetClearByNextInput(bool const clear) {
         m_isClearNextInput = clear;
     }
 
-    void NewInputLine::SetEnabled(bool const enabled) {
+    void InputLine::SetEnabled(bool const enabled) {
         m_isEnabled = enabled;
     }
 
-    double NewInputLine::BackspacePressTime() const {
+    double InputLine::BackspacePressTime() const {
         return m_backspacePressTime;
     }
 
-    void NewInputLine::SetBackspacePressTime(double const time) {
+    void InputLine::SetBackspacePressTime(double const time) {
         m_backspacePressTime = time;
     }
 
-    utl::usize NewInputLine::CharLimit() const {
+    utl::usize InputLine::CharLimit() const {
         return m_charLimit;
     }
 
-    void NewInputLine::SetCharLimit(utl::usize const limit) {
+    void InputLine::SetCharLimit(utl::usize const limit) {
         m_charLimit = limit;
     }
 
-    bool NewInputLine::IsEnabled() const {
+    bool InputLine::IsEnabled() const {
         return m_isEnabled;
     }
 
-    Rectangle NewInputLine::GetCollider() const {
+    Rectangle InputLine::GetCollider() const {
         return m_collider;
     }
 
-    void NewInputLine::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) {
+    void InputLine::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) {
         UIElement::CheckAndUpdate(mousePosition, appContext);
 
         if (not m_isEnabled) {
@@ -287,7 +287,7 @@ namespace uil {
         }
     }
 
-    void NewInputLine::Render(app::AppContext_ty_c appContext) {
+    void InputLine::Render(app::AppContext_ty_c appContext) {
 
         // update here to make sure it's after all calls of HasValueChanced
         m_valueLastFrame = m_value;

@@ -38,7 +38,7 @@ namespace ui {
         );
         m_elements.push_back(addPlayerText);
 
-        m_inputLine = std::make_shared<uil::NewInputLine>(
+        m_inputLine = std::make_shared<uil::InputLine>(
                 1,
                 GetElementPosition(0.1f, 0.35f),
                 GetElementSize(0.35f, 0.05f),
@@ -47,7 +47,7 @@ namespace ui {
         );
         m_inputLine->SetPlaceholderText(appContext.languageManager.Text("scene_new_game_player_player_name_placeholder")
         );
-        m_inputLine->SetOnEnter([this](uil::NewInputLine&) { this->AddPlayer(); });
+        m_inputLine->SetOnEnter([this](uil::InputLine&) { this->AddPlayer(); });
         m_elements.push_back(m_inputLine);
 
 

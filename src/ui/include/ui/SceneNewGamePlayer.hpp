@@ -6,7 +6,7 @@
 #pragma once
 
 #include <event/EventListener.hpp>
-#include <ui_lib/NewInputLine.hpp>
+#include <ui_lib/InputLine.hpp>
 #include <ui_lib/Scene.hpp>
 #include <ui_lib/TableCellAbstract.hpp>
 
@@ -14,7 +14,7 @@
 namespace ui {
     class NewGamePlayerScene final : public uil::Scene, public eve::EventListener {
     private:
-        std::shared_ptr<uil::NewInputLine> m_inputLine;
+        std::shared_ptr<uil::InputLine> m_inputLine;
         std::shared_ptr<uil::ColorPicker> m_colorPicker;
         std::shared_ptr<uil::Table> m_table;
         uil::ClassicButton_ty m_nextBTN;

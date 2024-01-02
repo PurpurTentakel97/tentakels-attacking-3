@@ -14,9 +14,9 @@
 
 
 namespace uil {
-    class NewInputLine final : public UIElement, public Focusable {
-        using on_enter_callback_ty = std::function<void(NewInputLine&)>;
-        using on_value_chanced_callback_ty = std::function<void(NewInputLine&)>;
+    class InputLine final : public UIElement, public Focusable {
+        using on_enter_callback_ty = std::function<void(InputLine&)>;
+        using on_value_chanced_callback_ty = std::function<void(InputLine&)>;
 
     private:
         enum class KeyType {
@@ -41,8 +41,8 @@ namespace uil {
 
         double m_currentBackspacePressTime{ 0.0 };
         double m_backspacePressTime{ 0.5 };
-        on_enter_callback_ty m_onEnter{ [](NewInputLine&) {} };
-        on_value_chanced_callback_ty m_onValueChanced{ [](NewInputLine&) {} };
+        on_enter_callback_ty m_onEnter{ [](InputLine&) {} };
+        on_value_chanced_callback_ty m_onValueChanced{ [](InputLine&) {} };
 
         static inline std::unordered_map<KeyType, utl::usize> const m_keyLockup{
             { KeyType::FIRST_NUMBER,  48 },
@@ -64,7 +64,7 @@ namespace uil {
         void UpdateStringValue();
 
     public:
-        NewInputLine(
+        InputLine(
                 utl::usize focusID,
                 Vector2 pos,
                 Vector2 size,
@@ -72,7 +72,7 @@ namespace uil {
                 utl::input_variant_ty const& startValue
         );
 
-        NewInputLine(
+        InputLine(
                 utl::usize focusID,
                 Vector2 pos,
                 Vector2 size,

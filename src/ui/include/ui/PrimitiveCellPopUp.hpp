@@ -6,14 +6,14 @@
 #pragma once
 
 #include "PopUpCell.hpp"
-#include <ui_lib/NewInputLine.hpp>
+#include <ui_lib/InputLine.hpp>
 
 
 namespace ui {
     template<typename T>
     class PrimitiveCellPopUp final : public CellPopUp {
     private:
-        std::shared_ptr<uil::NewInputLine> m_inputChange;
+        std::shared_ptr<uil::InputLine> m_inputChange;
         std::function<void(T)> m_onClick{ [](T) {} };
 
         void SetValue() override {
@@ -39,7 +39,7 @@ namespace ui {
             auto acceptBtn = InitializeAcceptButton();
             acceptBtn->SetOnClick([this]() { this->SetValue(); });
 
-            auto inputChance = std::make_shared<uil::NewInputLine>(
+            auto inputChance = std::make_shared<uil::InputLine>(
                     3,
                     hlp::GetElementPosition(m_pos, m_size, 0.5f, 0.55f),
                     hlp::GetElementSize(m_size, 0.9f, 0.2f),

@@ -8,46 +8,46 @@
 #include <app/AppContext.hpp>
 #include <helper/HPrint.hpp>
 #include <ui_lib/ButtonClassic.hpp>
-#include <ui_lib/NewInputLine.hpp>
+#include <ui_lib/InputLine.hpp>
 //#include <ui_lib/NewTable.hpp>
 #include <ui_lib/SceneType.hpp>
 
 
 namespace ui {
     void TestScene::Initialize(app::AppContext_ty) {
-        m_line1 = std::make_shared<uil::NewInputLine>(
+        m_line1 = std::make_shared<uil::InputLine>(
                 1,
                 GetElementPosition(0.5f, 0.1f),
                 GetElementSize(0.4f, 0.08f),
                 uil::Alignment::MID_MID,
                 utl::usize{ 1 }
         );
-        m_line1->SetOnValueChanced([](uil::NewInputLine& line) { ui::TestScene::TestLambdaValue(line); });
-        m_line1->SetOnEnter([](uil::NewInputLine& line) { ui::TestScene::TestLambdaEnter(line); });
+        m_line1->SetOnValueChanced([](uil::InputLine& line) { ui::TestScene::TestLambdaValue(line); });
+        m_line1->SetOnEnter([](uil::InputLine& line) { ui::TestScene::TestLambdaEnter(line); });
         m_line1->SetPlaceholderText("switching line");
         m_elements.push_back(m_line1);
 
-        auto inputLine2 = std::make_shared<uil::NewInputLine>(
+        auto inputLine2 = std::make_shared<uil::InputLine>(
                 2,
                 GetElementPosition(0.5f, 0.2f),
                 GetElementSize(0.4f, 0.08f),
                 uil::Alignment::MID_MID,
                 2.0
         );
-        inputLine2->SetOnValueChanced([](uil::NewInputLine& line) { ui::TestScene::TestLambdaValue(line); });
-        inputLine2->SetOnEnter([](uil::NewInputLine& line) { ui::TestScene::TestLambdaEnter(line); });
+        inputLine2->SetOnValueChanced([](uil::InputLine& line) { ui::TestScene::TestLambdaValue(line); });
+        inputLine2->SetOnEnter([](uil::InputLine& line) { ui::TestScene::TestLambdaEnter(line); });
         inputLine2->SetPlaceholderText("double line");
         m_elements.push_back(inputLine2);
 
-        auto inputLine3 = std::make_shared<uil::NewInputLine>(
+        auto inputLine3 = std::make_shared<uil::InputLine>(
                 3,
                 GetElementPosition(0.5f, 0.3f),
                 GetElementSize(0.4f, 0.08f),
                 uil::Alignment::MID_MID,
                 "Bester Text!"
         );
-        inputLine3->SetOnValueChanced([](uil::NewInputLine& line) { ui::TestScene::TestLambdaValue(line); });
-        inputLine3->SetOnEnter([](uil::NewInputLine& line) { ui::TestScene::TestLambdaEnter(line); });
+        inputLine3->SetOnValueChanced([](uil::InputLine& line) { ui::TestScene::TestLambdaValue(line); });
+        inputLine3->SetOnEnter([](uil::InputLine& line) { ui::TestScene::TestLambdaEnter(line); });
         inputLine3->SetPlaceholderText("string line");
         inputLine3->SetEnabled(false);
         m_elements.push_back(inputLine3);
@@ -235,7 +235,7 @@ namespace ui {
         Scene::SetActive(active, appContext);
     }
 
-    void TestScene::TestLambdaValue(uil::NewInputLine& line) {
+    void TestScene::TestLambdaValue(uil::InputLine& line) {
         using namespace hlp;
         if (line.IsA<std::string>()) {
             Print(PrintType::DEBUG, "value chanced | new: {}", line.Value<std::string>());
@@ -246,7 +246,7 @@ namespace ui {
         }
     }
 
-    void TestScene::TestLambdaEnter(uil::NewInputLine& line) {
+    void TestScene::TestLambdaEnter(uil::InputLine& line) {
         using namespace hlp;
         if (line.IsA<std::string>()) {
             Print(PrintType::DEBUG, "enter pressed | current: {}", line.Value<std::string>());

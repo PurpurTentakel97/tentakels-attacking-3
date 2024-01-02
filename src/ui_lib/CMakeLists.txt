@@ -31,7 +31,7 @@ add_library(ui_lib STATIC
             include/ui_lib/UIElement.hpp
             include/ui_lib/NewTable.hpp
             include/ui_lib/NewTableCell.hpp
-            include/ui_lib/NewInputLine.hpp
+            include/ui_lib/InputLine.hpp
             TableCellAbstract.cpp
             Alignment.cpp
             Button.cpp
@@ -62,7 +62,7 @@ add_library(ui_lib STATIC
             ButtonToggle.cpp
             NewTable.cpp
             NewTableCell.cpp
-            NewInputLine.cpp
+            InputLine.cpp
 )
 
 target_include_directories(ui_lib

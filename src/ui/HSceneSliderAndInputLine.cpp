@@ -8,20 +8,20 @@
 #include <helper/HRandom.hpp>
 #include <memory>
 #include <ui_lib/ButtonClassic.hpp>
-#include <ui_lib/NewInputLine.hpp>
+#include <ui_lib/InputLine.hpp>
 #include <ui_lib/Slider.hpp>
 
 
 namespace ui {
     void SliderAndInputLine::Initialize(utl::usize focusID) {
-        m_inputLine = std::make_shared<uil::NewInputLine>(
+        m_inputLine = std::make_shared<uil::InputLine>(
                 focusID,
                 GetElementPosition(0.77f, 0.0f),
                 GetElementSize(0.13f, 1.0f),
                 uil::Alignment::TOP_LEFT,
                 utl::usize{}
         );
-        m_inputLine->SetOnEnter([this](uil::NewInputLine&) { this->BtnPressed(); });
+        m_inputLine->SetOnEnter([this](uil::InputLine&) { this->BtnPressed(); });
         m_inputLine->SetValue(m_currentValue);
         ValidateCurrentValue();
         m_slided = true;

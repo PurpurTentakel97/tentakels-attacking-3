@@ -6,12 +6,12 @@
 #pragma once
 
 #include <alias/AliasApp.hpp>
-#include <ui_lib/NewInputLine.hpp>
+#include <ui_lib/InputLine.hpp>
 #include <ui_lib/Scene.hpp>
 
 namespace ui {
     class TestScene : public uil::Scene {
-        using line_ty = std::shared_ptr<uil::NewInputLine>;
+        using line_ty = std::shared_ptr<uil::InputLine>;
 
     private:
         line_ty m_line1;
@@ -21,9 +21,9 @@ namespace ui {
         TestScene();
         void SetActive(bool active, app::AppContext_ty_c appContext) override;
 
-        static void TestLambdaValue(uil::NewInputLine& line);
+        static void TestLambdaValue(uil::InputLine& line);
 
-        static void TestLambdaEnter(uil::NewInputLine& line);
+        static void TestLambdaEnter(uil::InputLine& line);
 
         void SwitchInputLineType();
 

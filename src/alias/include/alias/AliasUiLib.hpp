@@ -51,9 +51,9 @@ namespace uil {
     using Hover_ty = std::shared_ptr<Hover>;
     using Hover_ty_c = std::shared_ptr<Hover> const&;
 
-    class NewInputLine;
-    using NewInputLine_ty = std::shared_ptr<NewInputLine>;
-    using NewInputLine_ty_c = std::shared_ptr<NewInputLine> const&;
+    class InputLine;
+    using NewInputLine_ty = std::shared_ptr<InputLine>;
+    using NewInputLine_ty_c = std::shared_ptr<InputLine> const&;
 
     class Line;
     using Line_ty = std::shared_ptr<Line>;
