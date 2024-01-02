@@ -1423,24 +1423,26 @@ namespace lgk {
             }
         };
         auto handle = [this, add, currentPlayer](SpaceObject_ty_c obj) {
+            if (not obj) {
+                return;
+            }
+
             if (currentPlayer->GetID() != obj->GetPlayer()->GetID()) {
                 return;
             }
 
-            if (obj) {
-                auto const& my_obj{ this->GetSpaceObjectByID(obj->GetID()) };
-                if (my_obj) {
-                    my_obj->SetShipCount(obj->GetShipCount());
-                    if (my_obj->IsFleet()) {
-                        auto* const my_fleet{ dynamic_cast<Fleet* const>(&*my_obj) };
-                        auto const* const obj_fleet{ dynamic_cast<Fleet const* const>(&*obj) };
-                        if (obj_fleet) {
-                            my_fleet->SetTarget(obj_fleet->GetTarget());
-                        }
+            auto const& my_obj{ this->GetSpaceObjectByID(obj->GetID()) };
+            if (my_obj) {
+                my_obj->SetShipCount(obj->GetShipCount());
+                if (my_obj->IsFleet()) {
+                    auto* const my_fleet{ dynamic_cast<Fleet* const>(&*my_obj) };
+                    auto const* const obj_fleet{ dynamic_cast<Fleet const* const>(&*obj) };
+                    if (obj_fleet) {
+                        my_fleet->SetTarget(obj_fleet->GetTarget());
                     }
-                } else {
-                    add(obj);
                 }
+            } else {
+                add(obj);
             }
         };
 
