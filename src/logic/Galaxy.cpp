@@ -1255,6 +1255,12 @@ namespace lgk {
             return { nullptr, nullptr, nullptr, false };
         }
 
+        if (event->GetShipCount() == 0) {
+            popup(app::AppContext::GetInstance().languageManager.Text("ui_popup_add_fleet_ship_count_too_low"));
+            hlp::Print(hlp::PrintType::ONLY_DEBUG, "ship count to low: {}", event->GetShipCount());
+            return { nullptr, nullptr, nullptr, false };
+        }
+
         switch (event->GetType()) {
             case utl::FleetInstructionType::ID: {
                 // check for valid ID in general

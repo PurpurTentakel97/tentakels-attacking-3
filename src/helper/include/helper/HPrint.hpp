@@ -65,11 +65,11 @@ namespace hlp {
 
     template<typename... Args>
     inline void Print(PrintType const printType, std::string const& message, Args const&... args) {
-#ifndef _DEBUG
+#ifdef NDEBUG
         if (printType == PrintType::ONLY_DEBUG) {
             return;
         }
-#endif // _DEBUG
+#endif // NDEBUG
 
         std::string const typeS{ GetPrintTypeString(printType) };
         std::string const toExport{ typeS + ' ' + message + '\n' };
