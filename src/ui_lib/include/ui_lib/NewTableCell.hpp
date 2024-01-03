@@ -6,6 +6,7 @@
 #pragma once
 
 #include "Focusable.hpp"
+#include "NewTable.hpp"
 #include "UIElement.hpp"
 #include <alias/AliasUiLib.hpp>
 #include <alias/AliasUtils.hpp>
@@ -16,6 +17,7 @@
 
 namespace uil {
     class NewTableCell final : public UIElement, public Focusable {
+    public:
         friend class NewTable;
 
     public:
@@ -87,12 +89,16 @@ namespace uil {
             }
             m_oldValue = m_value;
             m_value    = value;
+            m_onValueChanced(*this);
+            m_table->ResizeTable();
         }
 
         template<utl::InputValueTypeCol T>
         void SetNewType(T const value) {
             m_oldValue = m_value;
             m_value    = value;
+            m_onValueChanced(*this);
+            m_table->ResizeTable();
         }
 
         // getter setter
