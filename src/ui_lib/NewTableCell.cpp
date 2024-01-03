@@ -4,7 +4,164 @@
 //
 
 #include "NewTableCell.hpp"
-#include <alias/AliasCustomRaylib.hpp>
+#include <helper/HInput.hpp>
+#include <helper/HPrint.hpp>
+#include <utils/Colors.hpp>
+
+namespace uil {
+
+    static auto const wrongDatatypePrint{ [](std::string const& operation) {
+        hlp::Print(hlp::PrintType::ERROR, "invalid datatype in Table cell while {}", operation);
+    } };
+
+    void NewTableCell::SetStringValue() {
+        if (IsA<std::string>()) {
+            m_strValue = Value<std::string>();
+        } else if (IsA<Color>()) {
+            m_strValue = utl::Colors::AsString(Value<Color>());
+        } else if (IsA<double>()) {
+            m_strValue = std::to_string(Value<double>());
+        } else if (IsA<utl::usize>()) {
+            m_strValue = std::to_string(Value<utl::usize>());
+        } else {
+            wrongDatatypePrint("set string value");
+        }
+    }
+    void NewTableCell::Clicked(app::AppContext_ty_c appContext) {
+        if (not IsEditable()) {
+            return;
+        }
+
+        if (IsA<std::string>()) {
+            eve::ShowStringInputLinePopupEvent const event{
+                appContext.languageManager.Text("ui_table_cell_edit_entry_popup"),
+                Value<std::string>(),
+                [this](std::string const& value) { this->SetValue(value); }
+            };
+            appContext.eventManager.InvokeEvent(event);
+        } else if (IsA<Color>()) {
+            eve::ShowColorInputLinePopupEvent const event{ appContext.languageManager.Text(
+                                                                   "ui_table_cell_edit_entry_popup"),
+                                                           Value<Color>(),
+                                                           [this](Color value) { this->SetValue(value); } };
+            appContext.eventManager.InvokeEvent(event);
+        } else if (IsA<double>()) {
+            eve::ShowDoubleInputLinePopupEvent const event{ appContext.languageManager.Text(
+                                                                    "ui_table_cell_edit_entry_popup"),
+                                                            Value<double>(),
+                                                            [this](double value) { this->SetValue(value); } };
+            appContext.eventManager.InvokeEvent(event);
+        } else if (IsA<utl::usize>()) {
+            eve::ShowUSizeInputLinePopupEvent const event{ appContext.languageManager.Text(
+                                                                   "ui_table_cell_edit_entry_popup"),
+                                                           Value<utl::usize>(),
+                                                           [this](utl::usize value) { this->SetValue(value); } };
+            appContext.eventManager.InvokeEvent(event);
+        } else {
+            wrongDatatypePrint("calling the edit popup");
+        }
+    }
+    void NewTableCell::UpdateTextSize() {
+        m_textSize = m_collider.height / 1.5f;
+        auto const margin{ (m_collider.height - m_textSize) / 2 };
+        m_textPosition = { m_collider.x + (m_collider.width * 0.05f), m_collider.y + margin };
+    }
+    bool NewTableCell::IsColliding(Vector2 const& point) const {
+        return CheckCollisionPointRec(point, m_collider);
+    }
+    NewTableCell::NewTableCell(utl::usize focusID,
+                               Vector2 pos,
+                               Vector2 size,
+                               Alignment alignment,
+                               utl::input_variant_col_ty startValue,
+                               uil::NewTable_ty table)
+        : UIElement{ pos, size, alignment },
+          Focusable{ focusID },
+          m_value{ std::move(startValue) },
+          m_table{ std::move(table) } {
+
+        SetStringValue();
+        UpdateTextSize();
+    }
+
+    bool NewTableCell::IsEditable() const {
+        return m_isEditable;
+    };
+    void NewTableCell::SetEditable(bool const editable) {
+        m_isEditable = editable;
+    }
+
+    float NewTableCell::TextSize() const {
+        return m_textSize;
+    }
+    void NewTableCell::SetTextSize(float const size) {
+        m_textSize = size;
+    }
+
+    Color NewTableCell::BackgroundColor() const {
+        return m_backgroundColor;
+    }
+    void NewTableCell::SetBackgroundColor(Color const color) {
+        m_backgroundColor = color;
+    }
+
+    Color NewTableCell::TextColor() const {
+        return m_textColor;
+    }
+    void NewTableCell::SetTextColor(Color const color) {
+        m_textColor = color;
+    }
+
+    void NewTableCell::SetOnValueChanced(NewTableCell::callback_ty callback) {
+        m_onValueChanced = std::move(callback);
+    }
+
+    // Focusable
+    bool NewTableCell::IsEnabled() const {
+        return m_isEditable;
+    };
+    Rectangle NewTableCell::GetCollider() const {
+        return m_collider;
+    }
+    // UIElement
+    void NewTableCell::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) {
+        UIElement::CheckAndUpdate(mousePosition, appContext);
+
+        if (not IsEditable()) {
+            return;
+        }
+
+        auto const edit{ IsFocused() and hlp::IsConfirmInputPressed() };
+        if (edit) {
+            Clicked(appContext);
+        }
+    }
+    void NewTableCell::Render(app::AppContext_ty_c appContext) {
+
+        DrawRectangleRec(m_collider, m_backgroundColor);
+        DrawRectangleLinesEx(m_collider, 1.0f, WHITE);
+
+        if (IsA<Color>()) {
+            auto constexpr offset{ 2.0f };
+            DrawRectangle(static_cast<int>(m_collider.x + offset),
+                          static_cast<int>(m_collider.y + offset),
+                          static_cast<int>(m_collider.width - (2.0f * offset)),
+                          static_cast<int>(m_collider.height - (2.0f * offset)),
+                          Value<Color>());
+        } else {
+            DrawTextEx(*appContext.assetManager.GetFont(),
+                       m_strValue.c_str(),
+                       m_textPosition,
+                       m_textSize,
+                       0.0f,
+                       m_textColor);
+        }
+    }
+} // namespace uil
+
+
+//#include "NewTableCell.hpp"
+//#include <alias/AliasCustomRaylib.hpp>
 
 //
 //namespace uil {

@@ -7,59 +7,93 @@
 
 #include "Focusable.hpp"
 #include "UIElement.hpp"
+#include <alias/AliasUiLib.hpp>
 #include <alias/AliasUtils.hpp>
+#include <functional>
 #include <string>
 #include <utils/Concepts.hpp>
 
 
 namespace uil {
     class NewTableCell final : public UIElement, public Focusable {
+        friend class NewTable;
+
     public:
-        using cell_callback_ty = std::function<void(NewTableCell&)>;
-        using void_callback_ty = std::function<void()>;
+        using callback_ty = std::function<void(NewTableCell&)>;
 
     private:
         utl::input_variant_col_ty m_value;
-        utl::input_variant_col_ty m_oldValue{ "" };
+        utl::input_variant_col_ty m_oldValue{};
         std::string m_strValue{};
-        bool m_editable{ true };
+        bool m_isEditable{ true };
         Color m_backgroundColor{ BLACK };
         Color m_textColor{ WHITE };
-        float m_textSize;
-        Vector2 m_textPosition;
-        cell_callback_ty m_updated{ [](NewTableCell&) {} };
-        void_callback_ty m_valueChanced;
+        float m_textSize{ 0.0f };
+        Vector2 m_textPosition{ 0.0f, 0.0f };
+        callback_ty m_onValueChanced{ [](NewTableCell&) {} };
+        uil::NewTable_ty m_table;
 
         void SetStringValue();
 
-    public:
-        NewTableCell(utl::usize focusID, Vector2 pos, Vector2 size, Alignment alignment, void_callback_ty callback);
-
-        // value
-        template<utl::InputValueTypeCol T>
-        [[nodiscard]] bool IsA() const;
-
-        template<utl::InputValueTypeCol T>
-        [[nodiscard]] bool IsAOld() const;
-
-        template<utl::InputValueTypeCol T>
-        [[nodiscard]] T Value() const;
-
-        template<utl::InputValueTypeCol T>
-        [[nodiscard]] T ValueOld() const;
-
-        template<utl::InputValueTypeCol T>
-        void SetValue(T value);
-
-        template<utl::InputValueTypeCol T>
-        void SetNewType(T value);
-
-        // function
-        void Clicked(app::AppContext_ty_c appContext) const;
+        void Clicked(app::AppContext_ty_c appContext);
 
         void UpdateTextSize();
 
         [[nodiscard]] bool IsColliding(Vector2 const& point) const;
+
+    public:
+        NewTableCell(utl::usize focusID,
+                     Vector2 pos,
+                     Vector2 size,
+                     Alignment alignment,
+                     utl::input_variant_col_ty startValue,
+                     uil::NewTable_ty table);
+
+        // value
+        template<utl::InputValueTypeCol T>
+        [[nodiscard]] bool IsA() const {
+            return std::holds_alternative<T>(m_value);
+        }
+
+        template<utl::InputValueTypeCol T>
+        [[nodiscard]] bool IsAOld() const {
+            return std::holds_alternative<T>(m_oldValue);
+        }
+
+        [[nodiscard]] std::string ValueStr() const {
+            return m_strValue;
+        }
+
+        template<utl::InputValueTypeCol T>
+        [[nodiscard]] T Value() const {
+            if (not IsA<T>()) {
+                throw std::runtime_error{ "wrong datatype while accessing current value of cell" };
+            }
+            return std::get<T>(m_value);
+        }
+
+        template<utl::InputValueTypeCol T>
+        [[nodiscard]] T ValueOld() const {
+            if (not IsAOld<T>()) {
+                throw std::runtime_error{ "wrong datatype while accessing old value of cell" };
+            }
+            return std::get<T>(m_oldValue);
+        }
+
+        template<utl::InputValueTypeCol T>
+        void SetValue(T const value) {
+            if (not IsA<T>()) {
+                throw std::runtime_error{ "wrong datatype while setting a new value in cell" };
+            }
+            m_oldValue = m_value;
+            m_value    = value;
+        }
+
+        template<utl::InputValueTypeCol T>
+        void SetNewType(T const value) {
+            m_oldValue = m_value;
+            m_value    = value;
+        }
 
         // getter setter
         [[nodiscard]] bool IsEditable() const;
@@ -74,10 +108,12 @@ namespace uil {
         [[nodiscard]] Color TextColor() const;
         void SetTextColor(Color color);
 
-        // Focusable
-        [[nodiscard]] bool IsEnabled() const noexcept override;
+        void SetOnValueChanced(callback_ty callback);
 
-        [[nodiscard]] Rectangle GetCollider() const noexcept override;
+        // Focusable
+        [[nodiscard]] bool IsEnabled() const override;
+
+        [[nodiscard]] Rectangle GetCollider() const override;
 
         // UIElement
         void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) override;
