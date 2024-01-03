@@ -2,7 +2,48 @@
 // Purpur Tentakel
 // 22.12.2023
 //
-//
+
+#include "NewTable.hpp"
+#include <cassert>
+#include <utils/Vec2.hpp>
+
+
+namespace uil {
+
+    bool NewTable::IsValidRow(utl::usize const row) const {
+        return row > 0 and row <= m_rowCount;
+    }
+    bool NewTable::IsValidColumn(utl::usize const column) const {
+        return column > 0 and column <= m_columnCount;
+    }
+    bool NewTable::IsValidIndex(utl::usize const row, utl::usize const column) const {
+        return IsValidRow(row) and IsValidColumn(column);
+    }
+
+    bool NewTable::IsValidSpecialRow(utl::usize const row) const {
+        return row == 0;
+    }
+    bool NewTable::IsValidSpecialColumn(utl::usize const column) const {
+        return column == 0;
+    }
+    bool NewTable::IsValidSpecialIndex(utl::usize const row, utl::usize const column) const {
+        return IsValidRow(row) or IsValidColumn(column);
+    }
+
+    void NewTable::UpdateCellFocusID() {
+        auto const ID{ [&](utl::usize const row, utl::usize const column) {
+            return row * m_columnCount + column + 1;
+        } };
+
+        for (utl::usize row = 0; row <= m_rowCount; ++row) {
+            for (utl::usize column = 0; column <= m_columnCount; ++column) {
+                m_cells[row][column]->SetFocusID(ID(row, column));
+            }
+        }
+    }
+
+} // namespace uil
+
 //#include "NewTable.hpp"
 //#include <cassert>
 //#include <utils/Vec2.hpp>

@@ -5,12 +5,12 @@
 
 #pragma once
 
-#include "Focussable.hpp"
+#include "Focusable.hpp"
 #include "NewTableCell.hpp"
 #include "UIElement.hpp"
-#include <alias/AliasUtils.hpp>
-#include <alias/AliasUiLib.hpp
 #include <alias/AliasCustomRaylib.hpp>
+#include <alias/AliasUiLib.hpp>
+#include <alias/AliasUtils.hpp>
 #include <memory>
 #include <string>
 #include <unordered_map>
@@ -21,8 +21,9 @@
 namespace uil {
     class NewTable final : public UIElement, public Focusable {
     public:
+        friend class NewTableCell;
         using single_cell_ty = std::shared_ptr<NewTableCell>;
-        using cells_ty       = std::vector < std::vector<single_cell_ty>;
+        using cells_ty       = std::vector<std::vector<single_cell_ty>>;
         using headlines_ty   = std::unordered_map<utl::usize, std::string>;
 
         enum class ScrollDirection {
@@ -52,12 +53,12 @@ namespace uil {
 
         // validation
         [[nodiscard]] bool IsValidRow(utl::usize row) const;
-        [[nodiscard]] bool IsValidColumn(utl::size column) const;
-        [[nodiscard]] bool IsValidCell(utl::usize row, utl::usize column) const;
+        [[nodiscard]] bool IsValidColumn(utl::usize column) const;
+        [[nodiscard]] bool IsValidIndex(utl::usize row, utl::usize column) const;
 
         [[nodiscard]] bool IsValidSpecialRow(utl::usize row) const;
         [[nodiscard]] bool IsValidSpecialColumn(utl::usize column) const;
-        [[nodiscard]] bool IsValidSpecialCell(utl::row, utl::column) const;
+        [[nodiscard]] bool IsValidSpecialIndex(utl::usize row, utl::usize column) const;
 
         // focus
         void UpdateCellFocusID();
@@ -101,8 +102,8 @@ namespace uil {
         void RenderOutline() const;
 
     public:
-        Table(utl::usize focusID,
-              Vector2 pos,
+        NewTable(utl::usize focusID,
+                 Vector2 pos,
               Vector2 size,
               Alignment alignment,
               utl::usize rowCount,
@@ -135,7 +136,7 @@ namespace uil {
         [[nodiscard]] Vector2 MinCellSize() const;
         void SetMinCellSize(Vector2 size);
 
-        [[nodiscard]] IsScrollable() const;
+        [[nodiscard]] bool IsScrollable() const;
         void SetScrollable(bool scrollable);
 
         [[nodiscard]] bool IsRenderHeadline() const;
