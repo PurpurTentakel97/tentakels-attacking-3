@@ -14,7 +14,7 @@ namespace ui {
     class SliderAndInputLine : public uil::Scene {
     private:
         uil::Slider_ty m_slider;
-        uil::NewInputLine_ty m_inputLine;
+        uil::InputLine_ty m_inputLine;
         uil::ClassicButton_ty m_btn;
         std::function<void(utl::usize)> m_onSave{ [](utl::usize) {} };
 

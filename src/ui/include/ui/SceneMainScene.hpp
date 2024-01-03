@@ -34,11 +34,11 @@ namespace ui {
         app::PlayerData m_currentPlayer{ 0, "", WHITE };
         app::PlayerData m_nextPlayer{ 0, "", WHITE };
 
-        uil::NewInputLine_ty m_origin;
-        uil::NewInputLine_ty m_destination;
-        uil::NewInputLine_ty m_destinationX;
-        uil::NewInputLine_ty m_destinationY;
-        uil::NewInputLine_ty m_shipCount;
+        uil::InputLine_ty m_origin;
+        uil::InputLine_ty m_destination;
+        uil::InputLine_ty m_destinationX;
+        uil::InputLine_ty m_destinationY;
+        uil::InputLine_ty m_shipCount;
 
         uil::ClassicButton_ty m_acceptBtn;
         uil::ClassicButton_ty m_resetBtn;

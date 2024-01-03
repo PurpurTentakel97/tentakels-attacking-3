@@ -75,13 +75,13 @@ namespace ui {
         //        m_elements.push_back(table);
         //
         //        std::vector<std::string> const headlines{ "first column", "best column" };
-        //        table->setHeadlines(headlines);
-        //        table->setHeadline<std::string>(utl::usize{ 4 }, "extra column");
-        //        table->showHeadline(true);
-        //        table->showNumbers(true);
-        //        table->set_render_hovered(true);
+        //        table->SetHeadlines(headlines);
+        //        table->SetHeadline<std::string>(utl::usize{ 4 }, "extra column");
+        //        table->ShowHeadline(true);
+        //        table->SetShowNumbers(true);
+        //        table->SetRenderHovered(true);
         //        table->setValue(6, 1, PURPLE);
-        //        table->update_cells();
+        //        table->UpdateCells();
         //
         //        auto constexpr x{ 0.005f };
         //        auto constexpr y{ 0.005f };
@@ -100,9 +100,9 @@ namespace ui {
         //                app::SoundType::CLICKED_RELEASE_STD
         //        );
         //        insertLineBtn->SetOnClick([table]() {
-        //            auto const result = table->insertRow(2);
+        //            auto const result = table->InsertRow(2);
         //            hlp::Print(hlp::PrintType::DEBUG, "Result new Row: {}", result);
-        //            table->update_cells();
+        //            table->UpdateCells();
         //        });
         //        m_elements.push_back(insertLineBtn);
         //
@@ -117,9 +117,9 @@ namespace ui {
         //                app::SoundType::CLICKED_RELEASE_STD
         //        );
         //        addLineBtn->SetOnClick([table]() {
-        //            auto const result = table->appendRow();
+        //            auto const result = table->AppendRow();
         //            hlp::Print(hlp::PrintType::DEBUG, "Result new Row: {}", result);
-        //            table->update_cells();
+        //            table->UpdateCells();
         //        });
         //        m_elements.push_back(addLineBtn);
         //
@@ -134,8 +134,8 @@ namespace ui {
         //                app::SoundType::CLICKED_RELEASE_STD
         //        );
         //        removeLineBtn->SetOnClick([table]() {
-        //            table->removeRow(2);
-        //            table->update_cells();
+        //            table->RemoveRow(2);
+        //            table->UpdateCells();
         //        });
         //        m_elements.push_back(removeLineBtn);
         //
@@ -150,8 +150,8 @@ namespace ui {
         //                app::SoundType::CLICKED_RELEASE_STD
         //        );
         //        popLineBtn->SetOnClick([table]() {
-        //            table->popRow();
-        //            table->update_cells();
+        //            table->PopRow();
+        //            table->UpdateCells();
         //        });
         //        m_elements.push_back(popLineBtn);
         //
@@ -167,7 +167,7 @@ namespace ui {
         //        );
         //        button->SetOnClick([table]() {
         //            table->setValue<std::string>(5, 3, "RESIZE!!!!!!!!!!!!!!!!!\n!!!!!!!!!!!!!!!!!!!");
-        //            table->update_cells();
+        //            table->UpdateCells();
         //        });
         //        m_elements.push_back(button);
         //
@@ -183,7 +183,7 @@ namespace ui {
         //        );
         //        button2->SetOnClick([table]() {
         //            table->setValue<std::string>(5, 2, "RESIZE!!!!!!!!!!!!!!!!!\n!!!!!!!!!!!\n!!!!!!!!");
-        //            table->update_cells();
+        //            table->UpdateCells();
         //        });
         //        m_elements.push_back(button2);
         //
@@ -198,9 +198,9 @@ namespace ui {
         //                app::SoundType::CLICKED_RELEASE_STD
         //        );
         //        button3->SetOnClick([table]() {
-        //            auto const scroll{ table->is_scrollable() };
-        //            table->set_scrollable(not scroll);
-        //            table->update_cells();
+        //            auto const scroll{ table->IsScrollable() };
+        //            table->SetScrollable(not scroll);
+        //            table->UpdateCells();
         //        });
         //        m_elements.push_back(button3);
 
