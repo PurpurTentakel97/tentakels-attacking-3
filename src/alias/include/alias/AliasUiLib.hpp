@@ -103,6 +103,10 @@ namespace uil {
     using Table_ty = std::shared_ptr<Table>;
     using Table_ty_c = std::shared_ptr<Table> const&;
 
+    class NewTable;
+    using NewTable_ty   = std::shared_ptr<NewTable>;
+    using NewTable_ty_c = std::shared_ptr<NewTable> const&;
+
     class Focusable;
     using Focusable_ty_raw = Focusable*;
 } // namespace uil
