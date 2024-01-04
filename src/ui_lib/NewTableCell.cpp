@@ -27,8 +27,12 @@ namespace uil {
             wrongDatatypePrint("set string value");
         }
     }
-    void NewTableCell::Clicked(app::AppContext_ty_c appContext) {
+    void NewTableCell::Clicked(Vector2 const& mousePosition, app::AppContext_ty_c appContext) {
         if (not IsEditable()) {
+            return;
+        }
+
+        if (not CheckCollisionPointRec(mousePosition, m_collider)) {
             return;
         }
 

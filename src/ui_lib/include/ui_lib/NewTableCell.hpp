@@ -37,7 +37,7 @@ namespace uil {
 
         void SetStringValue();
 
-        void Clicked(app::AppContext_ty_c appContext);
+        void Clicked(Vector2 const& mousePosition, app::AppContext_ty_c appContext);
 
         void UpdateTextSize();
 
@@ -90,7 +90,7 @@ namespace uil {
             m_oldValue = m_value;
             m_value    = value;
             m_onValueChanced(*this);
-            m_table->ResizeTable();
+            m_table->UpdateCellPositionAndSize();
         }
 
         template<utl::InputValueTypeCol T>
@@ -98,7 +98,7 @@ namespace uil {
             m_oldValue = m_value;
             m_value    = value;
             m_onValueChanced(*this);
-            m_table->ResizeTable();
+            m_table->UpdateCellPositionAndSize();
         }
 
         // getter setter

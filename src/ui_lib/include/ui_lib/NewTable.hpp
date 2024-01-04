@@ -68,13 +68,7 @@ namespace uil {
         // cell position
         void UpdateCellPositionAndSize();
 
-        void ResizeTable();
-
-        void UpdatePositionWithNumbered();
-        void UpdatePositionWithOnlyHeadline();
-        void UpdatePositionWithNothing();
-
-        void ClampScrollOffset();
+        void ClampScrollOffset(Vector2& offset);
 
         // check and update
         void CheckAndUpdateClickCell(Vector2 const& mousePosition, app::AppContext_ty_c appContext);
@@ -91,8 +85,8 @@ namespace uil {
         void CalculateSlider();
 
         // cells
-        void CalculateHoverHighlited(Vector2 const& mousePosition);
-        void SetHightlightBackground(bool highlithed);
+        void CalculateHoverHighlighted(Vector2 const& mousePosition);
+        void SetHighlightBackground(bool highlithed);
 
         // render
         void RenderTopLeft(app::AppContext_ty_c appContext);
@@ -104,10 +98,10 @@ namespace uil {
     public:
         NewTable(utl::usize focusID,
                  Vector2 pos,
-              Vector2 size,
-              Alignment alignment,
-              utl::usize rowCount,
-              utl::usize columnCount);
+                 Vector2 size,
+                 Alignment alignment,
+                 utl::usize rowCount,
+                 utl::usize columnCount);
 
         // cells
         [[nodiscard]] bool HasCell(utl::usize row, utl::usize column) const;
