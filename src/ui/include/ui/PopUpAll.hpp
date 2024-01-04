@@ -14,8 +14,8 @@
 // Input Popups
 #include "PopUpInputColor.hpp"
 #include "PopUpInputDouble.hpp"
+#include "PopUpInputString.hpp"
 #include "PopUpInputUSize.hpp"
-#include "PopupInputString.hpp"
 
 // Sound
 #include "PopUpSoundLeven.hpp"
