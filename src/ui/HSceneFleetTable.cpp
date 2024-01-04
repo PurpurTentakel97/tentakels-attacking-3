@@ -50,7 +50,7 @@ namespace ui {
 
                 app::PlayerData player{ appContext.playerCollection.GetPlayerOrNpcByID(fleet->GetPlayer()->GetID()) };
                 // fleet ID
-                m_table->SetValue<int>(i + startFleets, 0, static_cast<int>(fleet->GetID()));
+                m_table->SetValue<utl::usize>(i + startFleets, 0, fleet->GetID());
                 m_table->SetSingleCellTextColor(player.color, i + startFleets, 0);
 
                 // position
@@ -58,7 +58,7 @@ namespace ui {
                 m_table->SetValue<std::string>(i + startFleets, 1, pos);
 
                 // count
-                m_table->SetValue<int>(i + startFleets, 2, static_cast<int>(fleet->GetShipCount()));
+                m_table->SetValue<utl::usize>(i + startFleets, 2, fleet->GetShipCount());
 
                 // destination
                 auto const destination{ fleet->GetTarget() };
@@ -103,7 +103,7 @@ namespace ui {
                 app::PlayerData player{ appContext.playerCollection.GetPlayerOrNpcByID(targetPoint->GetPlayer()->GetID()
                 ) };
                 // target point ID
-                m_table->SetValue<int>(i + startTargetPoints, 0, static_cast<int>(targetPoint->GetID()));
+                m_table->SetValue<utl::usize>(i + startTargetPoints, 0, targetPoint->GetID());
                 m_table->SetSingleCellTextColor(player.color, i + startTargetPoints, 0);
 
                 // position
@@ -114,7 +114,7 @@ namespace ui {
 
 
                 // count
-                m_table->SetValue<int>(i + startTargetPoints, 2, static_cast<int>(targetPoint->GetShipCount()));
+                m_table->SetValue<utl::usize>(i + startTargetPoints, 2, targetPoint->GetShipCount());
 
                 m_table->SetValue<std::string>(i + startTargetPoints, 3, "---");
             }

@@ -10,7 +10,7 @@
 
 
 namespace ui {
-    class CellPopUp : public uil::PopUp {
+    class PopUpInput : public uil::PopUp {
     protected:
         bool m_shouldClose{ false };
 
@@ -27,8 +27,7 @@ namespace ui {
         void Close(app::AppContext_ty_c appContext);
 
     public:
-        CellPopUp(
-                Vector2 pos,
+        PopUpInput(Vector2 pos,
                 Vector2 size,
                 uil::Alignment alignment,
                 std::string const& title,

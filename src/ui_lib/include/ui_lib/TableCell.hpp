@@ -5,133 +5,115 @@
 
 #pragma once
 
-#include "TableCellAbstract.hpp"
+#include "Focusable.hpp"
+#include "UIElement.hpp"
+#include <alias/AliasUtils.hpp>
 #include <app/AppContext.hpp>
 #include <event/EventsUI.hpp>
 #include <helper/HInput.hpp>
 #include <helper/HPrint.hpp>
 #include <utils/Colors.hpp>
+#include <utils/Concepts.hpp>
 
 
 namespace uil {
-    template<typename T>
-    class TableCell final : public AbstractTableCell {
+    class TableCell final : public UIElement, public Focusable {
+    public:
+        using callback_ty = std::function<void(TableCell&)>;
+
     private:
-        T m_value;
-        std::string m_stringValue;
-        std::function<void(TableCell*, T, T)> m_updated{ [](TableCell*, T, T) {} };
+        bool m_isEditable{ true };
+        Color m_backgroundColor{ BLACK };
+        float m_textSize{ 0.0f };
+        Vector2 m_textPosition{ 0.0f, 0.0f };
+        Color m_textColor{ WHITE };
+        utl::input_variant_col_ty m_value{ "" };
+        utl::input_variant_col_ty m_oldValue{ "" };
+        std::string m_stringValue{};
+        callback_ty m_updated{ [](TableCell&) {} };
+        callback_ty m_onValueChanced{ [](TableCell&) {} };
 
 
-        void SetStringValue() {
-            m_stringValue = std::to_string(m_value);
-        }
+        void CallCallbacks();
 
-        void UpdateValue(T newValue) {
-            T const oldValue{ m_value };
-            m_value = newValue;
-            SetStringValue();
-            m_updated(this, oldValue, m_value);
-        }
+        void SetStringValue();
 
     public:
-        TableCell(
-                Vector2 pos,
-                Vector2 size,
-                Alignment alignment,
-                utl::usize focusID,
-                T value,
-                std::function<void(TableCell*, T, T)> updated
-        )
-            : AbstractTableCell{ pos, size, alignment, focusID },
-              m_value{ value },
-              m_updated{ updated } {
+        TableCell(Vector2 pos, Vector2 size, Alignment alignment, utl::usize focusID, callback_ty updated);
+
+
+        template<utl::InputValueTypeCol T>
+        [[nodiscard]] bool IsA() const {
+            return std::holds_alternative<T>(m_value);
+        }
+
+        template<utl::InputValueTypeCol T>
+        [[nodiscard]] bool IsAOld() const {
+            return std::holds_alternative<T>(m_oldValue);
+        }
+
+        [[nodiscard]] bool HasValue() const;
+
+        template<utl::InputValueTypeCol T>
+        [[nodiscard]] T Value() const {
+            if (not IsA<T>()) {
+                throw std::runtime_error("type mismatch while setting a new value into Table cell.");
+            }
+            return std::get<T>(m_value);
+        }
+
+        template<utl::InputValueTypeCol T>
+        [[nodiscard]] T ValueOld() const {
+            if (not IsA<T>()) {
+                throw std::runtime_error("type mismatch while setting a new value into Table cell.");
+            }
+            return std::get<T>(m_oldValue);
+        }
+
+        [[nodiscard]] std::string ValueStr() const;
+
+        template<utl::InputValueTypeCol T>
+        void SetValue(T const value) {
+            if (not IsA<T>()) {
+                throw std::runtime_error("type mismatch while setting a new value into Table cell.");
+            }
+            SetType(value);
+        }
+
+        template<utl::InputValueTypeCol T>
+        void SetType(T const value) {
+            m_oldValue = m_value;
+            m_value    = value;
             SetStringValue();
-            CalculateTextSize();
+            CallCallbacks();
         }
 
+        void CalculateTextSize();
 
-        void Clicked(Vector2 const&, app::AppContext_ty_c appContext) override {
+        void SetBackgroundColor(Color color);
+        [[nodiscard]] Color GetBackgroundColor() const;
 
-            if (not IsEditable()) {
-                return;
-            }
+        void SetTextColor(Color color);
+        [[nodiscard]] Color GetTextColor() const;
 
-            eve::ShowCellPopUpEvent<T> event{ appContext.languageManager.Text("ui_table_cell_edit_entry_popup"),
-                                              m_value,
-                                              [this](T value) { this->UpdateValue(value); } };
-            appContext.eventManager.InvokeEvent(event);
-        }
+        void SetEditable(bool IsEditable);
+        [[nodiscard]] bool IsEditable() const;
 
-        void CheckAndUpdate(Vector2 const&, app::AppContext_ty_c appContext) override {
-            if (not IsEditable()) {
-                return;
-            }
 
-            bool shouldEdit{ false };
+        [[nodiscard]] bool IsColliding(Vector2 point) const;
 
-            if (IsFocused()) {
-                if (hlp::IsConfirmInputPressed()) {
-                    shouldEdit = true;
-                }
-            }
+        void Clicked(Vector2 const& mousePosition, app::AppContext_ty_c appContext);
 
-            if (shouldEdit) {
-                eve::ShowCellPopUpEvent<T> event{ appContext.languageManager.Text("ui_table_cell_edit_entry_popup"),
-                                                  m_value,
-                                                  [this](T value) { this->UpdateValue(value); } };
-                appContext.eventManager.InvokeEvent(event);
-            }
-        }
+        // UIElement
+        void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) override;
 
-        void Render(app::AppContext_ty_c appContext) override {
-            AbstractTableCell::Render(appContext);
+        void Render(app::AppContext_ty_c appContext) override;
 
-            DrawTextEx(
-                    *appContext.assetManager.GetFont(),
-                    m_stringValue.c_str(),
-                    m_textPosition,
-                    m_textSize,
-                    0.0f,
-                    m_textColor
-            );
-        }
+        // focusable
+        [[nodiscard]] bool IsEnabled() const override;
 
-        void CalculateTextSize() override {
-            m_textSize = m_collider.height / 1.5f;
-            float const margin{ (m_collider.height - m_textSize) / 2 };
-            m_textPosition = { m_collider.x + m_collider.width * 0.05f, m_collider.y + margin };
-        }
-
-        [[nodiscard]] std::any GetValue() const override {
-            return m_value;
-        }
-
-        [[nodiscard]] std::string GetValueAsString() const override {
-            return m_stringValue;
-        }
+        [[nodiscard]] Rectangle GetCollider() const override;
     };
 
-    template<>
-    inline void TableCell<std::string>::SetStringValue() {
-        m_stringValue = m_value;
-    }
 
-    template<>
-    inline void TableCell<Color>::SetStringValue() {
-        m_stringValue = utl::Colors::AsString(m_value);
-    }
-
-    template<>
-    inline void TableCell<Color>::Render(app::AppContext_ty_c appContext) {
-        AbstractTableCell::Render(appContext);
-
-        auto const offset{ m_collider.height / 10.0f };
-        DrawRectangle(
-                static_cast<int>(m_collider.x + offset),
-                static_cast<int>(m_collider.y + offset),
-                static_cast<int>(m_collider.width - 2.0f * offset),
-                static_cast<int>(m_collider.height - 2.0f * offset),
-                m_value
-        );
-    }
 } // namespace uil

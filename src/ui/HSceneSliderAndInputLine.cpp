@@ -75,7 +75,7 @@ namespace ui {
     }
 
     void SliderAndInputLine::ValidateCurrentValue() {
-        m_currentValue = static_cast<utl::usize>(m_inputLine->Value<utl::usize>());
+        m_currentValue = m_inputLine->Value<utl::usize>();
 
         if (m_currentValue < m_minValue) {
             m_currentValue = m_minValue;
@@ -132,7 +132,7 @@ namespace ui {
         m_slider->SetEnabled(isEnabled);
         m_inputLine->SetEnabled(isEnabled);
         if (isEnabled) {
-            if (static_cast<int>(m_currentValue) != m_inputLine->Value<utl::usize>()) {
+            if (m_currentValue != m_inputLine->Value<utl::usize>()) {
                 m_btn->SetEnabled(isEnabled);
             }
         } else {

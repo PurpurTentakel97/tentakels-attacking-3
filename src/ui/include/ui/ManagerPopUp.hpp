@@ -38,10 +38,10 @@ namespace ui {
 
         void NewFightResultPopUp(eve::ShowFightResultEvent const* event);
 
-        template<typename T, typename eventType>
-        void NewTableCellPopUp(eventType const* const) {
-            hlp::Print(hlp::PrintType::ERROR, "not implemented anymore");
-        }
+        void NewColorPopUp(eve::ShowColorPopupEvent const* event);
+        void NewStringPopUp(eve::ShowStringPopupEvent const* event);
+        void NewDoublePopUp(eve::ShowDoublePopupEvent const* event);
+        void NewUSizePopUp(eve::ShowUSizePopupEvent const* event);
 
         void DeleteLastPopUp(uil::PopUp* toDelete);
 

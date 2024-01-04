@@ -7,7 +7,6 @@
 
 #include "Focusable.hpp"
 #include "UIElement.hpp"
-
 #include "alias/AliasUtils.hpp"
 #include <cassert>
 #include <string>
@@ -15,7 +14,7 @@
 
 namespace uil {
     class InputLine final : public UIElement, public Focusable {
-        using on_enter_callback_ty = std::function<void(InputLine&)>;
+        using on_enter_callback_ty         = std::function<void(InputLine&)>;
         using on_value_chanced_callback_ty = std::function<void(InputLine&)>;
 
     private:
@@ -32,10 +31,10 @@ namespace uil {
         bool m_isClearNextInput{ false };
         bool m_alreadyCleared{ false };
 
-        utl::usize m_charLimit;
         utl::input_variant_ty m_value;
         utl::input_variant_ty m_valueLastFrame{};
         utl::input_variant_ty m_oldValue;
+        utl::usize m_charLimit;
         std::string m_strValue{};
         std::string m_placeholderText{};
 
@@ -44,42 +43,38 @@ namespace uil {
         on_enter_callback_ty m_onEnter{ [](InputLine&) {} };
         on_value_chanced_callback_ty m_onValueChanced{ [](InputLine&) {} };
 
-        static inline std::unordered_map<KeyType, utl::usize> const m_keyLockup{
-            { KeyType::FIRST_NUMBER,  48 },
-            {  KeyType::LAST_NUMBER,  57 },
-            {   KeyType::FIRST_CHAR,  32 },
-            {    KeyType::LAST_CHAR, 126 },
-            {        KeyType::COMMA,  44 },
-            {          KeyType::DOT,  46 },
+        static inline std::unordered_map<KeyType, char> const m_keyLockup{
+            { KeyType::FIRST_NUMBER, 48  },
+            { KeyType::LAST_NUMBER,  57  },
+            { KeyType::FIRST_CHAR,   32  },
+            { KeyType::LAST_CHAR,    126 },
+            { KeyType::COMMA,        44  },
+            { KeyType::DOT,          46  },
         };
 
         void UpdateValue();
 
-        [[nodiscard]] bool AddChar(utl::usize key);
+        [[nodiscard]] bool AddChar(char key);
 
         void RemoveChar();
 
-        [[nodiscard]] bool IsValidKey(utl::usize key) const;
+        [[nodiscard]] bool IsValidKey(char key) const;
 
         void UpdateStringValue();
 
     public:
-        InputLine(
-                utl::usize focusID,
-                Vector2 pos,
-                Vector2 size,
-                Alignment alignment,
-                utl::input_variant_ty const& startValue
-        );
+        InputLine(utl::usize focusID,
+                  Vector2 pos,
+                  Vector2 size,
+                  Alignment alignment,
+                  utl::input_variant_ty const& startValue);
 
-        InputLine(
-                utl::usize focusID,
-                Vector2 pos,
-                Vector2 size,
-                Alignment alignment,
-                utl::input_variant_ty const& startValue,
-                utl::usize cherLimit
-        );
+        InputLine(utl::usize focusID,
+                  Vector2 pos,
+                  Vector2 size,
+                  Alignment alignment,
+                  utl::input_variant_ty const& startValue,
+                  utl::usize cherLimit);
 
         // values
         void SetPlaceholderText(std::string placeholderText);
@@ -106,7 +101,7 @@ namespace uil {
                 throw std::runtime_error("types not matching while setting a new value for input line");
             }
             m_oldValue = m_value;
-            m_value = value;
+            m_value    = value;
             UpdateStringValue();
             m_onValueChanced(*this);
         }
@@ -114,7 +109,7 @@ namespace uil {
         template<utl::InputValueType T>
         void ChangeValueType(T value) {
             m_oldValue = m_value;
-            m_value = value;
+            m_value    = value;
             UpdateStringValue();
             m_onValueChanced(*this);
         }

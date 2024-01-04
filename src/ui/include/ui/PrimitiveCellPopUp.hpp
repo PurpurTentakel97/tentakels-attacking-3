@@ -5,13 +5,13 @@
 
 #pragma once
 
-#include "PopUpCell.hpp"
+#include "PopUpInput.hpp"
 #include <ui_lib/InputLine.hpp>
 
 
 namespace ui {
-    template<typename T>
-    class PrimitiveCellPopUp final : public CellPopUp {
+    template<utl::InputValueTypeCol T>
+    class PrimitiveCellPopUp final : public PopUpInput {
     private:
         std::shared_ptr<uil::InputLine> m_inputChange;
         std::function<void(T)> m_onClick{ [](T) {} };
@@ -31,7 +31,7 @@ namespace ui {
                 T const currentValue,
                 std::function<void(T)> const onClick
         )
-            : CellPopUp{ pos, size, alignment, title, infoTexture },
+            : PopUpInput{ pos, size, alignment, title, infoTexture },
               m_onClick{ onClick } {
 
             app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
