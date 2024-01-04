@@ -57,7 +57,7 @@ namespace ui {
             }
 
             // planet ID
-            m_table->SetValue<int>(addedCount, 0, static_cast<int>(p->GetID()));
+            m_table->SetValue<utl::usize>(addedCount, 0, static_cast<int>(p->GetID()));
 
             // player name
             std::string entry;
@@ -85,10 +85,10 @@ namespace ui {
             }
 
             // production
-            m_table->SetValue<int>(addedCount, 2, static_cast<int>(p->GetProduction()));
+            m_table->SetValue<utl::usize>(addedCount, 2, static_cast<int>(p->GetProduction()));
 
             // ship count
-            m_table->SetValue<int>(addedCount, 3, static_cast<int>(p->GetShipCount()));
+            m_table->SetValue<utl::usize>(addedCount, 3, static_cast<int>(p->GetShipCount()));
         }
     }
 

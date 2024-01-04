@@ -9,7 +9,7 @@
 #include <event/EventListener.hpp>
 #include <ui_lib/InputLine.hpp>
 #include <ui_lib/Scene.hpp>
-#include <ui_lib/TableCellAbstract.hpp>
+#include <ui_lib/TableCell.hpp>
 
 
 namespace ui {
@@ -21,6 +21,7 @@ namespace ui {
         uil::ClassicButton_ty m_nextBTN;
         std::vector<uil::Focusable_ty_raw> m_nestedFocus;
         std::vector<uil::ClassicButton_ty> m_playerButtons;
+        bool m_updating{ true };
 
         void Initialize();
 
@@ -34,10 +35,9 @@ namespace ui {
 
         void UpdatePlayer(utl::usize ID, std::string const& name, Color color);
 
-        void
-        UpdatePlayerName(uil::AbstractTableCell const* cell, std::string const& oldValue, std::string const& newValue);
+        void UpdatePlayerName(uil::TableCell& cell);
 
-        void UpdatePlayerColor(uil::AbstractTableCell const* cell, Color oldValue, Color newValue);
+        void UpdatePlayerColor(uil::TableCell& cell);
 
         static void DeletePlayer(utl::usize ID);
 

@@ -11,10 +11,11 @@
 // Next Turn PopUp
 #include "PopUpValidate.hpp"
 
-// TableCell PopUps
-#include "PopUpCell.hpp"
-#include "PopUpCellColor.hpp"
-#include "PrimitiveCellPopUp.hpp"
+// Input Popups
+#include "PopUpInputColor.hpp"
+#include "PopUpInputDouble.hpp"
+#include "PopUpInputUSize.hpp"
+#include "PopupInputString.hpp"
 
 // Sound
 #include "PopUpSoundLeven.hpp"

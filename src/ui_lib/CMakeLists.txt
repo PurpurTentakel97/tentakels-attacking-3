@@ -1,5 +1,4 @@
 add_library(ui_lib STATIC
-            include/ui_lib/TableCellAbstract.hpp
             include/ui_lib/Alignment.hpp
             include/ui_lib/Button.hpp
             include/ui_lib/CheckBox.hpp
@@ -29,10 +28,7 @@ add_library(ui_lib STATIC
             include/ui_lib/Title.hpp
             include/ui_lib/ButtonToggle.hpp
             include/ui_lib/UIElement.hpp
-            include/ui_lib/NewTable.hpp
-            include/ui_lib/NewTableCell.hpp
             include/ui_lib/InputLine.hpp
-            TableCellAbstract.cpp
             Alignment.cpp
             Button.cpp
             CheckBox.cpp
@@ -60,9 +56,8 @@ add_library(ui_lib STATIC
             Text.cpp
             Title.cpp
             ButtonToggle.cpp
-            NewTable.cpp
-            NewTableCell.cpp
             InputLine.cpp
+            TableCell.cpp
 )
 
 target_include_directories(ui_lib

@@ -18,7 +18,7 @@ namespace uil {
         return row < m_cells.size();
     }
     bool Table::IsValidColumn(utl::usize column) const {
-        if (m_cells.size() < 1) {
+        if (m_cells.empty()) {
             return false;
         }
         return column < m_cells.at(0).size();
@@ -47,10 +47,10 @@ namespace uil {
                 cellSize.x += (m_size.x - tableSize.x) / static_cast<float>(m_columnCount);
             }
 
-            cellWidth = cellSize.x;
+            cellWidth  = cellSize.x;
             cellHeight = cellSize.y;
         } else {
-            cellWidth = m_size.x / static_cast<float>(m_columnCount);
+            cellWidth  = m_size.x / static_cast<float>(m_columnCount);
             cellHeight = m_size.y / static_cast<float>(m_rowCount);
         }
 
@@ -105,7 +105,7 @@ namespace uil {
             }
         }
 
-        if (m_cells.size() == 0) {
+        if (m_cells.empty()) {
             hlp::Print(hlp::PrintType::ERROR, "no rows in table"), throw std::out_of_range("no rows");
         }
 
@@ -135,7 +135,7 @@ namespace uil {
         if (m_isFixedHeadline) {
             for (auto const& cell : m_cells.at(0)) {
                 auto col = cell->GetCollider();
-                col.y = m_collider.y;
+                col.y    = m_collider.y;
                 cell->SetCollider(col);
                 cell->CalculateTextSize();
             }
@@ -145,10 +145,10 @@ namespace uil {
                 return;
             }
             float height = m_cells.at(0).at(0)->GetCollider().height;
-            float pos = m_cells.at(1).at(0)->GetCollider().y;
+            float pos    = m_cells.at(1).at(0)->GetCollider().y;
             for (auto const& cell : m_cells.at(0)) {
                 auto col = cell->GetCollider();
-                col.y = pos - height;
+                col.y    = pos - height;
                 cell->SetCollider(col);
                 cell->CalculateTextSize();
             }
@@ -252,7 +252,7 @@ namespace uil {
         m_absoluteScrollingOffset.x += offset.x;
         m_absoluteScrollingOffset.y += offset.y;
 
-        Vector2 const size{ GetAbsoluteSize() };
+        Vector2 const size = GetAbsoluteSize();
         m_horizontalSlider->SetButtonPosition((-m_absoluteScrollingOffset.x / (size.x - m_collider.width)) * 100);
         m_verticalSlider->SetButtonPosition((-m_absoluteScrollingOffset.y / (size.y - m_collider.height)) * 100);
 
@@ -287,19 +287,19 @@ namespace uil {
         }
 
         // get cells
-        auto const cellTopLeft{ m_cells[0][0]->GetCollider() };
-        auto const cellSecondTopLeft{ m_cells[1][1]->GetCollider() };
-        auto const cellBottomLeft{ m_cells[m_rowCount - 1][m_columnCount - 1]->GetCollider() };
+        auto const cellTopLeft       = m_cells[0][0]->GetCollider();
+        auto const cellSecondTopLeft = m_cells[1][1]->GetCollider();
+        auto const cellBottomLeft    = m_cells[m_rowCount - 1][m_columnCount - 1]->GetCollider();
 
         // clamp right x
-        float cell{ cellBottomLeft.x + cellBottomLeft.width + offset.x };
+        float cell = cellBottomLeft.x + cellBottomLeft.width + offset.x;
         float table{ m_collider.x + m_collider.width };
         if (cell < table) {
             offset.x += table - cell;
         }
 
         // clamp left x
-        cell = cellSecondTopLeft.x + offset.x;
+        cell  = cellSecondTopLeft.x + offset.x;
         table = m_collider.x + cellTopLeft.width;
         if (cell > table) {
             offset.x -= cell - table;
@@ -316,7 +316,7 @@ namespace uil {
         }
 
         // clamp top y
-        cell = cellSecondTopLeft.y + offset.y;
+        cell  = cellSecondTopLeft.y + offset.y;
         table = m_collider.y + cellTopLeft.height;
         if (cell > table) {
             offset.y -= cell - table;
@@ -330,7 +330,7 @@ namespace uil {
             return;
         }
 
-        AbstractTableCell_ty cell{ nullptr };
+        TableCell_ty cell{ nullptr };
         for (utl::usize row = 0; row < m_cells.size(); ++row) {
             for (utl::usize column = 0; column < m_cells.at(row).size(); ++column) {
                 auto const cCell = m_cells.at(row).at(column);
@@ -345,7 +345,7 @@ namespace uil {
             return;
         }
 
-        auto col{ cell->GetCollider() };
+        auto col = cell->GetCollider();
         bool const cellInCollider{
             m_collider.x < col.x                                      // left
             and m_collider.x + m_collider.width > col.x + col.width   // right
@@ -375,7 +375,7 @@ namespace uil {
     }
     void Table::ScrollPercent(float percent, bool isHorizontal) {
 
-        auto size{ GetAbsoluteSize() };
+        auto size = GetAbsoluteSize();
         Vector2 offset{ 0.0f, 0.0f };
 
         if (isHorizontal) {
@@ -410,7 +410,7 @@ namespace uil {
                 }
 
                 auto const cell{ m_cells.at(row).at(column) };
-                auto collider{ cell->GetCollider() };
+                auto collider = cell->GetCollider();
                 collider.x += individualOffset.x;
                 collider.y += individualOffset.y;
                 cell->SetCollider(collider);
@@ -532,16 +532,14 @@ namespace uil {
         DrawRectangleLinesEx(m_collider, 2.0f, WHITE);
     }
 
-    Table::Table(
-            Vector2 pos,
-            Vector2 size,
-            Alignment alignment,
-            utl::usize focusID,
-            utl::usize rowCount,
-            utl::usize columnCount,
-            Vector2 minCellSize,
-            float scrollSpeed
-    )
+    Table::Table(Vector2 pos,
+                 Vector2 size,
+                 Alignment alignment,
+                 utl::usize focusID,
+                 utl::usize rowCount,
+                 utl::usize columnCount,
+                 Vector2 minCellSize,
+                 float scrollSpeed)
         : UIElement{ pos, size, alignment },
           Focusable{ focusID },
           m_rowCount{ rowCount },
@@ -556,53 +554,41 @@ namespace uil {
 
         m_cells.clear();
         for (utl::usize row = 0; row < m_rowCount; ++row) {
-            auto line{ std::vector<AbstractTableCell_ty>() };
+            auto line{ std::vector<TableCell_ty>() };
             for (utl::usize column = 0; column < columnCount; ++column) {
-                auto cell = std::make_shared<TableCell<std::string>>(
-                        Vector2(m_pos.x + cellWidth * static_cast<float>(column),
-                                m_pos.y + cellHeight * static_cast<float>(row)),
-                        Vector2(cellWidth, cellHeight),
-                        Alignment::TOP_LEFT,
-                        row * columnCount + column,
-                        "",
-                        [this](AbstractTableCell const* c, std::string oldValue, std::string newValue) {
-                            this->CellUpdated<std::string>(c, oldValue, newValue);
-                        }
-                );
+                auto cell = std::make_shared<TableCell>(Vector2(m_pos.x + cellWidth * static_cast<float>(column),
+                                                                m_pos.y + cellHeight * static_cast<float>(row)),
+                                                        Vector2(cellWidth, cellHeight),
+                                                        Alignment::TOP_LEFT,
+                                                        row * columnCount + column,
+                                                        [this](TableCell& c) { this->CellUpdated(c); });
 
                 line.push_back(cell);
             }
             m_cells.push_back(line);
         }
 
-        m_editableRowsColumns = { std::vector<bool>(static_cast<utl::usize>(m_rowCount), true),
-                                  std::vector<bool>(static_cast<utl::usize>(m_columnCount), true) };
+        m_editableRowsColumns = { std::vector<bool>(m_rowCount, true), std::vector<bool>(m_columnCount, true) };
 
-        m_verticalSlider = std::make_shared<Slider>(
-                hlp::GetElementPosition(m_pos, m_size, 0.995f, 0.5f),
-                hlp::GetElementSize(m_size, 0.01f, 0.9f),
-                Alignment::MID_RIGHT,
-                false,
-                20.0f
-        );
+        m_verticalSlider = std::make_shared<Slider>(hlp::GetElementPosition(m_pos, m_size, 0.995f, 0.5f),
+                                                    hlp::GetElementSize(m_size, 0.01f, 0.9f),
+                                                    Alignment::MID_RIGHT,
+                                                    false,
+                                                    20.0f);
         m_verticalSlider->SetOnSlide([this](float percent) { this->ScrollPercent(percent, false); });
-        m_horizontalSlider = std::make_shared<Slider>(
-                hlp::GetElementPosition(m_pos, m_size, 0.5f, 0.99f),
-                hlp::GetElementSize(m_size, 0.9f, 0.02f),
-                Alignment::BOTTOM_MID,
-                true,
-                20.0f
-        );
+        m_horizontalSlider = std::make_shared<Slider>(hlp::GetElementPosition(m_pos, m_size, 0.5f, 0.99f),
+                                                      hlp::GetElementSize(m_size, 0.9f, 0.02f),
+                                                      Alignment::BOTTOM_MID,
+                                                      true,
+                                                      20.0f);
         m_horizontalSlider->SetOnSlide([this](float percent) { this->ScrollPercent(percent, true); });
         CalculateSlider();
     }
 
     void Table::SetRowCount(utl::usize newRowCount) {
         if (newRowCount <= 0) {
-            hlp::Print(
-                    hlp::PrintType::ERROR,
-                    "tried to set a row count inside of a table that is lower than or equal to 0."
-            );
+            hlp::Print(hlp::PrintType::ERROR,
+                       "tried to set a row count inside of a table that is lower than or equal to 0.");
             return;
         }
 
@@ -614,10 +600,8 @@ namespace uil {
 
     void Table::SetColumnCount(utl::usize newColumnCount) {
         if (newColumnCount <= 0) {
-            hlp::Print(
-                    hlp::PrintType::ERROR,
-                    "tried to set a column count inside of a table that is lower than or equal to 0."
-            );
+            hlp::Print(hlp::PrintType::ERROR,
+                       "tried to set a column count inside of a table that is lower than or equal to 0.");
             return;
         }
 
@@ -653,7 +637,7 @@ namespace uil {
         --m_columnCount;
     }
     void Table::RemoveLastColum() {
-        if (m_cells.size() == 0) {
+        if (m_cells.empty()) {
             hlp::Print(hlp::PrintType::ERROR, "no rows in table"), throw std::out_of_range("no rows");
         }
         RemoveSpecificColumn(m_cells.at(0).size() - 1);
@@ -860,12 +844,10 @@ namespace uil {
     }
     void Table::Render(app::AppContext_ty_c appContext) {
 
-        BeginScissorMode(
-                static_cast<int>(m_collider.x),
-                static_cast<int>(m_collider.y),
-                static_cast<int>(m_collider.width),
-                static_cast<int>(m_collider.height)
-        );
+        BeginScissorMode(static_cast<int>(m_collider.x),
+                         static_cast<int>(m_collider.y),
+                         static_cast<int>(m_collider.width),
+                         static_cast<int>(m_collider.height));
 
         RenderOtherCells(appContext);
         RenderFirstColumn(appContext);
@@ -880,6 +862,19 @@ namespace uil {
         }
         if (m_activeVerticalSlider) {
             m_verticalSlider->Render(appContext);
+        }
+    }
+    void Table::CellUpdated(TableCell& cell) {
+        if (cell.IsA<std::string>()) {
+            m_updatedStringCell(cell);
+        } else if (cell.IsA<utl::usize>()) {
+            m_updatedUSizeCell(cell);
+        } else if (cell.IsA<double>()) {
+            m_updatedDoubleCell(cell);
+        } else if (cell.IsA<Color>()) {
+            m_updatedColorCell(cell);
+        } else {
+            assert(false and "unreachable");
         }
     }
 } // namespace uil

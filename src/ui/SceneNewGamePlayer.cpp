@@ -34,15 +34,13 @@ namespace ui {
                 appContext.languageManager.Text("scene_new_game_player_add_player_headline", ":"));
         m_elements.push_back(addPlayerText);
 
-        m_inputLine = std::make_shared<uil::InputLine>(
-                1,
-                GetElementPosition(0.1f, 0.35f),
-                GetElementSize(0.35f, 0.05f),
-                uil::Alignment::TOP_LEFT,
-                std::string()
-        );
-        m_inputLine->SetPlaceholderText(appContext.languageManager.Text("scene_new_game_player_player_name_placeholder")
-        );
+        m_inputLine = std::make_shared<uil::InputLine>(1,
+                                                       GetElementPosition(0.1f, 0.35f),
+                                                       GetElementSize(0.35f, 0.05f),
+                                                       uil::Alignment::TOP_LEFT,
+                                                       std::string());
+        m_inputLine->SetPlaceholderText(
+                appContext.languageManager.Text("scene_new_game_player_player_name_placeholder"));
         m_inputLine->SetOnEnter([this](uil::InputLine&) { this->AddPlayer(); });
         m_elements.push_back(m_inputLine);
 
@@ -100,16 +98,14 @@ namespace ui {
                                                 appContext.constants.player.minPlayerCount));
         m_elements.push_back(currentPlayerCount);
 
-        m_table = std::make_shared<uil::Table>(
-                GetElementPosition(0.9f, 0.35f),
-                GetElementSize(0.35f, 0.45f),
-                uil::Alignment::TOP_RIGHT,
-                5,
-                static_cast<int>(appContext.constants.player.maxPlayerCount + 1),
-                3,
-                Vector2(0.33f, 0.1f),
-                0.1f
-        );
+        m_table = std::make_shared<uil::Table>(GetElementPosition(0.9f, 0.35f),
+                                               GetElementSize(0.35f, 0.45f),
+                                               uil::Alignment::TOP_RIGHT,
+                                               5,
+                                               static_cast<int>(appContext.constants.player.maxPlayerCount + 1),
+                                               3,
+                                               Vector2(0.33f, 0.1f),
+                                               0.1f);
         m_table->SetRowEditable(0, false);
         m_table->SetColumnEditable(0, false);
         m_table->SetHeadlineValues<std::string>({
@@ -118,13 +114,8 @@ namespace ui {
                 appContext.languageManager.Text("scene_new_game_player_table_headline_color"),
         });
 
-        m_table->SetUpdateSpecificCell<std::string>(
-                [this](uil::AbstractTableCell const* cell, std::string const& oldValue, std::string const& newValue) {
-                    this->UpdatePlayerName(cell, oldValue, newValue);
-                });
-        m_table->SetUpdateSpecificCell<Color>([this](uil::AbstractTableCell const* cell,
-                                                     Color oldValue,
-                                                     Color newValue) { UpdatePlayerColor(cell, oldValue, newValue); });
+        m_table->SetUpdateCellType<std::string>([this](uil::TableCell& cell) { this->UpdatePlayerName(cell); });
+        m_table->SetUpdateCellType<Color>([this](uil::TableCell& cell) { this->UpdatePlayerColor(cell); });
 
         m_elements.push_back(m_table);
         m_nestedFocus.push_back(m_table.get());
@@ -197,6 +188,7 @@ namespace ui {
     }
 
     void NewGamePlayerScene::UpdateSceneEntries() {
+        m_updating = true;
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
         m_colorPicker->SetColor(appContext.playerCollection.GetPossibleColor());
 
@@ -214,9 +206,9 @@ namespace ui {
 
         utl::usize index{ 1 };
         for (auto& p : PlayerData) {
-            m_table->SetValue<int>(index, 0, static_cast<int>(p.ID));
-            m_table->SetValue<std::string>(index, 1, p.GetName());
-            m_table->SetValue<Color>(index, 2, p.color);
+            m_table->SetValue(index, 0, p.ID);
+            m_table->SetValue(index, 1, p.GetName());
+            m_table->SetValue(index, 2, p.color);
 
             m_table->SetSingleEditable(index, 1, true);
             m_table->SetSingleEditable(index, 2, true);
@@ -234,6 +226,7 @@ namespace ui {
             }
             m_playerButtons.at(row - 1)->SetEnabled(false);
         }
+        m_updating = false;
     }
 
     void NewGamePlayerScene::AddPlayer() {
@@ -251,23 +244,36 @@ namespace ui {
         UpdateSceneEntries();
     }
 
-    void NewGamePlayerScene::UpdatePlayerName(uil::AbstractTableCell const*,
-                                              std::string const& oldValue,
-                                              std::string const& newValue) {
+    void NewGamePlayerScene::UpdatePlayerName(uil::TableCell& cell) {
+        if (m_updating) {
+            return;
+        }
+
+        bool const valid{ cell.IsA<std::string>() and cell.IsAOld<std::string>() };
+        if (not valid) {
+            return;
+        }
 
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
-        app::PlayerData const playerData{ appContext.playerCollection.GetPlayerByName(oldValue) };
+        app::PlayerData const playerData{ appContext.playerCollection.GetPlayerByName(cell.ValueOld<std::string>()) };
 
-        UpdatePlayer(playerData.ID, newValue, playerData.color);
+        UpdatePlayer(playerData.ID, cell.Value<std::string>(), playerData.color);
     }
 
-    void NewGamePlayerScene::UpdatePlayerColor(uil::AbstractTableCell const*,
-                                               Color const oldValue,
-                                               Color const newValue) {
-        app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
-        app::PlayerData const playerData{ appContext.playerCollection.GetPlayerByColor(oldValue) };
+    void NewGamePlayerScene::UpdatePlayerColor(uil::TableCell& cell) {
+        if (m_updating) {
+            return;
+        }
 
-        UpdatePlayer(playerData.ID, playerData.GetName(), newValue);
+        bool const valid{ cell.IsA<Color>() and cell.IsAOld<Color>() };
+        if (not valid) {
+            return;
+        }
+
+        app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
+        app::PlayerData const playerData{ appContext.playerCollection.GetPlayerByColor(cell.ValueOld<Color>()) };
+
+        UpdatePlayer(playerData.ID, playerData.GetName(), cell.Value<Color>());
     }
 
     void NewGamePlayerScene::DeletePlayer(utl::usize const ID) {

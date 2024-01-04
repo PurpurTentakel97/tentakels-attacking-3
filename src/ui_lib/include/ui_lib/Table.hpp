@@ -20,7 +20,7 @@
 namespace uil {
     class Table final : public UIElement, public Focusable {
     private:
-        using cells_ty = std::vector<std::vector<AbstractTableCell_ty>>;
+        using cells_ty = std::vector<std::vector<TableCell_ty>>;
         utl::usize m_rowCount;
         utl::usize m_columnCount;
         cells_ty m_cells;
@@ -37,27 +37,17 @@ namespace uil {
         Vector2 m_absoluteScrollingOffset{ 0.0f, 0.0f };
 
         Slider_ty m_horizontalSlider;
-        bool m_activeHorizontalSlider;
+        bool m_activeHorizontalSlider{ false };
         Slider_ty m_verticalSlider;
-        bool m_activeVerticalSlider;
+        bool m_activeVerticalSlider{ false };
 
         bool m_isHoveredHighlighted{ false };
         utl::vec2pos_ty m_currentHighlighted{ 0, 0 };
 
-        std::function<void(AbstractTableCell const*, std::string, std::string)> m_updatedStringCell{
-            [](AbstractTableCell const*, std::string, std::string) {}
-        };
-        std::function<void(AbstractTableCell const*, int, int)> m_updatedIntCell{ [](AbstractTableCell const*, int, int
-                                                                                  ) {} }; ///< int
-        std::function<void(AbstractTableCell const*, float, float)> m_updatedFloatCell{
-            [](AbstractTableCell const*, float, float) {}
-        }; ///< float
-        std::function<void(AbstractTableCell const*, double, double)> m_updatedDoubleCell{
-            [](AbstractTableCell const*, double, double) {}
-        }; ///< double
-        std::function<void(AbstractTableCell const*, Color, Color)> m_updatedColorCell{
-            [](AbstractTableCell const*, Color, Color) {}
-        }; ///< color
+        TableCell::callback_ty m_updatedStringCell{ [](TableCell&) {} };
+        TableCell::callback_ty m_updatedUSizeCell{ [](TableCell&) {} };
+        TableCell::callback_ty m_updatedDoubleCell{ [](TableCell&) {} };
+        TableCell::callback_ty m_updatedColorCell{ [](TableCell&) {} };
 
         [[nodiscard]] bool IsValidIndex(utl::usize row, utl::usize column) const;
 
@@ -109,29 +99,7 @@ namespace uil {
 
         void RenderOutline() const;
 
-        template<typename T>
-        void CellUpdated(AbstractTableCell const* cell, T oldValue, T newValue) {
-            if constexpr (std::is_same_v<T, std::string>) {
-                m_updatedStringCell(cell, oldValue, newValue);
-                return;
-            }
-            if constexpr (std::is_same_v<T, int>) {
-                m_updatedIntCell(cell, oldValue, newValue);
-                return;
-            }
-            if constexpr (std::is_same_v<T, float>) {
-                m_updatedFloatCell(cell, oldValue, newValue);
-                return;
-            }
-            if constexpr (std::is_same_v<T, double>) {
-                m_updatedDoubleCell(cell, oldValue, newValue);
-                return;
-            }
-            if constexpr (std::is_same_v<T, Color>) {
-                m_updatedColorCell(cell, oldValue, newValue);
-                return;
-            }
-        }
+        void CellUpdated(TableCell& cell);
 
     public:
         Table(Vector2 pos,
@@ -143,70 +111,51 @@ namespace uil {
               Vector2 minCellSize,
               float scrollSpeed);
 
-        template<typename T>
+        template<utl::InputValueTypeCol T>
         void SetValue(utl::usize row, utl::usize column, T input) {
             if (not IsValidIndex(row, column)) {
                 hlp::Print(hlp::PrintType::ERROR, "Index out of range"), throw std::out_of_range("index");
             }
 
-            auto const oldCell{ m_cells.at(row).at(column) };
-            if (IsNestedFocus()) {
-                hlp::DeleteFocusElement(oldCell.get());
-            }
-
-            auto cell = std::make_shared<TableCell<T>>(
-                    oldCell->GetPosition(),
-                    oldCell->GetSize(),
-                    oldCell->GetAlignment(),
-                    oldCell->GetFocusID(),
-                    input,
-                    [this](AbstractTableCell const* c, T oldValue, T newValue) {
-                        this->CellUpdated<T>(c, oldValue, newValue);
-                    }
-            );
-            cell->SetEditable(oldCell->IsEditable());
-            m_cells.at(row).at(column) = cell;
-            if (IsNestedFocus()) {
-                hlp::AddFocusElement(cell.get());
+            auto const cell{ m_cells.at(row).at(column) };
+            if (cell->IsA<T>()) {
+                cell->SetValue(input);
+            } else {
+                cell->SetType(input);
             }
         }
 
-        template<typename T>
-        [[nodiscard]] T GetValue(utl::usize row, utl::usize column) const {
+        template<utl::InputValueTypeCol T>
+        [[nodiscard]] T ValueCell(utl::usize row, utl::usize column) const {
             if (not IsValidIndex(row, column)) {
                 hlp::Print(hlp::PrintType::ERROR, "index out of range");
                 throw std::out_of_range("index");
             }
 
-            std::any const value{ m_cells.at(row).at(column)->GetValue() };
-            return std::any_cast<T>(value);
+            return m_cells.at(row).at(column)->Value<T>();
         }
 
-        [[nodiscard]] std::string GetValueAsString(utl::usize row, utl::usize column) const {
+        [[nodiscard]] std::string ValueCellStr(utl::usize row, utl::usize column) const {
             if (not IsValidIndex(row, column)) {
                 hlp::Print(hlp::PrintType::ERROR, "index out of range");
                 throw std::out_of_range("index");
             }
 
-            return m_cells.at(row).at(column)->GetValueAsString();
+            return m_cells.at(row).at(column)->ValueStr();
         }
 
         void SetRowCount(utl::usize newRowCount);
 
         [[nodiscard]] utl::usize GetRowCount() const;
 
-        template<typename T>
-        void SetUpdateSpecificCell(std::function<void(AbstractTableCell const*, T, T)> updateCell) {
+        template<utl::InputValueTypeCol T>
+        void SetUpdateCellType(std::function<void(TableCell&)> updateCell) {
             if constexpr (std::is_same_v<T, std::string>) {
                 m_updatedStringCell = updateCell;
                 return;
             }
-            if constexpr (std::is_same_v<T, int>) {
-                m_updatedIntCell = updateCell;
-                return;
-            }
-            if constexpr (std::is_same_v<T, float>) {
-                m_updatedFloatCell = updateCell;
+            if constexpr (std::is_same_v<T, utl::usize>) {
+                m_updatedUSizeCell = updateCell;
                 return;
             }
             if constexpr (std::is_same_v<T, double>) {
@@ -223,44 +172,39 @@ namespace uil {
 
         [[nodiscard]] utl::usize GetColumnCount() const;
 
-        template<typename T>
+        template<utl::InputValueTypeCol T>
         void AddSpecificRow(utl::usize row, T defaultValue) {
             if (row == m_cells.size()) { /* nothing */
             } else if (!IsValidRow(row)) {
                 hlp::Print(hlp::PrintType::ERROR, "invalid row index"), throw std::out_of_range("row-index");
             }
 
-            auto line{ std::vector<AbstractTableCell_ty>() };
+            auto line{ std::vector<TableCell_ty>{} };
 
             for (utl::usize column = 0; column < m_columnCount; ++column) {
 
-                auto cell = std::make_shared<TableCell<T>>(
-                        Vector2(0.0f, 0.0f),
-                        Vector2(0.1f, 0.1f),
-                        Alignment::TOP_LEFT,
-                        0,
-                        defaultValue,
-                        [this](AbstractTableCell const* c, T oldValue, T newValue) {
-                            this->CellUpdated<T>(c, oldValue, newValue);
-                        }
-                );
+                auto cell = std::make_shared<TableCell>(
+                        Vector2(0.0f, 0.0f), Vector2(0.1f, 0.1f), Alignment::TOP_LEFT, 0, [this](TableCell& c) {
+                            this->CellUpdated(c);
+                        });
                 if (not m_editableRowsColumns.at(1).at(column)) {
                     cell->SetEditable(false);
                 }
+                cell->SetType(defaultValue);
                 line.push_back(cell);
             }
 
-            m_cells.insert(m_cells.begin() + static_cast<int>(row), line);
+            m_cells.insert(m_cells.begin() + row, line);
             m_editableRowsColumns.at(0).insert(m_editableRowsColumns.at(0).begin() + static_cast<int>(row), true);
             ++m_rowCount;
         }
 
-        template<typename T>
+        template<utl::InputValueTypeCol T>
         void AddLastRow(T defaultValue) {
             AddSpecificRow<T>(m_cells.size(), defaultValue);
         }
 
-        template<typename T>
+        template<utl::InputValueTypeCol T>
         void AddSpecificColumn(utl::usize column, T defaultValue) {
             if (m_cells.size() == 0) {
                 hlp::Print(hlp::PrintType::ERROR, "no rows available in the table"), throw std::out_of_range("no rows");
@@ -270,27 +214,22 @@ namespace uil {
             }
 
             for (utl::usize i = 0; i < m_rowCount; ++i) {
-                auto row = m_cells.at(i);
-                auto cell = std::make_shared<TableCell<T>>(
-                        Vector2(0.0f, 0.0f),
-                        Vector2(0.1f, 0.1f),
-                        Alignment::TOP_LEFT,
-                        0,
-                        defaultValue,
-                        [this](AbstractTableCell const* c, T oldValue, T newValue) {
-                            this->CellUpdated<T>(c, oldValue, newValue);
-                        }
-                );
+                auto row  = m_cells.at(i);
+                auto cell = std::make_shared<TableCell>(
+                        Vector2(0.0f, 0.0f), Vector2(0.1f, 0.1f), Alignment::TOP_LEFT, 0, [this](TableCell& c) {
+                            this->CellUpdated(c);
+                        });
                 if (not m_editableRowsColumns.at(0).at(i)) {
                     cell->SetEditable(false);
                 }
+                cell->SetType(defaultValue);
                 row.insert(row.begin() + static_cast<int>(column), cell);
             }
             m_editableRowsColumns.at(1).insert(m_editableRowsColumns.at(1).begin() + static_cast<int>(column), true);
             ++m_columnCount;
         }
 
-        template<typename T>
+        template<utl::InputValueTypeCol T>
         void AddLastColumn(T defaultValue) {
             if (m_cells.size() == 0) {
                 hlp::Print(hlp::PrintType::ERROR, "no rows in table"), throw std::out_of_range("no rows");
@@ -311,7 +250,7 @@ namespace uil {
 
         [[nodiscard]] bool IsHighlightedHover() const;
 
-        void SetScrollable(bool isScollable);
+        void SetScrollable(bool isScrollable);
 
         [[nodiscard]] bool IsScrollable() const;
 
@@ -349,7 +288,7 @@ namespace uil {
 
         [[nodiscard]] bool IsFixedFirstColumn() const;
 
-        template<typename T>
+        template<utl::InputValueTypeCol T>
         void SetHeadlineValues(std::vector<T> values) {
             for (utl::usize i = 0; i < m_columnCount; ++i) {
                 if (i >= values.size()) {

@@ -225,7 +225,7 @@ namespace eve {
         }
     };
 
-    class ShowStringInputLinePopupEvent final : public PopUpEvent {
+    class ShowStringPopupEvent final : public PopUpEvent {
     public:
         using callback_ty = std::function<void(std::string)>;
 
@@ -234,7 +234,7 @@ namespace eve {
         callback_ty m_callback;
 
     public:
-        ShowStringInputLinePopupEvent(std::string const& title, std::string value, callback_ty callback)
+        ShowStringPopupEvent(std::string const& title, std::string value, callback_ty callback)
             : PopUpEvent{ title, "" },
               m_value{ std::move(value) },
               m_callback{ std::move(callback) } { }
@@ -248,7 +248,7 @@ namespace eve {
         }
     };
 
-    class ShowUSizeInputLinePopupEvent final : public PopUpEvent {
+    class ShowUSizePopupEvent final : public PopUpEvent {
     public:
         using callback_ty = std::function<void(utl::usize)>;
 
@@ -257,7 +257,7 @@ namespace eve {
         callback_ty m_callback;
 
     public:
-        ShowUSizeInputLinePopupEvent(std::string const& title, utl::usize value, callback_ty callback)
+        ShowUSizePopupEvent(std::string const& title, utl::usize value, callback_ty callback)
             : PopUpEvent{ title, "" },
               m_value{ value },
               m_callback{ std::move(callback) } { }
@@ -271,7 +271,7 @@ namespace eve {
         }
     };
 
-    class ShowDoubleInputLinePopupEvent final : public PopUpEvent {
+    class ShowDoublePopupEvent final : public PopUpEvent {
     public:
         using callback_ty = std::function<void(double)>;
 
@@ -280,7 +280,7 @@ namespace eve {
         callback_ty m_callback;
 
     public:
-        ShowDoubleInputLinePopupEvent(std::string const& title, double value, callback_ty callback)
+        ShowDoublePopupEvent(std::string const& title, double value, callback_ty callback)
             : PopUpEvent{ title, "" },
               m_value{ value },
               m_callback{ std::move(callback) } { }
@@ -294,7 +294,7 @@ namespace eve {
         }
     };
 
-    class ShowColorInputLinePopupEvent final : public PopUpEvent {
+    class ShowColorPopupEvent final : public PopUpEvent {
     public:
         using callback_ty = std::function<void(Color)>;
 
@@ -303,7 +303,7 @@ namespace eve {
         callback_ty m_callback;
 
     public:
-        ShowColorInputLinePopupEvent(std::string const& title, Color value, callback_ty callback)
+        ShowColorPopupEvent(std::string const& title, Color value, callback_ty callback)
             : PopUpEvent{ title, "" },
               m_value{ std::move(value) },
               m_callback{ std::move(callback) } { }

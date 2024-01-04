@@ -3,7 +3,7 @@
 // 04.10.2022
 //
 
-#include "PopUpCell.hpp"
+#include "PopUpInput.hpp"
 #include <app/AppContext.hpp>
 #include <helper/HFocusEvents.hpp>
 #include <helper/HGeneral.hpp>
@@ -15,7 +15,7 @@ namespace ui {
         std::string subTitle{};
     } // namespace
 
-    void CellPopUp::Initialize() {
+    void PopUpInput::Initialize() {
 
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
 
@@ -35,7 +35,7 @@ namespace ui {
         m_elements.push_back(cancelBtn);
     }
 
-    uil::ClassicButton_ty CellPopUp::InitializeAcceptButton() {
+    uil::ClassicButton_ty PopUpInput::InitializeAcceptButton() {
 
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
 
@@ -55,11 +55,11 @@ namespace ui {
         return acceptBtn;
     }
 
-    void CellPopUp::SetShouldClose() {
+    void PopUpInput::SetShouldClose() {
         m_shouldClose = true;
     }
 
-    void CellPopUp::CheckEnter() {
+    void PopUpInput::CheckEnter() {
         bool validEnterClose =
                 (IsKeyReleased(KEY_ENTER) or IsKeyPressed(KEY_KP_ENTER)) && !m_shouldClose && !m_firstEnter;
         if (validEnterClose) {
@@ -71,15 +71,14 @@ namespace ui {
         LateUpdate();
     }
 
-    void CellPopUp::Close(app::AppContext_ty_c appContext) {
+    void PopUpInput::Close(app::AppContext_ty_c appContext) {
         if (m_shouldClose) {
             auto event = eve::ClosePopUpEvent(this);
             appContext.eventManager.InvokeEvent(event);
         }
     }
 
-    CellPopUp::CellPopUp(
-            Vector2 const pos,
+    PopUpInput::PopUpInput(Vector2 const pos,
             Vector2 const size,
             uil::Alignment const alignment,
             std::string const& title,
@@ -90,7 +89,7 @@ namespace ui {
         Initialize();
     }
 
-    void CellPopUp::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) {
+    void PopUpInput::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) {
 
         PopUp::CheckAndUpdate(mousePosition, appContext);
 

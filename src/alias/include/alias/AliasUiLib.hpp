@@ -95,9 +95,9 @@ namespace uil {
     using CountRing_ty   = std::shared_ptr<CountRing>;
     using CountRing_ty_c = std::shared_ptr<CountRing> const&;
 
-    class AbstractTableCell;
-    using AbstractTableCell_ty   = std::shared_ptr<AbstractTableCell>;
-    using AbstractTableCell_ty_c = std::shared_ptr<AbstractTableCell> const&;
+    class TableCell;
+    using TableCell_ty   = std::shared_ptr<TableCell>;
+    using TableCell_ty_c = std::shared_ptr<TableCell> const&;
 
     class Table;
     using Table_ty = std::shared_ptr<Table>;
