@@ -44,12 +44,12 @@ namespace uil {
         on_value_chanced_callback_ty m_onValueChanced{ [](InputLine&) {} };
 
         static inline std::unordered_map<KeyType, char> const m_keyLockup{
-            { KeyType::FIRST_NUMBER, 48  },
-            { KeyType::LAST_NUMBER,  57  },
-            { KeyType::FIRST_CHAR,   32  },
-            { KeyType::LAST_CHAR,    126 },
-            { KeyType::COMMA,        44  },
-            { KeyType::DOT,          46  },
+            { KeyType::FIRST_NUMBER, char{ 48 }  },
+            { KeyType::LAST_NUMBER,  char{ 57 }  },
+            { KeyType::FIRST_CHAR,   char{ 32 }  },
+            { KeyType::LAST_CHAR,    char{ 126 } },
+            { KeyType::COMMA,        char{ 44 }  },
+            { KeyType::DOT,          char{ 46 }  },
         };
 
         void UpdateValue();
