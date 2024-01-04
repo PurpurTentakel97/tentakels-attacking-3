@@ -194,7 +194,7 @@ namespace uil {
                 line.push_back(cell);
             }
 
-            m_cells.insert(m_cells.begin() + row, line);
+            m_cells.insert(m_cells.begin() + static_cast<int>(row), line);
             m_editableRowsColumns.at(0).insert(m_editableRowsColumns.at(0).begin() + static_cast<int>(row), true);
             ++m_rowCount;
         }

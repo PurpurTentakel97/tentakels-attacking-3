@@ -31,14 +31,14 @@ namespace uil {
         } catch (std::exception const&) { }
     }
 
-    bool InputLine::AddChar(utl::usize key) {
+    bool InputLine::AddChar(char const key) {
         auto const validAdd{ m_charLimit > m_strValue.size() };
 
         if (not validAdd) {
             return false;
         }
 
-        m_strValue += static_cast<char>(key);
+        m_strValue += key;
 
         eve::PlaySoundEvent const event{ app::SoundType::TEXT };
         app::AppContext::GetInstance().eventManager.InvokeEvent(event);
@@ -63,7 +63,7 @@ namespace uil {
         m_onValueChanced(*this);
     }
 
-    bool InputLine::IsValidKey(utl::usize key) const {
+    bool InputLine::IsValidKey(char const key) const {
         if (IsA<utl::usize>()) {
             auto const isInteger{ key >= m_keyLockup.at(KeyType::FIRST_NUMBER)
                                   and key <= m_keyLockup.at(KeyType::LAST_NUMBER) };
@@ -254,7 +254,7 @@ namespace uil {
         }
 
         while (true) {
-            auto const key{ static_cast<utl::usize>(GetCharPressed()) };
+            auto const key{ static_cast<char>(GetCharPressed()) };
 
             if (key == 0) {
                 break;
@@ -313,7 +313,7 @@ namespace uil {
         }
 
         if (IsFocused()) {
-            auto const time{ static_cast<utl::usize>(GetTime() * 2.0f) };
+            auto const time{ static_cast<utl::usize>(GetTime() * 2.0) };
             auto const textLength =
                     MeasureTextEx(*(appContext.assetManager.GetFont()), printableInput.c_str(), fontSize, 0.0f);
 

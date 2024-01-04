@@ -555,13 +555,12 @@ namespace ui {
                                  ? utl::FleetInstructionType::COORDINATES
                                  : utl::FleetInstructionType::ID };
 
-        eve::SendFleetInstructionEvent event{
-            static_cast<utl::usize>(m_origin->Value<utl::usize>()),
-            static_cast<utl::usize>(m_destination->Value<utl::usize>()),
-            static_cast<utl::usize>(m_destinationX->IsEnabled() ? m_destinationX->Value<utl::usize>() : 0),
-            static_cast<utl::usize>(m_destinationY->IsEnabled() ? m_destinationY->Value<utl::usize>() : 0),
-            static_cast<utl::usize>(m_shipCount->Value<utl::usize>()),
-            type
+        eve::SendFleetInstructionEvent event{ m_origin->Value<utl::usize>(),
+                                              m_destination->Value<utl::usize>(),
+                                              m_destinationX->IsEnabled() ? m_destinationX->Value<utl::usize>() : 0,
+                                              m_destinationY->IsEnabled() ? m_destinationY->Value<utl::usize>() : 0,
+                                              m_shipCount->Value<utl::usize>(),
+                                              type
         };
         app::AppContext::GetInstance().eventManager.InvokeEvent(event);
     }
