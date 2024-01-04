@@ -9,12 +9,12 @@
 #include "LanguageManager.hpp"
 #include "PlayerCollection.hpp"
 #include "SoundManager.hpp"
+#include "utils/Concepts.hpp"
 #include <alias/AliasApp.hpp>
 #include <constants/CConstants.hpp>
 #include <event/EventListener.hpp>
 #include <event/EventManager.hpp>
 #include <event/EventsUI.hpp>
-#include <helper/HConcepts.hpp>
 #include <string>
 #include <utils/Colors.hpp>
 
@@ -39,14 +39,14 @@ namespace app {
 
         void ValidateConfig();
 
-        template<arithmetic D>
+        template<utl::arithmetic D>
         inline void ValidateMinCurrentMax(D min, D& current, D max) const {
 
             current = min <= current ? current : min;
             current = max >= current ? current : max;
         }
 
-        template<arithmetic D>
+        template<utl::arithmetic D>
         inline void ValidateMinMax(D& lhs, D& rhs, std::string const& lhsMessage, std::string const& rhsMessage) const {
 
             if (lhs < rhs) {
@@ -61,7 +61,7 @@ namespace app {
             eventManager.InvokeEvent(event);
         }
 
-        template<arithmetic D>
+        template<utl::arithmetic D>
         inline void ValidateLowerEqual(D& value, D max, std::string const& valueMessage) const {
 
             if (value <= max) {
@@ -76,7 +76,7 @@ namespace app {
             eventManager.InvokeEvent(event);
         }
 
-        template<arithmetic D>
+        template<utl::arithmetic D>
         inline void ValidateGreaterEqual(D& value, D min, std::string const& valueMessage) const {
 
             if (value >= min) {

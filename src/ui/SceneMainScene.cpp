@@ -274,17 +274,17 @@ namespace ui {
         );
         m_elements.push_back(text);
 
-        m_origin = std::make_shared<uil::InputLine<int>>(
+        m_origin = std::make_shared<uil::InputLine>(
                 1,
                 GetElementPosition(0.99f, ship_x),
                 GetElementSize(0.08f, 0.04f),
                 uil::Alignment::TOP_RIGHT,
-                3
+                utl::usize{}
         );
-        m_origin->SetOnEnter([this]() { this->SendFleetInstruction(); });
-        m_origin->SetOnValueChanced([this]() { SetAcceptButton(); });
+        m_origin->SetOnEnter([this](uil::InputLine&) { this->SendFleetInstruction(); });
+        m_origin->SetOnValueChanced([this](uil::InputLine&) { SetAcceptButton(); });
         m_origin->SetPlaceholderText(appContext.languageManager.Text("scene_main_scene_id_placeholder_text"));
-        m_origin->SetShouldClearByFocus(true);
+        m_origin->SetClearByFocus(true);
         m_elements.push_back(m_origin);
 
         ship_x += 0.08f;
@@ -299,48 +299,48 @@ namespace ui {
         );
         m_elements.push_back(text);
 
-        m_destination = std::make_shared<uil::InputLine<int>>(
+        m_destination = std::make_shared<uil::InputLine>(
                 2,
                 GetElementPosition(0.99f, ship_x),
                 GetElementSize(0.08f, 0.04f),
                 uil::Alignment::TOP_RIGHT,
-                3
+                utl::usize{}
         );
-        m_destination->SetOnEnter([this]() { this->SendFleetInstruction(); });
-        m_destination->SetOnValueChanced([this]() {
+        m_destination->SetOnEnter([this](uil::InputLine&) { this->SendFleetInstruction(); });
+        m_destination->SetOnValueChanced([this](uil::InputLine&) {
             this->SetAcceptButton();
             this->UpdateActiveDestination();
         });
         m_destination->SetPlaceholderText(appContext.languageManager.Text("scene_main_scene_id_placeholder_text"));
-        m_destination->SetShouldClearByFocus(true);
+        m_destination->SetClearByFocus(true);
         m_elements.push_back(m_destination);
 
         ship_x += 0.05f;
 
-        m_destinationX = std::make_shared<uil::InputLine<int>>(
+        m_destinationX = std::make_shared<uil::InputLine>(
                 3,
                 GetElementPosition(0.949f, ship_x),
                 GetElementSize(0.039f, 0.04f),
                 uil::Alignment::TOP_RIGHT,
-                3
+                utl::usize{}
         );
-        m_destinationX->SetOnEnter([this]() { this->SendFleetInstruction(); });
-        m_destinationX->SetOnValueChanced([this]() { SetAcceptButton(); });
+        m_destinationX->SetOnEnter([this](uil::InputLine&) { this->SendFleetInstruction(); });
+        m_destinationX->SetOnValueChanced([this](uil::InputLine&) { SetAcceptButton(); });
         m_destinationX->SetPlaceholderText("X");
-        m_destinationX->SetShouldClearByFocus(true);
+        m_destinationX->SetClearByFocus(true);
         m_elements.push_back(m_destinationX);
 
-        m_destinationY = std::make_shared<uil::InputLine<int>>(
+        m_destinationY = std::make_shared<uil::InputLine>(
                 4,
                 GetElementPosition(0.99f, ship_x),
                 GetElementSize(0.039f, 0.04f),
                 uil::Alignment::TOP_RIGHT,
-                3
+                utl::usize{}
         );
-        m_destinationY->SetOnEnter([this]() { this->SendFleetInstruction(); });
-        m_destinationY->SetOnValueChanced([this]() { SetAcceptButton(); });
+        m_destinationY->SetOnEnter([this](uil::InputLine&) { this->SendFleetInstruction(); });
+        m_destinationY->SetOnValueChanced([this](uil::InputLine&) { SetAcceptButton(); });
         m_destinationY->SetPlaceholderText("Y");
-        m_destinationY->SetShouldClearByFocus(true);
+        m_destinationY->SetClearByFocus(true);
         m_elements.push_back(m_destinationY);
 
         ship_x += 0.08f;
@@ -355,18 +355,18 @@ namespace ui {
         );
         m_elements.push_back(text);
 
-        m_shipCount = std::make_shared<uil::InputLine<int>>(
+        m_shipCount = std::make_shared<uil::InputLine>(
                 5,
                 GetElementPosition(0.99f, ship_x),
                 GetElementSize(0.08f, 0.04f),
                 uil::Alignment::TOP_RIGHT,
-                4
+                utl::usize{}
         );
-        m_shipCount->SetOnEnter([this]() { this->SendFleetInstruction(); });
-        m_shipCount->SetOnValueChanced([this]() { SetAcceptButton(); });
+        m_shipCount->SetOnEnter([this](uil::InputLine&) { this->SendFleetInstruction(); });
+        m_shipCount->SetOnValueChanced([this](uil::InputLine&) { SetAcceptButton(); });
         m_shipCount->SetPlaceholderText(appContext.languageManager.Text("scene_main_scene_ship_count_placeholder_text")
         );
-        m_shipCount->SetShouldClearByFocus(true);
+        m_shipCount->SetClearByFocus(true);
         m_elements.push_back(m_shipCount);
 
         ship_x += 0.07f;
@@ -555,13 +555,12 @@ namespace ui {
                                  ? utl::FleetInstructionType::COORDINATES
                                  : utl::FleetInstructionType::ID };
 
-        eve::SendFleetInstructionEvent event{
-            static_cast<utl::usize>(m_origin->GetValue()),
-            static_cast<utl::usize>(m_destination->GetValue()),
-            static_cast<utl::usize>(m_destinationX->IsEnabled() ? m_destinationX->GetValue() : 0),
-            static_cast<utl::usize>(m_destinationY->IsEnabled() ? m_destinationY->GetValue() : 0),
-            static_cast<utl::usize>(m_shipCount->GetValue()),
-            type
+        eve::SendFleetInstructionEvent event{ m_origin->Value<utl::usize>(),
+                                              m_destination->Value<utl::usize>(),
+                                              m_destinationX->IsEnabled() ? m_destinationX->Value<utl::usize>() : 0,
+                                              m_destinationY->IsEnabled() ? m_destinationY->Value<utl::usize>() : 0,
+                                              m_shipCount->Value<utl::usize>(),
+                                              type
         };
         app::AppContext::GetInstance().eventManager.InvokeEvent(event);
     }
@@ -574,6 +573,9 @@ namespace ui {
         m_destinationY->Clear();
         m_shipCount->Clear();
 
+        m_destinationX->SetEnabled(true);
+        m_destinationY->SetEnabled(true);
+
         eve::SelectFocusElementEvent event{ m_origin.get() };
         app::AppContext::GetInstance().eventManager.InvokeEvent(event);
     }
@@ -585,22 +587,22 @@ namespace ui {
         m_destinationY->Clear();
 
         if (event->GetOriginID() > 0) {
-            m_origin->SetValue(static_cast<int>(event->GetOriginID()));
+            m_origin->SetValue(event->GetOriginID());
         }
         if (event->GetDestID() > 0) {
-            m_destination->SetValue(static_cast<int>(event->GetDestID()));
+            m_destination->SetValue(event->GetDestID());
         } else {
             auto const& co{ event->GetDestCoordinates() };
             if (co.x > 0 and co.y > 0) {
-                m_destinationX->SetValue(static_cast<int>(co.x));
-                m_destinationY->SetValue(static_cast<int>(co.y));
+                m_destinationX->SetValue(static_cast<utl::usize>(co.x));
+                m_destinationY->SetValue(static_cast<utl::usize>(co.y));
             }
         }
 
         if (auto const& spaceObject = GetSpaceObjectFromID(event->GetOriginID())) {
             if (spaceObject->GetPlayer()->GetID() == m_currentPlayer.ID) {
-                m_shipCount->SetValue(static_cast<int>(spaceObject->GetShipCount()));
-                m_shipCount->ClearByNextInput();
+                m_shipCount->SetValue(spaceObject->GetShipCount());
+                m_shipCount->SetClearByNextInput(true);
             } else {
                 m_shipCount->Clear();
             }

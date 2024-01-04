@@ -3,20 +3,19 @@
 // 05.10.2022
 //
 
-#include "PopUpCellColor.hpp"
+#include "PopUpInputColor.hpp"
 #include <app/AppContext.hpp>
 #include <helper/HFocusEvents.hpp>
 #include <helper/HGeneral.hpp>
 
 
 namespace ui {
-    void ColorCellPopUp::SetValue() {
+    void PopUpInputColor::SetValue() {
         m_onClick(m_colorPicker->GetColor());
         SetShouldClose();
     }
 
-    ColorCellPopUp::ColorCellPopUp(
-            Vector2 const pos,
+    PopUpInputColor::PopUpInputColor(Vector2 const pos,
             Vector2 const size,
             uil::Alignment const alignment,
             std::string const& title,
@@ -24,7 +23,7 @@ namespace ui {
             Color const currentColor,
             std::function<void(Color)> onClick
     )
-        : CellPopUp{ pos, size, alignment, title, infoTexture },
+        : PopUpInput{ pos, size, alignment, title, infoTexture },
           m_onClick{ std::move(onClick) } {
 
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };

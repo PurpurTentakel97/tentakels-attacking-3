@@ -5,8 +5,8 @@
 
 #pragma once
 
+#include <alias/AliasUiLib.hpp>
 #include <functional>
-#include <ui_lib/InputLine.hpp>
 #include <ui_lib/Scene.hpp>
 
 
@@ -14,7 +14,7 @@ namespace ui {
     class SliderAndInputLine : public uil::Scene {
     private:
         uil::Slider_ty m_slider;
-        uil::InputLine_int_ty m_inputLine;
+        uil::InputLine_ty m_inputLine;
         uil::ClassicButton_ty m_btn;
         std::function<void(utl::usize)> m_onSave{ [](utl::usize) {} };
 

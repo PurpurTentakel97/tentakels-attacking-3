@@ -3,6 +3,7 @@
 // 06.10.2022
 //
 
+
 #include "SceneNewGamePlayer.hpp"
 #include "ManagerUI.hpp"
 #include <alias/AliasUtils.hpp>
@@ -21,11 +22,7 @@ namespace ui {
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
 
         auto title = std::make_shared<uil::Title>(
-                GetElementPosition(0.5f, 0.025f),
-                GetElementSize(0.8f, 0.25f),
-                uil::Alignment::TOP_MID,
-                false
-        );
+                GetElementPosition(0.5f, 0.025f), GetElementSize(0.8f, 0.25f), uil::Alignment::TOP_MID, false);
         m_elements.push_back(title);
 
         auto addPlayerText = std::make_shared<uil::Text>(
@@ -34,64 +31,51 @@ namespace ui {
                 uil::Alignment::TOP_LEFT,
                 uil::Alignment::TOP_LEFT,
                 0.05f,
-                appContext.languageManager.Text("scene_new_game_player_add_player_headline", ":")
-        );
+                appContext.languageManager.Text("scene_new_game_player_add_player_headline", ":"));
         m_elements.push_back(addPlayerText);
 
-        auto inputLine = std::make_shared<uil::InputLine<std::string>>(
-                1,
-                GetElementPosition(0.1f, 0.35f),
-                GetElementSize(0.35f, 0.05f),
-                uil::Alignment::TOP_LEFT,
-                20
-        );
-        inputLine->SetPlaceholderText(appContext.languageManager.Text("scene_new_game_player_player_name_placeholder"));
-        inputLine->SetOnEnter([this]() { this->AddPlayer(); });
-        m_elements.push_back(inputLine);
-        m_inputLine = inputLine.get();
+        m_inputLine = std::make_shared<uil::InputLine>(1,
+                                                       GetElementPosition(0.1f, 0.35f),
+                                                       GetElementSize(0.35f, 0.05f),
+                                                       uil::Alignment::TOP_LEFT,
+                                                       std::string());
+        m_inputLine->SetPlaceholderText(
+                appContext.languageManager.Text("scene_new_game_player_player_name_placeholder"));
+        m_inputLine->SetOnEnter([this](uil::InputLine&) { this->AddPlayer(); });
+        m_elements.push_back(m_inputLine);
 
-        auto colorPicker = std::make_shared<uil::ColorPicker>(
-                2,
-                GetElementPosition(0.1f, 0.45f),
-                GetElementSize(0.35f, 0.35f),
-                uil::Alignment::TOP_LEFT
-        );
-        colorPicker->SetColor(appContext.playerCollection.GetPossibleColor());
-        colorPicker->SetOnEnter([this]() { this->AddPlayer(); });
-        m_elements.push_back(colorPicker);
-        m_nestedFocus.push_back(colorPicker.get());
-        m_colorPicker = colorPicker.get();
 
-        auto resetBTN = std::make_shared<uil::ClassicButton>(
-                7,
-                GetElementPosition(0.45f, 0.85f),
-                GetElementSize(0.15f, 0.1f),
-                uil::Alignment::TOP_RIGHT,
-                appContext.languageManager.Text("scene_new_game_player_reset_btn"),
-                app::SoundType::ACCEPTED
-        );
+        m_colorPicker = std::make_shared<uil::ColorPicker>(
+                2, GetElementPosition(0.1f, 0.45f), GetElementSize(0.35f, 0.35f), uil::Alignment::TOP_LEFT);
+        m_colorPicker->SetColor(appContext.playerCollection.GetPossibleColor());
+        m_colorPicker->SetOnEnter([this]() { this->AddPlayer(); });
+        m_elements.push_back(m_colorPicker);
+        m_nestedFocus.push_back(m_colorPicker.get());
+
+        auto resetBTN =
+                std::make_shared<uil::ClassicButton>(7,
+                                                     GetElementPosition(0.45f, 0.85f),
+                                                     GetElementSize(0.15f, 0.1f),
+                                                     uil::Alignment::TOP_RIGHT,
+                                                     appContext.languageManager.Text("scene_new_game_player_reset_btn"),
+                                                     app::SoundType::ACCEPTED);
         resetBTN->SetOnClick([]() { NewGamePlayerScene::Reset(); });
         m_elements.push_back(resetBTN);
 
-        auto backBtn = std::make_shared<uil::ClassicButton>(
-                8,
-                GetElementPosition(0.1f, 0.85f),
-                GetElementSize(0.15f, 0.1f),
-                uil::Alignment::TOP_LEFT,
-                appContext.languageManager.Text("scene_new_game_player_back_btn"),
-                app::SoundType::CLICKED_RELEASE_STD
-        );
+        auto backBtn =
+                std::make_shared<uil::ClassicButton>(8,
+                                                     GetElementPosition(0.1f, 0.85f),
+                                                     GetElementSize(0.15f, 0.1f),
+                                                     uil::Alignment::TOP_LEFT,
+                                                     appContext.languageManager.Text("scene_new_game_player_back_btn"),
+                                                     app::SoundType::CLICKED_RELEASE_STD);
         backBtn->SetOnClick([]() {
             app::AppContext::GetInstance().eventManager.InvokeEvent(eve::SwitchSceneEvent(uil::SceneType::MAIN_MENU));
         });
         m_elements.push_back(backBtn);
 
         auto line = std::make_shared<uil::Line>(
-                GetElementPosition(0.5f, 0.25f),
-                GetElementPosition(0.5f, 0.95f),
-                2.0f,
-                WHITE
-        );
+                GetElementPosition(0.5f, 0.25f), GetElementPosition(0.5f, 0.95f), 2.0f, WHITE);
         m_elements.push_back(line);
 
         auto currentPlayerText = std::make_shared<uil::Text>(
@@ -100,8 +84,7 @@ namespace ui {
                 uil::Alignment::TOP_LEFT,
                 uil::Alignment::TOP_LEFT,
                 0.05f,
-                appContext.languageManager.Text("scene_new_game_player_current_player_headline", ":")
-        );
+                appContext.languageManager.Text("scene_new_game_player_current_player_headline", ":"));
         m_elements.push_back(currentPlayerText);
 
         auto currentPlayerCount = std::make_shared<uil::Text>(
@@ -110,44 +93,32 @@ namespace ui {
                 uil::Alignment::TOP_LEFT,
                 uil::Alignment::TOP_LEFT,
                 0.02f,
-                appContext.languageManager.Text(
-                        "scene_new_game_player_min_player_count_subtext",
-                        ":",
-                        appContext.constants.player.minPlayerCount
-                )
-        );
+                appContext.languageManager.Text("scene_new_game_player_min_player_count_subtext",
+                                                ":",
+                                                appContext.constants.player.minPlayerCount));
         m_elements.push_back(currentPlayerCount);
 
-        auto table = std::make_shared<uil::Table>(
-                GetElementPosition(0.9f, 0.35f),
-                GetElementSize(0.35f, 0.45f),
-                uil::Alignment::TOP_RIGHT,
-                5,
-                static_cast<int>(appContext.constants.player.maxPlayerCount + 1),
-                3,
-                Vector2(0.33f, 0.1f),
-                0.1f
-        );
-        table->SetRowEditable(0, false);
-        table->SetColumnEditable(0, false);
-        table->SetHeadlineValues<std::string>({
+        m_table = std::make_shared<uil::Table>(GetElementPosition(0.9f, 0.35f),
+                                               GetElementSize(0.35f, 0.45f),
+                                               uil::Alignment::TOP_RIGHT,
+                                               5,
+                                               static_cast<int>(appContext.constants.player.maxPlayerCount + 1),
+                                               3,
+                                               Vector2(0.33f, 0.1f),
+                                               0.1f);
+        m_table->SetRowEditable(0, false);
+        m_table->SetColumnEditable(0, false);
+        m_table->SetHeadlineValues<std::string>({
                 appContext.languageManager.Text("scene_new_game_player_table_headline_id"),
                 appContext.languageManager.Text("scene_new_game_player_table_headline_name"),
                 appContext.languageManager.Text("scene_new_game_player_table_headline_color"),
         });
 
-        table->SetUpdateSpecificCell<std::string>(
-                [this](uil::AbstractTableCell const* cell, std::string const& oldValue, std::string const& newValue) {
-                    this->UpdatePlayerName(cell, oldValue, newValue);
-                }
-        );
-        table->SetUpdateSpecificCell<Color>([this](uil::AbstractTableCell const* cell, Color oldValue, Color newValue) {
-            UpdatePlayerColor(cell, oldValue, newValue);
-        });
+        m_table->SetUpdateCellType<std::string>([this](uil::TableCell& cell) { this->UpdatePlayerName(cell); });
+        m_table->SetUpdateCellType<Color>([this](uil::TableCell& cell) { this->UpdatePlayerColor(cell); });
 
-        m_elements.push_back(table);
-        m_nestedFocus.push_back(table.get());
-        m_table = table.get();
+        m_elements.push_back(m_table);
+        m_nestedFocus.push_back(m_table.get());
 
         auto addPlayerBtn = std::make_shared<uil::ClassicButton>(
                 3,
@@ -155,19 +126,17 @@ namespace ui {
                 GetElementSize(0.15f, 0.1f),
                 uil::Alignment::TOP_LEFT,
                 appContext.languageManager.Text("scene_new_game_player_add_player_btn"),
-                app::SoundType::ACCEPTED
-        );
+                app::SoundType::ACCEPTED);
         addPlayerBtn->SetOnClick([this]() { this->AddPlayer(); });
         m_elements.push_back(addPlayerBtn);
 
-        m_nextBTN = std::make_shared<uil::ClassicButton>(
-                6,
-                GetElementPosition(0.9f, 0.85f),
-                GetElementSize(0.15f, 0.1f),
-                uil::Alignment::TOP_RIGHT,
-                appContext.languageManager.Text("scene_new_game_player_next_btn"),
-                app::SoundType::ACCEPTED
-        );
+        m_nextBTN =
+                std::make_shared<uil::ClassicButton>(6,
+                                                     GetElementPosition(0.9f, 0.85f),
+                                                     GetElementSize(0.15f, 0.1f),
+                                                     uil::Alignment::TOP_RIGHT,
+                                                     appContext.languageManager.Text("scene_new_game_player_next_btn"),
+                                                     app::SoundType::ACCEPTED);
         m_nextBTN->SetOnClick([]() { NewGamePlayerScene::CheckPlayerCount(); });
         m_elements.push_back(m_nextBTN);
 
@@ -188,8 +157,7 @@ namespace ui {
                     GetElementSize(rowHeight * 0.7f, rowHeight - 0.01f),
                     uil::Alignment::TOP_LEFT,
                     "X",
-                    app::SoundType::CLICKED_RELEASE_STD
-            );
+                    app::SoundType::CLICKED_RELEASE_STD);
 
             button->SetEnabled(i < currentPlayerCount);
             button->SetOnClick([i]() { NewGamePlayerScene::DeletePlayer(i + 1); });
@@ -220,6 +188,7 @@ namespace ui {
     }
 
     void NewGamePlayerScene::UpdateSceneEntries() {
+        m_updating = true;
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
         m_colorPicker->SetColor(appContext.playerCollection.GetPossibleColor());
 
@@ -230,16 +199,16 @@ namespace ui {
             appContext.eventManager.InvokeEvent(focusEvent);
         }
 
-        eve::SelectFocusElementEvent const event{ m_inputLine };
+        eve::SelectFocusElementEvent const event{ m_inputLine.get() };
         appContext.eventManager.InvokeEvent(event);
 
         auto const PlayerData{ appContext.playerCollection.GetPlayerData() };
 
         utl::usize index{ 1 };
         for (auto& p : PlayerData) {
-            m_table->SetValue<int>(index, 0, static_cast<int>(p.ID));
-            m_table->SetValue<std::string>(index, 1, p.GetName());
-            m_table->SetValue<Color>(index, 2, p.color);
+            m_table->SetValue(index, 0, p.ID);
+            m_table->SetValue(index, 1, p.GetName());
+            m_table->SetValue(index, 2, p.color);
 
             m_table->SetSingleEditable(index, 1, true);
             m_table->SetSingleEditable(index, 2, true);
@@ -257,12 +226,13 @@ namespace ui {
             }
             m_playerButtons.at(row - 1)->SetEnabled(false);
         }
+        m_updating = false;
     }
 
     void NewGamePlayerScene::AddPlayer() {
         app::AppContext_ty_c appContext = app::AppContext::GetInstance();
 
-        eve::AddPlayerEvent const event{ m_inputLine->GetValue(), m_colorPicker->GetColor() };
+        eve::AddPlayerEvent const event{ m_inputLine->Value<std::string>(), m_colorPicker->GetColor() };
         appContext.eventManager.InvokeEvent(event);
     }
 
@@ -274,24 +244,36 @@ namespace ui {
         UpdateSceneEntries();
     }
 
-    void NewGamePlayerScene::UpdatePlayerName(
-            uil::AbstractTableCell const*,
-            std::string const& oldValue,
-            std::string const& newValue
-    ) {
+    void NewGamePlayerScene::UpdatePlayerName(uil::TableCell& cell) {
+        if (m_updating) {
+            return;
+        }
+
+        bool const valid{ cell.IsA<std::string>() and cell.IsAOld<std::string>() };
+        if (not valid) {
+            return;
+        }
 
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
-        app::PlayerData const playerData{ appContext.playerCollection.GetPlayerByName(oldValue) };
+        app::PlayerData const playerData{ appContext.playerCollection.GetPlayerByName(cell.ValueOld<std::string>()) };
 
-        UpdatePlayer(playerData.ID, newValue, playerData.color);
+        UpdatePlayer(playerData.ID, cell.Value<std::string>(), playerData.color);
     }
 
-    void
-    NewGamePlayerScene::UpdatePlayerColor(uil::AbstractTableCell const*, Color const oldValue, Color const newValue) {
-        app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
-        app::PlayerData const playerData{ appContext.playerCollection.GetPlayerByColor(oldValue) };
+    void NewGamePlayerScene::UpdatePlayerColor(uil::TableCell& cell) {
+        if (m_updating) {
+            return;
+        }
 
-        UpdatePlayer(playerData.ID, playerData.GetName(), newValue);
+        bool const valid{ cell.IsA<Color>() and cell.IsAOld<Color>() };
+        if (not valid) {
+            return;
+        }
+
+        app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
+        app::PlayerData const playerData{ appContext.playerCollection.GetPlayerByColor(cell.ValueOld<Color>()) };
+
+        UpdatePlayer(playerData.ID, playerData.GetName(), cell.Value<Color>());
     }
 
     void NewGamePlayerScene::DeletePlayer(utl::usize const ID) {

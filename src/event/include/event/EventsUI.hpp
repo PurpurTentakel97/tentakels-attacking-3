@@ -225,6 +225,98 @@ namespace eve {
         }
     };
 
+    class ShowStringPopupEvent final : public PopUpEvent {
+    public:
+        using callback_ty = std::function<void(std::string)>;
+
+    private:
+        std::string m_value;
+        callback_ty m_callback;
+
+    public:
+        ShowStringPopupEvent(std::string const& title, std::string value, callback_ty callback)
+            : PopUpEvent{ title, "" },
+              m_value{ std::move(value) },
+              m_callback{ std::move(callback) } { }
+
+        [[nodiscard]] std::string Value() const {
+            return m_value;
+        }
+
+        [[nodiscard]] callback_ty Callback() const {
+            return m_callback;
+        }
+    };
+
+    class ShowUSizePopupEvent final : public PopUpEvent {
+    public:
+        using callback_ty = std::function<void(utl::usize)>;
+
+    private:
+        utl::usize m_value;
+        callback_ty m_callback;
+
+    public:
+        ShowUSizePopupEvent(std::string const& title, utl::usize value, callback_ty callback)
+            : PopUpEvent{ title, "" },
+              m_value{ value },
+              m_callback{ std::move(callback) } { }
+
+        [[nodiscard]] utl::usize Value() const {
+            return m_value;
+        }
+
+        [[nodiscard]] callback_ty Callback() const {
+            return m_callback;
+        }
+    };
+
+    class ShowDoublePopupEvent final : public PopUpEvent {
+    public:
+        using callback_ty = std::function<void(double)>;
+
+    private:
+        double m_value;
+        callback_ty m_callback;
+
+    public:
+        ShowDoublePopupEvent(std::string const& title, double value, callback_ty callback)
+            : PopUpEvent{ title, "" },
+              m_value{ value },
+              m_callback{ std::move(callback) } { }
+
+        [[nodiscard]] double Value() const {
+            return m_value;
+        }
+
+        [[nodiscard]] callback_ty Callback() const {
+            return m_callback;
+        }
+    };
+
+    class ShowColorPopupEvent final : public PopUpEvent {
+    public:
+        using callback_ty = std::function<void(Color)>;
+
+    private:
+        Color m_value;
+        callback_ty m_callback;
+
+    public:
+        ShowColorPopupEvent(std::string const& title, Color value, callback_ty callback)
+            : PopUpEvent{ title, "" },
+              m_value{ std::move(value) },
+              m_callback{ std::move(callback) } { }
+
+        [[nodiscard]] Color Value() const {
+            return m_value;
+        }
+
+        [[nodiscard]] callback_ty Callback() const {
+            return m_callback;
+        }
+    };
+
     template<typename T>
     class ShowCellPopUpEvent final : public PopUpEvent {
     private:
@@ -241,19 +333,6 @@ namespace eve {
             return m_currentValue;
         }
         [[nodiscard]] std::function<void(T)> GetOnClick() const {
-            return m_onClick;
-        }
-    };
-
-    class ShowDeletePlayerPopUpEvent final : public PopUpEvent {
-        std::function<void(utl::usize)> m_onClick;
-
-    public:
-        ShowDeletePlayerPopUpEvent(std::string title, std::string subTitle, std::function<void(utl::usize)> onClick)
-            : PopUpEvent{ std::move(title), std::move(subTitle) },
-              m_onClick{ std::move(onClick) } { }
-
-        [[nodiscard]] std::function<void(utl::usize)> GetOnClick() const {
             return m_onClick;
         }
     };
@@ -327,11 +406,9 @@ namespace eve {
         utl::vec2pos_ty m_destCoordinates;
 
     public:
-        DragLineFleetInstructionEvent(
-                utl::usize const originID,
-                utl::usize const destID,
-                utl::vec2pos_ty destCoordinates
-        )
+        DragLineFleetInstructionEvent(utl::usize const originID,
+                                      utl::usize const destID,
+                                      utl::vec2pos_ty destCoordinates)
             : m_originID{ originID },
               m_destID{ destID },
               m_destCoordinates{ std::move(destCoordinates) } { }

@@ -8,16 +8,14 @@
 // Message PopUp
 #include "PopUpMessage.hpp"
 
-// Delete Player PopUp
-#include "PopUpPlayerDelete.hpp"
-
 // Next Turn PopUp
 #include "PopUpValidate.hpp"
 
-// TableCell PopUps
-#include "PopUpCell.hpp"
-#include "PopUpCellColor.hpp"
-#include "PrimitiveCellPopUp.hpp"
+// Input Popups
+#include "PopUpInputColor.hpp"
+#include "PopUpInputDouble.hpp"
+#include "PopUpInputString.hpp"
+#include "PopUpInputUSize.hpp"
 
 // Sound
 #include "PopUpSoundLeven.hpp"

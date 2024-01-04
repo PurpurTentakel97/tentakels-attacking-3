@@ -1,5 +1,4 @@
 add_library(helper STATIC
-            include/helper/HConcepts.hpp
             include/helper/HErrorLog.hpp
             include/helper/HFocusEvents.hpp
             include/helper/HGalaxy.hpp

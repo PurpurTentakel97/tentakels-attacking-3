@@ -1,11 +1,8 @@
 add_library(ui STATIC
             include/ui/PopUpAll.hpp
             include/ui/SceneSettingsApp.hpp
-            include/ui/PopUpCell.hpp
-            include/ui/PopUpCellColor.hpp
             include/ui/HSceneCreditTable.hpp
             include/ui/SceneCredits.hpp
-            include/ui/PopUpPlayerDelete.hpp
             include/ui/PopupResultFight.hpp
             include/ui/HSceneFleetTable.hpp
             include/ui/HSceneGalaxyAndSlider.hpp
@@ -36,11 +33,14 @@ add_library(ui STATIC
             include/ui/SceneUpdateEvaluation.hpp
             include/ui/SceneValidateGalaxy.hpp
             include/ui/PopUpValidate.hpp
+            include/ui/PopUpInput.hpp
+            include/ui/PopUpInputColor.hpp
+            include/ui/PopUpInputString.hpp
+            include/ui/PopUpInputDouble.hpp
+            include/ui/PopUpInputUSize.hpp
             SceneSettingsApp.cpp
-            PopUpCellColor.cpp
             HSceneCreditTable.cpp
             SceneCredits.cpp
-            PopUpPlayerDelete.cpp
             PopupResultFight.cpp
             HSceneFleetTable.cpp
             HSceneGalaxyAndSlider.cpp
@@ -69,7 +69,11 @@ add_library(ui STATIC
             SceneUpdateEvaluation.cpp
             SceneValidateGalaxy.cpp
             PopUpValidate.cpp
-            PopUpCell.cpp
+            PopUpInput.cpp
+            PopUpInputColor.cpp
+            PopUpInputString.cpp
+            PopUpInputDouble.cpp
+            PopUpInputUSize.cpp
 )
 
 target_include_directories(ui

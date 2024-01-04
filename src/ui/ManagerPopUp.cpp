@@ -3,6 +3,7 @@
 // 05.09.2022
 //
 
+
 #include "ManagerPopUp.hpp"
 #include <helper/HFocusEvents.hpp>
 #include <helper/HPrint.hpp>
@@ -30,31 +31,21 @@ namespace ui {
             return;
         }
 
-        // Delete Player Pop Up
-        if (auto const* PopUpEvent = dynamic_cast<eve::ShowDeletePlayerPopUpEvent const*>(&event)) {
-            NewDeletePlayerPopUp(PopUpEvent);
-            return;
-        }
-
         // Table Pop Up
-        if (auto const* PopUpEvent = dynamic_cast<eve::ShowCellPopUpEvent<std::string> const*>(&event)) {
-            NewTableCellPopUp<std::string, eve::ShowCellPopUpEvent<std::string>>(PopUpEvent);
+        if (auto const* PopUpEvent = dynamic_cast<eve::ShowStringPopupEvent const*>(&event)) {
+            NewStringPopUp(PopUpEvent);
             return;
         }
-        if (auto const* PopUpEvent = dynamic_cast<eve::ShowCellPopUpEvent<int> const*>(&event)) {
-            NewTableCellPopUp<int, eve::ShowCellPopUpEvent<int>>(PopUpEvent);
+        if (auto const* PopUpEvent = dynamic_cast<eve::ShowUSizePopupEvent const*>(&event)) {
+            NewUSizePopUp(PopUpEvent);
             return;
         }
-        if (auto const* PopUpEvent = dynamic_cast<eve::ShowCellPopUpEvent<float> const*>(&event)) {
-            NewTableCellPopUp<float, eve::ShowCellPopUpEvent<float>>(PopUpEvent);
+        if (auto const* PopUpEvent = dynamic_cast<eve::ShowDoublePopupEvent const*>(&event)) {
+            NewDoublePopUp(PopUpEvent);
             return;
         }
-        if (auto const* PopUpEvent = dynamic_cast<eve::ShowCellPopUpEvent<double> const*>(&event)) {
-            NewTableCellPopUp<double, eve::ShowCellPopUpEvent<double>>(PopUpEvent);
-            return;
-        }
-        if (auto const* PopUpEvent = dynamic_cast<eve::ShowCellPopUpEvent<Color> const*>(&event)) {
-            NewColorCellPopUp(PopUpEvent);
+        if (auto const* PopUpEvent = dynamic_cast<eve::ShowColorPopupEvent const*>(&event)) {
+            NewColorPopUp(PopUpEvent);
             return;
         }
 
@@ -86,42 +77,25 @@ namespace ui {
     void ManagerPopUp::NewMessagePopUp(eve::ShowMessagePopUpEvent const* const event) {
         hlp::AddFocusLayer(true);
 
-        m_popUps.push_back(std::make_unique<MessagePopUp>(
-                Vector2(0.5f, 0.5f),
-                Vector2(0.5f, 0.5f),
-                uil::Alignment::MID_MID,
-                event->GetTitle(),
-                const_cast<std::string&>(event->GetSubTitle()),
-                app::AssetType::EXCLAMATION_MARK,
-                event->GetCallback()
-        ));
-    }
-
-    void ManagerPopUp::NewDeletePlayerPopUp(eve::ShowDeletePlayerPopUpEvent const* const event) {
-        hlp::AddFocusLayer(true);
-
-        m_popUps.push_back(std::make_unique<DeletePlayerPopUp>(
-                Vector2(0.5f, 0.5f),
-                Vector2(0.5f, 0.5f),
-                uil::Alignment::MID_MID,
-                event->GetTitle(),
-                app::AssetType::QUESTION_MARK,
-                event->GetOnClick()
-        ));
+        m_popUps.push_back(std::make_unique<MessagePopUp>(Vector2(0.5f, 0.5f),
+                                                          Vector2(0.5f, 0.5f),
+                                                          uil::Alignment::MID_MID,
+                                                          event->GetTitle(),
+                                                          const_cast<std::string&>(event->GetSubTitle()),
+                                                          app::AssetType::EXCLAMATION_MARK,
+                                                          event->GetCallback()));
     }
 
     void ManagerPopUp::NewValidatePopUp(eve::ShowValidatePopUp const* const event) {
         hlp::AddFocusLayer(true);
 
-        m_popUps.push_back(std::make_unique<ValidatePopUp>(
-                Vector2(0.5f, 0.5f),
-                Vector2(0.5f, 0.5f),
-                uil::Alignment::MID_MID,
-                event->GetTitle(),
-                const_cast<std::string&>(event->GetSubTitle()),
-                app::AssetType::QUESTION_MARK,
-                event->GetCallback()
-        ));
+        m_popUps.push_back(std::make_unique<ValidatePopUp>(Vector2(0.5f, 0.5f),
+                                                           Vector2(0.5f, 0.5f),
+                                                           uil::Alignment::MID_MID,
+                                                           event->GetTitle(),
+                                                           const_cast<std::string&>(event->GetSubTitle()),
+                                                           app::AssetType::QUESTION_MARK,
+                                                           event->GetCallback()));
     }
 
     void ManagerPopUp::NewColorCellPopUp(eve::ShowCellPopUpEvent<Color> const* const event) {
@@ -129,15 +103,13 @@ namespace ui {
         eve::NewFocusPopUpLayerEvent focusEvent;
         appContext.eventManager.InvokeEvent(focusEvent);
 
-        m_popUps.push_back(std::make_unique<ColorCellPopUp>(
-                Vector2(0.5f, 0.5f),
-                Vector2(0.7f, 0.7f),
-                uil::Alignment::MID_MID,
-                event->GetTitle(),
-                app::AssetType::LOGO,
-                event->GetCurrentValue(),
-                event->GetOnClick()
-        ));
+        m_popUps.push_back(std::make_unique<PopUpInputColor>(Vector2(0.5f, 0.5f),
+                                                             Vector2(0.7f, 0.7f),
+                                                            uil::Alignment::MID_MID,
+                                                            event->GetTitle(),
+                                                            app::AssetType::LOGO,
+                                                            event->GetCurrentValue(),
+                                                            event->GetOnClick()));
     }
 
     void ManagerPopUp::NewSoundLevelPopUp(eve::ShowInitialSoundLevelPopUpEvent const* const event) {
@@ -145,26 +117,75 @@ namespace ui {
         eve::NewFocusPopUpLayerEvent focusEvent;
         appContext.eventManager.InvokeEvent(focusEvent);
 
-        m_popUps.push_back(std::make_unique<SoundLevelPopUp>(
-                Vector2(0.5f, 0.5f),
-                Vector2(0.5f, 0.5f),
-                uil::Alignment::MID_MID,
-                event->GetTitle(),
-                const_cast<std::string&>(event->GetSubTitle())
-        ));
+        m_popUps.push_back(std::make_unique<SoundLevelPopUp>(Vector2(0.5f, 0.5f),
+                                                             Vector2(0.5f, 0.5f),
+                                                             uil::Alignment::MID_MID,
+                                                             event->GetTitle(),
+                                                             const_cast<std::string&>(event->GetSubTitle())));
     }
     void ManagerPopUp::NewFightResultPopUp(eve::ShowFightResultEvent const* const event) {
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
         eve::NewFocusLayerEvent focusEvent;
         appContext.eventManager.InvokeEvent(focusEvent);
 
-        m_popUps.push_back(std::make_unique<FightResultPopup>(
-                Vector2(0.5f, 0.5f),
-                Vector2(0.8f, 0.8f),
-                uil::Alignment::MID_MID,
-                event->GetResult(),
-                event->GetCallback()
-        ));
+        m_popUps.push_back(std::make_unique<FightResultPopup>(Vector2(0.5f, 0.5f),
+                                                              Vector2(0.8f, 0.8f),
+                                                              uil::Alignment::MID_MID,
+                                                              event->GetResult(),
+                                                              event->GetCallback()));
+    }
+
+    void ManagerPopUp::NewColorPopUp(eve::ShowColorPopupEvent const* event) {
+        app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
+        eve::NewFocusPopUpLayerEvent focusEvent;
+        appContext.eventManager.InvokeEvent(focusEvent);
+
+        m_popUps.push_back(std::make_unique<PopUpInputColor>(Vector2(0.5f, 0.5f),
+                                                             Vector2(0.7f, 0.7f),
+                                                             uil::Alignment::MID_MID,
+                                                             event->GetTitle(),
+                                                             app::AssetType::LOGO,
+                                                             event->Value(),
+                                                             event->Callback()));
+    }
+    void ManagerPopUp::NewStringPopUp(eve::ShowStringPopupEvent const* event) {
+        app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
+        eve::NewFocusPopUpLayerEvent focusEvent;
+        appContext.eventManager.InvokeEvent(focusEvent);
+
+        m_popUps.push_back(std::make_unique<PopUpInputString>(Vector2(0.5f, 0.5f),
+                                                              Vector2(0.7f, 0.7f),
+                                                              uil::Alignment::MID_MID,
+                                                              event->GetTitle(),
+                                                              app::AssetType::LOGO,
+                                                              event->Value(),
+                                                              event->Callback()));
+    }
+    void ManagerPopUp::NewDoublePopUp(eve::ShowDoublePopupEvent const* event) {
+        app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
+        eve::NewFocusPopUpLayerEvent focusEvent;
+        appContext.eventManager.InvokeEvent(focusEvent);
+
+        m_popUps.push_back(std::make_unique<PopUpInputDouble>(Vector2(0.5f, 0.5f),
+                                                              Vector2(0.7f, 0.7f),
+                                                              uil::Alignment::MID_MID,
+                                                              event->GetTitle(),
+                                                              app::AssetType::LOGO,
+                                                              event->Value(),
+                                                              event->Callback()));
+    }
+    void ManagerPopUp::NewUSizePopUp(eve::ShowUSizePopupEvent const* event) {
+        app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
+        eve::NewFocusPopUpLayerEvent focusEvent;
+        appContext.eventManager.InvokeEvent(focusEvent);
+
+        m_popUps.push_back(std::make_unique<PopUpInputUSize>(Vector2(0.5f, 0.5f),
+                                                             Vector2(0.7f, 0.7f),
+                                                             uil::Alignment::MID_MID,
+                                                             event->GetTitle(),
+                                                             app::AssetType::LOGO,
+                                                             event->Value(),
+                                                             event->Callback()));
     }
 
     void ManagerPopUp::DeleteLastPopUp(uil::PopUp* const toDelete) {

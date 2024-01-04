@@ -6,6 +6,7 @@ add_library(utils STATIC
             include/utils/LayeredVector.hpp
             include/utils/Vec2.hpp
             include/utils/FleetInstructionType.hpp
+            include/utils/Concepts.hpp
             Colors.cpp
             FightResult.cpp
             MergeResult.cpp
