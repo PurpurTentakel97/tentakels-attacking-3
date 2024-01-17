@@ -15,5 +15,6 @@ namespace utl {
         std::vector<PlanetRepresentation> planets;
         std::vector<TargetPointRepresentation> targetPoints;
         std::vector<FleetRepresentation> fleets;
+        vec2pos_ty size;
     };
 } // namespace utl

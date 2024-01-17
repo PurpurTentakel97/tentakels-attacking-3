@@ -8,5 +8,8 @@
 #include "SpaceObjectRepresentation.hpp"
 
 namespace utl {
-    struct PlanetRepresentation final : public SpaceObjectRepresentation { };
+    struct PlanetRepresentation final : public SpaceObjectRepresentation {
+        bool isDestroyed;
+        bool isHumanPlayer;
+    };
 } // namespace utl

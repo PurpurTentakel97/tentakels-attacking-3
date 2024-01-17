@@ -9,6 +9,7 @@
 
 namespace utl {
     struct SpaceObjectRepresentation {
+        bool isDiscovered;
         usize ID;
         usize playerID;
         usize shipCount;
