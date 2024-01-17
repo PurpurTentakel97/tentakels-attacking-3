@@ -16,15 +16,4 @@
 #define TEXT_WHITE        CLITERAL(Color){ 255,  255,  255,  100 }      // background white for dark text
 // clang-format on
 
-namespace crl {
-    struct CustomRaylib final {
-        CustomRaylib() {
-            SetConfigFlags(FLAG_VSYNC_HINT);
-            InitWindow(100, 100, "");
-        }
-
-        ~CustomRaylib() {
-            CloseWindow();
-        }
-    };
-} // namespace crl
+namespace crl { } // namespace crl
