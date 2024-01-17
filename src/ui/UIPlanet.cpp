@@ -12,8 +12,8 @@
 
 namespace ui {
     UIPlanet::UIPlanet(utl::usize const focusID, utl::usize const ID, app::PlayerData const& player, Vector2 const pos,
-	Vector2 const colliderPos, lgk::Planet_ty_raw_c planet)
-	:UIGalaxyElement{ focusID, ID, { 0.015f, 0.025f }, player, pos, colliderPos }, m_planet{ planet } {
+	Vector2 const colliderPos, utl::PlanetRepresentation planet)
+	:UIGalaxyElement{ focusID, ID, { 0.015f, 0.025f }, player, pos, colliderPos }, m_planet{ std::move(planet) } {
 
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
         auto const textSize =
@@ -21,15 +21,13 @@ namespace ui {
 
         m_renderOffset = { (m_collider.width - textSize.x) / 2, (m_collider.height - textSize.y) / 2 };
 
-        m_ring = std::make_shared<uil::CountRing>(
-                m_pos,
-                m_size,
-                uil::Alignment::DEFAULT,
-                m_size.x / 2.0f,
-                m_size.x * 1.5f,
-                static_cast<int>(m_planet->GetShipCount()),
-                s_maxShipCount
-        );
+        m_ring = std::make_shared<uil::CountRing>(m_pos,
+                                                  m_size,
+                                                  uil::Alignment::DEFAULT,
+                                                  m_size.x / 2.0f,
+                                                  m_size.x * 1.5f,
+                                                  static_cast<int>(m_planet.shipCount),
+                                                  s_maxShipCount);
         Color color{ m_currentPlayer.color };
         color.a = s_ringColorAlpha;
         m_ring->SetRingColor(color);
@@ -38,13 +36,13 @@ namespace ui {
     }
 
     void UIPlanet::UpdateHoverText() {
-        std::string const position{ "X: " + std::to_string(m_planet->GetPos().x)
-                                    + ", Y: " + std::to_string(m_planet->GetPos().y) };
+        std::string const position{ "X: " + std::to_string(m_planet.position.x)
+                                    + ", Y: " + std::to_string(m_planet.position.y) };
 
         std::string hover{};
-        if (m_planet->IsDiscovered()) {
+        if (m_planet.isDestroyed) {
             std::string const text_1{ m_currentPlayer.GetName() + " | " + position + " |" };
-            std::string const text_2{ std::to_string(m_planet->GetShipCount()) };
+            std::string const text_2{ std::to_string(m_planet.shipCount) };
             hover = { app::AppContext::GetInstance().languageManager.Text("ui_planet_hover", text_1, text_2) };
         } else {
             hover = { m_currentPlayer.GetName() + " | " + position };
@@ -79,27 +77,23 @@ namespace ui {
     }
 
     void UIPlanet::RenderRing(app::AppContext_ty_c appContext) {
-        if (m_planet->IsDiscovered()) {
+        if (m_planet.isDiscovered) {
             m_ring->Render(appContext);
         }
     }
 
     void UIPlanet::Render(app::AppContext_ty_c appContext) {
 
-        DrawCircle(
-                static_cast<int>(m_collider.x + m_collider.width / 2),
-                static_cast<int>(m_collider.y + m_collider.height / 2),
-                m_collider.width / 2,
-                BLACK
-        );
+        DrawCircle(static_cast<int>(m_collider.x + m_collider.width / 2),
+                   static_cast<int>(m_collider.y + m_collider.height / 2),
+                   m_collider.width / 2,
+                   BLACK);
 
-        DrawTextEx(
-                *(appContext.assetManager.GetFont()),
-                m_stringID.c_str(),
-                { m_collider.x + m_renderOffset.x, m_collider.y + m_renderOffset.y },
-                m_collider.height,
-                0.0f,
-                m_color
-        );
+        DrawTextEx(*(appContext.assetManager.GetFont()),
+                   m_stringID.c_str(),
+                   { m_collider.x + m_renderOffset.x, m_collider.y + m_renderOffset.y },
+                   m_collider.height,
+                   0.0f,
+                   m_color);
     }
 } // namespace ui

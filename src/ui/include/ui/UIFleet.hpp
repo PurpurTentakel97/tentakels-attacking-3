@@ -5,11 +5,11 @@
 
 #pragma once
 
-#include <alias/AliasLogic.hpp>
 #include <app/PlayerCollection.hpp>
 #include <ui_lib/Hover.hpp>
 #include <ui_lib/Line.hpp>
 #include <ui_lib/UIElement.hpp>
+#include <utils/FleetRepresentation.hpp>
 
 
 namespace ui {
@@ -19,7 +19,7 @@ namespace ui {
         app::PlayerData m_player;
         Vector2 m_relativeStart;
         Vector2 m_relativeEnd;
-        lgk::Fleet_ty_raw_c m_fleet;
+        utl::FleetRepresentation m_fleet;
         std::function<bool(Vector2 const&)> m_isInGalaxyCollider;
         uil::Line m_line;
         uil::Hover m_hover;
@@ -33,7 +33,7 @@ namespace ui {
                 Vector2 end,
                 Vector2 relativeStart,
                 Vector2 relativeEnd,
-                lgk::Fleet_ty_raw_c fleet,
+                utl::FleetRepresentation fleet,
                 std::function<bool(Vector2 const&)> isInGalaxyCollider);
 
         [[nodiscard]] utl::usize GetID() const;
