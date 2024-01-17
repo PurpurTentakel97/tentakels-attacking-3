@@ -29,4 +29,9 @@ namespace utl {
     using UpdateResult_ty = std::pair<std::vector<utl::MergeResult>, std::vector<utl::FightResult>>;
 
     enum class FleetInstructionType;
+
+    struct FleetRepresentation;
+    struct TargetPointRepresentation;
+    struct PlanetRepresentation;
+    struct GalaxyRepresentation;
 } // namespace utl
