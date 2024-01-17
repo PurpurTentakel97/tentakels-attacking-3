@@ -11,5 +11,6 @@ namespace utl {
     struct PlanetRepresentation final : public SpaceObjectRepresentation {
         bool isDestroyed;
         bool isHumanPlayer;
+        usize production;
     };
 } // namespace utl
