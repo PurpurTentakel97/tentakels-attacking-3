@@ -7,6 +7,7 @@
 #include "HSceneGalaxyAndSlider.hpp"
 #include "ManagerUI.hpp"
 #include <app/AppContext.hpp>
+#include <event/EventGeneral.hpp>
 #include <memory>
 #include <ui_lib/ButtonClassic.hpp>
 #include <ui_lib/ButtonExpanding.hpp>
