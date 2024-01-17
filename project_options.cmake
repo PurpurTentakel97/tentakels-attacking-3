@@ -17,6 +17,8 @@ macro(check_sanitizer_support)
     endif ()
 endmacro()
 
+check_sanitizer_support()
+
 if (PROJECT_IS_TOP_LEVEL)
     option(warnings_as_errors "Treat warnings as errors" ON)
     option(enable_undefined_behavior_sanitizer "Enable undefined behavior sanitizer" ${supports_ubsan})
