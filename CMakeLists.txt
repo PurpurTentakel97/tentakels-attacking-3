@@ -16,4 +16,5 @@ target_link_libraries(TentakelsAttacking
                       helper
                       ui
                       project_options
+                      logic
 )
