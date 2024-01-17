@@ -13,6 +13,7 @@
 #include <memory>
 #include <ui_lib/Focusable.hpp>
 #include <ui_lib/UIElement.hpp>
+#include <utils/GalaxyRepresentation.hpp>
 #include <vector>
 
 
@@ -34,7 +35,7 @@ namespace ui {
         float m_scaleFactor{ 1.0f };
         Vector2 m_lastMousePosition{ 0.0f, 0.0f };
         Rectangle m_absoluteSize{};
-        lgk::Galaxy_ty_raw m_currentGalaxy{ nullptr };
+        utl::GalaxyRepresentation m_currentGalaxy;
 
         std::vector<UIGalaxyElement_ty> m_uiGalaxyElements;
         std::vector<UIPlanet_ty> m_uiPlanets;
@@ -79,14 +80,12 @@ namespace ui {
         void HandleDragLineResult(Vector2 start, Vector2 end);
 
     public:
-        UIGalaxy(
-                utl::usize ID,
-                Vector2 pos,
-                Vector2 size,
-                uil::Alignment alignment,
-                bool isShowGalaxy,
-                bool isAcceptInput
-        );
+        UIGalaxy(utl::usize ID,
+                 Vector2 pos,
+                 Vector2 size,
+                 uil::Alignment alignment,
+                 bool isShowGalaxy,
+                 bool isAcceptInput);
 
         ~UIGalaxy() override;
 
@@ -120,7 +119,7 @@ namespace ui {
 
         [[nodiscard]] Rectangle GetCollider() const override;
 
-        [[nodiscard]] lgk::Galaxy_ty_raw GetGalaxy() const;
+        [[nodiscard]] utl::GalaxyRepresentation GetGalaxy() const;
 
         void OnEvent(eve::Event const& event) override;
     };

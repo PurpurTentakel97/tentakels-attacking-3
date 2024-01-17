@@ -20,37 +20,33 @@
 namespace ui {
     void UIGalaxy::Initialize(eve::SendGalaxyPointerEvent const* const event) {
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
-        lgk::Galaxy_ty_c_raw galaxy{ event->GetGalaxy() };
+        utl::GalaxyRepresentation galaxy{ event->GetGalaxy() };
 
         m_currentGalaxy = galaxy;
         auto currentFocusID{ 1 };
-        for (auto const& p : galaxy->GetPlanets()) {
-            currentFocusID = static_cast<int>(p->GetID());
-            auto planet = std::make_shared<UIPlanet>(
-                    currentFocusID,
-                    p->GetID(),
-                    appContext.playerCollection.GetPlayerOrNpcByID(p->GetPlayer()->GetID()),
-                    GetAbsolutePosition(
-                            {
-                                    static_cast<float>(p->GetPos().x),
-                                    static_cast<float>(p->GetPos().y),
-                            },
-                            appContext
-                    ),
-                    GetRelativePosition(
-                            {
-                                    static_cast<float>(p->GetPos().x),
-                                    static_cast<float>(p->GetPos().y),
-                            },
-                            appContext
-                    ),
-                    p.get()
-            );
-            if (p->IsDestroyed()) {
+        for (auto const& p : galaxy.planets) {
+            currentFocusID = static_cast<int>(p.ID);
+            auto planet    = std::make_shared<UIPlanet>(currentFocusID,
+                                                     p.ID,
+                                                     appContext.playerCollection.GetPlayerOrNpcByID(p.playerID),
+                                                     GetAbsolutePosition(
+                                                             {
+                                                                     static_cast<float>(p.position.x),
+                                                                     static_cast<float>(p.position.y),
+                                                             },
+                                                             appContext),
+                                                     GetRelativePosition(
+                                                             {
+                                                                     static_cast<float>(p.position.x),
+                                                                     static_cast<float>(p.position.y),
+                                                             },
+                                                             appContext),
+                                                     p);
+            if (p.isDestroyed) {
                 planet->SetEnabled(false);
                 planet->SetColor(DARKGRAY);
-            } else if (not p->GetPlayer()->IsHumanPlayer()) {
-                if (not p->IsDiscovered() and not event->IsShowGalaxy()) {
+            } else if (not p.isHumanPlayer) {
+                if (not p.isDestroyed and not event->IsShowGalaxy()) {
                     planet->SetColor(GRAY);
                 }
             }
@@ -59,60 +55,47 @@ namespace ui {
             m_uiGalaxyElements.push_back(planet);
             m_uiPlanets.push_back(planet);
         }
-        for (auto const& t : galaxy->GetTargetPoints()) {
+        for (auto const& t : galaxy.targetPoints) {
             ++currentFocusID;
-            auto point = std::make_shared<UITargetPoint>(
-                    currentFocusID,
-                    t->GetID(),
-                    appContext.playerCollection.GetPlayerOrNpcByID(t->GetPlayer()->GetID()),
-                    GetAbsolutePosition(
-                            {
-                                    static_cast<float>(t->GetPos().x),
-                                    static_cast<float>(t->GetPos().y),
-                            },
-                            appContext
-                    ),
-                    GetRelativePosition(
-                            {
-                                    static_cast<float>(t->GetPos().x),
-                                    static_cast<float>(t->GetPos().y),
-                            },
-                            appContext
-                    ),
-                    t.get()
-            );
+            auto point = std::make_shared<UITargetPoint>(currentFocusID,
+                                                         t.ID,
+                                                         appContext.playerCollection.GetPlayerOrNpcByID(t.playerID),
+                                                         GetAbsolutePosition(
+                                                                 {
+                                                                         static_cast<float>(t.position.x),
+                                                                         static_cast<float>(t.position.y),
+                                                                 },
+                                                                 appContext),
+                                                         GetRelativePosition(
+                                                                 {
+                                                                         static_cast<float>(t.position.x),
+                                                                         static_cast<float>(t.position.y),
+                                                                 },
+                                                                 appContext),
+                                                         t);
             point->SetOnClick([this](UIGalaxyElement* p) { this->SelectUIGalaxyElement(p); });
             point->UpdatePosition(m_absoluteSize);
             m_uiTargetPoints.push_back(point);
             m_uiGalaxyElements.push_back(point);
         }
-        for (auto const& f : galaxy->GetFleets()) {
+        for (auto const& f : galaxy.fleets) {
             auto fleet = std::make_shared<UIFleet>(
-                    f->GetID(),
-                    appContext.playerCollection.GetPlayerOrNpcByID(f->GetPlayer()->GetID()),
-                    GetAbsolutePosition(
-                            { static_cast<float>(f->GetPos().x), static_cast<float>(f->GetPos().y) },
-                            appContext
-                    ),
-                    GetAbsolutePosition(
-                            { static_cast<float>(f->GetTarget()->GetPos().x),
-                              static_cast<float>(f->GetTarget()->GetPos().y) },
-                            appContext
-                    ),
-                    GetRelativePosition(
-                            { static_cast<float>(f->GetPos().x), static_cast<float>(f->GetPos().y) },
-                            appContext
-                    ),
-                    GetRelativePosition(
-                            { static_cast<float>(f->GetTarget()->GetPos().x),
-                              static_cast<float>(f->GetTarget()->GetPos().y) },
-                            appContext
-                    ),
-                    f.get(),
+                    f.ID,
+                    appContext.playerCollection.GetPlayerOrNpcByID(f.playerID),
+                    GetAbsolutePosition({ static_cast<float>(f.position.x), static_cast<float>(f.position.y) },
+                                        appContext),
+                    GetAbsolutePosition({ static_cast<float>(f.destRepresentation.position.x),
+                                          static_cast<float>(f.destRepresentation.position.y) },
+                                        appContext),
+                    GetRelativePosition({ static_cast<float>(f.position.x), static_cast<float>(f.position.y) },
+                                        appContext),
+                    GetRelativePosition({ static_cast<float>(f.destRepresentation.position.x),
+                                          static_cast<float>(f.destRepresentation.position.y) },
+                                        appContext),
+                    f,
                     [this](Vector2 const& mousePosition) {
                         return CheckCollisionPointRec(mousePosition, this->m_collider);
-                    }
-            );
+                    });
             m_uiFleets.push_back(fleet);
         }
         m_onZoom(1.0f, GetCurrentScaleReference());
@@ -191,14 +174,14 @@ namespace ui {
         m_absoluteSize.x = m_absoluteSize.x < m_collider.x ? m_absoluteSize.x : m_collider.x;
 
         m_absoluteSize.x = m_absoluteSize.x + m_absoluteSize.width > m_collider.x + m_collider.width
-                                   ? m_absoluteSize.x
-                                   : m_collider.x + m_collider.width - m_absoluteSize.width;
+                                 ? m_absoluteSize.x
+                                 : m_collider.x + m_collider.width - m_absoluteSize.width;
 
         m_absoluteSize.y = m_absoluteSize.y < m_collider.y ? m_absoluteSize.y : m_collider.y;
 
         m_absoluteSize.y = m_absoluteSize.y + m_absoluteSize.height > m_collider.y + m_collider.height
-                                   ? m_absoluteSize.y
-                                   : m_collider.y + m_collider.height - m_absoluteSize.height;
+                                 ? m_absoluteSize.y
+                                 : m_collider.y + m_collider.height - m_absoluteSize.height;
     }
 
     void UIGalaxy::PrepForOnSlide() {
@@ -208,8 +191,8 @@ namespace ui {
         m_onSlide(percent, true);
 
         difference = m_absoluteSize.height - m_collider.height;
-        offset = m_collider.y - m_absoluteSize.y;
-        percent = offset / difference * 100;
+        offset     = m_collider.y - m_absoluteSize.y;
+        percent    = offset / difference * 100;
         m_onSlide(percent, false);
     }
 
@@ -221,26 +204,26 @@ namespace ui {
         switch (direction) {
             case Direction::UP:
                 difference = m_absoluteSize.height - m_collider.height;
-                offset = m_collider.y - m_absoluteSize.y;
-                percent = offset / difference * 100 + speed;
+                offset     = m_collider.y - m_absoluteSize.y;
+                percent    = offset / difference * 100 + speed;
                 Slide(percent, false);
                 break;
             case Direction::DOWN:
                 difference = m_absoluteSize.height - m_collider.height;
-                offset = m_collider.y - m_absoluteSize.y;
-                percent = offset / difference * 100 - speed;
+                offset     = m_collider.y - m_absoluteSize.y;
+                percent    = offset / difference * 100 - speed;
                 Slide(percent, false);
                 break;
             case Direction::LEFT:
                 difference = m_absoluteSize.width - m_collider.width;
-                offset = m_collider.x - m_absoluteSize.x;
-                percent = offset / difference * 100 + speed;
+                offset     = m_collider.x - m_absoluteSize.x;
+                percent    = offset / difference * 100 + speed;
                 Slide(percent, true);
                 break;
             case Direction::RIGHT:
                 difference = m_absoluteSize.width - m_collider.width;
-                offset = m_collider.x - m_absoluteSize.x;
-                percent = offset / difference * 100 - speed;
+                offset     = m_collider.x - m_absoluteSize.x;
+                percent    = offset / difference * 100 - speed;
                 Slide(percent, true);
                 break;
         }
@@ -265,8 +248,8 @@ namespace ui {
     }
 
     Vector2 UIGalaxy::GetCurrentScaleReference() const {
-        return { m_absoluteSize.width / static_cast<float>(m_currentGalaxy->GetSize().x * 10),
-                 m_absoluteSize.height / static_cast<float>(m_currentGalaxy->GetSize().y * 10) };
+        return { m_absoluteSize.width / static_cast<float>(m_currentGalaxy.size.x * 10),
+                 m_absoluteSize.height / static_cast<float>(m_currentGalaxy.size.y * 10) };
     }
 
     bool UIGalaxy::IsCollidingObjectPoint(Vector2 const point) const {
@@ -283,6 +266,7 @@ namespace ui {
                 return true;
             }
         }
+
         for (auto const& f : m_uiFleets) {
             if (f->IsColliding(point)) {
                 return true;
@@ -322,12 +306,9 @@ namespace ui {
             return { 0, 0 };
         }
 
-        auto const galaxySize{ m_currentGalaxy->GetSize() };
+        auto const galaxySize{ m_currentGalaxy.size };
         auto const relative = hlp::GetElementPositionReversed(
-                { m_absoluteSize.x, m_absoluteSize.y },
-                { m_absoluteSize.width, m_absoluteSize.height },
-                absolutePoint
-        );
+                { m_absoluteSize.x, m_absoluteSize.y }, { m_absoluteSize.width, m_absoluteSize.height }, absolutePoint);
         return { static_cast<int>(relative.x * static_cast<float>(galaxySize.x)),
                  static_cast<int>(relative.y * static_cast<float>(galaxySize.y)) };
     }
@@ -346,14 +327,12 @@ namespace ui {
         app::AppContext::GetInstance().eventManager.InvokeEvent(event);
     }
 
-    UIGalaxy::UIGalaxy(
-            utl::usize const ID,
-            Vector2 const pos,
-            Vector2 const size,
-            uil::Alignment const alignment,
-            bool const isShowGalaxy,
-            bool const isAcceptInput
-    )
+    UIGalaxy::UIGalaxy(utl::usize const ID,
+                       Vector2 const pos,
+                       Vector2 const size,
+                       uil::Alignment const alignment,
+                       bool const isShowGalaxy,
+                       bool const isAcceptInput)
         : UIElement{ pos, size, alignment },
           Focusable{ ID },
           m_isShowGalaxy{ isShowGalaxy },
@@ -363,9 +342,8 @@ namespace ui {
         app::AppContext_ty appContext{ app::AppContext::GetInstance() };
         appContext.eventManager.AddListener(this);
 
-        m_lineDrag = std::make_shared<uil::LineDrag>(2.0f, WHITE, [this](Vector2 start, Vector2 end) -> void {
-            this->HandleDragLineResult(start, end);
-        });
+        m_lineDrag = std::make_shared<uil::LineDrag>(
+                2.0f, WHITE, [this](Vector2 start, Vector2 end) -> void { this->HandleDragLineResult(start, end); });
 
         if (isShowGalaxy) {
             eve::GetShowGalaxyPointerEvent event;
@@ -512,7 +490,7 @@ namespace ui {
                 m_lineDrag->CheckAndUpdate(mousePosition, appContext);
             }
             if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) {
-                m_lastMousePosition = { 0.0f, 0.0f };
+                m_lastMousePosition  = { 0.0f, 0.0f };
                 m_isScrollingByMouse = false;
             }
         }
@@ -566,12 +544,10 @@ namespace ui {
                 f->RenderRing(appContext);
             }
         }
-        BeginScissorMode(
-                static_cast<int>(m_collider.x),
-                static_cast<int>(m_collider.y),
-                static_cast<int>(m_collider.width),
-                static_cast<int>(m_collider.height)
-        );
+        BeginScissorMode(static_cast<int>(m_collider.x),
+                         static_cast<int>(m_collider.y),
+                         static_cast<int>(m_collider.width),
+                         static_cast<int>(m_collider.height));
 
         for (auto const& f : m_uiFleets) {
             f->Render(appContext);
@@ -632,7 +608,7 @@ namespace ui {
         return UIElement::GetCollider();
     }
 
-    lgk::Galaxy_ty_raw UIGalaxy::GetGalaxy() const {
+    utl::GalaxyRepresentation UIGalaxy::GetGalaxy() const {
         return m_currentGalaxy;
     }
 
