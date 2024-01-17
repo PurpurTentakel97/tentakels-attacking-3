@@ -10,6 +10,7 @@
 #include <alias/AliasUtils.hpp>
 #include <string>
 #include <unordered_map>
+#include <utils/GalaxyRepresentation.hpp>
 #include <utils/MergeResult.hpp>
 
 
@@ -193,15 +194,15 @@ namespace eve {
 
     class SendGalaxyPointerEvent final : public Event {
     private:
-        lgk::Galaxy_ty_c_raw m_galaxy;
+        utl::GalaxyRepresentation m_galaxy;
         bool m_isShowGalaxy;
 
     public:
-        SendGalaxyPointerEvent(lgk::Galaxy_ty_c_raw const galaxy, bool const isShowGalaxy)
-            : m_galaxy{ galaxy },
+        SendGalaxyPointerEvent(utl::GalaxyRepresentation galaxy, bool const isShowGalaxy)
+            : m_galaxy{ std::move(galaxy) },
               m_isShowGalaxy{ isShowGalaxy } { }
 
-        [[nodiscard]] lgk::Galaxy_ty_raw GetGalaxy() const {
+        [[nodiscard]] utl::GalaxyRepresentation GetGalaxy() const {
             return m_galaxy;
         }
         [[nodiscard]] bool IsShowGalaxy() const {
