@@ -4,10 +4,10 @@
 //
 
 #include "Galaxy.hpp"
+#include "GetTarget.hpp"
 #include "Player.hpp"
 #include <app/AppContext.hpp>
 #include <event/EventsUI.hpp>
-#include <helper/HGalaxy.hpp>
 #include <helper/HPrint.hpp>
 #include <helper/HRandom.hpp>
 #include <stdexcept>
