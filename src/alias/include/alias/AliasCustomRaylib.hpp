@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include <raylib.h>
+#include <CustomRaylib.hpp>
 
 namespace cst {
     using Resolution_ty = Vector2&;

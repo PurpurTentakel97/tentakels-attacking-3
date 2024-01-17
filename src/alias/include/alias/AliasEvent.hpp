@@ -9,4 +9,4 @@ namespace eve {
     class SendFleetInstructionEvent;
     class SendGalaxyPointerEvent;
     class SendUpdateEvaluation;
-}
+} // namespace eve

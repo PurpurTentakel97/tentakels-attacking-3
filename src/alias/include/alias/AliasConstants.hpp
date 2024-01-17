@@ -8,7 +8,7 @@
 namespace cst {
 
     struct Window;
-    using Window_ty = Window&;
+    using Window_ty   = Window&;
     using Window_ty_c = Window const&;
 
 

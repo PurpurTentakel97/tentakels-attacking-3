@@ -7,7 +7,7 @@
 
 namespace app {
     struct AppContext;
-    using AppContext_ty = AppContext&;
+    using AppContext_ty   = AppContext&;
     using AppContext_ty_c = AppContext const&;
 
     enum class SoundType;
