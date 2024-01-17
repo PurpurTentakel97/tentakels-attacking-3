@@ -181,6 +181,8 @@ namespace eve {
         }
     };
 
+    class SwitchMainSceneEvent final : public Event { };
+
     class ClosePopUpEvent final : public Event {
     private:
         uil::PopUp* m_popUp;

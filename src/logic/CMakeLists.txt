@@ -30,7 +30,6 @@ target_link_libraries(logic
                       PRIVATE
                       app
                       helper
-                      ui_lib
                       project_options
                       PUBLIC
                       alias
