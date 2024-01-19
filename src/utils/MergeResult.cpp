@@ -6,24 +6,22 @@
 #include "MergeResult.hpp"
 
 namespace utl {
-    MergeResult::MergeResult(
-            lgk::Player_ty player,
-            lgk::SpaceObject_ty origin,
-            lgk::SpaceObject_ty destination,
-            usize count
-    )
+    MergeResult::MergeResult(RepresentationPlayer player,
+                             RepresentationSpaceObject origin,
+                             RepresentationSpaceObject destination,
+                             usize count)
         : m_player{ std::move(player) },
           m_origin{ std::move(origin) },
           m_destination{ std::move(destination) },
           m_count{ count } { }
 
-    lgk::Player_ty MergeResult::GetPlayer() const {
+    RepresentationPlayer MergeResult::GetPlayer() const {
         return m_player;
     }
-    lgk::SpaceObject_ty MergeResult::GetOrigin() const {
+    RepresentationSpaceObject MergeResult::GetOrigin() const {
         return m_origin;
     }
-    lgk::SpaceObject_ty MergeResult::GetDestination() const {
+    RepresentationSpaceObject MergeResult::GetDestination() const {
         return m_destination;
     }
     usize MergeResult::GetCount() const {

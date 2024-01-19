@@ -12,9 +12,6 @@
 #include <app/AppContext.hpp>
 #include <cassert>
 #include <event/EventGeneral.hpp>
-#include <logic/Galaxy.hpp>
-#include <logic/Player.hpp>
-#include <logic/SpaceObject.hpp>
 #include <ui_lib/ButtonClassic.hpp>
 #include <ui_lib/ButtonExpanding.hpp>
 #include <ui_lib/InputLine.hpp>

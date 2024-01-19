@@ -9,8 +9,8 @@
 
 namespace utl {
     struct RepresentationPlanet final : public RepresentationSpaceObject {
-        bool isDestroyed;
-        bool isHumanPlayer;
-        usize production;
+        bool isDestroyed{};
+        bool isHumanPlayer{};
+        usize production{};
     };
 } // namespace utl

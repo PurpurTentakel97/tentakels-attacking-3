@@ -6,7 +6,7 @@
 #pragma once
 
 namespace utl {
-    enum class TargetType {
+    enum class SpaceObjectType {
         TARGET_POINT,
         FLEET,
         PLANET,

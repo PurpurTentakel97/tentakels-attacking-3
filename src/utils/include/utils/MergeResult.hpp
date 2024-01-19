@@ -5,26 +5,27 @@
 
 #pragma once
 
-#include <alias/AliasLogic.hpp>
+#include "RepresentationPlayer.hpp"
+#include "RepresentationSpaceObject.hpp"
 #include <alias/AliasUtils.hpp>
 
 namespace utl {
     struct MergeResult final {
     private:
-        lgk::Player_ty m_player;
-        lgk::SpaceObject_ty m_origin;
-        lgk::SpaceObject_ty m_destination;
+        RepresentationPlayer m_player;
+        RepresentationSpaceObject m_origin;
+        RepresentationSpaceObject m_destination;
         usize m_count;
 
     public:
-        MergeResult(
-                lgk::Player_ty player,
-                lgk::SpaceObject_ty origin,
-                lgk::SpaceObject_ty destination, usize count);
+        MergeResult(RepresentationPlayer player,
+                    RepresentationSpaceObject origin,
+                    RepresentationSpaceObject destination,
+                    usize count);
 
-        [[nodiscard]] lgk::Player_ty GetPlayer() const;
-        [[nodiscard]] lgk::SpaceObject_ty GetOrigin() const;
-        [[nodiscard]] lgk::SpaceObject_ty GetDestination() const;
+        [[nodiscard]] RepresentationPlayer GetPlayer() const;
+        [[nodiscard]] RepresentationSpaceObject GetOrigin() const;
+        [[nodiscard]] RepresentationSpaceObject GetDestination() const;
         [[nodiscard]] usize GetCount() const;
     };
 } // namespace utl

@@ -5,11 +5,10 @@
 
 #pragma once
 
-#include "RepresentationDestination.hpp"
 #include "RepresentationSpaceObject.hpp"
 
 namespace utl {
     struct RepresentationFleet final : public RepresentationSpaceObject {
-        RepresentationDestination destRepresentation;
+        RepresentationSpaceObject destRepresentation;
     };
 } // namespace utl

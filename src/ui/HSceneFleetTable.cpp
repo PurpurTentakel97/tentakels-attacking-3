@@ -62,11 +62,11 @@ namespace ui {
                         return "---";
                     } else {
                         switch (destination.type) {
-                            case utl::TargetType::PLANET:
+                            case utl::SpaceObjectType::PLANET:
                                 return appContext.languageManager.Text("ui_fleet_table_dest_planet", destination.ID);
-                            case utl::TargetType::FLEET:
+                            case utl::SpaceObjectType::FLEET:
                                 return appContext.languageManager.Text("ui_fleet_table_dest_fleet", destination.ID);
-                            case utl::TargetType::TARGET_POINT:
+                            case utl::SpaceObjectType::TARGET_POINT:
                                 return appContext.languageManager.Text("ui_fleet_table_dest_target_point",
                                                                        destination.ID);
                             default:

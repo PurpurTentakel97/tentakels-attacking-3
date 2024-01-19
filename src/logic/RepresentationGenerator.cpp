@@ -12,19 +12,18 @@
 
 
 namespace lgk {
-    [[nodiscard]] static utl::RepresentationDestination GenSingleDestinationRep(SpaceObject_ty_c spaceObject) {
-        auto const type = [spaceObject]() -> utl::TargetType {
-            if (spaceObject->IsPlanet()) {
-                return utl::TargetType::PLANET;
-            } else if (spaceObject->IsTargetPoint()) {
-                return utl::TargetType::TARGET_POINT;
-            } else if (spaceObject->IsFleet()) {
-                return utl::TargetType::FLEET;
-            } else {
-                std::unreachable();
-            }
-        }();
-
+    static auto constexpr type = [](SpaceObject_ty_c spaceObject) -> utl::SpaceObjectType {
+        if (spaceObject->IsPlanet()) {
+            return utl::SpaceObjectType::PLANET;
+        } else if (spaceObject->IsTargetPoint()) {
+            return utl::SpaceObjectType::TARGET_POINT;
+        } else if (spaceObject->IsFleet()) {
+            return utl::SpaceObjectType::FLEET;
+        } else {
+            std::unreachable();
+        }
+    };
+    [[nodiscard]] utl::RepresentationSpaceObject GenSingleSpaceObjectRep(SpaceObject_ty_c spaceObject) {
         return {
             // clang-format off
             spaceObject->IsDiscovered(),
@@ -32,7 +31,7 @@ namespace lgk {
             spaceObject->GetPlayer()->GetID(),
             spaceObject->GetShipCount(),
             spaceObject->GetPos(),
-            type
+            type(spaceObject)
             // clang-format on
         };
     }
@@ -45,6 +44,7 @@ namespace lgk {
             planet->GetPlayer()->GetID(),
             planet->GetShipCount(),
             planet->GetPos(),
+            type(planet),
             planet->IsDestroyed(),
             planet->GetPlayer()->IsHumanPlayer(),
             planet->GetProduction()
@@ -67,6 +67,7 @@ namespace lgk {
             targetPoint->GetPlayer()->GetID(),
             targetPoint->GetShipCount(),
             targetPoint->GetPos(),
+            type(targetPoint)
             // clang-format on
         };
     }
@@ -87,7 +88,8 @@ namespace lgk {
             fleet->GetPlayer()->GetID(),
             fleet->GetShipCount(),
             fleet->GetPos(),
-            GenSingleDestinationRep(fleet->GetTarget())
+            type(fleet),
+            GenSingleSpaceObjectRep(fleet->GetTarget())
             // clang-format on
         };
     }
@@ -104,5 +106,9 @@ namespace lgk {
                  GenAllTargetPointRep(galaxy->GetTargetPoints()),
                  GenAllFleetRep(galaxy->GetFleets()),
                  galaxy->GetSize() };
+    }
+
+    utl::RepresentationPlayer GenPlayerRep(Player const* player) {
+        return { player->GetID() };
     }
 } // namespace lgk

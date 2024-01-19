@@ -9,11 +9,11 @@ add_library(utils STATIC
             include/utils/Concepts.hpp
             include/utils/RepresentationTargetPoint.hpp
             include/utils/RepresentationFleet.hpp
-            include/utils/TargetType.hpp
-            include/utils/RepresentationDestination.hpp
+            include/utils/SpaceObjectType.hpp
             include/utils/RepresentationSpaceObject.hpp
             include/utils/RepresentationPlanet.hpp
             include/utils/RepresentationGalaxy.hpp
+            include/utils/RepresentationPlayer.hpp
             Colors.cpp
             FightResult.cpp
             MergeResult.cpp

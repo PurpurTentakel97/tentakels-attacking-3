@@ -5,7 +5,8 @@
 
 #pragma once
 
-#include <alias/AliasLogic.hpp>
+#include "RepresentationPlayer.hpp"
+#include "RepresentationSpaceObject.hpp"
 #include <alias/AliasUtils.hpp>
 #include <utility>
 #include <vector>
@@ -14,18 +15,19 @@
 namespace utl {
     struct FightResult final {
     public:
-        using rounds_ty = std::vector<std::pair<usize, usize>>;
-        using player_ty = std::pair<lgk::Player_ty, lgk::Player_ty>;
-        using spaceObject_ty = std::pair<lgk::SpaceObject_ty, lgk::SpaceObject_ty>;
+        using rounds_ty      = std::vector<std::pair<usize, usize>>;
+        using player_ty      = std::pair<RepresentationPlayer, RepresentationPlayer>;
+        using spaceObject_ty = std::pair<RepresentationSpaceObject, RepresentationSpaceObject>;
 
     private:
-        player_ty m_players;
-        spaceObject_ty m_objects;
-        rounds_ty m_rounds;
-        bool m_valid;
+        player_ty m_players{};
+        spaceObject_ty m_objects{};
+        rounds_ty m_rounds{};
+        bool m_valid{ false };
 
 
     public:
+        FightResult() = default;
         FightResult(player_ty player, spaceObject_ty objects, rounds_ty rounds, bool valid);
 
 

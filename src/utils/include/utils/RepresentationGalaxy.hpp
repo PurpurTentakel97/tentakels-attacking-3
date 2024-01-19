@@ -12,9 +12,9 @@
 
 namespace utl {
     struct RepresentationGalaxy final {
-        std::vector<RepresentationPlanet> planets;
-        std::vector<RepresentationTargetPoint> targetPoints;
-        std::vector<RepresentationFleet> fleets;
-        vec2pos_ty size;
+        std::vector<RepresentationPlanet> planets{};
+        std::vector<RepresentationTargetPoint> targetPoints{};
+        std::vector<RepresentationFleet> fleets{};
+        vec2pos_ty size{};
     };
 } // namespace utl

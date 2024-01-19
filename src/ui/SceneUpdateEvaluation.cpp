@@ -7,8 +7,6 @@
 #include <app/AppContext.hpp>
 #include <event/EventGeneral.hpp>
 #include <helper/HPrint.hpp>
-#include <logic/Player.hpp>
-#include <logic/SpaceObject.hpp>
 #include <ui_lib/SceneType.hpp>
 
 
@@ -26,18 +24,14 @@ namespace ui {
 
         hlp::Print(hlp::PrintType::DEBUG, "------------------ | Merge Results |------------------");
         for (auto const& e : event->GetMergeResults()) {
-            hlp::Print(
-                    hlp::PrintType::DEBUG,
-                    "{}",
-                    appContext.playerCollection.GetPlayerOrNpcByID(e.GetPlayer()->GetID()).GetName()
-            );
-            hlp::Print(
-                    hlp::PrintType::DEBUG,
-                    "origin: {} -> destination: {} -> count: {}",
-                    e.GetOrigin()->GetID(),
-                    e.GetDestination()->GetID(),
-                    e.GetCount()
-            );
+            hlp::Print(hlp::PrintType::DEBUG,
+                       "{}",
+                       appContext.playerCollection.GetPlayerOrNpcByID(e.GetPlayer().ID).GetName());
+            hlp::Print(hlp::PrintType::DEBUG,
+                       "origin: {} -> destination: {} -> count: {}",
+                       e.GetOrigin().ID,
+                       e.GetDestination().ID,
+                       e.GetCount());
             hlp::Print(hlp::PrintType::DEBUG, "------------------------------------------------------");
         }
 
@@ -48,18 +42,11 @@ namespace ui {
                 continue;
             }
 
-            hlp::Print(
-                    hlp::PrintType::DEBUG,
-                    "{} vs.{}",
-                    e.GetSpaceObjects().first->GetID(),
-                    e.GetSpaceObjects().second->GetID()
-            );
-            hlp::Print(
-                    hlp::PrintType::DEBUG,
-                    "{} vs. {}",
-                    appContext.playerCollection.GetPlayerOrNpcByID(e.GetPlayer().first->GetID()).GetName(),
-                    appContext.playerCollection.GetPlayerOrNpcByID(e.GetPlayer().second->GetID()).GetName()
-            );
+            hlp::Print(hlp::PrintType::DEBUG, "{} vs.{}", e.GetSpaceObjects().first.ID, e.GetSpaceObjects().second.ID);
+            hlp::Print(hlp::PrintType::DEBUG,
+                       "{} vs. {}",
+                       appContext.playerCollection.GetPlayerOrNpcByID(e.GetPlayer().first.ID).GetName(),
+                       appContext.playerCollection.GetPlayerOrNpcByID(e.GetPlayer().second.ID).GetName());
 
             for (auto const& r : e.GetRounds()) {
                 hlp::Print(hlp::PrintType::DEBUG, "{} | {}", r.first, r.second);
@@ -72,26 +59,25 @@ namespace ui {
     void UpdateEvaluationScene::DisplayMergeResult() {
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
         auto const data{ m_mergeResults.at(m_currentIndex) };
-        auto const playerName{ appContext.playerCollection.GetPlayerByID(data.GetPlayer()->GetID()).GetName() };
+        auto const playerName{ appContext.playerCollection.GetPlayerByID(data.GetPlayer().ID).GetName() };
 
         std::string spaceObjectText;
-        if (data.GetDestination()->IsFleet()) {
-            spaceObjectText = appContext.languageManager.Text("helper_fleet");
-        } else if (data.GetDestination()->IsPlanet()) {
-            spaceObjectText = appContext.languageManager.Text("helper_planet");
-        } else if (data.GetDestination()->IsTargetPoint()) {
-            spaceObjectText = appContext.languageManager.Text("helper_target_point");
-        } else {
-            spaceObjectText = "Invalid";
+        switch (data.GetDestination().type) {
+            case utl::SpaceObjectType::PLANET:
+                spaceObjectText = appContext.languageManager.Text("helper_planet");
+                break;
+            case utl::SpaceObjectType::TARGET_POINT:
+                spaceObjectText = appContext.languageManager.Text("helper_target_point");
+                break;
+            case utl::SpaceObjectType::FLEET: spaceObjectText = appContext.languageManager.Text("helper_fleet"); break;
+            default: spaceObjectText = "Invalid"; break;
         }
 
-        std::string const subText{ appContext.languageManager.Text(
-                "ui_popup_arriving_fleet_subtitle",
-                data.GetCount(),
-                playerName,
-                spaceObjectText,
-                data.GetDestination()->GetID()
-        ) };
+        std::string const subText{ appContext.languageManager.Text("ui_popup_arriving_fleet_subtitle",
+                                                                   data.GetCount(),
+                                                                   playerName,
+                                                                   spaceObjectText,
+                                                                   data.GetDestination().ID) };
 
         eve::ShowMessagePopUpEvent const event{ appContext.languageManager.Text("ui_popup_arriving_fleet_title"),
                                                 subText,
@@ -111,7 +97,7 @@ namespace ui {
 
         auto const setNext{ [&]() {
             m_currentIndex = 0;
-            auto value = static_cast<utl::usize>(m_currentResultType);
+            auto value     = static_cast<utl::usize>(m_currentResultType);
             ++value;
             m_currentResultType = static_cast<ResultType>(value);
         } };
