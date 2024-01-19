@@ -12,10 +12,10 @@
 #include <helper/HPrint.hpp>
 #include <helper/HRandom.hpp>
 #include <stdexcept>
-#include <utils/FightResult.hpp>
 #include <utils/FleetInstructionType.hpp>
-#include <utils/FleetResult.hpp>
-#include <utils/MergeResult.hpp>
+#include <utils/ResultFight.hpp>
+#include <utils/ResultFleet.hpp>
+#include <utils/ResultMerge.hpp>
 #include <vector>
 
 namespace lgk {
@@ -184,7 +184,7 @@ namespace lgk {
         return nullptr;
     }
 
-    utl::FleetResult Galaxy::AddFleetFromPlanet(eve::SendFleetInstructionEvent const* event,
+    utl::ResultFleet Galaxy::AddFleetFromPlanet(eve::SendFleetInstructionEvent const* event,
                                                 Player_ty const& currentPlayer) {
         // check origin id
         if (event->GetOrigin() > m_planets.size()) {
@@ -265,7 +265,7 @@ namespace lgk {
         return { originPlanet, fleet, destination, true };
     }
 
-    utl::FleetResult Galaxy::AddFleetFromFleet(eve::SendFleetInstructionEvent const* const event,
+    utl::ResultFleet Galaxy::AddFleetFromFleet(eve::SendFleetInstructionEvent const* const event,
                                                Player_ty const& currentPlayer) {
         // check if origin ID is existing
         if (not IsValidFleet(event->GetOrigin())) {
@@ -366,7 +366,7 @@ namespace lgk {
         return { origin, fleet, destination, true };
     }
 
-    utl::FleetResult Galaxy::AddFleetFromTargetPoint(eve::SendFleetInstructionEvent const* const event,
+    utl::ResultFleet Galaxy::AddFleetFromTargetPoint(eve::SendFleetInstructionEvent const* const event,
                                                      Player_ty const& currentPlayer) {
         // check if origin ID is existing
         if (not IsValidTargetPoint(event->GetOrigin())) {
@@ -638,8 +638,8 @@ namespace lgk {
         return emptyFleets;
     }
 
-    std::vector<utl::MergeResult> Galaxy::CheckArrivingFriendlyFleets() {
-        std::vector<utl::MergeResult> mergeResult{};
+    std::vector<utl::ResultMerge> Galaxy::CheckArrivingFriendlyFleets() {
+        std::vector<utl::ResultMerge> mergeResult{};
         for (auto const& fleet : m_fleets) {
 
             if (fleet->GetShipCount() == 0) {
@@ -690,8 +690,8 @@ namespace lgk {
         return mergeResult;
     }
 
-    std::vector<utl::MergeResult> Galaxy::CheckMergingFriendlyFleets() {
-        std::vector<utl::MergeResult> mergeResult{};
+    std::vector<utl::ResultMerge> Galaxy::CheckMergingFriendlyFleets() {
+        std::vector<utl::ResultMerge> mergeResult{};
 
         for (auto const& fleet_lhs : m_fleets) {
             for (auto const& fleet_rhs : m_fleets) {
@@ -754,14 +754,14 @@ namespace lgk {
         DeleteFleet(toDelete);
     }
 
-    std::vector<utl::FightResult> Galaxy::SimulateFight() {
+    std::vector<utl::ResultFight> Galaxy::SimulateFight() {
         // Fleet Planet
         hlp::Print(hlp::PrintType::ONLY_DEBUG, "-> -> fights fleet against planet");
-        std::vector<utl::FightResult> results{ SimulateFightFleetPlanet() };
+        std::vector<utl::ResultFight> results{ SimulateFightFleetPlanet() };
 
         // Fleet TargetPoint
         hlp::Print(hlp::PrintType::ONLY_DEBUG, "-> -> fights fleet against target point");
-        std::vector<utl::FightResult> singleResult{ SimulateFightFleetTargetPoint() };
+        std::vector<utl::ResultFight> singleResult{ SimulateFightFleetTargetPoint() };
         std::copy(singleResult.begin(), singleResult.end(), std::back_inserter(results));
 
         // Fleet Fleet
@@ -792,8 +792,8 @@ namespace lgk {
         return results;
     }
 
-    std::vector<utl::FightResult> Galaxy::SimulateFightFleetPlanet() {
-        std::vector<utl::FightResult> results{};
+    std::vector<utl::ResultFight> Galaxy::SimulateFightFleetPlanet() {
+        std::vector<utl::ResultFight> results{};
         for (auto const& fleet : m_fleets) {
             for (auto const& planet : m_planets) {
                 if (fleet->GetPos() == planet->GetPos()) {
@@ -813,8 +813,8 @@ namespace lgk {
         return results;
     }
 
-    std::vector<utl::FightResult> Galaxy::SimulateFightFleetTargetPoint() {
-        std::vector<utl::FightResult> results{};
+    std::vector<utl::ResultFight> Galaxy::SimulateFightFleetTargetPoint() {
+        std::vector<utl::ResultFight> results{};
 
         for (auto const& fleet : m_fleets) {
             for (auto const& targetPoint : m_targetPoints) {
@@ -835,8 +835,8 @@ namespace lgk {
         return results;
     }
 
-    std::vector<utl::FightResult> Galaxy::SimulateFightFleetFleet() {
-        std::vector<utl::FightResult> results{};
+    std::vector<utl::ResultFight> Galaxy::SimulateFightFleetFleet() {
+        std::vector<utl::ResultFight> results{};
         auto& random{ hlp::Random::GetInstance() };
 
         for (auto const& fleet_lhs : m_fleets) {
@@ -847,7 +847,7 @@ namespace lgk {
 
                 if (fleet_lhs->IsInFightRange(fleet_rhs)) {
                     auto const isSwitch{ random.random(2) };
-                    utl::FightResult result{};
+                    utl::ResultFight result{};
                     if (isSwitch) {
                         result = Fight(fleet_rhs, fleet_lhs);
                     } else {
@@ -864,8 +864,8 @@ namespace lgk {
         return results;
     }
 
-    std::vector<utl::FightResult> Galaxy::SimulateFightPlanetFleet() {
-        std::vector<utl::FightResult> results{};
+    std::vector<utl::ResultFight> Galaxy::SimulateFightPlanetFleet() {
+        std::vector<utl::ResultFight> results{};
 
         if (not app::AppContext::GetInstance().constants.fight.isFightPlanetFleet) {
             hlp::Print(hlp::PrintType::ONLY_DEBUG, "-> -> -> fights planet : fleet are disabled -> no simulation");
@@ -886,8 +886,8 @@ namespace lgk {
         return results;
     }
 
-    std::vector<utl::FightResult> Galaxy::SimulateFightTargetPointFleet() {
-        std::vector<utl::FightResult> results{};
+    std::vector<utl::ResultFight> Galaxy::SimulateFightTargetPointFleet() {
+        std::vector<utl::ResultFight> results{};
 
         if (not app::AppContext::GetInstance().constants.fight.isFightTargetPointFleet) {
             hlp::Print(hlp::PrintType::ONLY_DEBUG,
@@ -909,8 +909,8 @@ namespace lgk {
         return results;
     }
 
-    std::vector<utl::FightResult> Galaxy::SimulateFightTargetPointTargetPoint() {
-        std::vector<utl::FightResult> results{};
+    std::vector<utl::ResultFight> Galaxy::SimulateFightTargetPointTargetPoint() {
+        std::vector<utl::ResultFight> results{};
 
         if (not app::AppContext::GetInstance().constants.fight.isFightTargetPointTargetPoint) {
             hlp::Print(hlp::PrintType::ONLY_DEBUG,
@@ -927,7 +927,7 @@ namespace lgk {
 
                 if (targetPoint_lhs->IsInFightRange(targetPoint_rhs)) {
                     auto const isSwitch{ random.random(2) };
-                    utl::FightResult result{};
+                    utl::ResultFight result{};
                     if (isSwitch) {
                         result = Fight(targetPoint_rhs, targetPoint_lhs);
                     } else {
@@ -944,8 +944,8 @@ namespace lgk {
         return results;
     }
 
-    std::vector<utl::FightResult> Galaxy::SimulateFightPlanetTargetPoint() {
-        std::vector<utl::FightResult> results{};
+    std::vector<utl::ResultFight> Galaxy::SimulateFightPlanetTargetPoint() {
+        std::vector<utl::ResultFight> results{};
 
         if (not app::AppContext::GetInstance().constants.fight.isFightPlanetTargetPoint) {
             hlp::Print(hlp::PrintType::ONLY_DEBUG,
@@ -967,7 +967,7 @@ namespace lgk {
         return results;
     }
 
-    utl::FightResult Galaxy::Fight(SpaceObject_ty const& defender, SpaceObject_ty const& attacker) {
+    utl::ResultFight Galaxy::Fight(SpaceObject_ty const& defender, SpaceObject_ty const& attacker) {
         if (defender->GetShipCount() == 0 or attacker->GetShipCount() == 0) {
             hlp::Print(hlp::PrintType::ONLY_DEBUG,
                        "fight without ships -> defender id: {} -> ships: {} -> attacker id: {} -> ships: {}",
@@ -987,7 +987,7 @@ namespace lgk {
             return {};
         }
 
-        utl::FightResult::rounds_ty rounds{};
+        utl::ResultFight::rounds_ty rounds{};
         rounds.emplace_back(defender->GetShipCount(), attacker->GetShipCount());
         while (true) {
             auto defenderCount{ Salve(defender) };
@@ -1145,7 +1145,7 @@ namespace lgk {
         return true;
     }
 
-    utl::FleetResult Galaxy::AddFleet(eve::SendFleetInstructionEvent const* const event,
+    utl::ResultFleet Galaxy::AddFleet(eve::SendFleetInstructionEvent const* const event,
                                       Player_ty const& currentPlayer) {
 
         // valid ID?
@@ -1276,7 +1276,7 @@ namespace lgk {
         m_isFiltered = true;
     }
 
-    void Galaxy::HandleFleetResult(utl::FleetResult const& fleetResult, Player_ty_c currentPlayer) {
+    void Galaxy::HandleFleetResult(utl::ResultFleet const& fleetResult, Player_ty_c currentPlayer) {
         auto add = [this](SpaceObject_ty_c obj) {
             if (obj->IsPlanet()) {
                 auto const* planet = dynamic_cast<Planet_ty_raw>(obj.get());
@@ -1339,15 +1339,15 @@ namespace lgk {
             o->Update(this);
         }
         hlp::Print(hlp::PrintType::ONLY_DEBUG, "-> merge arriving friendly fleets");
-        std::vector<utl::MergeResult> mergeResults{ CheckArrivingFriendlyFleets() };
+        std::vector<utl::ResultMerge> mergeResults{ CheckArrivingFriendlyFleets() };
         hlp::Print(hlp::PrintType::ONLY_DEBUG, "-> merge friendly fleets with other friendly fleets");
-        std::vector<utl::MergeResult> singleMergeResult{ CheckMergingFriendlyFleets() };
+        std::vector<utl::ResultMerge> singleMergeResult{ CheckMergingFriendlyFleets() };
         std::copy(singleMergeResult.begin(), singleMergeResult.end(), std::back_inserter(mergeResults));
 
         hlp::Print(hlp::PrintType::ONLY_DEBUG, "-> delete fleets without ships before fights");
         CheckDeleteFleetsWithoutShips(); // Check before Fight so there will be no fight without ships
         hlp::Print(hlp::PrintType::ONLY_DEBUG, "-> simulate fights");
-        std::vector<utl::FightResult> fightResults{ SimulateFight() };
+        std::vector<utl::ResultFight> fightResults{ SimulateFight() };
         hlp::Print(hlp::PrintType::ONLY_DEBUG, "-> delete fleets without ships after fights");
         CheckDeleteFleetsWithoutShips(); // Check after fight so all fleets that lost there ships gets deleted.
         hlp::Print(hlp::PrintType::ONLY_DEBUG, "-> delete target points out ships");

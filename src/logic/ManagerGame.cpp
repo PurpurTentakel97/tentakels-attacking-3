@@ -13,7 +13,7 @@
 #include <event/EventGeneral.hpp>
 #include <helper/HPrint.hpp>
 #include <stdexcept>
-#include <utils/MergeResult.hpp>
+#include <utils/ResultMerge.hpp>
 
 namespace lgk {
     // help Lambdas

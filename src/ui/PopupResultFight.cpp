@@ -181,7 +181,7 @@ namespace ui {
     FightResultPopup::FightResultPopup(Vector2 const pos,
                                        Vector2 const size,
                                        uil::Alignment const alignment,
-                                       utl::FightResult result,
+                                       utl::ResultFight result,
                                        callback_ty callback)
         : PopUp{ pos,           size,
                  alignment,     app::AppContext::GetInstance().languageManager.Text("helper_fight_big"),

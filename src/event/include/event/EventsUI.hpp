@@ -13,7 +13,7 @@
 #include <alias/AliasUtils.hpp>
 #include <functional>
 #include <string>
-#include <utils/FightResult.hpp>
+#include <utils/ResultFight.hpp>
 #include <utils/Vec2.hpp>
 
 namespace eve {
@@ -360,16 +360,16 @@ namespace eve {
 
     class ShowFightResultEvent final : public Event {
     private:
-        utl::FightResult m_result;
+        utl::ResultFight m_result;
         using callback_ty = std::function<void()>;
         callback_ty m_callback{ []() {} };
 
     public:
-        ShowFightResultEvent(utl::FightResult result, callback_ty callback)
+        ShowFightResultEvent(utl::ResultFight result, callback_ty callback)
             : m_result{ std::move(result) },
               m_callback{ std::move(callback) } { }
 
-        [[nodiscard]] utl::FightResult GetResult() const {
+        [[nodiscard]] utl::ResultFight GetResult() const {
             return m_result;
         }
         [[nodiscard]] callback_ty GetCallback() const {

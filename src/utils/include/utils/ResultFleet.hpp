@@ -10,7 +10,7 @@
 
 
 namespace utl {
-    struct FleetResult final {
+    struct ResultFleet final {
         lgk::SpaceObject_ty origin;
         lgk::Fleet_ty fleet;
         lgk::SpaceObject_ty destination;

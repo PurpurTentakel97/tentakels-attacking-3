@@ -13,7 +13,7 @@
 
 
 namespace utl {
-    struct FightResult final {
+    struct ResultFight final {
     public:
         using rounds_ty      = std::vector<std::pair<usize, usize>>;
         using player_ty      = std::pair<RepresentationPlayer, RepresentationPlayer>;
@@ -27,8 +27,8 @@ namespace utl {
 
 
     public:
-        FightResult() = default;
-        FightResult(player_ty player, spaceObject_ty objects, rounds_ty rounds, bool valid);
+        ResultFight() = default;
+        ResultFight(player_ty player, spaceObject_ty objects, rounds_ty rounds, bool valid);
 
 
         [[nodiscard]] player_ty GetPlayer() const;

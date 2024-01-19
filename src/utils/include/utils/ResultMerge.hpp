@@ -10,7 +10,7 @@
 #include <alias/AliasUtils.hpp>
 
 namespace utl {
-    struct MergeResult final {
+    struct ResultMerge final {
     private:
         RepresentationPlayer m_player;
         RepresentationSpaceObject m_origin;
@@ -18,7 +18,7 @@ namespace utl {
         usize m_count;
 
     public:
-        MergeResult(RepresentationPlayer player,
+        ResultMerge(RepresentationPlayer player,
                     RepresentationSpaceObject origin,
                     RepresentationSpaceObject destination,
                     usize count);

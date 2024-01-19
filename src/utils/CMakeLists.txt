@@ -1,8 +1,8 @@
 add_library(utils STATIC
             include/utils/Colors.hpp
-            include/utils/FightResult.hpp
-            include/utils/FleetResult.hpp
-            include/utils/MergeResult.hpp
+            include/utils/ResultFight.hpp
+            include/utils/ResultFleet.hpp
+            include/utils/ResultMerge.hpp
             include/utils/LayeredVector.hpp
             include/utils/Vec2.hpp
             include/utils/FleetInstructionType.hpp
@@ -15,8 +15,8 @@ add_library(utils STATIC
             include/utils/RepresentationGalaxy.hpp
             include/utils/RepresentationPlayer.hpp
             Colors.cpp
-            FightResult.cpp
-            MergeResult.cpp
+            ResultFight.cpp
+            ResultMerge.cpp
 
 )
 target_include_directories(utils

@@ -10,9 +10,9 @@
 #include <alias/AliasUtils.hpp>
 #include <string>
 #include <unordered_map>
-#include <utils/FightResult.hpp>
-#include <utils/MergeResult.hpp>
 #include <utils/RepresentationGalaxy.hpp>
+#include <utils/ResultFight.hpp>
+#include <utils/ResultMerge.hpp>
 
 
 namespace eve {
@@ -132,18 +132,18 @@ namespace eve {
 
     class SendUpdateEvaluation final : public Event {
     private:
-        std::vector<utl::MergeResult> m_mergeResults;
-        std::vector<utl::FightResult> m_fightResults;
+        std::vector<utl::ResultMerge> m_mergeResults;
+        std::vector<utl::ResultFight> m_fightResults;
 
     public:
-        SendUpdateEvaluation(std::vector<utl::MergeResult> mergeResult, std::vector<utl::FightResult> fightResult)
+        SendUpdateEvaluation(std::vector<utl::ResultMerge> mergeResult, std::vector<utl::ResultFight> fightResult)
             : m_mergeResults{ std::move(mergeResult) },
               m_fightResults{ std::move(fightResult) } { }
 
-        [[nodiscard]] std::vector<utl::MergeResult> GetMergeResults() const {
+        [[nodiscard]] std::vector<utl::ResultMerge> GetMergeResults() const {
             return m_mergeResults;
         }
-        [[nodiscard]] std::vector<utl::FightResult> GetFightResults() const {
+        [[nodiscard]] std::vector<utl::ResultFight> GetFightResults() const {
             return m_fightResults;
         }
     };

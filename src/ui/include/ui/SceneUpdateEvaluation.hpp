@@ -21,8 +21,8 @@ namespace ui {
         };
 
     private:
-        std::vector<utl::MergeResult> m_mergeResults;
-        std::vector<utl::FightResult> m_fightResults;
+        std::vector<utl::ResultMerge> m_mergeResults;
+        std::vector<utl::ResultFight> m_fightResults;
         ResultType m_currentResultType{ ResultType::MERGE };
         utl::usize m_currentIndex{ 0 };
         utl::usize m_popupCount{ 0 };
