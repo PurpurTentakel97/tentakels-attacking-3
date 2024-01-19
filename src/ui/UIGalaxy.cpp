@@ -12,8 +12,6 @@
 #include <event/EventGeneral.hpp>
 #include <helper/HFocusEvents.hpp>
 #include <helper/HInput.hpp>
-#include <logic/Galaxy.hpp>
-#include <logic/Player.hpp>
 #include <ui_lib/LineDrag.hpp>
 
 
