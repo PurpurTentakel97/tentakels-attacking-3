@@ -8,6 +8,7 @@
 #include "Galaxy.hpp"
 #include "ManagerGame.hpp"
 #include "Player.hpp"
+#include "RepresentationGenerator.hpp"
 #include <alias/AliasUtils.hpp>
 #include <app/AppContext.hpp>
 #include <event/EventGeneral.hpp>
@@ -33,12 +34,10 @@ namespace lgk {
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
         utl::vec2pos_ty_c size = { static_cast<int>(appContext.constants.world.currentDimensionX),
                                    static_cast<int>(appContext.constants.world.currentDimensionY) };
-        auto const galaxy = std::make_shared<Galaxy>(
-                size,
-                appContext.constants.world.currentPlanetCount,
-                m_gameManager->m_players,
-                m_gameManager->m_npcs[PlayerType::NEUTRAL]
-        );
+        auto const galaxy      = std::make_shared<Galaxy>(size,
+                                                     appContext.constants.world.currentPlanetCount,
+                                                     m_gameManager->m_players,
+                                                     m_gameManager->m_npcs[PlayerType::NEUTRAL]);
 
         if (galaxy->IsValid()) {
             m_mainGalaxy = galaxy;
@@ -62,19 +61,17 @@ namespace lgk {
             static_cast<int>(appContext.constants.world.showDimensionY),
         };
 
-        auto const galaxy = std::make_shared<Galaxy>(
-                size,
-                appContext.constants.world.showPlanetCount,
-                m_gameManager->m_players,
-                m_gameManager->m_npcs[PlayerType::NEUTRAL]
-        );
+        auto const galaxy = std::make_shared<Galaxy>(size,
+                                                     appContext.constants.world.showPlanetCount,
+                                                     m_gameManager->m_players,
+                                                     m_gameManager->m_npcs[PlayerType::NEUTRAL]);
 
         if (galaxy->IsValid()) {
             m_showGalaxy = galaxy;
-            eve::SendGalaxyPointerEvent const event{ m_showGalaxy.get(), true };
+            eve::SendGalaxyRepresentationEvent const event{ GenGalaxyRep(m_showGalaxy.get()), true };
             appContext.eventManager.InvokeEvent(event);
         } else if (m_showGalaxy) {
-            eve::SendGalaxyPointerEvent const event{ m_showGalaxy.get(), true };
+            eve::SendGalaxyRepresentationEvent const event{ GenGalaxyRep(m_showGalaxy.get()), true };
             appContext.eventManager.InvokeEvent(event);
             hlp::Print(hlp::PrintType::EXPECTED_ERROR, "Could not generated ShowGalaxy -> Use old Galaxy");
         } else {

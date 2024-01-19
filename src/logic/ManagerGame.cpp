@@ -6,6 +6,7 @@
 #include "ManagerGame.hpp"
 #include "CopyGalaxyType.hpp"
 #include "Galaxy.hpp"
+#include "RepresentationGenerator.hpp"
 #include <algorithm>
 #include <alias/AliasUtils.hpp>
 #include <app/AppContext.hpp>
@@ -570,7 +571,7 @@ namespace lgk {
             return;
         }
         if ([[maybe_unused]] auto const* galaxyEvent = dynamic_cast<eve::GetGalaxyPointerEvent const*>(&event)) {
-            eve::SendGalaxyPointerEvent const returnEvent{ m_galaxyManager.GetGalaxy(), false };
+            eve::SendGalaxyRepresentationEvent const returnEvent{ GenGalaxyRep(m_galaxyManager.GetGalaxy()), false };
             app::AppContext::GetInstance().eventManager.InvokeEvent(returnEvent);
             return;
         }

@@ -10,6 +10,7 @@ add_library(logic STATIC
             include/logic/SpaceObject.hpp
             include/logic/TargetPoint.hpp
             include/logic/GetTarget.hpp
+            include/logic/RepresentationGenerator.hpp
             Fleet.cpp
             Galaxy.cpp
             ManagerGalaxy.cpp
@@ -19,6 +20,7 @@ add_library(logic STATIC
             SpaceObject.cpp
             TargetPoint.cpp
             GetTarget.cpp
+            RepresentationGenerator.cpp
 )
 
 target_include_directories(logic
