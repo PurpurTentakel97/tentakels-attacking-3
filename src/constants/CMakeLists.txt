@@ -1,25 +1,25 @@
 add_library(constants STATIC
+            include/constants/CConfigEnum.hpp
+            include/constants/CConfigIO.hpp
             include/constants/CConstants.hpp
             include/constants/CFight.hpp
             include/constants/CFiles.hpp
             include/constants/CFleet.hpp
+            include/constants/CGameEventTypes.hpp
             include/constants/CGameEvents.hpp
             include/constants/CGlobal.hpp
             include/constants/CPlanet.hpp
             include/constants/CPlayer.hpp
-            include/constants/CSound.hpp
             include/constants/CTextProcessing.hpp
-            include/constants/CWindow.hpp
-            include/constants/CWorld.hpp
-            include/constants/CConfigIO.hpp
-            include/constants/CConfigEnum.hpp
+            include/constants/CSound.hpp
             include/constants/CResolution.hpp
-            include/constants/CGameEventTypes.hpp
+            include/constants/CWorld.hpp
+            include/constants/CWindow.hpp
             CConstants.cpp
             CGameEvents.cpp
-            CWindow.cpp
-            ConfigIO.cpp
             ConfigEnum.cpp
+            ConfigIO.cpp
+            CWindow.cpp
 )
 
 target_include_directories(constants
