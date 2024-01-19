@@ -39,12 +39,12 @@ namespace lgk {
     [[nodiscard]] static utl::RepresentationPlanet GenSinglePlanetRep(Planet_ty_c planet) {
         return {
             // clang-format off
-            planet->IsDiscovered(),
+            {planet->IsDiscovered(),
             planet->GetID(),
             planet->GetPlayer()->GetID(),
             planet->GetShipCount(),
             planet->GetPos(),
-            type(planet),
+            type(planet)},
             planet->IsDestroyed(),
             planet->GetPlayer()->IsHumanPlayer(),
             planet->GetProduction()
@@ -83,12 +83,12 @@ namespace lgk {
     [[nodiscard]] static utl::RepresentationFleet GenSingleFleetRep(Fleet_ty_c fleet) {
         return {
             // clang-format off
-            fleet->IsDiscovered(),
+            {fleet->IsDiscovered(),
             fleet->GetID(),
             fleet->GetPlayer()->GetID(),
             fleet->GetShipCount(),
             fleet->GetPos(),
-            type(fleet),
+            type(fleet)},
             GenSingleSpaceObjectRep(fleet->GetTarget())
             // clang-format on
         };
@@ -101,7 +101,7 @@ namespace lgk {
         return r;
     }
 
-    utl::RepresentationGalaxy lgk::GenGalaxyRep(Galaxy const* galaxy) {
+    utl::RepresentationGalaxy GenGalaxyRep(Galaxy const* galaxy) {
         return { GenAllPlanetRep(galaxy->GetPlanets()),
                  GenAllTargetPointRep(galaxy->GetTargetPoints()),
                  GenAllFleetRep(galaxy->GetFleets()),
