@@ -193,13 +193,13 @@ namespace eve {
 
     class GetShowGalaxyPointerEvent final : public Event { };
 
-    class SendGalaxyPointerEvent final : public Event {
+    class SendGalaxyRepresentationEvent final : public Event {
     private:
         utl::GalaxyRepresentation m_galaxy;
         bool m_isShowGalaxy;
 
     public:
-        SendGalaxyPointerEvent(utl::GalaxyRepresentation galaxy, bool const isShowGalaxy)
+        SendGalaxyRepresentationEvent(utl::GalaxyRepresentation galaxy, bool const isShowGalaxy)
             : m_galaxy{ std::move(galaxy) },
               m_isShowGalaxy{ isShowGalaxy } { }
 
@@ -221,14 +221,12 @@ namespace eve {
         utl::FleetInstructionType m_type;
 
     public:
-        SendFleetInstructionEvent(
-                utl::usize const origin,
-                utl::usize const destination,
-                utl::usize const destinationX,
-                utl::usize const destinationY,
-                utl::usize const shipCount,
-                utl::FleetInstructionType const type
-        )
+        SendFleetInstructionEvent(utl::usize const origin,
+                                  utl::usize const destination,
+                                  utl::usize const destinationX,
+                                  utl::usize const destinationY,
+                                  utl::usize const shipCount,
+                                  utl::FleetInstructionType const type)
             : m_origin{ origin },
               m_destination{ destination },
               m_destinationX{ destinationX },
