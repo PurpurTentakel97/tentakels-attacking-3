@@ -82,14 +82,14 @@ namespace ui {
             m_table->SetValue(addedCount, 2, p.production);
 
             // ship count
-            m_table->SetValue(addedCount, 3, p.production);
+            m_table->SetValue(addedCount, 3, p.shipCount);
         }
     }
 
     PlanetTable::PlanetTable(Vector2 const pos,
                              Vector2 const size,
                              uil::Alignment const alignment,
-                             utl::RepresentationGalaxy const galaxy)
+                             utl::RepresentationGalaxy galaxy)
         : Scene{ pos, size, alignment },
           m_galaxy{ std::move(galaxy) } {
 
