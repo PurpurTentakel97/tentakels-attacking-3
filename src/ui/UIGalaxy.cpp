@@ -18,7 +18,7 @@
 
 
 namespace ui {
-    void UIGalaxy::Initialize(eve::SendGalaxyPointerEvent const* const event) {
+    void UIGalaxy::Initialize(eve::SendGalaxyRepresentationEvent const* const event) {
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
         utl::GalaxyRepresentation galaxy{ event->GetGalaxy() };
 
@@ -614,7 +614,7 @@ namespace ui {
 
     void UIGalaxy::OnEvent(eve::Event const& event) {
 
-        if (auto const* galaxyEvent = dynamic_cast<eve::SendGalaxyPointerEvent const*>(&event)) {
+        if (auto const* galaxyEvent = dynamic_cast<eve::SendGalaxyRepresentationEvent const*>(&event)) {
             Initialize(galaxyEvent);
             return;
         }

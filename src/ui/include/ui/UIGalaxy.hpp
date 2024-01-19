@@ -49,7 +49,7 @@ namespace ui {
         bool m_updateLineDrag{ false };
         uil::LineDrag_ty m_lineDrag;
 
-        void Initialize(eve::SendGalaxyPointerEvent const* event);
+        void Initialize(eve::SendGalaxyRepresentationEvent const* event);
 
         [[nodiscard]] Vector2 GetAbsolutePosition(Vector2 pos, app::AppContext_ty_c appContext) const;
 
