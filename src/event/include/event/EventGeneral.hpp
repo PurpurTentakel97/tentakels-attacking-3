@@ -10,6 +10,7 @@
 #include <alias/AliasUtils.hpp>
 #include <string>
 #include <unordered_map>
+#include <utils/FightResult.hpp>
 #include <utils/GalaxyRepresentation.hpp>
 #include <utils/MergeResult.hpp>
 
