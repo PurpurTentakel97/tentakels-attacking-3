@@ -3,9 +3,9 @@
 // 25.05.23
 //
 
-#include "HGalaxy.hpp"
+#include "GetTarget.hpp"
+#include "Fleet.hpp"
 #include <alias/AliasLogic.hpp>
-#include <logic/Fleet.hpp>
 
 namespace hlp {
     std::pair<bool, lgk::SpaceObject_ty> TryGetTarget(lgk::Fleet_ty_raw fleet, lgk::SpaceObject_ty_c target) {

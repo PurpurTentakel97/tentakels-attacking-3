@@ -10,7 +10,9 @@
 #include <alias/AliasUtils.hpp>
 #include <string>
 #include <unordered_map>
-#include <utils/MergeResult.hpp>
+#include <utils/RepresentationGalaxy.hpp>
+#include <utils/ResultFight.hpp>
+#include <utils/ResultMerge.hpp>
 
 
 namespace eve {
@@ -130,18 +132,18 @@ namespace eve {
 
     class SendUpdateEvaluation final : public Event {
     private:
-        std::vector<utl::MergeResult> m_mergeResults;
-        std::vector<utl::FightResult> m_fightResults;
+        std::vector<utl::ResultMerge> m_mergeResults;
+        std::vector<utl::ResultFight> m_fightResults;
 
     public:
-        SendUpdateEvaluation(std::vector<utl::MergeResult> mergeResult, std::vector<utl::FightResult> fightResult)
+        SendUpdateEvaluation(std::vector<utl::ResultMerge> mergeResult, std::vector<utl::ResultFight> fightResult)
             : m_mergeResults{ std::move(mergeResult) },
               m_fightResults{ std::move(fightResult) } { }
 
-        [[nodiscard]] std::vector<utl::MergeResult> GetMergeResults() const {
+        [[nodiscard]] std::vector<utl::ResultMerge> GetMergeResults() const {
             return m_mergeResults;
         }
-        [[nodiscard]] std::vector<utl::FightResult> GetFightResults() const {
+        [[nodiscard]] std::vector<utl::ResultFight> GetFightResults() const {
             return m_fightResults;
         }
     };
@@ -191,17 +193,17 @@ namespace eve {
 
     class GetShowGalaxyPointerEvent final : public Event { };
 
-    class SendGalaxyPointerEvent final : public Event {
+    class SendGalaxyRepresentationEvent final : public Event {
     private:
-        lgk::Galaxy_ty_c_raw m_galaxy;
+        utl::RepresentationGalaxy m_galaxy;
         bool m_isShowGalaxy;
 
     public:
-        SendGalaxyPointerEvent(lgk::Galaxy_ty_c_raw const galaxy, bool const isShowGalaxy)
-            : m_galaxy{ galaxy },
+        SendGalaxyRepresentationEvent(utl::RepresentationGalaxy galaxy, bool const isShowGalaxy)
+            : m_galaxy{ std::move(galaxy) },
               m_isShowGalaxy{ isShowGalaxy } { }
 
-        [[nodiscard]] lgk::Galaxy_ty_raw GetGalaxy() const {
+        [[nodiscard]] utl::RepresentationGalaxy GetGalaxy() const {
             return m_galaxy;
         }
         [[nodiscard]] bool IsShowGalaxy() const {
@@ -219,14 +221,12 @@ namespace eve {
         utl::FleetInstructionType m_type;
 
     public:
-        SendFleetInstructionEvent(
-                utl::usize const origin,
-                utl::usize const destination,
-                utl::usize const destinationX,
-                utl::usize const destinationY,
-                utl::usize const shipCount,
-                utl::FleetInstructionType const type
-        )
+        SendFleetInstructionEvent(utl::usize const origin,
+                                  utl::usize const destination,
+                                  utl::usize const destinationX,
+                                  utl::usize const destinationY,
+                                  utl::usize const shipCount,
+                                  utl::FleetInstructionType const type)
             : m_origin{ origin },
               m_destination{ destination },
               m_destinationX{ destinationX },

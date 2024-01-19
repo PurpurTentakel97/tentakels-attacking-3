@@ -12,15 +12,10 @@
 namespace utl {
     template<class T>
     struct Vec2 final {
-        T x, y;
+        T x{}, y{};
 
+        Vec2() = default;
         Vec2(T const x_, T const y_) : x{ x_ }, y{ y_ } { }
-
-        Vec2(Vec2<T> const& toCopy) : x{ toCopy.x }, y{ toCopy.y } { }
-
-        Vec2(Vec2&&) = default;
-        Vec2& operator=(Vec2 const&) = default;
-        Vec2& operator=(Vec2&&) = default;
 
         [[nodiscard]] Vec2<T> Normalize() const {
             double const length{ Length() };

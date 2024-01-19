@@ -51,14 +51,14 @@ namespace lgk {
                 SpaceObject_ty const& destination
         ) const;
 
-        [[nodiscard]] utl::FleetResult
-        AddFleetFromPlanet(eve::SendFleetInstructionEvent const* event, Player_ty const& currentPlayer);
+        [[nodiscard]] utl::ResultFleet AddFleetFromPlanet(eve::SendFleetInstructionEvent const* event,
+                                                          Player_ty const& currentPlayer);
 
-        [[nodiscard]] utl::FleetResult
-        AddFleetFromFleet(eve::SendFleetInstructionEvent const* event, Player_ty const& currentPlayer);
+        [[nodiscard]] utl::ResultFleet AddFleetFromFleet(eve::SendFleetInstructionEvent const* event,
+                                                         Player_ty const& currentPlayer);
 
-        [[nodiscard]] utl::FleetResult
-        AddFleetFromTargetPoint(eve::SendFleetInstructionEvent const* event, Player_ty const& currentPlayer);
+        [[nodiscard]] utl::ResultFleet AddFleetFromTargetPoint(eve::SendFleetInstructionEvent const* event,
+                                                               Player_ty const& currentPlayer);
 
         [[nodiscard]] std::vector<Fleet_ty> GetFleetsOfTarget(SpaceObject_ty const& object) const;
 
@@ -83,29 +83,29 @@ namespace lgk {
                 SpaceObject_ty const& target
         );
 
-        [[nodiscard]] std::vector<utl::MergeResult> CheckArrivingFriendlyFleets();
+        [[nodiscard]] std::vector<utl::ResultMerge> CheckArrivingFriendlyFleets();
 
-        [[nodiscard]] std::vector<utl::MergeResult> CheckMergingFriendlyFleets();
+        [[nodiscard]] std::vector<utl::ResultMerge> CheckMergingFriendlyFleets();
 
         void CheckDeleteFleetsWithoutShips();
 
-        [[nodiscard]] std::vector<utl::FightResult> SimulateFight();
+        [[nodiscard]] std::vector<utl::ResultFight> SimulateFight();
 
-        [[nodiscard]] std::vector<utl::FightResult> SimulateFightFleetPlanet();
+        [[nodiscard]] std::vector<utl::ResultFight> SimulateFightFleetPlanet();
 
-        [[nodiscard]] std::vector<utl::FightResult> SimulateFightFleetTargetPoint();
+        [[nodiscard]] std::vector<utl::ResultFight> SimulateFightFleetTargetPoint();
 
-        [[nodiscard]] std::vector<utl::FightResult> SimulateFightFleetFleet();
+        [[nodiscard]] std::vector<utl::ResultFight> SimulateFightFleetFleet();
 
-        [[nodiscard]] std::vector<utl::FightResult> SimulateFightPlanetFleet();
+        [[nodiscard]] std::vector<utl::ResultFight> SimulateFightPlanetFleet();
 
-        [[nodiscard]] std::vector<utl::FightResult> SimulateFightTargetPointFleet();
+        [[nodiscard]] std::vector<utl::ResultFight> SimulateFightTargetPointFleet();
 
-        [[nodiscard]] std::vector<utl::FightResult> SimulateFightTargetPointTargetPoint();
+        [[nodiscard]] std::vector<utl::ResultFight> SimulateFightTargetPointTargetPoint();
 
-        [[nodiscard]] std::vector<utl::FightResult> SimulateFightPlanetTargetPoint();
+        [[nodiscard]] std::vector<utl::ResultFight> SimulateFightPlanetTargetPoint();
 
-        [[nodiscard]] static utl::FightResult Fight(SpaceObject_ty const& defender, SpaceObject_ty const& attacker);
+        [[nodiscard]] static utl::ResultFight Fight(SpaceObject_ty const& defender, SpaceObject_ty const& attacker);
 
         [[nodiscard]] static utl::usize Salve(SpaceObject_ty const& obj);
 
@@ -141,14 +141,14 @@ namespace lgk {
 
         [[nodiscard]] bool IsValidPosition(utl::vec2pos_ty_ref_c position) const;
 
-        [[nodiscard]] utl::FleetResult
-        AddFleet(eve::SendFleetInstructionEvent const* event, Player_ty const& currentPlayer);
+        [[nodiscard]] utl::ResultFleet AddFleet(eve::SendFleetInstructionEvent const* event,
+                                                Player_ty const& currentPlayer);
 
         void SetDiscoverByPlayer(utl::usize currentPlayerID);
 
         void FilterByDiscovered();
 
-        void HandleFleetResult(utl::FleetResult const& fleetResult, Player_ty_c currentPlayer);
+        void HandleFleetResult(utl::ResultFleet const& fleetResult, Player_ty_c currentPlayer);
 
         // update
         [[nodiscard]] utl::UpdateResult_ty Update();

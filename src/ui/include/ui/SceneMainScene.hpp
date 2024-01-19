@@ -11,6 +11,7 @@
 #include <memory>
 #include <ui_lib/Scene.hpp>
 #include <ui_lib/SceneType.hpp>
+#include <utils/RepresentationSpaceObject.hpp>
 
 
 namespace ui {
@@ -71,7 +72,7 @@ namespace ui {
 
         void HandleGalaxyDragLineInput(eve::DragLineFleetInstructionEvent const* event);
 
-        [[nodiscard]] lgk::SpaceObject_ty GetSpaceObjectFromID(utl::usize ID) const;
+        [[nodiscard]] std::pair<bool, utl::RepresentationSpaceObject> GetSpaceObjectFromID(utl::usize ID) const;
 
     public:
         MainScene();

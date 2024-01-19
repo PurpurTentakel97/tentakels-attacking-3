@@ -9,7 +9,6 @@
 #include <alias/AliasUiLib.hpp>
 #include <app/AppContext.hpp>
 #include <event/EventListener.hpp>
-#include <logic/ManagerGame.hpp>
 #include <memory>
 #include <ui_lib/Focus.hpp>
 #include <ui_lib/HoverRender.hpp>
@@ -23,7 +22,6 @@ namespace ui {
         app::AppContext_ty m_appContext;
         uil::Focus m_focus;
         SceneManager m_sceneManager;
-        lgk::GameManager m_gameManager;
         uil::HoverRender m_hover;
         bool m_closeWindow{ false };
         bool m_isNextFullScreen{ false };

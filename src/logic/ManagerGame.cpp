@@ -6,22 +6,20 @@
 #include "ManagerGame.hpp"
 #include "CopyGalaxyType.hpp"
 #include "Galaxy.hpp"
+#include "RepresentationGenerator.hpp"
 #include <algorithm>
 #include <alias/AliasUtils.hpp>
 #include <app/AppContext.hpp>
 #include <event/EventGeneral.hpp>
 #include <helper/HPrint.hpp>
 #include <stdexcept>
-#include <ui_lib/SceneType.hpp>
-#include <utils/MergeResult.hpp>
+#include <utils/ResultMerge.hpp>
 
 namespace lgk {
     // help Lambdas
     static auto popup = [](std::string const& text) {
         eve::ShowMessagePopUpEvent const popupEvent{
-            app::AppContext::GetInstance().languageManager.Text("logic_galaxy_invalid_input_headline"),
-            text,
-            []() {}
+            app::AppContext::GetInstance().languageManager.Text("logic_galaxy_invalid_input_headline"), text, []() {}
         };
         app::AppContext::GetInstance().eventManager.InvokeEvent(popupEvent);
     };
@@ -116,11 +114,10 @@ namespace lgk {
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
 
         if (!IsExistingPlayerID(event->GetID())) {
-            eve::ShowMessagePopUpEvent const UIEvent{
-                appContext.languageManager.Text("helper_invalid_id"),
-                appContext.languageManager.Text("ui_popup_invalid_id_subtitle", event->GetID()),
-                []() {}
-            };
+            eve::ShowMessagePopUpEvent const UIEvent{ appContext.languageManager.Text("helper_invalid_id"),
+                                                      appContext.languageManager.Text("ui_popup_invalid_id_subtitle",
+                                                                                      event->GetID()),
+                                                      []() {} };
             appContext.eventManager.InvokeEvent(UIEvent);
             return;
         }
@@ -155,11 +152,10 @@ namespace lgk {
         }
 
         if (!toDelete) {
-            eve::ShowMessagePopUpEvent const messageEvent{
-                appContext.languageManager.Text("helper_invalid_id"),
-                appContext.languageManager.Text("ui_popup_invalid_id_subtitle", event->GetID()),
-                []() {}
-            };
+            eve::ShowMessagePopUpEvent const messageEvent{ appContext.languageManager.Text("helper_invalid_id"),
+                                                           appContext.languageManager.Text(
+                                                                   "ui_popup_invalid_id_subtitle", event->GetID()),
+                                                           []() {} };
             app::AppContext::GetInstance().eventManager.InvokeEvent(messageEvent);
             return;
         }
@@ -221,23 +217,21 @@ namespace lgk {
         bool valid;
 
         if (m_players.size() < appContext.constants.player.minPlayerCount) {
-            eve::ShowMessagePopUpEvent const event{ appContext.languageManager.Text("ui_popup_player_count_title"),
-                                                    appContext.languageManager.Text(
-                                                            "ui_popup_player_count_min_subtitle",
-                                                            '\n',
-                                                            appContext.constants.player.minPlayerCount
-                                                    ),
-                                                    []() {} };
+            eve::ShowMessagePopUpEvent const event{
+                appContext.languageManager.Text("ui_popup_player_count_title"),
+                appContext.languageManager.Text(
+                        "ui_popup_player_count_min_subtitle", '\n', appContext.constants.player.minPlayerCount),
+                []() {}
+            };
             appContext.eventManager.InvokeEvent(event);
             valid = false;
         } else if (m_players.size() > appContext.constants.player.maxPlayerCount) {
-            eve::ShowMessagePopUpEvent const event{ appContext.languageManager.Text("ui_popup_player_count_title"),
-                                                    appContext.languageManager.Text(
-                                                            "ui_popup_player_count_max_subtitle",
-                                                            '\n',
-                                                            appContext.constants.player.maxPlayerCount
-                                                    ),
-                                                    []() {} };
+            eve::ShowMessagePopUpEvent const event{
+                appContext.languageManager.Text("ui_popup_player_count_title"),
+                appContext.languageManager.Text(
+                        "ui_popup_player_count_max_subtitle", '\n', appContext.constants.player.maxPlayerCount),
+                []() {}
+            };
             appContext.eventManager.InvokeEvent(event);
             valid = false;
         } else {
@@ -421,16 +415,15 @@ namespace lgk {
         app::AppContext_ty appContext{ app::AppContext::GetInstance() };
 
         if (appContext.constants.global.isGameRunning and not appContext.constants.global.isGameSaved) {
-            eve::ShowValidatePopUp const event{
-                appContext.languageManager.Text("ui_popup_game_still_running_title"),
-                appContext.languageManager.Text("ui_popup_game_still_running_subtitle", '\n'),
-                [this](bool valid) {
-                    if (valid) {
-                        GameManager::StopGame();
-                        this->StartGame();
-                    }
-                }
-            };
+            eve::ShowValidatePopUp const event{ appContext.languageManager.Text("ui_popup_game_still_running_title"),
+                                                appContext.languageManager.Text("ui_popup_game_still_running_subtitle",
+                                                                                '\n'),
+                                                [this](bool valid) {
+                                                    if (valid) {
+                                                        GameManager::StopGame();
+                                                        this->StartGame();
+                                                    }
+                                                } };
             appContext.eventManager.InvokeEvent(event);
             return;
         }
@@ -444,10 +437,10 @@ namespace lgk {
             p->Revive();
         }
 
-        appContext.constants.global.currentRound = 0;
+        appContext.constants.global.currentRound  = 0;
         appContext.constants.global.isGameRunning = true;
-        appContext.constants.global.isGamePaused = false;
-        appContext.constants.global.isGameSaved = false;
+        appContext.constants.global.isGamePaused  = false;
+        appContext.constants.global.isGameSaved   = false;
 
         Player_ty player{};
         if (not GetCurrentPlayer(player)) {
@@ -455,14 +448,14 @@ namespace lgk {
         }
 
         hlp::Print(hlp::PrintType::ONLY_DEBUG, "game started -> player {}", player->GetID());
-        eve::SwitchSceneEvent const event{ uil::SceneType::MAIN };
+        eve::SwitchMainSceneEvent const event{};
         appContext.eventManager.InvokeEvent(event);
     }
 
     void GameManager::StopGame() {
         app::AppContext_ty appConstants{ app::AppContext::GetInstance() };
         appConstants.constants.global.isGameRunning = false;
-        appConstants.constants.global.isGamePaused = true;
+        appConstants.constants.global.isGamePaused  = true;
         hlp::Print(hlp::PrintType::ONLY_DEBUG, "game stopped and paused");
     }
 
@@ -484,7 +477,7 @@ namespace lgk {
         }
         appContext.constants.global.isGamePaused = false;
         hlp::Print(hlp::PrintType::ONLY_DEBUG, "resumed to game");
-        eve::SwitchSceneEvent const event{ uil::SceneType::MAIN };
+        eve::SwitchMainSceneEvent const event{};
         appContext.eventManager.InvokeEvent(event);
     }
 
@@ -558,15 +551,15 @@ namespace lgk {
                 eve::ShowValidatePopUp{ appContext.languageManager.Text("ui_popup_resign_title", '?'),
                                        appContext.languageManager.Text("ui_popup_resign_subtitle"),
                                        [this](bool valid) {
-                                       if (not valid) {
-                                       return;
-                                       }
-                                       Player_ty player;
-                                       if (not this->GetCurrentPlayer(player)) {
-                                       return;
-                                       }
-                                       this->KillPlayer(player);
-                                       } }
+                                            if (not valid) {
+                                                return;
+                                            }
+                                            Player_ty player;
+                                            if (not this->GetCurrentPlayer(player)) {
+                                                return;
+                                            }
+                                            this->KillPlayer(player);
+                                        } }
             };
             appContext.eventManager.InvokeEvent(msgEvent);
             return;
@@ -578,7 +571,7 @@ namespace lgk {
             return;
         }
         if ([[maybe_unused]] auto const* galaxyEvent = dynamic_cast<eve::GetGalaxyPointerEvent const*>(&event)) {
-            eve::SendGalaxyPointerEvent const returnEvent{ m_galaxyManager.GetGalaxy(), false };
+            eve::SendGalaxyRepresentationEvent const returnEvent{ GenGalaxyRep(m_galaxyManager.GetGalaxy()), false };
             app::AppContext::GetInstance().eventManager.InvokeEvent(returnEvent);
             return;
         }
@@ -614,8 +607,7 @@ namespace lgk {
         }
         if ([[maybe_unused]] auto const* gameEvent = dynamic_cast<eve::GetUpdateEvaluation const*>(&event)) {
             app::AppContext::GetInstance().eventManager.InvokeEvent(
-                    eve::SendUpdateEvaluation{ m_lastUpdateResults.first, m_lastUpdateResults.second }
-            );
+                    eve::SendUpdateEvaluation{ m_lastUpdateResults.first, m_lastUpdateResults.second });
             return;
         }
 

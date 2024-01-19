@@ -3,7 +3,6 @@
 // 28.12.2023
 //
 
-// namespace to come
 
 #pragma once
 
@@ -100,7 +99,7 @@ namespace uil {
     using TableCell_ty_c = std::shared_ptr<TableCell> const&;
 
     class Table;
-    using Table_ty = std::shared_ptr<Table>;
+    using Table_ty   = std::shared_ptr<Table>;
     using Table_ty_c = std::shared_ptr<Table> const&;
 
     class NewTable;

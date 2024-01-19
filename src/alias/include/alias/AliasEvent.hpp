@@ -7,6 +7,6 @@
 
 namespace eve {
     class SendFleetInstructionEvent;
-    class SendGalaxyPointerEvent;
+    class SendGalaxyRepresentationEvent;
     class SendUpdateEvaluation;
-}
+} // namespace eve

@@ -5,17 +5,17 @@
 
 #pragma once
 
-#include "utils/FightResult.hpp"
+#include "utils/ResultFight.hpp"
+#include <alias/AliasUtils.hpp>
 #include <ui_lib/CountingNumber.hpp>
 #include <ui_lib/PopUp.hpp>
-#include <alias/AliasUtils.hpp>
 
 
 namespace ui {
     class FightResultPopup : public uil::PopUp {
     private:
         using callback_ty = std::function<void()>;
-        utl::FightResult const m_result;
+        utl::ResultFight const m_result;
         utl::usize m_index{ 1 };
         bool m_finishedCounting{ false };
         callback_ty m_callback{ []() {} };
@@ -42,8 +42,8 @@ namespace ui {
                 Vector2 pos,
                 Vector2 size,
                 uil::Alignment alignment,
-                utl::FightResult result,
-                callback_ty callback
+                         utl::ResultFight result,
+                         callback_ty callback
         );
     };
 } // namespace ui

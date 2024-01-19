@@ -1,7 +1,6 @@
 add_library(helper STATIC
             include/helper/HErrorLog.hpp
             include/helper/HFocusEvents.hpp
-            include/helper/HGalaxy.hpp
             include/helper/HGeneral.hpp
             include/helper/HInput.hpp
             include/helper/HPrint.hpp
@@ -10,7 +9,6 @@ add_library(helper STATIC
             include/helper/HVector2Operator.hpp
             HErrorLog.cpp
             HFocusEvents.cpp
-            HGalaxy.cpp
             HGeneral.cpp
             HInput.cpp
             HPrint.cpp
@@ -29,7 +27,6 @@ target_link_libraries(helper
                       app
                       event
                       constants
-                      logic
                       ui_lib
                       project_options
                       PUBLIC

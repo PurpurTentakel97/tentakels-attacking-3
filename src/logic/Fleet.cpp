@@ -5,9 +5,9 @@
 
 #include "Fleet.hpp"
 #include "Galaxy.hpp"
+#include "GetTarget.hpp"
 #include <app/AppContext.hpp>
 #include <cmath>
-#include <helper/HGalaxy.hpp>
 #include <helper/HPrint.hpp>
 
 namespace lgk {
@@ -15,13 +15,11 @@ namespace lgk {
         : SpaceObject{ ID, position, player },
           m_target{ std::move(target) } { }
 
-    Fleet::Fleet(
-            utl::usize const ID,
-            utl::vec2pos_ty_ref_c position,
-            utl::usize ships,
-            Player_ty_c player,
-            SpaceObject_ty target
-    )
+    Fleet::Fleet(utl::usize const ID,
+                 utl::vec2pos_ty_ref_c position,
+                 utl::usize ships,
+                 Player_ty_c player,
+                 SpaceObject_ty target)
         : SpaceObject{ ID, position, ships, player },
           m_target{ std::move(target) } { }
 
@@ -109,7 +107,7 @@ namespace lgk {
             utl::vec2pos_ty new_ = target->GetPos();
             for (utl::usize i = 1; i < route.size(); ++i) {
                 utl::vec2pos_ty old = route.at(i - 1);
-                new_ = route.at(i);
+                new_                = route.at(i);
                 if (galaxy->IsValidPosition(new_)) {
                     setSpeed(old, new_);
                 }

@@ -123,6 +123,10 @@ namespace ui {
             m_nextSceneType = SceneEvent->GetSceneType();
             return;
         }
+        if (auto const SceneEvent = dynamic_cast<eve::SwitchMainSceneEvent const*>(&event)) {
+            m_nextSceneType = uil::SceneType::MAIN;
+            return;
+        }
     }
 
     bool SceneManager::IsValidCurrentScene() const {

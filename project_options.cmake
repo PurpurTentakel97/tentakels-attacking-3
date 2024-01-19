@@ -17,6 +17,8 @@ macro(check_sanitizer_support)
     endif ()
 endmacro()
 
+check_sanitizer_support()
+
 if (PROJECT_IS_TOP_LEVEL)
     option(warnings_as_errors "Treat warnings as errors" ON)
     option(enable_undefined_behavior_sanitizer "Enable undefined behavior sanitizer" ${supports_ubsan})
@@ -33,15 +35,7 @@ set_warnings(warnings ${warnings_as_errors})
 add_library(sanitizers INTERFACE)
 enable_sanitizers(sanitizers ${enable_address_sanitizer} ${enable_undefined_behavior_sanitizer})
 
-add_library(project_options INTERFACE
-            src/alias/include/alias/AliasConstants.hpp
-            src/alias/include/alias/AliasCustomRaylib.hpp
-            src/alias/include/alias/AliasEvent.hpp
-            src/alias/include/alias/AliasHelper.hpp
-            src/alias/include/alias/AliasLogic.hpp
-            src/alias/include/alias/AliasUi.hpp
-            src/alias/include/alias/AliasUiLib.hpp
-            src/alias/include/alias/AliasUtils.hpp)
+add_library(project_options INTERFACE)
 target_link_libraries(project_options
                       INTERFACE warnings
                       INTERFACE sanitizers

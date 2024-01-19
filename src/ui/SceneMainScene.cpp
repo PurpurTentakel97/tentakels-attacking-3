@@ -12,15 +12,13 @@
 #include <app/AppContext.hpp>
 #include <cassert>
 #include <event/EventGeneral.hpp>
-#include <logic/Galaxy.hpp>
-#include <logic/Player.hpp>
-#include <logic/SpaceObject.hpp>
 #include <ui_lib/ButtonClassic.hpp>
 #include <ui_lib/ButtonExpanding.hpp>
 #include <ui_lib/InputLine.hpp>
 #include <ui_lib/Text.hpp>
 #include <ui_lib/Title.hpp>
 #include <utils/FleetInstructionType.hpp>
+#include <utils/RepresentationSpaceObject.hpp>
 
 
 namespace ui {
@@ -32,34 +30,26 @@ namespace ui {
 
         // Title
         auto title = std::make_shared<uil::Title>(
-                GetElementPosition(0.31f, 0.0f),
-                GetElementSize(0.55f, 0.2f),
-                uil::Alignment::TOP_MID,
-                false
-        );
+                GetElementPosition(0.31f, 0.0f), GetElementSize(0.55f, 0.2f), uil::Alignment::TOP_MID, false);
         m_elements.push_back(title);
 
         // Btn
-        auto settingsBtn = std::make_shared<uil::ExpandingButton>(
-                203,
-                GetElementPosition(0.975f, 0.02f),
-                GetElementSize(0.075f, 0.05f),
-                uil::Alignment::TOP_RIGHT,
-                uil::ExpandingButton::DOWN,
-                0.005f,
-                10.0f,
-                appContext.languageManager.Text("helper_settings")
-        );
+        auto settingsBtn = std::make_shared<uil::ExpandingButton>(203,
+                                                                  GetElementPosition(0.975f, 0.02f),
+                                                                  GetElementSize(0.075f, 0.05f),
+                                                                  uil::Alignment::TOP_RIGHT,
+                                                                  uil::ExpandingButton::DOWN,
+                                                                  0.005f,
+                                                                  10.0f,
+                                                                  appContext.languageManager.Text("helper_settings"));
         m_elements.push_back(settingsBtn);
 
-        auto gameSettingsBtn = std::make_shared<uil::ClassicButton>(
-                204,
-                Vector2{ 0.0f, 0.0f },
-                Vector2{ 0.0f, 0.0f },
-                uil::Alignment::DEFAULT,
-                appContext.languageManager.Text("helper_game"),
-                app::SoundType::CLICKED_RELEASE_STD
-        );
+        auto gameSettingsBtn = std::make_shared<uil::ClassicButton>(204,
+                                                                    Vector2{ 0.0f, 0.0f },
+                                                                    Vector2{ 0.0f, 0.0f },
+                                                                    uil::Alignment::DEFAULT,
+                                                                    appContext.languageManager.Text("helper_game"),
+                                                                    app::SoundType::CLICKED_RELEASE_STD);
         gameSettingsBtn->SetOnClick([]() {
             app::AppContext_ty_c appContext_{ app::AppContext::GetInstance() };
 
@@ -71,14 +61,12 @@ namespace ui {
         });
         settingsBtn->Add(gameSettingsBtn, true);
 
-        auto appSettingsBtn = std::make_shared<uil::ClassicButton>(
-                205,
-                Vector2{ 0.0f, 0.0f },
-                Vector2{ 0.0f, 0.0f },
-                uil::Alignment::DEFAULT,
-                appContext.languageManager.Text("helper_app"),
-                app::SoundType::CLICKED_RELEASE_STD
-        );
+        auto appSettingsBtn = std::make_shared<uil::ClassicButton>(205,
+                                                                   Vector2{ 0.0f, 0.0f },
+                                                                   Vector2{ 0.0f, 0.0f },
+                                                                   uil::Alignment::DEFAULT,
+                                                                   appContext.languageManager.Text("helper_app"),
+                                                                   app::SoundType::CLICKED_RELEASE_STD);
         appSettingsBtn->SetOnClick([]() {
             app::AppContext_ty_c appContext_{ app::AppContext::GetInstance() };
 
@@ -90,14 +78,13 @@ namespace ui {
         });
         settingsBtn->Add(appSettingsBtn, true);
 
-        auto mainMenuBtn = std::make_shared<uil::ClassicButton>(
-                206,
-                Vector2{ 0.0f, 0.0f },
-                Vector2{ 0.0f, 0.0f },
-                uil::Alignment::DEFAULT,
-                appContext.languageManager.Text("scene_settings_main_menu_btn"),
-                app::SoundType::CLICKED_RELEASE_STD
-        );
+        auto mainMenuBtn =
+                std::make_shared<uil::ClassicButton>(206,
+                                                     Vector2{ 0.0f, 0.0f },
+                                                     Vector2{ 0.0f, 0.0f },
+                                                     uil::Alignment::DEFAULT,
+                                                     appContext.languageManager.Text("scene_settings_main_menu_btn"),
+                                                     app::SoundType::CLICKED_RELEASE_STD);
         mainMenuBtn->SetOnClick([]() {
             app::AppContext_ty_c appContext_{ app::AppContext::GetInstance() };
 
@@ -109,14 +96,13 @@ namespace ui {
         });
         settingsBtn->Add(mainMenuBtn, true);
 
-        auto resignBtn = std::make_shared<uil::ClassicButton>(
-                207,
-                Vector2{ 0.0f, 0.0f },
-                Vector2{ 0.0f, 0.0f },
-                uil::Alignment::DEFAULT,
-                appContext.languageManager.Text("scene_main_scene_resign_btn"),
-                app::SoundType::CLICKED_RELEASE_STD
-        );
+        auto resignBtn =
+                std::make_shared<uil::ClassicButton>(207,
+                                                     Vector2{ 0.0f, 0.0f },
+                                                     Vector2{ 0.0f, 0.0f },
+                                                     uil::Alignment::DEFAULT,
+                                                     appContext.languageManager.Text("scene_main_scene_resign_btn"),
+                                                     app::SoundType::CLICKED_RELEASE_STD);
         resignBtn->SetOnClick([settingsBtn]() {
             settingsBtn->Collapse();
             app::AppContext::GetInstance().eventManager.InvokeEvent(eve::KillCurrentPlayerEvent());
@@ -124,14 +110,13 @@ namespace ui {
         settingsBtn->Add(resignBtn, true);
         settingsBtn->Update();
 
-        auto galaxyBtn = std::make_shared<uil::ClassicButton>(
-                200,
-                GetElementPosition(0.7f, 0.02f),
-                GetElementSize(0.1f, 0.05f),
-                uil::Alignment::TOP_RIGHT,
-                appContext.languageManager.Text("scene_main_scene_galaxy_btn"),
-                app::SoundType::CLICKED_RELEASE_STD
-        );
+        auto galaxyBtn =
+                std::make_shared<uil::ClassicButton>(200,
+                                                     GetElementPosition(0.7f, 0.02f),
+                                                     GetElementSize(0.1f, 0.05f),
+                                                     uil::Alignment::TOP_RIGHT,
+                                                     appContext.languageManager.Text("scene_main_scene_galaxy_btn"),
+                                                     app::SoundType::CLICKED_RELEASE_STD);
         galaxyBtn->SetOnClick([this]() { this->Switch(MainSceneType::GALAXY); });
         m_elements.push_back(galaxyBtn);
 
@@ -141,8 +126,7 @@ namespace ui {
                 GetElementSize(0.1f, 0.05f),
                 uil::Alignment::TOP_RIGHT,
                 appContext.languageManager.Text("scene_main_scene_planet_table_btn"),
-                app::SoundType::CLICKED_RELEASE_STD
-        );
+                app::SoundType::CLICKED_RELEASE_STD);
         planetTableBtn->SetOnClick([this]() { this->Switch(MainSceneType::PLANET_TABLE); });
         m_elements.push_back(planetTableBtn);
 
@@ -152,8 +136,7 @@ namespace ui {
                 GetElementSize(0.1f, 0.05f),
                 uil::Alignment::TOP_RIGHT,
                 appContext.languageManager.Text("scene_main_scene_fleet_point_table_btn"),
-                app::SoundType::CLICKED_RELEASE_STD
-        );
+                app::SoundType::CLICKED_RELEASE_STD);
         fleetTableBtn->SetOnClick([this]() { this->Switch(MainSceneType::FLEET_TABLE); });
         m_elements.push_back(fleetTableBtn);
 
@@ -163,11 +146,9 @@ namespace ui {
                 GetElementSize(0.1f, 0.05f),
                 uil::Alignment::BOTTOM_RIGHT,
                 appContext.languageManager.Text("scene_main_scene_next_player_btn"),
-                app::SoundType::ACCEPTED
-        );
-        m_nextBtn->SetOnClick([]() {
-            app::AppContext::GetInstance().eventManager.InvokeEvent(eve::TriggerNextTurnEvent());
-        });
+                app::SoundType::ACCEPTED);
+        m_nextBtn->SetOnClick(
+                []() { app::AppContext::GetInstance().eventManager.InvokeEvent(eve::TriggerNextTurnEvent()); });
         m_elements.push_back(m_nextBtn);
 
         // text
@@ -177,19 +158,16 @@ namespace ui {
                 uil::Alignment::TOP_RIGHT,
                 uil::Alignment::TOP_RIGHT,
                 0.02f,
-                appContext.languageManager.Text("scene_main_scene_current_player_text", ":")
-        );
+                appContext.languageManager.Text("scene_main_scene_current_player_text", ":"));
         // currentPlayerLabel->RenderRectangle(true);
         m_elements.push_back(currentPlayerLabel);
 
-        m_currentPlayerName = std::make_shared<uil::Text>(
-                GetElementPosition(0.71f, 0.08f),
-                GetElementSize(0.2f, 0.02f),
-                uil::Alignment::TOP_LEFT,
-                uil::Alignment::TOP_LEFT,
-                0.02f,
-                ""
-        );
+        m_currentPlayerName = std::make_shared<uil::Text>(GetElementPosition(0.71f, 0.08f),
+                                                          GetElementSize(0.2f, 0.02f),
+                                                          uil::Alignment::TOP_LEFT,
+                                                          uil::Alignment::TOP_LEFT,
+                                                          0.02f,
+                                                          "");
         // m_currentPlayerName->RenderRectangle(true);
         m_elements.push_back(m_currentPlayerName);
 
@@ -200,87 +178,75 @@ namespace ui {
                 uil::Alignment::TOP_RIGHT,
                 uil::Alignment::TOP_RIGHT,
                 0.02f,
-                appContext.languageManager.Text("scene_main_scene_current_round_text", ":")
-        );
+                appContext.languageManager.Text("scene_main_scene_current_round_text", ":"));
         // currentRoundLabel->RenderRectangle(true);
         m_elements.push_back(currentRoundLabel);
 
-        m_currentRound = std::make_shared<uil::Text>(
-                GetElementPosition(0.71f, 0.1f),
-                GetElementSize(0.2f, 0.02f),
-                uil::Alignment::TOP_LEFT,
-                uil::Alignment::TOP_LEFT,
-                0.02f,
-                std::to_string(appContext.constants.global.currentRound)
-        );
+        m_currentRound = std::make_shared<uil::Text>(GetElementPosition(0.71f, 0.1f),
+                                                     GetElementSize(0.2f, 0.02f),
+                                                     uil::Alignment::TOP_LEFT,
+                                                     uil::Alignment::TOP_LEFT,
+                                                     0.02f,
+                                                     std::to_string(appContext.constants.global.currentRound));
         // m_currentRound->RenderRectangle(true);
         m_elements.push_back(m_currentRound);
 
 
-        auto currentTargetRoundLabel = std::make_shared<uil::Text>(
-                GetElementPosition(0.7f, 0.12f),
-                GetElementSize(0.1f, 0.02f),
-                uil::Alignment::TOP_RIGHT,
-                uil::Alignment::TOP_RIGHT,
-                0.02f,
-                appContext.languageManager.Text("scene_main_scene_target_round_text", ":")
-        );
+        auto currentTargetRoundLabel =
+                std::make_shared<uil::Text>(GetElementPosition(0.7f, 0.12f),
+                                            GetElementSize(0.1f, 0.02f),
+                                            uil::Alignment::TOP_RIGHT,
+                                            uil::Alignment::TOP_RIGHT,
+                                            0.02f,
+                                            appContext.languageManager.Text("scene_main_scene_target_round_text", ":"));
         // currentTargetRoundLabel->RenderRectangle(true);
         m_elements.push_back(currentTargetRoundLabel);
 
-        m_currentTargetRound = std::make_shared<uil::Text>(
-                GetElementPosition(0.71f, 0.12f),
-                GetElementSize(0.2f, 0.02f),
-                uil::Alignment::TOP_LEFT,
-                uil::Alignment::TOP_LEFT,
-                0.02f,
-                std::to_string(appContext.constants.global.currentTargetRound)
-        );
+        m_currentTargetRound =
+                std::make_shared<uil::Text>(GetElementPosition(0.71f, 0.12f),
+                                            GetElementSize(0.2f, 0.02f),
+                                            uil::Alignment::TOP_LEFT,
+                                            uil::Alignment::TOP_LEFT,
+                                            0.02f,
+                                            std::to_string(appContext.constants.global.currentTargetRound));
         // m_currentTargetRound->RenderRectangle(true);
         m_elements.push_back(m_currentTargetRound);
 
 
-        auto nextPlayerNameLabel = std::make_shared<uil::Text>(
-                GetElementPosition(0.9f, 0.98f),
-                GetElementSize(0.1f, 0.02f),
-                uil::Alignment::BOTTOM_RIGHT,
-                uil::Alignment::BOTTOM_RIGHT,
-                0.02f,
-                appContext.languageManager.Text("scene_main_scene_next_player_text", ":")
-        );
+        auto nextPlayerNameLabel =
+                std::make_shared<uil::Text>(GetElementPosition(0.9f, 0.98f),
+                                            GetElementSize(0.1f, 0.02f),
+                                            uil::Alignment::BOTTOM_RIGHT,
+                                            uil::Alignment::BOTTOM_RIGHT,
+                                            0.02f,
+                                            appContext.languageManager.Text("scene_main_scene_next_player_text", ":"));
         // nextPlayerNameLabel->RenderRectangle(true);
         m_elements.push_back(nextPlayerNameLabel);
 
-        m_nextPlayerName = std::make_shared<uil::Text>(
-                GetElementPosition(0.91f, 0.98f),
-                GetElementSize(0.25f, 0.02f),
-                uil::Alignment::BOTTOM_LEFT,
-                uil::Alignment::BOTTOM_LEFT,
-                0.02f,
-                ""
-        );
+        m_nextPlayerName = std::make_shared<uil::Text>(GetElementPosition(0.91f, 0.98f),
+                                                       GetElementSize(0.25f, 0.02f),
+                                                       uil::Alignment::BOTTOM_LEFT,
+                                                       uil::Alignment::BOTTOM_LEFT,
+                                                       0.02f,
+                                                       "");
         // m_nextPlayerName->RenderRectangle(true);
         m_elements.push_back(m_nextPlayerName);
 
         // ship input
         auto ship_x{ 0.35f };
-        auto text = std::make_shared<uil::Text>(
-                GetElementPosition(0.99f, ship_x),
-                GetElementSize(0.2f, 0.05f),
-                uil::Alignment::BOTTOM_RIGHT,
-                uil::Alignment::BOTTOM_RIGHT,
-                0.03f,
-                appContext.languageManager.Text("scene_main_scene_origin_text", ":")
-        );
+        auto text = std::make_shared<uil::Text>(GetElementPosition(0.99f, ship_x),
+                                                GetElementSize(0.2f, 0.05f),
+                                                uil::Alignment::BOTTOM_RIGHT,
+                                                uil::Alignment::BOTTOM_RIGHT,
+                                                0.03f,
+                                                appContext.languageManager.Text("scene_main_scene_origin_text", ":"));
         m_elements.push_back(text);
 
-        m_origin = std::make_shared<uil::InputLine>(
-                1,
-                GetElementPosition(0.99f, ship_x),
-                GetElementSize(0.08f, 0.04f),
-                uil::Alignment::TOP_RIGHT,
-                utl::usize{}
-        );
+        m_origin = std::make_shared<uil::InputLine>(1,
+                                                    GetElementPosition(0.99f, ship_x),
+                                                    GetElementSize(0.08f, 0.04f),
+                                                    uil::Alignment::TOP_RIGHT,
+                                                    utl::usize{});
         m_origin->SetOnEnter([this](uil::InputLine&) { this->SendFleetInstruction(); });
         m_origin->SetOnValueChanced([this](uil::InputLine&) { SetAcceptButton(); });
         m_origin->SetPlaceholderText(appContext.languageManager.Text("scene_main_scene_id_placeholder_text"));
@@ -289,23 +255,19 @@ namespace ui {
 
         ship_x += 0.08f;
 
-        text = std::make_shared<uil::Text>(
-                GetElementPosition(0.99f, ship_x),
-                GetElementSize(0.2f, 0.05f),
-                uil::Alignment::BOTTOM_RIGHT,
-                uil::Alignment::BOTTOM_RIGHT,
-                0.03f,
-                appContext.languageManager.Text("scene_main_scene_destination_text", ":")
-        );
+        text = std::make_shared<uil::Text>(GetElementPosition(0.99f, ship_x),
+                                           GetElementSize(0.2f, 0.05f),
+                                           uil::Alignment::BOTTOM_RIGHT,
+                                           uil::Alignment::BOTTOM_RIGHT,
+                                           0.03f,
+                                           appContext.languageManager.Text("scene_main_scene_destination_text", ":"));
         m_elements.push_back(text);
 
-        m_destination = std::make_shared<uil::InputLine>(
-                2,
-                GetElementPosition(0.99f, ship_x),
-                GetElementSize(0.08f, 0.04f),
-                uil::Alignment::TOP_RIGHT,
-                utl::usize{}
-        );
+        m_destination = std::make_shared<uil::InputLine>(2,
+                                                         GetElementPosition(0.99f, ship_x),
+                                                         GetElementSize(0.08f, 0.04f),
+                                                         uil::Alignment::TOP_RIGHT,
+                                                         utl::usize{});
         m_destination->SetOnEnter([this](uil::InputLine&) { this->SendFleetInstruction(); });
         m_destination->SetOnValueChanced([this](uil::InputLine&) {
             this->SetAcceptButton();
@@ -317,26 +279,22 @@ namespace ui {
 
         ship_x += 0.05f;
 
-        m_destinationX = std::make_shared<uil::InputLine>(
-                3,
-                GetElementPosition(0.949f, ship_x),
-                GetElementSize(0.039f, 0.04f),
-                uil::Alignment::TOP_RIGHT,
-                utl::usize{}
-        );
+        m_destinationX = std::make_shared<uil::InputLine>(3,
+                                                          GetElementPosition(0.949f, ship_x),
+                                                          GetElementSize(0.039f, 0.04f),
+                                                          uil::Alignment::TOP_RIGHT,
+                                                          utl::usize{});
         m_destinationX->SetOnEnter([this](uil::InputLine&) { this->SendFleetInstruction(); });
         m_destinationX->SetOnValueChanced([this](uil::InputLine&) { SetAcceptButton(); });
         m_destinationX->SetPlaceholderText("X");
         m_destinationX->SetClearByFocus(true);
         m_elements.push_back(m_destinationX);
 
-        m_destinationY = std::make_shared<uil::InputLine>(
-                4,
-                GetElementPosition(0.99f, ship_x),
-                GetElementSize(0.039f, 0.04f),
-                uil::Alignment::TOP_RIGHT,
-                utl::usize{}
-        );
+        m_destinationY = std::make_shared<uil::InputLine>(4,
+                                                          GetElementPosition(0.99f, ship_x),
+                                                          GetElementSize(0.039f, 0.04f),
+                                                          uil::Alignment::TOP_RIGHT,
+                                                          utl::usize{});
         m_destinationY->SetOnEnter([this](uil::InputLine&) { this->SendFleetInstruction(); });
         m_destinationY->SetOnValueChanced([this](uil::InputLine&) { SetAcceptButton(); });
         m_destinationY->SetPlaceholderText("Y");
@@ -345,51 +303,43 @@ namespace ui {
 
         ship_x += 0.08f;
 
-        text = std::make_shared<uil::Text>(
-                GetElementPosition(0.99f, ship_x),
-                GetElementSize(0.2f, 0.05f),
-                uil::Alignment::BOTTOM_RIGHT,
-                uil::Alignment::BOTTOM_RIGHT,
-                0.03f,
-                appContext.languageManager.Text("scene_main_scene_ship_count_text", ":")
-        );
+        text = std::make_shared<uil::Text>(GetElementPosition(0.99f, ship_x),
+                                           GetElementSize(0.2f, 0.05f),
+                                           uil::Alignment::BOTTOM_RIGHT,
+                                           uil::Alignment::BOTTOM_RIGHT,
+                                           0.03f,
+                                           appContext.languageManager.Text("scene_main_scene_ship_count_text", ":"));
         m_elements.push_back(text);
 
-        m_shipCount = std::make_shared<uil::InputLine>(
-                5,
-                GetElementPosition(0.99f, ship_x),
-                GetElementSize(0.08f, 0.04f),
-                uil::Alignment::TOP_RIGHT,
-                utl::usize{}
-        );
+        m_shipCount = std::make_shared<uil::InputLine>(5,
+                                                       GetElementPosition(0.99f, ship_x),
+                                                       GetElementSize(0.08f, 0.04f),
+                                                       uil::Alignment::TOP_RIGHT,
+                                                       utl::usize{});
         m_shipCount->SetOnEnter([this](uil::InputLine&) { this->SendFleetInstruction(); });
         m_shipCount->SetOnValueChanced([this](uil::InputLine&) { SetAcceptButton(); });
-        m_shipCount->SetPlaceholderText(appContext.languageManager.Text("scene_main_scene_ship_count_placeholder_text")
-        );
+        m_shipCount->SetPlaceholderText(
+                appContext.languageManager.Text("scene_main_scene_ship_count_placeholder_text"));
         m_shipCount->SetClearByFocus(true);
         m_elements.push_back(m_shipCount);
 
         ship_x += 0.07f;
 
-        m_acceptBtn = std::make_shared<uil::ClassicButton>(
-                6,
-                GetElementPosition(0.99f, ship_x),
-                GetElementSize(0.04f, 0.04f),
-                uil::Alignment::TOP_RIGHT,
-                "+",
-                app::SoundType::ACCEPTED
-        );
+        m_acceptBtn = std::make_shared<uil::ClassicButton>(6,
+                                                           GetElementPosition(0.99f, ship_x),
+                                                           GetElementSize(0.04f, 0.04f),
+                                                           uil::Alignment::TOP_RIGHT,
+                                                           "+",
+                                                           app::SoundType::ACCEPTED);
         m_acceptBtn->SetOnClick([this]() { this->SendFleetInstruction(); });
         m_elements.push_back(m_acceptBtn);
 
-        m_resetBtn = std::make_shared<uil::ClassicButton>(
-                7,
-                GetElementPosition(0.95f, ship_x),
-                GetElementSize(0.04f, 0.04f),
-                uil::Alignment::TOP_RIGHT,
-                "X",
-                app::SoundType::ACCEPTED
-        );
+        m_resetBtn = std::make_shared<uil::ClassicButton>(7,
+                                                          GetElementPosition(0.95f, ship_x),
+                                                          GetElementSize(0.04f, 0.04f),
+                                                          uil::Alignment::TOP_RIGHT,
+                                                          "X",
+                                                          app::SoundType::ACCEPTED);
         m_resetBtn->SetOnClick([this]() { this->ClearInputLines(); });
         m_elements.push_back(m_resetBtn);
     }
@@ -403,12 +353,7 @@ namespace ui {
         }
 
         m_galaxy = std::make_shared<GalaxyScene>(
-                GetElementPosition(0.01f, 0.99f),
-                GetElementSize(0.8f, 0.8f),
-                uil::Alignment::BOTTOM_LEFT,
-                false,
-                true
-        );
+                GetElementPosition(0.01f, 0.99f), GetElementSize(0.8f, 0.8f), uil::Alignment::BOTTOM_LEFT, false, true);
         m_galaxy->FilterByCurrentPlayer(m_currentPlayer);
         m_elements.push_back(m_galaxy);
     }
@@ -421,12 +366,10 @@ namespace ui {
             m_planetTable = nullptr;
         }
 
-        m_planetTable = std::make_shared<PlanetTable>(
-                GetElementPosition(0.01f, 0.95f),
-                GetElementSize(0.85f, 0.78f),
-                uil::Alignment::BOTTOM_LEFT,
-                m_galaxy->GetGalaxy()
-        );
+        m_planetTable = std::make_shared<PlanetTable>(GetElementPosition(0.01f, 0.95f),
+                                                      GetElementSize(0.85f, 0.78f),
+                                                      uil::Alignment::BOTTOM_LEFT,
+                                                      m_galaxy->GetGalaxy());
         m_elements.push_back(m_planetTable);
     }
 
@@ -439,13 +382,11 @@ namespace ui {
             m_fleetTable = nullptr;
         }
 
-        m_fleetTable = std::make_shared<FleetAndTargetPointTable>(
-                GetElementPosition(0.01f, 0.95f),
-                GetElementSize(0.85f, 0.78f),
-                uil::Alignment::BOTTOM_LEFT,
-                m_galaxy->GetGalaxy(),
-                m_currentPlayer
-        );
+        m_fleetTable = std::make_shared<FleetAndTargetPointTable>(GetElementPosition(0.01f, 0.95f),
+                                                                  GetElementSize(0.85f, 0.78f),
+                                                                  uil::Alignment::BOTTOM_LEFT,
+                                                                  m_galaxy->GetGalaxy(),
+                                                                  m_currentPlayer);
         m_elements.push_back(m_fleetTable);
     }
 
@@ -463,8 +404,8 @@ namespace ui {
         if (skip) {
             eve::ShowMessagePopUpEvent event{
                 appContext.languageManager.Text("scene_main_scene_popup_text_skip_turn_title"),
-                appContext.languageManager
-                        .Text("scene_main_scene_popup_text_skip_turn_subtitle", m_currentPlayer.GetName(), '\n'),
+                appContext.languageManager.Text(
+                        "scene_main_scene_popup_text_skip_turn_subtitle", m_currentPlayer.GetName(), '\n'),
                 [this]() {
                     this->Switch(MainSceneType::GALAXY);
                     app::AppContext::GetInstance().eventManager.InvokeEvent(eve::TriggerNextTurnEvent());
@@ -473,11 +414,9 @@ namespace ui {
             appContext.eventManager.InvokeEvent(event);
         } else {
             eve::ShowMessagePopUpEvent event{ appContext.languageManager.Text("scene_main_scene_popup_text_turn_title"),
-                                              appContext.languageManager.Text(
-                                                      "scene_main_scene_popup_text_turn_text",
-                                                      m_currentPlayer.GetName(),
-                                                      "\n"
-                                              ),
+                                              appContext.languageManager.Text("scene_main_scene_popup_text_turn_text",
+                                                                              m_currentPlayer.GetName(),
+                                                                              "\n"),
                                               [this]() { this->Switch(MainSceneType::GALAXY); } };
             appContext.eventManager.InvokeEvent(event);
         }
@@ -560,8 +499,7 @@ namespace ui {
                                               m_destinationX->IsEnabled() ? m_destinationX->Value<utl::usize>() : 0,
                                               m_destinationY->IsEnabled() ? m_destinationY->Value<utl::usize>() : 0,
                                               m_shipCount->Value<utl::usize>(),
-                                              type
-        };
+                                              type };
         app::AppContext::GetInstance().eventManager.InvokeEvent(event);
     }
 
@@ -598,10 +536,10 @@ namespace ui {
                 m_destinationY->SetValue(static_cast<utl::usize>(co.y));
             }
         }
-
-        if (auto const& spaceObject = GetSpaceObjectFromID(event->GetOriginID())) {
-            if (spaceObject->GetPlayer()->GetID() == m_currentPlayer.ID) {
-                m_shipCount->SetValue(spaceObject->GetShipCount());
+        auto const& spaceObject = GetSpaceObjectFromID(event->GetOriginID());
+        if (spaceObject.first) {
+            if (spaceObject.second.playerID == m_currentPlayer.ID) {
+                m_shipCount->SetValue(spaceObject.second.shipCount);
                 m_shipCount->SetClearByNextInput(true);
             } else {
                 m_shipCount->Clear();
@@ -615,27 +553,27 @@ namespace ui {
         app::AppContext::GetInstance().eventManager.InvokeEvent(focusEvent);
     }
 
-    lgk::SpaceObject_ty MainScene::GetSpaceObjectFromID(utl::usize const ID) const {
-        auto const& planetData{ m_galaxy->GetGalaxy()->GetPlanets() };
+    std::pair<bool, utl::RepresentationSpaceObject> MainScene::GetSpaceObjectFromID(utl::usize const ID) const {
+        auto const& planetData{ m_galaxy->GetGalaxy().planets };
         for (auto const& planet : planetData) {
-            if (planet->GetID() == ID) {
-                return planet;
+            if (planet.ID == ID) {
+                return { true, planet };
             }
         }
-        auto const& fleetData{ m_galaxy->GetGalaxy()->GetFleets() };
+        auto const& fleetData{ m_galaxy->GetGalaxy().fleets };
         for (auto const& fleet : fleetData) {
-            if (fleet->GetID() == ID) {
-                return fleet;
+            if (fleet.ID == ID) {
+                return { true, fleet };
             }
         }
-        auto const& targetData{ m_galaxy->GetGalaxy()->GetTargetPoints() };
+        auto const& targetData{ m_galaxy->GetGalaxy().targetPoints };
         for (auto const& target : targetData) {
-            if (target->GetID() == ID) {
-                return target;
+            if (target.ID == ID) {
+                return { true, target };
             }
         }
 
-        return nullptr;
+        return { false, utl::RepresentationSpaceObject{} };
     }
 
     MainScene::MainScene()

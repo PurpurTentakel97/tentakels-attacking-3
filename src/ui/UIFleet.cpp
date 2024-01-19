@@ -7,15 +7,14 @@
 #include "UIGalaxyElement.hpp"
 #include <alias/AliasCustomRaylib.hpp>
 #include <app/AppContext.hpp>
-#include <logic/Fleet.hpp>
 #include <ui_lib/ShipCountRing.hpp>
 
 
 namespace ui {
     UIFleet::UIFleet(utl::usize const ID, app::PlayerData const& player, Vector2 const start, Vector2 const end, Vector2 const relativeStart, Vector2 const relativeEnd,
-                 lgk::Fleet_ty_raw_c fleet, std::function<bool(Vector2 const&)> isInGalaxyCollider)
+                 utl::RepresentationFleet fleet, std::function<bool(Vector2 const&)> isInGalaxyCollider)
     : UIElement{ start, { 0.005f,0.01f }, uil::Alignment::MID_MID }, m_ID{ ID }, m_player{ player },
-    m_relativeStart{ relativeStart }, m_relativeEnd{ relativeEnd }, m_fleet { fleet }, m_isInGalaxyCollider{ std::move(isInGalaxyCollider) },
+    m_relativeStart{ relativeStart }, m_relativeEnd{ relativeEnd }, m_fleet { std::move(fleet) }, m_isInGalaxyCollider{ std::move(isInGalaxyCollider) },
     m_line{
         start,
         end,
@@ -29,15 +28,13 @@ namespace ui {
         Vector2(0.01f,0.01f)
     } {
 
-        m_ring = std::make_shared<uil::CountRing>(
-                Vector2{ m_pos.x - m_size.x / 2, m_pos.y - m_size.y / 2 },
-                m_size,
-                uil::Alignment::MID_MID,
-                m_size.x,
-                m_size.x * 3.0f,
-                static_cast<int>(m_fleet->GetShipCount()),
-                UIGalaxyElement::s_maxShipCount
-        );
+        m_ring = std::make_shared<uil::CountRing>(Vector2{ m_pos.x - m_size.x / 2, m_pos.y - m_size.y / 2 },
+                                                  m_size,
+                                                  uil::Alignment::MID_MID,
+                                                  m_size.x,
+                                                  m_size.x * 3.0f,
+                                                  static_cast<int>(m_fleet.shipCount),
+                                                  UIGalaxyElement::s_maxShipCount);
         Color color{ m_player.color };
         color.a = UIGalaxyElement::s_ringColorAlpha;
         m_ring->SetRingColor(color);
@@ -79,11 +76,11 @@ namespace ui {
     }
 
     void UIFleet::UpdateHoverText() {
-        std::string const position{ "X: " + std::to_string(m_fleet->GetPos().x)
-                                    + ", Y: " + std::to_string(m_fleet->GetPos().y) };
-        std::string const text_1{ std::to_string(m_fleet->GetID()) + " | " + position + " |" };
-        std::string const text_2{ std::to_string(m_fleet->GetShipCount()) };
-        m_hover.SetText(app::AppContext::GetInstance().languageManager.Text("ui_fleet_hover", text_1, text_2));
+        std::string const position{ "X: " + std::to_string(m_fleet.position.x)
+                                    + ", Y: " + std::to_string(m_fleet.position.y) };
+        std::string const text_1{ std::to_string(m_fleet.ID) + " | " + position + " |" };
+        m_hover.SetText(
+                app::AppContext::GetInstance().languageManager.Text("ui_fleet_hover", text_1, m_fleet.shipCount));
     }
 
     void UIFleet::UpdatePositions(Rectangle const newCollider) {
@@ -127,12 +124,10 @@ namespace ui {
     void UIFleet::Render(app::AppContext_ty_c appContext) {
 
         if (m_isDisplayAsPoint) {
-            DrawCircle(
-                    static_cast<int>(m_collider.x),
-                    static_cast<int>(m_collider.y),
-                    m_collider.width / 2,
-                    m_player.color
-            );
+            DrawCircle(static_cast<int>(m_collider.x),
+                       static_cast<int>(m_collider.y),
+                       m_collider.width / 2,
+                       m_player.color);
             return;
         }
 

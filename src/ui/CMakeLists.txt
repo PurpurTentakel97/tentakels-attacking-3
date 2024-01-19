@@ -88,6 +88,5 @@ target_link_libraries(ui
                       PUBLIC
                       app
                       alias
-                      logic
                       ui_lib
 )

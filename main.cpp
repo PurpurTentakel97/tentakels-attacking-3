@@ -9,6 +9,7 @@
 #include <app/AppContext.hpp>
 #include <helper/HErrorLog.hpp>
 #include <helper/HPrint.hpp>
+#include <logic/ManagerGame.hpp>
 #include <ui/ManagerUI.hpp>
 
 int main() {
@@ -31,6 +32,8 @@ int main() {
     uiManager.StartUI();
 
     appContext.ValidateConfig();
+
+    lgk::GameManager m_gameManager{};
 
     uiManager.StartUILoop();
 

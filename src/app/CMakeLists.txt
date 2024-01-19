@@ -3,16 +3,16 @@ add_library(app STATIC
             include/app/AssetType.hpp
             include/app/AssetManager.hpp
             include/app/LanguageManager.hpp
-            include/app/SoundManager.hpp
-            include/app/SoundType.hpp
             include/app/PlayerCollection.hpp
             include/app/PlayerData.hpp
+            include/app/SoundManager.hpp
+            include/app/SoundType.hpp
             AppContext.cpp
             AssetManager.cpp
             LanguageManager.cpp
-            SoundManager.cpp
             PlayerCollection.cpp
             PlayerData.cpp
+            SoundManager.cpp
 )
 
 target_include_directories(app
