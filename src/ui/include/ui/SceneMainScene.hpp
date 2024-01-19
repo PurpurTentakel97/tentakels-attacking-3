@@ -72,7 +72,7 @@ namespace ui {
 
         void HandleGalaxyDragLineInput(eve::DragLineFleetInstructionEvent const* event);
 
-        [[nodiscard]] utl::SpaceObjectRepresentation GetSpaceObjectFromID(utl::usize ID) const;
+        [[nodiscard]] std::pair<bool, utl::SpaceObjectRepresentation> GetSpaceObjectFromID(utl::usize ID) const;
 
     public:
         MainScene();
