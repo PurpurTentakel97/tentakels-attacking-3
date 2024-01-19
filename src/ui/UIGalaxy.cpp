@@ -20,7 +20,7 @@
 namespace ui {
     void UIGalaxy::Initialize(eve::SendGalaxyRepresentationEvent const* const event) {
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
-        utl::GalaxyRepresentation galaxy{ event->GetGalaxy() };
+        utl::RepresentationGalaxy galaxy{ event->GetGalaxy() };
 
         m_currentGalaxy = galaxy;
         auto currentFocusID{ 1 };
@@ -608,7 +608,7 @@ namespace ui {
         return UIElement::GetCollider();
     }
 
-    utl::GalaxyRepresentation UIGalaxy::GetGalaxy() const {
+    utl::RepresentationGalaxy UIGalaxy::GetGalaxy() const {
         return m_currentGalaxy;
     }
 

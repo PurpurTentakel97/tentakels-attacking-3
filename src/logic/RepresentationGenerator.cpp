@@ -12,7 +12,7 @@
 
 
 namespace lgk {
-    [[nodiscard]] static utl::DestinationRepresentation GenSingleDestinationRep(SpaceObject_ty_c spaceObject) {
+    [[nodiscard]] static utl::RepresentationDestination GenSingleDestinationRep(SpaceObject_ty_c spaceObject) {
         auto const type = [spaceObject]() -> utl::TargetType {
             if (spaceObject->IsPlanet()) {
                 return utl::TargetType::PLANET;
@@ -37,7 +37,7 @@ namespace lgk {
         };
     }
 
-    [[nodiscard]] static utl::PlanetRepresentation GenSinglePlanetRep(Planet_ty_c planet) {
+    [[nodiscard]] static utl::RepresentationPlanet GenSinglePlanetRep(Planet_ty_c planet) {
         return {
             // clang-format off
             planet->IsDiscovered(),
@@ -51,15 +51,15 @@ namespace lgk {
             // clang-format on
         };
     }
-    [[nodiscard]] static std::vector<utl::PlanetRepresentation> GenAllPlanetRep(std::vector<Planet_ty> const& planets) {
-        std::vector<utl::PlanetRepresentation> r{};
+    [[nodiscard]] static std::vector<utl::RepresentationPlanet> GenAllPlanetRep(std::vector<Planet_ty> const& planets) {
+        std::vector<utl::RepresentationPlanet> r{};
         for (auto const& p : planets) {
             r.push_back(GenSinglePlanetRep(p));
         }
         return r;
     }
 
-    [[nodiscard]] static utl::TargetPointRepresentation GenSingleTargetPointRep(TargetPoint_ty_c targetPoint) {
+    [[nodiscard]] static utl::RepresentationTargetPoint GenSingleTargetPointRep(TargetPoint_ty_c targetPoint) {
         return {
             // clang-format off
             targetPoint->IsDiscovered(),
@@ -70,16 +70,16 @@ namespace lgk {
             // clang-format on
         };
     }
-    [[nodiscard]] static std::vector<utl::TargetPointRepresentation> GenAllTargetPointRep(
+    [[nodiscard]] static std::vector<utl::RepresentationTargetPoint> GenAllTargetPointRep(
             std::vector<TargetPoint_ty> const& targetPoints) {
-        std::vector<utl::TargetPointRepresentation> r{};
+        std::vector<utl::RepresentationTargetPoint> r{};
         for (auto const& t : targetPoints) {
             r.push_back(GenSingleTargetPointRep(t));
         }
         return r;
     }
 
-    [[nodiscard]] static utl::FleetRepresentation GenSingleFleetRep(Fleet_ty_c fleet) {
+    [[nodiscard]] static utl::RepresentationFleet GenSingleFleetRep(Fleet_ty_c fleet) {
         return {
             // clang-format off
             fleet->IsDiscovered(),
@@ -91,15 +91,15 @@ namespace lgk {
             // clang-format on
         };
     }
-    [[nodiscard]] static std::vector<utl::FleetRepresentation> GenAllFleetRep(std::vector<Fleet_ty> const& fleets) {
-        std::vector<utl::FleetRepresentation> r{};
+    [[nodiscard]] static std::vector<utl::RepresentationFleet> GenAllFleetRep(std::vector<Fleet_ty> const& fleets) {
+        std::vector<utl::RepresentationFleet> r{};
         for (auto const& f : fleets) {
             r.push_back(GenSingleFleetRep(f));
         }
         return r;
     }
 
-    utl::GalaxyRepresentation lgk::GenGalaxyRep(Galaxy const* galaxy) {
+    utl::RepresentationGalaxy lgk::GenGalaxyRep(Galaxy const* galaxy) {
         return { GenAllPlanetRep(galaxy->GetPlanets()),
                  GenAllTargetPointRep(galaxy->GetTargetPoints()),
                  GenAllFleetRep(galaxy->GetFleets()),

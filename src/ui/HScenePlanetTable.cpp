@@ -89,7 +89,7 @@ namespace ui {
     PlanetTable::PlanetTable(Vector2 const pos,
                              Vector2 const size,
                              uil::Alignment const alignment,
-                             utl::GalaxyRepresentation const galaxy)
+                             utl::RepresentationGalaxy const galaxy)
         : Scene{ pos, size, alignment },
           m_galaxy{ std::move(galaxy) } {
 

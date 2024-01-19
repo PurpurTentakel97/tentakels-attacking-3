@@ -6,8 +6,8 @@
 #pragma once
 
 #include "Galaxy.hpp"
-#include <utils/GalaxyRepresentation.hpp>
+#include <utils/RepresentationGalaxy.hpp>
 
 namespace lgk {
-    [[nodiscard]] utl::GalaxyRepresentation GenGalaxyRep(Galaxy const* galaxy);
+    [[nodiscard]] utl::RepresentationGalaxy GenGalaxyRep(Galaxy const* galaxy);
 }

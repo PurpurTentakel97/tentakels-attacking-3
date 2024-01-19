@@ -11,8 +11,8 @@
 #include <string>
 #include <unordered_map>
 #include <utils/FightResult.hpp>
-#include <utils/GalaxyRepresentation.hpp>
 #include <utils/MergeResult.hpp>
+#include <utils/RepresentationGalaxy.hpp>
 
 
 namespace eve {
@@ -195,15 +195,15 @@ namespace eve {
 
     class SendGalaxyRepresentationEvent final : public Event {
     private:
-        utl::GalaxyRepresentation m_galaxy;
+        utl::RepresentationGalaxy m_galaxy;
         bool m_isShowGalaxy;
 
     public:
-        SendGalaxyRepresentationEvent(utl::GalaxyRepresentation galaxy, bool const isShowGalaxy)
+        SendGalaxyRepresentationEvent(utl::RepresentationGalaxy galaxy, bool const isShowGalaxy)
             : m_galaxy{ std::move(galaxy) },
               m_isShowGalaxy{ isShowGalaxy } { }
 
-        [[nodiscard]] utl::GalaxyRepresentation GetGalaxy() const {
+        [[nodiscard]] utl::RepresentationGalaxy GetGalaxy() const {
             return m_galaxy;
         }
         [[nodiscard]] bool IsShowGalaxy() const {

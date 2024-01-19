@@ -6,13 +6,13 @@
 #pragma once
 
 #include "UIGalaxyElement.hpp"
-#include <utils/PlanetRepresentation.hpp>
+#include <utils/RepresentationPlanet.hpp>
 
 
 namespace ui {
     class UIPlanet final : public UIGalaxyElement {
     private:
-        utl::PlanetRepresentation m_planet;
+        utl::RepresentationPlanet m_planet;
         Vector2 m_renderOffset{};
 
     public:
@@ -22,7 +22,7 @@ namespace ui {
                 app::PlayerData const& player,
                 Vector2 pos,
                 Vector2 colliderPos,
-                 utl::PlanetRepresentation planet);
+                 utl::RepresentationPlanet planet);
 
 
         void UpdateHoverText() override;

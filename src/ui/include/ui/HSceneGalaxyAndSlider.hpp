@@ -46,7 +46,7 @@ namespace ui {
 
         [[nodiscard]] bool IsEnabled() const;
 
-        [[nodiscard]] utl::GalaxyRepresentation GetGalaxy() const;
+        [[nodiscard]] utl::RepresentationGalaxy GetGalaxy() const;
 
         void FilterByCurrentPlayer(app::PlayerData const& player);
 

@@ -30,8 +30,8 @@ namespace utl {
 
     enum class FleetInstructionType;
 
-    struct FleetRepresentation;
-    struct TargetPointRepresentation;
-    struct PlanetRepresentation;
-    struct GalaxyRepresentation;
+    struct RepresentationFleet;
+    struct RepresentationTargetPoint;
+    struct RepresentationPlanet;
+    struct RepresentationGalaxy;
 } // namespace utl

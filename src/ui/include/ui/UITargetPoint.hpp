@@ -7,13 +7,13 @@
 
 #include "UIGalaxyElement.hpp"
 #include <ui_lib/ShipCountRing.hpp>
-#include <utils/TargetPointRepresentation.hpp>
+#include <utils/RepresentationTargetPoint.hpp>
 
 
 namespace ui {
     class UITargetPoint final : public UIGalaxyElement {
     private:
-        utl::TargetPointRepresentation m_targetPoint;
+        utl::RepresentationTargetPoint m_targetPoint;
 
     public:
         UITargetPoint(
@@ -22,7 +22,7 @@ namespace ui {
                 app::PlayerData const& player,
                 Vector2 pos,
                 Vector2 colliderPos,
-                      utl::TargetPointRepresentation targetPoint);
+                      utl::RepresentationTargetPoint targetPoint);
 
         void UpdateHoverText() override;
 

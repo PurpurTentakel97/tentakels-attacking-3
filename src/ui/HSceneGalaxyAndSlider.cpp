@@ -130,7 +130,7 @@ namespace ui {
         return m_isEnabled;
     }
 
-    utl::GalaxyRepresentation GalaxyScene::GetGalaxy() const {
+    utl::RepresentationGalaxy GalaxyScene::GetGalaxy() const {
         return m_galaxy->GetGalaxy();
     }
 

@@ -13,7 +13,7 @@
 
 namespace ui {
     UIFleet::UIFleet(utl::usize const ID, app::PlayerData const& player, Vector2 const start, Vector2 const end, Vector2 const relativeStart, Vector2 const relativeEnd,
-                 utl::FleetRepresentation fleet, std::function<bool(Vector2 const&)> isInGalaxyCollider)
+                 utl::RepresentationFleet fleet, std::function<bool(Vector2 const&)> isInGalaxyCollider)
     : UIElement{ start, { 0.005f,0.01f }, uil::Alignment::MID_MID }, m_ID{ ID }, m_player{ player },
     m_relativeStart{ relativeStart }, m_relativeEnd{ relativeEnd }, m_fleet { std::move(fleet) }, m_isInGalaxyCollider{ std::move(isInGalaxyCollider) },
     m_line{

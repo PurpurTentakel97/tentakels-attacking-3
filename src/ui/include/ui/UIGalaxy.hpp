@@ -13,7 +13,7 @@
 #include <memory>
 #include <ui_lib/Focusable.hpp>
 #include <ui_lib/UIElement.hpp>
-#include <utils/GalaxyRepresentation.hpp>
+#include <utils/RepresentationGalaxy.hpp>
 #include <vector>
 
 
@@ -35,7 +35,7 @@ namespace ui {
         float m_scaleFactor{ 1.0f };
         Vector2 m_lastMousePosition{ 0.0f, 0.0f };
         Rectangle m_absoluteSize{};
-        utl::GalaxyRepresentation m_currentGalaxy;
+        utl::RepresentationGalaxy m_currentGalaxy;
 
         std::vector<UIGalaxyElement_ty> m_uiGalaxyElements;
         std::vector<UIPlanet_ty> m_uiPlanets;
@@ -119,7 +119,7 @@ namespace ui {
 
         [[nodiscard]] Rectangle GetCollider() const override;
 
-        [[nodiscard]] utl::GalaxyRepresentation GetGalaxy() const;
+        [[nodiscard]] utl::RepresentationGalaxy GetGalaxy() const;
 
         void OnEvent(eve::Event const& event) override;
     };

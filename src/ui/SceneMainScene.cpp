@@ -21,7 +21,7 @@
 #include <ui_lib/Text.hpp>
 #include <ui_lib/Title.hpp>
 #include <utils/FleetInstructionType.hpp>
-#include <utils/SpaceObjectRepresentation.hpp>
+#include <utils/RepresentationSpaceObject.hpp>
 
 
 namespace ui {
@@ -556,7 +556,7 @@ namespace ui {
         app::AppContext::GetInstance().eventManager.InvokeEvent(focusEvent);
     }
 
-    std::pair<bool, utl::SpaceObjectRepresentation> MainScene::GetSpaceObjectFromID(utl::usize const ID) const {
+    std::pair<bool, utl::RepresentationSpaceObject> MainScene::GetSpaceObjectFromID(utl::usize const ID) const {
         auto const& planetData{ m_galaxy->GetGalaxy().planets };
         for (auto const& planet : planetData) {
             if (planet.ID == ID) {
@@ -576,7 +576,7 @@ namespace ui {
             }
         }
 
-        return { false, utl::SpaceObjectRepresentation{} };
+        return { false, utl::RepresentationSpaceObject{} };
     }
 
     MainScene::MainScene()

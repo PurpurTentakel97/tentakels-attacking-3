@@ -7,12 +7,12 @@
 
 #include <alias/AliasUtils.hpp>
 #include <ui_lib/Scene.hpp>
-#include <utils/GalaxyRepresentation.hpp>
+#include <utils/RepresentationGalaxy.hpp>
 
 namespace ui {
     class FleetAndTargetPointTable final : public uil::Scene {
     private:
-        utl::GalaxyRepresentation m_galaxy;
+        utl::RepresentationGalaxy m_galaxy;
         uil::Table_ty m_table;
 
         void Initialization(app::PlayerData const& currentPlayer);
@@ -23,7 +23,7 @@ namespace ui {
         FleetAndTargetPointTable(Vector2 pos,
                                  Vector2 size,
                                  uil::Alignment alignment,
-                                 utl::GalaxyRepresentation galaxy,
+                                 utl::RepresentationGalaxy galaxy,
                                  app::PlayerData const& currentPlayer);
 
         void SetActive(bool active, app::AppContext_ty_c appContext) override;

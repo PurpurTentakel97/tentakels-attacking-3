@@ -5,10 +5,10 @@
 
 #pragma once
 
-#include "SpaceObjectRepresentation.hpp"
+#include "RepresentationSpaceObject.hpp"
 
 namespace utl {
-    struct PlanetRepresentation final : public SpaceObjectRepresentation {
+    struct RepresentationPlanet final : public RepresentationSpaceObject {
         bool isDestroyed;
         bool isHumanPlayer;
         usize production;

@@ -9,7 +9,7 @@
 #include <ui_lib/Hover.hpp>
 #include <ui_lib/Line.hpp>
 #include <ui_lib/UIElement.hpp>
-#include <utils/FleetRepresentation.hpp>
+#include <utils/RepresentationFleet.hpp>
 
 
 namespace ui {
@@ -19,7 +19,7 @@ namespace ui {
         app::PlayerData m_player;
         Vector2 m_relativeStart;
         Vector2 m_relativeEnd;
-        utl::FleetRepresentation m_fleet;
+        utl::RepresentationFleet m_fleet;
         std::function<bool(Vector2 const&)> m_isInGalaxyCollider;
         uil::Line m_line;
         uil::Hover m_hover;
@@ -33,7 +33,7 @@ namespace ui {
                 Vector2 end,
                 Vector2 relativeStart,
                 Vector2 relativeEnd,
-                utl::FleetRepresentation fleet,
+                utl::RepresentationFleet fleet,
                 std::function<bool(Vector2 const&)> isInGalaxyCollider);
 
         [[nodiscard]] utl::usize GetID() const;

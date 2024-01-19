@@ -8,7 +8,7 @@
 #include <alias/AliasUtils.hpp>
 
 namespace utl {
-    struct SpaceObjectRepresentation {
+    struct RepresentationSpaceObject {
         bool isDiscovered;
         usize ID;
         usize playerID;

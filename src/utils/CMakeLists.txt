@@ -7,13 +7,13 @@ add_library(utils STATIC
             include/utils/Vec2.hpp
             include/utils/FleetInstructionType.hpp
             include/utils/Concepts.hpp
-            include/utils/TargetPointRepresentation.hpp
-            include/utils/FleetRepresentation.hpp
+            include/utils/RepresentationTargetPoint.hpp
+            include/utils/RepresentationFleet.hpp
             include/utils/TargetType.hpp
-            include/utils/DestinationRepresentation.hpp
-            include/utils/SpaceObjectRepresentation.hpp
-            include/utils/PlanetRepresentation.hpp
-            include/utils/GalaxyRepresentation.hpp
+            include/utils/RepresentationDestination.hpp
+            include/utils/RepresentationSpaceObject.hpp
+            include/utils/RepresentationPlanet.hpp
+            include/utils/RepresentationGalaxy.hpp
             Colors.cpp
             FightResult.cpp
             MergeResult.cpp

@@ -144,7 +144,7 @@ namespace ui {
     FleetAndTargetPointTable::FleetAndTargetPointTable(Vector2 const pos,
                                                        Vector2 const size,
                                                        uil::Alignment const alignment,
-                                                       utl::GalaxyRepresentation galaxy,
+                                                       utl::RepresentationGalaxy galaxy,
                                                        app::PlayerData const& currentPlayer)
         : Scene{ pos, size, alignment },
           m_galaxy{ std::move(galaxy) } {
