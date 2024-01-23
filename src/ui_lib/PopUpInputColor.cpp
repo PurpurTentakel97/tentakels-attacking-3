@@ -9,7 +9,7 @@
 #include <helper/HGeneral.hpp>
 
 
-namespace ui {
+namespace uil {
     void PopUpInputColor::SetValue() {
         m_onClick(m_colorPicker->GetColor());
         SetShouldClose();
@@ -17,8 +17,8 @@ namespace ui {
 
     PopUpInputColor::PopUpInputColor(Vector2 const pos,
             Vector2 const size,
-            uil::Alignment const alignment,
-            std::string const& title,
+                                     Alignment const alignment,
+                                     std::string const& title,
             app::AssetType const infoTexture,
             Color const currentColor,
             std::function<void(Color)> onClick
@@ -31,12 +31,11 @@ namespace ui {
         auto acceptBtn = InitializeAcceptButton();
         acceptBtn->SetOnClick([this]() { this->SetValue(); });
 
-        auto colorPicker = std::make_shared<uil::ColorPicker>(
-                3,
+        auto colorPicker = std::make_shared<ColorPicker>(3,
                 hlp::GetElementPosition(m_pos, m_size, 0.5f, 0.5f),
-                hlp::GetElementSize(m_size, 0.5f, 0.38f),
-                uil::Alignment::MID_MID,
-                true
+                                                         hlp::GetElementSize(m_size, 0.5f, 0.38f),
+                                                         Alignment::MID_MID,
+                                                         true
         );
 
         hlp::AddFocusElement(colorPicker.get(), true);

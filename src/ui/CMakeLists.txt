@@ -1,5 +1,5 @@
 add_library(ui STATIC
-            include/ui/PopUpAll.hpp
+            ../ui_lib/include/ui_lib/PopUpAll.hpp
             include/ui/SceneSettingsApp.hpp
             include/ui/HSceneCreditTable.hpp
             include/ui/SceneCredits.hpp
@@ -12,17 +12,15 @@ add_library(ui STATIC
             include/ui/SceneLogos.hpp
             include/ui/SceneMainMenu.hpp
             include/ui/SceneMainScene.hpp
-            include/ui/PopUpMessage.hpp
             include/ui/SceneNewGameParameter.hpp
             include/ui/SceneNewGamePlayer.hpp
             include/ui/HScenePlanetTable.hpp
             include/ui/ManagerPopUp.hpp
-            include/ui/PrimitiveCellPopUp.hpp
             include/ui/ManagerScene.hpp
             include/ui/SceneAll.hpp
             include/ui/HSceneSettings.hpp
             include/ui/HSceneSliderAndInputLine.hpp
-            include/ui/PopUpSoundLeven.hpp
+            include/ui/PopUpSoundLevel.hpp
             include/ui/HSceneTestScene.hpp
             include/ui/UIFleet.hpp
             include/ui/UIGalaxy.hpp
@@ -32,12 +30,7 @@ add_library(ui STATIC
             include/ui/UITargetPoint.hpp
             include/ui/SceneUpdateEvaluation.hpp
             include/ui/SceneValidateGalaxy.hpp
-            include/ui/PopUpValidate.hpp
-            include/ui/PopUpInput.hpp
-            include/ui/PopUpInputColor.hpp
-            include/ui/PopUpInputString.hpp
-            include/ui/PopUpInputDouble.hpp
-            include/ui/PopUpInputUSize.hpp
+            include/ui/PopupExtra.hpp
             SceneSettingsApp.cpp
             HSceneCreditTable.cpp
             SceneCredits.cpp
@@ -50,7 +43,6 @@ add_library(ui STATIC
             SceneLogos.cpp
             SceneMainMenu.cpp
             SceneMainScene.cpp
-            PopUpMessage.cpp
             SceneNewGameParameter.cpp
             SceneNewGamePlayer.cpp
             HScenePlanetTable.cpp
@@ -68,12 +60,6 @@ add_library(ui STATIC
             UITargetPoint.cpp
             SceneUpdateEvaluation.cpp
             SceneValidateGalaxy.cpp
-            PopUpValidate.cpp
-            PopUpInput.cpp
-            PopUpInputColor.cpp
-            PopUpInputString.cpp
-            PopUpInputDouble.cpp
-            PopUpInputUSize.cpp
 )
 
 target_include_directories(ui
