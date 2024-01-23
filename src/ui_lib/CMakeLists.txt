@@ -29,6 +29,14 @@ add_library(ui_lib STATIC
             include/ui_lib/ButtonToggle.hpp
             include/ui_lib/UIElement.hpp
             include/ui_lib/InputLine.hpp
+            include/ui_lib/PopUpAll.hpp
+            include/ui_lib/PopUpInput.hpp
+            include/ui_lib/PopUpInputColor.hpp
+            include/ui_lib/PopUpInputDouble.hpp
+            include/ui_lib/PopUpInputString.hpp
+            include/ui_lib/PopUpInputUSize.hpp
+            include/ui_lib/PopUpMessage.hpp
+            include/ui_lib/PopUpValidate.hpp
             Alignment.cpp
             Button.cpp
             CheckBox.cpp
@@ -58,6 +66,13 @@ add_library(ui_lib STATIC
             ButtonToggle.cpp
             InputLine.cpp
             TableCell.cpp
+            PopUpInput.cpp
+            PopUpInputColor.cpp
+            PopUpInputDouble.cpp
+            PopUpInputString.cpp
+            PopUpInputUSize.cpp
+            PopUpMessage.cpp
+            PopUpValidate.cpp
 )
 
 target_include_directories(ui_lib

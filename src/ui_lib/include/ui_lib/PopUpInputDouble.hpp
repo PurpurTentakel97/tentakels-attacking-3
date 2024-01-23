@@ -5,10 +5,10 @@
 
 #include "PopUpInput.hpp"
 
-namespace ui {
+namespace uil {
     class PopUpInputDouble final : public PopUpInput {
     private:
-        uil::InputLine_ty m_inputLine;
+        InputLine_ty m_inputLine;
         std::function<void(double)> m_onClick{ [](double) {} };
 
         void SetValue() override;
@@ -16,7 +16,7 @@ namespace ui {
     public:
         PopUpInputDouble(Vector2 pos,
                          Vector2 size,
-                         uil::Alignment alignment,
+                         Alignment alignment,
                          std::string const& title,
                          app::AssetType infoTexture,
                          double curent_value,

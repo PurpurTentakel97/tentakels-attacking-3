@@ -5,13 +5,13 @@
 
 #pragma once
 
+#include "ButtonClassic.hpp"
+#include "PopUp.hpp"
 #include <functional>
-#include <ui_lib/ButtonClassic.hpp>
-#include <ui_lib/PopUp.hpp>
 
 
-namespace ui {
-    class MessagePopUp final : public uil::PopUp {
+namespace uil {
+    class MessagePopUp final : public PopUp {
     private:
         std::function<void()> m_callback{ []() {} };
 
@@ -21,8 +21,8 @@ namespace ui {
         MessagePopUp(
                 Vector2 pos,
                 Vector2 size,
-                uil::Alignment alignment,
-                std::string const& title,
+                     Alignment alignment,
+                     std::string const& title,
                 std::string& subTitle,
                 app::AssetType infoTexture,
                 std::function<void()> callback

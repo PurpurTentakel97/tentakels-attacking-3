@@ -5,12 +5,12 @@
 
 #pragma once
 
+#include "PopUp.hpp"
 #include <functional>
-#include <ui_lib/PopUp.hpp>
 
 
-namespace ui {
-    class ValidatePopUp : public uil::PopUp {
+namespace uil {
+    class ValidatePopUp : public PopUp {
     private:
         std::function<void(bool)> m_callback{ [](bool) {} };
 
@@ -22,8 +22,8 @@ namespace ui {
         ValidatePopUp(
                 Vector2 pos,
                 Vector2 size,
-                uil::Alignment alignment,
-                std::string const& title,
+                      Alignment alignment,
+                      std::string const& title,
                 std::string& subTitle,
                 app::AssetType infoTexture,
                 std::function<void(bool)> callback

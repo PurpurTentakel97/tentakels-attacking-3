@@ -6,10 +6,10 @@
 
 #include "PopUpInput.hpp"
 
-namespace ui {
+namespace uil {
     class PopUpInputUSize final : public PopUpInput {
     private:
-        uil::InputLine_ty m_inputLine;
+        InputLine_ty m_inputLine;
         std::function<void(utl::usize)> m_onClick{ [](utl::usize) {} };
 
         void SetValue() override;
@@ -17,7 +17,7 @@ namespace ui {
     public:
         PopUpInputUSize(Vector2 pos,
                         Vector2 size,
-                        uil::Alignment alignment,
+                        Alignment alignment,
                         std::string const& title,
                         app::AssetType infoTexture,
                         utl::usize currentValue,

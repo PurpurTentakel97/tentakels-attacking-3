@@ -5,10 +5,10 @@
 
 #include "PopUpInput.hpp"
 
-namespace ui {
+namespace uil {
     class PopUpInputString final : public PopUpInput {
     private:
-        uil::InputLine_ty m_inputLine;
+        InputLine_ty m_inputLine;
         std::function<void(std::string const&)> m_onClick{ [](std::string const&) {} };
 
         void SetValue() override;
@@ -16,7 +16,7 @@ namespace ui {
     public:
         PopUpInputString(Vector2 pos,
                          Vector2 size,
-                         uil::Alignment alignment,
+                         Alignment alignment,
                          std::string const& title,
                          app::AssetType infoTexture,
                          std::string const& currentValue,

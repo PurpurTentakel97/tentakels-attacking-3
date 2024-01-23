@@ -77,8 +77,8 @@ namespace ui {
     void ManagerPopUp::NewMessagePopUp(eve::ShowMessagePopUpEvent const* const event) {
         hlp::AddFocusLayer(true);
 
-        m_popUps.push_back(std::make_unique<MessagePopUp>(Vector2(0.5f, 0.5f),
-                                                          Vector2(0.5f, 0.5f),
+        m_popUps.push_back(std::make_unique<uil::MessagePopUp>(Vector2(0.5f, 0.5f),
+                                                               Vector2(0.5f, 0.5f),
                                                           uil::Alignment::MID_MID,
                                                           event->GetTitle(),
                                                           const_cast<std::string&>(event->GetSubTitle()),
@@ -89,8 +89,8 @@ namespace ui {
     void ManagerPopUp::NewValidatePopUp(eve::ShowValidatePopUp const* const event) {
         hlp::AddFocusLayer(true);
 
-        m_popUps.push_back(std::make_unique<ValidatePopUp>(Vector2(0.5f, 0.5f),
-                                                           Vector2(0.5f, 0.5f),
+        m_popUps.push_back(std::make_unique<uil::ValidatePopUp>(Vector2(0.5f, 0.5f),
+                                                                Vector2(0.5f, 0.5f),
                                                            uil::Alignment::MID_MID,
                                                            event->GetTitle(),
                                                            const_cast<std::string&>(event->GetSubTitle()),
@@ -103,8 +103,8 @@ namespace ui {
         eve::NewFocusPopUpLayerEvent focusEvent;
         appContext.eventManager.InvokeEvent(focusEvent);
 
-        m_popUps.push_back(std::make_unique<PopUpInputColor>(Vector2(0.5f, 0.5f),
-                                                             Vector2(0.7f, 0.7f),
+        m_popUps.push_back(std::make_unique<uil::PopUpInputColor>(Vector2(0.5f, 0.5f),
+                                                                  Vector2(0.7f, 0.7f),
                                                             uil::Alignment::MID_MID,
                                                             event->GetTitle(),
                                                             app::AssetType::LOGO,
@@ -140,8 +140,8 @@ namespace ui {
         eve::NewFocusPopUpLayerEvent focusEvent;
         appContext.eventManager.InvokeEvent(focusEvent);
 
-        m_popUps.push_back(std::make_unique<PopUpInputColor>(Vector2(0.5f, 0.5f),
-                                                             Vector2(0.7f, 0.7f),
+        m_popUps.push_back(std::make_unique<uil::PopUpInputColor>(Vector2(0.5f, 0.5f),
+                                                                  Vector2(0.7f, 0.7f),
                                                              uil::Alignment::MID_MID,
                                                              event->GetTitle(),
                                                              app::AssetType::LOGO,
@@ -153,8 +153,8 @@ namespace ui {
         eve::NewFocusPopUpLayerEvent focusEvent;
         appContext.eventManager.InvokeEvent(focusEvent);
 
-        m_popUps.push_back(std::make_unique<PopUpInputString>(Vector2(0.5f, 0.5f),
-                                                              Vector2(0.7f, 0.7f),
+        m_popUps.push_back(std::make_unique<uil::PopUpInputString>(Vector2(0.5f, 0.5f),
+                                                                   Vector2(0.7f, 0.7f),
                                                               uil::Alignment::MID_MID,
                                                               event->GetTitle(),
                                                               app::AssetType::LOGO,
@@ -166,8 +166,8 @@ namespace ui {
         eve::NewFocusPopUpLayerEvent focusEvent;
         appContext.eventManager.InvokeEvent(focusEvent);
 
-        m_popUps.push_back(std::make_unique<PopUpInputDouble>(Vector2(0.5f, 0.5f),
-                                                              Vector2(0.7f, 0.7f),
+        m_popUps.push_back(std::make_unique<uil::PopUpInputDouble>(Vector2(0.5f, 0.5f),
+                                                                   Vector2(0.7f, 0.7f),
                                                               uil::Alignment::MID_MID,
                                                               event->GetTitle(),
                                                               app::AssetType::LOGO,
@@ -179,8 +179,8 @@ namespace ui {
         eve::NewFocusPopUpLayerEvent focusEvent;
         appContext.eventManager.InvokeEvent(focusEvent);
 
-        m_popUps.push_back(std::make_unique<PopUpInputUSize>(Vector2(0.5f, 0.5f),
-                                                             Vector2(0.7f, 0.7f),
+        m_popUps.push_back(std::make_unique<uil::PopUpInputUSize>(Vector2(0.5f, 0.5f),
+                                                                  Vector2(0.7f, 0.7f),
                                                              uil::Alignment::MID_MID,
                                                              event->GetTitle(),
                                                              app::AssetType::LOGO,

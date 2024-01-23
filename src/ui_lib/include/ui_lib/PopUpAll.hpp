@@ -16,9 +16,3 @@
 #include "PopUpInputDouble.hpp"
 #include "PopUpInputString.hpp"
 #include "PopUpInputUSize.hpp"
-
-// Sound
-#include "PopUpSoundLeven.hpp"
-
-// evaluation
-#include "PopupResultFight.hpp"

@@ -5,14 +5,14 @@
 
 #pragma once
 
+#include "ColorPicker.hpp"
 #include "PopUpInput.hpp"
-#include <ui_lib/ColorPicker.hpp>
 
 
-namespace ui {
+namespace uil {
     class PopUpInputColor final : public PopUpInput {
     private:
-        uil::ColorPicker_ty m_colorPicker;
+        ColorPicker_ty m_colorPicker;
         std::function<void(Color)> m_onClick{ [](Color) {} };
 
         void SetValue() override;
@@ -20,8 +20,8 @@ namespace ui {
     public:
         PopUpInputColor(Vector2 pos,
                 Vector2 size,
-                uil::Alignment alignment,
-                std::string const& title,
+                        Alignment alignment,
+                        std::string const& title,
                 app::AssetType infoTexture,
                 Color currentColor,
                 std::function<void(Color)> onClick
