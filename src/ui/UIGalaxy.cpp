@@ -20,15 +20,9 @@ namespace ui {
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
         m_currentGalaxy = { event->GetGalaxy() };
 
+        // scale ui galaxy dimensions
         auto const ratioX{ static_cast<float>(m_collider.width) / static_cast<float>(m_currentGalaxy.size.x) };
         auto const ratioY{ static_cast<float>(m_collider.height) / static_cast<float>(m_currentGalaxy.size.y) };
-
-        hlp::Print(hlp::PrintType::DEBUG, "collider X: {},\t\tcollider Y: {},", m_collider.width, m_collider.height);
-        hlp::Print(hlp::PrintType::DEBUG,
-                   "galaxy X: {},\t\t\tgalaxy Y: {},",
-                   m_currentGalaxy.size.x,
-                   m_currentGalaxy.size.y);
-        hlp::Print(hlp::PrintType::DEBUG, "ratio X: {},\t\tratio Y: {}", ratioX, ratioY);
 
         auto newCollider = m_collider;
         if (ratioY > ratioX) {
@@ -42,16 +36,7 @@ namespace ui {
         SetCollider(newCollider);
         m_absoluteSize = m_collider;
 
-        hlp::Print(hlp::PrintType::DEBUG, "collider X: {},\t\tcollider Y: {},", m_collider.width, m_collider.height);
-        hlp::Print(hlp::PrintType::DEBUG,
-                   "galaxy X: {},\t\t\tgalaxy Y: {},",
-                   m_currentGalaxy.size.x,
-                   m_currentGalaxy.size.y);
-        hlp::Print(hlp::PrintType::DEBUG,
-                   "ratio X: {},\t\tratio Y: {}",
-                   static_cast<float>(m_collider.width) / static_cast<float>(m_currentGalaxy.size.x),
-                   static_cast<float>(m_collider.height) / static_cast<float>(m_currentGalaxy.size.y));
-
+        // place space objects
         auto currentFocusID{ 1 };
         for (auto const& p : m_currentGalaxy.planets) {
             currentFocusID = static_cast<int>(p.ID);
