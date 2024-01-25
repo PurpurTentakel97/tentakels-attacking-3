@@ -18,11 +18,42 @@
 namespace ui {
     void UIGalaxy::Initialize(eve::SendGalaxyRepresentationEvent const* const event) {
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
-        utl::RepresentationGalaxy galaxy{ event->GetGalaxy() };
+        m_currentGalaxy = { event->GetGalaxy() };
 
-        m_currentGalaxy = galaxy;
+        auto const ratioX{ static_cast<float>(m_collider.width) / static_cast<float>(m_currentGalaxy.size.x) };
+        auto const ratioY{ static_cast<float>(m_collider.height) / static_cast<float>(m_currentGalaxy.size.y) };
+
+        hlp::Print(hlp::PrintType::DEBUG, "collider X: {},\t\tcollider Y: {},", m_collider.width, m_collider.height);
+        hlp::Print(hlp::PrintType::DEBUG,
+                   "galaxy X: {},\t\t\tgalaxy Y: {},",
+                   m_currentGalaxy.size.x,
+                   m_currentGalaxy.size.y);
+        hlp::Print(hlp::PrintType::DEBUG, "ratio X: {},\t\tratio Y: {}", ratioX, ratioY);
+
+        auto newCollider = m_collider;
+        if (ratioY > ratioX) {
+            auto const newHeight = newCollider.height / ratioY * ratioX;
+            newCollider.y += newCollider.height - newHeight;
+            newCollider.height = newHeight;
+        } else {
+            newCollider.width = newCollider.width / ratioX * ratioY;
+        }
+
+        SetCollider(newCollider);
+        m_absoluteSize = m_collider;
+
+        hlp::Print(hlp::PrintType::DEBUG, "collider X: {},\t\tcollider Y: {},", m_collider.width, m_collider.height);
+        hlp::Print(hlp::PrintType::DEBUG,
+                   "galaxy X: {},\t\t\tgalaxy Y: {},",
+                   m_currentGalaxy.size.x,
+                   m_currentGalaxy.size.y);
+        hlp::Print(hlp::PrintType::DEBUG,
+                   "ratio X: {},\t\tratio Y: {}",
+                   static_cast<float>(m_collider.width) / static_cast<float>(m_currentGalaxy.size.x),
+                   static_cast<float>(m_collider.height) / static_cast<float>(m_currentGalaxy.size.y));
+
         auto currentFocusID{ 1 };
-        for (auto const& p : galaxy.planets) {
+        for (auto const& p : m_currentGalaxy.planets) {
             currentFocusID = static_cast<int>(p.ID);
             auto planet    = std::make_shared<UIPlanet>(currentFocusID,
                                                      p.ID,
@@ -53,7 +84,7 @@ namespace ui {
             m_uiGalaxyElements.push_back(planet);
             m_uiPlanets.push_back(planet);
         }
-        for (auto const& t : galaxy.targetPoints) {
+        for (auto const& t : m_currentGalaxy.targetPoints) {
             ++currentFocusID;
             auto point = std::make_shared<UITargetPoint>(currentFocusID,
                                                          t.ID,
@@ -76,7 +107,7 @@ namespace ui {
             m_uiTargetPoints.push_back(point);
             m_uiGalaxyElements.push_back(point);
         }
-        for (auto const& f : galaxy.fleets) {
+        for (auto const& f : m_currentGalaxy.fleets) {
             auto fleet = std::make_shared<UIFleet>(
                     f.ID,
                     appContext.playerCollection.GetPlayerOrNpcByID(f.playerID),
