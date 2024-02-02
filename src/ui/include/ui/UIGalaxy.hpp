@@ -35,6 +35,7 @@ namespace ui {
         float m_scaleFactor{ 1.0f };
         Vector2 m_lastMousePosition{ 0.0f, 0.0f };
         Rectangle m_absoluteSize{};
+        Rectangle m_renderRectangle{};
         utl::RepresentationGalaxy m_currentGalaxy;
 
         std::vector<UIGalaxyElement_ty> m_uiGalaxyElements;
@@ -55,7 +56,7 @@ namespace ui {
 
         [[nodiscard]] Vector2 GetRelativePosition(Vector2 pos, app::AppContext_ty_c appContext) const;
 
-        [[nodiscard]] bool IsUIGalaxyElementInCollider(UIGalaxyElement_ty const& element) const;
+        [[nodiscard]] bool IsUIGalaxyElementInCollider(UIGalaxyElement_ty const& element, Rectangle const& col) const;
 
         void UpdateUIGalaxyElementPosition();
 

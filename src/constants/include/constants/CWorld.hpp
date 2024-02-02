@@ -26,7 +26,7 @@ namespace cst {
         utl::usize maxDimensionY{ 160 };
 
         utl::usize showDimensionX{ 200 };
-        utl::usize showDimensionY{ 150 };
+        utl::usize showDimensionY{ 112 };
 
         utl::usize discoverRangeFactor{ 3 };
     };
