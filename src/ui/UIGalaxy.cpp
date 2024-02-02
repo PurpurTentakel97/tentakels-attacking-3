@@ -33,6 +33,9 @@ namespace ui {
             newCollider.width = newCollider.width / ratioX * ratioY;
         }
 
+        newCollider.x += (m_collider.width - newCollider.width) / 2;
+        newCollider.y += (m_collider.height - newCollider.height) / 2;
+
         SetCollider(newCollider);
         m_absoluteSize = m_collider;
 
