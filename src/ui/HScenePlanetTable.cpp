@@ -25,8 +25,8 @@ namespace ui {
                                                uil::Alignment::TOP_LEFT,
                                                1000,
                                                discoveredCount + 1,
-                                               4,
-                                               Vector2(0.25f, 0.05f),
+                                               5,
+                                               Vector2(0.2f, 0.05f),
                                                0.2f);
         m_table->SetAllEditable(false);
         m_table->SetFixedHeadline(true);
@@ -34,6 +34,7 @@ namespace ui {
         m_table->SetHighlightHover(true);
         m_table->SetHeadlineValues<std::string>(
                 { appContext.languageManager.Text("ui_planet_table_headline_id"),
+                  appContext.languageManager.Text("ui_planet_table_headline_alias"),
                   appContext.languageManager.Text("ui_planet_table_headline_player"),
                   appContext.languageManager.Text("ui_planet_table_headline_production"),
                   appContext.languageManager.Text("ui_planet_table_headline_ship_count") });
@@ -50,9 +51,16 @@ namespace ui {
             } else {
                 ++addedCount;
             }
-
+            utl::usize column{ 0 };
+            auto const incCol{ [&column = column]() { ++column; } };
             // planet ID
-            m_table->SetValue(addedCount, 0, p.ID);
+            m_table->SetValue(addedCount, column, p.ID);
+            incCol();
+
+            // alias
+            m_table->SetValue<std::string>(addedCount, column, "");
+            m_table->SetSingleEditable(addedCount, column, true);
+            incCol();
 
             // player name
             std::string entry;
@@ -68,8 +76,8 @@ namespace ui {
                 entry = player.GetName();
                 color = player.color;
             }
-            m_table->SetValue<std::string>(addedCount, 1, entry);
-            m_table->SetSingleCellTextColor(color, addedCount, 1);
+            m_table->SetValue(addedCount, column, entry);
+            m_table->SetSingleCellTextColor(color, addedCount, column);
 
             if (p.isDestroyed) {
                 continue;
@@ -77,12 +85,14 @@ namespace ui {
             if (!p.isDiscovered) {
                 continue;
             }
+            incCol();
 
             // production
-            m_table->SetValue(addedCount, 2, p.production);
+            m_table->SetValue(addedCount, column, p.production);
+            incCol();
 
             // ship count
-            m_table->SetValue(addedCount, 3, p.shipCount);
+            m_table->SetValue(addedCount, column, p.shipCount);
         }
     }
 
