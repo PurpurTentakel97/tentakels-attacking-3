@@ -17,9 +17,9 @@ namespace ui {
 
         // Galaxy
         m_galaxy = std::make_shared<UIGalaxy>(1000,
-                                              GetElementPosition(1.0f, 0.0f),
+                                              GetElementPosition(0.53f, 0.45f),
                                               GetElementSize(0.95f, 0.92f),
-                                              uil::Alignment::TOP_RIGHT,
+                                              uil::Alignment::MID_MID,
                                               isShowGalaxy,
                                               isAcceptingInput);
         m_galaxy->SetOnZoom(
