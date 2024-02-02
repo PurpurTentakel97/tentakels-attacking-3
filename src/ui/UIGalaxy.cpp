@@ -33,6 +33,9 @@ namespace ui {
             newCollider.width = newCollider.width / ratioX * ratioY;
         }
 
+        newCollider.x += (m_collider.width - newCollider.width) / 2;
+        newCollider.y -= (m_collider.height - newCollider.height) / 2;
+
         SetCollider(newCollider);
         m_absoluteSize = m_collider;
 
@@ -152,19 +155,19 @@ namespace ui {
         }
     }
 
-    bool UIGalaxy::IsUIGalaxyElementInCollider(UIGalaxyElement_ty const& element) const {
+    bool UIGalaxy::IsUIGalaxyElementInCollider(UIGalaxyElement_ty const& element, Rectangle const& col) const {
         auto const elementCollider = element->GetCollider();
 
-        if (elementCollider.x + elementCollider.width <= m_collider.x) {
+        if (elementCollider.x + elementCollider.width <= col.x) {
             return false;
         }
-        if (elementCollider.y + elementCollider.height <= m_collider.y) {
+        if (elementCollider.y + elementCollider.height <= col.y) {
             return false;
         }
-        if (elementCollider.x >= m_collider.x + m_collider.width) {
+        if (elementCollider.x >= col.x + col.width) {
             return false;
         }
-        if (elementCollider.y >= m_collider.y + m_collider.height) {
+        if (elementCollider.y >= col.y + col.height) {
             return false;
         }
 
@@ -351,7 +354,8 @@ namespace ui {
           Focusable{ ID },
           m_isShowGalaxy{ isShowGalaxy },
           m_isAcceptingInput{ isAcceptInput } {
-        m_absoluteSize = m_collider;
+        m_absoluteSize    = m_collider;
+        m_renderRectangle = m_collider;
 
         app::AppContext_ty appContext{ app::AppContext::GetInstance() };
         appContext.eventManager.AddListener(this);
@@ -493,7 +497,7 @@ namespace ui {
             if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
                 if (m_isAcceptingInput and IsCollidingObjectPoint(mousePosition)) {
                     m_updateLineDrag = true;
-                } else if (CheckCollisionPointRec(mousePosition, m_collider)) {
+                } else if (CheckCollisionPointRec(mousePosition, m_renderRectangle)) {
                     m_isScrollingByMouse = true;
                 }
             }
@@ -512,14 +516,14 @@ namespace ui {
         if (m_isEnabled) {
             for (auto const& e : m_uiGalaxyElements) {
 
-                if (IsUIGalaxyElementInCollider(e) != e->IsEnabled()) {
-                    e->SetEnabled(IsUIGalaxyElementInCollider(e));
-                    if (!IsUIGalaxyElementInCollider(e) && e->IsFocused()) {
+                if (IsUIGalaxyElementInCollider(e, m_renderRectangle) != e->IsEnabled()) {
+                    e->SetEnabled(IsUIGalaxyElementInCollider(e, m_renderRectangle));
+                    if (!IsUIGalaxyElementInCollider(e, m_renderRectangle) && e->IsFocused()) {
                         hlp::SelectNextFocusElement();
                     }
                 }
 
-                if (IsUIGalaxyElementInCollider(e)) {
+                if (IsUIGalaxyElementInCollider(e, m_renderRectangle)) {
                     e->CheckAndUpdate(mousePosition, appContext);
                 }
             }
@@ -549,19 +553,19 @@ namespace ui {
     void UIGalaxy::Render(app::AppContext_ty_c appContext) {
 
         for (auto const& e : m_uiGalaxyElements) {
-            if (IsUIGalaxyElementInCollider(e)) {
+            if (IsUIGalaxyElementInCollider(e, m_renderRectangle)) {
                 e->RenderRing(appContext);
             }
         }
         for (auto const& f : m_uiFleets) {
-            if (f->IsRingOverlappingWithRectangle(m_collider)) {
+            if (f->IsRingOverlappingWithRectangle(m_renderRectangle)) {
                 f->RenderRing(appContext);
             }
         }
-        BeginScissorMode(static_cast<int>(m_collider.x),
-                         static_cast<int>(m_collider.y),
-                         static_cast<int>(m_collider.width),
-                         static_cast<int>(m_collider.height));
+        BeginScissorMode(static_cast<int>(m_renderRectangle.x),
+                         static_cast<int>(m_renderRectangle.y),
+                         static_cast<int>(m_renderRectangle.width),
+                         static_cast<int>(m_renderRectangle.height));
 
         for (auto const& f : m_uiFleets) {
             f->Render(appContext);
@@ -570,12 +574,12 @@ namespace ui {
         EndScissorMode();
 
         for (auto const& p : m_uiPlanets) {
-            if (IsUIGalaxyElementInCollider(p)) {
+            if (IsUIGalaxyElementInCollider(p, m_renderRectangle)) {
                 p->Render(appContext);
             }
         }
         for (auto const& t : m_uiTargetPoints) {
-            if (IsUIGalaxyElementInCollider(t)) {
+            if (IsUIGalaxyElementInCollider(t, m_renderRectangle)) {
                 t->Render(appContext);
             }
         }
