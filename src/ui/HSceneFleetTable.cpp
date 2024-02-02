@@ -23,8 +23,8 @@ namespace ui {
                                                uil::Alignment::TOP_LEFT,
                                                1000,
                                                tableSize,
-                                               4,
-                                               Vector2(0.25f, 0.05f),
+                                               5,
+                                               Vector2(0.2f, 0.05f),
                                                0.2f);
         m_table->SetAllEditable(false);
         m_table->SetFixedHeadline(true);
@@ -32,28 +32,43 @@ namespace ui {
         m_table->SetHighlightHover(true);
         m_table->SetHeadlineValues<std::string>({
                 appContext.languageManager.Text("ui_fleet_table_headline_id"),
+                appContext.languageManager.Text("ui_fleet_table_headline_alias"),
                 appContext.languageManager.Text("ui_fleet_table_headline_position"),
                 appContext.languageManager.Text("ui_fleet_table_headline_ship_count"),
                 appContext.languageManager.Text("ui_fleet_table_headline_destination"),
         });
         m_elements.push_back(m_table);
 
-        m_table->SetValue<std::string>(1, 0, appContext.languageManager.Text("ui_fleet_table_headline_fleets", ":"));
+
+
+        m_table->SetValue<std::string>(
+                1, 0, appContext.languageManager.Text("ui_fleet_table_headline_fleets", ":"));
         if (not m_galaxy.fleets.empty()) {
             for (utl::usize i = 0; i < m_galaxy.fleets.size(); ++i) {
                 auto const& fleet{ m_galaxy.fleets.at(i) };
+                utl::usize const row{ i + startFleets };
+                utl::usize column{ 0 };
+                auto const incCol{ [&column = column]() { ++column; } };
 
                 app::PlayerData player{ appContext.playerCollection.GetPlayerOrNpcByID(fleet.playerID) };
                 // fleet ID
-                m_table->SetValue<utl::usize>(i + startFleets, 0, fleet.ID);
-                m_table->SetSingleCellTextColor(player.color, i + startFleets, 0);
+                m_table->SetValue(row, column, fleet.ID);
+                m_table->SetSingleCellTextColor(player.color, row, column);
+                incCol();
+
+                // alias
+                m_table->SetValue<std::string>(row, column, "");
+                m_table->SetSingleEditable(row, column, true);
+                incCol();
 
                 // position
                 std::string const pos{ GetStringFromPosition(fleet.position, false) };
-                m_table->SetValue<std::string>(i + startFleets, 1, pos);
+                m_table->SetValue<std::string>(row, column, pos);
+                incCol();
 
                 // count
-                m_table->SetValue<utl::usize>(i + startFleets, 2, fleet.shipCount);
+                m_table->SetValue<utl::usize>(row, column, fleet.shipCount);
+                incCol();
 
                 // destination
                 auto const destination{ fleet.destRepresentation };
@@ -75,12 +90,10 @@ namespace ui {
                     }
                 }();
 
-                m_table->SetValue<std::string>(i + startFleets, 3, dest);
+                m_table->SetValue<std::string>(row, column, dest);
                 if (fleet.playerID == currentPlayer.ID) {
                     m_table->SetSingleCellTextColor(
-                            appContext.playerCollection.GetPlayerOrNpcByID(destination.playerID).color,
-                            i + startFleets,
-                            3);
+                            appContext.playerCollection.GetPlayerOrNpcByID(destination.playerID).color, row, column);
                 }
             }
         } else {
@@ -93,23 +106,30 @@ namespace ui {
         if (not m_galaxy.targetPoints.empty()) {
             for (utl::usize i = 0; i < m_galaxy.targetPoints.size(); ++i) {
                 auto const& targetPoint{ m_galaxy.targetPoints.at(i) };
+                utl::usize row{ i + startTargetPoints };
+                utl::usize column{ 0 };
+                auto const incCol{ [&column = column]() { ++column; } };
 
                 app::PlayerData player{ appContext.playerCollection.GetPlayerOrNpcByID(targetPoint.playerID) };
                 // target point ID
-                m_table->SetValue<utl::usize>(i + startTargetPoints, 0, targetPoint.ID);
-                m_table->SetSingleCellTextColor(player.color, i + startTargetPoints, 0);
+                m_table->SetValue(row, column, targetPoint.ID);
+                m_table->SetSingleCellTextColor(player.color, row, column);
+                incCol();
+
+                // alias
+                m_table->SetValue<std::string>(row, column, "");
+                m_table->SetSingleEditable(row, column, true);
+                incCol();
 
                 // position
                 std::string const pos{ GetStringFromPosition(targetPoint.position, true) };
-                m_table->SetValue<std::string>(i + startTargetPoints, 1, pos);
-
-                // return if the current player is not this player.
-
+                m_table->SetValue(row, column, pos);
+                incCol();
 
                 // count
-                m_table->SetValue<utl::usize>(i + startTargetPoints, 2, targetPoint.shipCount);
-
-                m_table->SetValue<std::string>(i + startTargetPoints, 3, "---");
+                m_table->SetValue(row, column, targetPoint.shipCount);
+                incCol();
+                m_table->SetValue<std::string>(row, column, "---");
             }
         } else {
             m_table->SetValue<std::string>(
