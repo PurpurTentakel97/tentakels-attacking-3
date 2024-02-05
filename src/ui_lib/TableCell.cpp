@@ -91,7 +91,7 @@ namespace uil {
         if (not IsEditable()) {
             return;
         }
-        if (not IsColliding(mousePosition)) {
+        if (not IsKeyDown(KEY_ENTER) and not IsColliding(mousePosition)) {
             return;
         }
 
