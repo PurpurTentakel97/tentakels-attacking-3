@@ -116,6 +116,7 @@ namespace ui {
 
         m_table->SetUpdateCellType<std::string>([this](uil::TableCell& cell) { this->UpdatePlayerName(cell); });
         m_table->SetUpdateCellType<Color>([this](uil::TableCell& cell) { this->UpdatePlayerColor(cell); });
+        m_table->SetHighlightHover(true);
 
         m_elements.push_back(m_table);
         m_nestedFocus.push_back(m_table.get());
