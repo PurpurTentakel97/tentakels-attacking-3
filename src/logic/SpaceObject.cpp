@@ -15,10 +15,11 @@ namespace lgk {
 
     SpaceObject::SpaceObject(utl::usize const ID, utl::vec2pos_ty_ref_c position, Player_ty_c player)
         : SpaceObject{ ID, position, 0, player } { }
+
     SpaceObject::SpaceObject(utl::usize ID, utl::vec2pos_ty position, utl::usize ships, Player_ty player)
         : m_ID{ ID },
           m_ships{ ships },
-          m_position{ std::move(position) },
+          m_position{ position },
           m_player{ std::move(player) } { }
 
     void SpaceObject::TransferShipsFrom(SpaceObject* const origin) {
@@ -108,10 +109,10 @@ namespace lgk {
         return *this;
     }
 
+
     bool SpaceObject::operator==(SpaceObject const& other) const {
         return m_ID == other.m_ID;
     }
-
 
     // operator
     utl::usize operator+(SpaceObject const& object, utl::usize const ships) {
@@ -184,7 +185,6 @@ namespace lgk {
     bool operator>=(utl::usize ships, SpaceObject const& object) {
         return !(ships < object);
     }
-
     bool operator>=(SpaceObject const& lhs, SpaceObject const& rhs) {
         return !(lhs < rhs);
     }
