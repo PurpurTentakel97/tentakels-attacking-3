@@ -39,7 +39,7 @@ namespace ui {
                                     + ", Y: " + std::to_string(m_planet.position.y) };
 
         std::string hover{};
-        if (m_planet.isDestroyed) {
+        if (m_planet.isDiscovered) {
             std::string const text_1{ m_currentPlayer.GetName() + " | " + position + " |" };
             std::string const text_2{ std::to_string(m_planet.shipCount) };
             hover = { app::AppContext::GetInstance().languageManager.Text("ui_planet_hover", text_1, text_2) };
