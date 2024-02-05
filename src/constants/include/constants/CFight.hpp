@@ -11,7 +11,7 @@
 namespace cst {
     struct Fight final {
         static inline utl::usize constexpr configEntryCount{ 6 };
-        float hitChance{ 0.3f };
+        float hitChance{ 0.1f };
         utl::usize fleetFightRange{ 4 };
 
         bool isFightPlanetFleet{ true };
