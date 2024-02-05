@@ -439,7 +439,7 @@ namespace uil {
     }
 
     void Table::CalculateHoverHighlighted(Vector2 mousePosition) {
-        utl::vec2pos_ty newPosition{ 0, 0 };
+        utl::Vec2<int> newPosition{ -1, -1 };
         if (not m_isHoveredHighlighted) {
             goto found;
         }
@@ -488,6 +488,10 @@ namespace uil {
         SetHighlightBackground(false);
     }
     void Table::SetHighlightBackground(bool reset) {
+        if (m_currentHighlighted.x == -1 or m_currentHighlighted.y == -1) {
+            return;
+        }
+
         Color const newColor{ reset ? BLACK : LIGHT_GREY_100 };
 
         for (auto const& cell : m_cells[static_cast<utl::usize>(m_currentHighlighted.x)]) {

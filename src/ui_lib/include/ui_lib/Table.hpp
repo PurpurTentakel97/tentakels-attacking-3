@@ -42,7 +42,7 @@ namespace uil {
         bool m_activeVerticalSlider{ false };
 
         bool m_isHoveredHighlighted{ false };
-        utl::vec2pos_ty m_currentHighlighted{ 0, 0 };
+        utl::Vec2<int> m_currentHighlighted{ -1, -1 };
 
         TableCell::callback_ty m_updatedStringCell{ [](TableCell&) {} };
         TableCell::callback_ty m_updatedUSizeCell{ [](TableCell&) {} };
