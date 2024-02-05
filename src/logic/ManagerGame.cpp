@@ -441,7 +441,6 @@ namespace lgk {
         appContext.constants.global.isGameRunning = true;
         appContext.constants.global.isGamePaused  = false;
         appContext.constants.global.isGameSaved   = false;
-        appContext.aliasManager.Clear();
 
         Player_ty player{};
         if (not GetCurrentPlayer(player)) {
@@ -458,6 +457,7 @@ namespace lgk {
         appConstants.constants.global.isGameRunning = false;
         appConstants.constants.global.isGamePaused  = true;
         appConstants.aliasManager.Clear();
+        m_currentRoundPlayers.clear();
         hlp::Print(hlp::PrintType::ONLY_DEBUG, "game stopped and paused");
     }
 
