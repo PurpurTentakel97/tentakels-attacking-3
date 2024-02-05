@@ -42,7 +42,7 @@ namespace ui {
         auto const onCellUpdate = [this](uil::TableCell& c) {
             auto const index = m_table->Index(&c);
             auto const ID    = m_table->ValueCell<utl::usize>(index.first, index.second - 1);
-            SetAlias(ID, std::move(c.Value<std::string>()));
+            SetAlias(ID, c.Value<std::string>());
         };
 
 

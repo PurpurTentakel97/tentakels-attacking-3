@@ -64,7 +64,7 @@ namespace ui {
             m_table->SetSingleCallback(addedCount, column, [this](uil::TableCell& c) {
                 auto const index = m_table->Index(&c);
                 auto const ID    = m_table->ValueCell<utl::usize>(index.first, index.second - 1);
-                this->SetAlias(ID, std::move(c.Value<std::string>()));
+                this->SetAlias(ID,c.Value<std::string>());
             });
             incCol();
 
