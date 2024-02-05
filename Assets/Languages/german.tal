@@ -175,7 +175,7 @@
     "helper_next_big": "Weiter",
     "ui_popup_fight_result_win_text": "{0} gewinnt!",
     "helper_skip_big": "\u00dcberspringen",
-    "version": "v0.1.5.7",
+    "version": "v0.1.6.0",
     "ui_popup_start_evaluation_subtitle": "Auswertung beginnen, wenn alle Spieler anwesend sind.",
     "ui_popup_game_still_running_title": "Spiel l\u00e4uft noch",
     "ui_popup_game_still_running_subtitle": "Es l\u00e4uft gerade ein Spiel. Das aktuelle Spiel \u00fcberschreiben?",
