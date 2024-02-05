@@ -102,7 +102,7 @@ namespace ui {
         }
     }
 
-    void PlanetTable::SetAlias(utl::usize spaceObjectID, std::string alias) {
+    void PlanetTable::SetAlias(utl::usize spaceObjectID, std::string alias) const {
         app::AppContext_ty appContext = app::AppContext::GetInstance();
         appContext.aliasManager.SetAlias(spaceObjectID, m_currentPlayer.ID, std::move(alias));
     }

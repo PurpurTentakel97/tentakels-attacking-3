@@ -19,7 +19,7 @@ namespace ui {
 
         void Initialization();
 
-        void SetAlias(utl::usize spaceObjectID, std::string alias);
+        void SetAlias(utl::usize spaceObjectID, std::string alias) const;
 
     public:
         PlanetTable(Vector2 pos, Vector2 size, uil::Alignment alignment, utl::RepresentationGalaxy galaxy, app::PlayerData currentPlayer);

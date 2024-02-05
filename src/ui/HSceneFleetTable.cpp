@@ -167,7 +167,7 @@ namespace ui {
         return stream.str();
     }
 
-    void FleetAndTargetPointTable::SetAlias(utl::usize spaceObjectID, std::string alias) {
+    void FleetAndTargetPointTable::SetAlias(utl::usize spaceObjectID, std::string alias) const {
         app::AppContext_ty appContext = app::AppContext::GetInstance();
         appContext.aliasManager.SetAlias(spaceObjectID, m_currentPlayer.ID, std::move(alias));
     }

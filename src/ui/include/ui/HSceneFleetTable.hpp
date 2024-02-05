@@ -20,7 +20,7 @@ namespace ui {
 
         [[nodiscard]] std::string GetStringFromPosition(utl::vec2pos_ty_ref_c position, bool getCoordinates) const;
 
-        void SetAlias(utl::usize spaceObjectID, std::string alias);
+        void SetAlias(utl::usize spaceObjectID, std::string alias) const;
 
     public:
         FleetAndTargetPointTable(Vector2 pos,
