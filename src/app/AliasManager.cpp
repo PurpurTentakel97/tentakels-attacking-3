@@ -25,10 +25,6 @@ namespace app {
 
     std::string AliasManager::Alias(utl::usize spaceObjectID, utl::usize playerID) const {
         if (not ContainsAlias(spaceObjectID, playerID)) {
-            hlp::Print(hlp::PrintType::ERROR,
-                       "no alias for Space Object {} and player {}. returning empty string",
-                       spaceObjectID,
-                       playerID);
             return "";
         }
 
