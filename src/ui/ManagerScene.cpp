@@ -14,56 +14,31 @@
 namespace ui {
     void SceneManager::InitializeNewScene(uil::SceneType const sceneType) {
         switch (sceneType) {
-            case uil::SceneType::TEST:
-                m_currentScene = std::make_shared<TestScene>();
-                return;
+            case uil::SceneType::TEST: m_currentScene = std::make_shared<TestScene>(); return;
 
-            case uil::SceneType::LOGO:
-                m_currentScene = std::make_shared<LogoScene>();
-                return;
+            case uil::SceneType::LOGO: m_currentScene = std::make_shared<LogoScene>(); return;
 
-            case uil::SceneType::INTRO:
-                m_currentScene = std::make_shared<Intro>();
-                return;
+            case uil::SceneType::INTRO: m_currentScene = std::make_shared<Intro>(); return;
 
-            case uil::SceneType::MAIN_MENU:
-                m_currentScene = std::make_shared<MainMenu>();
-                return;
+            case uil::SceneType::MAIN_MENU: m_currentScene = std::make_shared<MainMenu>(); return;
 
-            case uil::SceneType::NEW_GAME_PLAYER:
-                m_currentScene = std::make_shared<NewGamePlayerScene>();
-                return;
+            case uil::SceneType::NEW_GAME_PLAYER: m_currentScene = std::make_shared<NewGamePlayerScene>(); return;
 
-            case uil::SceneType::NEW_GAME_PARAMETER:
-                m_currentScene = std::make_shared<NewGameParameterScene>();
-                return;
+            case uil::SceneType::NEW_GAME_PARAMETER: m_currentScene = std::make_shared<NewGameParameterScene>(); return;
 
-            case uil::SceneType::VALIDATE_GALAXY:
-                m_currentScene = std::make_shared<ValidateGalaxyScene>();
-                return;
+            case uil::SceneType::VALIDATE_GALAXY: m_currentScene = std::make_shared<ValidateGalaxyScene>(); return;
 
-            case uil::SceneType::MAIN:
-                m_currentScene = std::make_shared<MainScene>();
-                return;
+            case uil::SceneType::MAIN: m_currentScene = std::make_shared<MainScene>(); return;
 
-            case uil::SceneType::GAME_SETTINGS:
-                m_currentScene = std::make_shared<GameSettingsScene>();
-                return;
+            case uil::SceneType::GAME_SETTINGS: m_currentScene = std::make_shared<GameSettingsScene>(); return;
 
-            case uil::SceneType::APP_SETTINGS:
-                m_currentScene = std::make_shared<AppSettingsScene>();
-                return;
+            case uil::SceneType::APP_SETTINGS: m_currentScene = std::make_shared<AppSettingsScene>(); return;
 
-            case uil::SceneType::CREDITS:
-                m_currentScene = std::make_shared<CreditsScene>();
-                return;
+            case uil::SceneType::CREDITS: m_currentScene = std::make_shared<CreditsScene>(); return;
 
-            case uil::SceneType::UPDATE_EVALUATION:
-                m_currentScene = std::make_shared<UpdateEvaluationScene>();
-                return;
+            case uil::SceneType::UPDATE_EVALUATION: m_currentScene = std::make_shared<UpdateEvaluationScene>(); return;
 
-            case uil::SceneType::NONE:
-                throw std::runtime_error("unexpected scene type NONE in initialize new scene");
+            case uil::SceneType::NONE: throw std::runtime_error("unexpected scene type NONE in initialize new scene");
         }
         throw std::runtime_error("unexpected scene type in initialize new scene");
     }
@@ -105,6 +80,7 @@ namespace ui {
             m_currentScene->CheckAndUpdate(mousePosition, appContext);
         }
         m_popUpManager.CheckAndUpdate(mousePosition, appContext);
+        m_popUpManager.CheckDelete();
     }
 
     void SceneManager::Render(app::AppContext_ty_c appContext) {

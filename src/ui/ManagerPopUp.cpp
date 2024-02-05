@@ -79,11 +79,11 @@ namespace ui {
 
         m_popUps.push_back(std::make_unique<uil::MessagePopUp>(Vector2(0.5f, 0.5f),
                                                                Vector2(0.5f, 0.5f),
-                                                          uil::Alignment::MID_MID,
-                                                          event->GetTitle(),
-                                                          const_cast<std::string&>(event->GetSubTitle()),
-                                                          app::AssetType::EXCLAMATION_MARK,
-                                                          event->GetCallback()));
+                                                               uil::Alignment::MID_MID,
+                                                               event->GetTitle(),
+                                                               const_cast<std::string&>(event->GetSubTitle()),
+                                                               app::AssetType::EXCLAMATION_MARK,
+                                                               event->GetCallback()));
     }
 
     void ManagerPopUp::NewValidatePopUp(eve::ShowValidatePopUp const* const event) {
@@ -91,11 +91,11 @@ namespace ui {
 
         m_popUps.push_back(std::make_unique<uil::ValidatePopUp>(Vector2(0.5f, 0.5f),
                                                                 Vector2(0.5f, 0.5f),
-                                                           uil::Alignment::MID_MID,
-                                                           event->GetTitle(),
-                                                           const_cast<std::string&>(event->GetSubTitle()),
-                                                           app::AssetType::QUESTION_MARK,
-                                                           event->GetCallback()));
+                                                                uil::Alignment::MID_MID,
+                                                                event->GetTitle(),
+                                                                const_cast<std::string&>(event->GetSubTitle()),
+                                                                app::AssetType::QUESTION_MARK,
+                                                                event->GetCallback()));
     }
 
     void ManagerPopUp::NewColorCellPopUp(eve::ShowCellPopUpEvent<Color> const* const event) {
@@ -105,11 +105,11 @@ namespace ui {
 
         m_popUps.push_back(std::make_unique<uil::PopUpInputColor>(Vector2(0.5f, 0.5f),
                                                                   Vector2(0.7f, 0.7f),
-                                                            uil::Alignment::MID_MID,
-                                                            event->GetTitle(),
-                                                            app::AssetType::LOGO,
-                                                            event->GetCurrentValue(),
-                                                            event->GetOnClick()));
+                                                                  uil::Alignment::MID_MID,
+                                                                  event->GetTitle(),
+                                                                  app::AssetType::LOGO,
+                                                                  event->GetCurrentValue(),
+                                                                  event->GetOnClick()));
     }
 
     void ManagerPopUp::NewSoundLevelPopUp(eve::ShowInitialSoundLevelPopUpEvent const* const event) {
@@ -142,11 +142,11 @@ namespace ui {
 
         m_popUps.push_back(std::make_unique<uil::PopUpInputColor>(Vector2(0.5f, 0.5f),
                                                                   Vector2(0.7f, 0.7f),
-                                                             uil::Alignment::MID_MID,
-                                                             event->GetTitle(),
-                                                             app::AssetType::LOGO,
-                                                             event->Value(),
-                                                             event->Callback()));
+                                                                  uil::Alignment::MID_MID,
+                                                                  event->GetTitle(),
+                                                                  app::AssetType::LOGO,
+                                                                  event->Value(),
+                                                                  event->Callback()));
     }
     void ManagerPopUp::NewStringPopUp(eve::ShowStringPopupEvent const* event) {
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
@@ -155,11 +155,11 @@ namespace ui {
 
         m_popUps.push_back(std::make_unique<uil::PopUpInputString>(Vector2(0.5f, 0.5f),
                                                                    Vector2(0.7f, 0.7f),
-                                                              uil::Alignment::MID_MID,
-                                                              event->GetTitle(),
-                                                              app::AssetType::LOGO,
-                                                              event->Value(),
-                                                              event->Callback()));
+                                                                   uil::Alignment::MID_MID,
+                                                                   event->GetTitle(),
+                                                                   app::AssetType::LOGO,
+                                                                   event->Value(),
+                                                                   event->Callback()));
     }
     void ManagerPopUp::NewDoublePopUp(eve::ShowDoublePopupEvent const* event) {
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
@@ -168,11 +168,11 @@ namespace ui {
 
         m_popUps.push_back(std::make_unique<uil::PopUpInputDouble>(Vector2(0.5f, 0.5f),
                                                                    Vector2(0.7f, 0.7f),
-                                                              uil::Alignment::MID_MID,
-                                                              event->GetTitle(),
-                                                              app::AssetType::LOGO,
-                                                              event->Value(),
-                                                              event->Callback()));
+                                                                   uil::Alignment::MID_MID,
+                                                                   event->GetTitle(),
+                                                                   app::AssetType::LOGO,
+                                                                   event->Value(),
+                                                                   event->Callback()));
     }
     void ManagerPopUp::NewUSizePopUp(eve::ShowUSizePopupEvent const* event) {
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
@@ -181,11 +181,11 @@ namespace ui {
 
         m_popUps.push_back(std::make_unique<uil::PopUpInputUSize>(Vector2(0.5f, 0.5f),
                                                                   Vector2(0.7f, 0.7f),
-                                                             uil::Alignment::MID_MID,
-                                                             event->GetTitle(),
-                                                             app::AssetType::LOGO,
-                                                             event->Value(),
-                                                             event->Callback()));
+                                                                  uil::Alignment::MID_MID,
+                                                                  event->GetTitle(),
+                                                                  app::AssetType::LOGO,
+                                                                  event->Value(),
+                                                                  event->Callback()));
     }
 
     void ManagerPopUp::DeleteLastPopUp(uil::PopUp* const toDelete) {
@@ -194,13 +194,19 @@ namespace ui {
         }
 
         if (toDelete == m_popUps.back().get()) {
+            m_deleteNext = toDelete;
+        } else {
+            m_toDelete.push_back(toDelete);
+        }
+    }
 
+    void ManagerPopUp::CheckDelete() {
+        if (m_deleteNext) {
             hlp::DeleteFocusLayer(true);
             m_popUps.pop_back();
 
             CheckForDeleteRemainingPopUps();
-        } else {
-            m_toDelete.push_back(toDelete);
+            m_deleteNext = nullptr;
         }
     }
 
@@ -245,7 +251,6 @@ namespace ui {
             p->Render(appContext);
         }
     }
-
     void ManagerPopUp::Resize(app::AppContext_ty_c appContext) {
         for (auto& e : m_popUps) {
             e->Resize(appContext);
