@@ -120,6 +120,10 @@ namespace uil {
         }
     }
 
+    void TableCell::SetOnValueChanced(callback_ty callback) {
+        m_onValueChanced = std::move(callback);
+    };
+
     void TableCell::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) {
 
         UIElement::CheckAndUpdate(mousePosition, appContext);

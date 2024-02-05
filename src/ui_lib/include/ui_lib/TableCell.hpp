@@ -104,6 +104,8 @@ namespace uil {
 
         void Clicked(Vector2 const& mousePosition, app::AppContext_ty_c appContext);
 
+        void SetOnValueChanced(callback_ty callback);
+
         // UIElement
         void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) override;
 

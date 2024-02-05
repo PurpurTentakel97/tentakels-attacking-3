@@ -111,6 +111,8 @@ namespace uil {
               Vector2 minCellSize,
               float scrollSpeed);
 
+        [[nodiscard]] std::pair<utl::usize, utl::usize> Index(TableCell const* cell) const;
+
         template<utl::InputValueTypeCol T>
         void SetValue(utl::usize row, utl::usize column, T input) {
             if (not IsValidIndex(row, column)) {
@@ -167,6 +169,8 @@ namespace uil {
                 return;
             }
         }
+
+        void SetSingleCallback(utl::usize row, utl::usize column, std::function<void(TableCell&)> callback);
 
         void SetColumnCount(utl::usize newColumnCount);
 
