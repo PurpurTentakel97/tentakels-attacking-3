@@ -6,6 +6,7 @@
 #include "HScenePlanetTable.hpp"
 #include <alias/AliasUtils.hpp>
 #include <helper/HFocusEvents.hpp>
+#include <ui_lib/TableCell.hpp>
 
 
 namespace ui {
@@ -58,8 +59,13 @@ namespace ui {
             incCol();
 
             // alias
-            m_table->SetValue<std::string>(addedCount, column, "");
+            m_table->SetValue(addedCount, column, appContext.aliasManager.Alias(p.ID, m_currentPlayer.ID));
             m_table->SetSingleEditable(addedCount, column, true);
+            m_table->SetSingleCallback(addedCount, column, [this](uil::TableCell& c) {
+                auto const index = m_table->Index(&c);
+                auto const ID    = m_table->ValueCell<utl::usize>(index.first, index.second - 1);
+                this->SetAlias(ID, std::move(c.Value<std::string>()));
+            });
             incCol();
 
             // player name
@@ -96,16 +102,22 @@ namespace ui {
         }
     }
 
+    void PlanetTable::SetAlias(utl::usize spaceObjectID, std::string alias) {
+        app::AppContext_ty appContext = app::AppContext::GetInstance();
+        appContext.aliasManager.SetAlias(spaceObjectID, m_currentPlayer.ID, std::move(alias));
+    }
+
     PlanetTable::PlanetTable(Vector2 const pos,
                              Vector2 const size,
                              uil::Alignment const alignment,
-                             utl::RepresentationGalaxy galaxy)
+                             utl::RepresentationGalaxy galaxy,
+                             app::PlayerData currentPlayer)
         : Scene{ pos, size, alignment },
-          m_galaxy{ std::move(galaxy) } {
+          m_galaxy{ std::move(galaxy) },
+          m_currentPlayer{ std::move(currentPlayer) } {
 
         Initialization();
     }
-
     void PlanetTable::SetActive(bool const active, app::AppContext_ty_c appContext) {
 
         if (active == m_active) {

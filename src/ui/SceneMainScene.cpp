@@ -369,7 +369,8 @@ namespace ui {
         m_planetTable = std::make_shared<PlanetTable>(GetElementPosition(0.01f, 0.95f),
                                                       GetElementSize(0.85f, 0.78f),
                                                       uil::Alignment::BOTTOM_LEFT,
-                                                      m_galaxy->GetGalaxy());
+                                                      m_galaxy->GetGalaxy(),
+                                                      m_currentPlayer);
         m_elements.push_back(m_planetTable);
     }
 
