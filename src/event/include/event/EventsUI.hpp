@@ -413,7 +413,7 @@ namespace eve {
                                       utl::vec2pos_ty destCoordinates)
             : m_originID{ originID },
               m_destID{ destID },
-              m_destCoordinates{ std::move(destCoordinates) } { }
+              m_destCoordinates{ destCoordinates } { }
 
         [[nodiscard]] utl::usize GetOriginID() const {
             return m_originID;
