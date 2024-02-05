@@ -11,7 +11,7 @@
 
 
 namespace ui {
-    void FleetAndTargetPointTable::Initialization(app::PlayerData const& currentPlayer) {
+    void FleetAndTargetPointTable::Initialization() {
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
         utl::usize constexpr startFleets{ 2 };
         auto const startTargetPoints{ startFleets + (not m_galaxy.fleets.empty() ? m_galaxy.fleets.size() : 1) + 1 };
@@ -39,10 +39,14 @@ namespace ui {
         });
         m_elements.push_back(m_table);
 
+        auto const onCellUpdate = [this](uil::TableCell& c) {
+            auto const index = m_table->Index(&c);
+            auto const ID    = m_table->ValueCell<utl::usize>(index.first, index.second - 1);
+            SetAlias(ID, std::move(c.Value<std::string>()));
+        };
 
 
-        m_table->SetValue<std::string>(
-                1, 0, appContext.languageManager.Text("ui_fleet_table_headline_fleets", ":"));
+        m_table->SetValue<std::string>(1, 0, appContext.languageManager.Text("ui_fleet_table_headline_fleets", ":"));
         if (not m_galaxy.fleets.empty()) {
             for (utl::usize i = 0; i < m_galaxy.fleets.size(); ++i) {
                 auto const& fleet{ m_galaxy.fleets.at(i) };
@@ -57,8 +61,9 @@ namespace ui {
                 incCol();
 
                 // alias
-                m_table->SetValue<std::string>(row, column, "");
+                m_table->SetValue(row, column, appContext.aliasManager.Alias(fleet.ID, m_currentPlayer.ID));
                 m_table->SetSingleEditable(row, column, true);
+                m_table->SetSingleCallback(row, column, onCellUpdate);
                 incCol();
 
                 // position
@@ -72,8 +77,8 @@ namespace ui {
 
                 // destination
                 auto const destination{ fleet.destRepresentation };
-                std::string const dest = [&appContext, &destination, &fleet, &currentPlayer]() -> std::string {
-                    if (fleet.playerID != currentPlayer.ID) {
+                std::string const dest = [&appContext, &destination, &fleet, this]() -> std::string {
+                    if (fleet.playerID != m_currentPlayer.ID) {
                         return "---";
                     } else {
                         switch (destination.type) {
@@ -91,7 +96,7 @@ namespace ui {
                 }();
 
                 m_table->SetValue<std::string>(row, column, dest);
-                if (fleet.playerID == currentPlayer.ID) {
+                if (fleet.playerID == m_currentPlayer.ID) {
                     m_table->SetSingleCellTextColor(
                             appContext.playerCollection.GetPlayerOrNpcByID(destination.playerID).color, row, column);
                 }
@@ -117,8 +122,9 @@ namespace ui {
                 incCol();
 
                 // alias
-                m_table->SetValue<std::string>(row, column, "");
+                m_table->SetValue(row, column, appContext.aliasManager.Alias(targetPoint.ID, m_currentPlayer.ID));
                 m_table->SetSingleEditable(row, column, true);
+                m_table->SetSingleCallback(row, column, onCellUpdate);
                 incCol();
 
                 // position
@@ -161,17 +167,22 @@ namespace ui {
         return stream.str();
     }
 
+    void FleetAndTargetPointTable::SetAlias(utl::usize spaceObjectID, std::string alias) {
+        app::AppContext_ty appContext = app::AppContext::GetInstance();
+        appContext.aliasManager.SetAlias(spaceObjectID, m_currentPlayer.ID, std::move(alias));
+    }
+
     FleetAndTargetPointTable::FleetAndTargetPointTable(Vector2 const pos,
                                                        Vector2 const size,
                                                        uil::Alignment const alignment,
                                                        utl::RepresentationGalaxy galaxy,
-                                                       app::PlayerData const& currentPlayer)
+                                                       app::PlayerData currentPlayer)
         : Scene{ pos, size, alignment },
-          m_galaxy{ std::move(galaxy) } {
+          m_galaxy{ std::move(galaxy) },
+          m_currentPlayer{ std::move(currentPlayer) } {
 
-        Initialization(currentPlayer);
+        Initialization();
     }
-
     void FleetAndTargetPointTable::SetActive(bool const active, app::AppContext_ty_c appContext) {
 
         if (active == m_active) {
