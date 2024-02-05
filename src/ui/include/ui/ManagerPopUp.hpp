@@ -19,6 +19,7 @@ namespace ui {
     private:
         std::vector<std::unique_ptr<uil::PopUp>> m_popUps;
         std::vector<uil::PopUp*> m_toDelete;
+        uil::PopUp* m_deleteNext{ nullptr };
 
     public:
         ManagerPopUp();
@@ -45,6 +46,8 @@ namespace ui {
         void NewUSizePopUp(eve::ShowUSizePopupEvent const* event);
 
         void DeleteLastPopUp(uil::PopUp* toDelete);
+
+        void CheckDelete();
 
         void CheckForDeleteRemainingPopUps();
 
