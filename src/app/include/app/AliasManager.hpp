@@ -27,5 +27,7 @@ namespace app {
         void DeleteAlias(utl::usize spaceObjectID, utl::usize playerID);
 
         void DeleteSpaceObjectAlias(utl::usize spaceObjectID);
+
+        void Clear();
     };
 } // namespace app

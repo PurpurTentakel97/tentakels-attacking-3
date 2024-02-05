@@ -50,4 +50,8 @@ namespace app {
 
         m_alias.erase(spaceObjectID);
     }
+
+    void AliasManager::Clear() {
+        m_alias.clear();
+    }
 } // namespace app
