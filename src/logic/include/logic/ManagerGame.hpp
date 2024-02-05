@@ -72,7 +72,7 @@ namespace lgk {
         // game
         void StartGame();
 
-        static void StopGame();
+        void StopGame();
 
         static void PauseGame();
 
