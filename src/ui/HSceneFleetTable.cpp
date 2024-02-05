@@ -11,7 +11,7 @@
 
 
 namespace ui {
-    void FleetAndTargetPointTable::Initialization(app::PlayerData const& currentPlayer) {
+    void FleetAndTargetPointTable::Initialization() {
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
         utl::usize constexpr startFleets{ 2 };
         auto const startTargetPoints{ startFleets + (not m_galaxy.fleets.empty() ? m_galaxy.fleets.size() : 1) + 1 };
@@ -23,8 +23,8 @@ namespace ui {
                                                uil::Alignment::TOP_LEFT,
                                                1000,
                                                tableSize,
-                                               4,
-                                               Vector2(0.25f, 0.05f),
+                                               5,
+                                               Vector2(0.2f, 0.05f),
                                                0.2f);
         m_table->SetAllEditable(false);
         m_table->SetFixedHeadline(true);
@@ -32,33 +32,53 @@ namespace ui {
         m_table->SetHighlightHover(true);
         m_table->SetHeadlineValues<std::string>({
                 appContext.languageManager.Text("ui_fleet_table_headline_id"),
+                appContext.languageManager.Text("ui_fleet_table_headline_alias"),
                 appContext.languageManager.Text("ui_fleet_table_headline_position"),
                 appContext.languageManager.Text("ui_fleet_table_headline_ship_count"),
                 appContext.languageManager.Text("ui_fleet_table_headline_destination"),
         });
         m_elements.push_back(m_table);
 
+        auto const onCellUpdate = [this](uil::TableCell& c) {
+            auto const index = m_table->Index(&c);
+            auto const ID    = m_table->ValueCell<utl::usize>(index.first, index.second - 1);
+            SetAlias(ID, c.Value<std::string>());
+        };
+
+
         m_table->SetValue<std::string>(1, 0, appContext.languageManager.Text("ui_fleet_table_headline_fleets", ":"));
         if (not m_galaxy.fleets.empty()) {
             for (utl::usize i = 0; i < m_galaxy.fleets.size(); ++i) {
                 auto const& fleet{ m_galaxy.fleets.at(i) };
+                utl::usize const row{ i + startFleets };
+                utl::usize column{ 0 };
+                auto const incCol{ [&column = column]() { ++column; } };
 
                 app::PlayerData player{ appContext.playerCollection.GetPlayerOrNpcByID(fleet.playerID) };
                 // fleet ID
-                m_table->SetValue<utl::usize>(i + startFleets, 0, fleet.ID);
-                m_table->SetSingleCellTextColor(player.color, i + startFleets, 0);
+                m_table->SetValue(row, column, fleet.ID);
+                m_table->SetSingleCellTextColor(player.color, row, column);
+                incCol();
+
+                // alias
+                m_table->SetValue(row, column, appContext.aliasManager.Alias(fleet.ID, m_currentPlayer.ID));
+                m_table->SetSingleEditable(row, column, true);
+                m_table->SetSingleCallback(row, column, onCellUpdate);
+                incCol();
 
                 // position
                 std::string const pos{ GetStringFromPosition(fleet.position, false) };
-                m_table->SetValue<std::string>(i + startFleets, 1, pos);
+                m_table->SetValue<std::string>(row, column, pos);
+                incCol();
 
                 // count
-                m_table->SetValue<utl::usize>(i + startFleets, 2, fleet.shipCount);
+                m_table->SetValue<utl::usize>(row, column, fleet.shipCount);
+                incCol();
 
                 // destination
                 auto const destination{ fleet.destRepresentation };
-                std::string const dest = [&appContext, &destination, &fleet, &currentPlayer]() -> std::string {
-                    if (fleet.playerID != currentPlayer.ID) {
+                std::string const dest = [&appContext, &destination, &fleet, this]() -> std::string {
+                    if (fleet.playerID != m_currentPlayer.ID) {
                         return "---";
                     } else {
                         switch (destination.type) {
@@ -75,12 +95,10 @@ namespace ui {
                     }
                 }();
 
-                m_table->SetValue<std::string>(i + startFleets, 3, dest);
-                if (fleet.playerID == currentPlayer.ID) {
+                m_table->SetValue<std::string>(row, column, dest);
+                if (fleet.playerID == m_currentPlayer.ID) {
                     m_table->SetSingleCellTextColor(
-                            appContext.playerCollection.GetPlayerOrNpcByID(destination.playerID).color,
-                            i + startFleets,
-                            3);
+                            appContext.playerCollection.GetPlayerOrNpcByID(destination.playerID).color, row, column);
                 }
             }
         } else {
@@ -93,23 +111,31 @@ namespace ui {
         if (not m_galaxy.targetPoints.empty()) {
             for (utl::usize i = 0; i < m_galaxy.targetPoints.size(); ++i) {
                 auto const& targetPoint{ m_galaxy.targetPoints.at(i) };
+                utl::usize row{ i + startTargetPoints };
+                utl::usize column{ 0 };
+                auto const incCol{ [&column = column]() { ++column; } };
 
                 app::PlayerData player{ appContext.playerCollection.GetPlayerOrNpcByID(targetPoint.playerID) };
                 // target point ID
-                m_table->SetValue<utl::usize>(i + startTargetPoints, 0, targetPoint.ID);
-                m_table->SetSingleCellTextColor(player.color, i + startTargetPoints, 0);
+                m_table->SetValue(row, column, targetPoint.ID);
+                m_table->SetSingleCellTextColor(player.color, row, column);
+                incCol();
+
+                // alias
+                m_table->SetValue(row, column, appContext.aliasManager.Alias(targetPoint.ID, m_currentPlayer.ID));
+                m_table->SetSingleEditable(row, column, true);
+                m_table->SetSingleCallback(row, column, onCellUpdate);
+                incCol();
 
                 // position
                 std::string const pos{ GetStringFromPosition(targetPoint.position, true) };
-                m_table->SetValue<std::string>(i + startTargetPoints, 1, pos);
-
-                // return if the current player is not this player.
-
+                m_table->SetValue(row, column, pos);
+                incCol();
 
                 // count
-                m_table->SetValue<utl::usize>(i + startTargetPoints, 2, targetPoint.shipCount);
-
-                m_table->SetValue<std::string>(i + startTargetPoints, 3, "---");
+                m_table->SetValue(row, column, targetPoint.shipCount);
+                incCol();
+                m_table->SetValue<std::string>(row, column, "---");
             }
         } else {
             m_table->SetValue<std::string>(
@@ -141,17 +167,22 @@ namespace ui {
         return stream.str();
     }
 
+    void FleetAndTargetPointTable::SetAlias(utl::usize spaceObjectID, std::string alias) const {
+        app::AppContext_ty appContext = app::AppContext::GetInstance();
+        appContext.aliasManager.SetAlias(spaceObjectID, m_currentPlayer.ID, std::move(alias));
+    }
+
     FleetAndTargetPointTable::FleetAndTargetPointTable(Vector2 const pos,
                                                        Vector2 const size,
                                                        uil::Alignment const alignment,
                                                        utl::RepresentationGalaxy galaxy,
-                                                       app::PlayerData const& currentPlayer)
+                                                       app::PlayerData currentPlayer)
         : Scene{ pos, size, alignment },
-          m_galaxy{ std::move(galaxy) } {
+          m_galaxy{ std::move(galaxy) },
+          m_currentPlayer{ std::move(currentPlayer) } {
 
-        Initialization(currentPlayer);
+        Initialization();
     }
-
     void FleetAndTargetPointTable::SetActive(bool const active, app::AppContext_ty_c appContext) {
 
         if (active == m_active) {

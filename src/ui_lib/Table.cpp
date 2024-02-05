@@ -585,6 +585,17 @@ namespace uil {
         CalculateSlider();
     }
 
+    std::pair<utl::usize, utl::usize> Table::Index(TableCell const* cell) const {
+        for (utl::usize row = 0; row < m_rowCount; ++row) {
+            for (utl::usize column = 0; column < m_columnCount; ++column) {
+                if (m_cells[row][column].get() == cell) {
+                    return { row, column };
+                }
+            }
+        }
+        throw std::runtime_error("requested cell not available");
+    }
+
     void Table::SetRowCount(utl::usize newRowCount) {
         if (newRowCount <= 0) {
             hlp::Print(hlp::PrintType::ERROR,
@@ -594,10 +605,17 @@ namespace uil {
 
         m_rowCount = newRowCount;
     }
+
     utl::usize Table::GetRowCount() const {
         return m_rowCount;
     }
 
+    void Table::SetSingleCallback(utl::usize row, utl::usize column, std::function<void(TableCell&)> callback) {
+        if (not IsValidIndex(row, column)) {
+            return;
+        }
+        m_cells[row][column]->SetOnValueChanced(std::move(callback));
+    }
     void Table::SetColumnCount(utl::usize newColumnCount) {
         if (newColumnCount <= 0) {
             hlp::Print(hlp::PrintType::ERROR,
@@ -607,11 +625,11 @@ namespace uil {
 
         m_columnCount = newColumnCount;
     }
+
+
     utl::usize Table::GetColumnCount() const {
         return m_columnCount;
     }
-
-
     void Table::RemoveSpecificRow(utl::usize row) {
         if (!IsValidRow(row)) {
             hlp::Print(hlp::PrintType::ERROR, "row out of range"), throw std::out_of_range("row index");
@@ -636,27 +654,27 @@ namespace uil {
         m_editableRowsColumns.at(1).erase(m_editableRowsColumns.at(1).begin() + static_cast<int>(column));
         --m_columnCount;
     }
+
     void Table::RemoveLastColum() {
         if (m_cells.empty()) {
             hlp::Print(hlp::PrintType::ERROR, "no rows in table"), throw std::out_of_range("no rows");
         }
         RemoveSpecificColumn(m_cells.at(0).size() - 1);
     }
-
     void Table::SetHighlightHover(bool isHoveredHighlighted) {
         m_isHoveredHighlighted = isHoveredHighlighted;
     }
+
     bool Table::IsHighlightedHover() const {
         return m_isHoveredHighlighted;
     }
-
     void Table::SetScrollable(bool isScrollable) {
         m_setScrollable = isScrollable;
     }
+
     bool Table::IsScrollable() const {
         return m_isScrollable;
     }
-
     void Table::SetSingleEditable(utl::usize row, utl::usize column, bool isEditable) {
         if (!IsValidIndex(row, column)) {
             hlp::Print(hlp::PrintType::ERROR, "row or column index out auf range");
@@ -665,6 +683,7 @@ namespace uil {
 
         m_cells.at(row).at(column)->SetEditable(isEditable);
     }
+
     bool Table::IsSingleEditable(utl::usize row, utl::usize column) const {
         if (!IsValidIndex(row, column)) {
             hlp::Print(hlp::PrintType::ERROR, "row or column index out auf range");
@@ -672,7 +691,6 @@ namespace uil {
         }
         return m_cells.at(row).at(column)->IsEditable();
     }
-
     void Table::SetAllEditable(bool isEditable) noexcept {
         for (auto& row : m_cells) {
             for (auto& cell : row) {
@@ -685,6 +703,7 @@ namespace uil {
             }
         }
     }
+
     bool Table::IsAllEditable() const noexcept {
         for (auto& row : m_cells) {
             for (auto& cell : row) {
@@ -696,7 +715,6 @@ namespace uil {
 
         return true;
     }
-
     void Table::SetRowEditable(utl::usize row, bool isEditable) {
         if (!IsValidRow(row)) {
             hlp::Print(hlp::PrintType::ERROR, "row out of range"), throw std::out_of_range("row index");
@@ -707,6 +725,7 @@ namespace uil {
         }
         m_editableRowsColumns.at(0).at(row) = isEditable;
     }
+
     bool Table::IsRowEditable(utl::usize row) const {
         if (!IsValidRow(row)) {
             hlp::Print(hlp::PrintType::ERROR, "row out of range"), throw std::out_of_range("row index");
@@ -714,7 +733,6 @@ namespace uil {
 
         return m_editableRowsColumns.at(0).at(row);
     }
-
     void Table::SetColumnEditable(utl::usize column, bool isEditable) {
         if (!IsValidColumn(column)) {
             hlp::Print(hlp::PrintType::ERROR, "column out of Range");
@@ -726,6 +744,7 @@ namespace uil {
         }
         m_editableRowsColumns.at(1).at(column) = isEditable;
     }
+
     bool Table::IsColumnEditable(utl::usize column) const {
         if (!IsValidColumn(column)) {
             hlp::Print(hlp::PrintType::ERROR, "column out of Range");
@@ -734,7 +753,6 @@ namespace uil {
 
         return m_editableRowsColumns.at(1).at(column);
     }
-
     void Table::SetSingleCellTextColor(Color color, utl::usize row, utl::usize column) {
         if (!IsValidIndex(row, column)) {
             hlp::Print(hlp::PrintType::ERROR, "row or column index out auf range");
@@ -767,6 +785,7 @@ namespace uil {
             cell->SetTextColor(color);
         }
     }
+
     void Table::SetColumnCellTextColor(Color color, utl::usize column) {
         if (!IsValidColumn(column)) {
             hlp::Print(hlp::PrintType::ERROR, "column out of Range");
@@ -777,28 +796,27 @@ namespace uil {
             row.at(column)->SetTextColor(color);
         }
     }
-
     void Table::SetFixedHeadline(bool isFixedHeadline) {
         m_setFixedHeadline = isFixedHeadline;
     }
+
     bool Table::IsFixedHeadline() const {
         return m_isFixedHeadline;
     }
-
     void Table::SetFixedFirstColumn(bool isFixedFirstColumn) {
         m_setFixedFirstColumn = isFixedFirstColumn;
     }
+
     bool Table::IsFixedFirstColumn() const {
         return m_isFixedFirstColumn;
     }
-
     bool Table::IsEnabled() const noexcept {
         return true;
     }
+
     Rectangle Table::GetCollider() const noexcept {
         return m_collider;
     }
-
     void Table::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) {
 
         ResizeTable();

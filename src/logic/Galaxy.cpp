@@ -493,6 +493,10 @@ namespace lgk {
 
         auto const newStart2{ std::remove_if(m_objects.begin(), m_objects.end(), containsObject) };
         m_objects.erase(newStart2, m_objects.end());
+
+        for (auto const& f : fleets) {
+            app::AppContext::GetInstance().aliasManager.DeleteSpaceObjectAlias(f->GetID());
+        }
     }
 
     void Galaxy::DeleteFleet(Fleet_ty const& fleet) {
@@ -506,6 +510,8 @@ namespace lgk {
                                m_objects.end(),
                                [fleet](SpaceObject_ty const& object) { return fleet->GetID() == object->GetID(); }),
                 m_objects.end());
+
+        app::AppContext::GetInstance().aliasManager.DeleteSpaceObjectAlias(fleet->GetID());
 
         hlp::Print(hlp::PrintType::ONLY_DEBUG,
                    "delete fleet -> id: {} -> player: {} -> ships: {}",
@@ -596,6 +602,10 @@ namespace lgk {
 
         auto const start2{ std::remove_if(m_objects.begin(), m_objects.end(), containsTargetPoint) };
         m_objects.erase(start2, m_objects.end());
+
+        for (auto const& t : toDelete) {
+            app::AppContext::GetInstance().aliasManager.DeleteSpaceObjectAlias(t->GetID());
+        }
     }
 
     std::vector<Fleet_ty> Galaxy::UpdateFleetTargets(std::vector<Fleet_ty> const& fleets,

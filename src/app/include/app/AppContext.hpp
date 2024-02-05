@@ -5,6 +5,7 @@
 
 #pragma once
 
+#include "AliasManager.hpp"
 #include "AssetManager.hpp"
 #include "LanguageManager.hpp"
 #include "PlayerCollection.hpp"
@@ -28,6 +29,7 @@ namespace app {
         PlayerCollection playerCollection;
         utl::Colors colors;
         cst::Constants constants;
+        AliasManager aliasManager;
 
         [[nodiscard]] static AppContext_ty GetInstance();
 
@@ -97,10 +99,10 @@ namespace app {
 
         void Unload();
 
-        AppContext(AppContext const&) = delete;
-        AppContext(AppContext&&) = delete;
+        AppContext(AppContext const&)            = delete;
+        AppContext(AppContext&&)                 = delete;
         AppContext& operator=(AppContext const&) = delete;
-        AppContext& operator=(AppContext&&) = delete;
+        AppContext& operator=(AppContext&&)      = delete;
 
     private:
         AppContext();

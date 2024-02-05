@@ -14,17 +14,20 @@ namespace ui {
     private:
         utl::RepresentationGalaxy m_galaxy;
         uil::Table_ty m_table;
+        app::PlayerData m_currentPlayer;
 
-        void Initialization(app::PlayerData const& currentPlayer);
+        void Initialization();
 
         [[nodiscard]] std::string GetStringFromPosition(utl::vec2pos_ty_ref_c position, bool getCoordinates) const;
+
+        void SetAlias(utl::usize spaceObjectID, std::string alias) const;
 
     public:
         FleetAndTargetPointTable(Vector2 pos,
                                  Vector2 size,
                                  uil::Alignment alignment,
                                  utl::RepresentationGalaxy galaxy,
-                                 app::PlayerData const& currentPlayer);
+                                 app::PlayerData currentPlayer);
 
         void SetActive(bool active, app::AppContext_ty_c appContext) override;
     };
