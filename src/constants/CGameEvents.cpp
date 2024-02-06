@@ -17,6 +17,7 @@ namespace cst {
             events &= ~type;
         }
     }
+
     bool GameEvents::IsFlag(HGameEventType const type) const {
         return (events & type) == type;
     }

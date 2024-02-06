@@ -12,10 +12,18 @@
 
 namespace cst {
     struct GameEvents {
-        static inline utl::usize constexpr configEntryCount{ 7 };
 
+        static inline utl::usize constexpr configEntryCount{ 13 };
         HGameEventType events{ 0b11111111 }; // default "global"
-        float globalEventChance{ 25.0f };
+
+        float m_globalChance{ 25.0f };
+
+        float m_pirateChance{ 15.0f };
+        float m_revoltChance{ 15.0f };
+        float m_renegadeShipsChance{ 15.0f };
+        float m_blackHoleChance{ 2.0f };
+        float m_supernovaChance{ 1.0f };
+        float m_engineProblemChance{ 10.0f };
 
         void SetFlag(HGameEventType type, bool active);
 
