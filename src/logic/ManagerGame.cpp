@@ -12,6 +12,7 @@
 #include <app/AppContext.hpp>
 #include <event/EventGeneral.hpp>
 #include <helper/HPrint.hpp>
+#include <helper/HRandom.hpp>
 #include <stdexcept>
 
 namespace lgk {
@@ -407,6 +408,15 @@ namespace lgk {
         bool const isValidFleet{ m_galaxyManager.AddFleet(event, currentPlayer) };
         eve::ReturnFleetInstructionEvent const returnEvent{ isValidFleet };
         appContext.eventManager.InvokeEvent(returnEvent);
+    }
+
+    // events
+    bool GameManager::WillEventRise(cst::GameEventType type) {
+        auto const& constants = app::AppContext::GetInstance().constants.gameEvents;
+        auto const typeChance = constants.m_globalChance * constants.ChanceByType(type);
+        auto& random          = hlp::Random::GetInstance();
+        auto chance           = random.random(100);
+        return static_cast<float>(chance) < typeChance;
     }
 
     // game

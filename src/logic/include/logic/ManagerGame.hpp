@@ -14,6 +14,7 @@
 #include <memory>
 #include <random>
 #include <vector>
+#include <constants/CGameEventTypes.hpp>
 
 
 namespace lgk {
@@ -70,7 +71,7 @@ namespace lgk {
         void AddFleet(eve::SendFleetInstructionEvent const* event);
 
         // events
-        static bool WillEventRise(cst::GameEventType type);
+        [[nodiscard]] static bool WillEventRise(cst::GameEventType type);
 
         // game
         void StartGame();
