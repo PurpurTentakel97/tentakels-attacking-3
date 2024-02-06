@@ -86,14 +86,12 @@ namespace ui {
 #ifdef _DEBUG
         utl::usize const fps{ static_cast<utl::usize>(GetFPS()) };
         cst::Window_ty_c window{ app::AppContext::GetInstance().constants.window };
-        DrawTextEx(
-                *(m_appContext.assetManager.GetFont()),
-                ("FPS: " + std::to_string(fps)).c_str(),
-                Vector2(window.currentResolutionVec.x * 0.92f, window.currentResolutionVec.y * 0.01f),
-                window.currentResolutionVec.y * 0.03f,
-                0.0f,
-                WHITE
-        );
+        DrawTextEx(*(m_appContext.assetManager.GetFont()),
+                   ("FPS: " + std::to_string(fps)).c_str(),
+                   Vector2(window.currentResolutionVec.x * 0.92f, window.currentResolutionVec.y * 0.01f),
+                   window.currentResolutionVec.y * 0.03f,
+                   0.0f,
+                   WHITE);
 #endif // _DEBUG
 
         EndDrawing();
@@ -130,9 +128,8 @@ namespace ui {
         auto const screenWidth{ GetMonitorWidth(screen) };
 
         auto differenceWidth{ static_cast<int>((static_cast<float>(screenWidth) - window.currentResolutionVec.x) / 2) };
-        auto differenceHeight{
-            static_cast<int>((static_cast<float>(screenHeight) - window.currentResolutionVec.y) / 2)
-        };
+        auto differenceHeight{ static_cast<int>((static_cast<float>(screenHeight) - window.currentResolutionVec.y)
+                                                / 2) };
 
         if (differenceWidth < 0) {
             differenceWidth = 0;
@@ -186,8 +183,15 @@ namespace ui {
 
         if (m_appContext.constants.window.currentResolutionEnum == cst::Resolution::LAST) {
 
-            m_nextResolution = cst::Resolution::SCREEN;
-            m_isNextFullScreen = true;
+            m_nextResolution                           = cst::Resolution::SCREEN;
+            /*
+             * problem here is, that the game actually starts with window mode.
+             * to trick this I set the local variable to true and the constants variable to false.
+             * this cause the CheckAndSetToggleFullScreen() to toggle fullscreen.
+             * kinda hacky. I know.
+             * */
+            m_isNextFullScreen                         = true;
+            m_appContext.constants.window.isFullScreen = false;
 
             eve::ShowInitialSoundLevelPopUpEvent event{
                 m_appContext.languageManager.Text("ui_manager_initial_sound_popup_title"),
@@ -195,18 +199,22 @@ namespace ui {
             };
             app::AppContext::GetInstance().eventManager.InvokeEvent(event);
         } else {
-            m_nextResolution = window.currentResolutionEnum;
+            m_nextResolution             = window.currentResolutionEnum;
             window.currentResolutionEnum = cst::Resolution::LAST;
-            m_isNextFullScreen = window.isFullScreen;
-            window.isFullScreen = false;
+            /*
+             * problem here is, that the game actually starts with window mode.
+             * to trick this I set the local variable to the constants value and the constants variable to false.
+             * this cause the CheckAndSetToggleFullScreen() to toggle fullscreen if fullscreen was provided in config.
+             * kinda hacky. I know.
+             * */
+            m_isNextFullScreen           = window.isFullScreen;
+            window.isFullScreen          = false;
 
             if (!window.IsPossibleResolution(m_nextResolution)) {
-                hlp::Print(
-                        hlp::PrintType::ERROR,
-                        "invalid resolution: {} -> resolution set to: {}",
-                        m_appContext.constants.window.GetStringFromResolution(m_nextResolution),
-                        m_appContext.constants.window.GetStringFromResolution(cst::Resolution::SCREEN)
-                );
+                hlp::Print(hlp::PrintType::ERROR,
+                           "invalid resolution: {} -> resolution set to: {}",
+                           m_appContext.constants.window.GetStringFromResolution(m_nextResolution),
+                           m_appContext.constants.window.GetStringFromResolution(cst::Resolution::SCREEN));
                 m_nextResolution = cst::Resolution::SCREEN;
             }
         }
