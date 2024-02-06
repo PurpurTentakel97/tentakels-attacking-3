@@ -28,5 +28,7 @@ namespace cst {
         void SetFlag(GameEventType type, bool active);
 
         [[nodiscard]] bool IsFlag(GameEventType type) const;
+
+        [[nodiscard]] float ChanceByType(GameEventType type) const;
     };
 } // namespace cst

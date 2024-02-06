@@ -27,18 +27,22 @@ namespace cst {
                 | static_cast<std::underlying_type_t<GameEventType>>(rhs)
         );
     }
+
     inline GameEventType& operator|=(GameEventType& lhs, GameEventType rhs) {
         return lhs = { lhs | rhs };
     }
+
     inline GameEventType operator&(GameEventType lhs, GameEventType rhs) {
         return static_cast<GameEventType>(
                 static_cast<std::underlying_type_t<GameEventType>>(lhs)
                 & static_cast<std::underlying_type_t<GameEventType>>(rhs)
         );
     }
+
     inline GameEventType& operator&=(GameEventType& lhs, GameEventType rhs) {
         return lhs = { lhs & rhs };
     }
+
     inline GameEventType operator~(GameEventType value) {
         return static_cast<GameEventType>(~(static_cast<std::underlying_type_t<GameEventType>>(value)));
     }
