@@ -244,12 +244,12 @@ namespace cst {
         // fleet
         if (nlohmann::json events; loadSection(load, events, ConfigTypes::GAME_EVENTS, GameEvents::configEntryCount)) {
             // clang-format off
-        if (bool  out; loadBool (events, out, ConfigTypes::PIRATES              )) { constants.gameEvents.SetFlag(HGameEventType::PIRATES,          out); }
-        if (bool  out; loadBool (events, out, ConfigTypes::REVOLTS              )) { constants.gameEvents.SetFlag(HGameEventType::REVOLTS,          out); }
-        if (bool  out; loadBool (events, out, ConfigTypes::RENEGADE_SHIPS       )) { constants.gameEvents.SetFlag(HGameEventType::RENEGADE_SHIPS,   out); }
-        if (bool  out; loadBool (events, out, ConfigTypes::BLACK_HOLE           )) { constants.gameEvents.SetFlag(HGameEventType::BLACK_HOLE,       out); }
-        if (bool  out; loadBool (events, out, ConfigTypes::SUPERNOVA            )) { constants.gameEvents.SetFlag(HGameEventType::SUPERNOVA,        out); }
-        if (bool  out; loadBool (events, out, ConfigTypes::ENGINE_PROBLEM       )) { constants.gameEvents.SetFlag(HGameEventType::ENGINE_PROBLEM,   out); }
+        if (bool  out; loadBool (events, out, ConfigTypes::PIRATES              )) { constants.gameEvents.SetFlag(GameEventType::PIRATES,          out); }
+        if (bool  out; loadBool (events, out, ConfigTypes::REVOLTS              )) { constants.gameEvents.SetFlag(GameEventType::REVOLTS,          out); }
+        if (bool  out; loadBool (events, out, ConfigTypes::RENEGADE_SHIPS       )) { constants.gameEvents.SetFlag(GameEventType::RENEGADE_SHIPS,   out); }
+        if (bool  out; loadBool (events, out, ConfigTypes::BLACK_HOLE           )) { constants.gameEvents.SetFlag(GameEventType::BLACK_HOLE,       out); }
+        if (bool  out; loadBool (events, out, ConfigTypes::SUPERNOVA            )) { constants.gameEvents.SetFlag(GameEventType::SUPERNOVA,        out); }
+        if (bool  out; loadBool (events, out, ConfigTypes::ENGINE_PROBLEM       )) { constants.gameEvents.SetFlag(GameEventType::ENGINE_PROBLEM,   out); }
         if (float out; loadFloat(events, out, ConfigTypes::GLOBAL_EVENT_CHANCE  )) { constants.gameEvents.m_globalChance                          = out ; }
         if (float out; loadFloat(events, out, ConfigTypes::PIRATES_CHANCE       )) { constants.gameEvents.m_pirateChance                          = out ; }
         if (float out; loadFloat(events, out, ConfigTypes::REVOLTS_CHANCE       )) { constants.gameEvents.m_revoltChance                          = out ; }
@@ -362,12 +362,12 @@ namespace cst {
 
         save[CToS(ConfigTypes::GAME_EVENTS)] = {
   // clang-format off
-        { CToS(ConfigTypes::PIRATES              ), constants.gameEvents.IsFlag(HGameEventType::PIRATES)        },
-        { CToS(ConfigTypes::REVOLTS              ), constants.gameEvents.IsFlag(HGameEventType::REVOLTS)        },
-        { CToS(ConfigTypes::RENEGADE_SHIPS       ), constants.gameEvents.IsFlag(HGameEventType::RENEGADE_SHIPS) },
-        { CToS(ConfigTypes::BLACK_HOLE           ), constants.gameEvents.IsFlag(HGameEventType::BLACK_HOLE)     },
-        { CToS(ConfigTypes::SUPERNOVA            ), constants.gameEvents.IsFlag(HGameEventType::SUPERNOVA)      },
-        { CToS(ConfigTypes::ENGINE_PROBLEM       ), constants.gameEvents.IsFlag(HGameEventType::ENGINE_PROBLEM) },
+        { CToS(ConfigTypes::PIRATES              ), constants.gameEvents.IsFlag(GameEventType::PIRATES)        },
+        { CToS(ConfigTypes::REVOLTS              ), constants.gameEvents.IsFlag(GameEventType::REVOLTS)        },
+        { CToS(ConfigTypes::RENEGADE_SHIPS       ), constants.gameEvents.IsFlag(GameEventType::RENEGADE_SHIPS) },
+        { CToS(ConfigTypes::BLACK_HOLE           ), constants.gameEvents.IsFlag(GameEventType::BLACK_HOLE)     },
+        { CToS(ConfigTypes::SUPERNOVA            ), constants.gameEvents.IsFlag(GameEventType::SUPERNOVA)      },
+        { CToS(ConfigTypes::ENGINE_PROBLEM       ), constants.gameEvents.IsFlag(GameEventType::ENGINE_PROBLEM) },
         { CToS(ConfigTypes::GLOBAL_EVENT_CHANCE  ), constants.gameEvents.m_globalChance                         },
         { CToS(ConfigTypes::PIRATES_CHANCE       ), constants.gameEvents.m_pirateChance                         },
         { CToS(ConfigTypes::REVOLTS_CHANCE       ), constants.gameEvents.m_revoltChance                         },

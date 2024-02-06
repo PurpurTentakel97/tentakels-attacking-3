@@ -69,6 +69,9 @@ namespace lgk {
         // fleet
         void AddFleet(eve::SendFleetInstructionEvent const* event);
 
+        // events
+        static bool WillEventRise(cst::GameEventType type);
+
         // game
         void StartGame();
 

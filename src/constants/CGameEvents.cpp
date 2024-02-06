@@ -6,19 +6,19 @@
 #include "CGameEvents.hpp"
 
 namespace cst {
-    void GameEvents::SetFlag(HGameEventType const type, bool const active) {
+    void GameEvents::SetFlag(GameEventType const type, bool const active) {
         if (active) {
             events |= type;
         } else {
-            if ((type & HGameEventType::GLOBAL) == HGameEventType::GLOBAL) {
-                events = static_cast<HGameEventType>(0b11000000);
+            if ((type & GameEventType::GLOBAL) == GameEventType::GLOBAL) {
+                events = static_cast<GameEventType>(0b11000000);
                 return;
             }
             events &= ~type;
         }
     }
 
-    bool GameEvents::IsFlag(HGameEventType const type) const {
+    bool GameEvents::IsFlag(GameEventType const type) const {
         return (events & type) == type;
     }
 } // namespace cst

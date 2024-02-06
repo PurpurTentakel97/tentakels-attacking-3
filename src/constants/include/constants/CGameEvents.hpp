@@ -14,7 +14,7 @@ namespace cst {
     struct GameEvents {
 
         static inline utl::usize constexpr configEntryCount{ 13 };
-        HGameEventType events{ 0b11111111 }; // default "global"
+        GameEventType events{ 0b11111111 }; // default "global"
 
         float m_globalChance{ 25.0f };
 
@@ -25,8 +25,8 @@ namespace cst {
         float m_supernovaChance{ 1.0f };
         float m_engineProblemChance{ 10.0f };
 
-        void SetFlag(HGameEventType type, bool active);
+        void SetFlag(GameEventType type, bool active);
 
-        [[nodiscard]] bool IsFlag(HGameEventType type) const;
+        [[nodiscard]] bool IsFlag(GameEventType type) const;
     };
 } // namespace cst

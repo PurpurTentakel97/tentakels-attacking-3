@@ -9,7 +9,7 @@
 #include <type_traits>
 
 namespace cst {
-    enum class HGameEventType : uint8_t {
+    enum class GameEventType : uint8_t {
         // clang-format off
     PIRATES        = 0b00000001, // 1
     REVOLTS        = 0b00000010, // 2
@@ -21,25 +21,25 @@ namespace cst {
         // clang-format on
     };
 
-    inline HGameEventType operator|(HGameEventType lhs, HGameEventType rhs) {
-        return static_cast<HGameEventType>(
-                static_cast<std::underlying_type_t<HGameEventType>>(lhs)
-                | static_cast<std::underlying_type_t<HGameEventType>>(rhs)
+    inline GameEventType operator|(GameEventType lhs, GameEventType rhs) {
+        return static_cast<GameEventType>(
+                static_cast<std::underlying_type_t<GameEventType>>(lhs)
+                | static_cast<std::underlying_type_t<GameEventType>>(rhs)
         );
     }
-    inline HGameEventType& operator|=(HGameEventType& lhs, HGameEventType rhs) {
+    inline GameEventType& operator|=(GameEventType& lhs, GameEventType rhs) {
         return lhs = { lhs | rhs };
     }
-    inline HGameEventType operator&(HGameEventType lhs, HGameEventType rhs) {
-        return static_cast<HGameEventType>(
-                static_cast<std::underlying_type_t<HGameEventType>>(lhs)
-                & static_cast<std::underlying_type_t<HGameEventType>>(rhs)
+    inline GameEventType operator&(GameEventType lhs, GameEventType rhs) {
+        return static_cast<GameEventType>(
+                static_cast<std::underlying_type_t<GameEventType>>(lhs)
+                & static_cast<std::underlying_type_t<GameEventType>>(rhs)
         );
     }
-    inline HGameEventType& operator&=(HGameEventType& lhs, HGameEventType rhs) {
+    inline GameEventType& operator&=(GameEventType& lhs, GameEventType rhs) {
         return lhs = { lhs & rhs };
     }
-    inline HGameEventType operator~(HGameEventType value) {
-        return static_cast<HGameEventType>(~(static_cast<std::underlying_type_t<HGameEventType>>(value)));
+    inline GameEventType operator~(GameEventType value) {
+        return static_cast<GameEventType>(~(static_cast<std::underlying_type_t<GameEventType>>(value)));
     }
 } // namespace cst

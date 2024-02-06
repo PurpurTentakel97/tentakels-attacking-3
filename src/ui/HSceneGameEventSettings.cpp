@@ -103,6 +103,6 @@ namespace ui {
             appContext.constants.gameEvents.SetFlag(m_text.at(i).first, r);
             m_checkBoxes.at(i)->SetChecked(appContext.constants.gameEvents.IsFlag(m_text.at(i).first));
         }
-        m_checkBoxes.at(0)->SetChecked(appContext.constants.gameEvents.IsFlag(cst::HGameEventType::GLOBAL));
+        m_checkBoxes.at(0)->SetChecked(appContext.constants.gameEvents.IsFlag(cst::GameEventType::GLOBAL));
     }
 } // namespace ui
