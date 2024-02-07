@@ -17,6 +17,7 @@ add_library(utils STATIC
             Colors.cpp
             ResultFight.cpp
             ResultMerge.cpp
+            include/utils/Probability.hpp
 
 )
 target_include_directories(utils

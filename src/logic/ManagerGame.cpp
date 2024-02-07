@@ -413,10 +413,16 @@ namespace lgk {
     // events
     bool GameManager::WillEventRise(cst::GameEventType type) {
         auto const& constants = app::AppContext::GetInstance().constants.gameEvents;
+
+        if (not constants.IsFlag(type)) {
+            return false;
+        }
+
         auto const typeChance = constants.m_globalChance * constants.ChanceByType(type);
         auto& random          = hlp::Random::GetInstance();
-        auto chance           = random.random(100);
-        return static_cast<float>(chance) < typeChance;
+        auto chance           = random.random(utl::Probability::maxValue);
+
+        return chance < typeChance;
     }
 
     // game

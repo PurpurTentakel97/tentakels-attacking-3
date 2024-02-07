@@ -1,8 +1,17 @@
 //
-// Created by marti on 07.02.2024.
+// Purpur Tentakel
+// 07.02.2024
 //
 
-#ifndef TENTAKELSATTACKING_PROBABILITY_HPP
-#define TENTAKELSATTACKING_PROBABILITY_HPP
+#pragma once
+#include <alias/AliasUtils.hpp>
 
-#endif //TENTAKELSATTACKING_PROBABILITY_HPP
+namespace utl {
+    struct Probability final {
+        static constexpr utl::usize maxValue{ 10000 };
+        utl::usize value;
+        inline utl::usize operator*(Probability const& other) const {
+            return value * other.value / maxValue;
+        }
+    };
+} // namespace utl

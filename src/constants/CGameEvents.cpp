@@ -22,7 +22,7 @@ namespace cst {
         return (events & type) == type;
     }
 
-    float GameEvents::ChanceByType(GameEventType type) const {
+    utl::Probability GameEvents::ChanceByType(GameEventType type) const {
         switch (type) {
                 // clang-format off
             case GameEventType::PIRATES:        return m_pirateChance       ;

@@ -17,11 +17,11 @@ namespace cst {
             case ConfigTypes::RENEGADE_SHIPS:        return "renegade_ships"       ;
             case ConfigTypes::BLACK_HOLE:            return "black_hole"           ;
             case ConfigTypes::SUPERNOVA:             return "supernova"            ;
-            case ConfigTypes::ENGINE_PROBLEM:        return "engine_problems"      ;
+            case ConfigTypes::ENGINE_PROBLEM:        return "engine_problem"       ;
             case ConfigTypes::GLOBAL_EVENT_CHANCE:   return "global_event_chance"  ;
             case ConfigTypes::PIRATES_CHANCE:        return "pirates_chance"       ;
             case ConfigTypes::REVOLTS_CHANCE:        return "revolts_chance"       ;
-            case ConfigTypes::RENEGADE_SHIPS_CHANCE: return "renegade_ship_chance" ;
+            case ConfigTypes::RENEGADE_SHIPS_CHANCE: return "renegade_ships_chance";
             case ConfigTypes::BLACK_HOLE_CHANCE:     return "black_hole_chance"    ;
             case ConfigTypes::SUPERNOVA_CHANCE:      return "supernova_chance"     ;
             case ConfigTypes::ENGINE_PROBLEM_CHANCE: return "engine_problem_chance";
