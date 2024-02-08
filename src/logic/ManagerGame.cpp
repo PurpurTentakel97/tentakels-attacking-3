@@ -412,14 +412,14 @@ namespace lgk {
 
     // events
     void GameManager::UpdateEvents() {
-        std::array<cst::GameEventType, 6> constexpr events{
+        std::array<utl::GameEventType, 6> constexpr events{
             // clang-format off
-            cst::GameEventType::PIRATES,
-            cst::GameEventType::REVOLTS,
-            cst::GameEventType::RENEGADE_SHIPS,
-            cst::GameEventType::BLACK_HOLE,
-            cst::GameEventType::SUPERNOVA,
-            cst::GameEventType::ENGINE_PROBLEM,
+            utl::GameEventType::PIRATES,
+            utl::GameEventType::REVOLTS,
+            utl::GameEventType::RENEGADE_SHIPS,
+            utl::GameEventType::BLACK_HOLE,
+            utl::GameEventType::SUPERNOVA,
+            utl::GameEventType::ENGINE_PROBLEM,
             // don't check for global. it just represents if all other events are active or not.
             // clang-format on
         };
@@ -431,7 +431,7 @@ namespace lgk {
         }
     }
 
-    bool GameManager::IsSingleGameEvent(cst::GameEventType type) {
+    bool GameManager::IsSingleGameEvent(utl::GameEventType type) {
         auto const& constants = app::AppContext::GetInstance().constants.gameEvents;
 
         if (not constants.IsFlag(type)) {
@@ -446,7 +446,7 @@ namespace lgk {
     }
 
 
-    void GameManager::RaiseEvent(cst::GameEventType type) {
+    void GameManager::RaiseEvent(utl::GameEventType type) {
         auto& random           = hlp::Random::GetInstance();
         auto const playerIndex = random.random(m_players.size() - 1);
 
@@ -454,13 +454,13 @@ namespace lgk {
 
         switch (type) {
                 // clang-format off
-            case cst::GameEventType::PIRATES:        HandlePirates(m_players[playerIndex]);       break;
-            case cst::GameEventType::REVOLTS:        HandleRevolts(m_players[playerIndex]);       break;
-            case cst::GameEventType::RENEGADE_SHIPS: HandleRenegadeShips(m_players[playerIndex]); break;
-            case cst::GameEventType::BLACK_HOLE:     HandleBlackHole(m_players[playerIndex]);     break;
-            case cst::GameEventType::SUPERNOVA:      HandleSupernova(m_players[playerIndex]);     break;
-            case cst::GameEventType::ENGINE_PROBLEM: HandleEngineProblem(m_players[playerIndex]); break;
-            case cst::GameEventType::GLOBAL:         std::unreachable();                          break;
+            case utl::GameEventType::PIRATES:        HandlePirates(m_players[playerIndex]);       break;
+            case utl::GameEventType::REVOLTS:        HandleRevolts(m_players[playerIndex]);       break;
+            case utl::GameEventType::RENEGADE_SHIPS: HandleRenegadeShips(m_players[playerIndex]); break;
+            case utl::GameEventType::BLACK_HOLE:     HandleBlackHole(m_players[playerIndex]);     break;
+            case utl::GameEventType::SUPERNOVA:      HandleSupernova(m_players[playerIndex]);     break;
+            case utl::GameEventType::ENGINE_PROBLEM: HandleEngineProblem();                       break;
+            case utl::GameEventType::GLOBAL:         std::unreachable();                          break;
                 // clang-format on
         }
     }
@@ -485,7 +485,10 @@ namespace lgk {
         hlp::Print(hlp::PrintType::TODO, "Handle Supernova Event in GameManager");
     }
 
-    void GameManager::HandleEngineProblem(Player_ty player) {
+    void GameManager::HandleEngineProblem() {
+        auto const& appContext = app::AppContext::GetInstance();
+        auto& random           = hlp::Random::GetInstance();
+        [[maybe_unused]] auto const years       = random.random(appContext.constants.gameEvents.m_maxYearsEngineProblem);
         hlp::Print(hlp::PrintType::TODO, "Handle Engine Problem Event in GameManager");
     }
 
@@ -598,7 +601,7 @@ namespace lgk {
         UpdateEvents();
         m_lastUpdateResults = m_galaxyManager.Update();
     }
-    
+
     void GameManager::OnEvent(eve::Event const& event) {
 
         // Player
@@ -689,7 +692,7 @@ namespace lgk {
         }
         if ([[maybe_unused]] auto const* gameEvent = dynamic_cast<eve::GetUpdateEvaluation const*>(&event)) {
             app::AppContext::GetInstance().eventManager.InvokeEvent(
-                    eve::SendUpdateEvaluation{ m_lastUpdateResults.first, m_lastUpdateResults.second });
+                    eve::SendUpdateEvaluation{ m_lastUpdateResults });
             return;
         }
 

@@ -127,7 +127,7 @@ namespace lgk {
         filter(m_mainGalaxy->GetFleets());
     }
 
-    utl::UpdateResult_ty GalaxyManager::Update() {
+    utl::UpdateResult GalaxyManager::Update() {
         return m_mainGalaxy->Update();
     }
 } // namespace lgk

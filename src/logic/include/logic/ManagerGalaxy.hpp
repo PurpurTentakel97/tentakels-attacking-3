@@ -41,6 +41,6 @@ namespace lgk {
 
         void KillPlayer(Player_ty_c player, Player_ty_c neutral_player);
 
-        [[nodiscard]] utl::UpdateResult_ty Update();
+        [[nodiscard]] utl::UpdateResult Update();
     };
 } // namespace lgk

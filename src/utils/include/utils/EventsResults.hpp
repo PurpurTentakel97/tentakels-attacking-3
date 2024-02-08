@@ -9,13 +9,13 @@
 #include <alias/AliasUtils.hpp>
 
 namespace utl {
-    class EventResult {
+    class ResultEvent {
     private:
         GameEventType m_type;
         usize m_playerID;
 
     public:
-        EventResult(GameEventType type, usize playerID) : m_type{ type }, m_playerID{ playerID } { }
+        ResultEvent(GameEventType type, usize playerID) : m_type{ type }, m_playerID{ playerID } { }
 
         [[nodiscard]] GameEventType Type() const {
             return m_type;
@@ -26,14 +26,14 @@ namespace utl {
         }
     };
 
-    class EngineProblemEventResult final : public EventResult {
+    class EngineProblemEventResult final : public ResultEvent {
     private:
         usize m_years;
         usize m_fleetID;
 
     public:
         EngineProblemEventResult(GameEventType type, usize years, usize playerID, usize fleetID)
-            : EventResult{ type, playerID },
+            : ResultEvent{ type, playerID },
               m_years{ years },
               m_fleetID{ fleetID } { }
 

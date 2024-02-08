@@ -23,10 +23,8 @@ namespace utl {
     using vec2pos_ty_c     = Vec2<int> const;
     using vec2pos_ty_ref_c = Vec2<int> const&;
 
-    struct ResultMerge;
-    struct ResultFight;
+    class UpdateResult;
     struct ResultFleet;
-    using UpdateResult_ty = std::pair<std::vector<utl::ResultMerge>, std::vector<utl::ResultFight>>;
 
     enum class FleetInstructionType;
 

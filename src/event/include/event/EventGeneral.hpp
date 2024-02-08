@@ -11,8 +11,7 @@
 #include <string>
 #include <unordered_map>
 #include <utils/RepresentationGalaxy.hpp>
-#include <utils/ResultFight.hpp>
-#include <utils/ResultMerge.hpp>
+#include <utils/UpdateResult.hpp>
 
 
 namespace eve {
@@ -132,19 +131,13 @@ namespace eve {
 
     class SendUpdateEvaluation final : public Event {
     private:
-        std::vector<utl::ResultMerge> m_mergeResults;
-        std::vector<utl::ResultFight> m_fightResults;
+        utl::UpdateResult m_result;
 
     public:
-        SendUpdateEvaluation(std::vector<utl::ResultMerge> mergeResult, std::vector<utl::ResultFight> fightResult)
-            : m_mergeResults{ std::move(mergeResult) },
-              m_fightResults{ std::move(fightResult) } { }
+        explicit SendUpdateEvaluation(utl::UpdateResult result) : m_result{ std::move(result) } { }
 
-        [[nodiscard]] std::vector<utl::ResultMerge> GetMergeResults() const {
-            return m_mergeResults;
-        }
-        [[nodiscard]] std::vector<utl::ResultFight> GetFightResults() const {
-            return m_fightResults;
+        [[nodiscard]] utl::UpdateResult Result() const {
+            return m_result;
         }
     };
 

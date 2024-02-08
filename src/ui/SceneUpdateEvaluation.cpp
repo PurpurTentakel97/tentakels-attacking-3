@@ -23,7 +23,7 @@ namespace ui {
         hlp::Print(hlp::PrintType::DEBUG, "--------------------| Evaluation |--------------------");
 
         hlp::Print(hlp::PrintType::DEBUG, "------------------ | Merge Results |------------------");
-        for (auto const& e : event->GetMergeResults()) {
+        for (auto const& e : event->Result().Merges()) {
             hlp::Print(hlp::PrintType::DEBUG,
                        "{}",
                        appContext.playerCollection.GetPlayerOrNpcByID(e.GetPlayer().ID).GetName());
@@ -36,7 +36,7 @@ namespace ui {
         }
 
         hlp::Print(hlp::PrintType::DEBUG, "------------------ | Fight Results |------------------");
-        for (auto const& e : event->GetFightResults()) {
+        for (auto const& e : event->Result().Fights()) {
             if (not e.IsValid()) {
                 hlp::Print(hlp::PrintType::DEBUG, "invalid update Evaluation");
                 continue;
@@ -58,7 +58,7 @@ namespace ui {
 
     void UpdateEvaluationScene::DisplayMergeResult() {
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
-        auto const data{ m_mergeResults.at(m_currentIndex) };
+        auto const data{ m_result.Merges().at(m_currentIndex) };
         auto const playerName{ appContext.playerCollection.GetPlayerByID(data.GetPlayer().ID).GetName() };
 
         std::string spaceObjectText;
@@ -88,7 +88,7 @@ namespace ui {
     void UpdateEvaluationScene::DisplayFightResult() {
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
 
-        eve::ShowFightResultEvent const event{ m_fightResults.at(m_currentIndex),
+        eve::ShowFightResultEvent const event{ m_result.Fights().at(m_currentIndex),
                                                [this]() { this->m_nextPopup = true; } };
         appContext.eventManager.InvokeEvent(event);
     }
@@ -104,7 +104,7 @@ namespace ui {
 
         switch (m_currentResultType) {
             case ResultType::MERGE:
-                if (m_currentIndex >= m_mergeResults.size()) {
+                if (m_currentIndex >= m_result.Merges().size()) {
                     setNext();
                     goto fight;
                 }
@@ -112,7 +112,7 @@ namespace ui {
                 break;
             case ResultType::FIGHT:
             fight:
-                if (m_currentIndex >= m_fightResults.size()) {
+                if (m_currentIndex >= m_result.Fights().size()) {
                     setNext();
                     goto last;
                 }
@@ -169,8 +169,7 @@ namespace ui {
 
     void UpdateEvaluationScene::OnEvent(eve::Event const& event) {
         if (auto const* evEvent = dynamic_cast<eve::SendUpdateEvaluation const*>(&event)) {
-            m_mergeResults = evEvent->GetMergeResults();
-            m_fightResults = evEvent->GetFightResults();
+            m_result = evEvent->Result();
             app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
             eve::ShowMessagePopUpEvent const messageEvent{
                 appContext.languageManager.Text("ui_popup_no_evaluation_title"),

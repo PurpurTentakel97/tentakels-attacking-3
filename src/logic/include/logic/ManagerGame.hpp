@@ -7,8 +7,10 @@
 
 #include "ManagerGalaxy.hpp"
 #include "Player.hpp"
+#include <utils/GameEventTypes.hpp>
+#include <utils/EventsResults.hpp>
+#include <utils/UpdateResult.hpp>
 #include <alias/AliasUtils.hpp>
-#include <constants/CGameEventTypes.hpp>
 #include <event/EventGeneral.hpp>
 #include <event/EventListener.hpp>
 #include <event/EventsUI.hpp>
@@ -27,7 +29,7 @@ namespace lgk {
         std::vector<Player_ty> m_players{};
         std::vector<Player_ty> m_currentRoundPlayers{};
         GalaxyManager m_galaxyManager;
-        utl::UpdateResult_ty m_lastUpdateResults{};
+        utl::UpdateResult m_lastUpdateResults{};
 
         // player
         [[nodiscard]] bool ValidAddPlayer() const;
@@ -73,9 +75,9 @@ namespace lgk {
         // events
         void UpdateEvents();
 
-        [[nodiscard]] static bool IsSingleGameEvent(cst::GameEventType type);
+        [[nodiscard]] static bool IsSingleGameEvent(utl::GameEventType type);
 
-        void RaiseEvent(cst::GameEventType type);
+        void RaiseEvent(utl::GameEventType type);
 
         void HandlePirates(Player_ty player);
 
@@ -87,7 +89,7 @@ namespace lgk {
 
         void HandleSupernova(Player_ty player);
 
-        void HandleEngineProblem(Player_ty player);
+        void HandleEngineProblem();
 
         // game
         void StartGame();
