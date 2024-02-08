@@ -14,10 +14,12 @@ add_library(utils STATIC
             include/utils/RepresentationPlanet.hpp
             include/utils/RepresentationGalaxy.hpp
             include/utils/RepresentationPlayer.hpp
+            include/utils/Probability.hpp
+            include/utils/GameEventTypes.hpp
+            include/utils/EventsResults.hpp
             Colors.cpp
             ResultFight.cpp
             ResultMerge.cpp
-            include/utils/Probability.hpp
 
 )
 target_include_directories(utils

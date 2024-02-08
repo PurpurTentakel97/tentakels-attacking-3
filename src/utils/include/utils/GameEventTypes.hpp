@@ -8,7 +8,7 @@
 #include <cstdint>
 #include <type_traits>
 
-namespace cst {
+namespace utl {
     enum class GameEventType : uint8_t {
         // clang-format off
     PIRATES        = 0b00000001, // 1
