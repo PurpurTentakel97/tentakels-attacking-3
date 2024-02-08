@@ -73,23 +73,23 @@ namespace lgk {
         void AddFleet(eve::SendFleetInstructionEvent const* event);
 
         // events
-        void UpdateEvents();
+        [[nodiscard]] std::vector<utl::ResultEvent> UpdateEvents();
 
         [[nodiscard]] static bool IsSingleGameEvent(utl::GameEventType type);
 
-        void RaiseEvent(utl::GameEventType type);
+        [[nodiscard]] utl::ResultEvent RaiseEvent(utl::GameEventType type);
 
-        void HandlePirates(Player_ty player);
+        [[nodiscard]] utl::ResultEvent HandlePirates(Player_ty player);
 
-        void HandleRevolts(Player_ty player);
+        [[nodiscard]] utl::ResultEvent HandleRevolts(Player_ty player);
 
-        void HandleRenegadeShips(Player_ty player);
+        [[nodiscard]] utl::ResultEvent HandleRenegadeShips(Player_ty player);
 
-        void HandleBlackHole(Player_ty player);
+        [[nodiscard]] utl::ResultEvent HandleBlackHole(Player_ty player);
 
-        void HandleSupernova(Player_ty player);
+        [[nodiscard]] utl::ResultEvent HandleSupernova(Player_ty player);
 
-        void HandleEngineProblem();
+        [[nodiscard]] utl::ResultEvent HandleEngineProblem();
 
         // game
         void StartGame();

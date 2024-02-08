@@ -411,7 +411,7 @@ namespace lgk {
     }
 
     // events
-    void GameManager::UpdateEvents() {
+    std::vector<utl::ResultEvent> GameManager::UpdateEvents() {
         std::array<utl::GameEventType, 6> constexpr events{
             // clang-format off
             utl::GameEventType::PIRATES,
@@ -424,9 +424,10 @@ namespace lgk {
             // clang-format on
         };
 
+        std::vector<utl::ResultEvent> result{};
         for (auto const& e : events) {
             if (IsSingleGameEvent(e)) {
-                RaiseEvent(e);
+                result.push_back(RaiseEvent(e));
             }
         }
     }
@@ -446,7 +447,7 @@ namespace lgk {
     }
 
 
-    void GameManager::RaiseEvent(utl::GameEventType type) {
+    utl::ResultEvent GameManager::RaiseEvent(utl::GameEventType type) {
         auto& random           = hlp::Random::GetInstance();
         auto const playerIndex = random.random(m_players.size() - 1);
 
@@ -454,38 +455,38 @@ namespace lgk {
 
         switch (type) {
                 // clang-format off
-            case utl::GameEventType::PIRATES:        HandlePirates(m_players[playerIndex]);       break;
-            case utl::GameEventType::REVOLTS:        HandleRevolts(m_players[playerIndex]);       break;
-            case utl::GameEventType::RENEGADE_SHIPS: HandleRenegadeShips(m_players[playerIndex]); break;
-            case utl::GameEventType::BLACK_HOLE:     HandleBlackHole(m_players[playerIndex]);     break;
-            case utl::GameEventType::SUPERNOVA:      HandleSupernova(m_players[playerIndex]);     break;
-            case utl::GameEventType::ENGINE_PROBLEM: HandleEngineProblem();                       break;
-            case utl::GameEventType::GLOBAL:         std::unreachable();                          break;
+            case utl::GameEventType::PIRATES:        return HandlePirates(m_players[playerIndex]);
+            case utl::GameEventType::REVOLTS:        return HandleRevolts(m_players[playerIndex]);
+            case utl::GameEventType::RENEGADE_SHIPS: return HandleRenegadeShips(m_players[playerIndex]);
+            case utl::GameEventType::BLACK_HOLE:     return HandleBlackHole(m_players[playerIndex]);
+            case utl::GameEventType::SUPERNOVA:      return HandleSupernova(m_players[playerIndex]);
+            case utl::GameEventType::ENGINE_PROBLEM: return HandleEngineProblem();
+            case utl::GameEventType::GLOBAL:                std::unreachable();
                 // clang-format on
         }
     }
 
-    void GameManager::HandlePirates(Player_ty player) {
+    utl::ResultEvent GameManager::HandlePirates(Player_ty player) {
         hlp::Print(hlp::PrintType::TODO, "Handle Pirate Event in GameManager");
     }
 
-    void GameManager::HandleRevolts(Player_ty player) {
+    utl::ResultEvent GameManager::HandleRevolts(Player_ty player) {
         hlp::Print(hlp::PrintType::TODO, "Handle Revolts Event in GameManager");
     }
 
-    void GameManager::HandleRenegadeShips(Player_ty player) {
+    utl::ResultEvent GameManager::HandleRenegadeShips(Player_ty player) {
         hlp::Print(hlp::PrintType::TODO, "Handle Renegade Ships Event in GameManager");
     }
 
-    void GameManager::HandleBlackHole(Player_ty player) {
+    utl::ResultEvent GameManager::HandleBlackHole(Player_ty player) {
         hlp::Print(hlp::PrintType::TODO, "Handle Black Hole Event in GameManager");
     }
 
-    void GameManager::HandleSupernova(Player_ty player) {
+    utl::ResultEvent GameManager::HandleSupernova(Player_ty player) {
         hlp::Print(hlp::PrintType::TODO, "Handle Supernova Event in GameManager");
     }
 
-    void GameManager::HandleEngineProblem() {
+    utl::ResultEvent GameManager::HandleEngineProblem() {
         auto const& appContext = app::AppContext::GetInstance();
         auto& random           = hlp::Random::GetInstance();
         [[maybe_unused]] auto const years       = random.random(appContext.constants.gameEvents.m_maxYearsEngineProblem);
@@ -598,8 +599,9 @@ namespace lgk {
     }
 
     void GameManager::Update() {
-        UpdateEvents();
+        auto const result = UpdateEvents();
         m_lastUpdateResults = m_galaxyManager.Update();
+        m_lastUpdateResults.m_events = result;
     }
 
     void GameManager::OnEvent(eve::Event const& event) {

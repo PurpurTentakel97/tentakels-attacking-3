@@ -11,6 +11,7 @@
 
 namespace utl {
     class UpdateResult final {
+        friend class lgk::GameManager;
     private:
         std::vector<ResultEvent> m_events{};
         std::vector<ResultMerge> m_merges{};
