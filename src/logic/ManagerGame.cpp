@@ -411,7 +411,27 @@ namespace lgk {
     }
 
     // events
-    bool GameManager::WillEventRise(cst::GameEventType type) {
+    void GameManager::UpdateEvents() {
+        std::array<cst::GameEventType, 6> constexpr events{
+            // clang-format off
+            cst::GameEventType::PIRATES,
+            cst::GameEventType::REVOLTS,
+            cst::GameEventType::RENEGADE_SHIPS,
+            cst::GameEventType::BLACK_HOLE,
+            cst::GameEventType::SUPERNOVA,
+            cst::GameEventType::ENGINE_PROBLEM,
+            // don't check for global. it just represents if all other events are active or not.
+            // clang-format on
+        };
+
+        for (auto const& e : events) {
+            if (IsSingleGameEvent(e)) {
+                RaiseEvent(e);
+            }
+        }
+    }
+
+    bool GameManager::IsSingleGameEvent(cst::GameEventType type) {
         auto const& constants = app::AppContext::GetInstance().constants.gameEvents;
 
         if (not constants.IsFlag(type)) {
@@ -423,6 +443,50 @@ namespace lgk {
         auto chance           = random.random(utl::Probability::maxValue);
 
         return chance < typeChance;
+    }
+
+
+    void GameManager::RaiseEvent(cst::GameEventType type) {
+        auto& random           = hlp::Random::GetInstance();
+        auto const playerIndex = random.random(m_players.size() - 1);
+
+        hlp::Print(hlp::PrintType::ONLY_DEBUG, "player count: {}, random player ID: {}", m_players.size(), playerIndex);
+
+        switch (type) {
+                // clang-format off
+            case cst::GameEventType::PIRATES:        HandlePirates(m_players[playerIndex]);       break;
+            case cst::GameEventType::REVOLTS:        HandleRevolts(m_players[playerIndex]);       break;
+            case cst::GameEventType::RENEGADE_SHIPS: HandleRenegadeShips(m_players[playerIndex]); break;
+            case cst::GameEventType::BLACK_HOLE:     HandleBlackHole(m_players[playerIndex]);     break;
+            case cst::GameEventType::SUPERNOVA:      HandleSupernova(m_players[playerIndex]);     break;
+            case cst::GameEventType::ENGINE_PROBLEM: HandleEngineProblem(m_players[playerIndex]); break;
+            case cst::GameEventType::GLOBAL:         std::unreachable();                          break;
+                // clang-format on
+        }
+    }
+
+    void GameManager::HandlePirates(Player_ty player) {
+        hlp::Print(hlp::PrintType::TODO, "Handle Pirate Event in GameManager");
+    }
+
+    void GameManager::HandleRevolts(Player_ty player) {
+        hlp::Print(hlp::PrintType::TODO, "Handle Revolts Event in GameManager");
+    }
+
+    void GameManager::HandleRenegadeShips(Player_ty player) {
+        hlp::Print(hlp::PrintType::TODO, "Handle Renegade Ships Event in GameManager");
+    }
+
+    void GameManager::HandleBlackHole(Player_ty player) {
+        hlp::Print(hlp::PrintType::TODO, "Handle Black Hole Event in GameManager");
+    }
+
+    void GameManager::HandleSupernova(Player_ty player) {
+        hlp::Print(hlp::PrintType::TODO, "Handle Supernova Event in GameManager");
+    }
+
+    void GameManager::HandleEngineProblem(Player_ty player) {
+        hlp::Print(hlp::PrintType::TODO, "Handle Engine Problem Event in GameManager");
     }
 
     // game
@@ -531,9 +595,10 @@ namespace lgk {
     }
 
     void GameManager::Update() {
+        UpdateEvents();
         m_lastUpdateResults = m_galaxyManager.Update();
     }
-
+    
     void GameManager::OnEvent(eve::Event const& event) {
 
         // Player

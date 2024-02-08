@@ -8,13 +8,13 @@
 #include "ManagerGalaxy.hpp"
 #include "Player.hpp"
 #include <alias/AliasUtils.hpp>
+#include <constants/CGameEventTypes.hpp>
 #include <event/EventGeneral.hpp>
 #include <event/EventListener.hpp>
 #include <event/EventsUI.hpp>
 #include <memory>
 #include <random>
 #include <vector>
-#include <constants/CGameEventTypes.hpp>
 
 
 namespace lgk {
@@ -71,7 +71,23 @@ namespace lgk {
         void AddFleet(eve::SendFleetInstructionEvent const* event);
 
         // events
-        [[nodiscard]] static bool WillEventRise(cst::GameEventType type);
+        void UpdateEvents();
+
+        [[nodiscard]] static bool IsSingleGameEvent(cst::GameEventType type);
+
+        void RaiseEvent(cst::GameEventType type);
+
+        void HandlePirates(Player_ty player);
+
+        void HandleRevolts(Player_ty player);
+
+        void HandleRenegadeShips(Player_ty player);
+
+        void HandleBlackHole(Player_ty player);
+
+        void HandleSupernova(Player_ty player);
+
+        void HandleEngineProblem(Player_ty player);
 
         // game
         void StartGame();
