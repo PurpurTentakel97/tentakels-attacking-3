@@ -25,6 +25,7 @@ namespace cst {
         BLACK_HOLE_CHANCE,
         SUPERNOVA_CHANCE,
         ENGINE_PROBLEM_CHANCE,
+        MAX_YEARS_ENGINE_PROBLEM,
 
         FIGHT,
         HIT_CHANCE,

@@ -243,21 +243,23 @@ namespace cst {
         }
         // game events
         // add one because of doc entry. error would rise without this
-        if (nlohmann::json events; loadSection(load, events, ConfigTypes::GAME_EVENTS, GameEvents::configEntryCount + 1)) {
+        if (nlohmann::json events;
+            loadSection(load, events, ConfigTypes::GAME_EVENTS, GameEvents::configEntryCount + 1)) {
             // clang-format off
-        if (bool       out; loadBool (events, out, ConfigTypes::PIRATES              )) { constants.gameEvents.SetFlag(GameEventType::PIRATES,          out); }
-        if (bool       out; loadBool (events, out, ConfigTypes::REVOLTS              )) { constants.gameEvents.SetFlag(GameEventType::REVOLTS,          out); }
-        if (bool       out; loadBool (events, out, ConfigTypes::RENEGADE_SHIPS       )) { constants.gameEvents.SetFlag(GameEventType::RENEGADE_SHIPS,   out); }
-        if (bool       out; loadBool (events, out, ConfigTypes::BLACK_HOLE           )) { constants.gameEvents.SetFlag(GameEventType::BLACK_HOLE,       out); }
-        if (bool       out; loadBool (events, out, ConfigTypes::SUPERNOVA            )) { constants.gameEvents.SetFlag(GameEventType::SUPERNOVA,        out); }
-        if (bool       out; loadBool (events, out, ConfigTypes::ENGINE_PROBLEM       )) { constants.gameEvents.SetFlag(GameEventType::ENGINE_PROBLEM,   out); }
-        if (utl::usize out; loadUSize(events, out, ConfigTypes::GLOBAL_EVENT_CHANCE  )) { constants.gameEvents.m_globalChance.value                   = out ; }
-        if (utl::usize out; loadUSize(events, out, ConfigTypes::PIRATES_CHANCE       )) { constants.gameEvents.m_pirateChance.value                   = out ; }
-        if (utl::usize out; loadUSize(events, out, ConfigTypes::REVOLTS_CHANCE       )) { constants.gameEvents.m_revoltChance.value                   = out ; }
-        if (utl::usize out; loadUSize(events, out, ConfigTypes::RENEGADE_SHIPS_CHANCE)) { constants.gameEvents.m_renegadeShipsChance.value            = out ; }
-        if (utl::usize out; loadUSize(events, out, ConfigTypes::BLACK_HOLE_CHANCE    )) { constants.gameEvents.m_blackHoleChance.value                = out ; }
-        if (utl::usize out; loadUSize(events, out, ConfigTypes::SUPERNOVA_CHANCE     )) { constants.gameEvents.m_supernovaChance.value                = out ; }
-        if (utl::usize out; loadUSize(events, out, ConfigTypes::ENGINE_PROBLEM_CHANCE)) { constants.gameEvents.m_engineProblemChance.value            = out ; }
+        if (bool       out; loadBool (events, out, ConfigTypes::PIRATES                 )) { constants.gameEvents.SetFlag(GameEventType::PIRATES,          out); }
+        if (bool       out; loadBool (events, out, ConfigTypes::REVOLTS                 )) { constants.gameEvents.SetFlag(GameEventType::REVOLTS,          out); }
+        if (bool       out; loadBool (events, out, ConfigTypes::RENEGADE_SHIPS          )) { constants.gameEvents.SetFlag(GameEventType::RENEGADE_SHIPS,   out); }
+        if (bool       out; loadBool (events, out, ConfigTypes::BLACK_HOLE              )) { constants.gameEvents.SetFlag(GameEventType::BLACK_HOLE,       out); }
+        if (bool       out; loadBool (events, out, ConfigTypes::SUPERNOVA               )) { constants.gameEvents.SetFlag(GameEventType::SUPERNOVA,        out); }
+        if (bool       out; loadBool (events, out, ConfigTypes::ENGINE_PROBLEM          )) { constants.gameEvents.SetFlag(GameEventType::ENGINE_PROBLEM,   out); }
+        if (utl::usize out; loadUSize(events, out, ConfigTypes::GLOBAL_EVENT_CHANCE     )) { constants.gameEvents.m_globalChance.value                   = out ; }
+        if (utl::usize out; loadUSize(events, out, ConfigTypes::PIRATES_CHANCE          )) { constants.gameEvents.m_pirateChance.value                   = out ; }
+        if (utl::usize out; loadUSize(events, out, ConfigTypes::REVOLTS_CHANCE          )) { constants.gameEvents.m_revoltChance.value                   = out ; }
+        if (utl::usize out; loadUSize(events, out, ConfigTypes::RENEGADE_SHIPS_CHANCE   )) { constants.gameEvents.m_renegadeShipsChance.value            = out ; }
+        if (utl::usize out; loadUSize(events, out, ConfigTypes::BLACK_HOLE_CHANCE       )) { constants.gameEvents.m_blackHoleChance.value                = out ; }
+        if (utl::usize out; loadUSize(events, out, ConfigTypes::SUPERNOVA_CHANCE        )) { constants.gameEvents.m_supernovaChance.value                = out ; }
+        if (utl::usize out; loadUSize(events, out, ConfigTypes::ENGINE_PROBLEM_CHANCE   )) { constants.gameEvents.m_engineProblemChance.value            = out ; }
+        if (utl::usize out; loadUSize(events, out, ConfigTypes::MAX_YEARS_ENGINE_PROBLEM)) { constants.gameEvents.m_maxYearsEngineProblem                = out ; }
             // clang-format on
         }
         // fleet
@@ -350,7 +352,7 @@ namespace cst {
         constants.window.isFullScreen = false;
         hlp::Print(hlp::PrintType::DEBUG, "set full screen to false");
         constants.window.currentResolutionEnum = Resolution::HD;
-        hlp::Print(hlp::PrintType::DEBUG, "set resolution ro HD");
+        hlp::Print(hlp::PrintType::DEBUG, "set resolution to HD");
 #endif // _DEBUG
 
         hlp::Print(hlp::PrintType::INFO, "config loaded");
@@ -364,19 +366,20 @@ namespace cst {
         save[CToS(ConfigTypes::GAME_EVENTS)] = {
   // clang-format off
         {"_doc", "chances are displayed between 0 and 10000. 0 = 0.00%; 100 = 1.00%; 10000 = 100.00%"},
-        { CToS(ConfigTypes::PIRATES              ), constants.gameEvents.IsFlag(GameEventType::PIRATES)        },
-        { CToS(ConfigTypes::REVOLTS              ), constants.gameEvents.IsFlag(GameEventType::REVOLTS)        },
-        { CToS(ConfigTypes::RENEGADE_SHIPS       ), constants.gameEvents.IsFlag(GameEventType::RENEGADE_SHIPS) },
-        { CToS(ConfigTypes::BLACK_HOLE           ), constants.gameEvents.IsFlag(GameEventType::BLACK_HOLE)     },
-        { CToS(ConfigTypes::SUPERNOVA            ), constants.gameEvents.IsFlag(GameEventType::SUPERNOVA)      },
-        { CToS(ConfigTypes::ENGINE_PROBLEM       ), constants.gameEvents.IsFlag(GameEventType::ENGINE_PROBLEM) },
-        { CToS(ConfigTypes::GLOBAL_EVENT_CHANCE  ), constants.gameEvents.m_globalChance.value                  },
-        { CToS(ConfigTypes::PIRATES_CHANCE       ), constants.gameEvents.m_pirateChance.value                  },
-        { CToS(ConfigTypes::REVOLTS_CHANCE       ), constants.gameEvents.m_revoltChance.value                  },
-        { CToS(ConfigTypes::RENEGADE_SHIPS_CHANCE), constants.gameEvents.m_renegadeShipsChance.value           },
-        { CToS(ConfigTypes::BLACK_HOLE_CHANCE    ), constants.gameEvents.m_blackHoleChance.value               },
-        { CToS(ConfigTypes::SUPERNOVA_CHANCE     ), constants.gameEvents.m_supernovaChance.value               },
-        { CToS(ConfigTypes::ENGINE_PROBLEM_CHANCE), constants.gameEvents.m_engineProblemChance.value           },
+        { CToS(ConfigTypes::PIRATES                 ), constants.gameEvents.IsFlag(GameEventType::PIRATES)        },
+        { CToS(ConfigTypes::REVOLTS                 ), constants.gameEvents.IsFlag(GameEventType::REVOLTS)        },
+        { CToS(ConfigTypes::RENEGADE_SHIPS          ), constants.gameEvents.IsFlag(GameEventType::RENEGADE_SHIPS) },
+        { CToS(ConfigTypes::BLACK_HOLE              ), constants.gameEvents.IsFlag(GameEventType::BLACK_HOLE)     },
+        { CToS(ConfigTypes::SUPERNOVA               ), constants.gameEvents.IsFlag(GameEventType::SUPERNOVA)      },
+        { CToS(ConfigTypes::ENGINE_PROBLEM          ), constants.gameEvents.IsFlag(GameEventType::ENGINE_PROBLEM) },
+        { CToS(ConfigTypes::GLOBAL_EVENT_CHANCE     ), constants.gameEvents.m_globalChance.value                  },
+        { CToS(ConfigTypes::PIRATES_CHANCE          ), constants.gameEvents.m_pirateChance.value                  },
+        { CToS(ConfigTypes::REVOLTS_CHANCE          ), constants.gameEvents.m_revoltChance.value                  },
+        { CToS(ConfigTypes::RENEGADE_SHIPS_CHANCE   ), constants.gameEvents.m_renegadeShipsChance.value           },
+        { CToS(ConfigTypes::BLACK_HOLE_CHANCE       ), constants.gameEvents.m_blackHoleChance.value               },
+        { CToS(ConfigTypes::SUPERNOVA_CHANCE        ), constants.gameEvents.m_supernovaChance.value               },
+        { CToS(ConfigTypes::ENGINE_PROBLEM_CHANCE   ), constants.gameEvents.m_engineProblemChance.value           },
+        { CToS(ConfigTypes::MAX_YEARS_ENGINE_PROBLEM), constants.gameEvents.m_maxYearsEngineProblem               },
   // clang-format on
         };
         save[CToS(ConfigTypes::FIGHT)] = {
