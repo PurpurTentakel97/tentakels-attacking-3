@@ -9,6 +9,10 @@
 #include "ResultFight.hpp"
 #include "ResultMerge.hpp"
 
+namespace lgk{
+    class GameManager;
+}
+
 namespace utl {
     class UpdateResult final {
         friend class lgk::GameManager;

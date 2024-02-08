@@ -13,6 +13,8 @@
 #include <event/EventGeneral.hpp>
 #include <helper/HPrint.hpp>
 #include <helper/HRandom.hpp>
+#include <ranges>
+#include <span>
 #include <stdexcept>
 
 namespace lgk {
@@ -423,13 +425,9 @@ namespace lgk {
             // don't check for global. it just represents if all other events are active or not.
             // clang-format on
         };
-
-        std::vector<utl::ResultEvent> result{};
-        for (auto const& e : events) {
-            if (IsSingleGameEvent(e)) {
-                result.push_back(RaiseEvent(e));
-            }
-        }
+        using std::ranges::views::filter, std::ranges::to, std::ranges::views::transform;
+        return events | filter(IsSingleGameEvent) | transform([this](auto const& e) { return RaiseEvent(e); })
+             | to<std::vector>();
     }
 
     bool GameManager::IsSingleGameEvent(utl::GameEventType type) {
@@ -448,49 +446,51 @@ namespace lgk {
 
 
     utl::ResultEvent GameManager::RaiseEvent(utl::GameEventType type) {
-        auto& random           = hlp::Random::GetInstance();
-        auto const playerIndex = random.random(m_players.size() - 1);
-
-        hlp::Print(hlp::PrintType::ONLY_DEBUG, "player count: {}, random player ID: {}", m_players.size(), playerIndex);
-
         switch (type) {
                 // clang-format off
-            case utl::GameEventType::PIRATES:        return HandlePirates(m_players[playerIndex]);
-            case utl::GameEventType::REVOLTS:        return HandleRevolts(m_players[playerIndex]);
-            case utl::GameEventType::RENEGADE_SHIPS: return HandleRenegadeShips(m_players[playerIndex]);
-            case utl::GameEventType::BLACK_HOLE:     return HandleBlackHole(m_players[playerIndex]);
-            case utl::GameEventType::SUPERNOVA:      return HandleSupernova(m_players[playerIndex]);
+            case utl::GameEventType::PIRATES:        return HandlePirates();
+            case utl::GameEventType::REVOLTS:        return HandleRevolts();
+            case utl::GameEventType::RENEGADE_SHIPS: return HandleRenegadeShips();
+            case utl::GameEventType::BLACK_HOLE:     return HandleBlackHole();
+            case utl::GameEventType::SUPERNOVA:      return HandleSupernova();
             case utl::GameEventType::ENGINE_PROBLEM: return HandleEngineProblem();
-            case utl::GameEventType::GLOBAL:                std::unreachable();
+            case utl::GameEventType::GLOBAL:
+            default:                                 std::unreachable();
                 // clang-format on
         }
     }
 
-    utl::ResultEvent GameManager::HandlePirates(Player_ty player) {
+    utl::ResultEvent GameManager::HandlePirates() {
         hlp::Print(hlp::PrintType::TODO, "Handle Pirate Event in GameManager");
+        return {};
     }
 
-    utl::ResultEvent GameManager::HandleRevolts(Player_ty player) {
+    utl::ResultEvent GameManager::HandleRevolts() {
         hlp::Print(hlp::PrintType::TODO, "Handle Revolts Event in GameManager");
+        return {};
     }
 
-    utl::ResultEvent GameManager::HandleRenegadeShips(Player_ty player) {
+    utl::ResultEvent GameManager::HandleRenegadeShips() {
         hlp::Print(hlp::PrintType::TODO, "Handle Renegade Ships Event in GameManager");
+        return {};
     }
 
-    utl::ResultEvent GameManager::HandleBlackHole(Player_ty player) {
+    utl::ResultEvent GameManager::HandleBlackHole() {
         hlp::Print(hlp::PrintType::TODO, "Handle Black Hole Event in GameManager");
+        return {};
     }
 
-    utl::ResultEvent GameManager::HandleSupernova(Player_ty player) {
+    utl::ResultEvent GameManager::HandleSupernova() {
         hlp::Print(hlp::PrintType::TODO, "Handle Supernova Event in GameManager");
+        return {};
     }
 
     utl::ResultEvent GameManager::HandleEngineProblem() {
-        auto const& appContext = app::AppContext::GetInstance();
-        auto& random           = hlp::Random::GetInstance();
-        [[maybe_unused]] auto const years       = random.random(appContext.constants.gameEvents.m_maxYearsEngineProblem);
+        auto const& appContext            = app::AppContext::GetInstance();
+        auto& random                      = hlp::Random::GetInstance();
+        [[maybe_unused]] auto const years = random.random(appContext.constants.gameEvents.m_maxYearsEngineProblem);
         hlp::Print(hlp::PrintType::TODO, "Handle Engine Problem Event in GameManager");
+        return {};
     }
 
     // game
@@ -599,8 +599,8 @@ namespace lgk {
     }
 
     void GameManager::Update() {
-        auto const result = UpdateEvents();
-        m_lastUpdateResults = m_galaxyManager.Update();
+        auto const result            = UpdateEvents();
+        m_lastUpdateResults          = m_galaxyManager.Update();
         m_lastUpdateResults.m_events = result;
     }
 
@@ -693,8 +693,7 @@ namespace lgk {
             return;
         }
         if ([[maybe_unused]] auto const* gameEvent = dynamic_cast<eve::GetUpdateEvaluation const*>(&event)) {
-            app::AppContext::GetInstance().eventManager.InvokeEvent(
-                    eve::SendUpdateEvaluation{ m_lastUpdateResults });
+            app::AppContext::GetInstance().eventManager.InvokeEvent(eve::SendUpdateEvaluation{ m_lastUpdateResults });
             return;
         }
 

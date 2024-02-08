@@ -11,10 +11,11 @@
 namespace utl {
     class ResultEvent {
     private:
-        GameEventType m_type;
-        usize m_playerID;
+        GameEventType m_type{};
+        usize m_playerID{};
 
     public:
+        ResultEvent() = default;
         ResultEvent(GameEventType type, usize playerID) : m_type{ type }, m_playerID{ playerID } { }
 
         [[nodiscard]] GameEventType Type() const {

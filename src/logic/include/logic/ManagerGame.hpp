@@ -79,15 +79,15 @@ namespace lgk {
 
         [[nodiscard]] utl::ResultEvent RaiseEvent(utl::GameEventType type);
 
-        [[nodiscard]] utl::ResultEvent HandlePirates(Player_ty player);
+        [[nodiscard]] utl::ResultEvent HandlePirates();
 
-        [[nodiscard]] utl::ResultEvent HandleRevolts(Player_ty player);
+        [[nodiscard]] utl::ResultEvent HandleRevolts();
 
-        [[nodiscard]] utl::ResultEvent HandleRenegadeShips(Player_ty player);
+        [[nodiscard]] utl::ResultEvent HandleRenegadeShips();
 
-        [[nodiscard]] utl::ResultEvent HandleBlackHole(Player_ty player);
+        [[nodiscard]] utl::ResultEvent HandleBlackHole();
 
-        [[nodiscard]] utl::ResultEvent HandleSupernova(Player_ty player);
+        [[nodiscard]] utl::ResultEvent HandleSupernova();
 
         [[nodiscard]] utl::ResultEvent HandleEngineProblem();
 
