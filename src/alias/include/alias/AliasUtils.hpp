@@ -25,6 +25,8 @@ namespace utl {
 
     class UpdateResult;
     struct ResultFleet;
+    class ResultEvent;
+    class EngineProblemEventResult;
 
     enum class FleetInstructionType;
 
