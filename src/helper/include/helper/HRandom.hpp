@@ -31,9 +31,9 @@ namespace hlp {
     };
 
     template<typename T>
-    [[nodiscard]] T& RandomElementFromList(std::vector<T> list) {
+    [[nodiscard]] T& RandomElementFromList(std::vector<T>& list) {
         auto& random     = Random::GetInstance();
-        auto const index = random.random(list.size() - 1);
+        auto const index = random.random(list.size());
         return list[index];
     }
 } // namespace hlp

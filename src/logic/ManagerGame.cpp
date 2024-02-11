@@ -488,7 +488,7 @@ namespace lgk {
     utl::EngineProblemEventResult GameManager::HandleEngineProblem() {
         auto const& appContext = app::AppContext::GetInstance();
         auto& random           = hlp::Random::GetInstance();
-        auto const years       = random.random(appContext.constants.gameEvents.m_maxYearsEngineProblem);
+        auto const years       = random.random(appContext.constants.gameEvents.m_maxYearsEngineProblem) + 1;
         return m_galaxyManager.HandleEngineProblem(years);
     }
 
