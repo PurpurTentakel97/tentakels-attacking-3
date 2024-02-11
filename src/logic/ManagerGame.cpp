@@ -448,12 +448,12 @@ namespace lgk {
     utl::ResultEvent GameManager::RaiseEvent(utl::GameEventType type) {
         switch (type) {
                 // clang-format off
-            case utl::GameEventType::PIRATES:        return HandlePirates();
-            case utl::GameEventType::REVOLTS:        return HandleRevolts();
-            case utl::GameEventType::RENEGADE_SHIPS: return HandleRenegadeShips();
-            case utl::GameEventType::BLACK_HOLE:     return HandleBlackHole();
-            case utl::GameEventType::SUPERNOVA:      return HandleSupernova();
-            case utl::GameEventType::ENGINE_PROBLEM: return HandleEngineProblem();
+            case utl::GameEventType::PIRATES:        return static_cast<utl::ResultEvent>(HandlePirates());
+            case utl::GameEventType::REVOLTS:        return static_cast<utl::ResultEvent>(HandleRevolts());
+            case utl::GameEventType::RENEGADE_SHIPS: return static_cast<utl::ResultEvent>(HandleRenegadeShips());
+            case utl::GameEventType::BLACK_HOLE:     return static_cast<utl::ResultEvent>(HandleBlackHole());
+            case utl::GameEventType::SUPERNOVA:      return static_cast<utl::ResultEvent>(HandleSupernova());
+            case utl::GameEventType::ENGINE_PROBLEM: return static_cast<utl::ResultEvent>(HandleEngineProblem());
             case utl::GameEventType::GLOBAL:
             default:                                 std::unreachable();
                 // clang-format on
@@ -485,12 +485,11 @@ namespace lgk {
         return {};
     }
 
-    utl::ResultEvent GameManager::HandleEngineProblem() {
-        auto const& appContext            = app::AppContext::GetInstance();
-        auto& random                      = hlp::Random::GetInstance();
-        [[maybe_unused]] auto const years = random.random(appContext.constants.gameEvents.m_maxYearsEngineProblem);
-        hlp::Print(hlp::PrintType::TODO, "Handle Engine Problem Event in GameManager");
-        return {};
+    utl::EngineProblemEventResult GameManager::HandleEngineProblem() {
+        auto const& appContext = app::AppContext::GetInstance();
+        auto& random           = hlp::Random::GetInstance();
+        auto const years       = random.random(appContext.constants.gameEvents.m_maxYearsEngineProblem);
+        return m_galaxyManager.HandleEngineProblem(years);
     }
 
     // game

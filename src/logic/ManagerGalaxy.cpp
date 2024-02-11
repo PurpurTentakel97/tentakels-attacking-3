@@ -13,6 +13,7 @@
 #include <app/AppContext.hpp>
 #include <event/EventGeneral.hpp>
 #include <helper/HPrint.hpp>
+#include <helper/HRandom.hpp>
 #include <utils/ResultFleet.hpp>
 #include <utils/Vec2.hpp>
 
@@ -129,5 +130,12 @@ namespace lgk {
 
     utl::UpdateResult GalaxyManager::Update() {
         return m_mainGalaxy->Update();
+    }
+
+    utl::EngineProblemEventResult GalaxyManager::HandleEngineProblem(utl::usize years) {
+        auto fleets = m_mainGalaxy->GetFleets();
+        auto& fleet = hlp::RandomElementFromList(fleets);
+        fleet->SetEngineProblemYears(years);
+        return { utl::GameEventType::ENGINE_PROBLEM, years, fleet->GetPlayer()->GetID(), fleet->GetID() };
     }
 } // namespace lgk

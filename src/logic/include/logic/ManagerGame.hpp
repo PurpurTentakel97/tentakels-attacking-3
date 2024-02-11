@@ -89,7 +89,7 @@ namespace lgk {
 
         [[nodiscard]] utl::ResultEvent HandleSupernova();
 
-        [[nodiscard]] utl::ResultEvent HandleEngineProblem();
+        [[nodiscard]] utl::EngineProblemEventResult HandleEngineProblem();
 
         // game
         void StartGame();

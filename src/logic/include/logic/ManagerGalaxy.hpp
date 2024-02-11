@@ -42,5 +42,7 @@ namespace lgk {
         void KillPlayer(Player_ty_c player, Player_ty_c neutral_player);
 
         [[nodiscard]] utl::UpdateResult Update();
+
+        [[nodiscard]] utl::EngineProblemEventResult HandleEngineProblem(utl::usize years);
     };
 } // namespace lgk
