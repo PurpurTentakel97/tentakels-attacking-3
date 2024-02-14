@@ -5,5 +5,6 @@
 
 #pragma once
 
+#include "PopUpResultFight.hpp"
 #include "PopUpSoundLevel.hpp"
-#include "PopupResultFight.hpp"
+#include "PopUpResultGameEvent.hpp"
