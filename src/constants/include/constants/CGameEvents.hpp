@@ -17,7 +17,7 @@ namespace cst {
         static inline utl::usize constexpr configEntryCount{ 14 };
         utl::GameEventType events{ 0b11111111 }; // default "global"
 
-        utl::Probability m_globalChance{ 2500 };
+        utl::Probability m_globalChance{ 7500 };
 
         utl::Probability m_pirateChance{ 1500 };
         utl::Probability m_revoltChance{ 1500 };

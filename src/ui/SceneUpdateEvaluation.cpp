@@ -8,6 +8,7 @@
 #include <event/EventGeneral.hpp>
 #include <helper/HPrint.hpp>
 #include <ui_lib/SceneType.hpp>
+#include <utils/EventsResults.hpp>
 
 
 namespace ui {
@@ -42,7 +43,7 @@ namespace ui {
                 continue;
             }
 
-            hlp::Print(hlp::PrintType::DEBUG, "{} vs.{}", e.GetSpaceObjects().first.ID, e.GetSpaceObjects().second.ID);
+            hlp::Print(hlp::PrintType::DEBUG, "{} vs. {}", e.GetSpaceObjects().first.ID, e.GetSpaceObjects().second.ID);
             hlp::Print(hlp::PrintType::DEBUG,
                        "{} vs. {}",
                        appContext.playerCollection.GetPlayerOrNpcByID(e.GetPlayer().first.ID).GetName(),
@@ -52,6 +53,56 @@ namespace ui {
                 hlp::Print(hlp::PrintType::DEBUG, "{} | {}", r.first, r.second);
             }
             hlp::Print(hlp::PrintType::DEBUG, "------------------------------------------------------");
+        }
+        hlp::Print(hlp::PrintType::DEBUG, "------------------ | Event Result |-------------------");
+        if (event->Result().Events().empty()) {
+            hlp::Print(hlp::PrintType::DEBUG, "no events this round");
+        } else {
+            for (auto const& e : event->Result().Events()) {
+                if (not e) {
+                    hlp::Print(hlp::PrintType::EXPECTED_ERROR, "result is empty");
+                } else {
+                    switch (e->Type()) {
+                        case utl::GameEventType::PIRATES: {
+                            hlp::Print(hlp::PrintType::DEBUG, "pirate event result");
+                            break;
+                        }
+                        case utl::GameEventType::REVOLTS: {
+                            hlp::Print(hlp::PrintType::DEBUG, "revolts event result");
+                            break;
+                        }
+                        case utl::GameEventType::RENEGADE_SHIPS: {
+                            hlp::Print(hlp::PrintType::DEBUG, "renegate ships event result");
+                            break;
+                        }
+                        case utl::GameEventType::BLACK_HOLE: {
+                            hlp::Print(hlp::PrintType::DEBUG, "black hole event result");
+                            break;
+                        }
+                        case utl::GameEventType::SUPERNOVA: {
+                            hlp::Print(hlp::PrintType::DEBUG, "supernova event result");
+                            break;
+                        }
+                        case utl::GameEventType::ENGINE_PROBLEM: {
+                            hlp::Print(hlp::PrintType::DEBUG, "Engine Problem Event Result");
+                            [[maybe_unused]] auto const* result =
+                                    dynamic_cast<utl::EngineProblemEventResult const*>(e.get());
+                            if (not result) {
+                                hlp::Print(hlp::PrintType::ERROR,
+                                           "-> nullptr while dynamic cast a Engine Problem Event Result");
+                                break;
+                            }
+                            hlp::Print(hlp::PrintType::DEBUG,
+                                       "-> fleet {} from player {} will not be able to move within the next {} years",
+                                       result->FleetID(),
+                                       result->PlayerID(),
+                                       result->Years());
+                            break;
+                        }
+                        case utl::GameEventType::GLOBAL: std::unreachable();
+                    }
+                }
+            }
         }
         hlp::Print(hlp::PrintType::DEBUG, "------------------------------------------------------");
     }
@@ -177,7 +228,7 @@ namespace ui {
                 [this]() { this->m_nextPopup = true; }
             };
             appContext.eventManager.InvokeEvent(messageEvent);
-            // TestPrint(evEvent); // to print the incoming event to the console
+            TestPrint(evEvent); // to print the incoming event to the console
         }
     }
 } // namespace ui

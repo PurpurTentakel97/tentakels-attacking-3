@@ -116,7 +116,7 @@ namespace lgk {
 
     void GalaxyManager::KillPlayer(Player_ty_c player, Player_ty_c neutralPlayer) {
         auto filter{ [&](auto const& objects) {
-            for (auto e : objects) {
+            for (auto& e : objects) {
                 if (e->GetPlayer()->GetID() == player->GetID()) {
                     e->SetPlayer(neutralPlayer);
                 }
@@ -132,10 +132,19 @@ namespace lgk {
         return m_mainGalaxy->Update();
     }
 
-    utl::EngineProblemEventResult GalaxyManager::HandleEngineProblem(utl::usize years) {
+    std::shared_ptr<utl::EngineProblemEventResult> GalaxyManager::HandleEngineProblem(utl::usize years) {
         auto fleets = m_mainGalaxy->GetFleets();
-        auto& fleet = hlp::RandomElementFromList(fleets);
-        fleet->SetEngineProblemYears(years);
-        return { utl::GameEventType::ENGINE_PROBLEM, years, fleet->GetPlayer()->GetID(), fleet->GetID() };
+        if (fleets.empty()) {
+            return {};
+        }
+        for (int i = 0; i < 20; ++i) {
+            auto& fleet = hlp::RandomElementFromList(fleets);
+            if (fleet->GetEngineProblemYears() != 0) {
+                continue;
+            }
+            fleet->SetEngineProblemYears(years);
+            return std::make_shared<utl::EngineProblemEventResult>(fleet->GetPlayer()->GetID(), fleet->GetID(), years);
+        }
+        return {};
     }
 } // namespace lgk

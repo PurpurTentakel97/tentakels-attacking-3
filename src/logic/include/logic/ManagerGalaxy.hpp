@@ -43,6 +43,6 @@ namespace lgk {
 
         [[nodiscard]] utl::UpdateResult Update();
 
-        [[nodiscard]] utl::EngineProblemEventResult HandleEngineProblem(utl::usize years);
+        [[nodiscard]] std::shared_ptr<utl::EngineProblemEventResult> HandleEngineProblem(utl::usize years);
     };
 } // namespace lgk

@@ -40,6 +40,8 @@ namespace lgk {
 
         [[nodiscard]] bool IsFarFriendly() const;
 
+        [[nodiscard]] utl::usize GetEngineProblemYears() const;
+
         void SetEngineProblemYears(utl::usize years);
 
         void Update(Galaxy_ty_raw galaxy) override;

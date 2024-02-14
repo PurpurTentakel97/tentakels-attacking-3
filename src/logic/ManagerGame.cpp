@@ -5,7 +5,6 @@
 
 #include "ManagerGame.hpp"
 #include "CopyGalaxyType.hpp"
-#include "Galaxy.hpp"
 #include "RepresentationGenerator.hpp"
 #include <algorithm>
 #include <alias/AliasUtils.hpp>
@@ -413,7 +412,8 @@ namespace lgk {
     }
 
     // events
-    std::vector<utl::ResultEvent> GameManager::UpdateEvents() {
+    std::vector<utl::UpdateResult::event_ty> GameManager::UpdateEvents() {
+        hlp::Print(hlp::PrintType::ONLY_DEBUG, "-> update Events");
         std::array<utl::GameEventType, 6> constexpr events{
             // clang-format off
             utl::GameEventType::PIRATES,
@@ -426,8 +426,41 @@ namespace lgk {
             // clang-format on
         };
         using std::ranges::views::filter, std::ranges::to, std::ranges::views::transform;
-        return events | filter(IsSingleGameEvent) | transform([this](auto const& e) { return RaiseEvent(e); })
-             | to<std::vector>();
+        std::vector<utl::UpdateResult::event_ty> toReturn{};
+        for (auto const& e : events) {
+            if (not IsSingleGameEvent(e)) {
+                continue;
+            }
+            auto const result = RaiseEvent(e);
+            if (not result) {
+                continue;
+            }
+            toReturn.push_back(result);
+        }
+        return toReturn;
+
+        /*
+         * I tried to work with ranges.
+         * It did not work out.
+         * When I add 'filter([](auto const& e) { return e != nullptr; })' 'RaiseEvent(e)' gets executed 7 times
+         * even tho there are just 6 events.
+         * I can not figure out why that is.
+         * So it stays as a for-loop for now.
+         * If you know why. contact me. :)
+         */
+
+        /*
+            return events | filter(IsSingleGameEvent)
+             | transform([this](auto const& e) { return std::move(RaiseEvent(e)); })
+             | filter([](auto const& e) { return e != nullptr; }) | to<std::vector>();
+        */
+        /*
+            auto tmp0 = events | filter(IsSingleGameEvent);
+            auto tmp1 = tmp0 | transform([this](auto const& e){return std::move(RaiseEvent(e));});
+            // auto tmp2 = tmp1 | filter([](auto const& e){return e != nullptr;});
+            auto tmp3 = tmp1 | to<std::vector>();
+            return tmp3;
+        */
     }
 
     bool GameManager::IsSingleGameEvent(utl::GameEventType type) {
@@ -445,50 +478,53 @@ namespace lgk {
     }
 
 
-    utl::ResultEvent GameManager::RaiseEvent(utl::GameEventType type) {
+    utl::UpdateResult::event_ty GameManager::RaiseEvent(utl::GameEventType type) {
+        static int count{ 1 };
+        hlp::Print(hlp::PrintType::DEBUG, "current count: {}", count++);
         switch (type) {
                 // clang-format off
-            case utl::GameEventType::PIRATES:        return static_cast<utl::ResultEvent>(HandlePirates());
-            case utl::GameEventType::REVOLTS:        return static_cast<utl::ResultEvent>(HandleRevolts());
-            case utl::GameEventType::RENEGADE_SHIPS: return static_cast<utl::ResultEvent>(HandleRenegadeShips());
-            case utl::GameEventType::BLACK_HOLE:     return static_cast<utl::ResultEvent>(HandleBlackHole());
-            case utl::GameEventType::SUPERNOVA:      return static_cast<utl::ResultEvent>(HandleSupernova());
-            case utl::GameEventType::ENGINE_PROBLEM: return static_cast<utl::ResultEvent>(HandleEngineProblem());
-            case utl::GameEventType::GLOBAL:
-            default:                                 std::unreachable();
+            case utl::GameEventType::PIRATES:        return std::move(HandlePirates());
+            case utl::GameEventType::REVOLTS:        return std::move(HandleRevolts());
+            case utl::GameEventType::RENEGADE_SHIPS: return std::move(HandleRenegadeShips());
+            case utl::GameEventType::BLACK_HOLE:     return std::move(HandleBlackHole());
+            case utl::GameEventType::SUPERNOVA:      return std::move(HandleSupernova());
+            case utl::GameEventType::ENGINE_PROBLEM: return std::move(HandleEngineProblem());
+            case utl::GameEventType::GLOBAL:         std::unreachable();
                 // clang-format on
         }
+        std::unreachable();
     }
 
-    utl::ResultEvent GameManager::HandlePirates() {
+    std::shared_ptr<utl::ResultEvent> GameManager::HandlePirates() {
         hlp::Print(hlp::PrintType::TODO, "Handle Pirate Event in GameManager");
         return {};
     }
 
-    utl::ResultEvent GameManager::HandleRevolts() {
+    std::shared_ptr<utl::ResultEvent> GameManager::HandleRevolts() {
         hlp::Print(hlp::PrintType::TODO, "Handle Revolts Event in GameManager");
         return {};
     }
 
-    utl::ResultEvent GameManager::HandleRenegadeShips() {
+    std::shared_ptr<utl::ResultEvent> GameManager::HandleRenegadeShips() {
         hlp::Print(hlp::PrintType::TODO, "Handle Renegade Ships Event in GameManager");
         return {};
     }
 
-    utl::ResultEvent GameManager::HandleBlackHole() {
+    std::shared_ptr<utl::ResultEvent> GameManager::HandleBlackHole() {
         hlp::Print(hlp::PrintType::TODO, "Handle Black Hole Event in GameManager");
         return {};
     }
 
-    utl::ResultEvent GameManager::HandleSupernova() {
+    std::shared_ptr<utl::ResultEvent> GameManager::HandleSupernova() {
         hlp::Print(hlp::PrintType::TODO, "Handle Supernova Event in GameManager");
         return {};
     }
 
-    utl::EngineProblemEventResult GameManager::HandleEngineProblem() {
+    std::shared_ptr<utl::EngineProblemEventResult> GameManager::HandleEngineProblem() {
         auto const& appContext = app::AppContext::GetInstance();
         auto& random           = hlp::Random::GetInstance();
         auto const years       = random.random(appContext.constants.gameEvents.m_maxYearsEngineProblem) + 1;
+        hlp::Print(hlp::PrintType::ONLY_DEBUG, "Handle Supernova Event in GameManager ({} years)", years);
         return m_galaxyManager.HandleEngineProblem(years);
     }
 
@@ -598,9 +634,9 @@ namespace lgk {
     }
 
     void GameManager::Update() {
-        auto const result            = UpdateEvents();
-        m_lastUpdateResults          = m_galaxyManager.Update();
-        m_lastUpdateResults.m_events = result;
+        auto result         = UpdateEvents();
+        m_lastUpdateResults = m_galaxyManager.Update();
+        m_lastUpdateResults.SetEvents(std::move(result));
     }
 
     void GameManager::OnEvent(eve::Event const& event) {

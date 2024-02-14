@@ -9,27 +9,33 @@
 #include "ResultFight.hpp"
 #include "ResultMerge.hpp"
 
-namespace lgk{
+namespace lgk {
     class GameManager;
 }
 
 namespace utl {
     class UpdateResult final {
+    public:
         friend class lgk::GameManager;
+        using event_ty = std::shared_ptr<ResultEvent>;
+
     private:
-        std::vector<ResultEvent> m_events{};
+        std::vector<event_ty> m_events{};
         std::vector<ResultMerge> m_merges{};
         std::vector<ResultFight> m_fights{};
+
+        void SetEvents(std::vector<event_ty> events) {
+            m_events = std::move(events);
+        }
 
     public:
         UpdateResult() = default;
 
-        UpdateResult(std::vector<ResultEvent> events, std::vector<ResultMerge> merges, std::vector<ResultFight> fights)
-            : m_events{ std::move(events) },
-              m_merges{ std::move(merges) },
+        UpdateResult(std::vector<ResultMerge> merges, std::vector<ResultFight> fights)
+            : m_merges{ std::move(merges) },
               m_fights{ std::move(fights) } { }
 
-        [[nodiscard]] std::vector<ResultEvent> Events() const {
+        [[nodiscard]] std::vector<event_ty> Events() const {
             return m_events;
         }
 

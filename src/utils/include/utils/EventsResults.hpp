@@ -18,6 +18,8 @@ namespace utl {
         ResultEvent() = default;
         ResultEvent(GameEventType type, usize playerID) : m_type{ type }, m_playerID{ playerID } { }
 
+        virtual ~ResultEvent() = default;
+
         [[nodiscard]] GameEventType Type() const {
             return m_type;
         }
@@ -29,12 +31,13 @@ namespace utl {
 
     class EngineProblemEventResult final : public ResultEvent {
     private:
-        usize m_years;
-        usize m_fleetID;
+        usize m_years{};
+        usize m_fleetID{};
 
     public:
-        EngineProblemEventResult(GameEventType type, usize years, usize playerID, usize fleetID)
-            : ResultEvent{ type, playerID },
+        using ResultEvent::ResultEvent;
+        EngineProblemEventResult(usize playerID, usize fleetID, usize years)
+            : ResultEvent{ GameEventType::ENGINE_PROBLEM, playerID },
               m_years{ years },
               m_fleetID{ fleetID } { }
 

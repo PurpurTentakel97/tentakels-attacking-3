@@ -1365,6 +1365,6 @@ namespace lgk {
 
         hlp::Print(hlp::PrintType::ONLY_DEBUG, "update logic finished");
 
-        return { {},  mergeResults, fightResults };
+        return { mergeResults, fightResults };
     }
 } // namespace lgk
