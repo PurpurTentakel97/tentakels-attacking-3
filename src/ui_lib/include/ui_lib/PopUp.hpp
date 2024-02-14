@@ -15,6 +15,8 @@ namespace uil {
     protected:
         bool m_firstEnter{ false };
         bool m_shouldClose{ false };
+        Color m_colorBorder{ PURPLE };
+        Color m_colorFill{ GREY_100 };
         std::vector<std::shared_ptr<UIElement>> m_elements;
 
         void Initialize(std::string const& title, std::string& subTitle, app::AssetType infoTexture);

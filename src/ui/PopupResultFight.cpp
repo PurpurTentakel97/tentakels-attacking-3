@@ -3,7 +3,7 @@
 // 06.07.2023
 //
 
-#include "PopupResultFight.hpp"
+#include "PopUpResultFight.hpp"
 #include <app/AppContext.hpp>
 #include <helper/HTextProcessing.hpp>
 #include <ui_lib/ButtonClassic.hpp>

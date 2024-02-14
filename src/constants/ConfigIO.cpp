@@ -23,23 +23,18 @@ namespace cst {
     auto static const printMissingEntry{ [](ConfigTypes const entry) {
         hlp::Print(hlp::PrintType::ERROR, "entry \"{}\" in config missing {}", CToS(entry), defaultValuePrefix);
     } };
-    auto static const printNotMatchingCount{ [](ConfigTypes const section,
-                                                utl::usize const expected,
-                                                utl::usize const provided) {
-        hlp::Print(
-                hlp::PrintType::ERROR,
-                R"(section "{}" entry count in config is not matching -> expected: "{}" -> provided: "{}")",
-              CToS(section),
-              expected,
-              provided);
-    } };
+    auto static const printNotMatchingCount{
+        [](ConfigTypes const section, utl::usize const expected, utl::usize const provided) {
+            hlp::Print(hlp::PrintType::ERROR,
+                       R"(section "{}" entry count in config is not matching -> expected: "{}" -> provided: "{}")",
+                       CToS(section),
+                       expected,
+                       provided);
+        }
+    };
     auto static const printWrongDatatype{ [](ConfigTypes const entry) {
         hlp::Print(
-                hlp::PrintType::ERROR,
-                "entry \"{}\" in config has wrong datatype {}",
-                CToS(entry),
-                defaultValuePrefix
-        );
+                hlp::PrintType::ERROR, "entry \"{}\" in config has wrong datatype {}", CToS(entry), defaultValuePrefix);
     } };
 
     // check
@@ -67,15 +62,16 @@ namespace cst {
         }
         return true;
     } };
-    auto static const isMatchingSize{ [](nlohmann::json const& son, ConfigTypes const section, utl::usize const count
-                                      ) -> bool {
-        assert(son.size() == count);
-        if (son.size() != count) {
-            printNotMatchingCount(section, count, son.size());
-            return false;
+    auto static const isMatchingSize{
+        [](nlohmann::json const& son, ConfigTypes const section, utl::usize const count) -> bool {
+            assert(son.size() == count);
+            if (son.size() != count) {
+                printNotMatchingCount(section, count, son.size());
+                return false;
+            }
+            return true;
         }
-        return true;
-    } };
+    };
 
     // load
     auto static const loadSection{
@@ -168,7 +164,7 @@ namespace cst {
 
     void LoadConfig() {
         // load file
-        loadEntryCount = { 0 };
+        loadEntryCount  = { 0 };
         auto& constants = app::AppContext::GetInstance().constants;
         std::ifstream file;
 
@@ -195,24 +191,22 @@ namespace cst {
             return;
         }
         if (not isMatchingSize(load, ConfigTypes::CONFIG, Global::configSectionCount)) {
-            hlp::Print(
-                    hlp::PrintType::ERROR,
-                    "config section count is not matching {} -> expected: {} -> provided: {}",
-                  defaultValuePrefix,
-                  Global::configSectionCount,
-                  load.size());
+            hlp::Print(hlp::PrintType::ERROR,
+                       "config section count is not matching {} -> expected: {} -> provided: {}",
+                       defaultValuePrefix,
+                       Global::configSectionCount,
+                       load.size());
         }
         // version
         if (nlohmann::json version; loadSection(load, version, ConfigTypes::VERSION, Global::configVersionCount)) {
             if (std::string versionConfig; loadString(version, versionConfig, ConfigTypes::VERSION_CONFIG)) {
                 if (versionConfig != Global::configVersion) {
-                    hlp::Print(
-                            hlp::PrintType::ERROR,
-                            "config version in config is not matching -> expected: {} -> provided: {} -> overwrite "
-                          "config by "
-                          "save",
-                          Global::configVersion,
-                          versionConfig);
+                    hlp::Print(hlp::PrintType::ERROR,
+                               "config version in config is not matching -> expected: {} -> provided: {} -> overwrite "
+                               "config by "
+                               "save",
+                               Global::configVersion,
+                               versionConfig);
                 } else {
                     hlp::Print(hlp::PrintType::INFO, "config versions matching -> version: {}", versionConfig);
                 }
@@ -221,11 +215,11 @@ namespace cst {
             }
             if (std::string versionGame; loadString(version, versionGame, ConfigTypes::VERSION_GAME)) {
                 if (versionGame != Global::gameVersion) {
-                    hlp::Print(
-                            hlp::PrintType::ERROR,
-                            "game version in config is not matching -> expected: {} -> provided: {} -> overwrite by save",
-                          Global::gameVersion,
-                          versionGame);
+                    hlp::Print(hlp::PrintType::ERROR,
+                               "game version is not matching -> expected: {} -> provided: {} -> overwrite by "
+                               "save",
+                               Global::gameVersion,
+                               versionGame);
                 } else {
                     hlp::Print(hlp::PrintType::INFO, "game versions matching -> version: {}", versionGame);
                 }
@@ -247,19 +241,28 @@ namespace cst {
         if (bool       out; loadBool(fight, out, ConfigTypes::FIGHT_TARGET_POINT_TARGET_POINT)) { constants.fight.isFightTargetPointTargetPoint = out; }
             // clang-format on
         }
-        // fleet
-        if (nlohmann::json events; loadSection(load, events, ConfigTypes::GAME_EVENTS, GameEvents::configEntryCount)) {
-            // clang-format off
-        if (bool  out;  loadBool(events, out, ConfigTypes::PIRATES            )) { constants.gameEvents.SetFlag(HGameEventType::PIRATES,        out); }
-        if (bool  out;  loadBool(events, out, ConfigTypes::REVOLTS            )) { constants.gameEvents.SetFlag(HGameEventType::REVOLTS,        out); }
-        if (bool  out;  loadBool(events, out, ConfigTypes::RENEGADE_SHIPS     )) { constants.gameEvents.SetFlag(HGameEventType::RENEGADE_SHIPS, out); }
-        if (bool  out;  loadBool(events, out, ConfigTypes::BLACK_HOLE         )) { constants.gameEvents.SetFlag(HGameEventType::BLACK_HOLE,     out); }
-        if (bool  out;  loadBool(events, out, ConfigTypes::SUPERNOVA          )) { constants.gameEvents.SetFlag(HGameEventType::SUPERNOVA,      out); }
-        if (bool  out;  loadBool(events, out, ConfigTypes::ENGINE_PROBLEM     )) { constants.gameEvents.SetFlag(HGameEventType::ENGINE_PROBLEM, out); }
-        if (float out;  loadFloat(events, out, ConfigTypes::GLOBAL_EVENT_CHANCE)) { constants.gameEvents.globalEventChance                     = out ; }
-        // clang-format on
-        }
         // game events
+        // add one because of doc entry. error would rise without this
+        if (nlohmann::json events;
+            loadSection(load, events, ConfigTypes::GAME_EVENTS, GameEvents::configEntryCount + 1)) {
+            // clang-format off
+        if (bool       out; loadBool (events, out, ConfigTypes::PIRATES                 )) { constants.gameEvents.SetFlag(utl::GameEventType::PIRATES,          out); }
+        if (bool       out; loadBool (events, out, ConfigTypes::REVOLTS                 )) { constants.gameEvents.SetFlag(utl::GameEventType::REVOLTS,          out); }
+        if (bool       out; loadBool (events, out, ConfigTypes::RENEGADE_SHIPS          )) { constants.gameEvents.SetFlag(utl::GameEventType::RENEGADE_SHIPS,   out); }
+        if (bool       out; loadBool (events, out, ConfigTypes::BLACK_HOLE              )) { constants.gameEvents.SetFlag(utl::GameEventType::BLACK_HOLE,       out); }
+        if (bool       out; loadBool (events, out, ConfigTypes::SUPERNOVA               )) { constants.gameEvents.SetFlag(utl::GameEventType::SUPERNOVA,        out); }
+        if (bool       out; loadBool (events, out, ConfigTypes::ENGINE_PROBLEM          )) { constants.gameEvents.SetFlag(utl::GameEventType::ENGINE_PROBLEM,   out); }
+        if (utl::usize out; loadUSize(events, out, ConfigTypes::GLOBAL_EVENT_CHANCE     )) { constants.gameEvents.m_globalChance.value                   = out ; }
+        if (utl::usize out; loadUSize(events, out, ConfigTypes::PIRATES_CHANCE          )) { constants.gameEvents.m_pirateChance.value                   = out ; }
+        if (utl::usize out; loadUSize(events, out, ConfigTypes::REVOLTS_CHANCE          )) { constants.gameEvents.m_revoltChance.value                   = out ; }
+        if (utl::usize out; loadUSize(events, out, ConfigTypes::RENEGADE_SHIPS_CHANCE   )) { constants.gameEvents.m_renegadeShipsChance.value            = out ; }
+        if (utl::usize out; loadUSize(events, out, ConfigTypes::BLACK_HOLE_CHANCE       )) { constants.gameEvents.m_blackHoleChance.value                = out ; }
+        if (utl::usize out; loadUSize(events, out, ConfigTypes::SUPERNOVA_CHANCE        )) { constants.gameEvents.m_supernovaChance.value                = out ; }
+        if (utl::usize out; loadUSize(events, out, ConfigTypes::ENGINE_PROBLEM_CHANCE   )) { constants.gameEvents.m_engineProblemChance.value            = out ; }
+        if (utl::usize out; loadUSize(events, out, ConfigTypes::MAX_YEARS_ENGINE_PROBLEM)) { constants.gameEvents.m_maxYearsEngineProblem                = out ; }
+            // clang-format on
+        }
+        // fleet
         if (nlohmann::json fleet; loadSection(load, fleet, ConfigTypes::FLEET, Fleet::configEntryCount)) {
             // clang-format off
         if (utl::usize out; loadUSize(fleet, out, ConfigTypes::FLEET_SPEED_CURRENT)) { constants.fleet.currentFleetSpeed = out; }
@@ -274,7 +277,7 @@ namespace cst {
         if (utl::usize  out; loadUSize(global, out, ConfigTypes::GAME_ROUNDS_CURRENT)) { constants.global.currentTargetRound = static_cast<utl::usize>(out); }
         if (utl::usize  out; loadUSize(global, out, ConfigTypes::GAME_ROUNDS_MAX))     { constants.global.maxRounds          = static_cast<utl::usize>(out); }
         if (utl::usize  out; loadUSize(global, out, ConfigTypes::GAME_ROUNDS_MIN))     { constants.global.minRounds          = static_cast<utl::usize>(out); }
-        // clang-format on
+            // clang-format on
         }
         // planet
         if (nlohmann::json planet; loadSection(load, planet, ConfigTypes::PLANET, Planet::configEntryCount)) {
@@ -302,7 +305,7 @@ namespace cst {
             // clang-format off
         if (float out; loadFloat(sound, out, ConfigTypes::VOLUME_MASTER   )) { constants.sound.masterVolume = out; }
         if (bool  out;  loadBool(sound, out, ConfigTypes::VOLUME_MUTE_BOOL)) { constants.sound.muteVolume   = out; }
-        // clang-format on
+            // clang-format on
         }
         // window
         if (nlohmann::json window; loadSection(load, window, ConfigTypes::WINDOW, Window::configEntryCount)) {
@@ -338,9 +341,9 @@ namespace cst {
             hlp::Print(
                     hlp::PrintType::ERROR,
                     "Entry count in config is not matching -> expected: {} -> provided: {} -> some values will use the "
-                  "default value",
-                  count,
-                  loadEntryCount);
+                    "default value",
+                    count,
+                    loadEntryCount);
         } else {
             hlp::Print(hlp::PrintType::INFO, "Entry count in config is matching -> count {}", loadEntryCount);
         }
@@ -349,7 +352,7 @@ namespace cst {
         constants.window.isFullScreen = false;
         hlp::Print(hlp::PrintType::DEBUG, "set full screen to false");
         constants.window.currentResolutionEnum = Resolution::HD;
-        hlp::Print(hlp::PrintType::DEBUG, "set resolution ro HD");
+        hlp::Print(hlp::PrintType::DEBUG, "set resolution to HD");
 #endif // _DEBUG
 
         hlp::Print(hlp::PrintType::INFO, "config loaded");
@@ -362,13 +365,21 @@ namespace cst {
 
         save[CToS(ConfigTypes::GAME_EVENTS)] = {
   // clang-format off
-        { CToS(ConfigTypes::PIRATES            ), constants.gameEvents.IsFlag(HGameEventType::PIRATES)        },
-        { CToS(ConfigTypes::REVOLTS            ), constants.gameEvents.IsFlag(HGameEventType::REVOLTS)        },
-        { CToS(ConfigTypes::RENEGADE_SHIPS     ), constants.gameEvents.IsFlag(HGameEventType::RENEGADE_SHIPS) },
-        { CToS(ConfigTypes::BLACK_HOLE         ), constants.gameEvents.IsFlag(HGameEventType::BLACK_HOLE)     },
-        { CToS(ConfigTypes::SUPERNOVA          ), constants.gameEvents.IsFlag(HGameEventType::SUPERNOVA)      },
-        { CToS(ConfigTypes::ENGINE_PROBLEM     ), constants.gameEvents.IsFlag(HGameEventType::ENGINE_PROBLEM) },
-        { CToS(ConfigTypes::GLOBAL_EVENT_CHANCE), constants.gameEvents.globalEventChance                      },
+        {"_doc", "chances are displayed between 0 and 10000. 0 = 0.00%; 100 = 1.00%; 10000 = 100.00%"},
+        { CToS(ConfigTypes::PIRATES                 ), constants.gameEvents.IsFlag(utl::GameEventType::PIRATES)        },
+        { CToS(ConfigTypes::REVOLTS                 ), constants.gameEvents.IsFlag(utl::GameEventType::REVOLTS)        },
+        { CToS(ConfigTypes::RENEGADE_SHIPS          ), constants.gameEvents.IsFlag(utl::GameEventType::RENEGADE_SHIPS) },
+        { CToS(ConfigTypes::BLACK_HOLE              ), constants.gameEvents.IsFlag(utl::GameEventType::BLACK_HOLE)     },
+        { CToS(ConfigTypes::SUPERNOVA               ), constants.gameEvents.IsFlag(utl::GameEventType::SUPERNOVA)      },
+        { CToS(ConfigTypes::ENGINE_PROBLEM          ), constants.gameEvents.IsFlag(utl::GameEventType::ENGINE_PROBLEM) },
+        { CToS(ConfigTypes::GLOBAL_EVENT_CHANCE     ), constants.gameEvents.m_globalChance.value                  },
+        { CToS(ConfigTypes::PIRATES_CHANCE          ), constants.gameEvents.m_pirateChance.value                  },
+        { CToS(ConfigTypes::REVOLTS_CHANCE          ), constants.gameEvents.m_revoltChance.value                  },
+        { CToS(ConfigTypes::RENEGADE_SHIPS_CHANCE   ), constants.gameEvents.m_renegadeShipsChance.value           },
+        { CToS(ConfigTypes::BLACK_HOLE_CHANCE       ), constants.gameEvents.m_blackHoleChance.value               },
+        { CToS(ConfigTypes::SUPERNOVA_CHANCE        ), constants.gameEvents.m_supernovaChance.value               },
+        { CToS(ConfigTypes::ENGINE_PROBLEM_CHANCE   ), constants.gameEvents.m_engineProblemChance.value           },
+        { CToS(ConfigTypes::MAX_YEARS_ENGINE_PROBLEM), constants.gameEvents.m_maxYearsEngineProblem               },
   // clang-format on
         };
         save[CToS(ConfigTypes::FIGHT)] = {

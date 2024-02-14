@@ -5,9 +5,7 @@
 
 #include "RepresentationGenerator.hpp"
 #include "Fleet.hpp"
-#include "Planet.hpp"
 #include "Player.hpp"
-#include "TargetPoint.hpp"
 #include <vector>
 
 
@@ -89,6 +87,7 @@ namespace lgk {
             fleet->GetShipCount(),
             fleet->GetPos(),
             type(fleet)},
+            fleet->GetEngineProblemYears(),
             GenSingleSpaceObjectRep(fleet->GetTarget())
             // clang-format on
         };

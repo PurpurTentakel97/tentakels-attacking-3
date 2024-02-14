@@ -13,6 +13,7 @@
 #include <app/AppContext.hpp>
 #include <event/EventGeneral.hpp>
 #include <helper/HPrint.hpp>
+#include <helper/HRandom.hpp>
 #include <utils/ResultFleet.hpp>
 #include <utils/Vec2.hpp>
 
@@ -115,7 +116,7 @@ namespace lgk {
 
     void GalaxyManager::KillPlayer(Player_ty_c player, Player_ty_c neutralPlayer) {
         auto filter{ [&](auto const& objects) {
-            for (auto e : objects) {
+            for (auto& e : objects) {
                 if (e->GetPlayer()->GetID() == player->GetID()) {
                     e->SetPlayer(neutralPlayer);
                 }
@@ -127,7 +128,23 @@ namespace lgk {
         filter(m_mainGalaxy->GetFleets());
     }
 
-    utl::UpdateResult_ty GalaxyManager::Update() {
+    utl::ResultUpdate GalaxyManager::Update() {
         return m_mainGalaxy->Update();
+    }
+
+    std::shared_ptr<utl::ResultEventEngineProblem> GalaxyManager::HandleEngineProblem(utl::usize years) {
+        auto fleets = m_mainGalaxy->GetFleets();
+        if (fleets.empty()) {
+            return {};
+        }
+        for (int i = 0; i < 20; ++i) {
+            auto& fleet = hlp::RandomElementFromList(fleets);
+            if (fleet->GetEngineProblemYears() != 0) {
+                continue;
+            }
+            fleet->SetEngineProblemYears(years);
+            return std::make_shared<utl::ResultEventEngineProblem>(fleet->GetPlayer()->GetID(), fleet->GetID(), years);
+        }
+        return {};
     }
 } // namespace lgk

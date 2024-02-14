@@ -29,4 +29,11 @@ namespace hlp {
         std::uniform_real_distribution<float> mUniformRealDistribution;
         std::uniform_int_distribution<std::mt19937_64::result_type> mUniformIntDistribution;
     };
+
+    template<typename T>
+    [[nodiscard]] T& RandomElementFromList(std::vector<T>& list) {
+        auto& random     = Random::GetInstance();
+        auto const index = random.random(list.size());
+        return list[index];
+    }
 } // namespace hlp

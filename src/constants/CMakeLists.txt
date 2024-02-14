@@ -5,7 +5,6 @@ add_library(constants STATIC
             include/constants/CFight.hpp
             include/constants/CFiles.hpp
             include/constants/CFleet.hpp
-            include/constants/CGameEventTypes.hpp
             include/constants/CGameEvents.hpp
             include/constants/CGlobal.hpp
             include/constants/CPlanet.hpp

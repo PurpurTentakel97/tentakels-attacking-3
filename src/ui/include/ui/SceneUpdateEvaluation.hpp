@@ -9,21 +9,22 @@
 #include <alias/AliasUtils.hpp>
 #include <event/EventListener.hpp>
 #include <ui_lib/Scene.hpp>
+#include <utils/ResultUpdate.hpp>
 
 
 namespace ui {
     class UpdateEvaluationScene final : public uil::Scene, public eve::EventListener {
     private:
         enum class ResultType {
+            EVENT,
             MERGE,
             FIGHT,
             LAST,
         };
 
     private:
-        std::vector<utl::ResultMerge> m_mergeResults;
-        std::vector<utl::ResultFight> m_fightResults;
-        ResultType m_currentResultType{ ResultType::MERGE };
+        utl::ResultUpdate m_result;
+        ResultType m_currentResultType{ ResultType::EVENT };
         utl::usize m_currentIndex{ 0 };
         utl::usize m_popupCount{ 0 };
         bool m_nextPopup{ false };
@@ -33,6 +34,8 @@ namespace ui {
         void DisplayMergeResult();
 
         void DisplayFightResult();
+
+        void DisplayEventResult();
 
         void HandleNextPopup();
 

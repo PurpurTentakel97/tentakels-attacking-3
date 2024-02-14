@@ -19,6 +19,13 @@ namespace cst {
         SUPERNOVA,
         ENGINE_PROBLEM,
         GLOBAL_EVENT_CHANCE,
+        PIRATES_CHANCE,
+        REVOLTS_CHANCE,
+        RENEGADE_SHIPS_CHANCE,
+        BLACK_HOLE_CHANCE,
+        SUPERNOVA_CHANCE,
+        ENGINE_PROBLEM_CHANCE,
+        MAX_YEARS_ENGINE_PROBLEM,
 
         FIGHT,
         HIT_CHANCE,

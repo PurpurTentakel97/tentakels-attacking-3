@@ -13,11 +13,13 @@ namespace lgk {
     class Fleet final : public SpaceObject {
     private:
         SpaceObject_ty m_target;
+        utl::usize m_engineProblemYears{ 0 };
 
     public:
         Fleet(utl::usize ID, utl::vec2pos_ty_ref_c position, Player_ty_c player, SpaceObject_ty target);
 
-        Fleet(utl::usize ID, utl::vec2pos_ty_ref_c position,
+        Fleet(utl::usize ID,
+              utl::vec2pos_ty_ref_c position,
               utl::usize ships,
               Player_ty_c player,
               SpaceObject_ty target);
@@ -37,6 +39,10 @@ namespace lgk {
         [[nodiscard]] bool IsFriendly() const;
 
         [[nodiscard]] bool IsFarFriendly() const;
+
+        [[nodiscard]] utl::usize GetEngineProblemYears() const;
+
+        void SetEngineProblemYears(utl::usize years);
 
         void Update(Galaxy_ty_raw galaxy) override;
     };

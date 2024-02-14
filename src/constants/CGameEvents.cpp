@@ -6,18 +6,34 @@
 #include "CGameEvents.hpp"
 
 namespace cst {
-    void GameEvents::SetFlag(HGameEventType const type, bool const active) {
+    void GameEvents::SetFlag(utl::GameEventType const type, bool const active) {
         if (active) {
             events |= type;
         } else {
-            if ((type & HGameEventType::GLOBAL) == HGameEventType::GLOBAL) {
-                events = static_cast<HGameEventType>(0b11000000);
+            if ((type & utl::GameEventType::GLOBAL) == utl::GameEventType::GLOBAL) {
+                events = static_cast<utl::GameEventType>(0b11000000);
                 return;
             }
             events &= ~type;
         }
     }
-    bool GameEvents::IsFlag(HGameEventType const type) const {
+
+    bool GameEvents::IsFlag(utl::GameEventType const type) const {
         return (events & type) == type;
+    }
+
+    utl::Probability GameEvents::ChanceByType(utl::GameEventType type) const {
+        switch (type) {
+                // clang-format off
+            case utl::GameEventType::PIRATES:        return m_pirateChance       ;
+            case utl::GameEventType::REVOLTS:        return m_revoltChance       ;
+            case utl::GameEventType::RENEGADE_SHIPS: return m_renegadeShipsChance;
+            case utl::GameEventType::BLACK_HOLE:     return m_blackHoleChance    ;
+            case utl::GameEventType::SUPERNOVA:      return m_supernovaChance    ;
+            case utl::GameEventType::ENGINE_PROBLEM: return m_engineProblemChance;
+            case utl::GameEventType::GLOBAL:         return m_globalChance       ;
+                // clang-format on
+        }
+        std::unreachable();
     }
 } // namespace cst

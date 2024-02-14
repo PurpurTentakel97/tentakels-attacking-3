@@ -1342,7 +1342,7 @@ namespace lgk {
         handle(fleetResult.destination);
     }
 
-    utl::UpdateResult_ty Galaxy::Update() {
+    utl::ResultUpdate Galaxy::Update() {
         hlp::Print(hlp::PrintType::ONLY_DEBUG, "start update logic");
         hlp::Print(hlp::PrintType::ONLY_DEBUG, "-> update space objects");
         for (auto& o : m_objects) {

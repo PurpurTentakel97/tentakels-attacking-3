@@ -8,6 +8,7 @@
 #include <event/EventGeneral.hpp>
 #include <helper/HPrint.hpp>
 #include <ui_lib/SceneType.hpp>
+#include <utils/ResultsEvents.hpp>
 
 
 namespace ui {
@@ -23,7 +24,7 @@ namespace ui {
         hlp::Print(hlp::PrintType::DEBUG, "--------------------| Evaluation |--------------------");
 
         hlp::Print(hlp::PrintType::DEBUG, "------------------ | Merge Results |------------------");
-        for (auto const& e : event->GetMergeResults()) {
+        for (auto const& e : event->Result().Merges()) {
             hlp::Print(hlp::PrintType::DEBUG,
                        "{}",
                        appContext.playerCollection.GetPlayerOrNpcByID(e.GetPlayer().ID).GetName());
@@ -36,13 +37,13 @@ namespace ui {
         }
 
         hlp::Print(hlp::PrintType::DEBUG, "------------------ | Fight Results |------------------");
-        for (auto const& e : event->GetFightResults()) {
+        for (auto const& e : event->Result().Fights()) {
             if (not e.IsValid()) {
                 hlp::Print(hlp::PrintType::DEBUG, "invalid update Evaluation");
                 continue;
             }
 
-            hlp::Print(hlp::PrintType::DEBUG, "{} vs.{}", e.GetSpaceObjects().first.ID, e.GetSpaceObjects().second.ID);
+            hlp::Print(hlp::PrintType::DEBUG, "{} vs. {}", e.GetSpaceObjects().first.ID, e.GetSpaceObjects().second.ID);
             hlp::Print(hlp::PrintType::DEBUG,
                        "{} vs. {}",
                        appContext.playerCollection.GetPlayerOrNpcByID(e.GetPlayer().first.ID).GetName(),
@@ -53,12 +54,93 @@ namespace ui {
             }
             hlp::Print(hlp::PrintType::DEBUG, "------------------------------------------------------");
         }
+        hlp::Print(hlp::PrintType::DEBUG, "------------------ | Event Result |-------------------");
+        if (event->Result().Events().empty()) {
+            hlp::Print(hlp::PrintType::DEBUG, "no events this round");
+        } else {
+            for (auto const& e : event->Result().Events()) {
+                if (not e) {
+                    hlp::Print(hlp::PrintType::EXPECTED_ERROR, "result is empty");
+                } else {
+                    switch (e->Type()) {
+                        case utl::GameEventType::PIRATES: {
+                            hlp::Print(hlp::PrintType::DEBUG, "pirate event result");
+                            break;
+                        }
+                        case utl::GameEventType::REVOLTS: {
+                            hlp::Print(hlp::PrintType::DEBUG, "revolts event result");
+                            break;
+                        }
+                        case utl::GameEventType::RENEGADE_SHIPS: {
+                            hlp::Print(hlp::PrintType::DEBUG, "renegate ships event result");
+                            break;
+                        }
+                        case utl::GameEventType::BLACK_HOLE: {
+                            hlp::Print(hlp::PrintType::DEBUG, "black hole event result");
+                            break;
+                        }
+                        case utl::GameEventType::SUPERNOVA: {
+                            hlp::Print(hlp::PrintType::DEBUG, "supernova event result");
+                            break;
+                        }
+                        case utl::GameEventType::ENGINE_PROBLEM: {
+                            hlp::Print(hlp::PrintType::DEBUG, "Engine Problem Event Result");
+                            [[maybe_unused]] auto const* result =
+                                    dynamic_cast<utl::ResultEventEngineProblem const*>(e.get());
+                            if (not result) {
+                                hlp::Print(hlp::PrintType::ERROR,
+                                           "-> nullptr while dynamic cast a Engine Problem Event Result");
+                                break;
+                            }
+                            hlp::Print(hlp::PrintType::DEBUG,
+                                       "-> fleet {} from player {} will not be able to move within the next {} years",
+                                       result->FleetID(),
+                                       result->PlayerID(),
+                                       result->Years());
+                            break;
+                        }
+                        case utl::GameEventType::GLOBAL: std::unreachable();
+                    }
+                }
+            }
+        }
         hlp::Print(hlp::PrintType::DEBUG, "------------------------------------------------------");
+    }
+
+    void UpdateEvaluationScene::DisplayEventResult() {
+        app::AppContext_ty_c appContext = app::AppContext::GetInstance();
+        auto const data                 = m_result.Events().at(m_currentIndex);
+        auto const playerName           = appContext.playerCollection.GetPlayerByID(data->PlayerID()).GetName();
+        auto title                      = std::string();
+        auto text                       = std::string();
+
+        switch (data->Type()) {
+            case utl::GameEventType::PIRATES: break;
+            case utl::GameEventType::REVOLTS: break;
+            case utl::GameEventType::RENEGADE_SHIPS: break;
+            case utl::GameEventType::BLACK_HOLE: break;
+            case utl::GameEventType::SUPERNOVA: break;
+            case utl::GameEventType::ENGINE_PROBLEM: {
+                auto const* result = dynamic_cast<utl::ResultEventEngineProblem const*>(data.get());
+                if (not result) {
+                    hlp::Print(hlp::PrintType::ERROR, "-> nullptr while dynamic cast a Engine Problem Event Result");
+                    break;
+                }
+                title = appContext.languageManager.Text("evaluation_event_engine_problem_title");
+                text  = appContext.languageManager.Text(
+                        "evaluation_event_engine_problem_text", result->FleetID(), playerName, result->Years());
+                break;
+            }
+            case utl::GameEventType::GLOBAL: std::unreachable();
+        }
+
+        auto const event = eve::ShowEventResultPopUp(title, text, [this]() { this->m_nextPopup = true; });
+        appContext.eventManager.InvokeEvent(event);
     }
 
     void UpdateEvaluationScene::DisplayMergeResult() {
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
-        auto const data{ m_mergeResults.at(m_currentIndex) };
+        auto const data{ m_result.Merges().at(m_currentIndex) };
         auto const playerName{ appContext.playerCollection.GetPlayerByID(data.GetPlayer().ID).GetName() };
 
         std::string spaceObjectText;
@@ -88,7 +170,7 @@ namespace ui {
     void UpdateEvaluationScene::DisplayFightResult() {
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
 
-        eve::ShowFightResultEvent const event{ m_fightResults.at(m_currentIndex),
+        eve::ShowFightResultEvent const event{ m_result.Fights().at(m_currentIndex),
                                                [this]() { this->m_nextPopup = true; } };
         appContext.eventManager.InvokeEvent(event);
     }
@@ -103,8 +185,16 @@ namespace ui {
         } };
 
         switch (m_currentResultType) {
+            case ResultType::EVENT:
+                if (m_currentIndex >= m_result.Events().size()) {
+                    setNext();
+                    goto merge;
+                }
+                DisplayEventResult();
+                break;
             case ResultType::MERGE:
-                if (m_currentIndex >= m_mergeResults.size()) {
+            merge:
+                if (m_currentIndex >= m_result.Merges().size()) {
                     setNext();
                     goto fight;
                 }
@@ -112,7 +202,7 @@ namespace ui {
                 break;
             case ResultType::FIGHT:
             fight:
-                if (m_currentIndex >= m_fightResults.size()) {
+                if (m_currentIndex >= m_result.Fights().size()) {
                     setNext();
                     goto last;
                 }
@@ -169,8 +259,7 @@ namespace ui {
 
     void UpdateEvaluationScene::OnEvent(eve::Event const& event) {
         if (auto const* evEvent = dynamic_cast<eve::SendUpdateEvaluation const*>(&event)) {
-            m_mergeResults = evEvent->GetMergeResults();
-            m_fightResults = evEvent->GetFightResults();
+            m_result = evEvent->Result();
             app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
             eve::ShowMessagePopUpEvent const messageEvent{
                 appContext.languageManager.Text("ui_popup_no_evaluation_title"),

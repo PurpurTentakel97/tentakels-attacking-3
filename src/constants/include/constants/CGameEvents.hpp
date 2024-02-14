@@ -5,20 +5,33 @@
 
 #pragma once
 
-#include "CGameEventTypes.hpp"
+#include "utils/GameEventTypes.hpp"
 #include <alias/AliasUtils.hpp>
 #include <array>
 #include <cstddef>
+#include <utils/Probability.hpp>
+#include <utils/GameEventTypes.hpp>
 
 namespace cst {
     struct GameEvents {
-        static inline utl::usize constexpr configEntryCount{ 7 };
+        static inline utl::usize constexpr configEntryCount{ 14 };
+        utl::GameEventType events{ 0b11111111 }; // default "global"
 
-        HGameEventType events{ 0b11111111 }; // default "global"
-        float globalEventChance{ 25.0f };
+        utl::Probability m_globalChance{ 7500 };
 
-        void SetFlag(HGameEventType type, bool active);
+        utl::Probability m_pirateChance{ 1500 };
+        utl::Probability m_revoltChance{ 1500 };
+        utl::Probability m_renegadeShipsChance{ 1500 };
+        utl::Probability m_blackHoleChance{ 200 };
+        utl::Probability m_supernovaChance{ 100 };
+        utl::Probability m_engineProblemChance{ 1000 };
 
-        [[nodiscard]] bool IsFlag(HGameEventType type) const;
+        utl::usize m_maxYearsEngineProblem{ 5 };
+
+        void SetFlag(utl::GameEventType type, bool active);
+
+        [[nodiscard]] bool IsFlag(utl::GameEventType type) const;
+
+        [[nodiscard]] utl::Probability ChanceByType(utl::GameEventType type) const;
     };
 } // namespace cst

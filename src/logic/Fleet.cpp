@@ -65,7 +65,20 @@ namespace lgk {
         return m_player == target->GetPlayer();
     }
 
+
+    utl::usize Fleet::GetEngineProblemYears() const {
+        return m_engineProblemYears;
+    }
+
+    void Fleet::SetEngineProblemYears(utl::usize years) {
+        m_engineProblemYears = years;
+    }
     void Fleet::Update(Galaxy_ty_raw galaxy) {
+
+        if (m_engineProblemYears > 0) {
+            --m_engineProblemYears;
+            return;
+        }
 
         auto [valid, target]{ hlp::TryGetTarget(this, m_target) };
         if (not valid) {

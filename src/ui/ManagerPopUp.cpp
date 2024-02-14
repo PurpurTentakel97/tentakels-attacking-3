@@ -67,6 +67,12 @@ namespace ui {
             return;
         }
 
+        // Event Popup
+        if (auto const* PopUpEvent = dynamic_cast<eve::ShowEventResultPopUp const*>(&event)) {
+            NewEventResultPopUp(PopUpEvent);
+            return;
+        }
+
         // Close Pop Up
         if (auto const* PopUpEvent = dynamic_cast<eve::ClosePopUpEvent const*>(&event)) {
             DeleteLastPopUp(PopUpEvent->GetPop());
@@ -123,9 +129,23 @@ namespace ui {
                                                              event->GetTitle(),
                                                              const_cast<std::string&>(event->GetSubTitle())));
     }
+
+    void ManagerPopUp::NewEventResultPopUp(eve::ShowEventResultPopUp const* event) {
+        app::AppContext_ty_c appContext = app::AppContext::GetInstance();
+        eve::NewFocusPopUpLayerEvent focusEvent{};
+        appContext.eventManager.InvokeEvent(focusEvent);
+
+        m_popUps.push_back(std::make_unique<PopUpGameEventResult>(Vector2(0.5f, 0.5f),
+                                                                  Vector2(0.8f, 0.8f),
+                                                                  uil::Alignment::MID_MID,
+                                                                  event->GetTitle(),
+                                                                  const_cast<std::string&>(event->GetSubTitle()),
+                                                                  event->GetCallback()));
+    }
+
     void ManagerPopUp::NewFightResultPopUp(eve::ShowFightResultEvent const* const event) {
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
-        eve::NewFocusLayerEvent focusEvent;
+        eve::NewFocusPopUpLayerEvent focusEvent;
         appContext.eventManager.InvokeEvent(focusEvent);
 
         m_popUps.push_back(std::make_unique<FightResultPopup>(Vector2(0.5f, 0.5f),
@@ -148,6 +168,7 @@ namespace ui {
                                                                   event->Value(),
                                                                   event->Callback()));
     }
+
     void ManagerPopUp::NewStringPopUp(eve::ShowStringPopupEvent const* event) {
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
         eve::NewFocusPopUpLayerEvent focusEvent;
@@ -161,6 +182,7 @@ namespace ui {
                                                                    event->Value(),
                                                                    event->Callback()));
     }
+
     void ManagerPopUp::NewDoublePopUp(eve::ShowDoublePopupEvent const* event) {
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
         eve::NewFocusPopUpLayerEvent focusEvent;
@@ -174,6 +196,7 @@ namespace ui {
                                                                    event->Value(),
                                                                    event->Callback()));
     }
+
     void ManagerPopUp::NewUSizePopUp(eve::ShowUSizePopupEvent const* event) {
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
         eve::NewFocusPopUpLayerEvent focusEvent;
@@ -245,7 +268,6 @@ namespace ui {
 
         m_popUps.back()->CheckAndUpdate(mousePosition, appContext);
     }
-
     void ManagerPopUp::Render(app::AppContext_ty_c appContext) {
         for (auto& p : m_popUps) {
             p->Render(appContext);

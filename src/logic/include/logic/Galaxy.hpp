@@ -151,6 +151,6 @@ namespace lgk {
         void HandleFleetResult(utl::ResultFleet const& fleetResult, Player_ty_c currentPlayer);
 
         // update
-        [[nodiscard]] utl::UpdateResult_ty Update();
+        [[nodiscard]] utl::ResultUpdate Update();
     };
 } // namespace lgk

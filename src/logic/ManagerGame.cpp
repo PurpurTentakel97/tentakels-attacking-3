@@ -5,15 +5,16 @@
 
 #include "ManagerGame.hpp"
 #include "CopyGalaxyType.hpp"
-#include "Galaxy.hpp"
 #include "RepresentationGenerator.hpp"
 #include <algorithm>
 #include <alias/AliasUtils.hpp>
 #include <app/AppContext.hpp>
 #include <event/EventGeneral.hpp>
 #include <helper/HPrint.hpp>
+#include <helper/HRandom.hpp>
+#include <ranges>
+#include <span>
 #include <stdexcept>
-#include <utils/ResultMerge.hpp>
 
 namespace lgk {
     // help Lambdas
@@ -410,6 +411,122 @@ namespace lgk {
         appContext.eventManager.InvokeEvent(returnEvent);
     }
 
+    // events
+    std::vector<utl::ResultUpdate::event_ty> GameManager::UpdateEvents() {
+        hlp::Print(hlp::PrintType::ONLY_DEBUG, "-> update Events");
+        std::array<utl::GameEventType, 6> constexpr events{
+            // clang-format off
+            utl::GameEventType::PIRATES,
+            utl::GameEventType::REVOLTS,
+            utl::GameEventType::RENEGADE_SHIPS,
+            utl::GameEventType::BLACK_HOLE,
+            utl::GameEventType::SUPERNOVA,
+            utl::GameEventType::ENGINE_PROBLEM,
+            // don't check for global. it just represents if all other events are active or not.
+            // clang-format on
+        };
+        std::vector<utl::ResultUpdate::event_ty> toReturn{};
+        for (auto const& e : events) {
+            if (not IsSingleGameEvent(e)) {
+                continue;
+            }
+            auto const result = RaiseEvent(e);
+            if (not result) {
+                continue;
+            }
+            toReturn.push_back(result);
+        }
+        return toReturn;
+
+        /*
+         * I tried to work with ranges.
+         * It did not work out.
+         * When I add 'filter([](auto const& e) { return e != nullptr; })' 'RaiseEvent(e)' gets executed 7 times
+         * even tho there are just 6 events.
+         * I can not figure out why that is.
+         * So it stays as a for-loop for now.
+         * If you know why. contact me. :)
+         */
+        // using std::ranges::views::filter, std::ranges::to, std::ranges::views::transform;
+        /*
+            return events | filter(IsSingleGameEvent)
+             | transform([this](auto const& e) { return std::move(RaiseEvent(e)); })
+             | filter([](auto const& e) { return e != nullptr; }) | to<std::vector>();
+        */
+        /*
+            auto tmp0 = events | filter(IsSingleGameEvent);
+            auto tmp1 = tmp0 | transform([this](auto const& e){return std::move(RaiseEvent(e));});
+            // auto tmp2 = tmp1 | filter([](auto const& e){return e != nullptr;});
+            auto tmp3 = tmp1 | to<std::vector>();
+            return tmp3;
+        */
+    }
+
+    bool GameManager::IsSingleGameEvent(utl::GameEventType type) {
+        auto const& constants = app::AppContext::GetInstance().constants.gameEvents;
+
+        if (not constants.IsFlag(type)) {
+            return false;
+        }
+
+        auto const typeChance = constants.m_globalChance * constants.ChanceByType(type);
+        auto& random          = hlp::Random::GetInstance();
+        auto chance           = random.random(utl::Probability::maxValue);
+
+        return chance < typeChance;
+    }
+
+
+    utl::ResultUpdate::event_ty GameManager::RaiseEvent(utl::GameEventType type) {
+        static int count{ 1 };
+        hlp::Print(hlp::PrintType::DEBUG, "current count: {}", count++);
+        switch (type) {
+                // clang-format off
+            case utl::GameEventType::PIRATES:        return HandlePirates();
+            case utl::GameEventType::REVOLTS:        return HandleRevolts();
+            case utl::GameEventType::RENEGADE_SHIPS: return HandleRenegadeShips();
+            case utl::GameEventType::BLACK_HOLE:     return HandleBlackHole();
+            case utl::GameEventType::SUPERNOVA:      return HandleSupernova();
+            case utl::GameEventType::ENGINE_PROBLEM: return HandleEngineProblem();
+            case utl::GameEventType::GLOBAL:         std::unreachable();
+                // clang-format on
+        }
+        std::unreachable();
+    }
+
+    std::shared_ptr<utl::ResultEvent> GameManager::HandlePirates() {
+        hlp::Print(hlp::PrintType::TODO, "Handle Pirate Event in GameManager");
+        return {};
+    }
+
+    std::shared_ptr<utl::ResultEvent> GameManager::HandleRevolts() {
+        hlp::Print(hlp::PrintType::TODO, "Handle Revolts Event in GameManager");
+        return {};
+    }
+
+    std::shared_ptr<utl::ResultEvent> GameManager::HandleRenegadeShips() {
+        hlp::Print(hlp::PrintType::TODO, "Handle Renegade Ships Event in GameManager");
+        return {};
+    }
+
+    std::shared_ptr<utl::ResultEvent> GameManager::HandleBlackHole() {
+        hlp::Print(hlp::PrintType::TODO, "Handle Black Hole Event in GameManager");
+        return {};
+    }
+
+    std::shared_ptr<utl::ResultEvent> GameManager::HandleSupernova() {
+        hlp::Print(hlp::PrintType::TODO, "Handle Supernova Event in GameManager");
+        return {};
+    }
+
+    std::shared_ptr<utl::ResultEventEngineProblem> GameManager::HandleEngineProblem() {
+        auto const& appContext = app::AppContext::GetInstance();
+        auto& random           = hlp::Random::GetInstance();
+        auto const years       = random.random(appContext.constants.gameEvents.m_maxYearsEngineProblem) + 1;
+        hlp::Print(hlp::PrintType::ONLY_DEBUG, "Handle Supernova Event in GameManager ({} years)", years);
+        return m_galaxyManager.HandleEngineProblem(years);
+    }
+
     // game
     void GameManager::StartGame() {
         app::AppContext_ty appContext{ app::AppContext::GetInstance() };
@@ -516,7 +633,9 @@ namespace lgk {
     }
 
     void GameManager::Update() {
+        auto result         = UpdateEvents();
         m_lastUpdateResults = m_galaxyManager.Update();
+        m_lastUpdateResults.SetEvents(std::move(result));
     }
 
     void GameManager::OnEvent(eve::Event const& event) {
@@ -608,8 +727,7 @@ namespace lgk {
             return;
         }
         if ([[maybe_unused]] auto const* gameEvent = dynamic_cast<eve::GetUpdateEvaluation const*>(&event)) {
-            app::AppContext::GetInstance().eventManager.InvokeEvent(
-                    eve::SendUpdateEvaluation{ m_lastUpdateResults.first, m_lastUpdateResults.second });
+            app::AppContext::GetInstance().eventManager.InvokeEvent(eve::SendUpdateEvaluation{ m_lastUpdateResults });
             return;
         }
 

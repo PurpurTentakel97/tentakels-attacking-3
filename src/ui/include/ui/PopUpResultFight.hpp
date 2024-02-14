@@ -38,12 +38,10 @@ namespace ui {
         void HandleButton();
 
     public:
-        FightResultPopup(
-                Vector2 pos,
-                Vector2 size,
-                uil::Alignment alignment,
+        FightResultPopup(Vector2 pos,
+                         Vector2 size,
+                         uil::Alignment alignment,
                          utl::ResultFight result,
-                         callback_ty callback
-        );
+                         callback_ty callback);
     };
 } // namespace ui
