@@ -36,7 +36,7 @@ namespace uil {
                                std::string const& title,
                                std::string& subTitle,
                                app::AssetType const infoTexture,
-                               std::function<void()> callback)
+                               callback_ty callback)
         : PopUp{ pos, size, alignment, title, subTitle, infoTexture },
           m_callback{ std::move(callback) } {
 

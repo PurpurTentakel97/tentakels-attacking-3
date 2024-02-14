@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include "PopupExtra.hpp"
+#include "PopUpExtra.hpp"
 #include <event/EventListener.hpp>
 #include <event/EventsUI.hpp>
 #include <memory>
@@ -39,6 +39,7 @@ namespace ui {
         void NewSoundLevelPopUp(eve::ShowInitialSoundLevelPopUpEvent const* event);
 
         void NewFightResultPopUp(eve::ShowFightResultEvent const* event);
+        void NewEventResultPopUp(eve::ShowEventResultPopUp const* event);
 
         void NewColorPopUp(eve::ShowColorPopupEvent const* event);
         void NewStringPopUp(eve::ShowStringPopupEvent const* event);

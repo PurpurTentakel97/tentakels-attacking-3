@@ -107,6 +107,37 @@ namespace ui {
         hlp::Print(hlp::PrintType::DEBUG, "------------------------------------------------------");
     }
 
+    void UpdateEvaluationScene::DisplayEventResult() {
+        app::AppContext_ty_c appContext = app::AppContext::GetInstance();
+        auto const data                 = m_result.Events().at(m_currentIndex);
+        auto const playerName           = appContext.playerCollection.GetPlayerByID(data->PlayerID()).GetName();
+        auto title                      = std::string();
+        auto text                       = std::string();
+
+        switch (data->Type()) {
+            case utl::GameEventType::PIRATES: break;
+            case utl::GameEventType::REVOLTS: break;
+            case utl::GameEventType::RENEGADE_SHIPS: break;
+            case utl::GameEventType::BLACK_HOLE: break;
+            case utl::GameEventType::SUPERNOVA: break;
+            case utl::GameEventType::ENGINE_PROBLEM: {
+                auto const* result = dynamic_cast<utl::ResultEventEngineProblem const*>(data.get());
+                if (not result) {
+                    hlp::Print(hlp::PrintType::ERROR, "-> nullptr while dynamic cast a Engine Problem Event Result");
+                    break;
+                }
+                title = appContext.languageManager.Text("evaluation_event_engine_problem_title");
+                text  = appContext.languageManager.Text(
+                        "evaluation_event_engine_problem_text", result->FleetID(), playerName, result->Years());
+                break;
+            }
+            case utl::GameEventType::GLOBAL: std::unreachable();
+        }
+
+        auto const event = eve::ShowEventResultPopUp(title, text, [this]() { this->m_nextPopup = true; });
+        appContext.eventManager.InvokeEvent(event);
+    }
+
     void UpdateEvaluationScene::DisplayMergeResult() {
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
         auto const data{ m_result.Merges().at(m_currentIndex) };
@@ -154,7 +185,15 @@ namespace ui {
         } };
 
         switch (m_currentResultType) {
+            case ResultType::EVENT:
+                if (m_currentIndex >= m_result.Events().size()) {
+                    setNext();
+                    goto merge;
+                }
+                DisplayEventResult();
+                break;
             case ResultType::MERGE:
+            merge:
                 if (m_currentIndex >= m_result.Merges().size()) {
                     setNext();
                     goto fight;
@@ -217,7 +256,6 @@ namespace ui {
             HandleNextPopup();
         }
     }
-
     void UpdateEvaluationScene::OnEvent(eve::Event const& event) {
         if (auto const* evEvent = dynamic_cast<eve::SendUpdateEvaluation const*>(&event)) {
             m_result = evEvent->Result();

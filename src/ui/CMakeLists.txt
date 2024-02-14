@@ -3,7 +3,7 @@ add_library(ui STATIC
             include/ui/SceneSettingsApp.hpp
             include/ui/HSceneCreditTable.hpp
             include/ui/SceneCredits.hpp
-            include/ui/PopupResultFight.hpp
+            include/ui/PopUpResultFight.hpp
             include/ui/HSceneFleetTable.hpp
             include/ui/HSceneGalaxyAndSlider.hpp
             include/ui/HSceneGameEventSettings.hpp
@@ -30,7 +30,8 @@ add_library(ui STATIC
             include/ui/UITargetPoint.hpp
             include/ui/SceneUpdateEvaluation.hpp
             include/ui/SceneValidateGalaxy.hpp
-            include/ui/PopupExtra.hpp
+            include/ui/PopUpExtra.hpp
+            include/ui/PopUpResultGameEvent.hpp
             SceneSettingsApp.cpp
             HSceneCreditTable.cpp
             SceneCredits.cpp
@@ -60,6 +61,7 @@ add_library(ui STATIC
             UITargetPoint.cpp
             SceneUpdateEvaluation.cpp
             SceneValidateGalaxy.cpp
+            PopUpResultGameEvent.cpp
 )
 
 target_include_directories(ui

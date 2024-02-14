@@ -17,7 +17,7 @@ namespace cst {
         static inline utl::usize constexpr configSectionCount{ 10 };
 
         // versions
-        static inline std::string const languageVersion{ "v0.1.6.0" };
+        static inline std::string const languageVersion{ "v0.1.6.1" };
         static inline std::string const configVersion{ "v0.1.6.3" };
         static inline std::string const gameVersion{ "v0.1.6" };
         static inline std::string const copyRight{ "(c) Purpur Tentakel" };

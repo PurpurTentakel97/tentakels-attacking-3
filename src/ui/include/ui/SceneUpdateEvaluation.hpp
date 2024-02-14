@@ -16,6 +16,7 @@ namespace ui {
     class UpdateEvaluationScene final : public uil::Scene, public eve::EventListener {
     private:
         enum class ResultType {
+            EVENT,
             MERGE,
             FIGHT,
             LAST,
@@ -23,7 +24,7 @@ namespace ui {
 
     private:
         utl::ResultUpdate m_result;
-        ResultType m_currentResultType{ ResultType::MERGE };
+        ResultType m_currentResultType{ ResultType::EVENT };
         utl::usize m_currentIndex{ 0 };
         utl::usize m_popupCount{ 0 };
         bool m_nextPopup{ false };
@@ -33,6 +34,8 @@ namespace ui {
         void DisplayMergeResult();
 
         void DisplayFightResult();
+
+        void DisplayEventResult();
 
         void HandleNextPopup();
 

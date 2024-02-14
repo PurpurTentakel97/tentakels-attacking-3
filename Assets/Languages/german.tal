@@ -175,7 +175,7 @@
     "helper_next_big": "Weiter",
     "ui_popup_fight_result_win_text": "{0} gewinnt!",
     "helper_skip_big": "\u00dcberspringen",
-    "version": "v0.1.6.0",
+    "version": "v0.1.6.1",
     "ui_popup_start_evaluation_subtitle": "Auswertung beginnen, wenn alle Spieler anwesend sind.",
     "ui_popup_game_still_running_title": "Spiel l\u00e4uft noch",
     "ui_popup_game_still_running_subtitle": "Es l\u00e4uft gerade ein Spiel. Das aktuelle Spiel \u00fcberschreiben?",
@@ -218,5 +218,7 @@
     "ui_fleet_table_headline_alias": "Alias",
     "ui_fleet_table_default_alias_fleet": "Flotte {0}",
     "ui_fleet_table_default_alias_target_point": "Zielpunkt {0}",
-    "ui_popup_add_fleet_invalid_input_send": "Invalid input for fleet"
+    "ui_popup_add_fleet_invalid_input_send": "Invalid input for fleet",
+    "evaluation_event_engine_problem_title": "Antriebsprobleme",
+    "evaluation_event_engine_problem_text": "Flotte {0} von Spieler {1} wird sich die n\u00e4chsten {2} Jahre nicht bewegen."
 }

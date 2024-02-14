@@ -11,23 +11,24 @@
 
 
 namespace uil {
-    class MessagePopUp final : public PopUp {
+    class MessagePopUp : public PopUp {
+    public:
+        using callback_ty = std::function<void()>;
+
     private:
-        std::function<void()> m_callback{ []() {} };
+        callback_ty m_callback{ []() {} };
 
         void Initialize();
 
     public:
-        MessagePopUp(
-                Vector2 pos,
-                Vector2 size,
+        MessagePopUp(Vector2 pos,
+                     Vector2 size,
                      Alignment alignment,
                      std::string const& title,
-                std::string& subTitle,
-                app::AssetType infoTexture,
-                std::function<void()> callback
-        );
+                     std::string& subTitle,
+                     app::AssetType infoTexture,
+                     callback_ty callback);
 
         void CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) override;
     };
-} // namespace ui
+} // namespace uil

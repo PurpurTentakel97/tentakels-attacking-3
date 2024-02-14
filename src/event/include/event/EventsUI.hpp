@@ -358,6 +358,20 @@ namespace eve {
         using PopUpEvent::PopUpEvent;
     };
 
+    class ShowEventResultPopUp final : public PopUpEvent{
+    private:
+        std::function<void()> m_callback;
+
+    public:
+        ShowEventResultPopUp(std::string title, std::string subTitle, std::function<void()> callback)
+                : PopUpEvent{ std::move(title), std::move(subTitle) },
+                  m_callback{ std::move(callback) } { }
+
+        [[nodiscard]] std::function<void()> GetCallback() const {
+            return m_callback;
+        }
+    };
+
     class ShowFightResultEvent final : public Event {
     private:
         utl::ResultFight m_result;
