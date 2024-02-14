@@ -266,7 +266,7 @@ namespace ui {
                 [this]() { this->m_nextPopup = true; }
             };
             appContext.eventManager.InvokeEvent(messageEvent);
-            TestPrint(evEvent); // to print the incoming event to the console
+            // TestPrint(evEvent); // to print the incoming event to the console
         }
     }
 } // namespace ui
