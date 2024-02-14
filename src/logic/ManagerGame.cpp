@@ -425,7 +425,6 @@ namespace lgk {
             // don't check for global. it just represents if all other events are active or not.
             // clang-format on
         };
-        using std::ranges::views::filter, std::ranges::to, std::ranges::views::transform;
         std::vector<utl::UpdateResult::event_ty> toReturn{};
         for (auto const& e : events) {
             if (not IsSingleGameEvent(e)) {
@@ -448,7 +447,7 @@ namespace lgk {
          * So it stays as a for-loop for now.
          * If you know why. contact me. :)
          */
-
+        // using std::ranges::views::filter, std::ranges::to, std::ranges::views::transform;
         /*
             return events | filter(IsSingleGameEvent)
              | transform([this](auto const& e) { return std::move(RaiseEvent(e)); })
@@ -483,12 +482,12 @@ namespace lgk {
         hlp::Print(hlp::PrintType::DEBUG, "current count: {}", count++);
         switch (type) {
                 // clang-format off
-            case utl::GameEventType::PIRATES:        return std::move(HandlePirates());
-            case utl::GameEventType::REVOLTS:        return std::move(HandleRevolts());
-            case utl::GameEventType::RENEGADE_SHIPS: return std::move(HandleRenegadeShips());
-            case utl::GameEventType::BLACK_HOLE:     return std::move(HandleBlackHole());
-            case utl::GameEventType::SUPERNOVA:      return std::move(HandleSupernova());
-            case utl::GameEventType::ENGINE_PROBLEM: return std::move(HandleEngineProblem());
+            case utl::GameEventType::PIRATES:        return HandlePirates();
+            case utl::GameEventType::REVOLTS:        return HandleRevolts();
+            case utl::GameEventType::RENEGADE_SHIPS: return HandleRenegadeShips();
+            case utl::GameEventType::BLACK_HOLE:     return HandleBlackHole();
+            case utl::GameEventType::SUPERNOVA:      return HandleSupernova();
+            case utl::GameEventType::ENGINE_PROBLEM: return HandleEngineProblem();
             case utl::GameEventType::GLOBAL:         std::unreachable();
                 // clang-format on
         }
