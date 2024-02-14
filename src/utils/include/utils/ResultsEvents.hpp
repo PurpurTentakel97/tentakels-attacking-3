@@ -29,14 +29,14 @@ namespace utl {
         }
     };
 
-    class EngineProblemEventResult final : public ResultEvent {
+    class ResultEventEngineProblem final : public ResultEvent {
     private:
         usize m_years{};
         usize m_fleetID{};
 
     public:
         using ResultEvent::ResultEvent;
-        EngineProblemEventResult(usize playerID, usize fleetID, usize years)
+        ResultEventEngineProblem(usize playerID, usize fleetID, usize years)
             : ResultEvent{ GameEventType::ENGINE_PROBLEM, playerID },
               m_years{ years },
               m_fleetID{ fleetID } { }

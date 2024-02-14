@@ -5,16 +5,16 @@
 
 #pragma once
 
-#include "EventsResults.hpp"
 #include "ResultFight.hpp"
 #include "ResultMerge.hpp"
+#include "ResultsEvents.hpp"
 
 namespace lgk {
     class GameManager;
 }
 
 namespace utl {
-    class UpdateResult final {
+    class ResultUpdate final {
     public:
         friend class lgk::GameManager;
         using event_ty = std::shared_ptr<ResultEvent>;
@@ -29,9 +29,9 @@ namespace utl {
         }
 
     public:
-        UpdateResult() = default;
+        ResultUpdate() = default;
 
-        UpdateResult(std::vector<ResultMerge> merges, std::vector<ResultFight> fights)
+        ResultUpdate(std::vector<ResultMerge> merges, std::vector<ResultFight> fights)
             : m_merges{ std::move(merges) },
               m_fights{ std::move(fights) } { }
 

@@ -23,10 +23,10 @@ namespace utl {
     using vec2pos_ty_c     = Vec2<int> const;
     using vec2pos_ty_ref_c = Vec2<int> const&;
 
-    class UpdateResult;
+    class ResultUpdate;
     struct ResultFleet;
     class ResultEvent;
-    class EngineProblemEventResult;
+    class ResultEventEngineProblem;
 
     enum class FleetInstructionType;
 

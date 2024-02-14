@@ -128,11 +128,11 @@ namespace lgk {
         filter(m_mainGalaxy->GetFleets());
     }
 
-    utl::UpdateResult GalaxyManager::Update() {
+    utl::ResultUpdate GalaxyManager::Update() {
         return m_mainGalaxy->Update();
     }
 
-    std::shared_ptr<utl::EngineProblemEventResult> GalaxyManager::HandleEngineProblem(utl::usize years) {
+    std::shared_ptr<utl::ResultEventEngineProblem> GalaxyManager::HandleEngineProblem(utl::usize years) {
         auto fleets = m_mainGalaxy->GetFleets();
         if (fleets.empty()) {
             return {};
@@ -143,7 +143,7 @@ namespace lgk {
                 continue;
             }
             fleet->SetEngineProblemYears(years);
-            return std::make_shared<utl::EngineProblemEventResult>(fleet->GetPlayer()->GetID(), fleet->GetID(), years);
+            return std::make_shared<utl::ResultEventEngineProblem>(fleet->GetPlayer()->GetID(), fleet->GetID(), years);
         }
         return {};
     }

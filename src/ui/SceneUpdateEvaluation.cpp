@@ -8,7 +8,7 @@
 #include <event/EventGeneral.hpp>
 #include <helper/HPrint.hpp>
 #include <ui_lib/SceneType.hpp>
-#include <utils/EventsResults.hpp>
+#include <utils/ResultsEvents.hpp>
 
 
 namespace ui {
@@ -86,7 +86,7 @@ namespace ui {
                         case utl::GameEventType::ENGINE_PROBLEM: {
                             hlp::Print(hlp::PrintType::DEBUG, "Engine Problem Event Result");
                             [[maybe_unused]] auto const* result =
-                                    dynamic_cast<utl::EngineProblemEventResult const*>(e.get());
+                                    dynamic_cast<utl::ResultEventEngineProblem const*>(e.get());
                             if (not result) {
                                 hlp::Print(hlp::PrintType::ERROR,
                                            "-> nullptr while dynamic cast a Engine Problem Event Result");

@@ -412,7 +412,7 @@ namespace lgk {
     }
 
     // events
-    std::vector<utl::UpdateResult::event_ty> GameManager::UpdateEvents() {
+    std::vector<utl::ResultUpdate::event_ty> GameManager::UpdateEvents() {
         hlp::Print(hlp::PrintType::ONLY_DEBUG, "-> update Events");
         std::array<utl::GameEventType, 6> constexpr events{
             // clang-format off
@@ -425,7 +425,7 @@ namespace lgk {
             // don't check for global. it just represents if all other events are active or not.
             // clang-format on
         };
-        std::vector<utl::UpdateResult::event_ty> toReturn{};
+        std::vector<utl::ResultUpdate::event_ty> toReturn{};
         for (auto const& e : events) {
             if (not IsSingleGameEvent(e)) {
                 continue;
@@ -477,7 +477,7 @@ namespace lgk {
     }
 
 
-    utl::UpdateResult::event_ty GameManager::RaiseEvent(utl::GameEventType type) {
+    utl::ResultUpdate::event_ty GameManager::RaiseEvent(utl::GameEventType type) {
         static int count{ 1 };
         hlp::Print(hlp::PrintType::DEBUG, "current count: {}", count++);
         switch (type) {
@@ -519,7 +519,7 @@ namespace lgk {
         return {};
     }
 
-    std::shared_ptr<utl::EngineProblemEventResult> GameManager::HandleEngineProblem() {
+    std::shared_ptr<utl::ResultEventEngineProblem> GameManager::HandleEngineProblem() {
         auto const& appContext = app::AppContext::GetInstance();
         auto& random           = hlp::Random::GetInstance();
         auto const years       = random.random(appContext.constants.gameEvents.m_maxYearsEngineProblem) + 1;

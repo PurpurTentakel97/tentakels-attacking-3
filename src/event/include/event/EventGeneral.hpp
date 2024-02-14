@@ -11,7 +11,7 @@
 #include <string>
 #include <unordered_map>
 #include <utils/RepresentationGalaxy.hpp>
-#include <utils/UpdateResult.hpp>
+#include <utils/ResultUpdate.hpp>
 
 
 namespace eve {
@@ -131,12 +131,12 @@ namespace eve {
 
     class SendUpdateEvaluation final : public Event {
     private:
-        utl::UpdateResult m_result;
+        utl::ResultUpdate m_result;
 
     public:
-        explicit SendUpdateEvaluation(utl::UpdateResult result) : m_result{ std::move(result) } { }
+        explicit SendUpdateEvaluation(utl::ResultUpdate result) : m_result{ std::move(result) } { }
 
-        [[nodiscard]] utl::UpdateResult Result() const {
+        [[nodiscard]] utl::ResultUpdate Result() const {
             return m_result;
         }
     };

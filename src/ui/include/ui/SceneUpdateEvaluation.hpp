@@ -9,7 +9,7 @@
 #include <alias/AliasUtils.hpp>
 #include <event/EventListener.hpp>
 #include <ui_lib/Scene.hpp>
-#include <utils/UpdateResult.hpp>
+#include <utils/ResultUpdate.hpp>
 
 
 namespace ui {
@@ -22,7 +22,7 @@ namespace ui {
         };
 
     private:
-        utl::UpdateResult m_result;
+        utl::ResultUpdate m_result;
         ResultType m_currentResultType{ ResultType::MERGE };
         utl::usize m_currentIndex{ 0 };
         utl::usize m_popupCount{ 0 };

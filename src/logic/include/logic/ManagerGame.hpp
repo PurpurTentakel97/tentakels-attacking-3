@@ -7,15 +7,15 @@
 
 #include "ManagerGalaxy.hpp"
 #include "Player.hpp"
-#include <utils/GameEventTypes.hpp>
-#include <utils/EventsResults.hpp>
-#include <utils/UpdateResult.hpp>
 #include <alias/AliasUtils.hpp>
 #include <event/EventGeneral.hpp>
 #include <event/EventListener.hpp>
 #include <event/EventsUI.hpp>
 #include <memory>
 #include <random>
+#include <utils/GameEventTypes.hpp>
+#include <utils/ResultUpdate.hpp>
+#include <utils/ResultsEvents.hpp>
 #include <vector>
 
 
@@ -29,7 +29,7 @@ namespace lgk {
         std::vector<Player_ty> m_players{};
         std::vector<Player_ty> m_currentRoundPlayers{};
         GalaxyManager m_galaxyManager;
-        utl::UpdateResult m_lastUpdateResults{};
+        utl::ResultUpdate m_lastUpdateResults{};
 
         // player
         [[nodiscard]] bool ValidAddPlayer() const;
@@ -73,11 +73,11 @@ namespace lgk {
         void AddFleet(eve::SendFleetInstructionEvent const* event);
 
         // events
-        [[nodiscard]] std::vector<utl::UpdateResult::event_ty> UpdateEvents();
+        [[nodiscard]] std::vector<utl::ResultUpdate::event_ty> UpdateEvents();
 
         [[nodiscard]] static bool IsSingleGameEvent(utl::GameEventType type);
 
-        [[nodiscard]] utl::UpdateResult::event_ty RaiseEvent(utl::GameEventType type);
+        [[nodiscard]] utl::ResultUpdate::event_ty RaiseEvent(utl::GameEventType type);
 
         [[nodiscard]] std::shared_ptr<utl::ResultEvent> HandlePirates();
 
@@ -89,7 +89,7 @@ namespace lgk {
 
         [[nodiscard]] std::shared_ptr<utl::ResultEvent> HandleSupernova();
 
-        [[nodiscard]] std::shared_ptr<utl::EngineProblemEventResult> HandleEngineProblem();
+        [[nodiscard]] std::shared_ptr<utl::ResultEventEngineProblem> HandleEngineProblem();
 
         // game
         void StartGame();

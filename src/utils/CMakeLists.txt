@@ -16,11 +16,11 @@ add_library(utils STATIC
             include/utils/RepresentationPlayer.hpp
             include/utils/Probability.hpp
             include/utils/GameEventTypes.hpp
-            include/utils/EventsResults.hpp
+            include/utils/ResultsEvents.hpp
             Colors.cpp
             ResultFight.cpp
             ResultMerge.cpp
-            include/utils/UpdateResult.hpp
+            include/utils/ResultUpdate.hpp
 
 )
 target_include_directories(utils
