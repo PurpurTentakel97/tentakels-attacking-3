@@ -256,6 +256,7 @@ namespace ui {
             HandleNextPopup();
         }
     }
+
     void UpdateEvaluationScene::OnEvent(eve::Event const& event) {
         if (auto const* evEvent = dynamic_cast<eve::SendUpdateEvaluation const*>(&event)) {
             m_result = evEvent->Result();

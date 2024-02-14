@@ -9,6 +9,7 @@
 
 namespace utl {
     struct RepresentationFleet final : public RepresentationSpaceObject {
+        utl::usize engineProblemYears{};
         RepresentationSpaceObject destRepresentation;
     };
 } // namespace utl

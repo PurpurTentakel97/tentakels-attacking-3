@@ -56,7 +56,15 @@ namespace ui {
 
                 app::PlayerData player{ appContext.playerCollection.GetPlayerOrNpcByID(fleet.playerID) };
                 // fleet ID
-                m_table->SetValue(row, column, fleet.ID);
+                if (fleet.engineProblemYears > 0) {
+                    m_table->SetValue(
+                            row,
+                            column,
+                            appContext.languageManager.Text(
+                                    "fleet_table_fleet_id_with_engine_problem", fleet.ID, fleet.engineProblemYears));
+                } else {
+                    m_table->SetValue(row, column, fleet.ID);
+                }
                 m_table->SetSingleCellTextColor(player.color, row, column);
                 incCol();
 

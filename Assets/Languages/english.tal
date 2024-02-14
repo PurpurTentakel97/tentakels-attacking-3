@@ -175,7 +175,7 @@
     "helper_next_big": "Next",
     "ui_popup_fight_result_win_text": "{0} wins!",
     "helper_skip_big": "Skip",
-    "version": "v0.1.6.1",
+    "version": "v0.1.6.2",
     "ui_popup_start_evaluation_subtitle": "start the evaluation when all players are present",
     "ui_popup_game_still_running_title": "Game still running",
     "ui_popup_game_still_running_subtitle": "There is currently a game running. Overwrite the current game?",
@@ -220,5 +220,6 @@
     "ui_fleet_table_default_alias_target_point": "Target point {0}",
     "ui_popup_add_fleet_invalid_input_send": "Invalider Input f\u00fcr eine Flotte",
     "evaluation_event_engine_problem_title": "Engine Problem",
-    "evaluation_event_engine_problem_text": "Fleet {0} from player {1} will not be able to move for {2} years."
+    "evaluation_event_engine_problem_text": "Fleet {0} from player {1} will not be able to move for {2} years.",
+    "fleet_table_fleet_id_with_engine_problem": "{0} | {1} Years broken"
 }
