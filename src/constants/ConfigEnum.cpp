@@ -26,6 +26,8 @@ namespace cst {
             case ConfigTypes::SUPERNOVA_CHANCE:         return "supernova_chance"        ;
             case ConfigTypes::ENGINE_PROBLEM_CHANCE:    return "engine_problem_chance"   ;
             case ConfigTypes::MAX_YEARS_ENGINE_PROBLEM: return "max_years_engine_problem";
+            case ConfigTypes::MIN_EVENT_YEAR:           return "min_event_year"          ;
+            case ConfigTypes::IS_MIN_EVENT_YEAR:        return "is_min_event_year"       ;
 
             case ConfigTypes::FIGHT:                           return "fight"                          ;
             case ConfigTypes::HIT_CHANCE:                      return "hit_chance"                     ;

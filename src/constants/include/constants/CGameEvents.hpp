@@ -9,13 +9,16 @@
 #include <alias/AliasUtils.hpp>
 #include <array>
 #include <cstddef>
-#include <utils/Probability.hpp>
 #include <utils/GameEventTypes.hpp>
+#include <utils/Probability.hpp>
 
 namespace cst {
     struct GameEvents {
-        static inline utl::usize constexpr configEntryCount{ 14 };
+        static inline utl::usize constexpr configEntryCount{ 16 };
         utl::GameEventType events{ 0b11111111 }; // default "global"
+
+        utl::usize minEventYear{ 5 };
+        bool isMinEventYear{ false };
 
         utl::Probability m_globalChance{ 7500 };
 
