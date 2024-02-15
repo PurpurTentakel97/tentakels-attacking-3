@@ -89,6 +89,10 @@ namespace ui {
                     if (fleet.playerID != m_currentPlayer.ID) {
                         return "---";
                     } else {
+                        auto alias = appContext.aliasManager.Alias(destination.ID, m_currentPlayer.ID);
+                        if (not alias.empty()) {
+                            return alias;
+                        }
                         switch (destination.type) {
                             case utl::SpaceObjectType::PLANET:
                                 return appContext.languageManager.Text("ui_fleet_table_dest_planet", destination.ID);
@@ -158,12 +162,20 @@ namespace ui {
             for (auto const& p : m_galaxy.planets) {
                 auto const& pos{ p.position };
                 if (pos == position) {
+                    auto alias = app::AppContext::GetInstance().aliasManager.Alias(p.ID, m_currentPlayer.ID);
+                    if (not alias.empty()) {
+                        return alias;
+                    }
                     return app::AppContext::GetInstance().languageManager.Text("ui_fleet_table_orig_planet", p.ID);
                 }
             }
             for (auto const& t : m_galaxy.targetPoints) {
                 auto const& pos{ t.position };
                 if (pos == position) {
+                    auto alias = app::AppContext::GetInstance().aliasManager.Alias(t.ID, m_currentPlayer.ID);
+                    if (not alias.empty()) {
+                        return alias;
+                    }
                     return app::AppContext::GetInstance().languageManager.Text("ui_fleet_table_orig_target_point",
                                                                                t.ID);
                 }

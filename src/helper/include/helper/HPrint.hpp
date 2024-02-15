@@ -51,7 +51,7 @@ namespace hlp {
         switch (printType) {
             case PrintType::EXPECTED_ERROR:
             case PrintType::ERROR:
-                LogError(message);
+                LogError(GetPrintTypeString(printType) + ' ' + message + '\n');
                 break;
             default:
                 break;
@@ -72,23 +72,22 @@ namespace hlp {
 #endif // NDEBUG
 
         std::string const typeS{ GetPrintTypeString(printType) };
-        std::string const toExport{ typeS + ' ' + message + '\n' };
         try {
             std::string out{ std::vformat(message, std::make_format_args(args...)) };
             std::cout << std::setw(static_cast<int>(GetPrintTypeString(longestType).size())) << typeS << ' ' << out
                       << '\n';
-            TryExport(toExport, printType);
+            TryExport(out, printType);
 
         } catch (std::format_error const&) {
             Print(PrintType::ERROR, "format while printing with arguments");
             std::cout << std::setw(static_cast<int>(GetPrintTypeString(longestType).size())) << typeS << ' ' << message
                       << '\n';
-            TryExport(toExport, printType);
+            TryExport(message, printType);
         } catch (std::bad_alloc const&) {
             Print(PrintType::ERROR, "bad alloc while printing with arguments");
             std::cout << std::setw(static_cast<int>(GetPrintTypeString(longestType).size())) << typeS << ' ' << message
                       << '\n';
-            TryExport(toExport, printType);
+            TryExport(message, printType);
         }
     }
 } // namespace hlp
