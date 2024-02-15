@@ -18,7 +18,7 @@ namespace cst {
 
         // versions
         static inline std::string const languageVersion{ "v0.1.6.4" };
-        static inline std::string const configVersion{ "v0.1.6.3" };
+        static inline std::string const configVersion{ "v0.1.6.5" };
         static inline std::string const gameVersion{ "v0.1.6" };
         static inline std::string const copyRight{ "(c) Purpur Tentakel" };
 
@@ -29,7 +29,7 @@ namespace cst {
         utl::usize minRounds{ 20 };
         utl::usize currentTargetRound{ 50 };
         utl::usize maxRounds{ 100 };
-        utl::usize currentRound{ 0 };
+        utl::usize currentRound{ 1 };
 
         // game
         bool isGameRunning{ false };

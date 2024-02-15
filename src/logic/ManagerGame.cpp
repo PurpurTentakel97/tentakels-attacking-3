@@ -414,6 +414,15 @@ namespace lgk {
     // events
     std::vector<utl::ResultUpdate::event_ty> GameManager::UpdateEvents() {
         hlp::Print(hlp::PrintType::ONLY_DEBUG, "-> update Events");
+        auto const& constants = app::AppContext::GetInstance().constants;
+        if (constants.gameEvents.isMinEventYear
+            and constants.global.currentRound < constants.gameEvents.minEventYear) {
+            hlp::Print(hlp::PrintType::ONLY_DEBUG,
+                       "no update of events because current year ({}) in smaller than min event year ({})",
+                       constants.global.currentRound,
+                       constants.gameEvents.minEventYear);
+            return{};
+        }
         std::array<utl::GameEventType, 6> constexpr events{
             // clang-format off
             utl::GameEventType::PIRATES,
@@ -469,7 +478,7 @@ namespace lgk {
             return false;
         }
 
-        auto const typeChance = constants.m_globalChance * constants.ChanceByType(type);
+        auto const typeChance = constants.globalChance * constants.ChanceByType(type);
         auto& random          = hlp::Random::GetInstance();
         auto chance           = random.random(utl::Probability::maxValue);
 
@@ -520,7 +529,7 @@ namespace lgk {
     std::shared_ptr<utl::ResultEventEngineProblem> GameManager::HandleEngineProblem() {
         auto const& appContext = app::AppContext::GetInstance();
         auto& random           = hlp::Random::GetInstance();
-        auto const years       = random.random(appContext.constants.gameEvents.m_maxYearsEngineProblem) + 1;
+        auto const years       = random.random(appContext.constants.gameEvents.maxYearsEngineProblem) + 1;
         hlp::Print(hlp::PrintType::ONLY_DEBUG, "Handle Engine Problem Event in GameManager ({} years)", years);
         return m_galaxyManager.HandleEngineProblem(years);
     }
@@ -552,7 +561,7 @@ namespace lgk {
             p->Revive();
         }
 
-        appContext.constants.global.currentRound  = 0;
+        appContext.constants.global.currentRound  = 1;
         appContext.constants.global.isGameRunning = true;
         appContext.constants.global.isGamePaused  = false;
         appContext.constants.global.isGameSaved   = false;

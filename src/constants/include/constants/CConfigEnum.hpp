@@ -26,6 +26,9 @@ namespace cst {
         SUPERNOVA_CHANCE,
         ENGINE_PROBLEM_CHANCE,
         MAX_YEARS_ENGINE_PROBLEM,
+        MIN_EVENT_YEAR,
+        IS_MIN_EVENT_YEAR,
+        IS_EVENT_ON_HOME_WORLD,
 
         FIGHT,
         HIT_CHANCE,
