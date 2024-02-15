@@ -291,6 +291,15 @@ namespace lgk {
                        event->GetShipCount());
             return { nullptr, nullptr, nullptr, false };
         }
+        if (origin->GetEngineProblemYears() > 0) {
+            popup(app::AppContext::GetInstance().languageManager.Text(
+                    "logic_fleet_currently_broken_text", origin->GetID(), origin->GetEngineProblemYears()));
+            hlp::Print(hlp::PrintType::ONLY_DEBUG,
+                       "Fleet {} is broken for the next {} years.",
+                       origin->GetID(),
+                       origin->GetEngineProblemYears());
+            return { nullptr, nullptr, nullptr, false };
+        }
 
         // get destination
         auto const destination{ GetOrGenerateDestination(event->GetDestination(),
