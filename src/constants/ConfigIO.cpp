@@ -262,6 +262,7 @@ namespace cst {
         if (utl::usize out; loadUSize(events, out, ConfigTypes::MAX_YEARS_ENGINE_PROBLEM)) { constants.gameEvents.maxYearsEngineProblem                       = out ; }
         if (bool       out; loadBool (events, out, ConfigTypes::IS_MIN_EVENT_YEAR       )) { constants.gameEvents.isMinEventYear                              = out ; }
         if (utl::usize out; loadUSize(events, out, ConfigTypes::MIN_EVENT_YEAR          )) { constants.gameEvents.minEventYear                                = out ; }
+        if (bool       out; loadBool (events, out, ConfigTypes::IS_EVENT_ON_HOME_WORLD  )) { constants.gameEvents.isEventOnHomeWorld                          = out ; }
             // clang-format on
         }
         // fleet
@@ -383,6 +384,7 @@ namespace cst {
                 { CToS(ConfigTypes::MAX_YEARS_ENGINE_PROBLEM), constants.gameEvents.maxYearsEngineProblem                      },
                 { CToS(ConfigTypes::IS_MIN_EVENT_YEAR       ), constants.gameEvents.isMinEventYear                             },
                 { CToS(ConfigTypes::MIN_EVENT_YEAR          ), constants.gameEvents.minEventYear                               },
+                { CToS(ConfigTypes::IS_EVENT_ON_HOME_WORLD  ), constants.gameEvents.isEventOnHomeWorld                         },
   // clang-format on
         };
 
