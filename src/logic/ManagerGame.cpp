@@ -523,7 +523,7 @@ namespace lgk {
 
     std::shared_ptr<utl::ResultEvent> GameManager::HandleSupernova() {
         hlp::Print(hlp::PrintType::TODO, "Handle Supernova Event in GameManager");
-        return {};
+        return m_galaxyManager.HandleSupernova();
     }
 
     std::shared_ptr<utl::ResultEventEngineProblem> GameManager::HandleEngineProblem() {

@@ -11,23 +11,19 @@
 
 
 namespace lgk {
-    Planet::Planet(
-            utl::usize const ID,
-            utl::vec2pos_ty_ref_c position,
-            Player_ty player,
-            bool const isHomePlanet,
-            utl::usize planetNumber
-    )
+    Planet::Planet(utl::usize const ID,
+                   utl::vec2pos_ty_ref_c position,
+                   Player_ty player,
+                   bool const isHomePlanet,
+                   utl::usize planetNumber)
         : Planet{ ID, position, std::move(player), isHomePlanet, planetNumber, 0 } { }
 
-    Planet::Planet(
-            utl::usize const ID,
-            utl::vec2pos_ty_ref_c position,
-            Player_ty player,
-            bool const isHomePlanet,
-            utl::usize planetNumber,
-            utl::usize ships
-    )
+    Planet::Planet(utl::usize const ID,
+                   utl::vec2pos_ty_ref_c position,
+                   Player_ty player,
+                   bool const isHomePlanet,
+                   utl::usize planetNumber,
+                   utl::usize ships)
         : SpaceObject{ ID, position, ships, std::move(player) },
           m_isHomePlanet{ isHomePlanet },
           m_planetNumber{ planetNumber } {
@@ -36,14 +32,13 @@ namespace lgk {
 
         if (m_isHomePlanet) {
             m_production = appContext.constants.planet.homeworldProduction;
-            m_ships = m_production * appContext.constants.planet.startingHumanShipsMultiplicator;
+            m_ships      = m_production * appContext.constants.planet.startingHumanShipsMultiplicator;
         } else {
             auto& random{ hlp::Random::GetInstance() };
-            utl::usize const r{
-                random.random(appContext.constants.planet.maxProduction - appContext.constants.planet.minProduction)
-            };
+            utl::usize const r{ random.random(appContext.constants.planet.maxProduction
+                                              - appContext.constants.planet.minProduction) };
             m_production = r + appContext.constants.planet.minProduction;
-            m_ships = m_production * appContext.constants.planet.startingGlobalShipsMultiplicator;
+            m_ships      = m_production * appContext.constants.planet.startingGlobalShipsMultiplicator;
         }
 
         m_maxShips = appContext.constants.planet.maxShipsFactor * m_production;
@@ -61,8 +56,9 @@ namespace lgk {
         return m_production;
     }
 
-    void Planet::SetDestroyed(bool const isDestroyed) {
-        m_isDestroyed = isDestroyed;
+    void Planet::Destroy() {
+        m_isDestroyed = true;
+        m_ships       = 0;
     }
 
     bool Planet::IsDestroyed() const {
@@ -74,16 +70,17 @@ namespace lgk {
     }
 
     void Planet::Update(Galaxy_ty_raw) {
+        if (m_isDestroyed) {
+            return;
+        }
         m_ships += m_production;
         if (not m_player->IsHumanPlayer() and m_ships > m_maxShips) {
             m_ships = m_maxShips;
         }
-        hlp::Print(
-                hlp::PrintType::ONLY_DEBUG,
-                "planet produced -> id: {} -> is human: {} -> ships: {}",
-                m_ID,
-                m_player->IsHumanPlayer(),
-                m_ships
-        );
+        hlp::Print(hlp::PrintType::ONLY_DEBUG,
+                   "planet produced -> id: {} -> is human: {} -> ships: {}",
+                   m_ID,
+                   m_player->IsHumanPlayer(),
+                   m_ships);
     }
 } // namespace lgk

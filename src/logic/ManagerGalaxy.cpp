@@ -147,4 +147,26 @@ namespace lgk {
         }
         return {};
     }
+    std::shared_ptr<utl::ResultEventSupernova> GalaxyManager::HandleSupernova() {
+        auto planets = m_mainGalaxy->GetPlanets();
+        if (planets.empty()) {
+            return {};
+        }
+
+        for (int i = 0; i < 20; ++i) {
+            auto& planet = hlp::RandomElementFromList(planets);
+
+            if (planet->IsDestroyed()) {
+                continue;
+            }
+            if (not app::AppContext::GetInstance().constants.gameEvents.isEventOnHomeWorld and planet->IsHomePlanet()) {
+                hlp::Print(hlp::PrintType::ONLY_DEBUG, "planet {} is a home planet", planet->GetID());
+                continue;
+            }
+
+            planet->Destroy();
+            return std::make_shared<utl::ResultEventSupernova>(planet->GetPlayer()->GetID(), planet->GetID());
+        }
+        return {};
+    }
 } // namespace lgk

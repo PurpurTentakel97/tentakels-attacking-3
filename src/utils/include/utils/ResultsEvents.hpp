@@ -29,6 +29,21 @@ namespace utl {
         }
     };
 
+    class ResultEventSupernova final : public ResultEvent {
+    private:
+        usize m_planetID{};
+
+    public:
+        using ResultEvent::ResultEvent;
+        ResultEventSupernova(usize playerID, usize planetID)
+            : ResultEvent{ GameEventType::SUPERNOVA, playerID },
+              m_planetID{ planetID } { }
+
+        [[nodiscard]] usize PlanetID() const {
+            return m_planetID;
+        };
+    };
+
     class ResultEventEngineProblem final : public ResultEvent {
     private:
         usize m_years{};
