@@ -81,12 +81,21 @@ namespace ui {
                         }
                         case utl::GameEventType::SUPERNOVA: {
                             hlp::Print(hlp::PrintType::DEBUG, "supernova event result");
+                            auto const* result = dynamic_cast<utl::ResultEventSupernova const*>(e.get());
+                            if (not result) {
+                                hlp::Print(hlp::PrintType::ERROR,
+                                           "-> nullptr while dynamic cast a Supernova Event Result");
+                                break;
+                            }
+                            hlp::Print(hlp::PrintType::DEBUG,
+                                       "-> planet {} from player {} got destroyed",
+                                       result->PlanetID(),
+                                       result->PlayerID());
                             break;
                         }
                         case utl::GameEventType::ENGINE_PROBLEM: {
                             hlp::Print(hlp::PrintType::DEBUG, "Engine Problem Event Result");
-                            [[maybe_unused]] auto const* result =
-                                    dynamic_cast<utl::ResultEventEngineProblem const*>(e.get());
+                            auto const* result = dynamic_cast<utl::ResultEventEngineProblem const*>(e.get());
                             if (not result) {
                                 hlp::Print(hlp::PrintType::ERROR,
                                            "-> nullptr while dynamic cast a Engine Problem Event Result");
@@ -110,7 +119,7 @@ namespace ui {
     void UpdateEvaluationScene::DisplayEventResult() {
         app::AppContext_ty_c appContext = app::AppContext::GetInstance();
         auto const data                 = m_result.Events().at(m_currentIndex);
-        auto const playerName           = appContext.playerCollection.GetPlayerByID(data->PlayerID()).GetName();
+        auto const playerName           = appContext.playerCollection.GetPlayerOrNpcByID(data->PlayerID()).GetName();
         auto title                      = std::string();
         auto text                       = std::string();
 
@@ -119,11 +128,21 @@ namespace ui {
             case utl::GameEventType::REVOLTS: break;
             case utl::GameEventType::RENEGADE_SHIPS: break;
             case utl::GameEventType::BLACK_HOLE: break;
-            case utl::GameEventType::SUPERNOVA: break;
+            case utl::GameEventType::SUPERNOVA: {
+                auto const* result = dynamic_cast<utl::ResultEventSupernova const*>(data.get());
+                if (not result) {
+                    hlp::Print(hlp::PrintType::ERROR, "nullptr while dynamic cast a Supernova Event Result");
+                    break;
+                }
+                title = appContext.languageManager.Text("evaluation_event_supernova_title");
+                text  = appContext.languageManager.Text(
+                        "evaluation_event_supernova_text", result->PlanetID(), playerName);
+                break;
+            }
             case utl::GameEventType::ENGINE_PROBLEM: {
                 auto const* result = dynamic_cast<utl::ResultEventEngineProblem const*>(data.get());
                 if (not result) {
-                    hlp::Print(hlp::PrintType::ERROR, "-> nullptr while dynamic cast a Engine Problem Event Result");
+                    hlp::Print(hlp::PrintType::ERROR, "nullptr while dynamic cast a Engine Problem Event Result");
                     break;
                 }
                 title = appContext.languageManager.Text("evaluation_event_engine_problem_title");
