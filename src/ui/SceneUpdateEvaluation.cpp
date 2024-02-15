@@ -110,7 +110,7 @@ namespace ui {
     void UpdateEvaluationScene::DisplayEventResult() {
         app::AppContext_ty_c appContext = app::AppContext::GetInstance();
         auto const data                 = m_result.Events().at(m_currentIndex);
-        auto const playerName           = appContext.playerCollection.GetPlayerByID(data->PlayerID()).GetName();
+        auto const playerName           = appContext.playerCollection.GetPlayerOrNpcByID(data->PlayerID()).GetName();
         auto title                      = std::string();
         auto text                       = std::string();
 

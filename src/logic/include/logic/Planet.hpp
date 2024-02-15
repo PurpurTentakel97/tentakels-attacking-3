@@ -40,7 +40,7 @@ namespace lgk {
 
         [[nodiscard]] utl::usize GetPlanetNumber() const;
 
-        void SetDestroyed(bool isDestroyed);
+        void Destroy();
 
         [[nodiscard]] bool IsDestroyed() const;
 

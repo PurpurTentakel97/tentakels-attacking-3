@@ -44,5 +44,7 @@ namespace lgk {
         [[nodiscard]] utl::ResultUpdate Update();
 
         [[nodiscard]] std::shared_ptr<utl::ResultEventEngineProblem> HandleEngineProblem(utl::usize years);
+
+        [[nodiscard]] std::shared_ptr<utl::ResultEventSupernova> HandleSupernova();
     };
 } // namespace lgk
