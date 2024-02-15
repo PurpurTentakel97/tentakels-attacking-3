@@ -414,6 +414,15 @@ namespace lgk {
     // events
     std::vector<utl::ResultUpdate::event_ty> GameManager::UpdateEvents() {
         hlp::Print(hlp::PrintType::ONLY_DEBUG, "-> update Events");
+        auto const& constants = app::AppContext::GetInstance().constants;
+        if (constants.gameEvents.isMinEventYear
+            and constants.global.currentRound < constants.gameEvents.minEventYear) {
+            hlp::Print(hlp::PrintType::ONLY_DEBUG,
+                       "no update of events because current year ({}) in smaller than min event year ({})",
+                       constants.global.currentRound,
+                       constants.gameEvents.minEventYear);
+            return{};
+        }
         std::array<utl::GameEventType, 6> constexpr events{
             // clang-format off
             utl::GameEventType::PIRATES,
@@ -552,7 +561,7 @@ namespace lgk {
             p->Revive();
         }
 
-        appContext.constants.global.currentRound  = 0;
+        appContext.constants.global.currentRound  = 1;
         appContext.constants.global.isGameRunning = true;
         appContext.constants.global.isGamePaused  = false;
         appContext.constants.global.isGameSaved   = false;
