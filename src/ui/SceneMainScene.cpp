@@ -285,7 +285,10 @@ namespace ui {
                                                           uil::Alignment::TOP_RIGHT,
                                                           utl::usize{});
         m_destinationX->SetOnEnter([this](uil::InputLine&) { this->SendFleetInstruction(); });
-        m_destinationX->SetOnValueChanced([this](uil::InputLine&) { SetAcceptButton(); });
+        m_destinationX->SetOnValueChanced([this](uil::InputLine&) {
+            SetAcceptButton();
+            UpdateActiveDestination();
+        });
         m_destinationX->SetPlaceholderText("X");
         m_destinationX->SetClearByFocus(true);
         m_elements.push_back(m_destinationX);
@@ -296,7 +299,10 @@ namespace ui {
                                                           uil::Alignment::TOP_RIGHT,
                                                           utl::usize{});
         m_destinationY->SetOnEnter([this](uil::InputLine&) { this->SendFleetInstruction(); });
-        m_destinationY->SetOnValueChanced([this](uil::InputLine&) { SetAcceptButton(); });
+        m_destinationY->SetOnValueChanced([this](uil::InputLine&) {
+            SetAcceptButton();
+            UpdateActiveDestination();
+        });
         m_destinationY->SetPlaceholderText("Y");
         m_destinationY->SetClearByFocus(true);
         m_elements.push_back(m_destinationY);
@@ -484,16 +490,36 @@ namespace ui {
         m_acceptBtn->SetEnabled(valid);
     }
     void MainScene::UpdateActiveDestination() {
-        bool const hasEntry{ m_destination->HasValue() };
-        m_destinationX->SetEnabled(!hasEntry);
-        m_destinationY->SetEnabled(!hasEntry);
+        bool const hasIDEntry         = m_destination->HasValue();
+        bool const hasCoordinateEntry = m_destinationX->HasValue() or m_destinationY->HasValue();
+
+        if (hasIDEntry and hasCoordinateEntry) {
+            m_destination->SetEnabled(true);
+            m_destinationX->SetEnabled(true);
+            m_destinationY->SetEnabled(true);
+            return;
+        }
+
+        m_destination->SetEnabled(not hasCoordinateEntry);
+        m_destinationX->SetEnabled(not hasIDEntry);
+        m_destinationY->SetEnabled(not hasIDEntry);
     }
 
     void MainScene::SendFleetInstruction() {
-
-        auto const type{ m_destinationX->IsEnabled() and m_destinationY->IsEnabled()
-                                 ? utl::FleetInstructionType::COORDINATES
-                                 : utl::FleetInstructionType::ID };
+        auto const type = [this]() {
+            auto const id          = m_destination->IsEnabled();
+            auto const coordinates = m_destinationX->IsEnabled() or m_destinationY->IsEnabled();
+            if (id and coordinates) {
+                return utl::FleetInstructionType::INVALID;
+            }
+            if (id) {
+                return utl::FleetInstructionType::ID;
+            }
+            if (coordinates) {
+                return utl::FleetInstructionType::COORDINATES;
+            }
+            return utl::FleetInstructionType::INVALID;
+        }();
 
         eve::SendFleetInstructionEvent event{ m_origin->Value<utl::usize>(),
                                               m_destination->Value<utl::usize>(),
@@ -638,6 +664,7 @@ namespace ui {
                 InitializeGalaxy();
                 InitializePlanetTable();
                 InitializeFleetTable();
+                UpdateActiveDestination();
                 Switch(m_currentMainSceneType);
             }
             return;

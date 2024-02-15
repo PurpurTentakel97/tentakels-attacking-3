@@ -175,7 +175,7 @@
     "helper_next_big": "Next",
     "ui_popup_fight_result_win_text": "{0} wins!",
     "helper_skip_big": "Skip",
-    "version": "v0.1.6.3",
+    "version": "v0.1.6.4",
     "ui_popup_start_evaluation_subtitle": "start the evaluation when all players are present",
     "ui_popup_game_still_running_title": "Game still running",
     "ui_popup_game_still_running_subtitle": "There is currently a game running. Overwrite the current game?",
@@ -222,5 +222,6 @@
     "evaluation_event_engine_problem_title": "Engine Problem",
     "evaluation_event_engine_problem_text": "Fleet {0} from player {1} will not be able to move for {2} years.",
     "fleet_table_fleet_id_with_engine_problem": "{0} | {1} Years broken",
-    "logic_fleet_currently_broken_text": "Fleet {0} is broken for the next {1} years."
+    "logic_fleet_currently_broken_text": "Fleet {0} is broken for the next {1} years.",
+    "ui_popup_add_fleet_ship_count_too_low": "Ship count to low: {0}"
 }

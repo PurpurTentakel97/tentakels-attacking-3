@@ -1187,7 +1187,7 @@ namespace lgk {
         }
 
         if (event->GetShipCount() == 0) {
-            popup(app::AppContext::GetInstance().languageManager.Text("ui_popup_add_fleet_ship_count_too_low"));
+            popup(app::AppContext::GetInstance().languageManager.Text("ui_popup_add_fleet_ship_count_too_low", event->GetShipCount()));
             hlp::Print(hlp::PrintType::ONLY_DEBUG, "ship count to low: {}", event->GetShipCount());
             return { nullptr, nullptr, nullptr, false };
         }
