@@ -20,16 +20,16 @@ namespace cst {
         utl::usize minEventYear{ 5 };
         bool isMinEventYear{ false };
 
-        utl::Probability m_globalChance{ 7500 };
+        utl::Probability globalChance{ 7500 };
 
-        utl::Probability m_pirateChance{ 1500 };
-        utl::Probability m_revoltChance{ 1500 };
-        utl::Probability m_renegadeShipsChance{ 1500 };
-        utl::Probability m_blackHoleChance{ 200 };
-        utl::Probability m_supernovaChance{ 100 };
-        utl::Probability m_engineProblemChance{ 1000 };
+        utl::Probability pirateChance{ 1500 };
+        utl::Probability revoltChance{ 1500 };
+        utl::Probability renegadeShipsChance{ 1500 };
+        utl::Probability blackHoleChance{ 200 };
+        utl::Probability supernovaChance{ 100 };
+        utl::Probability engineProblemChance{ 1000 };
 
-        utl::usize m_maxYearsEngineProblem{ 5 };
+        utl::usize maxYearsEngineProblem{ 5 };
 
         void SetFlag(utl::GameEventType type, bool active);
 

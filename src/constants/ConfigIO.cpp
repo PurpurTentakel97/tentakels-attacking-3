@@ -235,10 +235,10 @@ namespace cst {
             // clang-format off
         if (float      out; loadFloat(fight, out, ConfigTypes::HIT_CHANCE                     )) { constants.fight.hitChance                     = out; }
         if (utl::usize out; loadUSize(fight, out, ConfigTypes::FLEET_FIGHT_RANGE              )) { constants.fight.fleetFightRange               = out; }
-        if (bool       out; loadBool(fight, out, ConfigTypes::FIGHT_PLANET_FLEET             )) { constants.fight.isFightPlanetFleet            = out; }
-        if (bool       out; loadBool(fight, out, ConfigTypes::FIGHT_PLANET_TARGET_POINT      )) { constants.fight.isFightPlanetTargetPoint      = out; }
-        if (bool       out; loadBool(fight, out, ConfigTypes::FIGHT_TARGET_POINT_FLEET       )) { constants.fight.isFightTargetPointFleet       = out; }
-        if (bool       out; loadBool(fight, out, ConfigTypes::FIGHT_TARGET_POINT_TARGET_POINT)) { constants.fight.isFightTargetPointTargetPoint = out; }
+        if (bool       out; loadBool (fight, out, ConfigTypes::FIGHT_PLANET_FLEET             )) { constants.fight.isFightPlanetFleet            = out; }
+        if (bool       out; loadBool (fight, out, ConfigTypes::FIGHT_PLANET_TARGET_POINT      )) { constants.fight.isFightPlanetTargetPoint      = out; }
+        if (bool       out; loadBool (fight, out, ConfigTypes::FIGHT_TARGET_POINT_FLEET       )) { constants.fight.isFightTargetPointFleet       = out; }
+        if (bool       out; loadBool (fight, out, ConfigTypes::FIGHT_TARGET_POINT_TARGET_POINT)) { constants.fight.isFightTargetPointTargetPoint = out; }
             // clang-format on
         }
         // game events
@@ -252,14 +252,14 @@ namespace cst {
         if (bool       out; loadBool (events, out, ConfigTypes::BLACK_HOLE              )) { constants.gameEvents.SetFlag(utl::GameEventType::BLACK_HOLE,       out); }
         if (bool       out; loadBool (events, out, ConfigTypes::SUPERNOVA               )) { constants.gameEvents.SetFlag(utl::GameEventType::SUPERNOVA,        out); }
         if (bool       out; loadBool (events, out, ConfigTypes::ENGINE_PROBLEM          )) { constants.gameEvents.SetFlag(utl::GameEventType::ENGINE_PROBLEM,   out); }
-        if (utl::usize out; loadUSize(events, out, ConfigTypes::GLOBAL_EVENT_CHANCE     )) { constants.gameEvents.m_globalChance.value                        = out ; }
-        if (utl::usize out; loadUSize(events, out, ConfigTypes::PIRATES_CHANCE          )) { constants.gameEvents.m_pirateChance.value                        = out ; }
-        if (utl::usize out; loadUSize(events, out, ConfigTypes::REVOLTS_CHANCE          )) { constants.gameEvents.m_revoltChance.value                        = out ; }
-        if (utl::usize out; loadUSize(events, out, ConfigTypes::RENEGADE_SHIPS_CHANCE   )) { constants.gameEvents.m_renegadeShipsChance.value                 = out ; }
-        if (utl::usize out; loadUSize(events, out, ConfigTypes::BLACK_HOLE_CHANCE       )) { constants.gameEvents.m_blackHoleChance.value                     = out ; }
-        if (utl::usize out; loadUSize(events, out, ConfigTypes::SUPERNOVA_CHANCE        )) { constants.gameEvents.m_supernovaChance.value                     = out ; }
-        if (utl::usize out; loadUSize(events, out, ConfigTypes::ENGINE_PROBLEM_CHANCE   )) { constants.gameEvents.m_engineProblemChance.value                 = out ; }
-        if (utl::usize out; loadUSize(events, out, ConfigTypes::MAX_YEARS_ENGINE_PROBLEM)) { constants.gameEvents.m_maxYearsEngineProblem                     = out ; }
+        if (utl::usize out; loadUSize(events, out, ConfigTypes::GLOBAL_EVENT_CHANCE     )) { constants.gameEvents.globalChance.value                          = out ; }
+        if (utl::usize out; loadUSize(events, out, ConfigTypes::PIRATES_CHANCE          )) { constants.gameEvents.pirateChance.value                          = out ; }
+        if (utl::usize out; loadUSize(events, out, ConfigTypes::REVOLTS_CHANCE          )) { constants.gameEvents.revoltChance.value                          = out ; }
+        if (utl::usize out; loadUSize(events, out, ConfigTypes::RENEGADE_SHIPS_CHANCE   )) { constants.gameEvents.renegadeShipsChance.value                   = out ; }
+        if (utl::usize out; loadUSize(events, out, ConfigTypes::BLACK_HOLE_CHANCE       )) { constants.gameEvents.blackHoleChance.value                       = out ; }
+        if (utl::usize out; loadUSize(events, out, ConfigTypes::SUPERNOVA_CHANCE        )) { constants.gameEvents.supernovaChance.value                       = out ; }
+        if (utl::usize out; loadUSize(events, out, ConfigTypes::ENGINE_PROBLEM_CHANCE   )) { constants.gameEvents.engineProblemChance.value                   = out ; }
+        if (utl::usize out; loadUSize(events, out, ConfigTypes::MAX_YEARS_ENGINE_PROBLEM)) { constants.gameEvents.maxYearsEngineProblem                       = out ; }
         if (bool       out; loadBool (events, out, ConfigTypes::IS_MIN_EVENT_YEAR       )) { constants.gameEvents.isMinEventYear                              = out ; }
         if (utl::usize out; loadUSize(events, out, ConfigTypes::MIN_EVENT_YEAR          )) { constants.gameEvents.minEventYear                                = out ; }
             // clang-format on
@@ -275,10 +275,10 @@ namespace cst {
         // global
         if (nlohmann::json global; loadSection(load, global, ConfigTypes::GLOBAL, Global::configEntryCount)) {
             // clang-format off
-        if (std::string out; loadString(global, out, ConfigTypes::CURRENT_LANGUAGE_NAME)) {constants.global.currentLanguageName = out;}
-        if (utl::usize  out; loadUSize(global, out, ConfigTypes::GAME_ROUNDS_CURRENT)) { constants.global.currentTargetRound = static_cast<utl::usize>(out); }
-        if (utl::usize  out; loadUSize(global, out, ConfigTypes::GAME_ROUNDS_MAX))     { constants.global.maxRounds          = static_cast<utl::usize>(out); }
-        if (utl::usize  out; loadUSize(global, out, ConfigTypes::GAME_ROUNDS_MIN))     { constants.global.minRounds          = static_cast<utl::usize>(out); }
+        if (std::string out; loadString(global, out, ConfigTypes::CURRENT_LANGUAGE_NAME)) {constants.global.currentLanguageName =                         out ; }
+        if (utl::usize  out; loadUSize (global, out, ConfigTypes::GAME_ROUNDS_CURRENT))   { constants.global.currentTargetRound = static_cast<utl::usize>(out); }
+        if (utl::usize  out; loadUSize (global, out, ConfigTypes::GAME_ROUNDS_MAX))       { constants.global.maxRounds          = static_cast<utl::usize>(out); }
+        if (utl::usize  out; loadUSize (global, out, ConfigTypes::GAME_ROUNDS_MIN))       { constants.global.minRounds          = static_cast<utl::usize>(out); }
             // clang-format on
         }
         // planet
@@ -288,8 +288,8 @@ namespace cst {
         if (utl::usize out; loadUSize(planet, out, ConfigTypes::PRODUCTION_MAX                  )) { constants.planet.maxProduction                    = static_cast<utl::usize>(out); }
         if (utl::usize out; loadUSize(planet, out, ConfigTypes::PRODUCTION_MIN                  )) { constants.planet.minProduction                    = static_cast<utl::usize>(out); }
         if (utl::usize out; loadUSize(planet, out, ConfigTypes::SHIPS_MAX_FACTOR                )) { constants.planet.maxShipsFactor                   = static_cast<utl::usize>(out); }
-        if (float      out; loadFloat(planet, out, ConfigTypes::SPACING_GLOBAL                  )) { constants.planet.globalSpacing                    =                     out ; }
-        if (float      out; loadFloat(planet, out, ConfigTypes::SPACING_HOME_WORLD              )) { constants.planet.homeworldSpacing                 =                     out ; }
+        if (float      out; loadFloat(planet, out, ConfigTypes::SPACING_GLOBAL                  )) { constants.planet.globalSpacing                    =                         out ; }
+        if (float      out; loadFloat(planet, out, ConfigTypes::SPACING_HOME_WORLD              )) { constants.planet.homeworldSpacing                 =                         out ; }
         if (utl::usize out; loadUSize(planet, out, ConfigTypes::STARTING_SHIPS_MULTIPLIER_GLOBAL)) { constants.planet.startingGlobalShipsMultiplicator = static_cast<utl::usize>(out); }
         if (utl::usize out; loadUSize(planet, out, ConfigTypes::STARTING_SHIPS_MULTIPLIER_HUMAN )) { constants.planet.startingHumanShipsMultiplicator  = static_cast<utl::usize>(out); }
             // clang-format on
@@ -299,7 +299,7 @@ namespace cst {
             // clang-format off
         if (utl::usize out; loadUSize(player, out, ConfigTypes::PLAYER_COUNT_MAX)) { constants.player.maxPlayerCount = static_cast<utl::usize>(out); }
         if (utl::usize out; loadUSize(player, out, ConfigTypes::PLAYER_COUNT_MIN)) { constants.player.minPlayerCount = static_cast<utl::usize>(out); }
-        if (bool       out;  loadBool(player, out, ConfigTypes::Player_SHUFFLE  )) { constants.player.shuffle        =                     out ; }
+        if (bool       out;  loadBool(player, out, ConfigTypes::Player_SHUFFLE  )) { constants.player.shuffle        =                         out ; }
             // clang-format on
         }
         // sound
@@ -314,21 +314,21 @@ namespace cst {
             // clang-format off
         if (utl::usize out; loadUSize(window, out, ConfigTypes::RESOLUTION_AS_ENUM)) { constants.window.currentResolutionEnum = static_cast<Resolution>(out); }
         if (bool       out;  loadBool(window, out, ConfigTypes::FULL_SCREEN_BOOL  )) { constants.window.isFullScreen          =                         out ; }
-        if (utl::usize out; loadUSize(window, out, ConfigTypes::TARGET_FPS        )) { constants.window.FPS                   = static_cast<utl::usize>    (out); }
+        if (utl::usize out; loadUSize(window, out, ConfigTypes::TARGET_FPS        )) { constants.window.FPS                   = static_cast<utl::usize>(out); }
             // clang-format on
         }
         // world
         if (nlohmann::json world; loadSection(load, world, ConfigTypes::WORLD, World::configEntryCount)) {
             // clang-format off
-        if (utl::usize out; loadUSize(world, out, ConfigTypes::DIMENSION_X_CURRENT     )) { constants.world.currentDimensionX   =                     out;  }
-        if (utl::usize out; loadUSize(world, out, ConfigTypes::DIMENSION_X_MAX         )) { constants.world.maxDimensionX       =                     out;  }
-        if (utl::usize out; loadUSize(world, out, ConfigTypes::DIMENSION_X_MIN         )) { constants.world.minDimensionX       =                     out;  }
-        if (utl::usize out; loadUSize(world, out, ConfigTypes::DIMENSION_X_SHOW_GALAXY )) { constants.world.showDimensionX      =                     out;  }
-        if (utl::usize out; loadUSize(world, out, ConfigTypes::DIMENSION_Y_CURRENT     )) { constants.world.currentDimensionY   =                     out;  }
-        if (utl::usize out; loadUSize(world, out, ConfigTypes::DIMENSION_Y_MAX         )) { constants.world.maxDimensionY       =                     out;  }
-        if (utl::usize out; loadUSize(world, out, ConfigTypes::DIMENSION_Y_MIN         )) { constants.world.minDimensionY       =                     out;  }
-        if (utl::usize out; loadUSize(world, out, ConfigTypes::DIMENSION_Y_SHOW_GALAXY )) { constants.world.showDimensionY      =                     out;  }
-        if (utl::usize out; loadUSize(world, out, ConfigTypes::DISCOVER_RANGE_FACTOR   )) { constants.world.discoverRangeFactor =                     out;  }
+        if (utl::usize out; loadUSize(world, out, ConfigTypes::DIMENSION_X_CURRENT     )) { constants.world.currentDimensionX   =                         out ; }
+        if (utl::usize out; loadUSize(world, out, ConfigTypes::DIMENSION_X_MAX         )) { constants.world.maxDimensionX       =                         out ; }
+        if (utl::usize out; loadUSize(world, out, ConfigTypes::DIMENSION_X_MIN         )) { constants.world.minDimensionX       =                         out ; }
+        if (utl::usize out; loadUSize(world, out, ConfigTypes::DIMENSION_X_SHOW_GALAXY )) { constants.world.showDimensionX      =                         out ; }
+        if (utl::usize out; loadUSize(world, out, ConfigTypes::DIMENSION_Y_CURRENT     )) { constants.world.currentDimensionY   =                         out ; }
+        if (utl::usize out; loadUSize(world, out, ConfigTypes::DIMENSION_Y_MAX         )) { constants.world.maxDimensionY       =                         out ; }
+        if (utl::usize out; loadUSize(world, out, ConfigTypes::DIMENSION_Y_MIN         )) { constants.world.minDimensionY       =                         out ; }
+        if (utl::usize out; loadUSize(world, out, ConfigTypes::DIMENSION_Y_SHOW_GALAXY )) { constants.world.showDimensionY      =                         out ; }
+        if (utl::usize out; loadUSize(world, out, ConfigTypes::DISCOVER_RANGE_FACTOR   )) { constants.world.discoverRangeFactor =                         out ; }
         if (utl::usize out; loadUSize(world, out, ConfigTypes::PLANET_COUNT_CURRENT    )) { constants.world.currentPlanetCount  = static_cast<utl::usize>(out); }
         if (utl::usize out; loadUSize(world, out, ConfigTypes::PLANET_COUNT_MAX        )) { constants.world.maxPlanetCount      = static_cast<utl::usize>(out); }
         if (utl::usize out; loadUSize(world, out, ConfigTypes::PLANET_COUNT_MIN        )) { constants.world.minPlanetCount      = static_cast<utl::usize>(out); }
@@ -373,14 +373,14 @@ namespace cst {
                 { CToS(ConfigTypes::BLACK_HOLE              ), constants.gameEvents.IsFlag(utl::GameEventType::BLACK_HOLE)     },
                 { CToS(ConfigTypes::SUPERNOVA               ), constants.gameEvents.IsFlag(utl::GameEventType::SUPERNOVA)      },
                 { CToS(ConfigTypes::ENGINE_PROBLEM          ), constants.gameEvents.IsFlag(utl::GameEventType::ENGINE_PROBLEM) },
-                { CToS(ConfigTypes::GLOBAL_EVENT_CHANCE     ), constants.gameEvents.m_globalChance.value                       },
-                { CToS(ConfigTypes::PIRATES_CHANCE          ), constants.gameEvents.m_pirateChance.value                       },
-                { CToS(ConfigTypes::REVOLTS_CHANCE          ), constants.gameEvents.m_revoltChance.value                       },
-                { CToS(ConfigTypes::RENEGADE_SHIPS_CHANCE   ), constants.gameEvents.m_renegadeShipsChance.value                },
-                { CToS(ConfigTypes::BLACK_HOLE_CHANCE       ), constants.gameEvents.m_blackHoleChance.value                    },
-                { CToS(ConfigTypes::SUPERNOVA_CHANCE        ), constants.gameEvents.m_supernovaChance.value                    },
-                { CToS(ConfigTypes::ENGINE_PROBLEM_CHANCE   ), constants.gameEvents.m_engineProblemChance.value                },
-                { CToS(ConfigTypes::MAX_YEARS_ENGINE_PROBLEM), constants.gameEvents.m_maxYearsEngineProblem                    },
+                { CToS(ConfigTypes::GLOBAL_EVENT_CHANCE     ), constants.gameEvents.globalChance.value                         },
+                { CToS(ConfigTypes::PIRATES_CHANCE          ), constants.gameEvents.pirateChance.value                         },
+                { CToS(ConfigTypes::REVOLTS_CHANCE          ), constants.gameEvents.revoltChance.value                         },
+                { CToS(ConfigTypes::RENEGADE_SHIPS_CHANCE   ), constants.gameEvents.renegadeShipsChance.value                  },
+                { CToS(ConfigTypes::BLACK_HOLE_CHANCE       ), constants.gameEvents.blackHoleChance.value                      },
+                { CToS(ConfigTypes::SUPERNOVA_CHANCE        ), constants.gameEvents.supernovaChance.value                      },
+                { CToS(ConfigTypes::ENGINE_PROBLEM_CHANCE   ), constants.gameEvents.engineProblemChance.value                  },
+                { CToS(ConfigTypes::MAX_YEARS_ENGINE_PROBLEM), constants.gameEvents.maxYearsEngineProblem                      },
                 { CToS(ConfigTypes::IS_MIN_EVENT_YEAR       ), constants.gameEvents.isMinEventYear                             },
                 { CToS(ConfigTypes::MIN_EVENT_YEAR          ), constants.gameEvents.minEventYear                               },
   // clang-format on
@@ -445,8 +445,8 @@ namespace cst {
         save[CToS(ConfigTypes::WINDOW)] = {
   // clang-format off
         { CToS(ConfigTypes::RESOLUTION_AS_ENUM), static_cast<utl::usize>(constants.window.currentResolutionEnum) },
-        { CToS(ConfigTypes::FULL_SCREEN_BOOL  ),                     constants.window.isFullScreen           },
-        { CToS(ConfigTypes::TARGET_FPS        ),                     constants.window.FPS                    },
+        { CToS(ConfigTypes::FULL_SCREEN_BOOL  ),                         constants.window.isFullScreen           },
+        { CToS(ConfigTypes::TARGET_FPS        ),                         constants.window.FPS                    },
   // clang-format on
         };
         save[CToS(ConfigTypes::WORLD)] = {

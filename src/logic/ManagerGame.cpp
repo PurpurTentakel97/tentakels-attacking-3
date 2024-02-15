@@ -478,7 +478,7 @@ namespace lgk {
             return false;
         }
 
-        auto const typeChance = constants.m_globalChance * constants.ChanceByType(type);
+        auto const typeChance = constants.globalChance * constants.ChanceByType(type);
         auto& random          = hlp::Random::GetInstance();
         auto chance           = random.random(utl::Probability::maxValue);
 
@@ -529,7 +529,7 @@ namespace lgk {
     std::shared_ptr<utl::ResultEventEngineProblem> GameManager::HandleEngineProblem() {
         auto const& appContext = app::AppContext::GetInstance();
         auto& random           = hlp::Random::GetInstance();
-        auto const years       = random.random(appContext.constants.gameEvents.m_maxYearsEngineProblem) + 1;
+        auto const years       = random.random(appContext.constants.gameEvents.maxYearsEngineProblem) + 1;
         hlp::Print(hlp::PrintType::ONLY_DEBUG, "Handle Engine Problem Event in GameManager ({} years)", years);
         return m_galaxyManager.HandleEngineProblem(years);
     }
