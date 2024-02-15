@@ -29,7 +29,7 @@ namespace cst {
         utl::usize minRounds{ 20 };
         utl::usize currentTargetRound{ 50 };
         utl::usize maxRounds{ 100 };
-        utl::usize currentRound{ 0 };
+        utl::usize currentRound{ 1 };
 
         // game
         bool isGameRunning{ false };
