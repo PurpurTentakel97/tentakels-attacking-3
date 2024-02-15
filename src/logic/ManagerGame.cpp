@@ -478,8 +478,6 @@ namespace lgk {
 
 
     utl::ResultUpdate::event_ty GameManager::RaiseEvent(utl::GameEventType type) {
-        static int count{ 1 };
-        hlp::Print(hlp::PrintType::DEBUG, "current count: {}", count++);
         switch (type) {
                 // clang-format off
             case utl::GameEventType::PIRATES:        return HandlePirates();
@@ -523,7 +521,7 @@ namespace lgk {
         auto const& appContext = app::AppContext::GetInstance();
         auto& random           = hlp::Random::GetInstance();
         auto const years       = random.random(appContext.constants.gameEvents.m_maxYearsEngineProblem) + 1;
-        hlp::Print(hlp::PrintType::ONLY_DEBUG, "Handle Supernova Event in GameManager ({} years)", years);
+        hlp::Print(hlp::PrintType::ONLY_DEBUG, "Handle Engine Problem Event in GameManager ({} years)", years);
         return m_galaxyManager.HandleEngineProblem(years);
     }
 

@@ -291,6 +291,15 @@ namespace lgk {
                        event->GetShipCount());
             return { nullptr, nullptr, nullptr, false };
         }
+        if (origin->GetEngineProblemYears() > 0) {
+            popup(app::AppContext::GetInstance().languageManager.Text(
+                    "logic_fleet_currently_broken_text", origin->GetID(), origin->GetEngineProblemYears()));
+            hlp::Print(hlp::PrintType::ONLY_DEBUG,
+                       "Fleet {} is broken for the next {} years.",
+                       origin->GetID(),
+                       origin->GetEngineProblemYears());
+            return { nullptr, nullptr, nullptr, false };
+        }
 
         // get destination
         auto const destination{ GetOrGenerateDestination(event->GetDestination(),
@@ -704,9 +713,20 @@ namespace lgk {
         std::vector<utl::ResultMerge> mergeResult{};
 
         for (auto const& fleet_lhs : m_fleets) {
+            // clang-format off
+            auto const skip_lhs = fleet_lhs->GetShipCount()          == 0
+                               or fleet_lhs->GetEngineProblemYears() >  0;
+            // clang-format on
+            if (skip_lhs) {
+                continue;
+            }
             for (auto const& fleet_rhs : m_fleets) {
-                if (fleet_lhs->GetID() == fleet_rhs->GetID() or fleet_lhs->GetShipCount() == 0
-                    or fleet_rhs->GetShipCount() == 0) {
+                // clang-format off
+                auto const skip_rhs = fleet_lhs->GetID()                 == fleet_rhs->GetID()
+                                   or fleet_rhs->GetShipCount()          == 0
+                                   or fleet_rhs->GetEngineProblemYears() >  0;
+                // clang-format on
+                if (skip_rhs) {
                     continue;
                 }
 
