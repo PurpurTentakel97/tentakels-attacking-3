@@ -75,10 +75,6 @@ namespace ui {
                             hlp::Print(hlp::PrintType::DEBUG, "renegate ships event result");
                             break;
                         }
-                        case utl::GameEventType::BLACK_HOLE: {
-                            hlp::Print(hlp::PrintType::DEBUG, "black hole event result");
-                            break;
-                        }
                         case utl::GameEventType::SUPERNOVA: {
                             hlp::Print(hlp::PrintType::DEBUG, "supernova event result");
                             auto const* result = dynamic_cast<utl::ResultEventSupernova const*>(e.get());
@@ -127,7 +123,6 @@ namespace ui {
             case utl::GameEventType::PIRATES: break;
             case utl::GameEventType::REVOLTS: break;
             case utl::GameEventType::RENEGADE_SHIPS: break;
-            case utl::GameEventType::BLACK_HOLE: break;
             case utl::GameEventType::SUPERNOVA: {
                 auto const* result = dynamic_cast<utl::ResultEventSupernova const*>(data.get());
                 if (not result) {

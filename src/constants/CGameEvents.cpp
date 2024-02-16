@@ -28,7 +28,6 @@ namespace cst {
             case utl::GameEventType::PIRATES:        return pirateChance       ;
             case utl::GameEventType::REVOLTS:        return revoltChance       ;
             case utl::GameEventType::RENEGADE_SHIPS: return renegadeShipsChance;
-            case utl::GameEventType::BLACK_HOLE:     return blackHoleChance    ;
             case utl::GameEventType::SUPERNOVA:      return supernovaChance    ;
             case utl::GameEventType::ENGINE_PROBLEM: return engineProblemChance;
             case utl::GameEventType::GLOBAL:         return globalChance       ;

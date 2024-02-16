@@ -428,7 +428,6 @@ namespace lgk {
             utl::GameEventType::PIRATES,
             utl::GameEventType::REVOLTS,
             utl::GameEventType::RENEGADE_SHIPS,
-            utl::GameEventType::BLACK_HOLE,
             utl::GameEventType::SUPERNOVA,
             utl::GameEventType::ENGINE_PROBLEM,
             // don't check for global. it just represents if all other events are active or not.
@@ -492,7 +491,6 @@ namespace lgk {
             case utl::GameEventType::PIRATES:        return HandlePirates();
             case utl::GameEventType::REVOLTS:        return HandleRevolts();
             case utl::GameEventType::RENEGADE_SHIPS: return HandleRenegadeShips();
-            case utl::GameEventType::BLACK_HOLE:     return HandleBlackHole();
             case utl::GameEventType::SUPERNOVA:      return HandleSupernova();
             case utl::GameEventType::ENGINE_PROBLEM: return HandleEngineProblem();
             case utl::GameEventType::GLOBAL:         std::unreachable();

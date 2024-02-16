@@ -249,7 +249,6 @@ namespace cst {
         if (bool       out; loadBool (events, out, ConfigTypes::PIRATES                 )) { constants.gameEvents.SetFlag(utl::GameEventType::PIRATES,          out); }
         if (bool       out; loadBool (events, out, ConfigTypes::REVOLTS                 )) { constants.gameEvents.SetFlag(utl::GameEventType::REVOLTS,          out); }
         if (bool       out; loadBool (events, out, ConfigTypes::RENEGADE_SHIPS          )) { constants.gameEvents.SetFlag(utl::GameEventType::RENEGADE_SHIPS,   out); }
-        if (bool       out; loadBool (events, out, ConfigTypes::BLACK_HOLE              )) { constants.gameEvents.SetFlag(utl::GameEventType::BLACK_HOLE,       out); }
         if (bool       out; loadBool (events, out, ConfigTypes::SUPERNOVA               )) { constants.gameEvents.SetFlag(utl::GameEventType::SUPERNOVA,        out); }
         if (bool       out; loadBool (events, out, ConfigTypes::ENGINE_PROBLEM          )) { constants.gameEvents.SetFlag(utl::GameEventType::ENGINE_PROBLEM,   out); }
         if (utl::usize out; loadUSize(events, out, ConfigTypes::GLOBAL_EVENT_CHANCE     )) { constants.gameEvents.globalChance.value                          = out ; }
@@ -371,7 +370,6 @@ namespace cst {
                 { CToS(ConfigTypes::PIRATES                 ), constants.gameEvents.IsFlag(utl::GameEventType::PIRATES)        },
                 { CToS(ConfigTypes::REVOLTS                 ), constants.gameEvents.IsFlag(utl::GameEventType::REVOLTS)        },
                 { CToS(ConfigTypes::RENEGADE_SHIPS          ), constants.gameEvents.IsFlag(utl::GameEventType::RENEGADE_SHIPS) },
-                { CToS(ConfigTypes::BLACK_HOLE              ), constants.gameEvents.IsFlag(utl::GameEventType::BLACK_HOLE)     },
                 { CToS(ConfigTypes::SUPERNOVA               ), constants.gameEvents.IsFlag(utl::GameEventType::SUPERNOVA)      },
                 { CToS(ConfigTypes::ENGINE_PROBLEM          ), constants.gameEvents.IsFlag(utl::GameEventType::ENGINE_PROBLEM) },
                 { CToS(ConfigTypes::GLOBAL_EVENT_CHANCE     ), constants.gameEvents.globalChance.value                         },
