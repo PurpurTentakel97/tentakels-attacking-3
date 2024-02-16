@@ -41,6 +41,12 @@ namespace lgk {
     using TargetPoint_ty_raw   = TargetPoint const*;
     using TargetPoint_ty_raw_c = TargetPoint const* const;
 
+    class BlackHole;
+    using BlackHole_ty       = std::shared_ptr<BlackHole>;
+    using BlackHole_ty_c     = std::shared_ptr<BlackHole> const&;
+    using BlackHole_ty_raw   = BlackHole const*;
+    using BlackHole_ty_raw_c = BlackHole const* const;
+
     class Player;
     using Player_ty       = std::shared_ptr<Player>;
     using Player_ty_c     = Player_ty const&;

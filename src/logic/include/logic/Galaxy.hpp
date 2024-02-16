@@ -23,17 +23,16 @@ namespace lgk {
         std::vector<Planet_ty> m_planets;
         std::vector<Fleet_ty> m_fleets;
         std::vector<TargetPoint_ty> m_targetPoints;
+        std::vector<BlackHole_ty> m_blackHoles;
         utl::vec2pos_ty m_size;
 
 
         [[nodiscard]] utl::usize GetNextID() const;
 
         // Planet
-        void InitializePlanets(
-                utl::usize planetCount,
-                std::vector<Player_ty> const& players,
-                Player_ty const& neutralPlayer
-        );
+        void InitializePlanets(utl::usize planetCount,
+                               std::vector<Player_ty> const& players,
+                               Player_ty const& neutralPlayer);
 
         [[nodiscard]] utl::usize GenerateHomePlanets(std::vector<Player_ty> const& players);
 
@@ -46,10 +45,8 @@ namespace lgk {
 
         [[nodiscard]] Fleet_ty GetFleetByID(utl::usize ID) const;
 
-        [[nodiscard]] Fleet_ty TryGetExistingFleetByOriginAndDestination(
-                SpaceObject_ty const& origin,
-                SpaceObject_ty const& destination
-        ) const;
+        [[nodiscard]] Fleet_ty TryGetExistingFleetByOriginAndDestination(SpaceObject_ty const& origin,
+                                                                         SpaceObject_ty const& destination) const;
 
         [[nodiscard]] utl::ResultFleet AddFleetFromPlanet(eve::SendFleetInstructionEvent const* event,
                                                           Player_ty const& currentPlayer);
@@ -71,17 +68,17 @@ namespace lgk {
 
         [[nodiscard]] TargetPoint_ty GetTargetPointByID(utl::usize ID) const;
 
-        [[nodiscard]] SpaceObject_ty
-        GetOrGenerateDestination(utl::usize ID, int X, int Y, Player_ty const& currentPlayer);
+        [[nodiscard]] SpaceObject_ty GetOrGenerateDestination(utl::usize ID,
+                                                              int X,
+                                                              int Y,
+                                                              Player_ty const& currentPlayer);
 
         void CheckDeleteTargetPoints();
 
         // update
-        [[nodiscard]] std::vector<Fleet_ty> UpdateFleetTargets(
-                std::vector<Fleet_ty> const& fleets,
-                SpaceObject_ty const& currentFleet,
-                SpaceObject_ty const& target
-        );
+        [[nodiscard]] std::vector<Fleet_ty> UpdateFleetTargets(std::vector<Fleet_ty> const& fleets,
+                                                               SpaceObject_ty const& currentFleet,
+                                                               SpaceObject_ty const& target);
 
         [[nodiscard]] std::vector<utl::ResultMerge> CheckArrivingFriendlyFleets();
 

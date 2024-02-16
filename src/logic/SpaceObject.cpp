@@ -67,6 +67,10 @@ namespace lgk {
         return false;
     }
 
+    bool SpaceObject::IsBlackHole() const {
+        return false;
+    }
+
     bool SpaceObject::IsInDiscoverRange(SpaceObject_ty_c object) const {
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
         auto const range =
@@ -103,12 +107,12 @@ namespace lgk {
         return *this;
     }
 
+
     SpaceObject& SpaceObject::operator-=(SpaceObject const& object) {
         assert(m_ships >= object.m_ships);
         m_ships -= object.m_ships;
         return *this;
     }
-
 
     bool SpaceObject::operator==(SpaceObject const& other) const {
         return m_ID == other.m_ID;
@@ -181,7 +185,6 @@ namespace lgk {
     bool operator>=(SpaceObject const& object, utl::usize const ships) {
         return !(object < ships);
     }
-
     bool operator>=(utl::usize ships, SpaceObject const& object) {
         return !(ships < object);
     }
