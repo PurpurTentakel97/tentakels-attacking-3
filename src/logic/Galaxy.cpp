@@ -13,9 +13,8 @@
 #include <helper/HRandom.hpp>
 #include <stdexcept>
 #include <utils/FleetInstructionType.hpp>
-#include <utils/ResultFight.hpp>
+#include <utils/ResultsUpdate.hpp>
 #include <utils/ResultFleet.hpp>
-#include <utils/ResultMerge.hpp>
 #include <vector>
 
 namespace lgk {

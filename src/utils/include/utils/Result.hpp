@@ -5,9 +5,8 @@
 
 #pragma once
 
-#include "ResultFight.hpp"
-#include "ResultMerge.hpp"
 #include "ResultsEvents.hpp"
+#include "ResultsUpdate.hpp"
 
 namespace lgk {
     class GameManager;

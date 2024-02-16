@@ -41,7 +41,7 @@ namespace ui {
         Y += 0.15f;
 
         // player names
-        auto player{ appContext.playerCollection.GetPlayerOrNpcByID(m_result.GetPlayer().first.ID) };
+        auto player{ appContext.playerCollection.GetPlayerOrNpcByID(m_result.GetPlayers().first.ID) };
         auto playerName = std::make_shared<uil::Text>(hlp::GetElementPosition(m_pos, m_size, leftX, Y),
                                                       hlp::GetElementSize(m_size, 0.5f, textSize),
                                                       uil::Alignment::MID_MID,
@@ -52,7 +52,7 @@ namespace ui {
         playerName->SetRenderBackground(true);
         m_elements.push_back(playerName);
 
-        player     = { appContext.playerCollection.GetPlayerOrNpcByID(m_result.GetPlayer().second.ID) };
+        player     = { appContext.playerCollection.GetPlayerOrNpcByID(m_result.GetPlayers().second.ID) };
         playerName = std::make_shared<uil::Text>(hlp::GetElementPosition(m_pos, m_size, rightX, Y),
                                                  hlp::GetElementSize(m_size, 0.5f, textSize),
                                                  uil::Alignment::MID_MID,
@@ -155,12 +155,12 @@ namespace ui {
         std::string dummy;
         if (m_result.GetRounds().at(m_result.GetRounds().size() - 1).first == 0) {
             dummy = app::AppContext::GetInstance()
-                            .playerCollection.GetPlayerOrNpcByID(m_result.GetPlayer().second.ID)
+                            .playerCollection.GetPlayerOrNpcByID(m_result.GetPlayers().second.ID)
                             .GetName();
             m_leftNumber->SetDefaultColor(RED);
         } else {
             dummy = app::AppContext::GetInstance()
-                            .playerCollection.GetPlayerOrNpcByID(m_result.GetPlayer().first.ID)
+                            .playerCollection.GetPlayerOrNpcByID(m_result.GetPlayers().first.ID)
                             .GetName();
             m_rightNumber->SetDefaultColor(RED);
         }

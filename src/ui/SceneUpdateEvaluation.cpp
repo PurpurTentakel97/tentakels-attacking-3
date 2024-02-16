@@ -46,8 +46,8 @@ namespace ui {
             hlp::Print(hlp::PrintType::DEBUG, "{} vs. {}", e.GetSpaceObjects().first.ID, e.GetSpaceObjects().second.ID);
             hlp::Print(hlp::PrintType::DEBUG,
                        "{} vs. {}",
-                       appContext.playerCollection.GetPlayerOrNpcByID(e.GetPlayer().first.ID).GetName(),
-                       appContext.playerCollection.GetPlayerOrNpcByID(e.GetPlayer().second.ID).GetName());
+                       appContext.playerCollection.GetPlayerOrNpcByID(e.GetPlayers().first.ID).GetName(),
+                       appContext.playerCollection.GetPlayerOrNpcByID(e.GetPlayers().second.ID).GetName());
 
             for (auto const& r : e.GetRounds()) {
                 hlp::Print(hlp::PrintType::DEBUG, "{} | {}", r.first, r.second);

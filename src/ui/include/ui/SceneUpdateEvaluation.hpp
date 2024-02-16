@@ -9,7 +9,7 @@
 #include <alias/AliasUtils.hpp>
 #include <event/EventListener.hpp>
 #include <ui_lib/Scene.hpp>
-#include <utils/ResultUpdate.hpp>
+#include <utils/Result.hpp>
 
 
 namespace ui {

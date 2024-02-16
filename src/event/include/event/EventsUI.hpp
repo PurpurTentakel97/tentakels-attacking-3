@@ -13,7 +13,7 @@
 #include <alias/AliasUtils.hpp>
 #include <functional>
 #include <string>
-#include <utils/ResultFight.hpp>
+#include <utils/ResultsUpdate.hpp>
 #include <utils/Vec2.hpp>
 
 namespace eve {

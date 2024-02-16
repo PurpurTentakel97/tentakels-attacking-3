@@ -11,7 +11,7 @@
 #include <string>
 #include <unordered_map>
 #include <utils/RepresentationGalaxy.hpp>
-#include <utils/ResultUpdate.hpp>
+#include <utils/Result.hpp>
 
 
 namespace eve {

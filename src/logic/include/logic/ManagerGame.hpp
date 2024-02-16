@@ -14,7 +14,7 @@
 #include <memory>
 #include <random>
 #include <utils/GameEventTypes.hpp>
-#include <utils/ResultUpdate.hpp>
+#include <utils/Result.hpp>
 #include <utils/ResultsEvents.hpp>
 #include <vector>
 

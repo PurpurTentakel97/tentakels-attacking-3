@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include "utils/ResultFight.hpp"
+#include "utils/ResultsUpdate.hpp"
 #include <alias/AliasUtils.hpp>
 #include <ui_lib/CountingNumber.hpp>
 #include <ui_lib/PopUp.hpp>
