@@ -5,9 +5,7 @@
 
 #pragma once
 
-#include "RepresentationFleet.hpp"
-#include "RepresentationPlanet.hpp"
-#include "RepresentationTargetPoint.hpp"
+#include "RepresentationSpaceObject.hpp"
 #include <vector>
 
 namespace utl {

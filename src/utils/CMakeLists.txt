@@ -7,20 +7,17 @@ add_library(utils STATIC
             include/utils/Vec2.hpp
             include/utils/FleetInstructionType.hpp
             include/utils/Concepts.hpp
-            include/utils/RepresentationTargetPoint.hpp
-            include/utils/RepresentationFleet.hpp
             include/utils/SpaceObjectType.hpp
             include/utils/RepresentationSpaceObject.hpp
-            include/utils/RepresentationPlanet.hpp
             include/utils/RepresentationGalaxy.hpp
             include/utils/RepresentationPlayer.hpp
             include/utils/Probability.hpp
             include/utils/GameEventTypes.hpp
             include/utils/ResultsEvents.hpp
+            include/utils/ResultUpdate.hpp
             Colors.cpp
             ResultFight.cpp
             ResultMerge.cpp
-            include/utils/ResultUpdate.hpp
 
 )
 target_include_directories(utils

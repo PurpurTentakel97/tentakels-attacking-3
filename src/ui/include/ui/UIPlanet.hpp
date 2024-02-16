@@ -6,7 +6,7 @@
 #pragma once
 
 #include "UIGalaxyElement.hpp"
-#include <utils/RepresentationPlanet.hpp>
+#include <utils/RepresentationSpaceObject.hpp>
 
 
 namespace ui {

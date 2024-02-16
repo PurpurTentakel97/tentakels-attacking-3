@@ -7,7 +7,7 @@
 
 #include "UIGalaxyElement.hpp"
 #include <ui_lib/ShipCountRing.hpp>
-#include <utils/RepresentationTargetPoint.hpp>
+#include <utils/RepresentationSpaceObject.hpp>
 
 
 namespace ui {
