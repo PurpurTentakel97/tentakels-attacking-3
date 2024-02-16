@@ -132,22 +132,7 @@ namespace lgk {
         return m_mainGalaxy->Update();
     }
 
-    std::shared_ptr<utl::ResultEventEngineProblem> GalaxyManager::HandleEngineProblem(utl::usize years) {
-        auto fleets = m_mainGalaxy->GetFleets();
-        if (fleets.empty()) {
-            return {};
-        }
-        for (int i = 0; i < 20; ++i) {
-            auto& fleet = hlp::RandomElementFromList(fleets);
-            if (fleet->GetEngineProblemYears() != 0) {
-                continue;
-            }
-            fleet->SetEngineProblemYears(years);
-            return std::make_shared<utl::ResultEventEngineProblem>(fleet->GetPlayer()->GetID(), fleet->GetID(), years);
-        }
-        return {};
-    }
-    std::shared_ptr<utl::ResultEventSupernova> GalaxyManager::HandleSupernova() {
+    std::shared_ptr<utl::ResultEventSupernova> GalaxyManager::HandleSupernova(Player_ty invalid_player) {
         auto planets = m_mainGalaxy->GetPlanets();
         if (planets.empty()) {
             return {};
@@ -161,8 +146,29 @@ namespace lgk {
                 continue;
             }
 
-             // TODO: make a black hole out of it
+            auto const& fleets = m_mainGalaxy->GetFleetsOfTarget(planet);
+            m_mainGalaxy->DeletePlanet(planet);
+            auto const blackHole = m_mainGalaxy->AddBlackHoleWithoutCheck(planet->GetPos(), invalid_player);
+            for (auto const& f : fleets) {
+                f->SetTarget(blackHole);
+            }
             return std::make_shared<utl::ResultEventSupernova>(planet->GetPlayer()->GetID(), planet->GetID());
+        }
+        return {};
+    }
+
+    std::shared_ptr<utl::ResultEventEngineProblem> GalaxyManager::HandleEngineProblem(utl::usize years) {
+        auto fleets = m_mainGalaxy->GetFleets();
+        if (fleets.empty()) {
+            return {};
+        }
+        for (int i = 0; i < 20; ++i) {
+            auto& fleet = hlp::RandomElementFromList(fleets);
+            if (fleet->GetEngineProblemYears() != 0) {
+                continue;
+            }
+            fleet->SetEngineProblemYears(years);
+            return std::make_shared<utl::ResultEventEngineProblem>(fleet->GetPlayer()->GetID(), fleet->GetID(), years);
         }
         return {};
     }

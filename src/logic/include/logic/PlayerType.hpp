@@ -11,5 +11,6 @@ namespace lgk {
         HUMAN,
         NEUTRAL,
         PIRATE,
+        INVALID,
     };
 }

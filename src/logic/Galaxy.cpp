@@ -149,6 +149,28 @@ namespace lgk {
         return validPlanet;
     }
 
+    void Galaxy::DeletePlanet(Planet_ty const& planet) {
+        m_planets.erase(std::remove_if(m_planets.begin(),
+                                       m_planets.end(),
+                                       [planet](Planet_ty_c currentPlanet) {
+                                           return planet->GetID() == currentPlanet->GetID();
+                                       }),
+                        m_planets.end());
+        m_objects.erase(
+                std::remove_if(m_objects.begin(),
+                               m_objects.end(),
+                               [planet](SpaceObject_ty const& object) { return planet->GetID() == object->GetID(); }),
+                m_objects.end());
+
+        app::AppContext::GetInstance().aliasManager.DeleteSpaceObjectAlias(planet->GetID());
+
+        hlp::Print(hlp::PrintType::ONLY_DEBUG,
+                   "delete fleet -> id: {} -> player: {} -> ships: {}",
+                   planet->GetID(),
+                   planet->GetPlayer()->GetID(),
+                   planet->GetShipCount());
+    }
+
     // Fleet
     bool Galaxy::IsValidFleet(utl::usize const ID) const {
 
@@ -596,6 +618,7 @@ namespace lgk {
                        t->GetShipCount(),
                        origins.size());
         }
+
         // delete
         auto const containsTargetPoint{ [toDelete](SpaceObject_ty const& d_t) -> bool {
             for (auto const& o_t : toDelete) {
@@ -617,6 +640,15 @@ namespace lgk {
         }
     }
 
+    // black hole
+    BlackHole_ty Galaxy::AddBlackHoleWithoutCheck(utl::vec2pos_ty position, Player_ty invalid_player) {
+        auto const blackHole = std::make_shared<BlackHole>(GetNextID(), position, std::move(invalid_player));
+        m_objects.push_back(blackHole);
+        m_blackHoles.push_back(blackHole);
+        return blackHole;
+    }
+
+    // update
     std::vector<Fleet_ty> Galaxy::UpdateFleetTargets(std::vector<Fleet_ty> const& fleets,
                                                      SpaceObject_ty const& currentFleet,
                                                      SpaceObject_ty const& target) {
@@ -1071,7 +1103,7 @@ namespace lgk {
                    utl::usize planetCount,
                    std::vector<Player_ty> const& players,
                    Player_ty const& neutralPlayer)
-        : m_size{ std::move(size) } {
+        : m_size{ size } {
 
         InitializePlanets(planetCount, players, neutralPlayer);
     }
@@ -1091,6 +1123,10 @@ namespace lgk {
                 auto const object = std::make_shared<TargetPoint>(*std::static_pointer_cast<TargetPoint>(o));
                 m_objects.push_back(object);
                 m_targetPoints.push_back(object);
+            } else if (o->IsBlackHole()) {
+                auto const object = std::make_shared<BlackHole>(*std::static_pointer_cast<BlackHole>(o));
+                m_objects.push_back(object);
+                m_blackHoles.push_back(object);
             } else {
                 throw std::invalid_argument("invalid Space Object");
             }
@@ -1187,7 +1223,8 @@ namespace lgk {
         }
 
         if (event->GetShipCount() == 0) {
-            popup(app::AppContext::GetInstance().languageManager.Text("ui_popup_add_fleet_ship_count_too_low", event->GetShipCount()));
+            popup(app::AppContext::GetInstance().languageManager.Text("ui_popup_add_fleet_ship_count_too_low",
+                                                                      event->GetShipCount()));
             hlp::Print(hlp::PrintType::ONLY_DEBUG, "ship count to low: {}", event->GetShipCount());
             return { nullptr, nullptr, nullptr, false };
         }

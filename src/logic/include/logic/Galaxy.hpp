@@ -7,6 +7,7 @@
 #include "Fleet.hpp"
 #include "Planet.hpp"
 #include "TargetPoint.hpp"
+#include "BlackHole.hpp"
 #include <alias/AliasApp.hpp>
 #include <alias/AliasUtils.hpp>
 #include <event/EventGeneral.hpp>
@@ -16,6 +17,8 @@
 
 namespace lgk {
     class Galaxy final {
+        friend class GalaxyManager;
+
     private:
         bool m_validGalaxy{ true };
         bool m_isFiltered{ false };
@@ -39,6 +42,8 @@ namespace lgk {
         void GenerateOtherPlanets(utl::usize PlanetCount, utl::usize currentPlanet, Player_ty const& player);
 
         [[nodiscard]] bool IsValidNewPlanet(Planet_ty const& newPlanet, app::AppContext_ty_c appContext) const;
+
+        void DeletePlanet(Planet_ty const& planet);
 
         // Fleet
         [[nodiscard]] bool IsValidFleet(utl::usize ID) const;
@@ -74,6 +79,9 @@ namespace lgk {
                                                               Player_ty const& currentPlayer);
 
         void CheckDeleteTargetPoints();
+
+        // black hole
+        BlackHole_ty AddBlackHoleWithoutCheck(utl::vec2pos_ty position, Player_ty invalid_player);
 
         // update
         [[nodiscard]] std::vector<Fleet_ty> UpdateFleetTargets(std::vector<Fleet_ty> const& fleets,
