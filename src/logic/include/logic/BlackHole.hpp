@@ -10,10 +10,16 @@
 namespace lgk {
     class BlackHole final : public SpaceObject {
     private:
+        utl::usize m_extraSize{ 0 };
+
     public:
         using SpaceObject::SpaceObject;
 
         [[nodiscard]] bool IsBlackHole() const override;
+
+        void AddExtraSize(utl::usize extraSize);
+
+        [[nodiscard]] utl::usize ExtraSize() const;
 
         void Update(Galaxy_ty_raw galaxy) override;
     };
