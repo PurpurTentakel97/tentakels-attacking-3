@@ -514,11 +514,6 @@ namespace lgk {
         return {};
     }
 
-    std::shared_ptr<utl::ResultEvent> GameManager::HandleBlackHole() {
-        hlp::Print(hlp::PrintType::TODO, "Handle Black Hole Event in GameManager");
-        return {};
-    }
-
     std::shared_ptr<utl::ResultEvent> GameManager::HandleSupernova() {
         hlp::Print(hlp::PrintType::TODO, "Handle Supernova Event in GameManager");
         return m_galaxyManager.HandleSupernova();

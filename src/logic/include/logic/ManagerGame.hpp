@@ -85,8 +85,6 @@ namespace lgk {
 
         [[nodiscard]] std::shared_ptr<utl::ResultEvent> HandleRenegadeShips();
 
-        [[nodiscard]] std::shared_ptr<utl::ResultEvent> HandleBlackHole();
-
         [[nodiscard]] std::shared_ptr<utl::ResultEvent> HandleSupernova();
 
         [[nodiscard]] std::shared_ptr<utl::ResultEventEngineProblem> HandleEngineProblem();
