@@ -26,7 +26,6 @@ namespace cst {
         utl::Probability pirateChance{ 1500 };
         utl::Probability revoltChance{ 1500 };
         utl::Probability renegadeShipsChance{ 1500 };
-        utl::Probability blackHoleChance{ 200 };
         utl::Probability supernovaChance{ 100 };
         utl::Probability engineProblemChance{ 1000 };
 
