@@ -14,7 +14,7 @@
 
 namespace cst {
     struct GameEvents {
-        static inline utl::usize constexpr configEntryCount{ 17 };
+        static inline utl::usize constexpr configEntryCount{ 15 };
         utl::GameEventType events{ 0b11111111 }; // default "global"
 
         utl::usize minEventYear{ 5 };

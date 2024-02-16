@@ -18,7 +18,7 @@ namespace cst {
 
         // versions
         static inline std::string const languageVersion{ "v0.1.6.5" };
-        static inline std::string const configVersion{ "v0.1.6.5" };
+        static inline std::string const configVersion{ "v0.1.6.6" };
         static inline std::string const gameVersion{ "v0.1.6" };
         static inline std::string const copyRight{ "(c) Purpur Tentakel" };
 

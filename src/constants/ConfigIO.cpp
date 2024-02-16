@@ -255,7 +255,6 @@ namespace cst {
         if (utl::usize out; loadUSize(events, out, ConfigTypes::PIRATES_CHANCE          )) { constants.gameEvents.pirateChance.value                          = out ; }
         if (utl::usize out; loadUSize(events, out, ConfigTypes::REVOLTS_CHANCE          )) { constants.gameEvents.revoltChance.value                          = out ; }
         if (utl::usize out; loadUSize(events, out, ConfigTypes::RENEGADE_SHIPS_CHANCE   )) { constants.gameEvents.renegadeShipsChance.value                   = out ; }
-        if (utl::usize out; loadUSize(events, out, ConfigTypes::BLACK_HOLE_CHANCE       )) { constants.gameEvents.blackHoleChance.value                       = out ; }
         if (utl::usize out; loadUSize(events, out, ConfigTypes::SUPERNOVA_CHANCE        )) { constants.gameEvents.supernovaChance.value                       = out ; }
         if (utl::usize out; loadUSize(events, out, ConfigTypes::ENGINE_PROBLEM_CHANCE   )) { constants.gameEvents.engineProblemChance.value                   = out ; }
         if (utl::usize out; loadUSize(events, out, ConfigTypes::MAX_YEARS_ENGINE_PROBLEM)) { constants.gameEvents.maxYearsEngineProblem                       = out ; }
@@ -376,7 +375,6 @@ namespace cst {
                 { CToS(ConfigTypes::PIRATES_CHANCE          ), constants.gameEvents.pirateChance.value                         },
                 { CToS(ConfigTypes::REVOLTS_CHANCE          ), constants.gameEvents.revoltChance.value                         },
                 { CToS(ConfigTypes::RENEGADE_SHIPS_CHANCE   ), constants.gameEvents.renegadeShipsChance.value                  },
-                { CToS(ConfigTypes::BLACK_HOLE_CHANCE       ), constants.gameEvents.blackHoleChance.value                      },
                 { CToS(ConfigTypes::SUPERNOVA_CHANCE        ), constants.gameEvents.supernovaChance.value                      },
                 { CToS(ConfigTypes::ENGINE_PROBLEM_CHANCE   ), constants.gameEvents.engineProblemChance.value                  },
                 { CToS(ConfigTypes::MAX_YEARS_ENGINE_PROBLEM), constants.gameEvents.maxYearsEngineProblem                      },
