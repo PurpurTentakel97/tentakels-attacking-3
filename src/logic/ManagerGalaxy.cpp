@@ -156,15 +156,12 @@ namespace lgk {
         for (int i = 0; i < 20; ++i) {
             auto& planet = hlp::RandomElementFromList(planets);
 
-            if (planet->IsDestroyed()) {
-                continue;
-            }
             if (not app::AppContext::GetInstance().constants.gameEvents.isEventOnHomeWorld and planet->IsHomePlanet()) {
                 hlp::Print(hlp::PrintType::ONLY_DEBUG, "planet {} is a home planet", planet->GetID());
                 continue;
             }
 
-            planet->Destroy();
+             // TODO: make a black hole out of it
             return std::make_shared<utl::ResultEventSupernova>(planet->GetPlayer()->GetID(), planet->GetID());
         }
         return {};

@@ -59,14 +59,6 @@ namespace ui {
                                                              },
                                                              appContext),
                                                      p);
-            if (p.isDestroyed) {
-                planet->SetEnabled(false);
-                planet->SetColor(DARKGRAY);
-            } else if (not p.isHumanPlayer) {
-                if (not p.isDestroyed and not event->IsShowGalaxy()) {
-                    planet->SetColor(GRAY);
-                }
-            }
             planet->SetOnClick([this](UIGalaxyElement* p_) { this->SelectUIGalaxyElement(p_); });
             planet->UpdatePosition(m_absoluteSize);
             m_uiGalaxyElements.push_back(planet);

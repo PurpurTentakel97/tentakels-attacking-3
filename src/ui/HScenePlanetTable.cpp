@@ -71,10 +71,7 @@ namespace ui {
             // player name
             std::string entry;
             Color color;
-            if (p.isDestroyed) {
-                entry = appContext.languageManager.Text("ui_planet_table_player_name_destroyed");
-                color = WHITE;
-            } else if (not p.isDiscovered) {
+            if (not p.isDiscovered) {
                 entry = appContext.languageManager.Text("ui_planet_table_player_name_not_discovered");
                 color = WHITE;
             } else {
@@ -85,9 +82,6 @@ namespace ui {
             m_table->SetValue(addedCount, column, entry);
             m_table->SetSingleCellTextColor(color, addedCount, column);
 
-            if (p.isDestroyed) {
-                continue;
-            }
             if (!p.isDiscovered) {
                 continue;
             }

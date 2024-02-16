@@ -43,7 +43,6 @@ namespace lgk {
             planet->GetShipCount(),
             planet->GetPos(),
             type(planet)},
-            planet->IsDestroyed(),
             planet->GetPlayer()->IsHumanPlayer(),
             planet->GetProduction()
             // clang-format on
