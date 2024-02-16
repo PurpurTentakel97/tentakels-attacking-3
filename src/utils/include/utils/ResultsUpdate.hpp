@@ -25,9 +25,9 @@ namespace utl {
                     RepresentationSpaceObject origin,
                     RepresentationSpaceObject destination,
                     usize count)
-            : m_player{ std::move(player) },
-              m_origin{ std::move(origin) },
-              m_destination{ std::move(destination) },
+            : m_player{ player },
+              m_origin{ origin },
+              m_destination{ destination },
               m_count{ count } { }
 
         [[nodiscard]] RepresentationPlayer GetPlayer() const {
@@ -63,8 +63,8 @@ namespace utl {
     public:
         ResultFight() = default;
         ResultFight(player_ty players, spaceObject_ty objects, rounds_ty rounds, bool valid)
-            : m_players{ std::move(players) },
-              m_objects{ std::move(objects) },
+            : m_players{ players },
+              m_objects{ objects },
               m_rounds{ std::move(rounds) },
               m_valid{ valid } { }
 
