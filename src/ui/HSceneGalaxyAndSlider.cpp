@@ -18,7 +18,7 @@ namespace ui {
         // Galaxy
         m_galaxy = std::make_shared<UIGalaxy>(1000,
                                               GetElementPosition(0.53f, 0.45f),
-                                              GetElementSize(0.95f, 0.92f),
+                                              GetElementSize(0.89f, 0.87f),
                                               uil::Alignment::MID_MID,
                                               isShowGalaxy,
                                               isAcceptingInput);
