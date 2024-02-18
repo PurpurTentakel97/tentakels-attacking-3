@@ -35,4 +35,8 @@ namespace ui {
     class UIFleet;
     using UIFleet_ty   = std::shared_ptr<UIFleet>;
     using UIFleet_ty_c = std::shared_ptr<UIFleet> const&;
+
+    class UIBlackHole;
+    using UIBlackHole_ty   = std::shared_ptr<UIBlackHole>;
+    using UIBlackHole_ty_c = std::shared_ptr<UIBlackHole> const&;
 } // namespace ui
