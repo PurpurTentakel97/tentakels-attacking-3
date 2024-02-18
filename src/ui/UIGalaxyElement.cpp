@@ -11,14 +11,12 @@
 
 
 namespace ui {
-    UIGalaxyElement::UIGalaxyElement(
-            utl::usize const focusID,
-            utl::usize const ID,
-            Vector2 const size,
-            app::PlayerData const& player,
-            Vector2 const pos,
-            Vector2 const colliderPos
-    )
+    UIGalaxyElement::UIGalaxyElement(utl::usize const focusID,
+                                     utl::usize const ID,
+                                     Vector2 const size,
+                                     app::PlayerData const& player,
+                                     Vector2 const pos,
+                                     Vector2 const colliderPos)
         : UIElement{ pos, size, uil::Alignment::MID_MID },
           Focusable{ focusID },
           m_ID{ ID },
@@ -33,7 +31,9 @@ namespace ui {
         Vector2 const newPos{ (newCollider.x + newCollider.width * m_colliderPos.x) / resolution.x,
                               (newCollider.y + newCollider.height * m_colliderPos.y) / resolution.y };
         SetPosition(newPos);
-        m_ring->SetPosition(m_pos);
+        if (m_ring) {
+            m_ring->SetPosition(m_pos);
+        }
     }
 
     void UIGalaxyElement::SetOnClick(std::function<void(UIGalaxyElement*)> onClick) {

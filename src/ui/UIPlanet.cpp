@@ -12,7 +12,7 @@
 namespace ui {
     UIPlanet::UIPlanet(utl::usize const focusID, utl::usize const ID, app::PlayerData const& player, Vector2 const pos,
 	Vector2 const colliderPos, utl::RepresentationPlanet planet)
-	:UIGalaxyElement{ focusID, ID, { 0.015f, 0.025f }, player, pos, colliderPos }, m_planet{ std::move(planet) } {
+	:UIGalaxyElement{ focusID, ID, { 0.015f, 0.025f }, player, pos, colliderPos }, m_planet{ planet } {
 
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
         auto const textSize =
