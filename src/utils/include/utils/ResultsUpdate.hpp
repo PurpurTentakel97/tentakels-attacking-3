@@ -13,6 +13,40 @@
 
 
 namespace utl {
+    struct ResultBlackHole final {
+    private:
+        RepresentationPlayer m_player;
+        RepresentationSpaceObject m_objectDestroyed;
+        RepresentationBlackHole m_blackHole;
+        usize m_shipsDestroyed;
+
+    public:
+        ResultBlackHole(RepresentationPlayer player,
+                        RepresentationSpaceObject objectDestroyed,
+                        RepresentationBlackHole blackHole,
+                        usize shipsDestroyed)
+            : m_player{ player },
+              m_objectDestroyed{ objectDestroyed },
+              m_blackHole{ blackHole },
+              m_shipsDestroyed{ shipsDestroyed } { }
+
+        [[nodiscard]] RepresentationPlayer Player() const {
+            return m_player;
+        }
+
+        [[nodiscard]] RepresentationSpaceObject ObjectDestroyed() const {
+            return m_objectDestroyed;
+        }
+
+        [[nodiscard]] RepresentationBlackHole BlackHole() const {
+            return m_blackHole;
+        }
+
+        [[nodiscard]] usize ShipsDestroyed() const {
+            return m_shipsDestroyed;
+        }
+    };
+
     struct ResultMerge final {
     private:
         RepresentationPlayer m_player;

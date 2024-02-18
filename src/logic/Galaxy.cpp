@@ -1404,28 +1404,22 @@ namespace lgk {
     }
 
     utl::ResultUpdate Galaxy::Update() {
-        hlp::Print(hlp::PrintType::ONLY_DEBUG, "start update logic");
-        hlp::Print(hlp::PrintType::ONLY_DEBUG, "-> update space objects");
         for (auto& o : m_objects) {
             o->Update(this);
         }
-        hlp::Print(hlp::PrintType::ONLY_DEBUG, "-> merge arriving friendly fleets");
+
+        std::vector<utl::ResultBlackHole> blackHoleResults{};
+
         std::vector<utl::ResultMerge> mergeResults{ CheckArrivingFriendlyFleets() };
-        hlp::Print(hlp::PrintType::ONLY_DEBUG, "-> merge friendly fleets with other friendly fleets");
         std::vector<utl::ResultMerge> singleMergeResult{ CheckMergingFriendlyFleets() };
         std::copy(singleMergeResult.begin(), singleMergeResult.end(), std::back_inserter(mergeResults));
 
-        hlp::Print(hlp::PrintType::ONLY_DEBUG, "-> delete fleets without ships before fights");
         CheckDeleteFleetsWithoutShips(); // Check before Fight so there will be no fight without ships
-        hlp::Print(hlp::PrintType::ONLY_DEBUG, "-> simulate fights");
         std::vector<utl::ResultFight> fightResults{ SimulateFight() };
-        hlp::Print(hlp::PrintType::ONLY_DEBUG, "-> delete fleets without ships after fights");
         CheckDeleteFleetsWithoutShips(); // Check after fight so all fleets that lost there ships gets deleted.
-        hlp::Print(hlp::PrintType::ONLY_DEBUG, "-> delete target points out ships");
         CheckDeleteTargetPoints();
 
-        hlp::Print(hlp::PrintType::ONLY_DEBUG, "update logic finished");
 
-        return { mergeResults, fightResults };
+        return { mergeResults, fightResults, blackHoleResults };
     }
 } // namespace lgk
