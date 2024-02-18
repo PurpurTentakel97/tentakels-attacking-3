@@ -132,7 +132,7 @@ namespace lgk {
         return m_mainGalaxy->Update();
     }
 
-    std::shared_ptr<utl::ResultEventSupernova> GalaxyManager::HandleSupernova(Player_ty invalid_player) {
+    std::shared_ptr<utl::ResultEventSupernova> GalaxyManager::HandleSupernova(Player_ty const& invalid_player) {
         auto planets = m_mainGalaxy->GetPlanets();
         if (planets.empty()) {
             return {};
@@ -152,7 +152,8 @@ namespace lgk {
             for (auto const& f : fleets) {
                 f->SetTarget(blackHole);
             }
-            return std::make_shared<utl::ResultEventSupernova>(planet->GetPlayer()->GetID(), planet->GetID());
+            return std::make_shared<utl::ResultEventSupernova>(
+                    planet->GetPlayer()->GetID(), planet->GetID(), planet->GetShipCount());
         }
         return {};
     }

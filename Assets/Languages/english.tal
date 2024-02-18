@@ -174,7 +174,7 @@
     "helper_next_big": "Next",
     "ui_popup_fight_result_win_text": "{0} wins!",
     "helper_skip_big": "Skip",
-    "version": "v0.1.6.7",
+    "version": "v0.1.6.8",
     "ui_popup_start_evaluation_subtitle": "start the evaluation when all players are present",
     "ui_popup_game_still_running_title": "Game still running",
     "ui_popup_game_still_running_subtitle": "There is currently a game running. Overwrite the current game?",
@@ -224,7 +224,7 @@
     "logic_fleet_currently_broken_text": "Fleet {0} is broken for the next {1} years.",
     "ui_popup_add_fleet_ship_count_too_low": "Ship count to low: {0}",
     "evaluation_event_supernova_title": "Supernova",
-    "evaluation_event_supernova_text": "Planet {0} from player {1} got destroyed.",
+    "evaluation_event_supernova_text": "Planet {0} with {1} ships from player {2} got destroyed.",
     "ui_black_hole_hover_discovered": "Black Hole | X: {0}, Y: {1} | Size {2}",
     "ui_black_hole_hover_not_discovered": "Black Hole | X: {0}, Y: {1}"
 }

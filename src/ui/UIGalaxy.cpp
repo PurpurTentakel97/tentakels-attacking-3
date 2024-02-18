@@ -597,7 +597,7 @@ namespace ui {
         }
 
         EndScissorMode();
-        
+
         if (m_updateLineDrag) {
             m_lineDrag->Render(appContext);
         }

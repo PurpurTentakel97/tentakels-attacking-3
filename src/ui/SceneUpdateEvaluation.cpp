@@ -84,8 +84,9 @@ namespace ui {
                                 break;
                             }
                             hlp::Print(hlp::PrintType::DEBUG,
-                                       "-> planet {} from player {} got destroyed",
+                                       "-> planet {} with {} ships from player {} got destroyed",
                                        result->PlanetID(),
+                                       result->ShipsDestroyed(),
                                        result->PlayerID());
                             break;
                         }
@@ -131,7 +132,7 @@ namespace ui {
                 }
                 title = appContext.languageManager.Text("evaluation_event_supernova_title");
                 text  = appContext.languageManager.Text(
-                        "evaluation_event_supernova_text", result->PlanetID(), playerName);
+                        "evaluation_event_supernova_text", result->PlanetID(), result->ShipsDestroyed(), playerName);
                 break;
             }
             case utl::GameEventType::ENGINE_PROBLEM: {

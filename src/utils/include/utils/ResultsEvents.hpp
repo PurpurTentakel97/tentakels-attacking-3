@@ -32,16 +32,22 @@ namespace utl {
     class ResultEventSupernova final : public ResultEvent {
     private:
         usize m_planetID{};
+        usize m_shipsDestroyed{};
 
     public:
         using ResultEvent::ResultEvent;
-        ResultEventSupernova(usize playerID, usize planetID)
+        ResultEventSupernova(usize playerID, usize planetID, usize shipsDestroyed)
             : ResultEvent{ GameEventType::SUPERNOVA, playerID },
-              m_planetID{ planetID } { }
+              m_planetID{ planetID },
+              m_shipsDestroyed{ shipsDestroyed } { }
 
         [[nodiscard]] usize PlanetID() const {
             return m_planetID;
         };
+
+        [[nodiscard]] usize ShipsDestroyed() const {
+            return m_shipsDestroyed;
+        }
     };
 
     class ResultEventEngineProblem final : public ResultEvent {
