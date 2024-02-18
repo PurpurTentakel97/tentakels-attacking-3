@@ -174,7 +174,7 @@
     "helper_next_big": "Weiter",
     "ui_popup_fight_result_win_text": "{0} gewinnt!",
     "helper_skip_big": "\u00dcberspringen",
-    "version": "v0.1.6.6",
+    "version": "v0.1.6.7",
     "ui_popup_start_evaluation_subtitle": "Auswertung beginnen, wenn alle Spieler anwesend sind.",
     "ui_popup_game_still_running_title": "Spiel l\u00e4uft noch",
     "ui_popup_game_still_running_subtitle": "Es l\u00e4uft gerade ein Spiel. Das aktuelle Spiel \u00fcberschreiben?",
@@ -224,5 +224,7 @@
     "logic_fleet_currently_broken_text": "Flotte {0} ist defekt f\u00fcr die n\u00e4chsten {1} Jahre.",
     "ui_popup_add_fleet_ship_count_too_low": "Schiffsanzahl zu gering: {0}",
     "evaluation_event_supernova_title": "Supernova",
-    "evaluation_event_supernova_text": "Planet {0} von Spieler {1} wurde zerst\u00f6rt."
+    "evaluation_event_supernova_text": "Planet {0} von Spieler {1} wurde zerst\u00f6rt.",
+    "ui_black_hole_hover_discovered": "Schwarzes Loch | X: {0}, Y: {1} | Gr\u00f6\u00dfe {2}",
+    "ui_black_hole_hover_not_discovered": "Schwarzes Loch | X: {0}, Y: {1}"
 }
