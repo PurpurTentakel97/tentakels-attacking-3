@@ -17,6 +17,8 @@ namespace lgk {
             return utl::SpaceObjectType::TARGET_POINT;
         } else if (spaceObject->IsFleet()) {
             return utl::SpaceObjectType::FLEET;
+        } else if (spaceObject->IsBlackHole()) {
+            return utl::SpaceObjectType::BLACK_HOLE;
         } else {
             std::unreachable();
         }
@@ -34,18 +36,47 @@ namespace lgk {
         };
     }
 
+    // black Hole
+    [[nodiscard]] static utl::RepresentationBlackHole GenSingleBlackHoleRep(BlackHole_ty_c blackHole) {
+        return {
+  // clang-format off
+            {
+                blackHole->IsDiscovered(),
+                blackHole->GetID(),
+                blackHole->GetPlayer()->GetID(),
+                blackHole->GetShipCount(),
+                blackHole->GetPos(),
+                type(blackHole)
+            },
+            blackHole->Size()
+  // clang-format on
+        };
+    }
+
+    [[nodiscard]] static std::vector<utl::RepresentationBlackHole> GenAllBlackHoleRep(
+            std::vector<BlackHole_ty> const& blackHoles) {
+        std::vector<utl::RepresentationBlackHole> result{};
+        for (auto const& b : blackHoles) {
+            result.push_back(GenSingleBlackHoleRep(b));
+        }
+        return result;
+    }
+
+    // Planet
     [[nodiscard]] static utl::RepresentationPlanet GenSinglePlanetRep(Planet_ty_c planet) {
         return {
-            // clang-format off
-            {planet->IsDiscovered(),
-            planet->GetID(),
-            planet->GetPlayer()->GetID(),
-            planet->GetShipCount(),
-            planet->GetPos(),
-            type(planet)},
+  // clang-format off
+            {
+                planet->IsDiscovered(),
+                planet->GetID(),
+                planet->GetPlayer()->GetID(),
+                planet->GetShipCount(),
+                planet->GetPos(),
+                type(planet)
+            },
             planet->GetPlayer()->IsHumanPlayer(),
             planet->GetProduction()
-            // clang-format on
+  // clang-format on
         };
     }
     [[nodiscard]] static std::vector<utl::RepresentationPlanet> GenAllPlanetRep(std::vector<Planet_ty> const& planets) {
@@ -56,6 +87,7 @@ namespace lgk {
         return r;
     }
 
+    // Target Point
     [[nodiscard]] static utl::RepresentationTargetPoint GenSingleTargetPointRep(TargetPoint_ty_c targetPoint) {
         return {
             // clang-format off
@@ -77,18 +109,21 @@ namespace lgk {
         return r;
     }
 
+    // Fleet
     [[nodiscard]] static utl::RepresentationFleet GenSingleFleetRep(Fleet_ty_c fleet) {
         return {
-            // clang-format off
-            {fleet->IsDiscovered(),
-            fleet->GetID(),
-            fleet->GetPlayer()->GetID(),
-            fleet->GetShipCount(),
-            fleet->GetPos(),
-            type(fleet)},
+  // clang-format off
+            {
+                fleet->IsDiscovered(),
+                fleet->GetID(),
+                fleet->GetPlayer()->GetID(),
+                fleet->GetShipCount(),
+                fleet->GetPos(),
+                type(fleet)
+            },
             fleet->GetEngineProblemYears(),
             GenSingleSpaceObjectRep(fleet->GetTarget())
-            // clang-format on
+  // clang-format on
         };
     }
     [[nodiscard]] static std::vector<utl::RepresentationFleet> GenAllFleetRep(std::vector<Fleet_ty> const& fleets) {
@@ -103,6 +138,7 @@ namespace lgk {
         return { GenAllPlanetRep(galaxy->GetPlanets()),
                  GenAllTargetPointRep(galaxy->GetTargetPoints()),
                  GenAllFleetRep(galaxy->GetFleets()),
+                 GenAllBlackHoleRep(galaxy->GetBlackHoles()),
                  galaxy->GetSize() };
     }
 

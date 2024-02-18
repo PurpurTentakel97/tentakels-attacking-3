@@ -30,5 +30,7 @@ namespace utl {
 
     struct RepresentationTargetPoint final : public RepresentationSpaceObject { };
 
-    struct RepresentationBlackHole final : public RepresentationSpaceObject { };
+    struct RepresentationBlackHole final : public RepresentationSpaceObject {
+        usize radius{};
+    };
 } // namespace utl

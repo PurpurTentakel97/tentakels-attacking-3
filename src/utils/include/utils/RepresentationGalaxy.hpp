@@ -13,6 +13,7 @@ namespace utl {
         std::vector<RepresentationPlanet> planets{};
         std::vector<RepresentationTargetPoint> targetPoints{};
         std::vector<RepresentationFleet> fleets{};
+        std::vector<RepresentationBlackHole> blackHoles{};
         vec2pos_ty size{};
     };
 } // namespace utl

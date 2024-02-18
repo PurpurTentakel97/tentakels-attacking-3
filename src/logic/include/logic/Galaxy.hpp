@@ -140,6 +140,8 @@ namespace lgk {
 
         [[nodiscard]] std::vector<TargetPoint_ty> GetTargetPoints() const;
 
+        [[nodiscard]] std::vector<BlackHole_ty> GetBlackHoles() const;
+
         [[nodiscard]] Planet_ty GetPlanetByID(utl::usize ID) const;
 
         [[nodiscard]] SpaceObject_ty GetSpaceObjectByID(utl::usize ID) const;

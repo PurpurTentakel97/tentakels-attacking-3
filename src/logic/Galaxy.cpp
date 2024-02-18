@@ -1180,6 +1180,11 @@ namespace lgk {
         return m_targetPoints;
     }
 
+
+    std::vector<BlackHole_ty> Galaxy::GetBlackHoles() const {
+        return m_blackHoles;
+    }
+
     Planet_ty Galaxy::GetPlanetByID(utl::usize const ID) const {
         for (auto const& planet : m_planets) {
             if (planet->GetID() == ID) {
