@@ -11,8 +11,11 @@ namespace lgk {
         return true;
     }
 
-    void BlackHole::AddExtraSize(utl::usize extraSize) {
-        m_extraSize += extraSize;
+    void BlackHole::AddExtraSize(SpaceObject_ty_c object) {
+        m_extraSize += object->GetShipCount();
+        if (object->IsPlanet()) {
+            m_extraSize += 100;
+        }
     }
 
     utl::usize BlackHole::ExtraSize() const {
@@ -28,7 +31,7 @@ namespace lgk {
                      ? constants.maxBlackHoleRange
                      : size;
         // clang-format on
-}
+    }
 
     void BlackHole::Update(Galaxy_ty_raw) { }
 } // namespace lgk

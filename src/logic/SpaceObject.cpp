@@ -83,6 +83,10 @@ namespace lgk {
         return IsInRange(object.get(), this, range);
     }
 
+    bool SpaceObject::IsInBlackHoleRange(SpaceObject_ty_c object, utl::usize range) const {
+        return IsInRange(object.get(), this, range);
+    }
+
     void SpaceObject::SetDiscovered(bool const isDiscovered) {
         m_isDiscovered = isDiscovered;
     }

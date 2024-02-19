@@ -84,6 +84,7 @@ namespace lgk {
         BlackHole_ty AddBlackHoleWithoutCheck(utl::vec2pos_ty position, Player_ty invalid_player);
 
         // update
+        // fleets
         [[nodiscard]] std::vector<Fleet_ty> UpdateFleetTargets(std::vector<Fleet_ty> const& fleets,
                                                                SpaceObject_ty const& currentFleet,
                                                                SpaceObject_ty const& target);
@@ -94,6 +95,10 @@ namespace lgk {
 
         void CheckDeleteFleetsWithoutShips();
 
+        // black hole
+        [[nodiscard]] std::vector<utl::ResultBlackHole> SimulateBlackHoles();
+
+        // fight
         [[nodiscard]] std::vector<utl::ResultFight> SimulateFight();
 
         [[nodiscard]] std::vector<utl::ResultFight> SimulateFightFleetPlanet();

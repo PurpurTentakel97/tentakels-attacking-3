@@ -60,6 +60,8 @@ namespace lgk {
 
         [[nodiscard]] bool IsInFightRange(SpaceObject_ty_c object) const;
 
+        [[nodiscard]] bool IsInBlackHoleRange(SpaceObject_ty_c object, utl::usize range) const;
+
         void SetDiscovered(bool isDiscovered);
 
         [[nodiscard]] bool IsDiscovered() const;

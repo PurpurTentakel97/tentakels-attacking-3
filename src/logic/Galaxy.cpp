@@ -13,8 +13,8 @@
 #include <helper/HRandom.hpp>
 #include <stdexcept>
 #include <utils/FleetInstructionType.hpp>
-#include <utils/ResultsUpdate.hpp>
 #include <utils/ResultFleet.hpp>
+#include <utils/ResultsUpdate.hpp>
 #include <vector>
 
 namespace lgk {
@@ -164,7 +164,7 @@ namespace lgk {
         app::AppContext::GetInstance().aliasManager.DeleteSpaceObjectAlias(planet->GetID());
 
         hlp::Print(hlp::PrintType::ONLY_DEBUG,
-                   "delete fleet -> id: {} -> player: {} -> ships: {}",
+                   "delete planet -> id: {} -> player: {} -> ships: {}",
                    planet->GetID(),
                    planet->GetPlayer()->GetID(),
                    planet->GetShipCount());
@@ -648,6 +648,7 @@ namespace lgk {
     }
 
     // update
+    // Fleet
     std::vector<Fleet_ty> Galaxy::UpdateFleetTargets(std::vector<Fleet_ty> const& fleets,
                                                      SpaceObject_ty const& currentFleet,
                                                      SpaceObject_ty const& target) {
@@ -815,6 +816,69 @@ namespace lgk {
         DeleteFleet(toDelete);
     }
 
+    // Black Hole
+    std::vector<utl::ResultBlackHole> Galaxy::SimulateBlackHoles() {
+        std::vector<utl::ResultBlackHole> result{};
+
+        for (auto const& b : m_blackHoles) {
+            std::vector<SpaceObject_ty> to_delete{};
+            for (auto const& e : m_objects) {
+
+                // clang-format off
+                auto const skip = e->IsBlackHole()
+                                or (e->IsTargetPoint() and e->GetShipCount() == 0)
+                                or not b->IsInBlackHoleRange(e, b->Size());
+                // clang-format on
+                /*
+                hlp::Print(hlp::PrintType::ONLY_DEBUG,
+                           "ID: {}, black hole: {}, target point with ships: {}, in range: {}, skip: {}",
+                           e->GetID(),
+                           e->IsBlackHole(),
+                           e->IsTargetPoint() and e->GetShipCount() == 0,
+                           not b->IsInBlackHoleRange(e, b->Size()),
+                           skip);
+                */
+                if (skip) {
+                    continue;
+                }
+
+                auto const fleets = GetFleetsOfTarget(e);
+                for (auto const& f : fleets) {
+                    if (e->IsFleet()) {
+                        auto fleet = dynamic_cast<Fleet const*>(e.get());
+                        f->SetTarget(fleet->GetTarget());
+                    } else {
+                        f->SetTarget(b);
+                    }
+                }
+
+                to_delete.push_back(e);
+                if (e->IsPlanet()) {
+                    std::erase(m_planets, e);
+                } else if (e->IsFleet()) {
+                    std::erase(m_fleets, e);
+                } else if (e->IsTargetPoint()) {
+                    std::erase(m_targetPoints, e);
+                } else {
+                    std::unreachable();
+                }
+
+                b->AddExtraSize(e);
+
+                result.emplace_back(GenPlayerRep(e->GetPlayer().get()),
+                                    GenSingleSpaceObjectRep(e),
+                                    GenSingleBlackHoleRep(b),
+                                    e->GetShipCount());
+            }
+            for (auto const& e : to_delete) {
+                std::erase(m_objects, e);
+            }
+        }
+
+        return result;
+    }
+
+    // Fight
     std::vector<utl::ResultFight> Galaxy::SimulateFight() {
         // Fleet Planet
         hlp::Print(hlp::PrintType::ONLY_DEBUG, "-> -> fights fleet against planet");
@@ -1408,7 +1472,7 @@ namespace lgk {
             o->Update(this);
         }
 
-        std::vector<utl::ResultBlackHole> blackHoleResults{};
+        std::vector<utl::ResultBlackHole> blackHoleResults = SimulateBlackHoles();
 
         std::vector<utl::ResultMerge> mergeResults{ CheckArrivingFriendlyFleets() };
         std::vector<utl::ResultMerge> singleMergeResult{ CheckMergingFriendlyFleets() };

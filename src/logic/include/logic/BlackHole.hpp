@@ -17,7 +17,7 @@ namespace lgk {
 
         [[nodiscard]] bool IsBlackHole() const override;
 
-        void AddExtraSize(utl::usize extraSize);
+        void AddExtraSize(SpaceObject_ty_c object);
 
         [[nodiscard]] utl::usize ExtraSize() const;
 

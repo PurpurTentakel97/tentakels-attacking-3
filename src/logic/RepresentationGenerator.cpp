@@ -37,7 +37,7 @@ namespace lgk {
     }
 
     // black Hole
-    [[nodiscard]] static utl::RepresentationBlackHole GenSingleBlackHoleRep(BlackHole_ty_c blackHole) {
+    [[nodiscard]] utl::RepresentationBlackHole GenSingleBlackHoleRep(BlackHole_ty_c blackHole) {
         return {
   // clang-format off
             {
