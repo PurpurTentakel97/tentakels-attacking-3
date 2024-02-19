@@ -54,6 +54,17 @@ namespace ui {
             }
             hlp::Print(hlp::PrintType::DEBUG, "------------------------------------------------------");
         }
+        hlp::Print(hlp::PrintType::DEBUG, "---------------- | BlackHole Result |-------------------");
+        for (auto const& b : event->Result().BlackHoles()) {
+            hlp::Print(hlp::PrintType::DEBUG,
+                       "Black Hole: {}, Object {} from player {} with {} ships got destroyed. New Size: {}",
+                       b.BlackHole().ID,
+                       b.ObjectDestroyed().ID,
+                       appContext.playerCollection.GetPlayerOrNpcByID(b.Player().ID).GetName(),
+                       b.ShipsDestroyed(),
+                       b.BlackHole().radius);
+            hlp::Print(hlp::PrintType::DEBUG, "------------------------------------------------------");
+        }
         hlp::Print(hlp::PrintType::DEBUG, "------------------ | Event Result |-------------------");
         if (event->Result().Events().empty()) {
             hlp::Print(hlp::PrintType::DEBUG, "no events this round");
@@ -282,7 +293,7 @@ namespace ui {
                 [this]() { this->m_nextPopup = true; }
             };
             appContext.eventManager.InvokeEvent(messageEvent);
-            // TestPrint(evEvent); // to print the incoming event to the console
+            TestPrint(evEvent); // to print the incoming event to the console
         }
     }
 } // namespace ui
