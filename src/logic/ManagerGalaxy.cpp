@@ -148,7 +148,8 @@ namespace lgk {
 
             auto const& fleets = m_mainGalaxy->GetFleetsOfTarget(planet);
             m_mainGalaxy->DeletePlanet(planet);
-            auto const blackHole = m_mainGalaxy->AddBlackHoleWithoutCheck(planet->GetPos(), invalid_player);
+            auto const blackHole =
+                    m_mainGalaxy->AddBlackHoleWithoutCheck(planet->GetPos(), invalid_player, planet->GetShipCount());
             for (auto const& f : fleets) {
                 f->SetTarget(blackHole);
             }

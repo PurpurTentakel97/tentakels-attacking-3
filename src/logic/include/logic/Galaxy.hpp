@@ -4,10 +4,10 @@
 //
 
 #pragma once
+#include "BlackHole.hpp"
 #include "Fleet.hpp"
 #include "Planet.hpp"
 #include "TargetPoint.hpp"
-#include "BlackHole.hpp"
 #include <alias/AliasApp.hpp>
 #include <alias/AliasUtils.hpp>
 #include <event/EventGeneral.hpp>
@@ -81,7 +81,9 @@ namespace lgk {
         void CheckDeleteTargetPoints();
 
         // black hole
-        BlackHole_ty AddBlackHoleWithoutCheck(utl::vec2pos_ty position, Player_ty invalid_player);
+        BlackHole_ty AddBlackHoleWithoutCheck(utl::vec2pos_ty position,
+                                              Player_ty const& invalid_player,
+                                              utl::usize startExtraSize);
 
         // update
         // fleets

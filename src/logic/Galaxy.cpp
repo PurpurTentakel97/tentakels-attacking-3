@@ -640,8 +640,11 @@ namespace lgk {
     }
 
     // black hole
-    BlackHole_ty Galaxy::AddBlackHoleWithoutCheck(utl::vec2pos_ty position, Player_ty invalid_player) {
-        auto const blackHole = std::make_shared<BlackHole>(GetNextID(), position, std::move(invalid_player));
+    BlackHole_ty Galaxy::AddBlackHoleWithoutCheck(utl::vec2pos_ty position,
+                                                  Player_ty const& invalid_player,
+                                                  utl::usize const startExtraSize) {
+        auto const blackHole =
+                std::make_shared<BlackHole>(GetNextID(), position, invalid_player, startExtraSize);
         m_objects.push_back(blackHole);
         m_blackHoles.push_back(blackHole);
         return blackHole;

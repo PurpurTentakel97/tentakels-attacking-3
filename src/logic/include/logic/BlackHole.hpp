@@ -13,7 +13,7 @@ namespace lgk {
         utl::usize m_extraSize{ 0 };
 
     public:
-        using SpaceObject::SpaceObject;
+        BlackHole(utl::usize ID, utl::vec2pos_ty_ref_c position, Player_ty_c player, utl::usize startExtraSize);
 
         [[nodiscard]] bool IsBlackHole() const override;
 

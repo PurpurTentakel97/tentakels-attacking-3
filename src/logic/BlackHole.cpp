@@ -7,6 +7,10 @@
 #include <app/AppContext.hpp>
 
 namespace lgk {
+    BlackHole::BlackHole(utl::usize ID, utl::vec2pos_ty_ref_c position, Player_ty_c player, utl::usize startExtraSize)
+        : SpaceObject{ ID, position, player },
+          m_extraSize{ startExtraSize } { }
+
     bool BlackHole::IsBlackHole() const {
         return true;
     }
