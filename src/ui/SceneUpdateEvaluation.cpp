@@ -160,7 +160,53 @@ namespace ui {
             case utl::GameEventType::GLOBAL: std::unreachable();
         }
 
-        auto const event = eve::ShowEventResultPopUp(title, text, [this]() { this->m_nextPopup = true; });
+        auto const event = eve::ShowRedResultPopUp(title, text, [this]() { this->m_nextPopup = true; });
+        appContext.eventManager.InvokeEvent(event);
+    }
+
+    void UpdateEvaluationScene::DisplayBlackHoleResult() {
+        app::AppContext_ty_c appContext = app::AppContext::GetInstance();
+        auto const data                 = m_result.BlackHoles().at(m_currentIndex);
+        auto const playerName           = appContext.playerCollection.GetPlayerOrNpcByID(data.Player().ID).GetName();
+
+        std::string text{};
+        switch (data.ObjectDestroyed().type) {
+            case utl::SpaceObjectType::TARGET_POINT: {
+                // Target Point {} from player {} got destroyed. {} ships are gone.
+                text = appContext.languageManager.Text("evaluation_black_hole_target_point_text",
+                                                       data.ObjectDestroyed().ID,
+                                                       playerName,
+                                                       data.ShipsDestroyed());
+                break;
+            }
+            case utl::SpaceObjectType::FLEET: {
+                text = appContext.languageManager.Text("evaluation_black_hole_fleet_text",
+                                                       data.ObjectDestroyed().ID,
+                                                       playerName,
+                                                       data.ShipsDestroyed());
+                break;
+            }
+            case utl::SpaceObjectType::PLANET: {
+                text = appContext.languageManager.Text("evaluation_black_hole_planet_text",
+                                                       data.ObjectDestroyed().ID,
+                                                       playerName,
+                                                       data.ShipsDestroyed());
+                break;
+            }
+            default: {
+                text = "invalid Space Object while displaying popup";
+                hlp::Print(hlp::PrintType::ERROR, "default case in SpaceObjectType while displaying black hole popup");
+                break;
+            }
+        }
+
+        // clang-format off
+        auto const event = eve::ShowRedResultPopUp(
+                appContext.languageManager.Text("evaluation_black_hole_title", data.BlackHole().ID),
+                text,
+                [this]() { this->m_nextPopup = true; }
+        );
+        // clang-format on
         appContext.eventManager.InvokeEvent(event);
     }
 
@@ -191,7 +237,7 @@ namespace ui {
                                                 subText,
                                                 [this]() { this->m_nextPopup = true; } };
         appContext.eventManager.InvokeEvent(event);
-    }
+    } // namespace ui
 
     void UpdateEvaluationScene::DisplayFightResult() {
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
@@ -214,9 +260,17 @@ namespace ui {
             case ResultType::EVENT:
                 if (m_currentIndex >= m_result.Events().size()) {
                     setNext();
-                    goto merge;
+                    goto black_hole;
                 }
                 DisplayEventResult();
+                break;
+            case ResultType::BLACK_HOLE:
+            black_hole:
+                if (m_currentIndex >= m_result.BlackHoles().size()) {
+                    setNext();
+                    goto merge;
+                }
+                DisplayBlackHoleResult();
                 break;
             case ResultType::MERGE:
             merge:
