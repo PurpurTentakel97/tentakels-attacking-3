@@ -83,7 +83,7 @@ namespace ui {
                             break;
                         }
                         case utl::GameEventType::RENEGADE_SHIPS: {
-                            hlp::Print(hlp::PrintType::DEBUG, "renegate ships event result");
+                            hlp::Print(hlp::PrintType::DEBUG, "renegade ships event result");
                             break;
                         }
                         case utl::GameEventType::SUPERNOVA: {
