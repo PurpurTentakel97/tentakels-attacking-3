@@ -174,7 +174,7 @@
     "helper_next_big": "Next",
     "ui_popup_fight_result_win_text": "{0} wins!",
     "helper_skip_big": "Skip",
-    "version": "v0.1.6.8",
+    "version": "v0.1.6.10",
     "ui_popup_start_evaluation_subtitle": "start the evaluation when all players are present",
     "ui_popup_game_still_running_title": "Game still running",
     "ui_popup_game_still_running_subtitle": "There is currently a game running. Overwrite the current game?",
@@ -226,5 +226,9 @@
     "evaluation_event_supernova_title": "Supernova",
     "evaluation_event_supernova_text": "Planet {0} with {1} ships from player {2} got destroyed.",
     "ui_black_hole_hover_discovered": "Black Hole | X: {0}, Y: {1} | Size {2}",
-    "ui_black_hole_hover_not_discovered": "Black Hole | X: {0}, Y: {1}"
+    "ui_black_hole_hover_not_discovered": "Black Hole | X: {0}, Y: {1}",
+    "evaluation_black_hole_target_point_text": "Target point {0} from player {1} got destroyed. {2} ships are gone.",
+    "evaluation_black_hole_fleet_text": "Fleet {0} from player {1} got destroyed. {2} ships are gone.",
+    "evaluation_black_hole_planet_text": "Planet {0} from player {1} got destroyed. {2} ships are gone.",
+    "evaluation_black_hole_title": "Black Hole {0}"
 }
