@@ -18,7 +18,7 @@ namespace cst {
         // general
         static inline utl::usize constexpr configEntryCount{ 18 };
         utl::GameEventType events{ 0b11111111 }; // default "global"
-        bool isMinEventYear{ false };
+        bool isMinEventYear{ true };
         utl::usize minEventYear{ 5 };
         bool isEventOnHomeWorld{ false };
         utl::Probability globalChance{ 7500 };
