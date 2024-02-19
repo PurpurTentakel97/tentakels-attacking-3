@@ -514,7 +514,7 @@ namespace lgk {
     }
 
     std::shared_ptr<utl::ResultEvent> GameManager::HandleSupernova() {
-        hlp::Print(hlp::PrintType::TODO, "Handle Supernova Event in GameManager");
+        hlp::Print(hlp::PrintType::ONLY_DEBUG, "Handle Supernova Event in GameManager");
         return m_galaxyManager.HandleSupernova(m_npcs[PlayerType::INVALID]);
     }
 
