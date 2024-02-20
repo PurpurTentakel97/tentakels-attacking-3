@@ -174,7 +174,7 @@
     "helper_next_big": "Weiter",
     "ui_popup_fight_result_win_text": "{0} gewinnt!",
     "helper_skip_big": "\u00dcberspringen",
-    "version": "v0.1.6.11",
+    "version": "v0.1.6.12",
     "ui_popup_start_evaluation_subtitle": "Auswertung beginnen, wenn alle Spieler anwesend sind.",
     "ui_popup_game_still_running_title": "Spiel l\u00e4uft noch",
     "ui_popup_game_still_running_subtitle": "Es l\u00e4uft gerade ein Spiel. Das aktuelle Spiel \u00fcberschreiben?",
@@ -231,5 +231,7 @@
     "evaluation_black_hole_fleet_text": "Flotte {0} von Spieler {1} wurde zerst\u00f6rt. {2} Schiffe sind weg.",
     "evaluation_black_hole_planet_text": "Planet {0} von Spieler {1} wurde zerst\u00f6rt. {2} Schiffe sind weg.",
     "evaluation_black_hole_title": "Schwarzes Loch {0}",
-    "helper_player_collection_npc_pirates": "Pirat"
+    "helper_player_collection_npc_pirates": "Pirat",
+    "evaluation_event_pirates_title": "Piraten",
+    "evaluation_event_pirates_text": "{0} Schiffe an der Position X: {1}, Y: {2} aufgetaucht. Man wei\u00df nicht wohin sie fliegen."
 }
