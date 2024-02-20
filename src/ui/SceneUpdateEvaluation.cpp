@@ -76,6 +76,17 @@ namespace ui {
                     switch (e->Type()) {
                         case utl::GameEventType::PIRATES: {
                             hlp::Print(hlp::PrintType::DEBUG, "pirate event result");
+                            auto const* result = dynamic_cast<utl::ResultEventPirates const*>(e.get());
+                            if (not result) {
+                                hlp::Print(hlp::PrintType::ERROR,
+                                           "-> nullptr while dynamic cast a Pirate Event Result");
+                                break;
+                            }
+                            hlp::Print(hlp::PrintType::DEBUG,
+                                       "-> Pirates at X: {}, Y: {} | Ships: {}",
+                                       result->Position().x,
+                                       result->Position().y,
+                                       result->Ships());
                             break;
                         }
                         case utl::GameEventType::REVOLTS: {
@@ -132,7 +143,17 @@ namespace ui {
         auto text                       = std::string();
 
         switch (data->Type()) {
-            case utl::GameEventType::PIRATES: break;
+            case utl::GameEventType::PIRATES: {
+                auto const* result = dynamic_cast<utl::ResultEventPirates const*>(data.get());
+                if (not result) {
+                    hlp::Print(hlp::PrintType::ERROR, "nullptr while dynamic cast a Pirate Event Result");
+                    break;
+                }
+                title = appContext.languageManager.Text("evaluation_event_pirates_title");
+                text  = appContext.languageManager.Text(
+                        "evaluation_event_pirates_text", result->Ships(), result->Position().x, result->Position().y);
+                break;
+            }
             case utl::GameEventType::REVOLTS: break;
             case utl::GameEventType::RENEGADE_SHIPS: break;
             case utl::GameEventType::SUPERNOVA: {
