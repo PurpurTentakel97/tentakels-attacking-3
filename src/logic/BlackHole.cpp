@@ -26,7 +26,7 @@ namespace lgk {
         return m_extraSize / 100;
     }
 
-    utl::usize BlackHole::Size(utl::usize const galaxyWidth) const {
+    utl::usize BlackHole::Size(int const galaxyWidth) const {
         auto const& constants = app::AppContext::GetInstance().constants.gameEvents;
         auto const size =
                 static_cast<utl::usize>((constants.minBlackHoleRangeFactor * static_cast<float>(galaxyWidth))) + ExtraSize();
