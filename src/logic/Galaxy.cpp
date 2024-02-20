@@ -205,6 +205,27 @@ namespace lgk {
         return nullptr;
     }
 
+    Fleet_ty Galaxy::AddFleetOutCheck(Player_ty_c player, utl::usize ships, SpaceObject_ty_c destination) {
+        auto& random = hlp::Random::GetInstance();
+        while (true) {
+            utl::vec2pos_ty_c newPosition{
+                static_cast<int>(random.random(static_cast<std::mt19937_64::result_type>(m_size.x))),
+                static_cast<int>(random.random(static_cast<std::mt19937_64::result_type>(m_size.y)))
+            };
+
+            for (auto const& o : m_objects) {
+                if (o->GetPos() == newPosition) {
+                    continue;
+                }
+            }
+
+            auto const& fleet = std::make_shared<Fleet>(GetNextID(), newPosition, ships, player, destination);
+            m_objects.push_back(fleet);
+            m_fleets.push_back(fleet);
+            return fleet;
+        }
+    }
+
     utl::ResultFleet Galaxy::AddFleetFromPlanet(eve::SendFleetInstructionEvent const* event,
                                                 Player_ty const& currentPlayer) {
         // check origin id
@@ -643,8 +664,7 @@ namespace lgk {
     BlackHole_ty Galaxy::AddBlackHoleWithoutCheck(utl::vec2pos_ty position,
                                                   Player_ty const& invalid_player,
                                                   utl::usize const startExtraSize) {
-        auto const blackHole =
-                std::make_shared<BlackHole>(GetNextID(), position, invalid_player, startExtraSize);
+        auto const blackHole = std::make_shared<BlackHole>(GetNextID(), position, invalid_player, startExtraSize);
         m_objects.push_back(blackHole);
         m_blackHoles.push_back(blackHole);
         return blackHole;

@@ -132,7 +132,17 @@ namespace lgk {
         return m_mainGalaxy->Update();
     }
 
-    std::shared_ptr<utl::ResultEventSupernova> GalaxyManager::HandleSupernova(Player_ty const& invalid_player) {
+    // events
+
+    std::shared_ptr<utl::ResultEventPirates> GalaxyManager::HandlePirates(Player_ty_c pirate, utl::usize const ships) {
+        auto planets       = m_mainGalaxy->GetPlanets();
+        auto const& planet = hlp::RandomElementFromList(planets);
+        auto const& fleet   = m_mainGalaxy->AddFleetOutCheck(pirate, ships, planet);
+        return std::make_shared<utl::ResultEventPirates>(
+                fleet->GetPlayer()->GetID(), fleet->GetShipCount(), fleet->GetPos());
+    }
+
+    std::shared_ptr<utl::ResultEventSupernova> GalaxyManager::HandleSupernova(Player_ty_c invalid_player) {
         auto planets = m_mainGalaxy->GetPlanets();
         if (planets.empty()) {
             return {};

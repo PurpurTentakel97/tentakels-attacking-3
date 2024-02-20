@@ -79,7 +79,7 @@ namespace lgk {
 
         [[nodiscard]] utl::ResultUpdate::event_ty RaiseEvent(utl::GameEventType type);
 
-        [[nodiscard]] std::shared_ptr<utl::ResultEvent> HandlePirates();
+        [[nodiscard]] std::shared_ptr<utl::ResultEventPirates> HandlePirates();
 
         [[nodiscard]] std::shared_ptr<utl::ResultEvent> HandleRevolts();
 
