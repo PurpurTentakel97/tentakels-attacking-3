@@ -42,6 +42,7 @@ namespace ui {
         std::vector<UIPlanet_ty> m_uiPlanets;
         std::vector<UITargetPoint_ty> m_uiTargetPoints;
         std::vector<UIFleet_ty> m_uiFleets;
+        std::vector<UIBlackHole_ty> m_uiBlackHoles;
 
         std::function<void(float, Vector2)> m_onZoom{ [](float, Vector2) {} };
         std::function<void(float, bool)> m_onSlide{ [](float, bool) {} };

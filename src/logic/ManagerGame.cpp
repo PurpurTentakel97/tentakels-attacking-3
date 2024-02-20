@@ -415,22 +415,20 @@ namespace lgk {
     std::vector<utl::ResultUpdate::event_ty> GameManager::UpdateEvents() {
         hlp::Print(hlp::PrintType::ONLY_DEBUG, "-> update Events");
         auto const& constants = app::AppContext::GetInstance().constants;
-        if (constants.gameEvents.isMinEventYear
-            and constants.global.currentRound < constants.gameEvents.minEventYear) {
+        if (constants.gameEvents.isMinEventYear and constants.global.currentRound < constants.gameEvents.minEventYear) {
             hlp::Print(hlp::PrintType::ONLY_DEBUG,
                        "no update of events because current year ({}) in smaller than min event year ({})",
                        constants.global.currentRound,
                        constants.gameEvents.minEventYear);
-            return{};
+            return {};
         }
-        std::array<utl::GameEventType, 6> constexpr events{
+        std::array<utl::GameEventType, 5> constexpr events{
             // clang-format off
             utl::GameEventType::PIRATES,
             utl::GameEventType::REVOLTS,
             utl::GameEventType::RENEGADE_SHIPS,
-            utl::GameEventType::BLACK_HOLE,
             utl::GameEventType::SUPERNOVA,
-            utl::GameEventType::ENGINE_PROBLEM,
+            utl::GameEventType::ENGINE_PROBLEM
             // don't check for global. it just represents if all other events are active or not.
             // clang-format on
         };
@@ -492,7 +490,6 @@ namespace lgk {
             case utl::GameEventType::PIRATES:        return HandlePirates();
             case utl::GameEventType::REVOLTS:        return HandleRevolts();
             case utl::GameEventType::RENEGADE_SHIPS: return HandleRenegadeShips();
-            case utl::GameEventType::BLACK_HOLE:     return HandleBlackHole();
             case utl::GameEventType::SUPERNOVA:      return HandleSupernova();
             case utl::GameEventType::ENGINE_PROBLEM: return HandleEngineProblem();
             case utl::GameEventType::GLOBAL:         std::unreachable();
@@ -516,14 +513,9 @@ namespace lgk {
         return {};
     }
 
-    std::shared_ptr<utl::ResultEvent> GameManager::HandleBlackHole() {
-        hlp::Print(hlp::PrintType::TODO, "Handle Black Hole Event in GameManager");
-        return {};
-    }
-
     std::shared_ptr<utl::ResultEvent> GameManager::HandleSupernova() {
-        hlp::Print(hlp::PrintType::TODO, "Handle Supernova Event in GameManager");
-        return m_galaxyManager.HandleSupernova();
+        hlp::Print(hlp::PrintType::ONLY_DEBUG, "Handle Supernova Event in GameManager");
+        return m_galaxyManager.HandleSupernova(m_npcs[PlayerType::INVALID]);
     }
 
     std::shared_ptr<utl::ResultEventEngineProblem> GameManager::HandleEngineProblem() {
@@ -631,6 +623,7 @@ namespace lgk {
 
         app::AppContext::GetInstance().eventManager.AddListener(this);
         m_npcs[PlayerType::NEUTRAL] = std::make_shared<Player>(100, PlayerType::NEUTRAL);
+        m_npcs[PlayerType::INVALID] = std::make_shared<Player>(101, PlayerType::INVALID);
 
         hlp::Print(hlp::PrintType::INITIALIZE, "GameManager");
     }

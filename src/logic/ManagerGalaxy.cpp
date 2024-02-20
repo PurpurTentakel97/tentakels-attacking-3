@@ -132,6 +132,33 @@ namespace lgk {
         return m_mainGalaxy->Update();
     }
 
+    std::shared_ptr<utl::ResultEventSupernova> GalaxyManager::HandleSupernova(Player_ty const& invalid_player) {
+        auto planets = m_mainGalaxy->GetPlanets();
+        if (planets.empty()) {
+            return {};
+        }
+
+        for (int i = 0; i < 20; ++i) {
+            auto& planet = hlp::RandomElementFromList(planets);
+
+            if (not app::AppContext::GetInstance().constants.gameEvents.isEventOnHomeWorld and planet->IsHomePlanet()) {
+                hlp::Print(hlp::PrintType::ONLY_DEBUG, "planet {} is a home planet", planet->GetID());
+                continue;
+            }
+
+            auto const& fleets = m_mainGalaxy->GetFleetsOfTarget(planet);
+            m_mainGalaxy->DeletePlanet(planet);
+            auto const blackHole =
+                    m_mainGalaxy->AddBlackHoleWithoutCheck(planet->GetPos(), invalid_player, planet->GetShipCount());
+            for (auto const& f : fleets) {
+                f->SetTarget(blackHole);
+            }
+            return std::make_shared<utl::ResultEventSupernova>(
+                    planet->GetPlayer()->GetID(), planet->GetID(), planet->GetShipCount());
+        }
+        return {};
+    }
+
     std::shared_ptr<utl::ResultEventEngineProblem> GalaxyManager::HandleEngineProblem(utl::usize years) {
         auto fleets = m_mainGalaxy->GetFleets();
         if (fleets.empty()) {
@@ -144,28 +171,6 @@ namespace lgk {
             }
             fleet->SetEngineProblemYears(years);
             return std::make_shared<utl::ResultEventEngineProblem>(fleet->GetPlayer()->GetID(), fleet->GetID(), years);
-        }
-        return {};
-    }
-    std::shared_ptr<utl::ResultEventSupernova> GalaxyManager::HandleSupernova() {
-        auto planets = m_mainGalaxy->GetPlanets();
-        if (planets.empty()) {
-            return {};
-        }
-
-        for (int i = 0; i < 20; ++i) {
-            auto& planet = hlp::RandomElementFromList(planets);
-
-            if (planet->IsDestroyed()) {
-                continue;
-            }
-            if (not app::AppContext::GetInstance().constants.gameEvents.isEventOnHomeWorld and planet->IsHomePlanet()) {
-                hlp::Print(hlp::PrintType::ONLY_DEBUG, "planet {} is a home planet", planet->GetID());
-                continue;
-            }
-
-            planet->Destroy();
-            return std::make_shared<utl::ResultEventSupernova>(planet->GetPlayer()->GetID(), planet->GetID());
         }
         return {};
     }

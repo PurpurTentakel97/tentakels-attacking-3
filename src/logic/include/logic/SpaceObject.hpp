@@ -54,9 +54,13 @@ namespace lgk {
 
         [[nodiscard]] virtual bool IsTargetPoint() const;
 
+        [[nodiscard]] virtual bool IsBlackHole() const;
+
         [[nodiscard]] bool IsInDiscoverRange(SpaceObject_ty_c object) const;
 
         [[nodiscard]] bool IsInFightRange(SpaceObject_ty_c object) const;
+
+        [[nodiscard]] bool IsInBlackHoleRange(SpaceObject_ty_c object, utl::usize range) const;
 
         void SetDiscovered(bool isDiscovered);
 

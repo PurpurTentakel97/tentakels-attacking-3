@@ -11,24 +11,25 @@ namespace cst {
                 // clang-format off
             case ConfigTypes::CONFIG: return "config";
 
-            case ConfigTypes::GAME_EVENTS:              return "game_events"             ;
-            case ConfigTypes::PIRATES:                  return "pirates"                 ;
-            case ConfigTypes::REVOLTS:                  return "revolts"                 ;
-            case ConfigTypes::RENEGADE_SHIPS:           return "renegade_ships"          ;
-            case ConfigTypes::BLACK_HOLE:               return "black_hole"              ;
-            case ConfigTypes::SUPERNOVA:                return "supernova"               ;
-            case ConfigTypes::ENGINE_PROBLEM:           return "engine_problem"          ;
-            case ConfigTypes::GLOBAL_EVENT_CHANCE:      return "global_event_chance"     ;
-            case ConfigTypes::PIRATES_CHANCE:           return "pirates_chance"          ;
-            case ConfigTypes::REVOLTS_CHANCE:           return "revolts_chance"          ;
-            case ConfigTypes::RENEGADE_SHIPS_CHANCE:    return "renegade_ships_chance"   ;
-            case ConfigTypes::BLACK_HOLE_CHANCE:        return "black_hole_chance"       ;
-            case ConfigTypes::SUPERNOVA_CHANCE:         return "supernova_chance"        ;
-            case ConfigTypes::ENGINE_PROBLEM_CHANCE:    return "engine_problem_chance"   ;
-            case ConfigTypes::MAX_YEARS_ENGINE_PROBLEM: return "max_years_engine_problem";
-            case ConfigTypes::MIN_EVENT_YEAR:           return "min_event_year"          ;
-            case ConfigTypes::IS_MIN_EVENT_YEAR:        return "is_min_event_year"       ;
-            case ConfigTypes::IS_EVENT_ON_HOME_WORLD:   return "is_event_on_home_world"  ;
+            case ConfigTypes::GAME_EVENTS:                    return "game_events"                    ;
+            case ConfigTypes::GLOBAL_EVENT_CHANCE:            return "global_event_chance"            ;
+            case ConfigTypes::IS_MIN_EVENT_YEAR:              return "is_min_event_year"              ;
+            case ConfigTypes::MIN_EVENT_YEAR:                 return "min_event_year"                 ;
+            case ConfigTypes::IS_EVENT_ON_HOME_WORLD:         return "is_event_on_home_world"         ;
+            case ConfigTypes::PIRATES:                        return "pirates"                        ;
+            case ConfigTypes::PIRATES_CHANCE:                 return "pirates_chance"                 ;
+            case ConfigTypes::REVOLTS:                        return "revolts"                        ;
+            case ConfigTypes::REVOLTS_CHANCE:                 return "revolts_chance"                 ;
+            case ConfigTypes::RENEGADE_SHIPS:                 return "renegade_ships"                 ;
+            case ConfigTypes::RENEGADE_SHIPS_CHANCE:          return "renegade_ships_chance"          ;
+            case ConfigTypes::SUPERNOVA:                      return "supernova"                      ;
+            case ConfigTypes::SUPERNOVA_CHANCE:               return "supernova_chance"               ;
+            case ConfigTypes::MIN_BLACK_HOLE_RANGE_FACTOR:    return "min_black_hole_range_factor"    ;
+            case ConfigTypes::IS_MAX_BLACK_HOLE_RANGE_FACTOR: return "is_max_black_hole_range_factor" ;
+            case ConfigTypes::MAX_BLACK_HOLE_RANGE_FACTOR:    return "max_black_hole_range_factor"    ;
+            case ConfigTypes::ENGINE_PROBLEM:                 return "engine_problem"                 ;
+            case ConfigTypes::ENGINE_PROBLEM_CHANCE:          return "engine_problem_chance"          ;
+            case ConfigTypes::MAX_YEARS_ENGINE_PROBLEM:       return "max_years_engine_problem"       ;
 
             case ConfigTypes::FIGHT:                           return "fight"                          ;
             case ConfigTypes::HIT_CHANCE:                      return "hit_chance"                     ;

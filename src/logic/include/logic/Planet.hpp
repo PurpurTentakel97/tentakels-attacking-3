@@ -13,7 +13,6 @@ namespace lgk {
     private:
         using vec2pos = utl::vec2pos_ty;
         bool m_isHomePlanet{};
-        bool m_isDestroyed{ false };
         utl::usize m_planetNumber;
         utl::usize m_maxShips;
         utl::usize m_production;
@@ -39,10 +38,6 @@ namespace lgk {
         [[nodiscard]] utl::usize GetProduction() const;
 
         [[nodiscard]] utl::usize GetPlanetNumber() const;
-
-        void Destroy();
-
-        [[nodiscard]] bool IsDestroyed() const;
 
         void Update(Galaxy_ty_raw galaxy) override;
     };

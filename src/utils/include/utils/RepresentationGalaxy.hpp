@@ -5,9 +5,7 @@
 
 #pragma once
 
-#include "RepresentationFleet.hpp"
-#include "RepresentationPlanet.hpp"
-#include "RepresentationTargetPoint.hpp"
+#include "RepresentationSpaceObject.hpp"
 #include <vector>
 
 namespace utl {
@@ -15,6 +13,7 @@ namespace utl {
         std::vector<RepresentationPlanet> planets{};
         std::vector<RepresentationTargetPoint> targetPoints{};
         std::vector<RepresentationFleet> fleets{};
+        std::vector<RepresentationBlackHole> blackHoles{};
         vec2pos_ty size{};
     };
 } // namespace utl

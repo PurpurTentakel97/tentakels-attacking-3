@@ -62,6 +62,8 @@ add_library(ui STATIC
             SceneUpdateEvaluation.cpp
             SceneValidateGalaxy.cpp
             PopUpResultGameEvent.cpp
+            include/ui/UIBlackHole.hpp
+            UIBlackHole.cpp
 )
 
 target_include_directories(ui

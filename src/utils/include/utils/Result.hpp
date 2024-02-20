@@ -5,9 +5,8 @@
 
 #pragma once
 
-#include "ResultFight.hpp"
-#include "ResultMerge.hpp"
 #include "ResultsEvents.hpp"
+#include "ResultsUpdate.hpp"
 
 namespace lgk {
     class GameManager;
@@ -23,6 +22,7 @@ namespace utl {
         std::vector<event_ty> m_events{};
         std::vector<ResultMerge> m_merges{};
         std::vector<ResultFight> m_fights{};
+        std::vector<ResultBlackHole> m_blackHoles{};
 
         void SetEvents(std::vector<event_ty> events) {
             m_events = std::move(events);
@@ -31,9 +31,12 @@ namespace utl {
     public:
         ResultUpdate() = default;
 
-        ResultUpdate(std::vector<ResultMerge> merges, std::vector<ResultFight> fights)
+        ResultUpdate(std::vector<ResultMerge> merges,
+                     std::vector<ResultFight> fights,
+                     std::vector<ResultBlackHole> blackHoles)
             : m_merges{ std::move(merges) },
-              m_fights{ std::move(fights) } { }
+              m_fights{ std::move(fights) },
+              m_blackHoles{ std::move(blackHoles) } { }
 
         [[nodiscard]] std::vector<event_ty> Events() const {
             return m_events;
@@ -45,6 +48,10 @@ namespace utl {
 
         [[nodiscard]] std::vector<ResultFight> Fights() const {
             return m_fights;
+        }
+
+        [[nodiscard]] std::vector<ResultBlackHole> BlackHoles() const {
+            return m_blackHoles;
         }
     };
 } // namespace utl

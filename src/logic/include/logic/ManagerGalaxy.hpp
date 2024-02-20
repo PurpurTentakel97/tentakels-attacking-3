@@ -43,8 +43,8 @@ namespace lgk {
 
         [[nodiscard]] utl::ResultUpdate Update();
 
-        [[nodiscard]] std::shared_ptr<utl::ResultEventEngineProblem> HandleEngineProblem(utl::usize years);
+        [[nodiscard]] std::shared_ptr<utl::ResultEventSupernova> HandleSupernova(Player_ty const& invalid_player);
 
-        [[nodiscard]] std::shared_ptr<utl::ResultEventSupernova> HandleSupernova();
+        [[nodiscard]] std::shared_ptr<utl::ResultEventEngineProblem> HandleEngineProblem(utl::usize years);
     };
 } // namespace lgk

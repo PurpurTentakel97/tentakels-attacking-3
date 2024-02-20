@@ -46,12 +46,23 @@ namespace ui {
             hlp::Print(hlp::PrintType::DEBUG, "{} vs. {}", e.GetSpaceObjects().first.ID, e.GetSpaceObjects().second.ID);
             hlp::Print(hlp::PrintType::DEBUG,
                        "{} vs. {}",
-                       appContext.playerCollection.GetPlayerOrNpcByID(e.GetPlayer().first.ID).GetName(),
-                       appContext.playerCollection.GetPlayerOrNpcByID(e.GetPlayer().second.ID).GetName());
+                       appContext.playerCollection.GetPlayerOrNpcByID(e.GetPlayers().first.ID).GetName(),
+                       appContext.playerCollection.GetPlayerOrNpcByID(e.GetPlayers().second.ID).GetName());
 
             for (auto const& r : e.GetRounds()) {
                 hlp::Print(hlp::PrintType::DEBUG, "{} | {}", r.first, r.second);
             }
+            hlp::Print(hlp::PrintType::DEBUG, "------------------------------------------------------");
+        }
+        hlp::Print(hlp::PrintType::DEBUG, "---------------- | BlackHole Result |-------------------");
+        for (auto const& b : event->Result().BlackHoles()) {
+            hlp::Print(hlp::PrintType::DEBUG,
+                       "Black Hole: {}, Object {} from player {} with {} ships got destroyed. New Size: {}",
+                       b.BlackHole().ID,
+                       b.ObjectDestroyed().ID,
+                       appContext.playerCollection.GetPlayerOrNpcByID(b.Player().ID).GetName(),
+                       b.ShipsDestroyed(),
+                       b.BlackHole().radius);
             hlp::Print(hlp::PrintType::DEBUG, "------------------------------------------------------");
         }
         hlp::Print(hlp::PrintType::DEBUG, "------------------ | Event Result |-------------------");
@@ -72,11 +83,7 @@ namespace ui {
                             break;
                         }
                         case utl::GameEventType::RENEGADE_SHIPS: {
-                            hlp::Print(hlp::PrintType::DEBUG, "renegate ships event result");
-                            break;
-                        }
-                        case utl::GameEventType::BLACK_HOLE: {
-                            hlp::Print(hlp::PrintType::DEBUG, "black hole event result");
+                            hlp::Print(hlp::PrintType::DEBUG, "renegade ships event result");
                             break;
                         }
                         case utl::GameEventType::SUPERNOVA: {
@@ -88,8 +95,9 @@ namespace ui {
                                 break;
                             }
                             hlp::Print(hlp::PrintType::DEBUG,
-                                       "-> planet {} from player {} got destroyed",
+                                       "-> planet {} with {} ships from player {} got destroyed",
                                        result->PlanetID(),
+                                       result->ShipsDestroyed(),
                                        result->PlayerID());
                             break;
                         }
@@ -127,7 +135,6 @@ namespace ui {
             case utl::GameEventType::PIRATES: break;
             case utl::GameEventType::REVOLTS: break;
             case utl::GameEventType::RENEGADE_SHIPS: break;
-            case utl::GameEventType::BLACK_HOLE: break;
             case utl::GameEventType::SUPERNOVA: {
                 auto const* result = dynamic_cast<utl::ResultEventSupernova const*>(data.get());
                 if (not result) {
@@ -136,7 +143,7 @@ namespace ui {
                 }
                 title = appContext.languageManager.Text("evaluation_event_supernova_title");
                 text  = appContext.languageManager.Text(
-                        "evaluation_event_supernova_text", result->PlanetID(), playerName);
+                        "evaluation_event_supernova_text", result->PlanetID(), result->ShipsDestroyed(), playerName);
                 break;
             }
             case utl::GameEventType::ENGINE_PROBLEM: {
@@ -153,7 +160,53 @@ namespace ui {
             case utl::GameEventType::GLOBAL: std::unreachable();
         }
 
-        auto const event = eve::ShowEventResultPopUp(title, text, [this]() { this->m_nextPopup = true; });
+        auto const event = eve::ShowRedResultPopUp(title, text, [this]() { this->m_nextPopup = true; });
+        appContext.eventManager.InvokeEvent(event);
+    }
+
+    void UpdateEvaluationScene::DisplayBlackHoleResult() {
+        app::AppContext_ty_c appContext = app::AppContext::GetInstance();
+        auto const data                 = m_result.BlackHoles().at(m_currentIndex);
+        auto const playerName           = appContext.playerCollection.GetPlayerOrNpcByID(data.Player().ID).GetName();
+
+        std::string text{};
+        switch (data.ObjectDestroyed().type) {
+            case utl::SpaceObjectType::TARGET_POINT: {
+                // Target Point {} from player {} got destroyed. {} ships are gone.
+                text = appContext.languageManager.Text("evaluation_black_hole_target_point_text",
+                                                       data.ObjectDestroyed().ID,
+                                                       playerName,
+                                                       data.ShipsDestroyed());
+                break;
+            }
+            case utl::SpaceObjectType::FLEET: {
+                text = appContext.languageManager.Text("evaluation_black_hole_fleet_text",
+                                                       data.ObjectDestroyed().ID,
+                                                       playerName,
+                                                       data.ShipsDestroyed());
+                break;
+            }
+            case utl::SpaceObjectType::PLANET: {
+                text = appContext.languageManager.Text("evaluation_black_hole_planet_text",
+                                                       data.ObjectDestroyed().ID,
+                                                       playerName,
+                                                       data.ShipsDestroyed());
+                break;
+            }
+            default: {
+                text = "invalid Space Object while displaying popup";
+                hlp::Print(hlp::PrintType::ERROR, "default case in SpaceObjectType while displaying black hole popup");
+                break;
+            }
+        }
+
+        // clang-format off
+        auto const event = eve::ShowRedResultPopUp(
+                appContext.languageManager.Text("evaluation_black_hole_title", data.BlackHole().ID),
+                text,
+                [this]() { this->m_nextPopup = true; }
+        );
+        // clang-format on
         appContext.eventManager.InvokeEvent(event);
     }
 
@@ -184,7 +237,7 @@ namespace ui {
                                                 subText,
                                                 [this]() { this->m_nextPopup = true; } };
         appContext.eventManager.InvokeEvent(event);
-    }
+    } // namespace ui
 
     void UpdateEvaluationScene::DisplayFightResult() {
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
@@ -207,9 +260,17 @@ namespace ui {
             case ResultType::EVENT:
                 if (m_currentIndex >= m_result.Events().size()) {
                     setNext();
-                    goto merge;
+                    goto black_hole;
                 }
                 DisplayEventResult();
+                break;
+            case ResultType::BLACK_HOLE:
+            black_hole:
+                if (m_currentIndex >= m_result.BlackHoles().size()) {
+                    setNext();
+                    goto merge;
+                }
+                DisplayBlackHoleResult();
                 break;
             case ResultType::MERGE:
             merge:
@@ -286,7 +347,7 @@ namespace ui {
                 [this]() { this->m_nextPopup = true; }
             };
             appContext.eventManager.InvokeEvent(messageEvent);
-            // TestPrint(evEvent); // to print the incoming event to the console
+            TestPrint(evEvent); // to print the incoming event to the console
         }
     }
 } // namespace ui

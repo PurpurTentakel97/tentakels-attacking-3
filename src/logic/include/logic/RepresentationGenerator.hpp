@@ -9,6 +9,8 @@
 #include <utils/RepresentationGalaxy.hpp>
 
 namespace lgk {
+    [[nodiscard]] utl::RepresentationBlackHole GenSingleBlackHoleRep(BlackHole_ty_c blackHole, int galaxyWidth);
+
     [[nodiscard]] utl::RepresentationSpaceObject GenSingleSpaceObjectRep(SpaceObject_ty_c spaceObject);
 
     [[nodiscard]] utl::RepresentationGalaxy GenGalaxyRep(Galaxy const* galaxy);

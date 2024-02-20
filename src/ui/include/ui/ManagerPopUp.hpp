@@ -39,7 +39,7 @@ namespace ui {
         void NewSoundLevelPopUp(eve::ShowInitialSoundLevelPopUpEvent const* event);
 
         void NewFightResultPopUp(eve::ShowFightResultEvent const* event);
-        void NewEventResultPopUp(eve::ShowEventResultPopUp const* event);
+        void NewEventResultPopUp(eve::ShowRedResultPopUp const* event);
 
         void NewColorPopUp(eve::ShowColorPopupEvent const* event);
         void NewStringPopUp(eve::ShowStringPopupEvent const* event);

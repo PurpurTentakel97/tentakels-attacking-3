@@ -18,7 +18,8 @@ namespace app {
     private:
         std::vector<PlayerData> m_playerData;
         std::vector<PlayerData> m_npcData{
-            { 100, "", WHITE, "helper_player_collection_npc_neutral_player" }
+            { 100, "", WHITE, "helper_player_collection_npc_neutral_player" },
+            { 101, "", RED,   "helper_player_collection_npc_no_player"      },
         };
         PlayerData m_defaultPlayer{ 0, "", WHITE, "helper_player_collection_npc_no_player" };
 

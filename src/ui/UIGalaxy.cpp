@@ -4,6 +4,7 @@
 //
 
 #include "UIGalaxy.hpp"
+#include "UIBlackHole.hpp"
 #include "UIFleet.hpp"
 #include "UIPlanet.hpp"
 #include "UITargetPoint.hpp"
@@ -59,14 +60,6 @@ namespace ui {
                                                              },
                                                              appContext),
                                                      p);
-            if (p.isDestroyed) {
-                planet->SetEnabled(false);
-                planet->SetColor(DARKGRAY);
-            } else if (not p.isHumanPlayer) {
-                if (not p.isDestroyed and not event->IsShowGalaxy()) {
-                    planet->SetColor(GRAY);
-                }
-            }
             planet->SetOnClick([this](UIGalaxyElement* p_) { this->SelectUIGalaxyElement(p_); });
             planet->UpdatePosition(m_absoluteSize);
             m_uiGalaxyElements.push_back(planet);
@@ -114,6 +107,30 @@ namespace ui {
                         return CheckCollisionPointRec(mousePosition, this->m_collider);
                     });
             m_uiFleets.push_back(fleet);
+        }
+        auto const relativePerUnit = m_size.x / static_cast<float>(m_currentGalaxy.size.x);
+        for (auto const& b : m_currentGalaxy.blackHoles) {
+            ++currentFocusID;
+            auto blackHole = std::make_shared<UIBlackHole>(currentFocusID,
+                                                           b.ID,
+                                                           appContext.playerCollection.GetPlayerOrNpcByID(b.playerID),
+                                                           GetAbsolutePosition(
+                                                                   {
+                                                                           static_cast<float>(b.position.x),
+                                                                           static_cast<float>(b.position.y),
+                                                                   },
+                                                                   appContext),
+                                                           GetRelativePosition(
+                                                                   {
+                                                                           static_cast<float>(b.position.x),
+                                                                           static_cast<float>(b.position.y),
+                                                                   },
+                                                                   appContext),
+                                                           b,
+                                                           relativePerUnit);
+            blackHole->UpdatePosition(m_absoluteSize);
+            m_uiGalaxyElements.push_back(blackHole);
+            m_uiBlackHoles.push_back(blackHole);
         }
         m_onZoom(1.0f, GetCurrentScaleReference());
     }
@@ -355,7 +372,12 @@ namespace ui {
           m_isShowGalaxy{ isShowGalaxy },
           m_isAcceptingInput{ isAcceptInput } {
         m_absoluteSize    = m_collider;
-        m_renderRectangle = m_collider;
+        m_renderRectangle = {
+            m_collider.x - m_collider.width * 0.05f,
+            m_collider.y - m_collider.height * 0.05f,
+            m_collider.width + m_collider.width * 0.1f,
+            m_collider.height + m_collider.height * 0.1f,
+        };
 
         app::AppContext_ty appContext{ app::AppContext::GetInstance() };
         appContext.eventManager.AddListener(this);
@@ -370,7 +392,7 @@ namespace ui {
             eve::GetGalaxyPointerEvent event;
             appContext.eventManager.InvokeEvent(event);
         }
-    }
+    } // namespace ui
 
     UIGalaxy::~UIGalaxy() {
         app::AppContext::GetInstance().eventManager.RemoveListener(this);
@@ -435,6 +457,10 @@ namespace ui {
         m_onZoom(m_scaleFactor, GetCurrentScaleReference());
         PrepForOnSlide();
         UpdateUIGalaxyElementPosition();
+
+        for (auto& b : m_uiBlackHoles) {
+            b->UpdateRadius(m_scaleFactor);
+        }
     }
 
     void UIGalaxy::Slide(float const position, bool const isHorizontal) {
@@ -551,38 +577,26 @@ namespace ui {
     }
 
     void UIGalaxy::Render(app::AppContext_ty_c appContext) {
-
-        for (auto const& e : m_uiGalaxyElements) {
-            if (IsUIGalaxyElementInCollider(e, m_renderRectangle)) {
-                e->RenderRing(appContext);
-            }
-        }
-        for (auto const& f : m_uiFleets) {
-            if (f->IsRingOverlappingWithRectangle(m_renderRectangle)) {
-                f->RenderRing(appContext);
-            }
-        }
         BeginScissorMode(static_cast<int>(m_renderRectangle.x),
                          static_cast<int>(m_renderRectangle.y),
                          static_cast<int>(m_renderRectangle.width),
                          static_cast<int>(m_renderRectangle.height));
 
         for (auto const& f : m_uiFleets) {
+            f->RenderRing(appContext);
+        }
+        for (auto const& e : m_uiGalaxyElements) {
+            e->RenderRing(appContext);
+        }
+
+        for (auto const& f : m_uiFleets) {
             f->Render(appContext);
+        }
+        for (auto const& e : m_uiGalaxyElements) {
+            e->Render(appContext);
         }
 
         EndScissorMode();
-
-        for (auto const& p : m_uiPlanets) {
-            if (IsUIGalaxyElementInCollider(p, m_renderRectangle)) {
-                p->Render(appContext);
-            }
-        }
-        for (auto const& t : m_uiTargetPoints) {
-            if (IsUIGalaxyElementInCollider(t, m_renderRectangle)) {
-                t->Render(appContext);
-            }
-        }
 
         if (m_updateLineDrag) {
             m_lineDrag->Render(appContext);

@@ -56,23 +56,11 @@ namespace lgk {
         return m_production;
     }
 
-    void Planet::Destroy() {
-        m_isDestroyed = true;
-        m_ships       = 0;
-    }
-
-    bool Planet::IsDestroyed() const {
-        return m_isDestroyed;
-    }
-
     utl::usize Planet::GetPlanetNumber() const {
         return m_planetNumber;
     }
 
     void Planet::Update(Galaxy_ty_raw) {
-        if (m_isDestroyed) {
-            return;
-        }
         m_ships += m_production;
         if (not m_player->IsHumanPlayer() and m_ships > m_maxShips) {
             m_ships = m_maxShips;

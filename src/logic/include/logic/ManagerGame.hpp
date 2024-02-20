@@ -14,7 +14,7 @@
 #include <memory>
 #include <random>
 #include <utils/GameEventTypes.hpp>
-#include <utils/ResultUpdate.hpp>
+#include <utils/Result.hpp>
 #include <utils/ResultsEvents.hpp>
 #include <vector>
 
@@ -84,8 +84,6 @@ namespace lgk {
         [[nodiscard]] std::shared_ptr<utl::ResultEvent> HandleRevolts();
 
         [[nodiscard]] std::shared_ptr<utl::ResultEvent> HandleRenegadeShips();
-
-        [[nodiscard]] std::shared_ptr<utl::ResultEvent> HandleBlackHole();
 
         [[nodiscard]] std::shared_ptr<utl::ResultEvent> HandleSupernova();
 
