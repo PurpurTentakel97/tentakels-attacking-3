@@ -27,6 +27,7 @@ namespace utl {
     struct ResultFleet;
 
     class ResultEvent;
+    class ResultEventPirates;
     class ResultEventEngineProblem;
     class ResultEventSupernova;
 
