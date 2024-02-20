@@ -21,7 +21,7 @@ namespace lgk {
 
         [[nodiscard]] utl::usize ExtraSize() const;
 
-        [[nodiscard]] utl::usize Size() const;
+        [[nodiscard]] utl::usize Size(utl::usize galaxyWidth) const;
 
         void Update(Galaxy_ty_raw galaxy) override;
     };

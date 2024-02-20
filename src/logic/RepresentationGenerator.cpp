@@ -37,7 +37,7 @@ namespace lgk {
     }
 
     // black Hole
-    [[nodiscard]] utl::RepresentationBlackHole GenSingleBlackHoleRep(BlackHole_ty_c blackHole) {
+    [[nodiscard]] utl::RepresentationBlackHole GenSingleBlackHoleRep(BlackHole_ty_c blackHole, utl::usize const galaxyWidth) {
         return {
   // clang-format off
             {
@@ -48,16 +48,16 @@ namespace lgk {
                 blackHole->GetPos(),
                 type(blackHole)
             },
-            blackHole->Size()
+            blackHole->Size(galaxyWidth)
   // clang-format on
         };
     }
 
     [[nodiscard]] static std::vector<utl::RepresentationBlackHole> GenAllBlackHoleRep(
-            std::vector<BlackHole_ty> const& blackHoles) {
+            std::vector<BlackHole_ty> const& blackHoles, utl::usize const galaxyWidth) {
         std::vector<utl::RepresentationBlackHole> result{};
         for (auto const& b : blackHoles) {
-            result.push_back(GenSingleBlackHoleRep(b));
+            result.push_back(GenSingleBlackHoleRep(b, galaxyWidth));
         }
         return result;
     }
@@ -138,7 +138,7 @@ namespace lgk {
         return { GenAllPlanetRep(galaxy->GetPlanets()),
                  GenAllTargetPointRep(galaxy->GetTargetPoints()),
                  GenAllFleetRep(galaxy->GetFleets()),
-                 GenAllBlackHoleRep(galaxy->GetBlackHoles()),
+                 GenAllBlackHoleRep(galaxy->GetBlackHoles(), galaxy->GetSize().x),
                  galaxy->GetSize() };
     }
 

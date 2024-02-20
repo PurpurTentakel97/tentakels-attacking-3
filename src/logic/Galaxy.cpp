@@ -830,17 +830,8 @@ namespace lgk {
                 // clang-format off
                 auto const skip = e->IsBlackHole()
                                 or (e->IsTargetPoint() and e->GetShipCount() == 0)
-                                or not b->IsInBlackHoleRange(e, b->Size());
+                                or not b->IsInBlackHoleRange(e, b->Size(m_size.x));
                 // clang-format on
-                /*
-                hlp::Print(hlp::PrintType::ONLY_DEBUG,
-                           "ID: {}, black hole: {}, target point with ships: {}, in range: {}, skip: {}",
-                           e->GetID(),
-                           e->IsBlackHole(),
-                           e->IsTargetPoint() and e->GetShipCount() == 0,
-                           not b->IsInBlackHoleRange(e, b->Size()),
-                           skip);
-                */
                 if (skip) {
                     continue;
                 }
@@ -870,7 +861,7 @@ namespace lgk {
 
                 result.emplace_back(GenPlayerRep(e->GetPlayer().get()),
                                     GenSingleSpaceObjectRep(e),
-                                    GenSingleBlackHoleRep(b),
+                                    GenSingleBlackHoleRep(b, m_size.x),
                                     e->GetShipCount());
             }
             for (auto const& e : to_delete) {

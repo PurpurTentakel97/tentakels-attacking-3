@@ -34,9 +34,9 @@ namespace cst {
 
         // supernova
         utl::Probability supernovaChance{ 100 };
-        utl::usize minBlackHoleRange{ 3 };
-        bool isMaxBlackHoleRange{ true };
-        utl::usize maxBlackHoleRange{ 10 };
+        float minBlackHoleRangeFactor{ 0.05f };
+        bool isMaxBlackHoleRangeFactor{ true };
+        float maxBlackHoleRangeFactor{ 0.2f };
 
         // engine problems
         utl::Probability engineProblemChance{ 1000 };
