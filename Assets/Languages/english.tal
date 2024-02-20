@@ -153,7 +153,7 @@
     "ui_planet_table_headline_ship_count": "Ship count",
     "ui_planet_table_player_name_destroyed": "DESTROYED",
     "ui_planet_table_player_name_not_discovered": "N/D",
-    "helper_player_collection_npc_neutral_player": "Neutral player",
+    "helper_player_collection_npc_neutral_player": "Neutral",
     "helper_player_collection_npc_no_player": "No Player",
     "logic_game_manager_popup_next_turn_title": "Next player{0}",
     "logic_game_manager_popup_next_turn_text": "Your turn will be over.",
@@ -174,7 +174,7 @@
     "helper_next_big": "Next",
     "ui_popup_fight_result_win_text": "{0} wins!",
     "helper_skip_big": "Skip",
-    "version": "v0.1.6.10",
+    "version": "v0.1.6.11",
     "ui_popup_start_evaluation_subtitle": "start the evaluation when all players are present",
     "ui_popup_game_still_running_title": "Game still running",
     "ui_popup_game_still_running_subtitle": "There is currently a game running. Overwrite the current game?",
@@ -230,5 +230,6 @@
     "evaluation_black_hole_target_point_text": "Target point {0} from player {1} got destroyed. {2} ships are gone.",
     "evaluation_black_hole_fleet_text": "Fleet {0} from player {1} got destroyed. {2} ships are gone.",
     "evaluation_black_hole_planet_text": "Planet {0} from player {1} got destroyed. {2} ships are gone.",
-    "evaluation_black_hole_title": "Black Hole {0}"
+    "evaluation_black_hole_title": "Black Hole {0}",
+    "helper_player_collection_npc_pirates": "Pirat"
 }
