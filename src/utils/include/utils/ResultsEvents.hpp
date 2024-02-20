@@ -11,11 +11,10 @@
 namespace utl {
     class ResultEvent {
     private:
-        GameEventType m_type{};
-        usize m_playerID{};
+        GameEventType m_type;
+        usize m_playerID;
 
     public:
-        ResultEvent() = default;
         ResultEvent(GameEventType type, usize playerID) : m_type{ type }, m_playerID{ playerID } { }
 
         virtual ~ResultEvent() = default;
@@ -29,13 +28,32 @@ namespace utl {
         }
     };
 
-    class ResultEventSupernova final : public ResultEvent {
+    class ResultEventPirates final : public ResultEvent {
     private:
-        usize m_planetID{};
-        usize m_shipsDestroyed{};
+        usize m_ships;
+        vec2pos_ty m_position;
 
     public:
-        using ResultEvent::ResultEvent;
+        ResultEventPirates(usize playerID, usize ships, vec2pos_ty position)
+            : ResultEvent{ GameEventType::PIRATES, playerID },
+              m_ships{ ships },
+              m_position{ position } { }
+
+        [[nodiscard]] usize Ships() const {
+            return m_ships;
+        }
+
+        [[nodiscard]] vec2pos_ty Position() const {
+            return m_position;
+        }
+    };
+
+    class ResultEventSupernova final : public ResultEvent {
+    private:
+        usize m_planetID;
+        usize m_shipsDestroyed;
+
+    public:
         ResultEventSupernova(usize playerID, usize planetID, usize shipsDestroyed)
             : ResultEvent{ GameEventType::SUPERNOVA, playerID },
               m_planetID{ planetID },
@@ -52,11 +70,10 @@ namespace utl {
 
     class ResultEventEngineProblem final : public ResultEvent {
     private:
-        usize m_years{};
-        usize m_fleetID{};
+        usize m_years;
+        usize m_fleetID;
 
     public:
-        using ResultEvent::ResultEvent;
         ResultEventEngineProblem(usize playerID, usize fleetID, usize years)
             : ResultEvent{ GameEventType::ENGINE_PROBLEM, playerID },
               m_years{ years },

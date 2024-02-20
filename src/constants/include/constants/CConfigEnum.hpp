@@ -18,6 +18,8 @@ namespace cst {
         IS_EVENT_ON_HOME_WORLD,
         PIRATES,
         PIRATES_CHANCE,
+        MIN_PIRATE_SHIPS,
+        MAX_PIRATE_SHIPS,
         REVOLTS,
         REVOLTS_CHANCE,
         RENEGADE_SHIPS,

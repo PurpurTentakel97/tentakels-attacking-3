@@ -18,6 +18,8 @@ namespace cst {
             case ConfigTypes::IS_EVENT_ON_HOME_WORLD:         return "is_event_on_home_world"         ;
             case ConfigTypes::PIRATES:                        return "pirates"                        ;
             case ConfigTypes::PIRATES_CHANCE:                 return "pirates_chance"                 ;
+            case ConfigTypes::MIN_PIRATE_SHIPS:               return "min_pirate_ships"               ;
+            case ConfigTypes::MAX_PIRATE_SHIPS:               return "max_pirate_ships"               ;
             case ConfigTypes::REVOLTS:                        return "revolts"                        ;
             case ConfigTypes::REVOLTS_CHANCE:                 return "revolts_chance"                 ;
             case ConfigTypes::RENEGADE_SHIPS:                 return "renegade_ships"                 ;

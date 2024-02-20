@@ -53,6 +53,8 @@ namespace lgk {
         [[nodiscard]] Fleet_ty TryGetExistingFleetByOriginAndDestination(SpaceObject_ty const& origin,
                                                                          SpaceObject_ty const& destination) const;
 
+        Fleet_ty AddFleetOutCheck(Player_ty_c player, utl::usize ships, SpaceObject_ty_c destination);
+
         [[nodiscard]] utl::ResultFleet AddFleetFromPlanet(eve::SendFleetInstructionEvent const* event,
                                                           Player_ty const& currentPlayer);
 

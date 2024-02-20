@@ -236,6 +236,8 @@ namespace cst {
         if (bool       out; loadBool (events, out, ConfigTypes::IS_EVENT_ON_HOME_WORLD        )) { constants.gameEvents.isEventOnHomeWorld                          = out ; }
         if (bool       out; loadBool (events, out, ConfigTypes::PIRATES                       )) { constants.gameEvents.SetFlag(utl::GameEventType::PIRATES,          out); }
         if (utl::usize out; loadUSize(events, out, ConfigTypes::PIRATES_CHANCE                )) { constants.gameEvents.pirateChance.value                          = out ; }
+        if (utl::usize out; loadUSize(events, out, ConfigTypes::MIN_PIRATE_SHIPS              )) { constants.gameEvents.minPirateShips                              = out ; }
+        if (utl::usize out; loadUSize(events, out, ConfigTypes::MAX_PIRATE_SHIPS              )) { constants.gameEvents.maxPirateShips                              = out ; }
         if (bool       out; loadBool (events, out, ConfigTypes::REVOLTS                       )) { constants.gameEvents.SetFlag(utl::GameEventType::REVOLTS,          out); }
         if (utl::usize out; loadUSize(events, out, ConfigTypes::REVOLTS_CHANCE                )) { constants.gameEvents.revoltChance.value                          = out ; }
         if (bool       out; loadBool (events, out, ConfigTypes::RENEGADE_SHIPS                )) { constants.gameEvents.SetFlag(utl::GameEventType::RENEGADE_SHIPS,   out); }
@@ -359,6 +361,8 @@ namespace cst {
                 { CToS(ConfigTypes::IS_EVENT_ON_HOME_WORLD        ), constants.gameEvents.isEventOnHomeWorld                         },
                 { CToS(ConfigTypes::PIRATES                       ), constants.gameEvents.IsFlag(utl::GameEventType::PIRATES)        },
                 { CToS(ConfigTypes::PIRATES_CHANCE                ), constants.gameEvents.pirateChance.value                         },
+                { CToS(ConfigTypes::MIN_PIRATE_SHIPS              ), constants.gameEvents.minPirateShips                             },
+                { CToS(ConfigTypes::MAX_PIRATE_SHIPS              ), constants.gameEvents.maxPirateShips                             },
                 { CToS(ConfigTypes::REVOLTS                       ), constants.gameEvents.IsFlag(utl::GameEventType::REVOLTS)        },
                 { CToS(ConfigTypes::REVOLTS_CHANCE                ), constants.gameEvents.revoltChance.value                         },
                 { CToS(ConfigTypes::RENEGADE_SHIPS                ), constants.gameEvents.IsFlag(utl::GameEventType::RENEGADE_SHIPS) },

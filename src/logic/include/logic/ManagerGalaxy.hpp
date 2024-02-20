@@ -43,7 +43,9 @@ namespace lgk {
 
         [[nodiscard]] utl::ResultUpdate Update();
 
-        [[nodiscard]] std::shared_ptr<utl::ResultEventSupernova> HandleSupernova(Player_ty const& invalid_player);
+        [[nodiscard]] std::shared_ptr<utl::ResultEventPirates> HandlePirates(Player_ty_c pirate, utl::usize ships);
+
+        [[nodiscard]] std::shared_ptr<utl::ResultEventSupernova> HandleSupernova(Player_ty_c invalid_player);
 
         [[nodiscard]] std::shared_ptr<utl::ResultEventEngineProblem> HandleEngineProblem(utl::usize years);
     };

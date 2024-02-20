@@ -498,9 +498,12 @@ namespace lgk {
         std::unreachable();
     }
 
-    std::shared_ptr<utl::ResultEvent> GameManager::HandlePirates() {
-        hlp::Print(hlp::PrintType::TODO, "Handle Pirate Event in GameManager");
-        return {};
+    std::shared_ptr<utl::ResultEventPirates> GameManager::HandlePirates() {
+        hlp::Print(hlp::PrintType::ONLY_DEBUG, "Handle Pirate Event in GameManager");
+        auto const& constants = app::AppContext::GetInstance().constants.gameEvents;
+        auto const shipCount  = hlp::Random::GetInstance().random(constants.maxPirateShips - constants.minPirateShips)
+                             + constants.minPirateShips;
+        return m_galaxyManager.HandlePirates(m_npcs[PlayerType::PIRATE], shipCount);
     }
 
     std::shared_ptr<utl::ResultEvent> GameManager::HandleRevolts() {
@@ -519,10 +522,10 @@ namespace lgk {
     }
 
     std::shared_ptr<utl::ResultEventEngineProblem> GameManager::HandleEngineProblem() {
+        hlp::Print(hlp::PrintType::ONLY_DEBUG, "Handle Engine Problem Event in GameManager");
         auto const& appContext = app::AppContext::GetInstance();
         auto& random           = hlp::Random::GetInstance();
         auto const years       = random.random(appContext.constants.gameEvents.maxYearsEngineProblem) + 1;
-        hlp::Print(hlp::PrintType::ONLY_DEBUG, "Handle Engine Problem Event in GameManager ({} years)", years);
         return m_galaxyManager.HandleEngineProblem(years);
     }
 
@@ -621,9 +624,12 @@ namespace lgk {
 
     GameManager::GameManager() : m_galaxyManager{ this } {
 
+        // clang-format off
         app::AppContext::GetInstance().eventManager.AddListener(this);
         m_npcs[PlayerType::NEUTRAL] = std::make_shared<Player>(100, PlayerType::NEUTRAL);
         m_npcs[PlayerType::INVALID] = std::make_shared<Player>(101, PlayerType::INVALID);
+        m_npcs[PlayerType::PIRATE ] = std::make_shared<Player>(102, PlayerType::PIRATE );
+        // clang-format on
 
         hlp::Print(hlp::PrintType::INITIALIZE, "GameManager");
     }
