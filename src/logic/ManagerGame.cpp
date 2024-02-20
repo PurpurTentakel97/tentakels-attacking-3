@@ -621,9 +621,12 @@ namespace lgk {
 
     GameManager::GameManager() : m_galaxyManager{ this } {
 
+        // clang-format off
         app::AppContext::GetInstance().eventManager.AddListener(this);
         m_npcs[PlayerType::NEUTRAL] = std::make_shared<Player>(100, PlayerType::NEUTRAL);
         m_npcs[PlayerType::INVALID] = std::make_shared<Player>(101, PlayerType::INVALID);
+        m_npcs[PlayerType::PIRATE ] = std::make_shared<Player>(102, PlayerType::PIRATE );
+        // clang-format on
 
         hlp::Print(hlp::PrintType::INITIALIZE, "GameManager");
     }
