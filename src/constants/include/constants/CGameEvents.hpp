@@ -24,18 +24,18 @@ namespace cst {
         utl::Probability globalChance{ 7500 };
 
         // pirates
-        utl::Probability pirateChance{ 1500 };
-        utl::usize minPirateShips{ 100 };
-        utl::usize maxPirateShips{ 300 };
+        utl::Probability pirateChance{ 1000 };
+        utl::usize minPirateShips{ 30 };
+        utl::usize maxPirateShips{ 150 };
 
         // revolts
-        utl::Probability revoltChance{ 1500 };
+        utl::Probability revoltChance{ 1000 };
 
         // renegade ships
-        utl::Probability renegadeShipsChance{ 1500 };
+        utl::Probability renegadeShipsChance{ 1000 };
 
         // supernova
-        utl::Probability supernovaChance{ 100 };
+        utl::Probability supernovaChance{ 300 };
         float minBlackHoleRangeFactor{ 0.05f };
         bool isMaxBlackHoleRangeFactor{ true };
         float maxBlackHoleRangeFactor{ 0.2f };
