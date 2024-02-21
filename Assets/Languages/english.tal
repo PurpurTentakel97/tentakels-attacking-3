@@ -174,7 +174,7 @@
     "helper_next_big": "Next",
     "ui_popup_fight_result_win_text": "{0} wins!",
     "helper_skip_big": "Skip",
-    "version": "v0.1.6.15",
+    "version": "v0.1.6.16",
     "ui_popup_start_evaluation_subtitle": "start the evaluation when all players are present",
     "ui_popup_game_still_running_title": "Game still running",
     "ui_popup_game_still_running_subtitle": "There is currently a game running. Overwrite the current game?",
@@ -239,5 +239,6 @@
     "evaluation_event_revolts_text": "{0} ships from player {1} revolting on planet {2}.",
     "helper_player_collection_npc_renegade": "Renegade",
     "evaluation_event_renegade_ships_title": "Renegade ships",
-    "evaluation_event_renegade_ships_text": "{0} renegade ships from player {1} at fleet {2}."
+    "evaluation_event_renegade_ships_text": "{0} renegade ships from player {1} at fleet {2}.",
+    "ui_game_events_settings_event_production_problems": "Production problems"
 }

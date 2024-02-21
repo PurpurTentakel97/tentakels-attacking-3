@@ -31,6 +31,7 @@ namespace cst {
         MAX_BLACK_HOLE_RANGE_FACTOR,
         ENGINE_PROBLEM,
         ENGINE_PROBLEM_CHANCE,
+        PRODUCTION_PROBLEM,
         MAX_YEARS_ENGINE_PROBLEM,
 
         FIGHT,
