@@ -16,6 +16,7 @@ namespace lgk {
         utl::usize m_planetNumber;
         utl::usize m_maxShips;
         utl::usize m_production;
+        utl::usize m_productionProblemYears;
 
     public:
         Planet(utl::usize ID,
@@ -38,6 +39,10 @@ namespace lgk {
         [[nodiscard]] utl::usize GetProduction() const;
 
         [[nodiscard]] utl::usize GetPlanetNumber() const;
+
+        void SetProductionProblemYears(utl::usize years);
+
+        [[nodiscard]] utl::usize GetProductionProblemYears() const;
 
         void Update(Galaxy_ty_raw galaxy) override;
     };
