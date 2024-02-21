@@ -174,6 +174,33 @@ namespace lgk {
                 planet->GetPlayer()->GetID(), planet->GetID(), fleet->GetShipCount());
     }
 
+    std::shared_ptr<utl::ResultEventRenegadeShips> GalaxyManager::HandleRenegadeShips(Player_ty_c player) {
+        auto fleets  = m_mainGalaxy->GetFleets();
+        auto planets = m_mainGalaxy->GetPlanets();
+        if (fleets.empty()) {
+            return {};
+        }
+
+        auto const& fleet = hlp::RandomElementFromList(fleets);
+
+    repeat:
+        auto const& destination = hlp::RandomElementFromList(planets);
+        if (not app::AppContext::GetInstance().constants.gameEvents.isEventOnHomeWorld
+            and destination->IsHomePlanet()) {
+            goto repeat;
+        }
+
+        auto& random     = hlp::Random::GetInstance();
+        auto const count = random.random(fleet->GetShipCount());
+
+        fleet->SetShipCount(fleet->GetShipCount() - count);
+
+        auto const new_fleet = m_mainGalaxy->AddFleetOutCheck(player, count, destination);
+
+        return std::make_shared<utl::ResultEventRenegadeShips>(
+                fleet->GetPlayer()->GetID(), fleet->GetID(), new_fleet->GetShipCount());
+    }
+
     std::shared_ptr<utl::ResultEventSupernova> GalaxyManager::HandleSupernova(Player_ty_c invalid_player) {
         auto planets = m_mainGalaxy->GetPlanets();
         if (planets.empty()) {

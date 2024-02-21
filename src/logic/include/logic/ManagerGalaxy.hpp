@@ -47,6 +47,8 @@ namespace lgk {
 
         [[nodiscard]] std::shared_ptr<utl::ResultEventRevolts> HandleRevolts(Player_ty_c player);
 
+        [[nodiscard]] std::shared_ptr<utl::ResultEventRenegadeShips> HandleRenegadeShips(Player_ty_c player);
+
         [[nodiscard]] std::shared_ptr<utl::ResultEventSupernova> HandleSupernova(Player_ty_c invalid_player);
 
         [[nodiscard]] std::shared_ptr<utl::ResultEventEngineProblem> HandleEngineProblem(utl::usize years);

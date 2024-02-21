@@ -513,7 +513,7 @@ namespace lgk {
 
     std::shared_ptr<utl::ResultEventRenegadeShips> GameManager::HandleRenegadeShips() {
         hlp::Print(hlp::PrintType::ONLY_DEBUG, "Handle Renegade Ships Event in GameManager");
-        return {};
+        return m_galaxyManager.HandleRenegadeShips(m_npcs[PlayerType::RENEGADE]);
     }
 
     std::shared_ptr<utl::ResultEventSupernova> GameManager::HandleSupernova() {
