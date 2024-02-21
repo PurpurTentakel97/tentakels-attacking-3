@@ -68,13 +68,13 @@ namespace utl {
         }
     };
 
-    class ResultEventRenagateShips final : public ResultEvent {
+    class ResultEventRenegadeShips final : public ResultEvent {
     private:
         usize m_fleetID;
         usize m_shipCount;
 
     public:
-        ResultEventRenagateShips(usize playerID, usize fleetID, usize shipCount)
+        ResultEventRenegadeShips(usize playerID, usize fleetID, usize shipCount)
             : ResultEvent{ GameEventType::RENEGADE_SHIPS, playerID },
               m_fleetID{ fleetID },
               m_shipCount{ shipCount } { }

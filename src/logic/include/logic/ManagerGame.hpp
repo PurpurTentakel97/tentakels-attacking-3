@@ -90,7 +90,7 @@ namespace lgk {
 
         [[nodiscard]] std::shared_ptr<utl::ResultEventRevolts> HandleRevolts();
 
-        [[nodiscard]] std::shared_ptr<utl::ResultEventRenagateShips> HandleRenegadeShips();
+        [[nodiscard]] std::shared_ptr<utl::ResultEventRenegadeShips> HandleRenegadeShips();
 
         [[nodiscard]] std::shared_ptr<utl::ResultEventSupernova> HandleSupernova();
 
