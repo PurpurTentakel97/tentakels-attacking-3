@@ -53,7 +53,10 @@ namespace lgk {
         [[nodiscard]] Fleet_ty TryGetExistingFleetByOriginAndDestination(SpaceObject_ty const& origin,
                                                                          SpaceObject_ty const& destination) const;
 
-        Fleet_ty AddFleetOutCheck(Player_ty_c player, utl::usize ships, SpaceObject_ty_c destination);
+        Fleet_ty AddFleetOutCheck(Player_ty_c player,
+                                  utl::usize ships,
+                                  SpaceObject_ty_c destination,
+                                  utl::vec2pos_ty_c position);
 
         [[nodiscard]] utl::ResultFleet AddFleetFromPlanet(eve::SendFleetInstructionEvent const* event,
                                                           Player_ty const& currentPlayer);
@@ -142,6 +145,8 @@ namespace lgk {
         [[nodiscard]] bool IsFiltered() const;
 
         [[nodiscard]] utl::vec2pos_ty GetSize() const;
+
+        [[nodiscard]] std::vector<SpaceObject_ty> GetSpaceObjects() const;
 
         [[nodiscard]] std::vector<Planet_ty> GetPlanets() const;
 

@@ -205,25 +205,14 @@ namespace lgk {
         return nullptr;
     }
 
-    Fleet_ty Galaxy::AddFleetOutCheck(Player_ty_c player, utl::usize ships, SpaceObject_ty_c destination) {
-        auto& random = hlp::Random::GetInstance();
-        while (true) {
-            utl::vec2pos_ty_c newPosition{
-                static_cast<int>(random.random(static_cast<std::mt19937_64::result_type>(m_size.x))),
-                static_cast<int>(random.random(static_cast<std::mt19937_64::result_type>(m_size.y)))
-            };
-
-            for (auto const& o : m_objects) {
-                if (o->GetPos() == newPosition) {
-                    continue;
-                }
-            }
-
-            auto const& fleet = std::make_shared<Fleet>(GetNextID(), newPosition, ships, player, destination);
-            m_objects.push_back(fleet);
-            m_fleets.push_back(fleet);
-            return fleet;
-        }
+    Fleet_ty Galaxy::AddFleetOutCheck(Player_ty_c player,
+                                      utl::usize ships,
+                                      SpaceObject_ty_c destination,
+                                      utl::vec2pos_ty_c position) {
+        auto const& fleet = std::make_shared<Fleet>(GetNextID(), position, ships, player, destination);
+        m_objects.push_back(fleet);
+        m_fleets.push_back(fleet);
+        return fleet;
     }
 
     utl::ResultFleet Galaxy::AddFleetFromPlanet(eve::SendFleetInstructionEvent const* event,
@@ -1244,6 +1233,10 @@ namespace lgk {
 
     utl::vec2pos_ty Galaxy::GetSize() const {
         return m_size;
+    }
+
+    std::vector<SpaceObject_ty> Galaxy::GetSpaceObjects() const {
+        return m_objects;
     }
 
     std::vector<Planet_ty> Galaxy::GetPlanets() const {
