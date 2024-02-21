@@ -508,7 +508,7 @@ namespace lgk {
 
     std::shared_ptr<utl::ResultEventRevolts> GameManager::HandleRevolts() {
         hlp::Print(hlp::PrintType::ONLY_DEBUG, "Handle Revolts Event in GameManager");
-        return {};
+        return m_galaxyManager.
     }
 
     std::shared_ptr<utl::ResultEvent> GameManager::HandleRenegadeShips() {
