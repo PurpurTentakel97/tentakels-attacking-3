@@ -25,7 +25,13 @@ namespace lgk {
 
     private:
         std::default_random_engine m_random{ std::default_random_engine() };
-        std::unordered_map<PlayerType, Player_ty> m_npcs{};
+        std::unordered_map<PlayerType, Player_ty> m_npcs{
+            { PlayerType::NEUTRAL,   std::make_shared<Player>(100, PlayerType::NEUTRAL)   },
+            { PlayerType::INVALID,   std::make_shared<Player>(101, PlayerType::INVALID)   },
+            { PlayerType::PIRATE,    std::make_shared<Player>(102, PlayerType::PIRATE)    },
+            { PlayerType::REVOLTING, std::make_shared<Player>(103, PlayerType::REVOLTING) }
+        };
+
         std::vector<Player_ty> m_players{};
         std::vector<Player_ty> m_currentRoundPlayers{};
         GalaxyManager m_galaxyManager;

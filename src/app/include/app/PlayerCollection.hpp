@@ -21,6 +21,7 @@ namespace app {
             { 100, "", WHITE, "helper_player_collection_npc_neutral_player" },
             { 101, "", RED,   "helper_player_collection_npc_no_player"      },
             { 102, "", RED,   "helper_player_collection_npc_pirates"        },
+            { 103, "", RED,   "helper_player_collection_npc_revolting"      },
         };
         PlayerData m_defaultPlayer{ 0, "", WHITE, "helper_player_collection_npc_no_player" };
 
