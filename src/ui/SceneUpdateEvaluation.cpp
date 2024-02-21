@@ -91,6 +91,17 @@ namespace ui {
                         }
                         case utl::GameEventType::REVOLTS: {
                             hlp::Print(hlp::PrintType::DEBUG, "revolts event result");
+                            auto const* result = dynamic_cast<utl::ResultEventRevolts const*>(e.get());
+                            if (not result) {
+                                hlp::Print(hlp::PrintType::ERROR,
+                                           "-> nullptr while dynamic cast a Revolts Event Result");
+                                break;
+                            }
+                            hlp::Print(hlp::PrintType::DEBUG,
+                                       "revolts on planet {} from player {} with {} ships",
+                                       result->PlanetID(),
+                                       result->PlayerID(),
+                                       result->ShipCount());
                             break;
                         }
                         case utl::GameEventType::RENEGADE_SHIPS: {
@@ -154,7 +165,18 @@ namespace ui {
                         "evaluation_event_pirates_text", result->Ships(), result->Position().x, result->Position().y);
                 break;
             }
-            case utl::GameEventType::REVOLTS: break;
+            case utl::GameEventType::REVOLTS: {
+                auto const* result = dynamic_cast<utl::ResultEventRevolts const*>(data.get());
+                if (not result) {
+                    hlp::Print(hlp::PrintType::ERROR, "nullptr while dynamic cast a Revolts Event Result");
+                    break;
+                }
+                title = appContext.languageManager.Text("evaluation_event_revolts_title");
+                // {0} ships from player {1} revolting on planet {2}.
+                text  = appContext.languageManager.Text(
+                        "evaluation_event_revolts_text", result->ShipCount(), playerName, result->PlanetID());
+                break;
+            }
             case utl::GameEventType::RENEGADE_SHIPS: break;
             case utl::GameEventType::SUPERNOVA: {
                 auto const* result = dynamic_cast<utl::ResultEventSupernova const*>(data.get());
