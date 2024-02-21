@@ -16,7 +16,7 @@ namespace lgk {
         utl::usize m_planetNumber;
         utl::usize m_maxShips;
         utl::usize m_production;
-        utl::usize m_productionProblemYears;
+        utl::usize m_productionProblemYears{ 0 };
 
     public:
         Planet(utl::usize ID,

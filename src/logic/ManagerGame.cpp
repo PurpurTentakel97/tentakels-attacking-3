@@ -422,13 +422,14 @@ namespace lgk {
                        constants.gameEvents.minEventYear);
             return {};
         }
-        std::array<utl::GameEventType, 5> constexpr events{
+        std::array<utl::GameEventType, 6> constexpr events{
             // clang-format off
             utl::GameEventType::PIRATES,
             utl::GameEventType::REVOLTS,
             utl::GameEventType::RENEGADE_SHIPS,
             utl::GameEventType::SUPERNOVA,
-            utl::GameEventType::ENGINE_PROBLEM
+            utl::GameEventType::ENGINE_PROBLEM,
+            utl::GameEventType::PRODUCTION_PROBLEM,
             // don't check for global. it just represents if all other events are active or not.
             // clang-format on
         };

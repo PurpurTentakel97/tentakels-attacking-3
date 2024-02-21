@@ -75,7 +75,8 @@ namespace lgk {
                 type(planet)
             },
             planet->GetPlayer()->IsHumanPlayer(),
-            planet->GetProduction()
+            planet->GetProduction(),
+            planet->GetProductionProblemYears()
   // clang-format on
         };
     }
