@@ -137,9 +137,41 @@ namespace lgk {
     std::shared_ptr<utl::ResultEventPirates> GalaxyManager::HandlePirates(Player_ty_c pirate, utl::usize const ships) {
         auto planets       = m_mainGalaxy->GetPlanets();
         auto const& planet = hlp::RandomElementFromList(planets);
-        auto const& fleet   = m_mainGalaxy->AddFleetOutCheck(pirate, ships, planet);
+        auto const& fleet  = m_mainGalaxy->AddFleetOutCheck(pirate, ships, planet);
         return std::make_shared<utl::ResultEventPirates>(
                 fleet->GetPlayer()->GetID(), fleet->GetShipCount(), fleet->GetPos());
+    }
+
+    std::shared_ptr<utl::ResultEventRevolts> GalaxyManager::HandleRevolts(Player_ty_c player) {
+        auto planets                  = m_mainGalaxy->GetPlanets();
+        app::AppContext_ty appContext = app::AppContext::GetInstance();
+        if (planets.empty()) {
+            return {};
+        }
+
+    repeat:
+        auto& planet = hlp::RandomElementFromList(planets);
+        if (not appContext.constants.gameEvents.isEventOnHomeWorld and planet->IsHomePlanet()) {
+            hlp::Print(hlp::PrintType::ONLY_DEBUG, "planet {} is a home planet", planet->GetID());
+            goto repeat;
+        }
+        auto& random     = hlp::Random::GetInstance();
+        auto const count = random.random(planet->GetShipCount());
+        planet->SetShipCount(planet->GetShipCount() - count);
+
+    repeat2:
+        auto& destination = hlp::RandomElementFromList(planets);
+        if (not appContext.constants.gameEvents.isEventOnHomeWorld and destination->IsHomePlanet()) {
+            hlp::Print(hlp::PrintType::ONLY_DEBUG, "planet {} is a home planet", planet->GetID());
+            goto repeat2;
+        }
+        if (destination->GetID() == planet->GetID()) {
+            goto repeat2;
+        }
+
+        auto const& fleet = m_mainGalaxy->AddFleetOutCheck(player, count, destination);
+        return std::make_shared<utl::ResultEventRevolts>(
+                planet->GetPlayer()->GetID(), planet->GetID(), fleet->GetShipCount());
     }
 
     std::shared_ptr<utl::ResultEventSupernova> GalaxyManager::HandleSupernova(Player_ty_c invalid_player) {
