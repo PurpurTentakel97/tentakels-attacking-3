@@ -149,6 +149,21 @@ namespace ui {
                                        result->Years());
                             break;
                         }
+                        case utl::GameEventType::PRODUCTION_PROBLEM: {
+                            hlp::Print(hlp::PrintType::DEBUG, "Production Problem Event Result");
+                            auto const* result = dynamic_cast<utl::ResultEventProductionProblem const*>(e.get());
+                            if (not result) {
+                                hlp::Print(hlp::PrintType::ERROR,
+                                           "-> nullptr while dynamic cast a Production Problem Event Result");
+                                break;
+                            }
+                            hlp::Print(hlp::PrintType::DEBUG,
+                                       "-> planet {} from player {} will not be able to move within the next {} years",
+                                       result->PlanetID(),
+                                       result->PlayerID(),
+                                       result->Years());
+                            break;
+                        }
                         case utl::GameEventType::GLOBAL: std::unreachable();
                     }
                 }
@@ -218,6 +233,18 @@ namespace ui {
                 title = appContext.languageManager.Text("evaluation_event_engine_problem_title");
                 text  = appContext.languageManager.Text(
                         "evaluation_event_engine_problem_text", result->FleetID(), playerName, result->Years());
+                break;
+            }
+            case utl::GameEventType::PRODUCTION_PROBLEM: {
+                auto const* result = dynamic_cast<utl::ResultEventProductionProblem const*>(data.get());
+                if (not result) {
+                    hlp::Print(hlp::PrintType::ERROR, "nullptr while dynamic cast a Production Problem Event Result");
+                    break;
+                }
+                title = appContext.languageManager.Text("evaluation_event_production_problem_title");
+                text  = appContext.languageManager.Text(
+                        "evaluation_event_production_problem_text", result->PlanetID(), playerName, result->Years());
+                // Planet {0} from player {1} will not be able to produce for {2} years.
                 break;
             }
             case utl::GameEventType::GLOBAL: std::unreachable();
