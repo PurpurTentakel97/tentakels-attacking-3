@@ -173,7 +173,7 @@ namespace lgk {
             goto repeat;
         }
         auto& random     = hlp::Random::GetInstance();
-        auto const count = random.random(planet->GetShipCount());
+        auto const count = random.random(planet->GetShipCount()) + 1;
         planet->SetShipCount(planet->GetShipCount() - count);
 
     repeat2:
@@ -208,7 +208,7 @@ namespace lgk {
         }
 
         auto& random     = hlp::Random::GetInstance();
-        auto const count = random.random(fleet->GetShipCount());
+        auto const count = random.random(fleet->GetShipCount()) + 1;
 
         fleet->SetShipCount(fleet->GetShipCount() - count);
 
@@ -245,7 +245,7 @@ namespace lgk {
         return {};
     }
 
-    std::shared_ptr<utl::ResultEventEngineProblem> GalaxyManager::HandleEngineProblem(utl::usize years) {
+    std::shared_ptr<utl::ResultEventEngineProblem> GalaxyManager::HandleEngineProblem(utl::usize const years) {
         auto fleets = m_mainGalaxy->GetFleets();
         if (fleets.empty()) {
             return {};
@@ -257,6 +257,28 @@ namespace lgk {
             }
             fleet->SetEngineProblemYears(years);
             return std::make_shared<utl::ResultEventEngineProblem>(fleet->GetPlayer()->GetID(), fleet->GetID(), years);
+        }
+        return {};
+    }
+
+    std::shared_ptr<utl::ResultEventProductionProblem> GalaxyManager::HandleProductionProblem(utl::usize const years) {
+        auto planets = m_mainGalaxy->GetPlanets();
+        if (planets.empty()) {
+            return {};
+        }
+
+        for (auto i = 0; i < 10; ++i) {
+            auto& planet = hlp::RandomElementFromList(planets);
+            if (planet->GetProductionProblemYears() != 0) {
+                continue;
+            }
+            if (not app::AppContext::GetInstance().constants.gameEvents.isEventOnHomeWorld and planet->IsHomePlanet()) {
+                continue;
+            }
+
+            planet->SetProductionProblemYears(years);
+            return std::make_shared<utl::ResultEventProductionProblem>(
+                    planet->GetPlayer()->GetID(), planet->GetID(), planet->GetProductionProblemYears());
         }
         return {};
     }

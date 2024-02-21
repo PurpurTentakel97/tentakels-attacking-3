@@ -60,7 +60,20 @@ namespace lgk {
         return m_planetNumber;
     }
 
+    void Planet::SetProductionProblemYears(utl::usize years) {
+        m_productionProblemYears = years;
+    }
+
+    utl::usize Planet::GetProductionProblemYears() const {
+        return m_productionProblemYears;
+    }
+
     void Planet::Update(Galaxy_ty_raw) {
+        if (m_productionProblemYears > 0) {
+            --m_productionProblemYears;
+            return;
+        }
+
         m_ships += m_production;
         if (not m_player->IsHumanPlayer() and m_ships > m_maxShips) {
             m_ships = m_maxShips;

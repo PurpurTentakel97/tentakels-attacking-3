@@ -128,4 +128,24 @@ namespace utl {
             return m_fleetID;
         }
     };
+
+    class ResultEventProductionProblem final : public ResultEvent {
+    private:
+        usize m_planetID;
+        usize m_years;
+
+    public:
+        ResultEventProductionProblem(usize playerID, usize planetID, usize years)
+            : ResultEvent{ GameEventType::PRODUCTION_PROBLEM, playerID },
+              m_planetID{ planetID },
+              m_years{ years } { }
+
+        [[nodiscard]] usize PlanetID() const {
+            return m_planetID;
+        }
+
+        [[nodiscard]] usize Years() const {
+            return m_years;
+        }
+    };
 } // namespace utl

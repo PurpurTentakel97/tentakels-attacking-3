@@ -55,7 +55,13 @@ namespace ui {
             utl::usize column{ 0 };
             auto const incCol{ [&column = column]() { ++column; } };
             // planet ID
-            m_table->SetValue(addedCount, column, p.ID);
+            if (p.productionProblemYears > 0) {
+                m_table->SetValue(addedCount,
+                                  column,
+                                  appContext.languageManager.Text("ui_planet_table_planet_production_problem", p.ID));
+            } else {
+                m_table->SetValue(addedCount, column, p.ID);
+            }
             incCol();
 
             // alias
@@ -64,7 +70,7 @@ namespace ui {
             m_table->SetSingleCallback(addedCount, column, [this](uil::TableCell& c) {
                 auto const index = m_table->Index(&c);
                 auto const ID    = m_table->ValueCell<utl::usize>(index.first, index.second - 1);
-                this->SetAlias(ID,c.Value<std::string>());
+                this->SetAlias(ID, c.Value<std::string>());
             });
             incCol();
 

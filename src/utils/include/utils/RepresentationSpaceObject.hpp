@@ -26,6 +26,7 @@ namespace utl {
     struct RepresentationPlanet final : public RepresentationSpaceObject {
         bool isHumanPlayer{};
         usize production{};
+        usize productionProblemYears{};
     };
 
     struct RepresentationTargetPoint final : public RepresentationSpaceObject { };

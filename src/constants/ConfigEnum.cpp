@@ -32,6 +32,9 @@ namespace cst {
             case ConfigTypes::ENGINE_PROBLEM:                 return "engine_problem"                 ;
             case ConfigTypes::ENGINE_PROBLEM_CHANCE:          return "engine_problem_chance"          ;
             case ConfigTypes::MAX_YEARS_ENGINE_PROBLEM:       return "max_years_engine_problem"       ;
+            case ConfigTypes::PRODUCTION_PROBLEM:             return "production_problem"             ;
+            case ConfigTypes::PRODUCTION_PROBLEM_CHANCE:      return "production_problem_chance"      ;
+            case ConfigTypes::MAX_YEARS_PRODUCTION_PROBLEM:   return "max_years_production_problem"   ;
 
             case ConfigTypes::FIGHT:                           return "fight"                          ;
             case ConfigTypes::HIT_CHANCE:                      return "hit_chance"                     ;

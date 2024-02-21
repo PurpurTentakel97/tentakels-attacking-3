@@ -30,8 +30,9 @@ namespace utl {
     class ResultEventPirates;
     class ResultEventRevolts;
     class ResultEventRenegadeShips;
-    class ResultEventEngineProblem;
     class ResultEventSupernova;
+    class ResultEventEngineProblem;
+    class ResultEventProductionProblem;
 
     enum class FleetInstructionType;
 
