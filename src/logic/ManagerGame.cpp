@@ -511,12 +511,12 @@ namespace lgk {
         return m_galaxyManager.HandleRevolts(m_npcs[PlayerType::REVOLTING]);
     }
 
-    std::shared_ptr<utl::ResultEvent> GameManager::HandleRenegadeShips() {
-        hlp::Print(hlp::PrintType::TODO, "Handle Renegade Ships Event in GameManager");
+    std::shared_ptr<utl::ResultEventRenagateShips> GameManager::HandleRenegadeShips() {
+        hlp::Print(hlp::PrintType::ONLY_DEBUG, "Handle Renegade Ships Event in GameManager");
         return {};
     }
 
-    std::shared_ptr<utl::ResultEvent> GameManager::HandleSupernova() {
+    std::shared_ptr<utl::ResultEventSupernova> GameManager::HandleSupernova() {
         hlp::Print(hlp::PrintType::ONLY_DEBUG, "Handle Supernova Event in GameManager");
         return m_galaxyManager.HandleSupernova(m_npcs[PlayerType::INVALID]);
     }

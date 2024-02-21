@@ -68,6 +68,26 @@ namespace utl {
         }
     };
 
+    class ResultEventRenagateShips final : public ResultEvent {
+    private:
+        usize m_fleetID;
+        usize m_shipCount;
+
+    public:
+        ResultEventRenagateShips(usize playerID, usize fleetID, usize shipCount)
+            : ResultEvent{ GameEventType::RENEGADE_SHIPS, playerID },
+              m_fleetID{ fleetID },
+              m_shipCount{ shipCount } { }
+
+        [[nodiscard]] usize FleetID() const {
+            return m_fleetID;
+        }
+
+        [[nodiscard]] usize ShipCount() const {
+            return m_shipCount;
+        }
+    };
+
     class ResultEventSupernova final : public ResultEvent {
     private:
         usize m_planetID;

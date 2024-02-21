@@ -29,6 +29,7 @@ namespace utl {
     class ResultEvent;
     class ResultEventPirates;
     class ResultEventRevolts;
+    class ResultEventRenagateShips;
     class ResultEventEngineProblem;
     class ResultEventSupernova;
 
