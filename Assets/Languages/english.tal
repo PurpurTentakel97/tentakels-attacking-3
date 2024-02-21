@@ -174,7 +174,7 @@
     "helper_next_big": "Next",
     "ui_popup_fight_result_win_text": "{0} wins!",
     "helper_skip_big": "Skip",
-    "version": "v0.1.6.16",
+    "version": "v0.1.6.17",
     "ui_popup_start_evaluation_subtitle": "start the evaluation when all players are present",
     "ui_popup_game_still_running_title": "Game still running",
     "ui_popup_game_still_running_subtitle": "There is currently a game running. Overwrite the current game?",
@@ -217,7 +217,7 @@
     "ui_fleet_table_headline_alias": "Alias",
     "ui_fleet_table_default_alias_fleet": "Fleet {0}",
     "ui_fleet_table_default_alias_target_point": "Target point {0}",
-    "ui_popup_add_fleet_invalid_input_send": "Invalider Input f\u00fcr eine Flotte",
+    "ui_popup_add_fleet_invalid_input_send": "Invalid input for fleet",
     "evaluation_event_engine_problem_title": "Engine Problem",
     "evaluation_event_engine_problem_text": "Fleet {0} from player {1} will not be able to move for {2} years.",
     "fleet_table_fleet_id_with_engine_problem": "{0} | {1} Years broken",
@@ -240,5 +240,7 @@
     "helper_player_collection_npc_renegade": "Renegade",
     "evaluation_event_renegade_ships_title": "Renegade ships",
     "evaluation_event_renegade_ships_text": "{0} renegade ships from player {1} at fleet {2}.",
-    "ui_game_events_settings_event_production_problems": "Production problems"
+    "ui_game_events_settings_event_production_problems": "Production problems",
+    "evaluation_event_production_problem_title": "Production Problems",
+    "evaluation_event_production_problem_text": "Planet {0} from player {1} will not be able to produce for {2} years."
 }
