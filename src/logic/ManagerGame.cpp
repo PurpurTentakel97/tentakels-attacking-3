@@ -508,7 +508,7 @@ namespace lgk {
 
     std::shared_ptr<utl::ResultEventRevolts> GameManager::HandleRevolts() {
         hlp::Print(hlp::PrintType::ONLY_DEBUG, "Handle Revolts Event in GameManager");
-        return m_galaxyManager.
+        return m_galaxyManager.HandleRevolts(m_npcs[PlayerType::REVOLTING]);
     }
 
     std::shared_ptr<utl::ResultEvent> GameManager::HandleRenegadeShips() {
@@ -623,14 +623,6 @@ namespace lgk {
     }
 
     GameManager::GameManager() : m_galaxyManager{ this } {
-
-        // clang-format off
-        app::AppContext::GetInstance().eventManager.AddListener(this);
-        m_npcs[PlayerType::NEUTRAL] = std::make_shared<Player>(100, PlayerType::NEUTRAL);
-        m_npcs[PlayerType::INVALID] = std::make_shared<Player>(101, PlayerType::INVALID);
-        m_npcs[PlayerType::PIRATE ] = std::make_shared<Player>(102, PlayerType::PIRATE );
-        // clang-format on
-
         hlp::Print(hlp::PrintType::INITIALIZE, "GameManager");
     }
 

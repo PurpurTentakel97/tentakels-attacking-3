@@ -142,6 +142,10 @@ namespace lgk {
                 fleet->GetPlayer()->GetID(), fleet->GetShipCount(), fleet->GetPos());
     }
 
+    std::shared_ptr<utl::ResultEventRevolts> GalaxyManager::HandleRevolts(Player_ty_c) {
+        return std::shared_ptr<utl::ResultEventRevolts>();
+    }
+
     std::shared_ptr<utl::ResultEventSupernova> GalaxyManager::HandleSupernova(Player_ty_c invalid_player) {
         auto planets = m_mainGalaxy->GetPlanets();
         if (planets.empty()) {
