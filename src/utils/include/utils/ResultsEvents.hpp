@@ -48,6 +48,26 @@ namespace utl {
         }
     };
 
+    class ResultEventRevolts final : public ResultEvent {
+    private:
+        usize m_planetID;
+        usize m_shipCount;
+
+    public:
+        ResultEventRevolts(usize playerID, usize planetID, usize shipCount)
+            : ResultEvent{ GameEventType::REVOLTS, playerID },
+              m_planetID{ playerID },
+              m_shipCount{ shipCount } { }
+
+        [[nodiscard]] usize PlanetID() const {
+            return m_planetID;
+        }
+
+        [[nodiscard]] usize ShipCount() const {
+            return m_shipCount;
+        }
+    };
+
     class ResultEventSupernova final : public ResultEvent {
     private:
         usize m_planetID;
