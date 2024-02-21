@@ -46,12 +46,23 @@ namespace ui {
             hlp::Print(hlp::PrintType::DEBUG, "{} vs. {}", e.GetSpaceObjects().first.ID, e.GetSpaceObjects().second.ID);
             hlp::Print(hlp::PrintType::DEBUG,
                        "{} vs. {}",
-                       appContext.playerCollection.GetPlayerOrNpcByID(e.GetPlayer().first.ID).GetName(),
-                       appContext.playerCollection.GetPlayerOrNpcByID(e.GetPlayer().second.ID).GetName());
+                       appContext.playerCollection.GetPlayerOrNpcByID(e.GetPlayers().first.ID).GetName(),
+                       appContext.playerCollection.GetPlayerOrNpcByID(e.GetPlayers().second.ID).GetName());
 
             for (auto const& r : e.GetRounds()) {
                 hlp::Print(hlp::PrintType::DEBUG, "{} | {}", r.first, r.second);
             }
+            hlp::Print(hlp::PrintType::DEBUG, "------------------------------------------------------");
+        }
+        hlp::Print(hlp::PrintType::DEBUG, "---------------- | BlackHole Result |-------------------");
+        for (auto const& b : event->Result().BlackHoles()) {
+            hlp::Print(hlp::PrintType::DEBUG,
+                       "Black Hole: {}, Object {} from player {} with {} ships got destroyed. New Size: {}",
+                       b.BlackHole().ID,
+                       b.ObjectDestroyed().ID,
+                       appContext.playerCollection.GetPlayerOrNpcByID(b.Player().ID).GetName(),
+                       b.ShipsDestroyed(),
+                       b.BlackHole().radius);
             hlp::Print(hlp::PrintType::DEBUG, "------------------------------------------------------");
         }
         hlp::Print(hlp::PrintType::DEBUG, "------------------ | Event Result |-------------------");
@@ -65,28 +76,67 @@ namespace ui {
                     switch (e->Type()) {
                         case utl::GameEventType::PIRATES: {
                             hlp::Print(hlp::PrintType::DEBUG, "pirate event result");
+                            auto const* result = dynamic_cast<utl::ResultEventPirates const*>(e.get());
+                            if (not result) {
+                                hlp::Print(hlp::PrintType::ERROR,
+                                           "-> nullptr while dynamic cast a Pirate Event Result");
+                                break;
+                            }
+                            hlp::Print(hlp::PrintType::DEBUG,
+                                       "-> Pirates at X: {}, Y: {} | Ships: {}",
+                                       result->Position().x,
+                                       result->Position().y,
+                                       result->Ships());
                             break;
                         }
                         case utl::GameEventType::REVOLTS: {
                             hlp::Print(hlp::PrintType::DEBUG, "revolts event result");
+                            auto const* result = dynamic_cast<utl::ResultEventRevolts const*>(e.get());
+                            if (not result) {
+                                hlp::Print(hlp::PrintType::ERROR,
+                                           "-> nullptr while dynamic cast a Revolts Event Result");
+                                break;
+                            }
+                            hlp::Print(hlp::PrintType::DEBUG,
+                                       "revolts on planet {} from player {} with {} ships",
+                                       result->PlanetID(),
+                                       result->PlayerID(),
+                                       result->ShipCount());
                             break;
                         }
                         case utl::GameEventType::RENEGADE_SHIPS: {
-                            hlp::Print(hlp::PrintType::DEBUG, "renegate ships event result");
-                            break;
-                        }
-                        case utl::GameEventType::BLACK_HOLE: {
-                            hlp::Print(hlp::PrintType::DEBUG, "black hole event result");
+                            hlp::Print(hlp::PrintType::DEBUG, "renegade ships event result");
+                            auto const* result = dynamic_cast<utl::ResultEventRenegadeShips const*>(e.get());
+                            if (not result) {
+                                hlp::Print(hlp::PrintType::ERROR,
+                                           "-> nullptr while dynamic cast a Renegade Ships Event Result");
+                                break;
+                            }
+                            hlp::Print(hlp::PrintType::DEBUG,
+                                       "renegade ships at fleet {} from player {} with {} ships",
+                                       result->FleetID(),
+                                       result->PlayerID(),
+                                       result->ShipCount());
                             break;
                         }
                         case utl::GameEventType::SUPERNOVA: {
                             hlp::Print(hlp::PrintType::DEBUG, "supernova event result");
+                            auto const* result = dynamic_cast<utl::ResultEventSupernova const*>(e.get());
+                            if (not result) {
+                                hlp::Print(hlp::PrintType::ERROR,
+                                           "-> nullptr while dynamic cast a Supernova Event Result");
+                                break;
+                            }
+                            hlp::Print(hlp::PrintType::DEBUG,
+                                       "-> planet {} with {} ships from player {} got destroyed",
+                                       result->PlanetID(),
+                                       result->ShipsDestroyed(),
+                                       result->PlayerID());
                             break;
                         }
                         case utl::GameEventType::ENGINE_PROBLEM: {
                             hlp::Print(hlp::PrintType::DEBUG, "Engine Problem Event Result");
-                            [[maybe_unused]] auto const* result =
-                                    dynamic_cast<utl::ResultEventEngineProblem const*>(e.get());
+                            auto const* result = dynamic_cast<utl::ResultEventEngineProblem const*>(e.get());
                             if (not result) {
                                 hlp::Print(hlp::PrintType::ERROR,
                                            "-> nullptr while dynamic cast a Engine Problem Event Result");
@@ -95,6 +145,21 @@ namespace ui {
                             hlp::Print(hlp::PrintType::DEBUG,
                                        "-> fleet {} from player {} will not be able to move within the next {} years",
                                        result->FleetID(),
+                                       result->PlayerID(),
+                                       result->Years());
+                            break;
+                        }
+                        case utl::GameEventType::PRODUCTION_PROBLEM: {
+                            hlp::Print(hlp::PrintType::DEBUG, "Production Problem Event Result");
+                            auto const* result = dynamic_cast<utl::ResultEventProductionProblem const*>(e.get());
+                            if (not result) {
+                                hlp::Print(hlp::PrintType::ERROR,
+                                           "-> nullptr while dynamic cast a Production Problem Event Result");
+                                break;
+                            }
+                            hlp::Print(hlp::PrintType::DEBUG,
+                                       "-> planet {} from player {} will not be able to move within the next {} years",
+                                       result->PlanetID(),
                                        result->PlayerID(),
                                        result->Years());
                             break;
@@ -110,20 +175,59 @@ namespace ui {
     void UpdateEvaluationScene::DisplayEventResult() {
         app::AppContext_ty_c appContext = app::AppContext::GetInstance();
         auto const data                 = m_result.Events().at(m_currentIndex);
-        auto const playerName           = appContext.playerCollection.GetPlayerByID(data->PlayerID()).GetName();
+        auto const playerName           = appContext.playerCollection.GetPlayerOrNpcByID(data->PlayerID()).GetName();
         auto title                      = std::string();
         auto text                       = std::string();
 
         switch (data->Type()) {
-            case utl::GameEventType::PIRATES: break;
-            case utl::GameEventType::REVOLTS: break;
-            case utl::GameEventType::RENEGADE_SHIPS: break;
-            case utl::GameEventType::BLACK_HOLE: break;
-            case utl::GameEventType::SUPERNOVA: break;
+            case utl::GameEventType::PIRATES: {
+                auto const* result = dynamic_cast<utl::ResultEventPirates const*>(data.get());
+                if (not result) {
+                    hlp::Print(hlp::PrintType::ERROR, "nullptr while dynamic cast a Pirate Event Result");
+                    break;
+                }
+                title = appContext.languageManager.Text("evaluation_event_pirates_title");
+                text  = appContext.languageManager.Text(
+                        "evaluation_event_pirates_text", result->Ships(), result->Position().x, result->Position().y);
+                break;
+            }
+            case utl::GameEventType::REVOLTS: {
+                auto const* result = dynamic_cast<utl::ResultEventRevolts const*>(data.get());
+                if (not result) {
+                    hlp::Print(hlp::PrintType::ERROR, "nullptr while dynamic cast a Revolts Event Result");
+                    break;
+                }
+                title = appContext.languageManager.Text("evaluation_event_revolts_title");
+                text  = appContext.languageManager.Text(
+                        "evaluation_event_revolts_text", result->ShipCount(), playerName, result->PlanetID());
+                break;
+            }
+            case utl::GameEventType::RENEGADE_SHIPS: {
+                auto const* result = dynamic_cast<utl::ResultEventRenegadeShips const*>(data.get());
+                if (not result) {
+                    hlp::Print(hlp::PrintType::ERROR, "nullptr while dynamic cast a Renegade Ships Event Result");
+                    break;
+                }
+                title = appContext.languageManager.Text("evaluation_event_renegade_ships_title");
+                text  = appContext.languageManager.Text(
+                        "evaluation_event_renegade_ships_text", result->ShipCount(), playerName, result->FleetID());
+                break;
+            }
+            case utl::GameEventType::SUPERNOVA: {
+                auto const* result = dynamic_cast<utl::ResultEventSupernova const*>(data.get());
+                if (not result) {
+                    hlp::Print(hlp::PrintType::ERROR, "nullptr while dynamic cast a Supernova Event Result");
+                    break;
+                }
+                title = appContext.languageManager.Text("evaluation_event_supernova_title");
+                text  = appContext.languageManager.Text(
+                        "evaluation_event_supernova_text", result->PlanetID(), result->ShipsDestroyed(), playerName);
+                break;
+            }
             case utl::GameEventType::ENGINE_PROBLEM: {
                 auto const* result = dynamic_cast<utl::ResultEventEngineProblem const*>(data.get());
                 if (not result) {
-                    hlp::Print(hlp::PrintType::ERROR, "-> nullptr while dynamic cast a Engine Problem Event Result");
+                    hlp::Print(hlp::PrintType::ERROR, "nullptr while dynamic cast a Engine Problem Event Result");
                     break;
                 }
                 title = appContext.languageManager.Text("evaluation_event_engine_problem_title");
@@ -131,10 +235,68 @@ namespace ui {
                         "evaluation_event_engine_problem_text", result->FleetID(), playerName, result->Years());
                 break;
             }
+            case utl::GameEventType::PRODUCTION_PROBLEM: {
+                auto const* result = dynamic_cast<utl::ResultEventProductionProblem const*>(data.get());
+                if (not result) {
+                    hlp::Print(hlp::PrintType::ERROR, "nullptr while dynamic cast a Production Problem Event Result");
+                    break;
+                }
+                title = appContext.languageManager.Text("evaluation_event_production_problem_title");
+                text  = appContext.languageManager.Text(
+                        "evaluation_event_production_problem_text", result->PlanetID(), playerName, result->Years());
+                // Planet {0} from player {1} will not be able to produce for {2} years.
+                break;
+            }
             case utl::GameEventType::GLOBAL: std::unreachable();
         }
 
-        auto const event = eve::ShowEventResultPopUp(title, text, [this]() { this->m_nextPopup = true; });
+        auto const event = eve::ShowRedResultPopUp(title, text, [this]() { this->m_nextPopup = true; });
+        appContext.eventManager.InvokeEvent(event);
+    }
+
+    void UpdateEvaluationScene::DisplayBlackHoleResult() {
+        app::AppContext_ty_c appContext = app::AppContext::GetInstance();
+        auto const data                 = m_result.BlackHoles().at(m_currentIndex);
+        auto const playerName           = appContext.playerCollection.GetPlayerOrNpcByID(data.Player().ID).GetName();
+
+        std::string text{};
+        switch (data.ObjectDestroyed().type) {
+            case utl::SpaceObjectType::TARGET_POINT: {
+                // Target Point {} from player {} got destroyed. {} ships are gone.
+                text = appContext.languageManager.Text("evaluation_black_hole_target_point_text",
+                                                       data.ObjectDestroyed().ID,
+                                                       playerName,
+                                                       data.ShipsDestroyed());
+                break;
+            }
+            case utl::SpaceObjectType::FLEET: {
+                text = appContext.languageManager.Text("evaluation_black_hole_fleet_text",
+                                                       data.ObjectDestroyed().ID,
+                                                       playerName,
+                                                       data.ShipsDestroyed());
+                break;
+            }
+            case utl::SpaceObjectType::PLANET: {
+                text = appContext.languageManager.Text("evaluation_black_hole_planet_text",
+                                                       data.ObjectDestroyed().ID,
+                                                       playerName,
+                                                       data.ShipsDestroyed());
+                break;
+            }
+            default: {
+                text = "invalid Space Object while displaying popup";
+                hlp::Print(hlp::PrintType::ERROR, "default case in SpaceObjectType while displaying black hole popup");
+                break;
+            }
+        }
+
+        // clang-format off
+        auto const event = eve::ShowRedResultPopUp(
+                appContext.languageManager.Text("evaluation_black_hole_title", data.BlackHole().ID),
+                text,
+                [this]() { this->m_nextPopup = true; }
+        );
+        // clang-format on
         appContext.eventManager.InvokeEvent(event);
     }
 
@@ -165,7 +327,7 @@ namespace ui {
                                                 subText,
                                                 [this]() { this->m_nextPopup = true; } };
         appContext.eventManager.InvokeEvent(event);
-    }
+    } // namespace ui
 
     void UpdateEvaluationScene::DisplayFightResult() {
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
@@ -188,9 +350,17 @@ namespace ui {
             case ResultType::EVENT:
                 if (m_currentIndex >= m_result.Events().size()) {
                     setNext();
-                    goto merge;
+                    goto black_hole;
                 }
                 DisplayEventResult();
+                break;
+            case ResultType::BLACK_HOLE:
+            black_hole:
+                if (m_currentIndex >= m_result.BlackHoles().size()) {
+                    setNext();
+                    goto merge;
+                }
+                DisplayBlackHoleResult();
                 break;
             case ResultType::MERGE:
             merge:
@@ -267,7 +437,7 @@ namespace ui {
                 [this]() { this->m_nextPopup = true; }
             };
             appContext.eventManager.InvokeEvent(messageEvent);
-            // TestPrint(evEvent); // to print the incoming event to the console
+            TestPrint(evEvent); // to print the incoming event to the console
         }
     }
 } // namespace ui

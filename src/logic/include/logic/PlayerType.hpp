@@ -11,5 +11,8 @@ namespace lgk {
         HUMAN,
         NEUTRAL,
         PIRATE,
+        REVOLTING,
+        RENEGADE,
+        INVALID,
     };
 }

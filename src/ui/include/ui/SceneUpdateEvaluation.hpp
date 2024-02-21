@@ -9,7 +9,7 @@
 #include <alias/AliasUtils.hpp>
 #include <event/EventListener.hpp>
 #include <ui_lib/Scene.hpp>
-#include <utils/ResultUpdate.hpp>
+#include <utils/Result.hpp>
 
 
 namespace ui {
@@ -17,6 +17,7 @@ namespace ui {
     private:
         enum class ResultType {
             EVENT,
+            BLACK_HOLE,
             MERGE,
             FIGHT,
             LAST,
@@ -31,11 +32,13 @@ namespace ui {
 
         static void TestPrint(eve::SendUpdateEvaluation const* event);
 
+        void DisplayEventResult();
+
+        void DisplayBlackHoleResult();
+
         void DisplayMergeResult();
 
         void DisplayFightResult();
-
-        void DisplayEventResult();
 
         void HandleNextPopup();
 

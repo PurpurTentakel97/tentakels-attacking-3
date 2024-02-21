@@ -13,7 +13,7 @@
 #include <alias/AliasUtils.hpp>
 #include <functional>
 #include <string>
-#include <utils/ResultFight.hpp>
+#include <utils/ResultsUpdate.hpp>
 #include <utils/Vec2.hpp>
 
 namespace eve {
@@ -358,12 +358,12 @@ namespace eve {
         using PopUpEvent::PopUpEvent;
     };
 
-    class ShowEventResultPopUp final : public PopUpEvent{
+    class ShowRedResultPopUp final : public PopUpEvent{
     private:
         std::function<void()> m_callback;
 
     public:
-        ShowEventResultPopUp(std::string title, std::string subTitle, std::function<void()> callback)
+        ShowRedResultPopUp(std::string title, std::string subTitle, std::function<void()> callback)
                 : PopUpEvent{ std::move(title), std::move(subTitle) },
                   m_callback{ std::move(callback) } { }
 

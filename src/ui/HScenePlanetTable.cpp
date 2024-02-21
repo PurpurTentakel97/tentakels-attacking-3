@@ -55,7 +55,13 @@ namespace ui {
             utl::usize column{ 0 };
             auto const incCol{ [&column = column]() { ++column; } };
             // planet ID
-            m_table->SetValue(addedCount, column, p.ID);
+            if (p.productionProblemYears > 0) {
+                m_table->SetValue(addedCount,
+                                  column,
+                                  appContext.languageManager.Text("ui_planet_table_planet_production_problem", p.ID));
+            } else {
+                m_table->SetValue(addedCount, column, p.ID);
+            }
             incCol();
 
             // alias
@@ -64,17 +70,14 @@ namespace ui {
             m_table->SetSingleCallback(addedCount, column, [this](uil::TableCell& c) {
                 auto const index = m_table->Index(&c);
                 auto const ID    = m_table->ValueCell<utl::usize>(index.first, index.second - 1);
-                this->SetAlias(ID,c.Value<std::string>());
+                this->SetAlias(ID, c.Value<std::string>());
             });
             incCol();
 
             // player name
             std::string entry;
             Color color;
-            if (p.isDestroyed) {
-                entry = appContext.languageManager.Text("ui_planet_table_player_name_destroyed");
-                color = WHITE;
-            } else if (not p.isDiscovered) {
+            if (not p.isDiscovered) {
                 entry = appContext.languageManager.Text("ui_planet_table_player_name_not_discovered");
                 color = WHITE;
             } else {
@@ -85,9 +88,6 @@ namespace ui {
             m_table->SetValue(addedCount, column, entry);
             m_table->SetSingleCellTextColor(color, addedCount, column);
 
-            if (p.isDestroyed) {
-                continue;
-            }
             if (!p.isDiscovered) {
                 continue;
             }

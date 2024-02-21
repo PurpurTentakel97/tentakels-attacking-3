@@ -14,23 +14,39 @@
 
 namespace cst {
     struct GameEvents {
-        static inline utl::usize constexpr configEntryCount{ 17 };
+
+        // general
+        static inline utl::usize constexpr configEntryCount{ 23 };
         utl::GameEventType events{ 0b11111111 }; // default "global"
-
+        bool isMinEventYear{ true };
         utl::usize minEventYear{ 5 };
-        bool isMinEventYear{ false };
         bool isEventOnHomeWorld{ false };
-
         utl::Probability globalChance{ 7500 };
 
-        utl::Probability pirateChance{ 1500 };
-        utl::Probability revoltChance{ 1500 };
-        utl::Probability renegadeShipsChance{ 1500 };
-        utl::Probability blackHoleChance{ 200 };
-        utl::Probability supernovaChance{ 100 };
-        utl::Probability engineProblemChance{ 1000 };
+        // pirates
+        utl::Probability pirateChance{ 1000 };
+        utl::usize minPirateShips{ 30 };
+        utl::usize maxPirateShips{ 150 };
 
+        // revolts
+        utl::Probability revoltChance{ 1000 };
+
+        // renegade ships
+        utl::Probability renegadeShipsChance{ 1000 };
+
+        // supernova
+        utl::Probability supernovaChance{ 300 };
+        float minBlackHoleRangeFactor{ 0.05f };
+        bool isMaxBlackHoleRangeFactor{ true };
+        float maxBlackHoleRangeFactor{ 0.2f };
+
+        // engine problems
+        utl::Probability engineProblemChance{ 1000 };
         utl::usize maxYearsEngineProblem{ 5 };
+
+        // production problem
+        utl::Probability productionProblemChance{ 1000 };
+        utl::usize maxYearsProductionProblem{ 5 };
 
         void SetFlag(utl::GameEventType type, bool active);
 

@@ -13,10 +13,10 @@ namespace lgk {
     private:
         using vec2pos = utl::vec2pos_ty;
         bool m_isHomePlanet{};
-        bool m_isDestroyed{ false };
         utl::usize m_planetNumber;
         utl::usize m_maxShips;
         utl::usize m_production;
+        utl::usize m_productionProblemYears{ 0 };
 
     public:
         Planet(utl::usize ID,
@@ -40,9 +40,9 @@ namespace lgk {
 
         [[nodiscard]] utl::usize GetPlanetNumber() const;
 
-        void SetDestroyed(bool isDestroyed);
+        void SetProductionProblemYears(utl::usize years);
 
-        [[nodiscard]] bool IsDestroyed() const;
+        [[nodiscard]] utl::usize GetProductionProblemYears() const;
 
         void Update(Galaxy_ty_raw galaxy) override;
     };

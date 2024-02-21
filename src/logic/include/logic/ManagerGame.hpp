@@ -14,7 +14,7 @@
 #include <memory>
 #include <random>
 #include <utils/GameEventTypes.hpp>
-#include <utils/ResultUpdate.hpp>
+#include <utils/Result.hpp>
 #include <utils/ResultsEvents.hpp>
 #include <vector>
 
@@ -25,7 +25,14 @@ namespace lgk {
 
     private:
         std::default_random_engine m_random{ std::default_random_engine() };
-        std::unordered_map<PlayerType, Player_ty> m_npcs{};
+        std::unordered_map<PlayerType, Player_ty> m_npcs{
+            { PlayerType::NEUTRAL,   std::make_shared<Player>(100, PlayerType::NEUTRAL)   },
+            { PlayerType::INVALID,   std::make_shared<Player>(101, PlayerType::INVALID)   },
+            { PlayerType::PIRATE,    std::make_shared<Player>(102, PlayerType::PIRATE)    },
+            { PlayerType::REVOLTING, std::make_shared<Player>(103, PlayerType::REVOLTING) },
+            { PlayerType::RENEGADE,  std::make_shared<Player>(104, PlayerType::RENEGADE)  },
+        };
+
         std::vector<Player_ty> m_players{};
         std::vector<Player_ty> m_currentRoundPlayers{};
         GalaxyManager m_galaxyManager;
@@ -79,17 +86,17 @@ namespace lgk {
 
         [[nodiscard]] utl::ResultUpdate::event_ty RaiseEvent(utl::GameEventType type);
 
-        [[nodiscard]] std::shared_ptr<utl::ResultEvent> HandlePirates();
+        [[nodiscard]] std::shared_ptr<utl::ResultEventPirates> HandlePirates();
 
-        [[nodiscard]] std::shared_ptr<utl::ResultEvent> HandleRevolts();
+        [[nodiscard]] std::shared_ptr<utl::ResultEventRevolts> HandleRevolts();
 
-        [[nodiscard]] std::shared_ptr<utl::ResultEvent> HandleRenegadeShips();
+        [[nodiscard]] std::shared_ptr<utl::ResultEventRenegadeShips> HandleRenegadeShips();
 
-        [[nodiscard]] std::shared_ptr<utl::ResultEvent> HandleBlackHole();
-
-        [[nodiscard]] std::shared_ptr<utl::ResultEvent> HandleSupernova();
+        [[nodiscard]] std::shared_ptr<utl::ResultEventSupernova> HandleSupernova();
 
         [[nodiscard]] std::shared_ptr<utl::ResultEventEngineProblem> HandleEngineProblem();
+
+        [[nodiscard]] std::shared_ptr<utl::ResultEventProductionProblem> HandleProductionProblem();
 
         // game
         void StartGame();

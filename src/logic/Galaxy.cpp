@@ -13,9 +13,8 @@
 #include <helper/HRandom.hpp>
 #include <stdexcept>
 #include <utils/FleetInstructionType.hpp>
-#include <utils/ResultFight.hpp>
 #include <utils/ResultFleet.hpp>
-#include <utils/ResultMerge.hpp>
+#include <utils/ResultsUpdate.hpp>
 #include <vector>
 
 namespace lgk {
@@ -149,6 +148,28 @@ namespace lgk {
         return validPlanet;
     }
 
+    void Galaxy::DeletePlanet(Planet_ty const& planet) {
+        m_planets.erase(std::remove_if(m_planets.begin(),
+                                       m_planets.end(),
+                                       [planet](Planet_ty_c currentPlanet) {
+                                           return planet->GetID() == currentPlanet->GetID();
+                                       }),
+                        m_planets.end());
+        m_objects.erase(
+                std::remove_if(m_objects.begin(),
+                               m_objects.end(),
+                               [planet](SpaceObject_ty const& object) { return planet->GetID() == object->GetID(); }),
+                m_objects.end());
+
+        app::AppContext::GetInstance().aliasManager.DeleteSpaceObjectAlias(planet->GetID());
+
+        hlp::Print(hlp::PrintType::ONLY_DEBUG,
+                   "delete planet -> id: {} -> player: {} -> ships: {}",
+                   planet->GetID(),
+                   planet->GetPlayer()->GetID(),
+                   planet->GetShipCount());
+    }
+
     // Fleet
     bool Galaxy::IsValidFleet(utl::usize const ID) const {
 
@@ -182,6 +203,16 @@ namespace lgk {
         }
 
         return nullptr;
+    }
+
+    Fleet_ty Galaxy::AddFleetOutCheck(Player_ty_c player,
+                                      utl::usize ships,
+                                      SpaceObject_ty_c destination,
+                                      utl::vec2pos_ty_c position) {
+        auto const& fleet = std::make_shared<Fleet>(GetNextID(), position, ships, player, destination);
+        m_objects.push_back(fleet);
+        m_fleets.push_back(fleet);
+        return fleet;
     }
 
     utl::ResultFleet Galaxy::AddFleetFromPlanet(eve::SendFleetInstructionEvent const* event,
@@ -596,6 +627,7 @@ namespace lgk {
                        t->GetShipCount(),
                        origins.size());
         }
+
         // delete
         auto const containsTargetPoint{ [toDelete](SpaceObject_ty const& d_t) -> bool {
             for (auto const& o_t : toDelete) {
@@ -617,6 +649,18 @@ namespace lgk {
         }
     }
 
+    // black hole
+    BlackHole_ty Galaxy::AddBlackHoleWithoutCheck(utl::vec2pos_ty position,
+                                                  Player_ty const& invalid_player,
+                                                  utl::usize const startExtraSize) {
+        auto const blackHole = std::make_shared<BlackHole>(GetNextID(), position, invalid_player, startExtraSize);
+        m_objects.push_back(blackHole);
+        m_blackHoles.push_back(blackHole);
+        return blackHole;
+    }
+
+    // update
+    // Fleet
     std::vector<Fleet_ty> Galaxy::UpdateFleetTargets(std::vector<Fleet_ty> const& fleets,
                                                      SpaceObject_ty const& currentFleet,
                                                      SpaceObject_ty const& target) {
@@ -784,6 +828,60 @@ namespace lgk {
         DeleteFleet(toDelete);
     }
 
+    // Black Hole
+    std::vector<utl::ResultBlackHole> Galaxy::SimulateBlackHoles() {
+        std::vector<utl::ResultBlackHole> result{};
+
+        for (auto const& b : m_blackHoles) {
+            std::vector<SpaceObject_ty> to_delete{};
+            for (auto const& e : m_objects) {
+
+                // clang-format off
+                auto const skip = e->IsBlackHole()
+                                or (e->IsTargetPoint() and e->GetShipCount() == 0)
+                                or not b->IsInBlackHoleRange(e, b->Size(m_size.x));
+                // clang-format on
+                if (skip) {
+                    continue;
+                }
+
+                auto const fleets = GetFleetsOfTarget(e);
+                for (auto const& f : fleets) {
+                    if (e->IsFleet()) {
+                        auto fleet = dynamic_cast<Fleet const*>(e.get());
+                        f->SetTarget(fleet->GetTarget());
+                    } else {
+                        f->SetTarget(b);
+                    }
+                }
+
+                to_delete.push_back(e);
+                if (e->IsPlanet()) {
+                    std::erase(m_planets, e);
+                } else if (e->IsFleet()) {
+                    std::erase(m_fleets, e);
+                } else if (e->IsTargetPoint()) {
+                    std::erase(m_targetPoints, e);
+                } else {
+                    std::unreachable();
+                }
+
+                b->AddExtraSize(e);
+
+                result.emplace_back(GenPlayerRep(e->GetPlayer().get()),
+                                    GenSingleSpaceObjectRep(e),
+                                    GenSingleBlackHoleRep(b, m_size.x),
+                                    e->GetShipCount());
+            }
+            for (auto const& e : to_delete) {
+                std::erase(m_objects, e);
+            }
+        }
+
+        return result;
+    }
+
+    // Fight
     std::vector<utl::ResultFight> Galaxy::SimulateFight() {
         // Fleet Planet
         hlp::Print(hlp::PrintType::ONLY_DEBUG, "-> -> fights fleet against planet");
@@ -1071,7 +1169,7 @@ namespace lgk {
                    utl::usize planetCount,
                    std::vector<Player_ty> const& players,
                    Player_ty const& neutralPlayer)
-        : m_size{ std::move(size) } {
+        : m_size{ size } {
 
         InitializePlanets(planetCount, players, neutralPlayer);
     }
@@ -1091,6 +1189,10 @@ namespace lgk {
                 auto const object = std::make_shared<TargetPoint>(*std::static_pointer_cast<TargetPoint>(o));
                 m_objects.push_back(object);
                 m_targetPoints.push_back(object);
+            } else if (o->IsBlackHole()) {
+                auto const object = std::make_shared<BlackHole>(*std::static_pointer_cast<BlackHole>(o));
+                m_objects.push_back(object);
+                m_blackHoles.push_back(object);
             } else {
                 throw std::invalid_argument("invalid Space Object");
             }
@@ -1133,6 +1235,10 @@ namespace lgk {
         return m_size;
     }
 
+    std::vector<SpaceObject_ty> Galaxy::GetSpaceObjects() const {
+        return m_objects;
+    }
+
     std::vector<Planet_ty> Galaxy::GetPlanets() const {
         return m_planets;
     }
@@ -1143,6 +1249,11 @@ namespace lgk {
 
     std::vector<TargetPoint_ty> Galaxy::GetTargetPoints() const {
         return m_targetPoints;
+    }
+
+
+    std::vector<BlackHole_ty> Galaxy::GetBlackHoles() const {
+        return m_blackHoles;
     }
 
     Planet_ty Galaxy::GetPlanetByID(utl::usize const ID) const {
@@ -1187,7 +1298,8 @@ namespace lgk {
         }
 
         if (event->GetShipCount() == 0) {
-            popup(app::AppContext::GetInstance().languageManager.Text("ui_popup_add_fleet_ship_count_too_low", event->GetShipCount()));
+            popup(app::AppContext::GetInstance().languageManager.Text("ui_popup_add_fleet_ship_count_too_low",
+                                                                      event->GetShipCount()));
             hlp::Print(hlp::PrintType::ONLY_DEBUG, "ship count to low: {}", event->GetShipCount());
             return { nullptr, nullptr, nullptr, false };
         }
@@ -1363,28 +1475,22 @@ namespace lgk {
     }
 
     utl::ResultUpdate Galaxy::Update() {
-        hlp::Print(hlp::PrintType::ONLY_DEBUG, "start update logic");
-        hlp::Print(hlp::PrintType::ONLY_DEBUG, "-> update space objects");
         for (auto& o : m_objects) {
             o->Update(this);
         }
-        hlp::Print(hlp::PrintType::ONLY_DEBUG, "-> merge arriving friendly fleets");
+
+        std::vector<utl::ResultBlackHole> blackHoleResults = SimulateBlackHoles();
+
         std::vector<utl::ResultMerge> mergeResults{ CheckArrivingFriendlyFleets() };
-        hlp::Print(hlp::PrintType::ONLY_DEBUG, "-> merge friendly fleets with other friendly fleets");
         std::vector<utl::ResultMerge> singleMergeResult{ CheckMergingFriendlyFleets() };
         std::copy(singleMergeResult.begin(), singleMergeResult.end(), std::back_inserter(mergeResults));
 
-        hlp::Print(hlp::PrintType::ONLY_DEBUG, "-> delete fleets without ships before fights");
         CheckDeleteFleetsWithoutShips(); // Check before Fight so there will be no fight without ships
-        hlp::Print(hlp::PrintType::ONLY_DEBUG, "-> simulate fights");
         std::vector<utl::ResultFight> fightResults{ SimulateFight() };
-        hlp::Print(hlp::PrintType::ONLY_DEBUG, "-> delete fleets without ships after fights");
         CheckDeleteFleetsWithoutShips(); // Check after fight so all fleets that lost there ships gets deleted.
-        hlp::Print(hlp::PrintType::ONLY_DEBUG, "-> delete target points out ships");
         CheckDeleteTargetPoints();
 
-        hlp::Print(hlp::PrintType::ONLY_DEBUG, "update logic finished");
 
-        return { mergeResults, fightResults };
+        return { mergeResults, fightResults, blackHoleResults };
     }
 } // namespace lgk

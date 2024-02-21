@@ -25,8 +25,14 @@ namespace utl {
 
     class ResultUpdate;
     struct ResultFleet;
+
     class ResultEvent;
+    class ResultEventPirates;
+    class ResultEventRevolts;
+    class ResultEventRenegadeShips;
+    class ResultEventSupernova;
     class ResultEventEngineProblem;
+    class ResultEventProductionProblem;
 
     enum class FleetInstructionType;
 

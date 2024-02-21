@@ -68,7 +68,7 @@ namespace ui {
         }
 
         // Event Popup
-        if (auto const* PopUpEvent = dynamic_cast<eve::ShowEventResultPopUp const*>(&event)) {
+        if (auto const* PopUpEvent = dynamic_cast<eve::ShowRedResultPopUp const*>(&event)) {
             NewEventResultPopUp(PopUpEvent);
             return;
         }
@@ -130,7 +130,7 @@ namespace ui {
                                                              const_cast<std::string&>(event->GetSubTitle())));
     }
 
-    void ManagerPopUp::NewEventResultPopUp(eve::ShowEventResultPopUp const* event) {
+    void ManagerPopUp::NewEventResultPopUp(eve::ShowRedResultPopUp const* event) {
         app::AppContext_ty_c appContext = app::AppContext::GetInstance();
         eve::NewFocusPopUpLayerEvent focusEvent{};
         appContext.eventManager.InvokeEvent(focusEvent);

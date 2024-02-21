@@ -415,22 +415,21 @@ namespace lgk {
     std::vector<utl::ResultUpdate::event_ty> GameManager::UpdateEvents() {
         hlp::Print(hlp::PrintType::ONLY_DEBUG, "-> update Events");
         auto const& constants = app::AppContext::GetInstance().constants;
-        if (constants.gameEvents.isMinEventYear
-            and constants.global.currentRound < constants.gameEvents.minEventYear) {
+        if (constants.gameEvents.isMinEventYear and constants.global.currentRound < constants.gameEvents.minEventYear) {
             hlp::Print(hlp::PrintType::ONLY_DEBUG,
                        "no update of events because current year ({}) in smaller than min event year ({})",
                        constants.global.currentRound,
                        constants.gameEvents.minEventYear);
-            return{};
+            return {};
         }
         std::array<utl::GameEventType, 6> constexpr events{
             // clang-format off
             utl::GameEventType::PIRATES,
             utl::GameEventType::REVOLTS,
             utl::GameEventType::RENEGADE_SHIPS,
-            utl::GameEventType::BLACK_HOLE,
             utl::GameEventType::SUPERNOVA,
             utl::GameEventType::ENGINE_PROBLEM,
+            utl::GameEventType::PRODUCTION_PROBLEM,
             // don't check for global. it just represents if all other events are active or not.
             // clang-format on
         };
@@ -489,49 +488,55 @@ namespace lgk {
     utl::ResultUpdate::event_ty GameManager::RaiseEvent(utl::GameEventType type) {
         switch (type) {
                 // clang-format off
-            case utl::GameEventType::PIRATES:        return HandlePirates();
-            case utl::GameEventType::REVOLTS:        return HandleRevolts();
-            case utl::GameEventType::RENEGADE_SHIPS: return HandleRenegadeShips();
-            case utl::GameEventType::BLACK_HOLE:     return HandleBlackHole();
-            case utl::GameEventType::SUPERNOVA:      return HandleSupernova();
-            case utl::GameEventType::ENGINE_PROBLEM: return HandleEngineProblem();
-            case utl::GameEventType::GLOBAL:         std::unreachable();
+            case utl::GameEventType::PIRATES:            return HandlePirates();
+            case utl::GameEventType::REVOLTS:            return HandleRevolts();
+            case utl::GameEventType::RENEGADE_SHIPS:     return HandleRenegadeShips();
+            case utl::GameEventType::SUPERNOVA:          return HandleSupernova();
+            case utl::GameEventType::ENGINE_PROBLEM:     return HandleEngineProblem();
+            case utl::GameEventType::PRODUCTION_PROBLEM: return HandleProductionProblem();
+            case utl::GameEventType::GLOBAL:             std::unreachable();
                 // clang-format on
         }
         std::unreachable();
     }
 
-    std::shared_ptr<utl::ResultEvent> GameManager::HandlePirates() {
-        hlp::Print(hlp::PrintType::TODO, "Handle Pirate Event in GameManager");
-        return {};
+    std::shared_ptr<utl::ResultEventPirates> GameManager::HandlePirates() {
+        hlp::Print(hlp::PrintType::ONLY_DEBUG, "Handle Pirate Event in GameManager");
+        auto const& constants = app::AppContext::GetInstance().constants.gameEvents;
+        auto const shipCount  = hlp::Random::GetInstance().random(constants.maxPirateShips - constants.minPirateShips)
+                             + constants.minPirateShips;
+        return m_galaxyManager.HandlePirates(m_npcs[PlayerType::PIRATE], shipCount);
     }
 
-    std::shared_ptr<utl::ResultEvent> GameManager::HandleRevolts() {
-        hlp::Print(hlp::PrintType::TODO, "Handle Revolts Event in GameManager");
-        return {};
+    std::shared_ptr<utl::ResultEventRevolts> GameManager::HandleRevolts() {
+        hlp::Print(hlp::PrintType::ONLY_DEBUG, "Handle Revolts Event in GameManager");
+        return m_galaxyManager.HandleRevolts(m_npcs[PlayerType::REVOLTING]);
     }
 
-    std::shared_ptr<utl::ResultEvent> GameManager::HandleRenegadeShips() {
-        hlp::Print(hlp::PrintType::TODO, "Handle Renegade Ships Event in GameManager");
-        return {};
+    std::shared_ptr<utl::ResultEventRenegadeShips> GameManager::HandleRenegadeShips() {
+        hlp::Print(hlp::PrintType::ONLY_DEBUG, "Handle Renegade Ships Event in GameManager");
+        return m_galaxyManager.HandleRenegadeShips(m_npcs[PlayerType::RENEGADE]);
     }
 
-    std::shared_ptr<utl::ResultEvent> GameManager::HandleBlackHole() {
-        hlp::Print(hlp::PrintType::TODO, "Handle Black Hole Event in GameManager");
-        return {};
-    }
-
-    std::shared_ptr<utl::ResultEvent> GameManager::HandleSupernova() {
-        hlp::Print(hlp::PrintType::TODO, "Handle Supernova Event in GameManager");
-        return {};
+    std::shared_ptr<utl::ResultEventSupernova> GameManager::HandleSupernova() {
+        hlp::Print(hlp::PrintType::ONLY_DEBUG, "Handle Supernova Event in GameManager");
+        return m_galaxyManager.HandleSupernova(m_npcs[PlayerType::INVALID]);
     }
 
     std::shared_ptr<utl::ResultEventEngineProblem> GameManager::HandleEngineProblem() {
+        hlp::Print(hlp::PrintType::ONLY_DEBUG, "Handle Engine Problem Event in GameManager");
         auto const& appContext = app::AppContext::GetInstance();
         auto& random           = hlp::Random::GetInstance();
         auto const years       = random.random(appContext.constants.gameEvents.maxYearsEngineProblem) + 1;
-        hlp::Print(hlp::PrintType::ONLY_DEBUG, "Handle Engine Problem Event in GameManager ({} years)", years);
         return m_galaxyManager.HandleEngineProblem(years);
+    }
+
+    std::shared_ptr<utl::ResultEventProductionProblem> GameManager::HandleProductionProblem() {
+        hlp::Print(hlp::PrintType::ONLY_DEBUG, "Handle Production Problem in GameManager");
+        auto const& appContext = app::AppContext::GetInstance();
+        auto& random           = hlp::Random::GetInstance();
+        auto const years       = random.random(appContext.constants.gameEvents.maxYearsProductionProblem) + 1;
+        return m_galaxyManager.HandleProductionProblem(years);
     }
 
     // game
@@ -628,10 +633,7 @@ namespace lgk {
     }
 
     GameManager::GameManager() : m_galaxyManager{ this } {
-
         app::AppContext::GetInstance().eventManager.AddListener(this);
-        m_npcs[PlayerType::NEUTRAL] = std::make_shared<Player>(100, PlayerType::NEUTRAL);
-
         hlp::Print(hlp::PrintType::INITIALIZE, "GameManager");
     }
 

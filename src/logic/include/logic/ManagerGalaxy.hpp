@@ -43,6 +43,16 @@ namespace lgk {
 
         [[nodiscard]] utl::ResultUpdate Update();
 
+        [[nodiscard]] std::shared_ptr<utl::ResultEventPirates> HandlePirates(Player_ty_c pirate, utl::usize ships);
+
+        [[nodiscard]] std::shared_ptr<utl::ResultEventRevolts> HandleRevolts(Player_ty_c player);
+
+        [[nodiscard]] std::shared_ptr<utl::ResultEventRenegadeShips> HandleRenegadeShips(Player_ty_c player);
+
+        [[nodiscard]] std::shared_ptr<utl::ResultEventSupernova> HandleSupernova(Player_ty_c invalid_player);
+
         [[nodiscard]] std::shared_ptr<utl::ResultEventEngineProblem> HandleEngineProblem(utl::usize years);
+
+        [[nodiscard]] std::shared_ptr<utl::ResultEventProductionProblem> HandleProductionProblem(utl::usize years);
     };
 } // namespace lgk

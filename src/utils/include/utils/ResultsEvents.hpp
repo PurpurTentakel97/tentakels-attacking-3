@@ -11,11 +11,10 @@
 namespace utl {
     class ResultEvent {
     private:
-        GameEventType m_type{};
-        usize m_playerID{};
+        GameEventType m_type;
+        usize m_playerID;
 
     public:
-        ResultEvent() = default;
         ResultEvent(GameEventType type, usize playerID) : m_type{ type }, m_playerID{ playerID } { }
 
         virtual ~ResultEvent() = default;
@@ -29,13 +28,92 @@ namespace utl {
         }
     };
 
-    class ResultEventEngineProblem final : public ResultEvent {
+    class ResultEventPirates final : public ResultEvent {
     private:
-        usize m_years{};
-        usize m_fleetID{};
+        usize m_ships;
+        vec2pos_ty m_position;
 
     public:
-        using ResultEvent::ResultEvent;
+        ResultEventPirates(usize playerID, usize ships, vec2pos_ty position)
+            : ResultEvent{ GameEventType::PIRATES, playerID },
+              m_ships{ ships },
+              m_position{ position } { }
+
+        [[nodiscard]] usize Ships() const {
+            return m_ships;
+        }
+
+        [[nodiscard]] vec2pos_ty Position() const {
+            return m_position;
+        }
+    };
+
+    class ResultEventRevolts final : public ResultEvent {
+    private:
+        usize m_planetID;
+        usize m_shipCount;
+
+    public:
+        ResultEventRevolts(usize playerID, usize planetID, usize shipCount)
+            : ResultEvent{ GameEventType::REVOLTS, playerID },
+              m_planetID{ planetID },
+              m_shipCount{ shipCount } { }
+
+        [[nodiscard]] usize PlanetID() const {
+            return m_planetID;
+        }
+
+        [[nodiscard]] usize ShipCount() const {
+            return m_shipCount;
+        }
+    };
+
+    class ResultEventRenegadeShips final : public ResultEvent {
+    private:
+        usize m_fleetID;
+        usize m_shipCount;
+
+    public:
+        ResultEventRenegadeShips(usize playerID, usize fleetID, usize shipCount)
+            : ResultEvent{ GameEventType::RENEGADE_SHIPS, playerID },
+              m_fleetID{ fleetID },
+              m_shipCount{ shipCount } { }
+
+        [[nodiscard]] usize FleetID() const {
+            return m_fleetID;
+        }
+
+        [[nodiscard]] usize ShipCount() const {
+            return m_shipCount;
+        }
+    };
+
+    class ResultEventSupernova final : public ResultEvent {
+    private:
+        usize m_planetID;
+        usize m_shipsDestroyed;
+
+    public:
+        ResultEventSupernova(usize playerID, usize planetID, usize shipsDestroyed)
+            : ResultEvent{ GameEventType::SUPERNOVA, playerID },
+              m_planetID{ planetID },
+              m_shipsDestroyed{ shipsDestroyed } { }
+
+        [[nodiscard]] usize PlanetID() const {
+            return m_planetID;
+        };
+
+        [[nodiscard]] usize ShipsDestroyed() const {
+            return m_shipsDestroyed;
+        }
+    };
+
+    class ResultEventEngineProblem final : public ResultEvent {
+    private:
+        usize m_years;
+        usize m_fleetID;
+
+    public:
         ResultEventEngineProblem(usize playerID, usize fleetID, usize years)
             : ResultEvent{ GameEventType::ENGINE_PROBLEM, playerID },
               m_years{ years },
@@ -48,6 +126,26 @@ namespace utl {
 
         [[nodiscard]] usize FleetID() const {
             return m_fleetID;
+        }
+    };
+
+    class ResultEventProductionProblem final : public ResultEvent {
+    private:
+        usize m_planetID;
+        usize m_years;
+
+    public:
+        ResultEventProductionProblem(usize playerID, usize planetID, usize years)
+            : ResultEvent{ GameEventType::PRODUCTION_PROBLEM, playerID },
+              m_planetID{ planetID },
+              m_years{ years } { }
+
+        [[nodiscard]] usize PlanetID() const {
+            return m_planetID;
+        }
+
+        [[nodiscard]] usize Years() const {
+            return m_years;
         }
     };
 } // namespace utl

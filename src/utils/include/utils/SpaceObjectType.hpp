@@ -10,5 +10,6 @@ namespace utl {
         TARGET_POINT,
         FLEET,
         PLANET,
+        BLACK_HOLE,
     };
 }

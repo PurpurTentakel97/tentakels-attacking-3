@@ -25,13 +25,13 @@ namespace cst {
     utl::Probability GameEvents::ChanceByType(utl::GameEventType type) const {
         switch (type) {
                 // clang-format off
-            case utl::GameEventType::PIRATES:        return pirateChance       ;
-            case utl::GameEventType::REVOLTS:        return revoltChance       ;
-            case utl::GameEventType::RENEGADE_SHIPS: return renegadeShipsChance;
-            case utl::GameEventType::BLACK_HOLE:     return blackHoleChance    ;
-            case utl::GameEventType::SUPERNOVA:      return supernovaChance    ;
-            case utl::GameEventType::ENGINE_PROBLEM: return engineProblemChance;
-            case utl::GameEventType::GLOBAL:         return globalChance       ;
+            case utl::GameEventType::PIRATES:            return pirateChance           ;
+            case utl::GameEventType::REVOLTS:            return revoltChance           ;
+            case utl::GameEventType::RENEGADE_SHIPS:     return renegadeShipsChance    ;
+            case utl::GameEventType::SUPERNOVA:          return supernovaChance        ;
+            case utl::GameEventType::ENGINE_PROBLEM:     return engineProblemChance    ;
+            case utl::GameEventType::PRODUCTION_PROBLEM: return productionProblemChance;
+            case utl::GameEventType::GLOBAL:             return globalChance           ;
                 // clang-format on
         }
         std::unreachable();
