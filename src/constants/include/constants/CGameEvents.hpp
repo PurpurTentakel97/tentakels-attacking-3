@@ -16,7 +16,7 @@ namespace cst {
     struct GameEvents {
 
         // general
-        static inline utl::usize constexpr configEntryCount{ 21 };
+        static inline utl::usize constexpr configEntryCount{ 23 };
         utl::GameEventType events{ 0b11111111 }; // default "global"
         bool isMinEventYear{ true };
         utl::usize minEventYear{ 5 };
@@ -43,6 +43,10 @@ namespace cst {
         // engine problems
         utl::Probability engineProblemChance{ 1000 };
         utl::usize maxYearsEngineProblem{ 5 };
+
+        // production problem
+        utl::Probability productionProblemChance{ 1000 };
+        utl::usize maxYearsProductionProblem{ 5 };
 
         void SetFlag(utl::GameEventType type, bool active);
 
