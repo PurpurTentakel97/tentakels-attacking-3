@@ -81,7 +81,7 @@ namespace lgk {
 
         [[nodiscard]] std::shared_ptr<utl::ResultEventPirates> HandlePirates();
 
-        [[nodiscard]] std::shared_ptr<utl::ResultEvent> HandleRevolts();
+        [[nodiscard]] std::shared_ptr<utl::ResultEventRevolts> HandleRevolts();
 
         [[nodiscard]] std::shared_ptr<utl::ResultEvent> HandleRenegadeShips();
 

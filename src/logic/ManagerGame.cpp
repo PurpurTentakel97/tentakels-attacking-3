@@ -506,8 +506,8 @@ namespace lgk {
         return m_galaxyManager.HandlePirates(m_npcs[PlayerType::PIRATE], shipCount);
     }
 
-    std::shared_ptr<utl::ResultEvent> GameManager::HandleRevolts() {
-        hlp::Print(hlp::PrintType::TODO, "Handle Revolts Event in GameManager");
+    std::shared_ptr<utl::ResultEventRevolts> GameManager::HandleRevolts() {
+        hlp::Print(hlp::PrintType::ONLY_DEBUG, "Handle Revolts Event in GameManager");
         return {};
     }
 
