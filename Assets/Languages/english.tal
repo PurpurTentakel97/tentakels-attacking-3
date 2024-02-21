@@ -174,7 +174,7 @@
     "helper_next_big": "Next",
     "ui_popup_fight_result_win_text": "{0} wins!",
     "helper_skip_big": "Skip",
-    "version": "v0.1.6.13",
+    "version": "v0.1.6.14",
     "ui_popup_start_evaluation_subtitle": "start the evaluation when all players are present",
     "ui_popup_game_still_running_title": "Game still running",
     "ui_popup_game_still_running_subtitle": "There is currently a game running. Overwrite the current game?",
@@ -234,5 +234,7 @@
     "helper_player_collection_npc_pirates": "Pirat",
     "evaluation_event_pirates_title": "Pirates",
     "evaluation_event_pirates_text": "{0} ships appeared at X: {1}, Y: {2}. You don't know where they will go.",
-    "helper_player_collection_npc_revolting": "Revolting"
+    "helper_player_collection_npc_revolting": "Revolting",
+    "evaluation_event_revolts_title": "Revolt",
+    "evaluation_event_revolts_text": "{0} ships from player {1} revolting on planet {2}."
 }

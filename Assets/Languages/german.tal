@@ -174,7 +174,7 @@
     "helper_next_big": "Weiter",
     "ui_popup_fight_result_win_text": "{0} gewinnt!",
     "helper_skip_big": "\u00dcberspringen",
-    "version": "v0.1.6.13",
+    "version": "v0.1.6.14",
     "ui_popup_start_evaluation_subtitle": "Auswertung beginnen, wenn alle Spieler anwesend sind.",
     "ui_popup_game_still_running_title": "Spiel l\u00e4uft noch",
     "ui_popup_game_still_running_subtitle": "Es l\u00e4uft gerade ein Spiel. Das aktuelle Spiel \u00fcberschreiben?",
@@ -234,5 +234,7 @@
     "helper_player_collection_npc_pirates": "Pirat",
     "evaluation_event_pirates_title": "Piraten",
     "evaluation_event_pirates_text": "{0} Schiffe an der Position X: {1}, Y: {2} aufgetaucht. Man wei\u00df nicht wohin sie fliegen.",
-    "helper_player_collection_npc_revolting": "Revoltierender"
+    "helper_player_collection_npc_revolting": "Revoltierender",
+    "evaluation_event_revolts_title": "Aufstand",
+    "evaluation_event_revolts_text": "{0} Schiffe von Spieler {1} revoltieren auf Planet {2}."
 }
