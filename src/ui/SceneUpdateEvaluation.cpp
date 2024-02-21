@@ -106,6 +106,17 @@ namespace ui {
                         }
                         case utl::GameEventType::RENEGADE_SHIPS: {
                             hlp::Print(hlp::PrintType::DEBUG, "renegade ships event result");
+                            auto const* result = dynamic_cast<utl::ResultEventRenegadeShips const*>(e.get());
+                            if (not result) {
+                                hlp::Print(hlp::PrintType::ERROR,
+                                           "-> nullptr while dynamic cast a Renegade Ships Event Result");
+                                break;
+                            }
+                            hlp::Print(hlp::PrintType::DEBUG,
+                                       "renegade ships at fleet {} from player {} with {} ships",
+                                       result->FleetID(),
+                                       result->PlayerID(),
+                                       result->ShipCount());
                             break;
                         }
                         case utl::GameEventType::SUPERNOVA: {
@@ -172,12 +183,21 @@ namespace ui {
                     break;
                 }
                 title = appContext.languageManager.Text("evaluation_event_revolts_title");
-                // {0} ships from player {1} revolting on planet {2}.
                 text  = appContext.languageManager.Text(
                         "evaluation_event_revolts_text", result->ShipCount(), playerName, result->PlanetID());
                 break;
             }
-            case utl::GameEventType::RENEGADE_SHIPS: break;
+            case utl::GameEventType::RENEGADE_SHIPS: {
+                auto const* result = dynamic_cast<utl::ResultEventRenegadeShips const*>(data.get());
+                if (not result) {
+                    hlp::Print(hlp::PrintType::ERROR, "nullptr while dynamic cast a Renegade Ships Event Result");
+                    break;
+                }
+                title = appContext.languageManager.Text("evaluation_event_renegade_ships_title");
+                text  = appContext.languageManager.Text(
+                        "evaluation_event_renegade_ships_text", result->ShipCount(), playerName, result->FleetID());
+                break;
+            }
             case utl::GameEventType::SUPERNOVA: {
                 auto const* result = dynamic_cast<utl::ResultEventSupernova const*>(data.get());
                 if (not result) {
