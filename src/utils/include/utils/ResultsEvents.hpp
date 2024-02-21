@@ -56,7 +56,7 @@ namespace utl {
     public:
         ResultEventRevolts(usize playerID, usize planetID, usize shipCount)
             : ResultEvent{ GameEventType::REVOLTS, playerID },
-              m_planetID{ playerID },
+              m_planetID{ planetID },
               m_shipCount{ shipCount } { }
 
         [[nodiscard]] usize PlanetID() const {
