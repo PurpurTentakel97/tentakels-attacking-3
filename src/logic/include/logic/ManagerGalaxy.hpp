@@ -52,5 +52,7 @@ namespace lgk {
         [[nodiscard]] std::shared_ptr<utl::ResultEventSupernova> HandleSupernova(Player_ty_c invalid_player);
 
         [[nodiscard]] std::shared_ptr<utl::ResultEventEngineProblem> HandleEngineProblem(utl::usize years);
+
+        [[nodiscard]] std::shared_ptr<utl::ResultEventProductionProblem> HandleProductionProblem(utl::usize years);
     };
 } // namespace lgk
