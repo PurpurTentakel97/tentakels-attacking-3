@@ -173,7 +173,7 @@ namespace lgk {
             goto repeat;
         }
         auto& random     = hlp::Random::GetInstance();
-        auto const count = random.random(planet->GetShipCount());
+        auto const count = random.random(planet->GetShipCount()) + 1;
         planet->SetShipCount(planet->GetShipCount() - count);
 
     repeat2:
@@ -208,7 +208,7 @@ namespace lgk {
         }
 
         auto& random     = hlp::Random::GetInstance();
-        auto const count = random.random(fleet->GetShipCount());
+        auto const count = random.random(fleet->GetShipCount()) + 1;
 
         fleet->SetShipCount(fleet->GetShipCount() - count);
 
