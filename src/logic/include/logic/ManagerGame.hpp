@@ -96,6 +96,8 @@ namespace lgk {
 
         [[nodiscard]] std::shared_ptr<utl::ResultEventEngineProblem> HandleEngineProblem();
 
+        [[nodiscard]] std::shared_ptr<utl::ResultEventProductionProblem> HandleProductionProblem();
+
         // game
         void StartGame();
 

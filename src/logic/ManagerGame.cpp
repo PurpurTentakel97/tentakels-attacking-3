@@ -487,12 +487,13 @@ namespace lgk {
     utl::ResultUpdate::event_ty GameManager::RaiseEvent(utl::GameEventType type) {
         switch (type) {
                 // clang-format off
-            case utl::GameEventType::PIRATES:        return HandlePirates();
-            case utl::GameEventType::REVOLTS:        return HandleRevolts();
-            case utl::GameEventType::RENEGADE_SHIPS: return HandleRenegadeShips();
-            case utl::GameEventType::SUPERNOVA:      return HandleSupernova();
-            case utl::GameEventType::ENGINE_PROBLEM: return HandleEngineProblem();
-            case utl::GameEventType::GLOBAL:         std::unreachable();
+            case utl::GameEventType::PIRATES:            return HandlePirates();
+            case utl::GameEventType::REVOLTS:            return HandleRevolts();
+            case utl::GameEventType::RENEGADE_SHIPS:     return HandleRenegadeShips();
+            case utl::GameEventType::SUPERNOVA:          return HandleSupernova();
+            case utl::GameEventType::ENGINE_PROBLEM:     return HandleEngineProblem();
+            case utl::GameEventType::PRODUCTION_PROBLEM: return HandleProductionProblem();
+            case utl::GameEventType::GLOBAL:             std::unreachable();
                 // clang-format on
         }
         std::unreachable();
@@ -527,6 +528,14 @@ namespace lgk {
         auto& random           = hlp::Random::GetInstance();
         auto const years       = random.random(appContext.constants.gameEvents.maxYearsEngineProblem) + 1;
         return m_galaxyManager.HandleEngineProblem(years);
+    }
+
+    std::shared_ptr<utl::ResultEventProductionProblem> GameManager::HandleProductionProblem() {
+        hlp::Print(hlp::PrintType::ONLY_DEBUG, "Handle Production Problem in GameManager");
+        auto const& appContext = app::AppContext::GetInstance();
+        auto& random           = hlp::Random::GetInstance();
+        auto const years       = random.random(appContext.constants.gameEvents.maxYearsProductionProblem) + 1;
+        return m_galaxyManager.HandleProductionProblem(years);
     }
 
     // game
