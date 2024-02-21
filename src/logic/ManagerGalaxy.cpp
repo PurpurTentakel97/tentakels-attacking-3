@@ -136,8 +136,25 @@ namespace lgk {
 
     std::shared_ptr<utl::ResultEventPirates> GalaxyManager::HandlePirates(Player_ty_c pirate, utl::usize const ships) {
         auto planets       = m_mainGalaxy->GetPlanets();
+        auto objects       = m_mainGalaxy->GetSpaceObjects();
+        auto const& size   = m_mainGalaxy->GetSize();
         auto const& planet = hlp::RandomElementFromList(planets);
-        auto const& fleet  = m_mainGalaxy->AddFleetOutCheck(pirate, ships, planet);
+        auto& random       = hlp::Random::GetInstance();
+
+        utl::vec2pos_ty position{};
+        while (true) {
+            position = { static_cast<int>(random.random(static_cast<std::mt19937_64::result_type>(size.x))),
+                         static_cast<int>(random.random(static_cast<std::mt19937_64::result_type>(size.y))) };
+
+            for (auto const& o : objects) {
+                if (o->GetPos() == position) {
+                    continue;
+                }
+            }
+            break;
+        }
+
+        auto const& fleet = m_mainGalaxy->AddFleetOutCheck(pirate, ships, planet, position);
         return std::make_shared<utl::ResultEventPirates>(
                 fleet->GetPlayer()->GetID(), fleet->GetShipCount(), fleet->GetPos());
     }
@@ -169,7 +186,7 @@ namespace lgk {
             goto repeat2;
         }
 
-        auto const& fleet = m_mainGalaxy->AddFleetOutCheck(player, count, destination);
+        auto const& fleet = m_mainGalaxy->AddFleetOutCheck(player, count, destination, planet->GetPos());
         return std::make_shared<utl::ResultEventRevolts>(
                 planet->GetPlayer()->GetID(), planet->GetID(), fleet->GetShipCount());
     }
@@ -195,7 +212,7 @@ namespace lgk {
 
         fleet->SetShipCount(fleet->GetShipCount() - count);
 
-        auto const new_fleet = m_mainGalaxy->AddFleetOutCheck(player, count, destination);
+        auto const new_fleet = m_mainGalaxy->AddFleetOutCheck(player, count, destination, fleet->GetPos());
 
         return std::make_shared<utl::ResultEventRenegadeShips>(
                 fleet->GetPlayer()->GetID(), fleet->GetID(), new_fleet->GetShipCount());
