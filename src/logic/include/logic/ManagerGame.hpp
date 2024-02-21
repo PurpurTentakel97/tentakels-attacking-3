@@ -29,7 +29,8 @@ namespace lgk {
             { PlayerType::NEUTRAL,   std::make_shared<Player>(100, PlayerType::NEUTRAL)   },
             { PlayerType::INVALID,   std::make_shared<Player>(101, PlayerType::INVALID)   },
             { PlayerType::PIRATE,    std::make_shared<Player>(102, PlayerType::PIRATE)    },
-            { PlayerType::REVOLTING, std::make_shared<Player>(103, PlayerType::REVOLTING) }
+            { PlayerType::REVOLTING, std::make_shared<Player>(103, PlayerType::REVOLTING) },
+            { PlayerType::RENEGADE,  std::make_shared<Player>(104, PlayerType::RENEGADE)  },
         };
 
         std::vector<Player_ty> m_players{};
