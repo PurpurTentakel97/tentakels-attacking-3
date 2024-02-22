@@ -75,16 +75,9 @@ namespace ui {
             incCol();
 
             // player name
-            std::string entry;
-            Color color;
-            if (not p.isDiscovered) {
-                entry = appContext.languageManager.Text("ui_planet_table_player_name_not_discovered");
-                color = WHITE;
-            } else {
-                app::PlayerData const& player{ appContext.playerCollection.GetPlayerOrNpcByID(p.playerID) };
-                entry = player.GetName();
-                color = player.color;
-            }
+            app::PlayerData const& player{ appContext.playerCollection.GetPlayerOrNpcByID(p.playerID) };
+            auto entry = player.GetName();
+            auto color = player.color;
             m_table->SetValue(addedCount, column, entry);
             m_table->SetSingleCellTextColor(color, addedCount, column);
 
