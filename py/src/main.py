@@ -4,20 +4,17 @@
 #
 
 import field
-import enums
+import LoadSave
+import raw_entry
 
-f: field.Field = field.Field("m_", "my_value", enums.CppType.STRING, "v0.1.5.7")
-f2: field.Field = field.Field("m_", "my_other_value", enums.CppType.STRING_STATIC_CONST, "v0.1.5.7")
-f3: field.Field = field.Field("m_", "my_third_value", enums.CppType.BOOL, "false")
+input_: dict = LoadSave.LoadJson()
+entries: tuple[raw_entry.RawEntry] = raw_entry.load_raw_entries(input_)
 
-print(f.dump_field(1))
-print(f.dump_getter(1))
-print(f.dump_setter(1))
+for entry in entries:
+    f: field.Field = field.Field(entry.prefix, entry.name, entry.type_, entry.value)
 
-print(f2.dump_field(1))
-print(f2.dump_getter(1))
-print(f2.dump_setter(1))
+    print(f.dump_field(1))
+    print(f.dump_getter(1))
+    print(f.dump_setter(1))
 
-print(f3.dump_field(1))
-print(f3.dump_getter(1))
-print(f3.dump_setter(1))
+    print(f"case ENUM::{entry.name.upper()}: return \"{entry.name.lower()}\";")

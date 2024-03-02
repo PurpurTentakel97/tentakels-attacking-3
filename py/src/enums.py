@@ -3,12 +3,12 @@
 # 02.03.2024
 #
 
-from enum import Enum, auto
+from enum import IntEnum
 
 
-class FileType(Enum):
-    HEADER = auto()
-    SOURCE = auto()
+class FileType(IntEnum):
+    HEADER = 1
+    SOURCE = 2
 
 
 file_extension_lookup: dict[FileType, str] = {
@@ -17,11 +17,11 @@ file_extension_lookup: dict[FileType, str] = {
 }
 
 
-class CppType(Enum):
-    USIZE = auto(),
-    STRING = auto(),
-    STRING_STATIC_CONST = auto(),
-    BOOL = auto(),
+class CppType(IntEnum):
+    USIZE = 1,
+    STRING = 2,
+    STRING_STATIC_CONST = 3,
+    BOOL = 4,
 
 
 field_type_lookup: dict[CppType, str] = {

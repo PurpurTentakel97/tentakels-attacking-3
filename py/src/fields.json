@@ -1,0 +1,26 @@
+{
+  "config_version": {
+    "prefix": "s_",
+    "name": "config_version",
+    "type": 3,
+    "config": true,
+    "constants_class": "Global",
+    "value": "v0.1.5.7.8"
+  },
+  "game_version": {
+    "prefix": "s_",
+    "name": "game_version",
+    "type": 3,
+    "config": true,
+    "constants_class": "Global",
+    "value": "v0.1.5.7.8"
+  },
+  "config_count": {
+    "prefix": "s_",
+    "name": "game_version",
+    "type": 1,
+    "config": true,
+    "constants_class": "Global",
+    "value": 16
+  }
+}
