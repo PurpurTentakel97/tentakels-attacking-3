@@ -31,25 +31,25 @@ namespace hlp {
             Print(PrintType::INFO, "removed debug file and added debug directory");
         }
 
-        cst::Files::debugLogStream.open(cst::Files::debugLogFile());
+        cst::Files::s_debugLogStream.open(cst::Files::debugLogDir() + '/' +  cst::Files::s_debugLogFile);
         Print(PrintType::INFO, "opened debug log");
     }
 
     void LogError(std::string const& error) {
-        if (!cst::Files::debugLogStream.is_open()) {
+        if (!cst::Files::s_debugLogStream.is_open()) {
             GenerateFileStream();
         }
 
-        cst::Files::debugLogStream << error;
+        cst::Files::s_debugLogStream << error;
         Print(PrintType::INFO, "logged error");
     }
 
     void CloseErrorStream() {
-        if (!cst::Files::debugLogStream.is_open()) {
+        if (!cst::Files::s_debugLogStream.is_open()) {
             return;
         }
 
-        cst::Files::debugLogStream.close();
+        cst::Files::s_debugLogStream.close();
         Print(PrintType::INFO, "closed debug log");
     }
 } // namespace hlp

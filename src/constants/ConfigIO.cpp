@@ -7,8 +7,8 @@
 #include "CConfigIO.hpp"
 #include <app/AppContext.hpp>
 #include <cassert>
-#include <filesystem>
 #include <helper/HPrint.hpp>
+#include <helper/SaveLoadFile.hpp>
 #include <nlohmann/json.hpp>
 
 
@@ -150,23 +150,17 @@ namespace cst {
         // load file
         loadEntryCount  = { 0 };
         auto& constants = app::AppContext::GetInstance().constants;
-        std::ifstream file;
 
-        if (!std::filesystem::exists(Files::configFile())) {
-            hlp::Print(hlp::PrintType::EXPECTED_ERROR, "no config existing");
+        auto const input = hlp::TryLoadFile(Files::s_savesDir, Files::s_configFile);
+        if (input.empty()) {
+            hlp::Print(hlp::PrintType::INFO, "try generate a new config");
             SaveConfig();
             return;
         }
 
-        file.open(Files::configFile());
-        if (!file.is_open()) {
-            hlp::Print(hlp::PrintType::INFO, "cant open config");
-            return;
-        }
-
         nlohmann::json load;
-        file >> load;
-        file.close();
+        std::stringstream stream{ input };
+        stream >> load;
 
         // from json
         // config
@@ -466,23 +460,7 @@ namespace cst {
         };
 
         // saving
-        std::ofstream file{};
-
-        if (!std::filesystem::exists(Files::savesDir)) {
-            hlp::Print(hlp::PrintType::EXPECTED_ERROR, "saves dir does not exists");
-            std::filesystem::create_directory(Files::savesDir);
-            hlp::Print(hlp::PrintType::INFO, "saves dir generated");
-        }
-
-        if (!std::filesystem::exists(Files::configFile())) {
-            hlp::Print(hlp::PrintType::INFO, "config generated");
-        }
-
-        file.open(Files::configFile());
-
-        file << save.dump(4);
-        file.close();
-
+        hlp::SaveFile(Files::s_savesDir, Files::s_configFile, save.dump(4));
         hlp::Print(hlp::PrintType::INFO, "config saved");
     }
 } // namespace cst
