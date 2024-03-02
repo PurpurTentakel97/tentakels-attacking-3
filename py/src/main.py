@@ -3,14 +3,21 @@
 # 02.03.2024
 #
 
-import file
-import include
+import field
+import enums
 
-f: file.File = file.File("test-file", file.FileType.HEADER, [include.Include("string")], "app",
-                         "\tich bin der super text, der hier irgendwann mal rein soll!\n\n\tPups")
+f: field.Field = field.Field("m_", "my_value", enums.CppType.STRING, "v0.1.5.7")
+f2: field.Field = field.Field("m_", "my_other_value", enums.CppType.STRING_STATIC_CONST, "v0.1.5.7")
+f3: field.Field = field.Field("m_", "my_third_value", enums.CppType.BOOL, "false")
 
-f2: file.File = file.File("test-file", file.FileType.HEADER, [include.Include("test-file.hpp", False)], "app",
-                         "\tich bin der super text, der hier irgendwann mal rein soll!\n\n\tPups")
+print(f.dump_field(1))
+print(f.dump_getter(1))
+print(f.dump_setter(1))
 
-print(f.dump())
-print(f2.dump())
+print(f2.dump_field(1))
+print(f2.dump_getter(1))
+print(f2.dump_setter(1))
+
+print(f3.dump_field(1))
+print(f3.dump_getter(1))
+print(f3.dump_setter(1))
