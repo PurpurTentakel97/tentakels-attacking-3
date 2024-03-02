@@ -7,6 +7,7 @@ add_library(helper STATIC
             include/helper/HRandom.hpp
             include/helper/HTextProcessing.hpp
             include/helper/HVector2Operator.hpp
+            include/helper/SaveLoadFile.hpp
             HErrorLog.cpp
             HFocusEvents.cpp
             HGeneral.cpp
@@ -15,6 +16,7 @@ add_library(helper STATIC
             HRandom.cpp
             HTextProcessing.cpp
             HVector2Operator.cpp
+            SaveLoadFile.cpp
 )
 
 target_include_directories(helper
