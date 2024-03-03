@@ -1,0 +1,33 @@
+{
+  "Global": {
+    "prefix": "G_",
+    "name": "Global",
+    "type": 1,
+    "includes": [
+      {
+        "name": "helper",
+        "s_brackets": true
+      },
+      {
+        "name": "test",
+        "s_brackets": false
+      }
+    ],
+    "namespace": "cst"
+  },  "Fleet": {
+    "prefix": "G_",
+    "name": "Fleet",
+    "type": 1,
+    "includes": [
+      {
+        "name": "helper",
+        "s_brackets": true
+      },
+      {
+        "name": "test",
+        "s_brackets": false
+      }
+    ],
+    "namespace": "cst"
+  }
+}

@@ -4,7 +4,7 @@
     "name": "config_version",
     "type": 3,
     "config": true,
-    "constants_class": "Global",
+    "constants_class": "G_Global",
     "value": "v0.1.5.7.8"
   },
   "game_version": {
@@ -12,15 +12,15 @@
     "name": "game_version",
     "type": 3,
     "config": true,
-    "constants_class": "Global",
+    "constants_class": "G_Global",
     "value": "v0.1.5.7.8"
   },
   "config_count": {
-    "prefix": "s_",
-    "name": "game_version",
+    "prefix": "m_",
+    "name": "fleet_speed",
     "type": 1,
     "config": true,
-    "constants_class": "Global",
-    "value": 16
+    "constants_class": "G_Fleet",
+    "value": 5
   }
 }

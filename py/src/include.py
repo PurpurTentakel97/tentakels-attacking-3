@@ -7,7 +7,7 @@ import helper
 
 
 class Include:
-    def __init__(self, name: str, squared_brackets: bool = True) -> None:
+    def __init__(self, name: str, squared_brackets: bool) -> None:
         self.name: str = name
         self.squared_brackets: bool = squared_brackets
 

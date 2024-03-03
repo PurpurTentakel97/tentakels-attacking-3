@@ -3,18 +3,19 @@
 # 02.03.2024
 #
 
-import field
-import LoadSave
-import raw_entry
+import load_save
+import raw_field
+import raw_config_file
+import gen_config_casses
+import file
 
-input_: dict = LoadSave.LoadJson()
-entries: tuple[raw_entry.RawEntry] = raw_entry.load_raw_entries(input_)
+input_fields: dict = load_save.LoadJson("fields.json")
+raw_fields: tuple[raw_field.RawField] = raw_field.load_raw_entries(input_fields)
 
-for entry in entries:
-    f: field.Field = field.Field(entry.prefix, entry.name, entry.type_, entry.value)
+input_config_files: dict = load_save.LoadJson("config_classes.json")
+raw_config_files: tuple[raw_config_file.RawConfigFile] = raw_config_file.load_raw_entries(input_config_files)
 
-    print(f.dump_field(1))
-    print(f.dump_getter(1))
-    print(f.dump_setter(1))
+files: tuple[file] = gen_config_casses.gen(raw_fields, raw_config_files)
 
-    print(f"case ENUM::{entry.name.upper()}: return \"{entry.name.lower()}\";")
+for f in files:
+    print(f.dump())
