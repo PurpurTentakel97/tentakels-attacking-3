@@ -21,6 +21,6 @@
     "type": 1,
     "config": true,
     "constants_class": "G_Fleet",
-    "value": 5
+    "value": "5"
   }
 }

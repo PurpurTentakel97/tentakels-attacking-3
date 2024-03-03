@@ -49,10 +49,34 @@ class RawField:
         return text
 
 
+reference_entry: dict = {
+    "prefix": str(),
+    "name": str(),
+    "type": int(),
+    "config": bool(),
+    "constants_class": str(),
+    "value": str()
+}
+
+
 def load_raw_entries(entries: dict) -> tuple[RawField]:
+    if len(entries) == 0:
+        enums.my_print(enums.PrintType.ERROR, "empty raw field json")
+        return tuple()
+
     r: list[RawField] = list()
+
     for l in entries:
         load = entries[l]
+        for r_e in reference_entry:
+            if r_e not in load:
+                enums.my_print(enums.PrintType.ERROR, f"key '{r_e}' missing in '{l}' in raw field json")
+                return tuple()
+            if not isinstance(reference_entry[r_e], type(load[r_e])):
+                enums.my_print(enums.PrintType.ERROR, f"value '{r_e}' in '{l}' has unexpected value type")
+                enums.my_print(enums.PrintType.ERROR,
+                               f"expected type: {type(reference_entry[r_e])} | provided type: {type(load[r_e])}")
+                return tuple()
         entry: RawField = RawField(
             # @formatter off
             load["prefix"],
