@@ -17,7 +17,7 @@
   },  "Fleet": {
     "prefix": "G_",
     "name": "Fleet",
-    "type": 1,
+    "type": 2,
     "includes": [
       {
         "name": "helper",

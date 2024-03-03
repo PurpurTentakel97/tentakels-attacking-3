@@ -3,7 +3,19 @@
 # 02.03.2024
 #
 
-from enum import IntEnum
+from enum import IntEnum, Enum
+
+
+class PrintType(Enum):
+    INFO = "INFO"
+    ERROR = "ERROR"
+    LOAD = "LOAD"
+    GENERATE = "GENERATE"
+    FINISHED = "FINISHED"
+
+
+def my_print(type_: PrintType, message: str) -> None:
+    print(f"{type_.value} | {message}")
 
 
 class FileType(IntEnum):
