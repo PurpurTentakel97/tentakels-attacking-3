@@ -18,7 +18,7 @@ class RawConfigFile:
             self.type_: enums.FileType = enums.FileType(type_)
         except ValueError as e:
             enums.my_print(enums.PrintType.ERROR, str(e))
-            enums.my_print(enums.PrintType.INFO, "valid entry would be:")
+            enums.my_print(enums.PrintType.INFO, "valid value would be one of:")
             enums.print_enum(enums.FileType)
             exit()
 

@@ -12,10 +12,17 @@ class RawField:
                  value: str) -> None:
         self.prefix: str = prefix.lower().strip()
         self.name: str = name.lower().strip()
-        self.type_: enums.CppType = enums.CppType(type_)
         self.is_config: bool = is_config
         self.constants_class: str = constants_class.title().strip()
         self.value: str = value
+
+        try:
+            self.type_: enums.CppType = enums.CppType(type_)
+        except ValueError as e:
+            enums.my_print(enums.PrintType.ERROR, str(e))
+            enums.my_print(enums.PrintType.INFO, "valid value would be one of:")
+            enums.print_enum(enums.CppType)
+            exit()
 
     def enum_name(self) -> str:
         return self.name.upper()
