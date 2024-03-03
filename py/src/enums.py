@@ -54,3 +54,8 @@ return_type_lookup: dict[CppType, str] = {
     CppType.STRING_STATIC_CONST: "std::string",
     CppType.BOOL: "bool",
 }
+
+
+def print_enum(type_):
+    for entry in type_:
+        my_print(PrintType.INFO, f"{entry.name} : {entry.value}")

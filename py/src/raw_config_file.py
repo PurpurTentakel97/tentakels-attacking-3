@@ -11,9 +11,16 @@ class RawConfigFile:
     def __init__(self, prefix: str, name: str, type_: int, includes: list[dict], namespace: str) -> None:
         self.prefix = prefix.strip().title()
         self.name: str = name.strip().title()
-        self.type_: enums.FileType = enums.FileType(type_)
         self.includes: list[include.Include] = list()
         self.namespace: str = namespace
+
+        try:
+            self.type_: enums.FileType = enums.FileType(type_)
+        except ValueError as e:
+            enums.my_print(enums.PrintType.ERROR, str(e))
+            enums.my_print(enums.PrintType.INFO, "valid entry would be:")
+            enums.print_enum(enums.FileType)
+            exit()
 
         for i in includes:
             self.includes.append(include.Include(i["name"], i["s_brackets"]))
