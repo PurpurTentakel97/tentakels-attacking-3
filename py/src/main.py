@@ -30,4 +30,4 @@ _check_len(raw_config_files, 0, "raw config classes list")
 files: tuple[file] = gen_config_casses.gen(raw_fields, raw_config_files)
 
 for f in files:
-    print(f.dump())
+    load_save.Save("test_out", f)

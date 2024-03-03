@@ -6,6 +6,7 @@
 py/venv
 py/.idea
 py/src/__pycache__
+py/src/test_out
 
 # User-specific stuff
 .idea/

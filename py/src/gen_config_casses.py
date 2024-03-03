@@ -19,7 +19,7 @@ def _gen_mid(indent: int) -> str:
 
 
 def _gen_bottom(indent: int) -> str:
-    return f"{helper.indent(indent)}{helper.right_bracket}\n"
+    return f"{helper.indent(indent)}{helper.right_bracket};\n"
 
 
 def _gen_class_strings(entries: tuple[raw_field.RawField], indent: int) -> dict[str, str]:
