@@ -43,17 +43,26 @@ def load_raw_config_files(entries: dict) -> tuple[RawConfigFile]:
     r: list[RawConfigFile] = list()
     for l in entries:
         load = entries[l]
+        if len(load) > len(reference_entry):
+            enums.my_print(enums.PrintType.ERROR, f"key '{l}' has too many entries")
+            enums.my_print(enums.PrintType.INFO, f"expected: {len(reference_entry)} | provided: {len(load)}")
+            return tuple()
         for r_e in reference_entry:
             if r_e not in load:
                 enums.my_print(enums.PrintType.ERROR, f"key '{r_e}' missing in '{l}' in raw config file json")
                 return tuple()
             if not isinstance(load[r_e], type(reference_entry[r_e])):
                 enums.my_print(enums.PrintType.ERROR, f"value '{r_e}' in '{l}' has unexpected value type")
-                enums.my_print(enums.PrintType.ERROR,
+                enums.my_print(enums.PrintType.INFO,
                                f"expected type: {type(reference_entry[r_e])} | provided type: {type(load[r_e])}")
                 return tuple()
             if r_e == "includes":
                 for incl in load[r_e]:
+                    if len(incl) > len(reference_include_entry):
+                        enums.my_print(enums.PrintType.ERROR, f"key '{r_e}' has too many entries")
+                        enums.my_print(enums.PrintType.INFO,
+                                       f"expected: {len(reference_include_entry)} | provided: {len(incl)}")
+                        return tuple()
                     for i_e in reference_include_entry:
                         if i_e not in incl:
                             enums.my_print(enums.PrintType.ERROR,

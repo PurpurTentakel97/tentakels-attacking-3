@@ -68,13 +68,17 @@ def load_raw_entries(entries: dict) -> tuple[RawField]:
 
     for l in entries:
         load = entries[l]
+        if len(load) > len(reference_entry):
+            enums.my_print(enums.PrintType.ERROR, f"key '{l}' has too many entries")
+            enums.my_print(enums.PrintType.INFO, f"expected: {len(reference_entry)} | provided: {len(load)}")
+            return tuple()
         for r_e in reference_entry:
             if r_e not in load:
                 enums.my_print(enums.PrintType.ERROR, f"key '{r_e}' missing in '{l}' in raw field json")
                 return tuple()
             if not isinstance(reference_entry[r_e], type(load[r_e])):
                 enums.my_print(enums.PrintType.ERROR, f"value '{r_e}' in '{l}' has unexpected value type")
-                enums.my_print(enums.PrintType.ERROR,
+                enums.my_print(enums.PrintType.INFO,
                                f"expected type: {type(reference_entry[r_e])} | provided type: {type(load[r_e])}")
                 return tuple()
         entry: RawField = RawField(

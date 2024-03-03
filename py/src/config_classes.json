@@ -14,7 +14,8 @@
       }
     ],
     "namespace": "cst"
-  },  "Fleet": {
+  },
+  "Fleet": {
     "prefix": "G_",
     "name": "Fleet",
     "type": 2,
