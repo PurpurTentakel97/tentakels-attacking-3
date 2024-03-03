@@ -22,10 +22,50 @@ class RawConfigFile:
         return f"{self.prefix}{self.name}"
 
 
-def load_raw_entries(entries: dict) -> tuple[RawConfigFile]:
+reference_entry: dict = {
+    "prefix": str(),
+    "name": str(),
+    "type": int(),
+    "includes": list(),
+    "namespace": str(),
+}
+reference_include_entry: dict = {
+    "name": str(),
+    "s_brackets": bool()
+}
+
+
+def load_raw_config_files(entries: dict) -> tuple[RawConfigFile]:
+    if len(entries) == 0:
+        enums.my_print(enums.PrintType.ERROR, "empty raw config files json")
+        return tuple()
+
     r: list[RawConfigFile] = list()
     for l in entries:
         load = entries[l]
+        for r_e in reference_entry:
+            if r_e not in load:
+                enums.my_print(enums.PrintType.ERROR, f"key '{r_e}' missing in '{l}' in raw config file json")
+                return tuple()
+            if not isinstance(load[r_e], type(reference_entry[r_e])):
+                enums.my_print(enums.PrintType.ERROR, f"value '{r_e}' in '{l}' has unexpected value type")
+                enums.my_print(enums.PrintType.ERROR,
+                               f"expected type: {type(reference_entry[r_e])} | provided type: {type(load[r_e])}")
+                return tuple()
+            if r_e == "includes":
+                for incl in load[r_e]:
+                    for i_e in reference_include_entry:
+                        if i_e not in incl:
+                            enums.my_print(enums.PrintType.ERROR,
+                                           f"key '{i_e}' missing in key '{r_e}' missing in '{l}' in raw config file json")
+                            return tuple()
+                        if not isinstance(incl[i_e], type(reference_include_entry[i_e])):
+                            enums.my_print(enums.PrintType.ERROR,
+                                           f"value '{i_e}' in '{r_e}' in '{l}' has unexpected value type")
+                            enums.my_print(enums.PrintType.ERROR,
+                                           f"expected type: {type(reference_include_entry[i_e])} | provided type: {type(incl[i_e])}")
+                            return tuple()
+
         entry: RawConfigFile = RawConfigFile(
             # @formatter off
             load["prefix"],
