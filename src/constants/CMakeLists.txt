@@ -14,6 +14,7 @@ add_library(constants STATIC
             include/constants/CResolution.hpp
             include/constants/CWorld.hpp
             include/constants/CWindow.hpp
+            include/constants/HelperConfigIO.hpp
             CConstants.cpp
             CGameEvents.cpp
             ConfigEnum.cpp
