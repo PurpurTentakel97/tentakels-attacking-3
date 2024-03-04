@@ -11,7 +11,11 @@ import enums
 
 
 def _gen_top(entry: raw_field.RawField, indent: int) -> str:
-    return f"{helper.indent(indent)}class {entry.constants_class} final {helper.left_bracket}\n{helper.indent(indent)}private:\n"
+    text: str = f"{helper.indent(indent)}class {entry.constants_class} final {helper.left_bracket}\n"
+    text += f"{helper.indent(indent)}public:\n"
+    text += f"{helper.indent(indent + 1)}friend struct {helper.config_io_name};\n\n"
+    text += f"{helper.indent(indent)}private:\n"
+    return text
 
 
 def _gen_mid(indent: int) -> str:
