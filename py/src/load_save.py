@@ -21,12 +21,13 @@ def LoadJson(path: str) -> dict:
 
 
 def Save(p: str, f: file.File) -> None:
-    if not os.path.isdir(p):
-        os.makedirs(p)
-        enums.my_print(enums.PrintType.GENERATE, f"path: {p}")
+    my_path: str = p if f.type_ == enums.FileType.SOURCE else os.path.join(p, "include", p)
+    if not os.path.isdir(my_path):
+        os.makedirs(my_path)
+        enums.my_print(enums.PrintType.GENERATE, f"path: {my_path}")
 
     name: str = f.name + enums.file_extension_lookup[f.type_]
-    with open(os.path.join(p, name), 'w') as output:
+    with open(os.path.join(my_path, name), 'w') as output:
         output.write(f.dump())
 
-    enums.my_print(enums.PrintType.GENERATE, f"file: {os.path.join(p, name)}")
+    enums.my_print(enums.PrintType.GENERATE, f"file: {os.path.join(my_path, name)}")
