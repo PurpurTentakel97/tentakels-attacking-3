@@ -31,21 +31,24 @@ def _gen_class_strings(entries: tuple[raw_field.RawField], indent: int) -> dict[
     # };
     classes: dict = dict()
     for entry in entries:
+        if not entry.is_config:
+            continue
+
         if entry.constants_class not in classes:
             classes[entry.constants_class] = dict()
             classes[entry.constants_class]["header"] = _gen_top(entry, indent)
 
         if "fields" not in classes[entry.constants_class]:
             classes[entry.constants_class]["fields"] = str()
-        classes[entry.constants_class]["fields"] += entry.dump_field(indent+1)
+        classes[entry.constants_class]["fields"] += entry.dump_field(indent + 1)
 
         if "getter" not in classes[entry.constants_class]:
             classes[entry.constants_class]["getter"] = str()
-        classes[entry.constants_class]["getter"] += entry.dump_getter(indent+1)
+        classes[entry.constants_class]["getter"] += entry.dump_getter(indent + 1)
 
         if "setter" not in classes[entry.constants_class]:
             classes[entry.constants_class]["setter"] = str()
-        classes[entry.constants_class]["setter"] += entry.dump_setter(indent+1)
+        classes[entry.constants_class]["setter"] += entry.dump_setter(indent + 1)
 
     output: dict[str, str] = dict()
     for class_ in classes:
