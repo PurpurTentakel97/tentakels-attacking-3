@@ -54,6 +54,12 @@ return_type_lookup: dict[CppType, str] = {
     CppType.STRING_STATIC_CONST: "std::string",
     CppType.BOOL: "bool",
 }
+load_function_lookup: dict[CppType, str] = {
+    CppType.USIZE: "LoadUSize",
+    CppType.STRING: "LoadString",
+    CppType.STRING_STATIC_CONST: "LoadString",
+    CppType.BOOL: "LoadBool"
+}
 
 
 def print_enum(type_):
