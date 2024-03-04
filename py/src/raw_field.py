@@ -27,6 +27,9 @@ class RawField:
     def enum_name(self) -> str:
         return self.name.upper()
 
+    def constants_class_enum_name(self) -> str:
+        return self.constants_class.upper()
+
     def enum_return_value(self) -> str:
         return self.name
 

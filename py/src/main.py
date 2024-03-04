@@ -33,6 +33,6 @@ files: tuple[file.File] = gen_config_casses.gen(raw_fields, raw_config_files)
 for f in files:
     load_save.Save("test_out", f)
 
-config_enums: tuple[file.File, file.File] = gen_config_enum.gen(raw_fields)
+config_enums: tuple[file.File, file.File] = gen_config_enum.gen(raw_fields, raw_config_files)
 for c in config_enums:
     load_save.Save("test_out", c)

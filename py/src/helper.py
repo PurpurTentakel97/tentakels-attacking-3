@@ -16,6 +16,8 @@ pragma: str = "#pragma once\n\n"
 
 left_bracket: str = "{"
 right_bracket: str = "}"
+config_enum_name: str = "G_ConfigEnum"
+config_switch_function_name: str = "CToS"
 
 
 def indent(i: int) -> str:

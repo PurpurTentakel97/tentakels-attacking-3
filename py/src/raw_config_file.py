@@ -28,6 +28,12 @@ class RawConfigFile:
     def full_name(self) -> str:
         return f"{self.prefix}{self.name}"
 
+    def enum_name(self) -> str:
+        return self.full_name().upper()
+
+    def enum_return_value(self) -> str:
+        return self.name.lower()
+
 
 reference_entry: dict = {
     "prefix": str(),
