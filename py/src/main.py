@@ -7,6 +7,7 @@ import load_save
 import raw_field
 import raw_config_file
 import gen_config_casses
+import gen_config_enum
 import file
 import enums
 
@@ -27,7 +28,11 @@ _check_len(input_config_files, 0, "config_classes.json")
 raw_config_files: tuple[raw_config_file.RawConfigFile] = raw_config_file.load_raw_config_files(input_config_files)
 _check_len(raw_config_files, 0, "raw config classes list")
 
-files: tuple[file] = gen_config_casses.gen(raw_fields, raw_config_files)
+files: tuple[file.File] = gen_config_casses.gen(raw_fields, raw_config_files)
 
 for f in files:
     load_save.Save("test_out", f)
+
+config_enums: tuple[file.File, file.File] = gen_config_enum.gen(raw_fields)
+for c in config_enums:
+    load_save.Save("test_out", c)
