@@ -27,7 +27,7 @@
     "prefix": "m_",
     "name": "test_value",
     "type": 2,
-    "config": false,
+    "config": true,
     "constants_class": "G_Fleet",
     "value": "5"
   }

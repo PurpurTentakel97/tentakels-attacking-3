@@ -99,4 +99,8 @@ def raw_file_from_name(name: str, files: tuple[RawConfigFile]) -> RawConfigFile:
     for f in files:
         if name == f.full_name():
             return f
-    # todo print
+    enums.my_print(enums.PrintType.ERROR, f"requested config class name '{name}' not existing")
+    enums.my_print(enums.PrintType.INFO, f"collected config class names:")
+    for f in files:
+        enums.my_print(enums.PrintType.INFO, f.full_name())
+    exit()
