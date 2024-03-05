@@ -30,4 +30,4 @@ _check_len(raw_config_files, 0, "raw config classes list")
 files: tuple[file.File] = gen_all.gen(raw_fields, raw_config_files)
 
 for f in files:
-    load_save.Save("test_out", f)
+    load_save.Save("../../src/constants", f)

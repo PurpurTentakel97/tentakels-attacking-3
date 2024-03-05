@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include "CFight.hpp"
+#include "../../../../backup/CFight.hpp"
 #include "CFiles.hpp"
 #include "CFleet.hpp"
 #include "CGameEvents.hpp"

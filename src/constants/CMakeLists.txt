@@ -1,8 +1,5 @@
 add_library(constants STATIC
-            include/constants/CConfigEnum.hpp
-            include/constants/CConfigIO.hpp
             include/constants/CConstants.hpp
-            include/constants/CFight.hpp
             include/constants/CFiles.hpp
             include/constants/CFleet.hpp
             include/constants/CGameEvents.hpp
@@ -17,8 +14,6 @@ add_library(constants STATIC
             include/constants/HelperConfigIO.hpp
             CConstants.cpp
             CGameEvents.cpp
-            ConfigEnum.cpp
-            ConfigIO.cpp
             CWindow.cpp
 )
 
