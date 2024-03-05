@@ -45,7 +45,7 @@ namespace ui {
                 uil::Alignment::BOTTOM_RIGHT,
                 uil::Alignment::BOTTOM_RIGHT,
                 0.02f,
-                cst::Global::gameVersion + '\n' + cst::Global::copyRight
+                appContext.constants.g_version.get_game_version() + '\n' + cst::Global::copyRight
         );
         m_elements.push_back(versionAndCopyRight);
 

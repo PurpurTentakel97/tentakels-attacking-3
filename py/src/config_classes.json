@@ -1,32 +1,24 @@
 {
-  "Global": {
+  "Fight": {
     "prefix": "G_",
-    "name": "Global",
+    "name": "Fight",
     "type": 1,
     "includes": [
       {
-        "name": "helper",
-        "s_brackets": true
-      },
-      {
-        "name": "test",
+        "name": "alias/AliasUtils.hpp",
         "s_brackets": false
       }
     ],
     "namespace": "cst"
   },
-  "Fleet": {
+  "Version": {
     "prefix": "G_",
-    "name": "Fleet",
-    "type": 2,
+    "name": "Version",
+    "type": 1,
     "includes": [
       {
-        "name": "helper",
+        "name": "string",
         "s_brackets": true
-      },
-      {
-        "name": "test",
-        "s_brackets": false
       }
     ],
     "namespace": "cst"

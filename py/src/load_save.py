@@ -20,8 +20,8 @@ def LoadJson(path: str) -> dict:
     return data
 
 
-def Save(p: str, f: file.File) -> None:
-    my_path: str = p if f.type_ == enums.FileType.SOURCE else os.path.join(p, "include", p)
+def Save(p:str, d: str, f: file.File) -> None:
+    my_path: str = os.path.join(p,d) if f.type_ == enums.FileType.SOURCE else os.path.join(p,d, "include", d)
     if not os.path.isdir(my_path):
         os.makedirs(my_path)
         enums.my_print(enums.PrintType.GENERATE, f"path: {my_path}")

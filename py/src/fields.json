@@ -1,34 +1,106 @@
 {
-  "config_version": {
+  "fight_total_config_entry_count": {
     "prefix": "s_",
-    "name": "config_version",
-    "type": 3,
+    "name": "total_config_entry_count",
+    "type": 5,
     "config": true,
-    "constants_class": "G_Global",
-    "value": "v0.1.5.7.8"
+    "constants_class": "G_Fight",
+    "value": "8"
   },
-  "game_version": {
+  "fight_load_config_entry_count": {
+    "prefix": "s_",
+    "name": "load_config_entry_count",
+    "type": 5,
+    "config": true,
+    "constants_class": "G_Fight",
+    "value": "6"
+  },
+  "fight_hit_chance": {
+    "prefix": "m_",
+    "name": "hit_chance",
+    "type": 6,
+    "config": true,
+    "constants_class": "G_Fight",
+    "value": "0.1f"
+  },
+  "fight_fleet_fight_range": {
+    "prefix": "m_",
+    "name": "fleet_fight_range",
+    "type": 1,
+    "config": true,
+    "constants_class": "G_Fight",
+    "value": "4"
+  },
+  "fight_is_fight_planet_fleet": {
+    "prefix": "m_",
+    "name": "is_fight_planet_fleet",
+    "type": 4,
+    "config": true,
+    "constants_class": "G_Fight",
+    "value": "true"
+  },
+  "fight_is_fight_target_point_fleet": {
+    "prefix": "m_",
+    "name": "is_fight_target_point_fleet",
+    "type": 4,
+    "config": true,
+    "constants_class": "G_Fight",
+    "value": "true"
+  },
+  "fight_is_fight_target_point_target_point": {
+    "prefix": "m_",
+    "name": "is_fight_target_point_target_point",
+    "type": 4,
+    "config": true,
+    "constants_class": "G_Fight",
+    "value": "true"
+  },
+  "fight_is_fight_planet_target_point": {
+    "prefix": "m_",
+    "name": "is_fight_planet_target_point",
+    "type": 4,
+    "config": true,
+    "constants_class": "G_Fight",
+    "value": "true"
+  },
+  "version_total_config_entry_count": {
+    "prefix": "s_",
+    "name": "total_config_entry_count",
+    "type": 5,
+    "config": true,
+    "constants_class": "G_Version",
+    "value": "5"
+  },
+  "version_load_config_entry_count": {
+    "prefix": "s_",
+    "name": "load_config_entry_count",
+    "type": 5,
+    "config": true,
+    "constants_class": "G_Version",
+    "value": "2"
+  },
+  "version_game_version": {
     "prefix": "s_",
     "name": "game_version",
     "type": 3,
     "config": true,
-    "constants_class": "G_Global",
-    "value": "v0.1.5.7.8"
+    "constants_class": "G_Version",
+    "value": "v0.1.7"
   },
-  "config_count": {
-    "prefix": "m_",
-    "name": "fleet_speed",
-    "type": 1,
+  "version_config_version": {
+    "prefix": "s_",
+    "name": "config_version",
+    "type": 3,
     "config": true,
-    "constants_class": "G_Fleet",
-    "value": "5"
+    "constants_class": "G_Version",
+    "value": "v0.1.6.10"
   },
-  "test_value": {
-    "prefix": "m_",
-    "name": "test_value",
-    "type": 2,
-    "config": false,
-    "constants_class": "G_Fleet",
-    "value": "5"
+  "version_language_version": {
+    "prefix": "s_",
+    "name": "language_version",
+    "type": 3,
+    "config": true,
+    "constants_class": "G_Version",
+    "value": "v0.1.7.1"
   }
 }

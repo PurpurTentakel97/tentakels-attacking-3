@@ -20,7 +20,7 @@ def _gen_load_dict(fields: tuple[raw_field.RawField], config_files: tuple[raw_co
 
     for c in config_files:
         text: str = f"if (nlohmann::json son; LoadSection(load, son, {helper.config_enum_name}::{c.enum_name()}, " \
-                    f"{c.full_name()}::s_configEntryCount)) {helper.left_bracket}"
+                    f"{c.full_name()}::s_total_config_entry_count)) {helper.left_bracket}"
         l: list[str] = list()
         l.append(text)
         load[c.full_name()] = l
@@ -126,9 +126,13 @@ def _gen_source(fields: tuple[raw_field.RawField], config_files: tuple[raw_confi
     load_text += f"{helper.indent(indent)}{helper.right_bracket}\n"
     save_text += f"{helper.indent(indent)}{helper.right_bracket}\n"
 
-    return file.File(helper.config_io_name, enums.FileType.SOURCE,
-                     [include.Include(f"{helper.config_io_name}.hpp", False),
-                      include.Include("HelperConfigIO.hpp", False)], "cst", f"{load_text}\n{save_text}")
+    includes: list[include.Include] = list()
+    for c in config_files:
+        includes.append(include.Include(f"{c.full_name()}.hpp", False))
+    includes.extend([include.Include(f"{helper.config_io_name}.hpp", False),
+                     include.Include("HelperConfigIO.hpp", False)])
+
+    return file.File(helper.config_io_name, enums.FileType.SOURCE, includes, "cst", f"{load_text}\n{save_text}")
 
 
 def gen(fields: tuple[raw_field.RawField], config_files: tuple[raw_config_file.RawConfigFile]) -> tuple[

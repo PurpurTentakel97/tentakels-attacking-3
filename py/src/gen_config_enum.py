@@ -28,7 +28,7 @@ def _gen_source(fields: tuple[raw_field.RawField], config_files: tuple[raw_confi
 
     for f in fields:
         if f.is_config:
-            text += f"{helper.indent(indent)}case {helper.config_enum_name}::{f.constants_class_enum_name()}_{f.enum_name()}: return \"{f.enum_return_value()}\";\n"
+            text += f"{helper.indent(indent)}case {helper.config_enum_name}::{f.enum_name()}: return \"{f.enum_return_value()}\";\n"
 
     indent -= 1
     text += f"{helper.indent(indent)}{helper.right_bracket}\n"
@@ -56,7 +56,7 @@ def _gen_header(fields: tuple[raw_field.RawField], config_files: tuple[raw_confi
 
     for f in fields:
         if f.is_config:
-            text += f"{helper.indent(indent)}{f.constants_class_enum_name()}_{f.enum_name()},\n"
+            text += f"{helper.indent(indent)}{f.enum_name()},\n"
 
     indent -= 1
     text += f"{helper.indent(indent)}{helper.right_bracket};\n\n"

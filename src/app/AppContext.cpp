@@ -4,7 +4,7 @@
 //
 
 #include "AppContext.hpp"
-#include <constants/CConfigIO.hpp>
+#include <constants/G_ConfigIO.hpp>
 #include <event/EventGeneral.hpp>
 #include <helper/HPrint.hpp>
 
@@ -20,7 +20,7 @@ namespace app {
     }
 
     void AppContext::LoadConfig() const {
-        cst::LoadConfig();
+        cst::G_ConfigIO::LoadConfig();
         if (constants.sound.muteVolume) {
             SetMasterVolume(0.0f);
         } else {
@@ -32,7 +32,7 @@ namespace app {
     }
 
     void AppContext::SaveConfig() {
-        cst::SaveConfig();
+        cst::G_ConfigIO::SaveConfig();
     }
 
     void AppContext::ValidateConfig() {

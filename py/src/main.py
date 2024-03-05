@@ -10,6 +10,9 @@ import gen_all
 import file
 import enums
 
+_global_export_path: str = "../../src/"
+_constants_export_dir: str = "constants"
+
 
 def _check_len(to_check, length: int, name: str) -> None:
     if len(to_check) == length:
@@ -30,4 +33,4 @@ _check_len(raw_config_files, 0, "raw config classes list")
 files: tuple[file.File] = gen_all.gen(raw_fields, raw_config_files)
 
 for f in files:
-    load_save.Save("test_out", f)
+    load_save.Save(_global_export_path, _constants_export_dir, f)
