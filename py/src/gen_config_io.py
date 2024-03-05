@@ -19,12 +19,12 @@ def _gen_load_dict(fields: tuple[raw_field.RawField], config_files: tuple[raw_co
     load: dict[str, list[str]] = dict()
 
     for c in config_files:
-        text: str = f"if (nlohmann::json son; LoadSection(load, son, {helper.config_enum_name.upper()}::{c.full_name()}, " \
-                    f"{c.name}::configEntryCount)) {helper.left_bracket}"
+        text: str = f"if (nlohmann::json son; LoadSection(load, son, {helper.config_enum_name}::{c.enum_name()}, " \
+                    f"{c.full_name()}::s_configEntryCount)) {helper.left_bracket}"
         l: list[str] = list()
         l.append(text)
         load[c.full_name()] = l
- 
+
     for f in fields:
         if f.is_config:
             if helper.no_config_load(f.type_):
@@ -32,7 +32,7 @@ def _gen_load_dict(fields: tuple[raw_field.RawField], config_files: tuple[raw_co
 
             text = f"{helper.indent(1)}if ({enums.return_type_lookup[f.type_]} out; {enums.load_function_lookup[f.type_]}" \
                    f"(son, out, {helper.config_enum_name}::{f.enum_name()})) {helper.left_bracket} " \
-                   f"{_constants}.{f.constants_class.lower()}.{f.name} = "
+                   f"{_constants}.{f.constants_class.lower()}.{f.full_name()} = "
             text += f"out"  # cast here if necessary
             text += f"; {helper.right_bracket}"
             load[f.constants_class].append(text)
@@ -47,22 +47,34 @@ def _gen_save_dict(fields: tuple[raw_field.RawField], config_files: tuple[raw_co
     str, list[str]]:
     save: dict[str, list[str]] = dict()
 
+    for c in config_files:
+        text: str = f"save[{helper.config_switch_function_name}({helper.config_enum_name}::{c.enum_name()})] = {helper.left_bracket}"
+        l: list[str] = list()
+        l.append(text)
+        save[c.full_name()] = l
+
+    for f in fields:
+        text: str = f"{helper.indent(1)}{helper.left_bracket} {helper.config_switch_function_name}({helper.config_enum_name}::" \
+                    f"{f.enum_name()}), "
+        text += f"{_constants}.{f.constants_class.lower()}.{f.full_name()}"
+        text += f" {helper.right_bracket},"
+        save[f.constants_class].append(text)
+
+    for c in config_files:
+        save[c.full_name()].append(f"{helper.right_bracket};\n")
+
     return save
 
 
 # source
-def _gen_load_source(load_dict: dict[str, list[str]], indent: int) -> str:
+def _gen_source_from_dict(dict_: dict[str, list[str]], indent: int) -> str:
     text: str = str()
 
-    for entry in load_dict:
-        for e in load_dict[entry]:
+    for entry in dict_:
+        for e in dict_[entry]:
             text += f"{helper.indent(indent)}{e}\n"
 
     return text
-
-
-def _gen_save_source(save_dict: dict[str, list[str]], indent: int) -> str:
-    return "TODO: implement save source\n"
 
 
 # file
@@ -101,8 +113,8 @@ def _gen_source(fields: tuple[raw_field.RawField], config_files: tuple[raw_confi
     # gen
     load_entries: dict[str, list[str]] = _gen_load_dict(fields, config_files)
     save_entries: dict[str, list[str]] = _gen_save_dict(fields, config_files)
-    load_text += _gen_load_source(load_entries, indent)
-    save_text += _gen_save_source(save_entries, indent)
+    load_text += _gen_source_from_dict(load_entries, indent)
+    save_text += _gen_source_from_dict(save_entries, indent)
 
     # end
     load_text += f"{helper.indent(indent)}CheckLoadEntryCount();\n" \
