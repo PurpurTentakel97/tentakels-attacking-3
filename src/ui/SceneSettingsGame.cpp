@@ -189,9 +189,9 @@ namespace ui {
                 uil::Alignment::MID_LEFT,
                 1
         );
-        fightPlanetFleetCB->SetChecked(appContext.constants.fight.isFightPlanetFleet);
+        fightPlanetFleetCB->SetChecked(appContext.constants.g_fight.get_is_fight_planet_fleet());
         fightPlanetFleetCB->SetOnCheck([](utl::usize, bool isChecked) {
-            app::AppContext::GetInstance().constants.fight.isFightPlanetFleet = isChecked;
+            app::AppContext::GetInstance().constants.g_fight.set_is_fight_planet_fleet(isChecked);
         });
         m_elements.push_back(fightPlanetFleetCB);
 
@@ -214,9 +214,9 @@ namespace ui {
                 uil::Alignment::MID_LEFT,
                 1
         );
-        fightPlanetTargetPointCB->SetChecked(appContext.constants.fight.isFightPlanetTargetPoint);
+        fightPlanetTargetPointCB->SetChecked(appContext.constants.g_fight.get_is_fight_planet_target_point());
         fightPlanetTargetPointCB->SetOnCheck([](utl::usize, bool isChecked) {
-            app::AppContext::GetInstance().constants.fight.isFightPlanetTargetPoint = isChecked;
+            app::AppContext::GetInstance().constants.g_fight.set_is_fight_planet_target_point(isChecked);
         });
         m_elements.push_back(fightPlanetTargetPointCB);
 
@@ -241,9 +241,9 @@ namespace ui {
                 uil::Alignment::MID_LEFT,
                 1
         );
-        fightTargetPointFleetCB->SetChecked(appContext.constants.fight.isFightTargetPointFleet);
+        fightTargetPointFleetCB->SetChecked(appContext.constants.g_fight.get_is_fight_target_point_fleet());
         fightTargetPointFleetCB->SetOnCheck([](utl::usize, bool isChecked) {
-            app::AppContext::GetInstance().constants.fight.isFightTargetPointFleet = isChecked;
+            app::AppContext::GetInstance().constants.g_fight.set_is_fight_target_point_fleet(isChecked);
         });
         m_elements.push_back(fightTargetPointFleetCB);
 
@@ -266,9 +266,9 @@ namespace ui {
                 uil::Alignment::MID_LEFT,
                 1
         );
-        fightTargetPointTargetPointCB->SetChecked(appContext.constants.fight.isFightTargetPointTargetPoint);
+        fightTargetPointTargetPointCB->SetChecked(appContext.constants.g_fight.get_is_fight_target_point_target_point());
         fightTargetPointTargetPointCB->SetOnCheck([](utl::usize, bool isChecked) {
-            app::AppContext::GetInstance().constants.fight.isFightTargetPointTargetPoint = isChecked;
+            app::AppContext::GetInstance().constants.g_fight.set_is_fight_target_point_target_point(isChecked);
         });
         m_elements.push_back(fightTargetPointTargetPointCB);
 

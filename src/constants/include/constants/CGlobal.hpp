@@ -13,13 +13,8 @@ namespace cst {
     struct Global final {
         // config counts
         static inline utl::usize constexpr configEntryCount{ 4 };
-        static inline utl::usize constexpr configVersionCount{ 2 };
-        static inline utl::usize constexpr configSectionCount{ 10 };
+        static inline utl::usize constexpr configSectionCount{ 2 };
 
-        // versions
-        static inline std::string const languageVersion{ "v0.1.7.1" };
-        static inline std::string const configVersion{ "v0.1.6.10" };
-        static inline std::string const gameVersion{ "v0.1.7" };
         static inline std::string const copyRight{ "(c) Purpur Tentakel" };
 
         // language string

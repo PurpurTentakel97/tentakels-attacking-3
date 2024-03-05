@@ -31,7 +31,8 @@ def needs_constants_setter(type_: enums.CppType) -> bool:
     t: tuple[enums.CppType, ...] = (
         enums.CppType.USIZE,
         enums.CppType.STRING,
-        enums.CppType.BOOL
+        enums.CppType.BOOL,
+        enums.CppType.FLOAT,
     )
     return type_ in t
 
@@ -39,6 +40,7 @@ def needs_constants_setter(type_: enums.CppType) -> bool:
 def no_config_load(type_: enums.CppType) -> bool:
     t: tuple[enums.CppType, ...] = (
         enums.CppType.STRING_STATIC_CONST,
+        enums.CppType.USIZE_STATIC_CONSTEXPR,
     )
 
     return type_ in t

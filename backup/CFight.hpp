@@ -6,7 +6,6 @@
 #pragma once
 
 #include "alias/AliasUtils.hpp"
-#include <cstddef>
 
 namespace cst {
     struct Fight final {

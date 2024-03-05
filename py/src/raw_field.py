@@ -25,7 +25,7 @@ class RawField:
             exit()
 
     def enum_name(self) -> str:
-        return self.name.upper()
+        return f"{self.constants_class_enum_name()}_{self.name.upper()}"
 
     def constants_class_enum_name(self) -> str:
         return self.constants_class.upper()

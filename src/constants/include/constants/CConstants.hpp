@@ -5,7 +5,8 @@
 
 #pragma once
 
-#include "../../../../backup/CFight.hpp"
+#include "G_Fight.hpp"
+#include "G_Version.hpp"
 #include "CFiles.hpp"
 #include "CFleet.hpp"
 #include "CGameEvents.hpp"
@@ -20,8 +21,9 @@
 namespace cst {
     struct Constants final {
         // config related
+        G_Version g_version;
         GameEvents gameEvents;
-        Fight fight;
+        G_Fight g_fight;
         Fleet fleet;
         Global global;
         Planet planet;
@@ -34,6 +36,6 @@ namespace cst {
         TextProcessing textProcessing;
         Files files;
 
-        [[nodiscard]] static utl::usize GetConfigValueCount();
+        [[nodiscard]] utl::usize GetConfigValueCount() const;
     };
 } // namespace cst

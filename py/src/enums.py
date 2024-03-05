@@ -34,6 +34,8 @@ class CppType(IntEnum):
     STRING = 2,
     STRING_STATIC_CONST = 3,
     BOOL = 4,
+    USIZE_STATIC_CONSTEXPR = 5,
+    FLOAT = 6,
 
 
 field_type_lookup: dict[CppType, str] = {
@@ -41,24 +43,32 @@ field_type_lookup: dict[CppType, str] = {
     CppType.STRING: "std::string",
     CppType.STRING_STATIC_CONST: "static inline std::string const",
     CppType.BOOL: "bool",
+    CppType.USIZE_STATIC_CONSTEXPR: "static inline utl::usize constexpr",
+    CppType.FLOAT: "float",
 }
 passed_type_lookup: dict[CppType, str] = {
     CppType.USIZE: "utl::usize const",
     CppType.STRING: "std::string const&",
     CppType.STRING_STATIC_CONST: "std::string const&",
     CppType.BOOL: "bool const",
+    CppType.USIZE_STATIC_CONSTEXPR: "utl::usize const",
+    CppType.FLOAT: "float const",
 }
 return_type_lookup: dict[CppType, str] = {
     CppType.USIZE: "utl::usize",
     CppType.STRING: "std::string",
     CppType.STRING_STATIC_CONST: "std::string",
     CppType.BOOL: "bool",
+    CppType.USIZE_STATIC_CONSTEXPR: "utl::usize",
+    CppType.FLOAT: "float",
 }
 load_function_lookup: dict[CppType, str] = {
     CppType.USIZE: "LoadUSize",
     CppType.STRING: "LoadString",
     CppType.STRING_STATIC_CONST: "LoadString",
-    CppType.BOOL: "LoadBool"
+    CppType.BOOL: "LoadBool",
+    CppType.USIZE_STATIC_CONSTEXPR: "LoadUSize",
+    CppType.FLOAT: "LoadFloat",
 }
 
 

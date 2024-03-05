@@ -1,4 +1,10 @@
 add_library(constants STATIC
+            include/constants/G_ConfigEnum.hpp
+            include/constants/G_ConfigIO.hpp
+            include/constants/G_Fight.hpp
+            include/constants/G_Version.hpp
+            G_ConfigEnum.cpp
+            G_ConfigIO.cpp
             include/constants/CConstants.hpp
             include/constants/CFiles.hpp
             include/constants/CFleet.hpp
