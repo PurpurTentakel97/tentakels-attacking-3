@@ -51,7 +51,7 @@ class RawField:
         return text
 
     def dump_setter(self, indent: int) -> str:
-        if not helper.needs_setter(self.type_):
+        if not helper.needs_constants_setter(self.type_):
             return ""
         text: str = f"{helper.indent(indent)} void set_{self.name}({enums.passed_type_lookup[self.type_]} value) {helper.left_bracket}\n"
         text += f"{helper.indent(indent + 1)}{self._complete_name()} = value;\n"

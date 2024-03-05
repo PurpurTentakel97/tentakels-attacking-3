@@ -10,8 +10,63 @@ import include
 import raw_config_file
 import raw_field
 
+_constants: str = "constants"
 
-def gen_header() -> file.File:
+
+# dict
+def _gen_load_dict(fields: tuple[raw_field.RawField], config_files: tuple[raw_config_file.RawConfigFile]) -> dict[
+    str, list[str]]:
+    load: dict[str, list[str]] = dict()
+
+    for c in config_files:
+        text: str = f"if (nlohmann::json son; LoadSection(load, son, {helper.config_enum_name.upper()}::{c.full_name()}, " \
+                    f"{c.name}::configEntryCount)) {helper.left_bracket}"
+        l: list[str] = list()
+        l.append(text)
+        load[c.full_name()] = l
+ 
+    for f in fields:
+        if f.is_config:
+            if helper.no_config_load(f.type_):
+                continue
+
+            text = f"{helper.indent(1)}if ({enums.return_type_lookup[f.type_]} out; {enums.load_function_lookup[f.type_]}" \
+                   f"(son, out, {helper.config_enum_name}::{f.enum_name()})) {helper.left_bracket} " \
+                   f"{_constants}.{f.constants_class.lower()}.{f.name} = "
+            text += f"out"  # cast here if necessary
+            text += f"; {helper.right_bracket}"
+            load[f.constants_class].append(text)
+
+    for c in config_files:
+        load[c.full_name()].append(f"{helper.right_bracket}\n")
+
+    return load
+
+
+def _gen_save_dict(fields: tuple[raw_field.RawField], config_files: tuple[raw_config_file.RawConfigFile]) -> dict[
+    str, list[str]]:
+    save: dict[str, list[str]] = dict()
+
+    return save
+
+
+# source
+def _gen_load_source(load_dict: dict[str, list[str]], indent: int) -> str:
+    text: str = str()
+
+    for entry in load_dict:
+        for e in load_dict[entry]:
+            text += f"{helper.indent(indent)}{e}\n"
+
+    return text
+
+
+def _gen_save_source(save_dict: dict[str, list[str]], indent: int) -> str:
+    return "TODO: implement save source\n"
+
+
+# file
+def _gen_header() -> file.File:
     indent: int = 1
     text: str = f"{helper.indent(indent)}struct {helper.config_io_name} final {helper.left_bracket}\n"
 
@@ -25,8 +80,7 @@ def gen_header() -> file.File:
     return file.File(helper.config_io_name, enums.FileType.HEADER, [], "cst", text)
 
 
-def gen_source(fields: tuple[raw_field.RawField], config_files: tuple[raw_config_file.RawConfigFile]) -> file.File:
-    constants: str = "constants"
+def _gen_source(fields: tuple[raw_field.RawField], config_files: tuple[raw_config_file.RawConfigFile]) -> file.File:
     indent: int = 1
     load_text: str = f"{helper.indent(indent)}void {helper.config_io_name}::LoadConfig() {helper.left_bracket}\n"
     save_text: str = f"{helper.indent(indent)}void {helper.config_io_name}::SaveConfig() {helper.left_bracket}\n"
@@ -35,16 +89,20 @@ def gen_source(fields: tuple[raw_field.RawField], config_files: tuple[raw_config
 
     # setup
     load_text += f"{helper.indent(indent)}loadEntryCount = 0;\n{helper.indent(indent)}nlohmann::json load;\n" \
-                 f"{helper.indent(indent)}auto& {constants} = app::AppContext::GetInstance().{constants};\n" \
+                 f"{helper.indent(indent)}auto& {_constants} = app::AppContext::GetInstance().{_constants};\n" \
                  f"{helper.indent(indent)}if (not LoadAndValidateConfigJson(load)) {helper.left_bracket}\n"
     indent += 1
     load_text += f"{helper.indent(indent)}return;\n"
     indent -= 1
     load_text += f"{helper.indent(indent)}{helper.right_bracket}\n\n"
-    save_text += f"{helper.indent(indent)}auto const& {constants} = app::AppContext::GetInstance().{constants};\n" \
+    save_text += f"{helper.indent(indent)}auto const& {_constants} = app::AppContext::GetInstance().{_constants};\n" \
                  f"{helper.indent(indent)}nlohmann::json save;\n\n"
 
     # gen
+    load_entries: dict[str, list[str]] = _gen_load_dict(fields, config_files)
+    save_entries: dict[str, list[str]] = _gen_save_dict(fields, config_files)
+    load_text += _gen_load_source(load_entries, indent)
+    save_text += _gen_save_source(save_entries, indent)
 
     # end
     load_text += f"{helper.indent(indent)}CheckLoadEntryCount();\n" \
@@ -63,4 +121,4 @@ def gen_source(fields: tuple[raw_field.RawField], config_files: tuple[raw_config
 
 def gen(fields: tuple[raw_field.RawField], config_files: tuple[raw_config_file.RawConfigFile]) -> tuple[
     file.File, file.File]:
-    return gen_header(), gen_source(fields, config_files)
+    return _gen_header(), _gen_source(fields, config_files)

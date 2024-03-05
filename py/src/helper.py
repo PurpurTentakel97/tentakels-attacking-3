@@ -27,8 +27,21 @@ def indent(i: int) -> str:
     return ' ' * (i * 4)
 
 
-def needs_setter(type_: enums.CppType) -> bool:
-    return type_ in [enums.CppType.USIZE, enums.CppType.STRING, enums.CppType.BOOL]
+def needs_constants_setter(type_: enums.CppType) -> bool:
+    t: tuple[enums.CppType, ...] = (
+        enums.CppType.USIZE,
+        enums.CppType.STRING,
+        enums.CppType.BOOL
+    )
+    return type_ in t
+
+
+def no_config_load(type_: enums.CppType) -> bool:
+    t: tuple[enums.CppType, ...] = (
+        enums.CppType.STRING_STATIC_CONST,
+    )
+
+    return type_ in t
 
 
 def needs_quotes(type_: enums.CppType) -> bool:
