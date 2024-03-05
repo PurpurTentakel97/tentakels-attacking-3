@@ -38,7 +38,7 @@ def _gen_source(fields: tuple[raw_field.RawField], config_files: tuple[raw_confi
     text += f"{helper.indent(indent)}{helper.right_bracket}\n"
 
     return file.File(helper.config_enum_name, enums.FileType.SOURCE,
-                     [include.Include(f"{helper.config_enum_name}.hpp", False), include.Include("utility", True)],
+                     [include.Include(f"{helper.config_enum_name}.hpp", False), include.Include("utility", True)], [],
                      "cst", text)
 
 
@@ -63,7 +63,7 @@ def _gen_header(fields: tuple[raw_field.RawField], config_files: tuple[raw_confi
 
     text += f"{helper.indent(indent)}[[nodiscard]] std::string {helper.config_switch_function_name}({helper.config_enum_name} value);\n"
 
-    return file.File(helper.config_enum_name, enums.FileType.HEADER, [include.Include("string", True)], "cst", text)
+    return file.File(helper.config_enum_name, enums.FileType.HEADER, [include.Include("string", True)], [], "cst", text)
 
 
 def gen(fields: tuple[raw_field.RawField], config_files: tuple[raw_config_file.RawConfigFile]) -> tuple[

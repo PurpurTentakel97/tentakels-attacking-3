@@ -89,7 +89,7 @@ def _gen_header() -> file.File:
     indent -= 1
     text += f"{helper.indent(indent)}{helper.right_bracket};\n"
 
-    return file.File(helper.config_io_name, enums.FileType.HEADER, [], "cst", text)
+    return file.File(helper.config_io_name, enums.FileType.HEADER, [],[], "cst", text)
 
 
 def _gen_source(fields: tuple[raw_field.RawField], config_files: tuple[raw_config_file.RawConfigFile]) -> file.File:
@@ -132,7 +132,7 @@ def _gen_source(fields: tuple[raw_field.RawField], config_files: tuple[raw_confi
     includes.extend([include.Include(f"{helper.config_io_name}.hpp", False),
                      include.Include("HelperConfigIO.hpp", False)])
 
-    return file.File(helper.config_io_name, enums.FileType.SOURCE, includes, "cst", f"{load_text}\n{save_text}")
+    return file.File(helper.config_io_name, enums.FileType.SOURCE, includes,[], "cst", f"{load_text}\n{save_text}")
 
 
 def gen(fields: tuple[raw_field.RawField], config_files: tuple[raw_config_file.RawConfigFile]) -> tuple[

@@ -13,7 +13,7 @@ namespace cst {
     struct Global final {
         // config counts
         static inline utl::usize constexpr configEntryCount{ 4 };
-        static inline utl::usize constexpr configSectionCount{ 2 };
+        static inline utl::usize constexpr configSectionCount{ 3 };
 
         static inline std::string const copyRight{ "(c) Purpur Tentakel" };
 

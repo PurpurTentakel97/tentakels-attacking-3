@@ -7,7 +7,8 @@
 
 namespace cst {
     utl::usize Constants::GetConfigValueCount() const {
-        return g_version.get_load_config_entry_count() + g_fight.get_load_config_entry_count();
+        return g_version.get_load_config_entry_count() + g_fight.get_load_config_entry_count()
+             + g_fleet.get_load_config_entry_count();
     }
     /*
     utl::usize Constants::GetConfigValueCount() const {

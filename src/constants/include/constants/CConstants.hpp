@@ -8,7 +8,7 @@
 #include "G_Fight.hpp"
 #include "G_Version.hpp"
 #include "CFiles.hpp"
-#include "CFleet.hpp"
+#include "G_Fleet.hpp"
 #include "CGameEvents.hpp"
 #include "CGlobal.hpp"
 #include "CPlanet.hpp"
@@ -24,7 +24,7 @@ namespace cst {
         G_Version g_version;
         GameEvents gameEvents;
         G_Fight g_fight;
-        Fleet fleet;
+        G_Fleet g_fleet;
         Global global;
         Planet planet;
         Player player;

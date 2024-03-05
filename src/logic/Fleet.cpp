@@ -85,7 +85,7 @@ namespace lgk {
             target = m_target;
         }
 
-        auto speed = static_cast<int>(app::AppContext::GetInstance().constants.fleet.currentFleetSpeed);
+        auto speed = static_cast<int>(app::AppContext::GetInstance().constants.g_fleet.get_current_fleet_speed());
         auto constexpr dl{ 0.001f };
         auto const x1{ m_position.x };
         auto const y1{ m_position.y };

@@ -102,5 +102,45 @@
     "config": true,
     "constants_class": "G_Version",
     "value": "v0.1.7.1"
+  },
+  "fleet_total_config_entry_count": {
+    "prefix": "s_",
+    "name": "total_config_entry_count",
+    "type": 5,
+    "config": true,
+    "constants_class": "G_Fleet",
+    "value": "5"
+  },
+  "fleet_load_config_entry_count": {
+    "prefix": "s_",
+    "name": "load_config_entry_count",
+    "type": 5,
+    "config": true,
+    "constants_class": "G_Fleet",
+    "value": "3"
+  },
+  "fleet_min_fleet_speed": {
+    "prefix": "m_",
+    "name": "min_fleet_speed",
+    "type": 1,
+    "config": true,
+    "constants_class": "G_Fleet",
+    "value": "1"
+  },
+  "fleet_current_fleet_speed": {
+    "prefix": "m_",
+    "name": "current_fleet_speed",
+    "type": 1,
+    "config": true,
+    "constants_class": "G_Fleet",
+    "value": "5"
+  },
+  "fleet_max_fleet_speed": {
+    "prefix": "m_",
+    "name": "max_fleet_speed",
+    "type": 1,
+    "config": true,
+    "constants_class": "G_Fleet",
+    "value": "20"
   }
 }

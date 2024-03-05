@@ -98,12 +98,13 @@ namespace app {
         ValidateGreaterEqual<float>(constants.planet.globalSpacing, 0.0f, "Global Spacing");
 
         // Fleet
-        ValidateMinMax<utl::usize>(constants.fleet.minFleetSpeed,
-                                   constants.fleet.maxFleetSpeed,
+        ValidateMinMax<utl::usize>(constants.g_fleet.m_min_fleet_speed,
+                                   constants.g_fleet.m_max_fleet_speed,
                                    "Min Fleet Movement",
                                    "Max Fleet Movement");
-        ValidateMinCurrentMax<utl::usize>(
-                constants.fleet.minFleetSpeed, constants.fleet.currentFleetSpeed, constants.fleet.maxFleetSpeed);
+        ValidateMinCurrentMax<utl::usize>(constants.g_fleet.m_min_fleet_speed,
+                                          constants.g_fleet.m_current_fleet_speed,
+                                          constants.g_fleet.m_max_fleet_speed);
 
         hlp::Print(hlp::PrintType::INFO, "Config validated");
     }

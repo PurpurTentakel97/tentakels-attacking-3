@@ -94,13 +94,13 @@ namespace ui {
                 GetElementPosition(rx, y),
                 GetElementSize(width, height),
                 a,
-                static_cast<int>(appContext.constants.fleet.minFleetSpeed),
-                static_cast<int>(appContext.constants.fleet.maxFleetSpeed),
-                static_cast<int>(appContext.constants.fleet.currentFleetSpeed)
+                static_cast<int>(appContext.constants.g_fleet.get_min_fleet_speed()),
+                static_cast<int>(appContext.constants.g_fleet.get_max_fleet_speed()),
+                static_cast<int>(appContext.constants.g_fleet.get_current_fleet_speed())
         );
         fleetSpeed->SetActive(true, appContext);
         fleetSpeed->SetOnSave([](utl::usize value) {
-            app::AppContext::GetInstance().constants.fleet.currentFleetSpeed = value;
+            app::AppContext::GetInstance().constants.g_fleet.set_current_fleet_speed(value);
         });
         m_elements.push_back(fleetSpeed);
 

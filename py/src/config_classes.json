@@ -9,6 +9,12 @@
         "s_brackets": false
       }
     ],
+    "forward_declaration": [
+      {
+        "namespace": "app",
+        "name": "struct AppContext"
+      }
+    ],
     "namespace": "cst"
   },
   "Version": {
@@ -19,6 +25,25 @@
       {
         "name": "string",
         "s_brackets": true
+      }
+    ],
+    "forward_declaration": [
+      {
+        "namespace": "app",
+        "name": "struct AppContext"
+      }
+    ],
+    "namespace": "cst"
+  },
+  "Fleet": {
+    "prefix": "G_",
+    "name": "Fleet",
+    "type": 1,
+    "includes": [],
+    "forward_declaration": [
+      {
+        "namespace": "app",
+        "name": "struct AppContext"
       }
     ],
     "namespace": "cst"

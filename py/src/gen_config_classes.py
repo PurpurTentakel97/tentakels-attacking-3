@@ -13,7 +13,8 @@ import enums
 def _gen_top(entry: raw_field.RawField, indent: int) -> str:
     text: str = f"{helper.indent(indent)}class {entry.constants_class} final {helper.left_bracket}\n"
     text += f"{helper.indent(indent)}public:\n"
-    text += f"{helper.indent(indent + 1)}friend struct {helper.config_io_name};\n\n"
+    text += f"{helper.indent(indent + 1)}friend struct {helper.config_io_name};\n"
+    text += f"{helper.indent(indent + 1)}friend struct app::AppContext;\n\n"
     text += f"{helper.indent(indent)}private:\n"
     return text
 
@@ -74,8 +75,8 @@ def gen(entries: tuple[raw_field.RawField], classes: tuple[raw_config_file.RawCo
 
     for s in strings:
         raw_file: raw_config_file.RawConfigFile = raw_config_file.raw_file_from_name(s, classes)
-        f: file.File = file.File(raw_file.full_name(), enums.FileType.HEADER, raw_file.includes, raw_file.namespace,
-                                 strings[s])
+        f: file.File = file.File(raw_file.full_name(), enums.FileType.HEADER, raw_file.includes,
+                                 raw_file.forward_declarations, raw_file.namespace, strings[s])
         files.append(f)
 
     return tuple(files)

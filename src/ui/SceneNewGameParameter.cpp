@@ -177,9 +177,9 @@ namespace ui {
                 GetElementPosition(posX, posY + 0.04f),
                 GetElementSize(sizeX, sizeY),
                 uil::Alignment::TOP_MID,
-                static_cast<int>(appContext.constants.fleet.minFleetSpeed),
-                static_cast<int>(appContext.constants.fleet.maxFleetSpeed),
-                static_cast<int>(appContext.constants.fleet.currentFleetSpeed)
+                static_cast<int>(appContext.constants.g_fleet.get_min_fleet_speed()),
+                static_cast<int>(appContext.constants.g_fleet.get_max_fleet_speed()),
+                static_cast<int>(appContext.constants.g_fleet.get_current_fleet_speed())
         );
         fleetSpeed->SetActive(true, appContext);
         fleetSpeed->SetOnSave([](utl::usize value) { NewGameParameterScene::SetValue(value, SliderType::FLEET_SPEED); }
@@ -267,7 +267,7 @@ namespace ui {
                 app::AppContext::GetInstance().constants.world.currentDimensionY = value;
                 return;
             case SliderType::FLEET_SPEED:
-                app::AppContext::GetInstance().constants.fleet.currentFleetSpeed = value;
+                app::AppContext::GetInstance().constants.g_fleet.set_current_fleet_speed(value);
                 return;
             case SliderType::TARGET_ROUND:
                 app::AppContext::GetInstance().constants.global.currentTargetRound = static_cast<utl::usize>(value);
