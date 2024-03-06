@@ -6,7 +6,6 @@
 #pragma once
 
 #include "CFiles.hpp"
-#include "CPlanet.hpp"
 #include "CPlayer.hpp"
 #include "CSound.hpp"
 #include "CTextProcessing.hpp"
@@ -16,6 +15,7 @@
 #include "G_Fleet.hpp"
 #include "G_Game_Events.hpp"
 #include "G_Global.hpp"
+#include "G_Planet.hpp"
 #include "G_Version.hpp"
 #include "HelperGameEvents.hpp"
 
@@ -27,7 +27,7 @@ namespace cst {
         G_Fight g_fight;
         G_Fleet g_fleet;
         G_Global g_global;
-        Planet planet;
+        G_Planet g_planet;
         Player player;
         Sound sound;
         Window window;

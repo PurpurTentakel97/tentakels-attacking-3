@@ -95,11 +95,11 @@ namespace app {
         ValidateGreaterEqual<float>(constants.sound.masterVolume, 0.0f, "Master Volume");
 
         // Planet
-        ValidateLowerEqual<float>(constants.planet.homeworldSpacing, 1.0f, "Homeworld Spacing");
-        ValidateGreaterEqual<float>(constants.planet.homeworldSpacing, 0.0f, "Homeworld Spacing");
+        ValidateLowerEqual<float>(constants.g_planet.m_home_world_spacing, 1.0f, "Homeworld Spacing");
+        ValidateGreaterEqual<float>(constants.g_planet.m_home_world_spacing, 0.0f, "Homeworld Spacing");
 
-        ValidateLowerEqual<float>(constants.planet.globalSpacing, 1.0f, "Global Spacing");
-        ValidateGreaterEqual<float>(constants.planet.globalSpacing, 0.0f, "Global Spacing");
+        ValidateLowerEqual<float>(constants.g_planet.m_global_spacing, 1.0f, "Global Spacing");
+        ValidateGreaterEqual<float>(constants.g_planet.m_global_spacing, 0.0f, "Global Spacing");
 
         // Fleet
         ValidateMinMax<utl::usize>(constants.g_fleet.m_min_fleet_speed,

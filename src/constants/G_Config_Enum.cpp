@@ -18,6 +18,7 @@ namespace cst {
             case G_Config_Enum::G_FLEET: return "fleet";
             case G_Config_Enum::G_GAME_EVENTS: return "game_events";
             case G_Config_Enum::G_GLOBAL: return "global";
+            case G_Config_Enum::G_PLANET: return "planet";
 
             case G_Config_Enum::G_GLOBAL_CONFIG_SECTION_COUNT: return "config_section_count";
             case G_Config_Enum::G_FIGHT_TOTAL_CONFIG_ENTRY_COUNT: return "total_config_entry_count";
@@ -71,6 +72,16 @@ namespace cst {
             case G_Config_Enum::G_GLOBAL_MAX_ROUNDS: return "max_rounds";
             case G_Config_Enum::G_GLOBAL_CURRENT_TARGET_ROUND: return "current_target_round";
             case G_Config_Enum::G_GLOBAL_CURRENT_ROUND: return "current_round";
+            case G_Config_Enum::G_PLANET_TOTAL_CONFIG_ENTRY_COUNT: return "total_config_entry_count";
+            case G_Config_Enum::G_PLANET_LOAD_CONFIG_ENTRY_COUNT: return "load_config_entry_count";
+            case G_Config_Enum::G_PLANET_MAX_SHIPS_FACTOR: return "max_ships_factor";
+            case G_Config_Enum::G_PLANET_STARTING_HUMAN_SHIPS_MULTIPLIER: return "starting_human_ships_multiplier";
+            case G_Config_Enum::G_PLANET_STARTING_GLOBAL_SHIPS_MULTIPLIER: return "starting_global_ships_multiplier";
+            case G_Config_Enum::G_PLANET_HOME_WORLD_PRODUCTION: return "home_world_production";
+            case G_Config_Enum::G_PLANET_MIN_PRODUCTION: return "min_production";
+            case G_Config_Enum::G_PLANET_MAX_PRODUCTION: return "max_production";
+            case G_Config_Enum::G_PLANET_HOME_WORLD_SPACING: return "home_world_spacing";
+            case G_Config_Enum::G_PLANET_GLOBAL_SPACING: return "global_spacing";
         }
     std::unreachable();
     }

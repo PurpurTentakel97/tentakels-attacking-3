@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include <cstddef>
+#include <alias/AliasUtils.hpp>
 
 namespace cst {
     struct Player final {

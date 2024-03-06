@@ -9,6 +9,7 @@
 #include "G_Fleet.hpp"
 #include "G_Game_Events.hpp"
 #include "G_Global.hpp"
+#include "G_Planet.hpp"
 #include "G_Config_IO.hpp"
 #include "HelperConfigIO.hpp"
 
@@ -72,6 +73,17 @@ namespace cst {
             if (utl::usize out; LoadUSize(son, out, G_Config_Enum::G_GLOBAL_MAX_ROUNDS)) { constants.g_global.m_max_rounds = out; }
             if (utl::usize out; LoadUSize(son, out, G_Config_Enum::G_GLOBAL_CURRENT_TARGET_ROUND)) { constants.g_global.m_current_target_round = out; }
             if (utl::usize out; LoadUSize(son, out, G_Config_Enum::G_GLOBAL_CURRENT_ROUND)) { constants.g_global.m_current_round = out; }
+        }
+
+        if (nlohmann::json son; LoadSection(load, son, G_Config_Enum::G_PLANET, G_Planet::s_total_config_entry_count)) {
+            if (utl::usize out; LoadUSize(son, out, G_Config_Enum::G_PLANET_MAX_SHIPS_FACTOR)) { constants.g_planet.m_max_ships_factor = out; }
+            if (utl::usize out; LoadUSize(son, out, G_Config_Enum::G_PLANET_STARTING_HUMAN_SHIPS_MULTIPLIER)) { constants.g_planet.m_starting_human_ships_multiplier = out; }
+            if (utl::usize out; LoadUSize(son, out, G_Config_Enum::G_PLANET_STARTING_GLOBAL_SHIPS_MULTIPLIER)) { constants.g_planet.m_starting_global_ships_multiplier = out; }
+            if (utl::usize out; LoadUSize(son, out, G_Config_Enum::G_PLANET_HOME_WORLD_PRODUCTION)) { constants.g_planet.m_home_world_production = out; }
+            if (utl::usize out; LoadUSize(son, out, G_Config_Enum::G_PLANET_MIN_PRODUCTION)) { constants.g_planet.m_min_production = out; }
+            if (utl::usize out; LoadUSize(son, out, G_Config_Enum::G_PLANET_MAX_PRODUCTION)) { constants.g_planet.m_max_production = out; }
+            if (float out; LoadFloat(son, out, G_Config_Enum::G_PLANET_HOME_WORLD_SPACING)) { constants.g_planet.m_home_world_spacing = out; }
+            if (float out; LoadFloat(son, out, G_Config_Enum::G_PLANET_GLOBAL_SPACING)) { constants.g_planet.m_global_spacing = out; }
         }
 
         CheckLoadEntryCount();
@@ -147,6 +159,19 @@ namespace cst {
             { CToS(G_Config_Enum::G_GLOBAL_MAX_ROUNDS), constants.g_global.m_max_rounds },
             { CToS(G_Config_Enum::G_GLOBAL_CURRENT_TARGET_ROUND), constants.g_global.m_current_target_round },
             { CToS(G_Config_Enum::G_GLOBAL_CURRENT_ROUND), constants.g_global.m_current_round },
+        };
+
+        save[CToS(G_Config_Enum::G_PLANET)] = {
+            { CToS(G_Config_Enum::G_PLANET_TOTAL_CONFIG_ENTRY_COUNT), constants.g_planet.s_total_config_entry_count },
+            { CToS(G_Config_Enum::G_PLANET_LOAD_CONFIG_ENTRY_COUNT), constants.g_planet.s_load_config_entry_count },
+            { CToS(G_Config_Enum::G_PLANET_MAX_SHIPS_FACTOR), constants.g_planet.m_max_ships_factor },
+            { CToS(G_Config_Enum::G_PLANET_STARTING_HUMAN_SHIPS_MULTIPLIER), constants.g_planet.m_starting_human_ships_multiplier },
+            { CToS(G_Config_Enum::G_PLANET_STARTING_GLOBAL_SHIPS_MULTIPLIER), constants.g_planet.m_starting_global_ships_multiplier },
+            { CToS(G_Config_Enum::G_PLANET_HOME_WORLD_PRODUCTION), constants.g_planet.m_home_world_production },
+            { CToS(G_Config_Enum::G_PLANET_MIN_PRODUCTION), constants.g_planet.m_min_production },
+            { CToS(G_Config_Enum::G_PLANET_MAX_PRODUCTION), constants.g_planet.m_max_production },
+            { CToS(G_Config_Enum::G_PLANET_HOME_WORLD_SPACING), constants.g_planet.m_home_world_spacing },
+            { CToS(G_Config_Enum::G_PLANET_GLOBAL_SPACING), constants.g_planet.m_global_spacing },
         };
 
         hlp::SaveFile(Files::s_savesDir, Files::s_configFile, save.dump(4));

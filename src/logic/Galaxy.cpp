@@ -133,8 +133,8 @@ namespace lgk {
         bool validPlanet{ true };
 
         // works because Home Planets are generated first.
-        auto const factor = newPlanet->IsHomePlanet() ? appContext.constants.planet.homeworldSpacing
-                                                      : appContext.constants.planet.globalSpacing;
+        auto const factor = newPlanet->IsHomePlanet() ? appContext.constants.g_planet.get_home_world_spacing()
+                                                      : appContext.constants.g_planet.get_global_spacing();
         double const spacing{ m_size.Length() * static_cast<double>(factor) };
 
         for (auto& p : m_planets) {

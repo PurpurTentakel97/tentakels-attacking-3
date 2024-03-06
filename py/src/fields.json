@@ -5,7 +5,7 @@
     "type": 5,
     "config": true,
     "constants_class": "G_Global",
-    "value": "5"
+    "value": "6"
   },
   "fight_total_config_entry_count": {
     "prefix": "s_",
@@ -414,5 +414,85 @@
     "config": true,
     "constants_class": "G_Global",
     "value": "1"
+  },
+  "planet_total_config_entry_count": {
+    "prefix": "s_",
+    "name": "total_config_entry_count",
+    "type": 5,
+    "config": true,
+    "constants_class": "G_Planet",
+    "value": "10"
+  },
+  "planet_load_config_entry_count": {
+    "prefix": "s_",
+    "name": "load_config_entry_count",
+    "type": 5,
+    "config": true,
+    "constants_class": "G_Planet",
+    "value": "8"
+  },
+  "planet_max_ships_factor": {
+    "prefix": "m_",
+    "name": "max_ships_factor",
+    "type": 1,
+    "config": true,
+    "constants_class": "G_Planet",
+    "value": "25"
+  },
+  "planet_starting_human_ships_multiplier": {
+    "prefix": "m_",
+    "name": "starting_human_ships_multiplier",
+    "type": 1,
+    "config": true,
+    "constants_class": "G_Planet",
+    "value": "30"
+  },
+  "planet_starting_global_ships_multiplier": {
+    "prefix": "m_",
+    "name": "starting_global_ships_multiplier",
+    "type": 1,
+    "config": true,
+    "constants_class": "G_Planet",
+    "value": "5"
+  },
+  "planet_home_world_production": {
+    "prefix": "m_",
+    "name": "home_world_production",
+    "type": 1,
+    "config": true,
+    "constants_class": "G_Planet",
+    "value": "10"
+  },
+  "planet_min_production": {
+    "prefix": "m_",
+    "name": "min_production",
+    "type": 1,
+    "config": true,
+    "constants_class": "G_Planet",
+    "value": "3"
+  },
+  "planet_max_production": {
+    "prefix": "m_",
+    "name": "max_production",
+    "type": 1,
+    "config": true,
+    "constants_class": "G_Planet",
+    "value": "7"
+  },
+  "planet_home_world_spacing": {
+    "prefix": "m_",
+    "name": "home_world_spacing",
+    "type": 6,
+    "config": true,
+    "constants_class": "G_Planet",
+    "value": "0.15f"
+  },
+  "planet_global_spacing": {
+    "prefix": "m_",
+    "name": "global_spacing",
+    "type": 6,
+    "config": true,
+    "constants_class": "G_Planet",
+    "value": "0.02f"
   }
 }
