@@ -7,13 +7,13 @@ add_library(constants STATIC
             include/constants/G_Global.hpp
             include/constants/G_Planet.hpp
             include/constants/G_Player.hpp
+            include/constants/G_Sound.hpp
             include/constants/G_Version.hpp
             G_Config_Enum.cpp
             G_Config_IO.cpp
             include/constants/CConstants.hpp
             include/constants/CFiles.hpp
             include/constants/CTextProcessing.hpp
-            include/constants/CSound.hpp
             include/constants/CResolution.hpp
             include/constants/CWorld.hpp
             include/constants/CWindow.hpp

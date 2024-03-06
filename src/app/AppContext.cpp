@@ -21,10 +21,10 @@ namespace app {
 
     void AppContext::LoadConfig() const {
         cst::G_Config_IO::LoadConfig();
-        if (constants.sound.muteVolume) {
+        if (constants.g_sound.get_is_mute()) {
             SetMasterVolume(0.0f);
         } else {
-            SetMasterVolume(constants.sound.masterVolume / 100);
+            SetMasterVolume(constants.g_sound.get_master_volume() / 100);
         }
 
         eve::SetTargetFPSEvent const event{ constants.window.FPS };
@@ -91,8 +91,8 @@ namespace app {
                 constants.world.minDimensionY, constants.world.currentDimensionY, constants.world.maxDimensionY);
 
         // Sound
-        ValidateLowerEqual<float>(constants.sound.masterVolume, 100.0f, "Master Volume");
-        ValidateGreaterEqual<float>(constants.sound.masterVolume, 0.0f, "Master Volume");
+        ValidateLowerEqual<float>(constants.g_sound.m_master_volume, 100.0f, "Master Volume");
+        ValidateGreaterEqual<float>(constants.g_sound.m_master_volume, 0.0f, "Master Volume");
 
         // Planet
         ValidateLowerEqual<float>(constants.g_planet.m_home_world_spacing, 1.0f, "Homeworld Spacing");

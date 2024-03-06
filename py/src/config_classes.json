@@ -135,5 +135,23 @@
       }
     ],
     "namespace": "cst"
+  },
+  "Sound": {
+    "prefix": "G_",
+    "name": "Sound",
+    "type": 1,
+    "includes": [
+      {
+        "name": "alias/AliasUtils.hpp",
+        "s_brackets": true
+      }
+    ],
+    "forward_declaration": [
+      {
+        "namespace": "app",
+        "name": "struct AppContext"
+      }
+    ],
+    "namespace": "cst"
   }
 }

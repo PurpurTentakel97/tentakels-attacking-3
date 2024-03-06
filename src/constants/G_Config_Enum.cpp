@@ -20,6 +20,7 @@ namespace cst {
             case G_Config_Enum::G_GLOBAL: return "global";
             case G_Config_Enum::G_PLANET: return "planet";
             case G_Config_Enum::G_PLAYER: return "player";
+            case G_Config_Enum::G_SOUND: return "sound";
 
             case G_Config_Enum::G_GLOBAL_CONFIG_SECTION_COUNT: return "config_section_count";
             case G_Config_Enum::G_FIGHT_TOTAL_CONFIG_ENTRY_COUNT: return "total_config_entry_count";
@@ -88,6 +89,10 @@ namespace cst {
             case G_Config_Enum::G_PLAYER_MIN_COUNT: return "min_count";
             case G_Config_Enum::G_PLAYER_MAX_COUNT: return "max_count";
             case G_Config_Enum::G_PLAYER_IS_SHUFFLE: return "is_shuffle";
+            case G_Config_Enum::G_SOUND_TOTAL_CONFIG_ENTRY_COUNT: return "total_config_entry_count";
+            case G_Config_Enum::G_SOUND_LOAD_CONFIG_ENTRY_COUNT: return "load_config_entry_count";
+            case G_Config_Enum::G_SOUND_IS_MUTE: return "is_mute";
+            case G_Config_Enum::G_SOUND_MASTER_VOLUME: return "master_volume";
         }
     std::unreachable();
     }

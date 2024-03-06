@@ -16,14 +16,12 @@ namespace ui {
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
 
         // headline
-        auto settingsText = std::make_shared<uil::Text>(
-                GetElementPosition(0.5f, 0.2f),
-                GetElementSize(0.3f, 0.1f),
-                uil::Alignment::TOP_MID,
-                uil::Alignment::TOP_MID,
-                0.07f,
-                appContext.languageManager.Text("helper_app_settings")
-        );
+        auto settingsText = std::make_shared<uil::Text>(GetElementPosition(0.5f, 0.2f),
+                                                        GetElementSize(0.3f, 0.1f),
+                                                        uil::Alignment::TOP_MID,
+                                                        uil::Alignment::TOP_MID,
+                                                        0.07f,
+                                                        appContext.languageManager.Text("helper_app_settings"));
         m_elements.push_back(settingsText);
 
         // constants
@@ -50,14 +48,13 @@ namespace ui {
 
 
         // first
-        auto volumeText = std::make_shared<uil::Text>(
-                GetElementPosition(rx, y),
-                GetElementSize(width, height),
-                a,
-                a,
-                height,
-                appContext.languageManager.Text("scene_settings_volume_subheadline", ":")
-        );
+        auto volumeText =
+                std::make_shared<uil::Text>(GetElementPosition(rx, y),
+                                            GetElementSize(width, height),
+                                            a,
+                                            a,
+                                            height,
+                                            appContext.languageManager.Text("scene_settings_volume_subheadline", ":"));
         m_elements.push_back(volumeText);
 
         incPosB();
@@ -73,14 +70,13 @@ namespace ui {
 
         incFIDS();
 
-        auto fullScreenText = std::make_shared<uil::Text>(
-                GetElementPosition(lxwo, y),
-                GetElementSize(width, height),
-                a,
-                a,
-                height,
-                appContext.languageManager.Text("scene_app_settings_fullscreen")
-        );
+        auto fullScreenText =
+                std::make_shared<uil::Text>(GetElementPosition(lxwo, y),
+                                            GetElementSize(width, height),
+                                            a,
+                                            a,
+                                            height,
+                                            appContext.languageManager.Text("scene_app_settings_fullscreen"));
         m_elements.push_back(fullScreenText);
 
         // second
@@ -91,10 +87,9 @@ namespace ui {
                 a,
                 0,
                 100,
-                static_cast<int>(appContext.constants.sound.masterVolume)
-        );
+                static_cast<int>(appContext.constants.g_sound.get_master_volume()));
         m_volume->SetActive(true, appContext);
-        m_volume->SetEnabled(!appContext.constants.sound.muteVolume);
+        m_volume->SetEnabled(!appContext.constants.g_sound.get_master_volume());
         m_volume->SetOnSave([](utl::usize value) {
             eve::SetMasterVolumeEvent const event{ static_cast<float>(value) };
             app::AppContext::GetInstance().eventManager.InvokeEvent(event);
@@ -108,7 +103,7 @@ namespace ui {
         // third
         auto muteCB =
                 std::make_shared<uil::CheckBox>(id, GetElementPosition(rx, y), GetElementSize(0.0f, heightS).y, a, 1);
-        muteCB->SetChecked(appContext.constants.sound.muteVolume);
+        muteCB->SetChecked(appContext.constants.g_sound.get_is_mute());
         muteCB->SetOnCheck([this](utl::usize, bool isChecked) {
             eve::MuteMasterVolumeEvent const event{ isChecked };
             app::AppContext::GetInstance().eventManager.InvokeEvent(event);
@@ -118,14 +113,12 @@ namespace ui {
 
         incFIDS();
 
-        auto muteText = std::make_shared<uil::Text>(
-                GetElementPosition(rxwoS, y),
-                GetElementSize(width, heightS),
-                a,
-                a,
-                heightS,
-                appContext.languageManager.Text("scene_settings_mute")
-        );
+        auto muteText = std::make_shared<uil::Text>(GetElementPosition(rxwoS, y),
+                                                    GetElementSize(width, heightS),
+                                                    a,
+                                                    a,
+                                                    heightS,
+                                                    appContext.languageManager.Text("scene_settings_mute"));
         m_elements.push_back(muteText);
 
         incPosB();
@@ -137,8 +130,7 @@ namespace ui {
                 a,
                 a,
                 height,
-                appContext.languageManager.Text("scene_settings_resolution_subheadline", ":")
-        );
+                appContext.languageManager.Text("scene_settings_resolution_subheadline", ":"));
         m_elements.push_back(resolutionText);
 
         auto languageText = std::make_shared<uil::Text>(
@@ -147,38 +139,33 @@ namespace ui {
                 a,
                 a,
                 height,
-                appContext.languageManager.Text("scene_settings_language_subheadline", ":")
-        );
+                appContext.languageManager.Text("scene_settings_language_subheadline", ":"));
         m_elements.push_back(languageText);
 
         incPosS();
 
         // fifth
-        auto resolutionHintText = std::make_shared<uil::Text>(
-                GetElementPosition(lx, y),
-                GetElementSize(width, heightS),
-                a,
-                a,
-                heightS,
-                appContext.languageManager.Text("scene_settings_resolution_subtext")
-        );
+        auto resolutionHintText =
+                std::make_shared<uil::Text>(GetElementPosition(lx, y),
+                                            GetElementSize(width, heightS),
+                                            a,
+                                            a,
+                                            heightS,
+                                            appContext.languageManager.Text("scene_settings_resolution_subtext"));
         m_elements.push_back(resolutionHintText);
 
         incPosS();
 
         // sixth
-        m_resolutionDropDown = std::make_shared<uil::DropDown>(
-                GetElementPosition(lx, y),
-                GetElementSize(width, height),
-                a,
-                0.25f,
-                id,
-                id + 1,
-                GetStringsFromResolutionEntries()
-        );
+        m_resolutionDropDown = std::make_shared<uil::DropDown>(GetElementPosition(lx, y),
+                                                               GetElementSize(width, height),
+                                                               a,
+                                                               0.25f,
+                                                               id,
+                                                               id + 1,
+                                                               GetStringsFromResolutionEntries());
         m_resolutionDropDown->SetCurrentElementByID(
-                GetIndexFromResolution(appContext.constants.window.currentResolutionEnum) + 1
-        );
+                GetIndexFromResolution(appContext.constants.window.currentResolutionEnum) + 1);
         m_resolutionDropDown->SetOnSave([this](utl::usize ID) {
             eve::SetNewResolutionEvent const event{ this->m_rawResolutionEntries[ID - 1].first };
             app::AppContext::GetInstance().eventManager.InvokeEvent(event);
@@ -187,15 +174,13 @@ namespace ui {
 
         incFIDB();
 
-        m_languageDropDown = std::make_shared<uil::DropDown>(
-                GetElementPosition(rx, y),
-                GetElementSize(width, height),
-                a,
-                0.25f,
-                id,
-                id + 1,
-                app::LanguageManager::GetAvailableLanguages()
-        );
+        m_languageDropDown = std::make_shared<uil::DropDown>(GetElementPosition(rx, y),
+                                                             GetElementSize(width, height),
+                                                             a,
+                                                             0.25f,
+                                                             id,
+                                                             id + 1,
+                                                             app::LanguageManager::GetAvailableLanguages());
         m_languageDropDown->SetCurrentElementByString(appContext.constants.g_global.get_current_language_name());
         m_languageDropDown->SetOnSave([](utl::usize ID) {
             auto const language{ app::LanguageManager::GetAvailableLanguages().at(ID - 1) };
@@ -253,11 +238,10 @@ namespace ui {
         if (auto const* LanguageEvent = dynamic_cast<eve::UpdateLanguageInUIEvent const*>(&event)) {
             m_languageDropDown->SetCurrentElementByString(LanguageEvent->GetLanguage());
             app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
-            eve::ShowMessagePopUpEvent const mEvent{
-                appContext.languageManager.Text("helper_new_language"),
-                appContext.languageManager.Text("ui_popup_new_language_text", LanguageEvent->GetLanguage()),
-                []() {}
-            };
+            eve::ShowMessagePopUpEvent const mEvent{ appContext.languageManager.Text("helper_new_language"),
+                                                     appContext.languageManager.Text("ui_popup_new_language_text",
+                                                                                     LanguageEvent->GetLanguage()),
+                                                     []() {} };
             appContext.eventManager.InvokeEvent(mEvent);
             return;
         }

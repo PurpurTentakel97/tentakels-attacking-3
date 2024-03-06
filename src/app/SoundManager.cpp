@@ -62,15 +62,15 @@ namespace app {
 
     void SoundManager::MuteMasterSoundLevel(bool const mute) {
         app::AppContext_ty appContext{ app::AppContext::GetInstance() };
-        appContext.constants.sound.muteVolume = mute;
-        SetMasterSoundLevel(appContext.constants.sound.masterVolume);
+        appContext.constants.g_sound.set_is_mute(mute);
+        SetMasterSoundLevel(appContext.constants.g_sound.get_master_volume());
     }
 
     void SoundManager::SetMasterSoundLevel(float const level) {
         app::AppContext_ty appContext{ app::AppContext::GetInstance() };
 
-        appContext.constants.sound.masterVolume = level;
-        if (appContext.constants.sound.muteVolume) {
+        appContext.constants.g_sound.set_master_volume(level);
+        if (appContext.constants.g_sound.get_is_mute()) {
             SetMasterVolume(0.0f);
             return;
         }

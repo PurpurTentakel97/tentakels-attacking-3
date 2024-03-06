@@ -5,7 +5,7 @@
     "type": 5,
     "config": true,
     "constants_class": "G_Global",
-    "value": "7"
+    "value": "8"
   },
   "fight_total_config_entry_count": {
     "prefix": "s_",
@@ -534,5 +534,37 @@
     "config": true,
     "constants_class": "G_Player",
     "value": "false"
+  },
+  "sound_total_config_entry_count": {
+    "prefix": "s_",
+    "name": "total_config_entry_count",
+    "type": 5,
+    "config": true,
+    "constants_class": "G_Sound",
+    "value": "4"
+  },
+  "sound_load_config_entry_count": {
+    "prefix": "s_",
+    "name": "load_config_entry_count",
+    "type": 5,
+    "config": true,
+    "constants_class": "G_Sound",
+    "value": "2"
+  },
+  "sound_is_mute": {
+    "prefix": "m_",
+    "name": "is_mute",
+    "type": 4,
+    "config": true,
+    "constants_class": "G_Sound",
+    "value": "false"
+  },
+  "sound_master_volume": {
+    "prefix": "m_",
+    "name": "master_volume",
+    "type": 6,
+    "config": true,
+    "constants_class": "G_Sound",
+    "value": "50.0f"
   }
 }

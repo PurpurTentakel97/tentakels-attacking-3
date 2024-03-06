@@ -7,7 +7,7 @@
 
 #include "CFiles.hpp"
 #include "G_Player.hpp"
-#include "CSound.hpp"
+#include "G_Sound.hpp"
 #include "CTextProcessing.hpp"
 #include "CWindow.hpp"
 #include "CWorld.hpp"
@@ -29,7 +29,7 @@ namespace cst {
         G_Global g_global;
         G_Planet g_planet;
         G_Player g_player;
-        Sound sound;
+        G_Sound g_sound;
         Window window;
         World world;
 

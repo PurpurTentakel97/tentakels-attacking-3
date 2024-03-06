@@ -20,6 +20,7 @@ namespace cst {
         G_GLOBAL,
         G_PLANET,
         G_PLAYER,
+        G_SOUND,
 
         G_GLOBAL_CONFIG_SECTION_COUNT,
         G_FIGHT_TOTAL_CONFIG_ENTRY_COUNT,
@@ -88,6 +89,10 @@ namespace cst {
         G_PLAYER_MIN_COUNT,
         G_PLAYER_MAX_COUNT,
         G_PLAYER_IS_SHUFFLE,
+        G_SOUND_TOTAL_CONFIG_ENTRY_COUNT,
+        G_SOUND_LOAD_CONFIG_ENTRY_COUNT,
+        G_SOUND_IS_MUTE,
+        G_SOUND_MASTER_VOLUME,
     };
 
     [[nodiscard]] std::string CToS(G_Config_Enum value);
