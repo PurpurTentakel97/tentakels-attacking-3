@@ -22,7 +22,7 @@ namespace cst {
         static inline utl::usize constexpr s_total_config_entry_count = 5;
         static inline utl::usize constexpr s_load_config_entry_count = 2;
         static inline std::string const s_game_version = "v0.1.7";
-        static inline std::string const s_config_version = "v0.1.6.10";
+        static inline std::string const s_config_version = "v0.1.7.1";
         static inline std::string const s_language_version = "v0.1.7.1";
 
     public:
