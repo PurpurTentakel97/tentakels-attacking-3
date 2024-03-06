@@ -22,7 +22,7 @@ int main() {
     hlp::Print(hlp::PrintType::BUILD, "Release");
 #endif // _DEBUG
 
-    hlp::Print(hlp::PrintType::BUILD, cst::Global::gameVersion);
+    hlp::Print(hlp::PrintType::BUILD, appContext.constants.g_version.get_game_version());
 
     ui::UIManager uiManager;
 

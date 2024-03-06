@@ -31,17 +31,17 @@ namespace lgk {
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
 
         if (m_isHomePlanet) {
-            m_production = appContext.constants.planet.homeworldProduction;
-            m_ships      = m_production * appContext.constants.planet.startingHumanShipsMultiplicator;
+            m_production = appContext.constants.g_planet.get_home_world_production();
+            m_ships      = m_production * appContext.constants.g_planet.get_starting_human_ships_multiplier();
         } else {
             auto& random{ hlp::Random::GetInstance() };
-            utl::usize const r{ random.random(appContext.constants.planet.maxProduction
-                                              - appContext.constants.planet.minProduction) };
-            m_production = r + appContext.constants.planet.minProduction;
-            m_ships      = m_production * appContext.constants.planet.startingGlobalShipsMultiplicator;
+            utl::usize const r{ random.random(appContext.constants.g_planet.get_max_production()
+                                              - appContext.constants.g_planet.get_min_production()) };
+            m_production = r + appContext.constants.g_planet.get_min_production();
+            m_ships      = m_production * appContext.constants.g_planet.get_starting_global_ships_multiplier();
         }
 
-        m_maxShips = appContext.constants.planet.maxShipsFactor * m_production;
+        m_maxShips = appContext.constants.g_planet.get_max_ships_factor() * m_production;
     }
 
     bool Planet::IsHomePlanet() const {

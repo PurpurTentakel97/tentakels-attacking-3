@@ -33,10 +33,10 @@ namespace lgk {
 
     void GalaxyManager::GenerateGalaxy() {
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
-        utl::vec2pos_ty_c size = { static_cast<int>(appContext.constants.world.currentDimensionX),
-                                   static_cast<int>(appContext.constants.world.currentDimensionY) };
+        utl::vec2pos_ty_c size = { static_cast<int>(appContext.constants.g_world.get_current_dimension_x()),
+                                   static_cast<int>(appContext.constants.g_world.get_current_dimension_y()) };
         auto const galaxy      = std::make_shared<Galaxy>(size,
-                                                     appContext.constants.world.currentPlanetCount,
+                                                     appContext.constants.g_world.get_current_planet_count(),
                                                      m_gameManager->m_players,
                                                      m_gameManager->m_npcs[PlayerType::NEUTRAL]);
 
@@ -58,12 +58,12 @@ namespace lgk {
     void GalaxyManager::GenerateShowGalaxy() {
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
         utl::vec2pos_ty_c size = {
-            static_cast<int>(appContext.constants.world.showDimensionX),
-            static_cast<int>(appContext.constants.world.showDimensionY),
+            static_cast<int>(appContext.constants.g_world.get_show_dimension_x()),
+            static_cast<int>(appContext.constants.g_world.get_show_dimension_y()),
         };
 
         auto const galaxy = std::make_shared<Galaxy>(size,
-                                                     appContext.constants.world.showPlanetCount,
+                                                     appContext.constants.g_world.get_show_planet_count(),
                                                      m_gameManager->m_players,
                                                      m_gameManager->m_npcs[PlayerType::NEUTRAL]);
 
@@ -168,7 +168,7 @@ namespace lgk {
 
     repeat:
         auto& planet = hlp::RandomElementFromList(planets);
-        if (not appContext.constants.gameEvents.isEventOnHomeWorld and planet->IsHomePlanet()) {
+        if (not appContext.constants.g_game_events.get_is_event_on_home_world() and planet->IsHomePlanet()) {
             hlp::Print(hlp::PrintType::ONLY_DEBUG, "planet {} is a home planet", planet->GetID());
             goto repeat;
         }
@@ -178,7 +178,7 @@ namespace lgk {
 
     repeat2:
         auto& destination = hlp::RandomElementFromList(planets);
-        if (not appContext.constants.gameEvents.isEventOnHomeWorld and destination->IsHomePlanet()) {
+        if (not appContext.constants.g_game_events.get_is_event_on_home_world() and destination->IsHomePlanet()) {
             hlp::Print(hlp::PrintType::ONLY_DEBUG, "planet {} is a home planet", planet->GetID());
             goto repeat2;
         }
@@ -202,7 +202,7 @@ namespace lgk {
 
     repeat:
         auto const& destination = hlp::RandomElementFromList(planets);
-        if (not app::AppContext::GetInstance().constants.gameEvents.isEventOnHomeWorld
+        if (not app::AppContext::GetInstance().constants.g_game_events.get_is_event_on_home_world()
             and destination->IsHomePlanet()) {
             goto repeat;
         }
@@ -227,7 +227,8 @@ namespace lgk {
         for (int i = 0; i < 20; ++i) {
             auto& planet = hlp::RandomElementFromList(planets);
 
-            if (not app::AppContext::GetInstance().constants.gameEvents.isEventOnHomeWorld and planet->IsHomePlanet()) {
+            if (not app::AppContext::GetInstance().constants.g_game_events.get_is_event_on_home_world()
+                and planet->IsHomePlanet()) {
                 hlp::Print(hlp::PrintType::ONLY_DEBUG, "planet {} is a home planet", planet->GetID());
                 continue;
             }
@@ -272,7 +273,8 @@ namespace lgk {
             if (planet->GetProductionProblemYears() != 0) {
                 continue;
             }
-            if (not app::AppContext::GetInstance().constants.gameEvents.isEventOnHomeWorld and planet->IsHomePlanet()) {
+            if (not app::AppContext::GetInstance().constants.g_game_events.get_is_event_on_home_world()
+                and planet->IsHomePlanet()) {
                 continue;
             }
 

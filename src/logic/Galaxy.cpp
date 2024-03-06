@@ -133,8 +133,8 @@ namespace lgk {
         bool validPlanet{ true };
 
         // works because Home Planets are generated first.
-        auto const factor = newPlanet->IsHomePlanet() ? appContext.constants.planet.homeworldSpacing
-                                                      : appContext.constants.planet.globalSpacing;
+        auto const factor = newPlanet->IsHomePlanet() ? appContext.constants.g_planet.get_home_world_spacing()
+                                                      : appContext.constants.g_planet.get_global_spacing();
         double const spacing{ m_size.Length() * static_cast<double>(factor) };
 
         for (auto& p : m_planets) {
@@ -995,7 +995,7 @@ namespace lgk {
     std::vector<utl::ResultFight> Galaxy::SimulateFightPlanetFleet() {
         std::vector<utl::ResultFight> results{};
 
-        if (not app::AppContext::GetInstance().constants.fight.isFightPlanetFleet) {
+        if (not app::AppContext::GetInstance().constants.g_fight.get_is_fight_planet_fleet()) {
             hlp::Print(hlp::PrintType::ONLY_DEBUG, "-> -> -> fights planet : fleet are disabled -> no simulation");
             return results;
         }
@@ -1017,7 +1017,7 @@ namespace lgk {
     std::vector<utl::ResultFight> Galaxy::SimulateFightTargetPointFleet() {
         std::vector<utl::ResultFight> results{};
 
-        if (not app::AppContext::GetInstance().constants.fight.isFightTargetPointFleet) {
+        if (not app::AppContext::GetInstance().constants.g_fight.get_is_fight_target_point_fleet()) {
             hlp::Print(hlp::PrintType::ONLY_DEBUG,
                        "-> -> -> fights target point : fleet are disabled -> no simulation");
             return results;
@@ -1040,7 +1040,7 @@ namespace lgk {
     std::vector<utl::ResultFight> Galaxy::SimulateFightTargetPointTargetPoint() {
         std::vector<utl::ResultFight> results{};
 
-        if (not app::AppContext::GetInstance().constants.fight.isFightTargetPointTargetPoint) {
+        if (not app::AppContext::GetInstance().constants.g_fight.get_is_fight_target_point_target_point()) {
             hlp::Print(hlp::PrintType::ONLY_DEBUG,
                        "-> -> -> fights target point : target point are disabled -> no simulation");
             return results;
@@ -1075,7 +1075,7 @@ namespace lgk {
     std::vector<utl::ResultFight> Galaxy::SimulateFightPlanetTargetPoint() {
         std::vector<utl::ResultFight> results{};
 
-        if (not app::AppContext::GetInstance().constants.fight.isFightPlanetTargetPoint) {
+        if (not app::AppContext::GetInstance().constants.g_fight.get_is_fight_planet_target_point()) {
             hlp::Print(hlp::PrintType::ONLY_DEBUG,
                        "-> -> -> fights planet : target point are disabled -> no simulation");
             return results;
@@ -1151,7 +1151,7 @@ namespace lgk {
     }
 
     utl::usize Galaxy::Salve(SpaceObject_ty const& obj) {
-        float const hitChance{ app::AppContext::GetInstance().constants.fight.hitChance * 100 };
+        float const hitChance{ app::AppContext::GetInstance().constants.g_fight.get_hit_chance() * 100 };
         auto& random_{ hlp::Random::GetInstance() };
         utl::usize hitCount{ 0 };
 

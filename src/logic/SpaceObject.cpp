@@ -74,12 +74,12 @@ namespace lgk {
     bool SpaceObject::IsInDiscoverRange(SpaceObject_ty_c object) const {
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
         auto const range =
-                appContext.constants.world.discoverRangeFactor * appContext.constants.fleet.currentFleetSpeed;
+                appContext.constants.g_world.get_discover_range_factor() * appContext.constants.g_fleet.get_current_fleet_speed();
         return IsInRange(object.get(), this, range);
     }
 
     bool SpaceObject::IsInFightRange(SpaceObject_ty_c object) const {
-        auto const range = app::AppContext::GetInstance().constants.fight.fleetFightRange;
+        auto const range = app::AppContext::GetInstance().constants.g_fight.get_fleet_fight_range();
         return IsInRange(object.get(), this, range);
     }
 

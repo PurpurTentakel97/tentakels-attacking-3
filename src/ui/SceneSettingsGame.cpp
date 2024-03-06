@@ -94,13 +94,13 @@ namespace ui {
                 GetElementPosition(rx, y),
                 GetElementSize(width, height),
                 a,
-                static_cast<int>(appContext.constants.fleet.minFleetSpeed),
-                static_cast<int>(appContext.constants.fleet.maxFleetSpeed),
-                static_cast<int>(appContext.constants.fleet.currentFleetSpeed)
+                static_cast<int>(appContext.constants.g_fleet.get_min_fleet_speed()),
+                static_cast<int>(appContext.constants.g_fleet.get_max_fleet_speed()),
+                static_cast<int>(appContext.constants.g_fleet.get_current_fleet_speed())
         );
         fleetSpeed->SetActive(true, appContext);
         fleetSpeed->SetOnSave([](utl::usize value) {
-            app::AppContext::GetInstance().constants.fleet.currentFleetSpeed = value;
+            app::AppContext::GetInstance().constants.g_fleet.set_current_fleet_speed(value);
         });
         m_elements.push_back(fleetSpeed);
 
@@ -126,9 +126,9 @@ namespace ui {
                 GetElementPosition(rx, y),
                 GetElementSize(width, height),
                 a,
-                static_cast<int>(appContext.constants.global.minRounds),
-                static_cast<int>(appContext.constants.global.maxRounds),
-                static_cast<int>(appContext.constants.global.currentTargetRound)
+                static_cast<int>(appContext.constants.g_global.get_min_rounds()),
+                static_cast<int>(appContext.constants.g_global.get_max_rounds()),
+                static_cast<int>(appContext.constants.g_global.get_current_target_round())
         );
         lastRound->SetActive(true, appContext);
         lastRound->SetOnSave([](utl::usize value) {
@@ -149,9 +149,9 @@ namespace ui {
                 uil::Alignment::MID_LEFT,
                 1
         );
-        playerShuffleCB->SetChecked(appContext.constants.player.shuffle);
+        playerShuffleCB->SetChecked(appContext.constants.g_player.get_is_shuffle());
         playerShuffleCB->SetOnCheck([](utl::usize, bool isChecked) {
-            app::AppContext::GetInstance().constants.player.shuffle = isChecked;
+            app::AppContext::GetInstance().constants.g_player.set_is_shuffle(isChecked);
         });
         m_elements.push_back(playerShuffleCB);
 
@@ -189,9 +189,9 @@ namespace ui {
                 uil::Alignment::MID_LEFT,
                 1
         );
-        fightPlanetFleetCB->SetChecked(appContext.constants.fight.isFightPlanetFleet);
+        fightPlanetFleetCB->SetChecked(appContext.constants.g_fight.get_is_fight_planet_fleet());
         fightPlanetFleetCB->SetOnCheck([](utl::usize, bool isChecked) {
-            app::AppContext::GetInstance().constants.fight.isFightPlanetFleet = isChecked;
+            app::AppContext::GetInstance().constants.g_fight.set_is_fight_planet_fleet(isChecked);
         });
         m_elements.push_back(fightPlanetFleetCB);
 
@@ -214,9 +214,9 @@ namespace ui {
                 uil::Alignment::MID_LEFT,
                 1
         );
-        fightPlanetTargetPointCB->SetChecked(appContext.constants.fight.isFightPlanetTargetPoint);
+        fightPlanetTargetPointCB->SetChecked(appContext.constants.g_fight.get_is_fight_planet_target_point());
         fightPlanetTargetPointCB->SetOnCheck([](utl::usize, bool isChecked) {
-            app::AppContext::GetInstance().constants.fight.isFightPlanetTargetPoint = isChecked;
+            app::AppContext::GetInstance().constants.g_fight.set_is_fight_planet_target_point(isChecked);
         });
         m_elements.push_back(fightPlanetTargetPointCB);
 
@@ -241,9 +241,9 @@ namespace ui {
                 uil::Alignment::MID_LEFT,
                 1
         );
-        fightTargetPointFleetCB->SetChecked(appContext.constants.fight.isFightTargetPointFleet);
+        fightTargetPointFleetCB->SetChecked(appContext.constants.g_fight.get_is_fight_target_point_fleet());
         fightTargetPointFleetCB->SetOnCheck([](utl::usize, bool isChecked) {
-            app::AppContext::GetInstance().constants.fight.isFightTargetPointFleet = isChecked;
+            app::AppContext::GetInstance().constants.g_fight.set_is_fight_target_point_fleet(isChecked);
         });
         m_elements.push_back(fightTargetPointFleetCB);
 
@@ -266,9 +266,9 @@ namespace ui {
                 uil::Alignment::MID_LEFT,
                 1
         );
-        fightTargetPointTargetPointCB->SetChecked(appContext.constants.fight.isFightTargetPointTargetPoint);
+        fightTargetPointTargetPointCB->SetChecked(appContext.constants.g_fight.get_is_fight_target_point_target_point());
         fightTargetPointTargetPointCB->SetOnCheck([](utl::usize, bool isChecked) {
-            app::AppContext::GetInstance().constants.fight.isFightTargetPointTargetPoint = isChecked;
+            app::AppContext::GetInstance().constants.g_fight.set_is_fight_target_point_target_point(isChecked);
         });
         m_elements.push_back(fightTargetPointTargetPointCB);
 

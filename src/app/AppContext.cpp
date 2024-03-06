@@ -4,7 +4,7 @@
 //
 
 #include "AppContext.hpp"
-#include <constants/CConfigIO.hpp>
+#include <constants/G_Config_IO.hpp>
 #include <event/EventGeneral.hpp>
 #include <helper/HPrint.hpp>
 
@@ -20,90 +20,102 @@ namespace app {
     }
 
     void AppContext::LoadConfig() const {
-        cst::LoadConfig();
-        if (constants.sound.muteVolume) {
+        cst::G_Config_IO::LoadConfig();
+        if (constants.g_sound.get_is_mute()) {
             SetMasterVolume(0.0f);
         } else {
-            SetMasterVolume(constants.sound.masterVolume / 100);
+            SetMasterVolume(constants.g_sound.get_master_volume() / 100);
         }
 
-        eve::SetTargetFPSEvent const event{ constants.window.FPS };
+        eve::SetTargetFPSEvent const event{ constants.g_window.get_fps() };
         eventManager.InvokeEvent(event);
     }
 
     void AppContext::SaveConfig() {
-        cst::SaveConfig();
+        cst::G_Config_IO::SaveConfig();
     }
 
     void AppContext::ValidateConfig() {
         // Global
         ValidateMinMax<utl::usize>(
-                constants.global.minRounds, constants.global.maxRounds, "Min Game Rounds", "Max Game Rounds");
-        ValidateMinCurrentMax<utl::usize>(
-                constants.global.minRounds, constants.global.currentTargetRound, constants.global.maxRounds);
+                constants.g_global.m_min_rounds, constants.g_global.m_max_rounds, "Min Game Rounds", "Max Game Rounds");
+        ValidateMinCurrentMax<utl::usize>(constants.g_global.m_min_rounds,
+                                          constants.g_global.m_current_target_round,
+                                          constants.g_global.m_max_rounds);
 
         // Game Events
-        ValidateMinMax<float>(constants.gameEvents.minBlackHoleRangeFactor,
-                              constants.gameEvents.maxBlackHoleRangeFactor,
+        ValidateLowerEqual<float>(
+                constants.g_game_events.m_min_black_hole_range_factor, 1.0f, "Min Black Hole Range Factor");
+        ValidateLowerEqual<float>(
+                constants.g_game_events.m_max_black_hole_range_factor, 1.0f, "Max Black Hole Range Factor");
+
+        ValidateMinMax<float>(constants.g_game_events.m_min_black_hole_range_factor,
+                              constants.g_game_events.m_max_black_hole_range_factor,
                               "Min Black Hole Factor",
                               "Max Black Hole Factor");
-        ValidateMinMax<utl::usize>(constants.gameEvents.minPirateShips,
-                                   constants.gameEvents.maxPirateShips,
+        ValidateMinMax<utl::usize>(constants.g_game_events.m_min_pirate_ships,
+                                   constants.g_game_events.m_max_pirate_ships,
                                    "Min Pirate Ships count",
                                    "Max Pirate Ship count");
 
-        ValidateLowerEqual<utl::usize>(constants.gameEvents.globalChance.value, 10000, "Global Event Chance");
+        ValidateLowerEqual<utl::usize>(constants.g_game_events.m_global_chance.value, 10000, "Global Event Chance");
         ValidateLowerEqual<utl::usize>(
-                constants.gameEvents.engineProblemChance.value, 10000, "Engine Problem Event Chance");
-        ValidateLowerEqual<utl::usize>(constants.gameEvents.pirateChance.value, 10000, "Pirate Event Chance");
+                constants.g_game_events.m_engine_problem_chance.value, 10000, "Engine Problem Event Chance");
+        ValidateLowerEqual<utl::usize>(constants.g_game_events.m_pirate_chance.value, 10000, "Pirate Event Chance");
         ValidateLowerEqual<utl::usize>(
-                constants.gameEvents.renegadeShipsChance.value, 10000, "Renegade Ships Event Chance");
-        ValidateLowerEqual<utl::usize>(constants.gameEvents.revoltChance.value, 10000, "Revolts Event Chance");
-        ValidateLowerEqual<utl::usize>(constants.gameEvents.supernovaChance.value, 10000, "Supernova Event Chance");
-
-        ValidateLowerEqual<float>(constants.gameEvents.minBlackHoleRangeFactor, 1.0f, "Min Black Hole Range Factor");
-        ValidateLowerEqual<float>(constants.gameEvents.maxBlackHoleRangeFactor, 1.0f, "Max Black Hole Range Factor");
+                constants.g_game_events.m_renegade_ships_chance.value, 10000, "Renegade Ships Event Chance");
+        ValidateLowerEqual<utl::usize>(constants.g_game_events.m_revolts_chance.value, 10000, "Revolts Event Chance");
+        ValidateLowerEqual<utl::usize>(
+                constants.g_game_events.m_supernova_chance.value, 10000, "Supernova Event Chance");
 
         // Player
-        ValidateMinMax<utl::usize>(constants.player.minPlayerCount,
-                                   constants.player.maxPlayerCount,
-                                   "Min Player Count",
-                                   "Max Player Count");
+        ValidateMinMax<utl::usize>(
+                constants.g_player.m_min_count, constants.g_player.m_max_count, "Min Player Count", "Max Player Count");
 
         // World
-        ValidateMinMax<utl::usize>(
-                constants.world.minPlanetCount, constants.world.maxPlanetCount, "Min Planet Count", "Max Planet Count");
-        ValidateMinCurrentMax<utl::usize>(
-                constants.world.minPlanetCount, constants.world.currentPlanetCount, constants.world.maxPlanetCount);
+        ValidateMinMax<utl::usize>(constants.g_world.m_min_planet_count,
+                                   constants.g_world.m_max_planet_count,
+                                   "Min Planet Count",
+                                   "Max Planet Count");
+        ValidateMinCurrentMax<utl::usize>(constants.g_world.m_min_planet_count,
+                                          constants.g_world.m_current_planet_count,
+                                          constants.g_world.m_max_planet_count);
 
-        ValidateMinMax<utl::usize>(
-                constants.world.minDimensionX, constants.world.maxDimensionX, "Min World Width", "Max World Width");
-        ValidateMinCurrentMax<utl::usize>(
-                constants.world.minDimensionX, constants.world.currentDimensionX, constants.world.maxDimensionX);
+        ValidateMinMax<utl::usize>(constants.g_world.m_min_dimension_x,
+                                   constants.g_world.m_max_dimension_x,
+                                   "Min World Width",
+                                   "Max World Width");
+        ValidateMinCurrentMax<utl::usize>(constants.g_world.m_min_dimension_x,
+                                          constants.g_world.m_current_dimension_x,
+                                          constants.g_world.m_max_dimension_x);
 
-        ValidateMinMax<utl::usize>(
-                constants.world.minDimensionY, constants.world.maxDimensionY, "Min World Height", "Max World Height");
-        ValidateMinCurrentMax<utl::usize>(
-                constants.world.minDimensionY, constants.world.currentDimensionY, constants.world.maxDimensionY);
+        ValidateMinMax<utl::usize>(constants.g_world.m_min_dimension_y,
+                                   constants.g_world.m_max_dimension_y,
+                                   "Min World Height",
+                                   "Max World Height");
+        ValidateMinCurrentMax<utl::usize>(constants.g_world.m_min_dimension_y,
+                                          constants.g_world.m_current_dimension_y,
+                                          constants.g_world.m_max_dimension_y);
 
         // Sound
-        ValidateLowerEqual<float>(constants.sound.masterVolume, 100.0f, "Master Volume");
-        ValidateGreaterEqual<float>(constants.sound.masterVolume, 0.0f, "Master Volume");
+        ValidateLowerEqual<float>(constants.g_sound.m_master_volume, 100.0f, "Master Volume");
+        ValidateGreaterEqual<float>(constants.g_sound.m_master_volume, 0.0f, "Master Volume");
 
         // Planet
-        ValidateLowerEqual<float>(constants.planet.homeworldSpacing, 1.0f, "Homeworld Spacing");
-        ValidateGreaterEqual<float>(constants.planet.homeworldSpacing, 0.0f, "Homeworld Spacing");
+        ValidateLowerEqual<float>(constants.g_planet.m_home_world_spacing, 1.0f, "Homeworld Spacing");
+        ValidateGreaterEqual<float>(constants.g_planet.m_home_world_spacing, 0.0f, "Homeworld Spacing");
 
-        ValidateLowerEqual<float>(constants.planet.globalSpacing, 1.0f, "Global Spacing");
-        ValidateGreaterEqual<float>(constants.planet.globalSpacing, 0.0f, "Global Spacing");
+        ValidateLowerEqual<float>(constants.g_planet.m_global_spacing, 1.0f, "Global Spacing");
+        ValidateGreaterEqual<float>(constants.g_planet.m_global_spacing, 0.0f, "Global Spacing");
 
         // Fleet
-        ValidateMinMax<utl::usize>(constants.fleet.minFleetSpeed,
-                                   constants.fleet.maxFleetSpeed,
+        ValidateMinMax<utl::usize>(constants.g_fleet.m_min_fleet_speed,
+                                   constants.g_fleet.m_max_fleet_speed,
                                    "Min Fleet Movement",
                                    "Max Fleet Movement");
-        ValidateMinCurrentMax<utl::usize>(
-                constants.fleet.minFleetSpeed, constants.fleet.currentFleetSpeed, constants.fleet.maxFleetSpeed);
+        ValidateMinCurrentMax<utl::usize>(constants.g_fleet.m_min_fleet_speed,
+                                          constants.g_fleet.m_current_fleet_speed,
+                                          constants.g_fleet.m_max_fleet_speed);
 
         hlp::Print(hlp::PrintType::INFO, "Config validated");
     }
@@ -111,13 +123,13 @@ namespace app {
     void AppContext::OnEvent(eve::Event const& event) {
 
         if (auto const LastRoundEvent = dynamic_cast<eve::SetCurrentLastRoundEvent const*>(&event)) {
-            constants.global.currentTargetRound = LastRoundEvent->GetLastRound();
+            constants.g_global.set_current_target_round(LastRoundEvent->GetLastRound());
             return;
         }
     }
 
     Vector2 AppContext::GetResolution() const {
-        return constants.window.currentResolutionVec;
+        return constants.currentResolutionVec;
     }
 
     AppContext::AppContext() {

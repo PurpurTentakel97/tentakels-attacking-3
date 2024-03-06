@@ -40,4 +40,7 @@ namespace utl {
     struct RepresentationTargetPoint;
     struct RepresentationPlanet;
     struct RepresentationGalaxy;
+
+    struct Probability;
+    enum class GameEventType;
 } // namespace utl

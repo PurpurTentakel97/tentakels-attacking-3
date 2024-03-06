@@ -147,13 +147,17 @@ namespace ui {
         };
         if (m_isShowGalaxy) {
             return {
-                newPos.x + pos.x / static_cast<float>(appContext.constants.world.showDimensionX) * newSize.x,
-                newPos.y + pos.y / static_cast<float>(appContext.constants.world.showDimensionY) * newSize.y,
+                newPos.x + pos.x / static_cast<float>(appContext.constants.g_world.get_show_dimension_x()) * newSize.x,
+                newPos.y + pos.y / static_cast<float>(appContext.constants.g_world.get_show_dimension_y()) * newSize.y,
             };
         } else {
             return {
-                newPos.x + pos.x / static_cast<float>(appContext.constants.world.currentDimensionX) * newSize.x,
-                newPos.y + pos.y / static_cast<float>(appContext.constants.world.currentDimensionY) * newSize.y,
+                newPos.x
+                        + pos.x / static_cast<float>(appContext.constants.g_world.get_current_dimension_x())
+                                  * newSize.x,
+                newPos.y
+                        + pos.y / static_cast<float>(appContext.constants.g_world.get_current_dimension_y())
+                                  * newSize.y,
             };
         }
     }
@@ -161,13 +165,13 @@ namespace ui {
     Vector2 UIGalaxy::GetRelativePosition(Vector2 const pos, app::AppContext_ty_c appContext) const {
         if (m_isShowGalaxy) {
             return {
-                pos.x / static_cast<float>(appContext.constants.world.showDimensionX),
-                pos.y / static_cast<float>(appContext.constants.world.showDimensionY),
+                pos.x / static_cast<float>(appContext.constants.g_world.get_show_dimension_x()),
+                pos.y / static_cast<float>(appContext.constants.g_world.get_show_dimension_y()),
             };
         } else {
             return {
-                pos.x / static_cast<float>(appContext.constants.world.currentDimensionX),
-                pos.y / static_cast<float>(appContext.constants.world.currentDimensionY),
+                pos.x / static_cast<float>(appContext.constants.g_world.get_current_dimension_x()),
+                pos.y / static_cast<float>(appContext.constants.g_world.get_current_dimension_y()),
             };
         }
     }

@@ -27,12 +27,12 @@ namespace lgk {
     }
 
     utl::usize BlackHole::Size(int const galaxyWidth) const {
-        auto const& constants = app::AppContext::GetInstance().constants.gameEvents;
+        auto const& constants = app::AppContext::GetInstance().constants.g_game_events;
         auto const size =
-                static_cast<utl::usize>((constants.minBlackHoleRangeFactor * static_cast<float>(galaxyWidth))) + ExtraSize();
-        auto const maxSize = static_cast<utl::usize>(constants.maxBlackHoleRangeFactor * static_cast<float> (galaxyWidth));
+                static_cast<utl::usize>((constants.get_min_black_hole_range_factor() * static_cast<float>(galaxyWidth))) + ExtraSize();
+        auto const maxSize = static_cast<utl::usize>(constants.get_max_black_hole_range_factor() * static_cast<float> (galaxyWidth));
         // clang-format off
-        return constants.isMaxBlackHoleRangeFactor and size > maxSize
+        return constants.get_is_max_black_hole_range_factor() and size > maxSize
                      ? maxSize
                      : size;
         // clang-format on

@@ -6,6 +6,7 @@
 #pragma once
 
 #include <string>
+#include <alias/AliasUtils.hpp>
 
 namespace cst {
     struct TextProcessing final {

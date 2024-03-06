@@ -95,14 +95,14 @@ namespace ui {
                 0.02f,
                 appContext.languageManager.Text("scene_new_game_player_min_player_count_subtext",
                                                 ":",
-                                                appContext.constants.player.minPlayerCount));
+                                                appContext.constants.g_player.get_min_count()));
         m_elements.push_back(currentPlayerCount);
 
         m_table = std::make_shared<uil::Table>(GetElementPosition(0.9f, 0.35f),
                                                GetElementSize(0.35f, 0.45f),
                                                uil::Alignment::TOP_RIGHT,
                                                5,
-                                               static_cast<int>(appContext.constants.player.maxPlayerCount + 1),
+                                               static_cast<int>(appContext.constants.g_player.get_max_count() + 1),
                                                3,
                                                Vector2(0.33f, 0.1f),
                                                0.1f);
@@ -146,7 +146,7 @@ namespace ui {
 
     void NewGamePlayerScene::InitializePlayerButtons() {
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
-        utl::usize const maxPlayerCount{ appContext.constants.player.maxPlayerCount };
+        utl::usize const maxPlayerCount{ appContext.constants.g_player.get_max_count() };
         utl::usize const currentPlayerCount{ appContext.playerCollection.GetPlayerCount() };
         float const rowHeight{ 0.45f / static_cast<float>(maxPlayerCount + 1) };
         float const initialY{ 0.35f + rowHeight };
@@ -308,8 +308,8 @@ namespace ui {
     void NewGamePlayerScene::SetNextButton() {
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
         utl::usize const playerCount{ appContext.playerCollection.GetPlayerData().size() };
-        bool const validPlayerCount{ playerCount >= appContext.constants.player.minPlayerCount
-                                     and playerCount <= appContext.constants.player.maxPlayerCount };
+        bool const validPlayerCount{ playerCount >= appContext.constants.g_player.get_min_count()
+                                     and playerCount <= appContext.constants.g_player.get_max_count() };
 
         if (validPlayerCount != m_nextBTN->IsEnabled()) {
             m_nextBTN->SetEnabled(validPlayerCount);

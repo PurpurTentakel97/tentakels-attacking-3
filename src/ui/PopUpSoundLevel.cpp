@@ -24,8 +24,8 @@ namespace ui {
                 true,
                 10.0f
         );
-        m_slider->SetEnabled(!appContext.constants.sound.muteVolume);
-        m_slider->SetButtonPosition(appContext.constants.sound.masterVolume);
+        m_slider->SetEnabled(!appContext.constants.g_sound.get_is_mute());
+        m_slider->SetButtonPosition(appContext.constants.g_sound.get_master_volume());
         m_slider->SetOnSlide([](float position) {
             app::AppContext::GetInstance().eventManager.InvokeEvent(eve::SetMasterVolumeEvent(position));
         });
@@ -38,7 +38,7 @@ namespace ui {
                 uil::Alignment::TOP_LEFT,
                 1
         );
-        m_checkBox->SetChecked(appContext.constants.sound.muteVolume);
+        m_checkBox->SetChecked(appContext.constants.g_sound.get_is_mute());
         m_checkBox->SetOnCheck([this](utl::usize, bool isChecked) {
             auto event = eve::MuteMasterVolumeEvent(isChecked);
             app::AppContext::GetInstance().eventManager.InvokeEvent(event);

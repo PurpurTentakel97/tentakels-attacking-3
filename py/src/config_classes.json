@@ -1,0 +1,204 @@
+{
+  "Fight": {
+    "prefix": "G_",
+    "name": "Fight",
+    "type": 1,
+    "includes": [
+      {
+        "name": "alias/AliasUtils.hpp",
+        "s_brackets": true
+      }
+    ],
+    "forward_declaration": [
+      {
+        "namespace": "app",
+        "name": "struct AppContext"
+      }
+    ],
+    "namespace": "cst"
+  },
+  "Version": {
+    "prefix": "G_",
+    "name": "Version",
+    "type": 1,
+    "includes": [
+      {
+        "name": "string",
+        "s_brackets": true
+      }
+    ],
+    "forward_declaration": [
+      {
+        "namespace": "app",
+        "name": "struct AppContext"
+      }
+    ],
+    "namespace": "cst"
+  },
+  "Fleet": {
+    "prefix": "G_",
+    "name": "Fleet",
+    "type": 1,
+    "includes": [{
+        "name": "alias/AliasUtils.hpp",
+        "s_brackets": true
+      }],
+    "forward_declaration": [
+      {
+        "namespace": "app",
+        "name": "struct AppContext"
+      }
+    ],
+    "namespace": "cst"
+  },
+  "Game_Events": {
+    "prefix": "G_",
+    "name": "Game_Events",
+    "type": 1,
+    "includes": [
+      {
+        "name": "alias/AliasUtils.hpp",
+        "s_brackets": true
+      },
+      {
+        "name": "array",
+        "s_brackets": true
+      },
+      {
+        "name": "utils/GameEventTypes.hpp",
+        "s_brackets": true
+      },
+      {
+        "name": "utils/Probability.hpp",
+        "s_brackets": true
+      }
+    ],
+    "forward_declaration": [
+      {
+        "namespace": "app",
+        "name": "struct AppContext"
+      }
+    ],
+    "namespace": "cst"
+  },
+  "Global": {
+    "prefix": "G_",
+    "name": "Global",
+    "type": 1,
+    "includes": [
+      {
+        "name": "alias/AliasUtils.hpp",
+        "s_brackets": true
+      },
+      {
+        "name": "string",
+        "s_brackets": true
+      }
+    ],
+    "forward_declaration": [
+      {
+        "namespace": "app",
+        "name": "struct AppContext"
+      }
+    ],
+    "namespace": "cst"
+  },
+  "Planet": {
+    "prefix": "G_",
+    "name": "Planet",
+    "type": 1,
+    "includes": [
+      {
+        "name": "alias/AliasUtils.hpp",
+        "s_brackets": true
+      }
+    ],
+    "forward_declaration": [
+      {
+        "namespace": "app",
+        "name": "struct AppContext"
+      }
+    ],
+    "namespace": "cst"
+  },
+  "Player": {
+    "prefix": "G_",
+    "name": "Player",
+    "type": 1,
+    "includes": [
+      {
+        "name": "alias/AliasUtils.hpp",
+        "s_brackets": true
+      }
+    ],
+    "forward_declaration": [
+      {
+        "namespace": "app",
+        "name": "struct AppContext"
+      }
+    ],
+    "namespace": "cst"
+  },
+  "Sound": {
+    "prefix": "G_",
+    "name": "Sound",
+    "type": 1,
+    "includes": [
+      {
+        "name": "alias/AliasUtils.hpp",
+        "s_brackets": true
+      }
+    ],
+    "forward_declaration": [
+      {
+        "namespace": "app",
+        "name": "struct AppContext"
+      }
+    ],
+    "namespace": "cst"
+  },
+  "Window": {
+    "prefix": "G_",
+    "name": "Window",
+    "type": 1,
+    "includes": [
+      {
+        "name": "CResolution.hpp",
+        "s_brackets": false
+      },
+      {
+        "name": "alias/AliasUtils.hpp",
+        "s_brackets": true
+      },
+      {
+        "name": "utils/Vec2.hpp",
+        "s_brackets": true
+      }
+    ],
+    "forward_declaration": [
+      {
+        "namespace": "app",
+        "name": "struct AppContext"
+      }
+    ],
+    "namespace": "cst"
+  },
+  "World": {
+    "prefix": "G_",
+    "name": "World",
+    "type": 1,
+    "includes": [
+      {
+        "name": "alias/AliasUtils.hpp",
+        "s_brackets": true
+      }
+    ],
+    "forward_declaration": [
+      {
+        "namespace": "app",
+        "name": "struct AppContext"
+      }
+    ],
+    "namespace": "cst"
+  }
+}

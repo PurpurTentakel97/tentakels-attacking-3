@@ -1,0 +1,730 @@
+{
+  "global_config_section_count": {
+    "prefix": "s_",
+    "name": "config_section_count",
+    "type": 5,
+    "config": true,
+    "constants_class": "G_Global",
+    "value": "10"
+  },
+  "fight_total_config_entry_count": {
+    "prefix": "s_",
+    "name": "total_config_entry_count",
+    "type": 5,
+    "config": true,
+    "constants_class": "G_Fight",
+    "value": "8"
+  },
+  "fight_load_config_entry_count": {
+    "prefix": "s_",
+    "name": "load_config_entry_count",
+    "type": 5,
+    "config": true,
+    "constants_class": "G_Fight",
+    "value": "6"
+  },
+  "fight_hit_chance": {
+    "prefix": "m_",
+    "name": "hit_chance",
+    "type": 6,
+    "config": true,
+    "constants_class": "G_Fight",
+    "value": "0.1f"
+  },
+  "fight_fleet_fight_range": {
+    "prefix": "m_",
+    "name": "fleet_fight_range",
+    "type": 1,
+    "config": true,
+    "constants_class": "G_Fight",
+    "value": "4"
+  },
+  "fight_is_fight_planet_fleet": {
+    "prefix": "m_",
+    "name": "is_fight_planet_fleet",
+    "type": 4,
+    "config": true,
+    "constants_class": "G_Fight",
+    "value": "true"
+  },
+  "fight_is_fight_target_point_fleet": {
+    "prefix": "m_",
+    "name": "is_fight_target_point_fleet",
+    "type": 4,
+    "config": true,
+    "constants_class": "G_Fight",
+    "value": "true"
+  },
+  "fight_is_fight_target_point_target_point": {
+    "prefix": "m_",
+    "name": "is_fight_target_point_target_point",
+    "type": 4,
+    "config": true,
+    "constants_class": "G_Fight",
+    "value": "true"
+  },
+  "fight_is_fight_planet_target_point": {
+    "prefix": "m_",
+    "name": "is_fight_planet_target_point",
+    "type": 4,
+    "config": true,
+    "constants_class": "G_Fight",
+    "value": "true"
+  },
+  "version_total_config_entry_count": {
+    "prefix": "s_",
+    "name": "total_config_entry_count",
+    "type": 5,
+    "config": true,
+    "constants_class": "G_Version",
+    "value": "5"
+  },
+  "version_load_config_entry_count": {
+    "prefix": "s_",
+    "name": "load_config_entry_count",
+    "type": 5,
+    "config": true,
+    "constants_class": "G_Version",
+    "value": "2"
+  },
+  "version_game_version": {
+    "prefix": "s_",
+    "name": "game_version",
+    "type": 3,
+    "config": true,
+    "constants_class": "G_Version",
+    "value": "v0.1.7"
+  },
+  "version_config_version": {
+    "prefix": "s_",
+    "name": "config_version",
+    "type": 3,
+    "config": true,
+    "constants_class": "G_Version",
+    "value": "v0.1.6.10"
+  },
+  "version_language_version": {
+    "prefix": "s_",
+    "name": "language_version",
+    "type": 3,
+    "config": true,
+    "constants_class": "G_Version",
+    "value": "v0.1.7.1"
+  },
+  "fleet_total_config_entry_count": {
+    "prefix": "s_",
+    "name": "total_config_entry_count",
+    "type": 5,
+    "config": true,
+    "constants_class": "G_Fleet",
+    "value": "5"
+  },
+  "fleet_load_config_entry_count": {
+    "prefix": "s_",
+    "name": "load_config_entry_count",
+    "type": 5,
+    "config": true,
+    "constants_class": "G_Fleet",
+    "value": "3"
+  },
+  "fleet_min_fleet_speed": {
+    "prefix": "m_",
+    "name": "min_fleet_speed",
+    "type": 1,
+    "config": true,
+    "constants_class": "G_Fleet",
+    "value": "1"
+  },
+  "fleet_current_fleet_speed": {
+    "prefix": "m_",
+    "name": "current_fleet_speed",
+    "type": 1,
+    "config": true,
+    "constants_class": "G_Fleet",
+    "value": "5"
+  },
+  "fleet_max_fleet_speed": {
+    "prefix": "m_",
+    "name": "max_fleet_speed",
+    "type": 1,
+    "config": true,
+    "constants_class": "G_Fleet",
+    "value": "20"
+  },
+  "game_events_total_config_entry_count": {
+    "prefix": "s_",
+    "name": "total_config_entry_count",
+    "type": 5,
+    "config": true,
+    "constants_class": "G_Game_Events",
+    "value": "25"
+  },
+  "game_events_load_config_entry_count": {
+    "prefix": "s_",
+    "name": "load_config_entry_count",
+    "type": 5,
+    "config": true,
+    "constants_class": "G_Game_Events",
+    "value": "23"
+  },
+  "game_events_is_min_event_year": {
+    "prefix": "m_",
+    "name": "is_min_event_year",
+    "type": 4,
+    "config": true,
+    "constants_class": "G_Game_Events",
+    "value": "true"
+  },
+  "game_events_min_event_year": {
+    "prefix": "m_",
+    "name": "min_event_year",
+    "type": 1,
+    "config": true,
+    "constants_class": "G_Game_Events",
+    "value": "5"
+  },
+  "game_events_is_event_on_home_world": {
+    "prefix": "m_",
+    "name": "is_event_on_home_world",
+    "type": 4,
+    "config": true,
+    "constants_class": "G_Game_Events",
+    "value": "false"
+  },
+  "game_events_global_chance": {
+    "prefix": "m_",
+    "name": "global_chance",
+    "type": 7,
+    "config": true,
+    "constants_class": "G_Game_Events",
+    "value": "7500"
+  },
+  "game_events_is_pirates": {
+    "prefix": "m_",
+    "name": "is_pirates",
+    "type": 4,
+    "config": true,
+    "constants_class": "G_Game_Events",
+    "value": "true"
+  },
+  "game_events_pirate_chance": {
+    "prefix": "m_",
+    "name": "pirate_chance",
+    "type": 7,
+    "config": true,
+    "constants_class": "G_Game_Events",
+    "value": "1000"
+  },
+  "game_events_min_pirate_ships": {
+    "prefix": "m_",
+    "name": "min_pirate_ships",
+    "type": 1,
+    "config": true,
+    "constants_class": "G_Game_Events",
+    "value": "30"
+  },
+  "game_events_max_pirate_ships": {
+    "prefix": "m_",
+    "name": "max_pirate_ships",
+    "type": 1,
+    "config": true,
+    "constants_class": "G_Game_Events",
+    "value": "150"
+  },
+  "game_events_is_revolts": {
+    "prefix": "m_",
+    "name": "is_revolts",
+    "type": 4,
+    "config": true,
+    "constants_class": "G_Game_Events",
+    "value": "true"
+  },
+  "game_events_revolts_chance": {
+    "prefix": "m_",
+    "name": "revolts_chance",
+    "type": 7,
+    "config": true,
+    "constants_class": "G_Game_Events",
+    "value": "1000"
+  },
+  "game_events_is_renegade_ships": {
+    "prefix": "m_",
+    "name": "is_renegade_ships",
+    "type": 4,
+    "config": true,
+    "constants_class": "G_Game_Events",
+    "value": "true"
+  },
+  "game_events_renegade_ships_chance": {
+    "prefix": "m_",
+    "name": "renegade_ships_chance",
+    "type": 7,
+    "config": true,
+    "constants_class": "G_Game_Events",
+    "value": "1000"
+  },
+  "game_events_is_supernova": {
+    "prefix": "m_",
+    "name": "is_supernova",
+    "type": 4,
+    "config": true,
+    "constants_class": "G_Game_Events",
+    "value": "true"
+  },
+  "game_events_supernova_chance": {
+    "prefix": "m_",
+    "name": "supernova_chance",
+    "type": 7,
+    "config": true,
+    "constants_class": "G_Game_Events",
+    "value": "300"
+  },
+  "game_events_min_black_hole_range_factor": {
+    "prefix": "m_",
+    "name": "min_black_hole_range_factor",
+    "type": 6,
+    "config": true,
+    "constants_class": "G_Game_Events",
+    "value": "0.05f"
+  },
+  "game_events_max_black_hole_range_factor": {
+    "prefix": "m_",
+    "name": "max_black_hole_range_factor",
+    "type": 6,
+    "config": true,
+    "constants_class": "G_Game_Events",
+    "value": "0.2f"
+  },
+  "game_events_is_max_black_hole_range_factor": {
+    "prefix": "m_",
+    "name": "is_max_black_hole_range_factor",
+    "type": 4,
+    "config": true,
+    "constants_class": "G_Game_Events",
+    "value": "true"
+  },
+  "game_events_is_engine_problem": {
+    "prefix": "m_",
+    "name": "is_engine_problem",
+    "type": 4,
+    "config": true,
+    "constants_class": "G_Game_Events",
+    "value": "true"
+  },
+  "game_events_engine_problem_chance": {
+    "prefix": "m_",
+    "name": "engine_problem_chance",
+    "type": 7,
+    "config": true,
+    "constants_class": "G_Game_Events",
+    "value": "1000"
+  },
+  "game_events_max_engine_problem_years": {
+    "prefix": "m_",
+    "name": "max_engine_problem_years",
+    "type": 1,
+    "config": true,
+    "constants_class": "G_Game_Events",
+    "value": "5"
+  },
+  "game_events_is_production_problem": {
+    "prefix": "m_",
+    "name": "is_production_problem",
+    "type": 4,
+    "config": true,
+    "constants_class": "G_Game_Events",
+    "value": "true"
+  },
+  "game_events_production_problem_chance": {
+    "prefix": "m_",
+    "name": "production_problem_chance",
+    "type": 7,
+    "config": true,
+    "constants_class": "G_Game_Events",
+    "value": "1000"
+  },
+  "game_events_max_production_problem_years": {
+    "prefix": "m_",
+    "name": "max_production_problem_years",
+    "type": 1,
+    "config": true,
+    "constants_class": "G_Game_Events",
+    "value": "5"
+  },
+  "global_total_config_entry_count": {
+    "prefix": "s_",
+    "name": "total_config_entry_count",
+    "type": 5,
+    "config": true,
+    "constants_class": "G_Global",
+    "value": "9"
+  },
+  "global_load_config_entry_count": {
+    "prefix": "s_",
+    "name": "load_config_entry_count",
+    "type": 5,
+    "config": true,
+    "constants_class": "G_Global",
+    "value": "5"
+  },
+  "global_copyright": {
+    "prefix": "s_",
+    "name": "copyright",
+    "type": 3,
+    "config": true,
+    "constants_class": "G_Global",
+    "value": "(c) Purpur Tentakel"
+  },
+  "global_current_language_name": {
+    "prefix": "m_",
+    "name": "current_language_name",
+    "type": 2,
+    "config": true,
+    "constants_class": "G_Global",
+    "value": "english"
+  },
+  "global_min_rounds": {
+    "prefix": "m_",
+    "name": "min_rounds",
+    "type": 1,
+    "config": true,
+    "constants_class": "G_Global",
+    "value": "20"
+  },
+  "global_max_rounds": {
+    "prefix": "m_",
+    "name": "max_rounds",
+    "type": 1,
+    "config": true,
+    "constants_class": "G_Global",
+    "value": "100"
+  },
+  "global_current_target_round": {
+    "prefix": "m_",
+    "name": "current_target_round",
+    "type": 1,
+    "config": true,
+    "constants_class": "G_Global",
+    "value": "50"
+  },
+  "global_current_round": {
+    "prefix": "m_",
+    "name": "current_round",
+    "type": 1,
+    "config": true,
+    "constants_class": "G_Global",
+    "value": "1"
+  },
+  "planet_total_config_entry_count": {
+    "prefix": "s_",
+    "name": "total_config_entry_count",
+    "type": 5,
+    "config": true,
+    "constants_class": "G_Planet",
+    "value": "10"
+  },
+  "planet_load_config_entry_count": {
+    "prefix": "s_",
+    "name": "load_config_entry_count",
+    "type": 5,
+    "config": true,
+    "constants_class": "G_Planet",
+    "value": "8"
+  },
+  "planet_max_ships_factor": {
+    "prefix": "m_",
+    "name": "max_ships_factor",
+    "type": 1,
+    "config": true,
+    "constants_class": "G_Planet",
+    "value": "25"
+  },
+  "planet_starting_human_ships_multiplier": {
+    "prefix": "m_",
+    "name": "starting_human_ships_multiplier",
+    "type": 1,
+    "config": true,
+    "constants_class": "G_Planet",
+    "value": "30"
+  },
+  "planet_starting_global_ships_multiplier": {
+    "prefix": "m_",
+    "name": "starting_global_ships_multiplier",
+    "type": 1,
+    "config": true,
+    "constants_class": "G_Planet",
+    "value": "5"
+  },
+  "planet_home_world_production": {
+    "prefix": "m_",
+    "name": "home_world_production",
+    "type": 1,
+    "config": true,
+    "constants_class": "G_Planet",
+    "value": "10"
+  },
+  "planet_min_production": {
+    "prefix": "m_",
+    "name": "min_production",
+    "type": 1,
+    "config": true,
+    "constants_class": "G_Planet",
+    "value": "3"
+  },
+  "planet_max_production": {
+    "prefix": "m_",
+    "name": "max_production",
+    "type": 1,
+    "config": true,
+    "constants_class": "G_Planet",
+    "value": "7"
+  },
+  "planet_home_world_spacing": {
+    "prefix": "m_",
+    "name": "home_world_spacing",
+    "type": 6,
+    "config": true,
+    "constants_class": "G_Planet",
+    "value": "0.15f"
+  },
+  "planet_global_spacing": {
+    "prefix": "m_",
+    "name": "global_spacing",
+    "type": 6,
+    "config": true,
+    "constants_class": "G_Planet",
+    "value": "0.02f"
+  },
+  "player_total_config_entry_count": {
+    "prefix": "s_",
+    "name": "total_config_entry_count",
+    "type": 5,
+    "config": true,
+    "constants_class": "G_Player",
+    "value": "5"
+  },
+  "player_load_config_entry_count": {
+    "prefix": "s_",
+    "name": "load_config_entry_count",
+    "type": 5,
+    "config": true,
+    "constants_class": "G_Player",
+    "value": "3"
+  },
+  "player_min_count": {
+    "prefix": "m_",
+    "name": "min_count",
+    "type": 1,
+    "config": true,
+    "constants_class": "G_Player",
+    "value": "2"
+  },
+  "player_max_count": {
+    "prefix": "m_",
+    "name": "max_count",
+    "type": 1,
+    "config": true,
+    "constants_class": "G_Player",
+    "value": "7"
+  },
+  "player_is_shuffle": {
+    "prefix": "m_",
+    "name": "is_shuffle",
+    "type": 4,
+    "config": true,
+    "constants_class": "G_Player",
+    "value": "false"
+  },
+  "sound_total_config_entry_count": {
+    "prefix": "s_",
+    "name": "total_config_entry_count",
+    "type": 5,
+    "config": true,
+    "constants_class": "G_Sound",
+    "value": "4"
+  },
+  "sound_load_config_entry_count": {
+    "prefix": "s_",
+    "name": "load_config_entry_count",
+    "type": 5,
+    "config": true,
+    "constants_class": "G_Sound",
+    "value": "2"
+  },
+  "sound_is_mute": {
+    "prefix": "m_",
+    "name": "is_mute",
+    "type": 4,
+    "config": true,
+    "constants_class": "G_Sound",
+    "value": "false"
+  },
+  "sound_master_volume": {
+    "prefix": "m_",
+    "name": "master_volume",
+    "type": 6,
+    "config": true,
+    "constants_class": "G_Sound",
+    "value": "50.0f"
+  },
+  "window_total_config_entry_count": {
+    "prefix": "s_",
+    "name": "total_config_entry_count",
+    "type": 5,
+    "config": true,
+    "constants_class": "G_Window",
+    "value": "5"
+  },
+  "window_load_config_entry_count": {
+    "prefix": "s_",
+    "name": "load_config_entry_count",
+    "type": 5,
+    "config": true,
+    "constants_class": "G_Window",
+    "value": "3"
+  },
+  "window_current_resolution_enum": {
+    "prefix": "m_",
+    "name": "current_resolution_enum",
+    "type": 8,
+    "config": true,
+    "constants_class": "G_Window",
+    "value": "Resolution::LAST"
+  },
+  "window_is_full_screen": {
+    "prefix": "m_",
+    "name": "is_full_screen",
+    "type": 4,
+    "config": true,
+    "constants_class": "G_Window",
+    "value": "true"
+  },
+  "window_fps": {
+    "prefix": "m_",
+    "name": "fps",
+    "type": 1,
+    "config": true,
+    "constants_class": "G_Window",
+    "value": "60"
+  },
+  "world_total_config_entry_count": {
+    "prefix": "s_",
+    "name": "total_config_entry_count",
+    "type": 5,
+    "config": true,
+    "constants_class": "G_World",
+    "value": "15"
+  },
+  "world_load_config_entry_count": {
+    "prefix": "s_",
+    "name": "load_config_entry_count",
+    "type": 5,
+    "config": true,
+    "constants_class": "G_World",
+    "value": "13"
+  },
+  "world_min_planet_count": {
+    "prefix": "m_",
+    "name": "min_planet_count",
+    "type": 1,
+    "config": true,
+    "constants_class": "G_World",
+    "value": "20"
+  },
+  "world_current_planet_count": {
+    "prefix": "m_",
+    "name": "current_planet_count",
+    "type": 1,
+    "config": true,
+    "constants_class": "G_World",
+    "value": "50"
+  },
+  "world_max_planet_count": {
+    "prefix": "m_",
+    "name": "max_planet_count",
+    "type": 1,
+    "config": true,
+    "constants_class": "G_World",
+    "value": "100"
+  },
+  "world_show_planet_count": {
+    "prefix": "m_",
+    "name": "show_planet_count",
+    "type": 1,
+    "config": true,
+    "constants_class": "G_World",
+    "value": "25"
+  },
+  "world_min_dimension_x": {
+    "prefix": "m_",
+    "name": "min_dimension_x",
+    "type": 1,
+    "config": true,
+    "constants_class": "G_World",
+    "value": "60"
+  },
+  "world_current_dimension_x": {
+    "prefix": "m_",
+    "name": "current_dimension_x",
+    "type": 1,
+    "config": true,
+    "constants_class": "G_World",
+    "value": "150"
+  },
+  "world_max_dimension_x": {
+    "prefix": "m_",
+    "name": "max_dimension_x",
+    "type": 1,
+    "config": true,
+    "constants_class": "G_World",
+    "value": "300"
+  },
+  "world_min_dimension_y": {
+    "prefix": "m_",
+    "name": "min_dimension_y",
+    "type": 1,
+    "config": true,
+    "constants_class": "G_World",
+    "value": "20"
+  },
+  "world_current_dimension_y": {
+    "prefix": "m_",
+    "name": "current_dimension_y",
+    "type": 1,
+    "config": true,
+    "constants_class": "G_World",
+    "value": "80"
+  },
+  "world_max_dimension_y": {
+    "prefix": "m_",
+    "name": "max_dimension_y",
+    "type": 1,
+    "config": true,
+    "constants_class": "G_World",
+    "value": "160"
+  },
+  "world_show_dimension_x": {
+    "prefix": "m_",
+    "name": "show_dimension_x",
+    "type": 1,
+    "config": true,
+    "constants_class": "G_World",
+    "value": "200"
+  },
+  "world_show_dimension_y": {
+    "prefix": "m_",
+    "name": "show_dimension_y",
+    "type": 1,
+    "config": true,
+    "constants_class": "G_World",
+    "value": "112"
+  },
+  "world_discover_range_factor": {
+    "prefix": "m_",
+    "name": "discover_range_factor",
+    "type": 1,
+    "config": true,
+    "constants_class": "G_World",
+    "value": "3"
+  }
+}

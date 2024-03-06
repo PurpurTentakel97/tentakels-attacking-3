@@ -15,10 +15,9 @@ namespace app {
                     hlp::PrintType::ERROR,
                     R"(not able to load default language "{}" -> not able to show fallback text if the chosen language does )"
                     "not contain the key",
-                    m_default_language
-            );
+                    m_default_language);
         }
-        ChanceLanguage(app::AppContext::GetInstance().constants.global.currentLanguageName);
+        ChanceLanguage(app::AppContext::GetInstance().constants.g_global.get_current_language_name());
     }
 
     void LanguageManager::InitializeAvailableLanguages() {
@@ -59,7 +58,7 @@ namespace app {
     void LanguageManager::ChanceLanguage(std::string const& language) {
         app::AppContext_ty appContext{ app::AppContext::GetInstance() };
         auto handleUpdateLanguage{ [&]() {
-            auto const event{ eve::UpdateLanguageInUIEvent(appContext.constants.global.currentLanguageName) };
+            auto const event{ eve::UpdateLanguageInUIEvent(appContext.constants.g_global.get_current_language_name()) };
             appContext.eventManager.InvokeEvent(event);
         } };
 
@@ -79,7 +78,7 @@ namespace app {
                     return;
                 }
                 m_current_language_json.clear();
-                appContext.constants.global.currentLanguageName = "";
+                appContext.constants.g_global.set_current_language_name("");
                 hlp::Print(hlp::PrintType::ERROR, "not able to load any language.");
             }
         } else {
@@ -88,6 +87,7 @@ namespace app {
     }
 
     bool LanguageManager::LoadLanguage(std::string const& language, bool const defaultLanguage) {
+        auto const& appContext = app::AppContext::GetInstance();
         bool found{ false };
         for (auto const& l : m_availableLanguages) {
             if (l == language) {
@@ -104,11 +104,9 @@ namespace app {
         std::string const directory{ "Assets/Languages" };
         if (not DirectoryExists(directory.c_str())) {
             assert(false and "language directory missing");
-            hlp::Print(
-                    hlp::PrintType::ERROR,
-                    "directory \"{}\" not existing. unable to load provided language",
-                    directory
-            );
+            hlp::Print(hlp::PrintType::ERROR,
+                       "directory \"{}\" not existing. unable to load provided language",
+                       directory);
             return false;
         }
 
@@ -128,14 +126,12 @@ namespace app {
             }
         } catch (nlohmann::json::parse_error const& e) {
             assert(false and "language parse error");
-            hlp::Print(
-                    hlp::PrintType::ERROR,
-                    "not able tp parse \"{}\" -> message: {} -> byte: {} -> id: {}",
-                    language,
-                    e.what(),
-                    e.byte,
-                    e.id
-            );
+            hlp::Print(hlp::PrintType::ERROR,
+                       "not able tp parse \"{}\" -> message: {} -> byte: {} -> id: {}",
+                       language,
+                       e.what(),
+                       e.byte,
+                       e.id);
             in.close();
             return false;
         }
@@ -145,7 +141,7 @@ namespace app {
         if (defaultLanguage) {
             hlp::Print(hlp::PrintType::INITIALIZE, "default language loaded -> \"{}\"", language);
         } else {
-            app::AppContext::GetInstance().constants.global.currentLanguageName = language;
+            app::AppContext::GetInstance().constants.g_global.set_current_language_name(language);
 
             hlp::Print(hlp::PrintType::INITIALIZE, "current language loaded -> \"{}\"", language);
         }
@@ -160,58 +156,47 @@ namespace app {
 
         if (dummy == nullptr) {
             assert(dummy);
-            hlp::Print(
-                    hlp::PrintType::ERROR,
-                    "not able to check language version -> loaded language is nullptr -> \"{}\"",
-                    language
-            );
+            hlp::Print(hlp::PrintType::ERROR,
+                       "not able to check language version -> loaded language is nullptr -> \"{}\"",
+                       language);
             return false;
         } else if (dummy.is_null()) {
             assert(not dummy.is_null());
-            hlp::Print(
-                    hlp::PrintType::ERROR,
-                    "not able to check language version -> loaded language json in null -> \"{}\"",
-                    language
-            );
+            hlp::Print(hlp::PrintType::ERROR,
+                       "not able to check language version -> loaded language json in null -> \"{}\"",
+                       language);
             return false;
         } else if (not dummy.contains(m_version_key)) {
             assert(dummy.contains(m_version_key));
-            hlp::Print(
-                    hlp::PrintType::ERROR,
-                    R"(not able to check language version -> language does not contain key "{}" -> "{}")",
-                    m_version_key,
-                    language
-            );
+            hlp::Print(hlp::PrintType::ERROR,
+                       R"(not able to check language version -> language does not contain key "{}" -> "{}")",
+                       m_version_key,
+                       language);
             return false;
         } else {
             auto const& version{ static_cast<std::string>(dummy[m_version_key]) };
-            if (version == cst::Global::languageVersion) {
-                hlp::Print(
-                        hlp::PrintType::INFO,
-                        R"(loaded language version matches the expected version -> "{}" -> "{}")",
-                        language,
-                        version
-                );
+            if (version == appContext.constants.g_version.get_language_version()) {
+                hlp::Print(hlp::PrintType::INFO,
+                           R"(loaded language version matches the expected version -> "{}" -> "{}")",
+                           language,
+                           version);
             } else {
                 if (defaultLanguage) {
-                    hlp::Print(
-                            hlp::PrintType::ERROR,
-                            "versions of default language does not match -> language \"{}\" -> expected \"{}\" -> "
-                            "provided "
-                            "\"{}\" -> it is possible that not every text can be displayed",
-                            language,
-                            cst::Global::languageVersion,
-                            version
-                    );
+                    hlp::Print(hlp::PrintType::ERROR,
+                               "versions of default language does not match -> language \"{}\" -> expected \"{}\" -> "
+                               "provided "
+                               "\"{}\" -> it is possible that not every text can be displayed",
+                               language,
+                               appContext.constants.g_version.get_language_version(),
+                               version);
                 } else {
                     hlp::Print(
                             hlp::PrintType::ERROR,
                             "versions of current language does not match -> language \"{}\" -> expected -> \"{}\" -> "
                             "provided \"{}\" -> it is possible that the default language tried to be displayed",
                             language,
-                            cst::Global::languageVersion,
-                            version
-                    );
+                            appContext.constants.g_version.get_language_version(),
+                            version);
                 }
             }
         }
@@ -225,10 +210,10 @@ namespace app {
         std::string dummyText{};
 
         if (defaultLanguage) {
-            dummy = m_default_language_json;
+            dummy     = m_default_language_json;
             dummyText = "default";
         } else {
-            dummy = m_current_language_json;
+            dummy     = m_current_language_json;
             dummyText = "current";
         }
 
