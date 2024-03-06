@@ -10,6 +10,7 @@
 #include "G_Game_Events.hpp"
 #include "G_Global.hpp"
 #include "G_Planet.hpp"
+#include "G_Player.hpp"
 #include "G_Config_IO.hpp"
 #include "HelperConfigIO.hpp"
 
@@ -84,6 +85,12 @@ namespace cst {
             if (utl::usize out; LoadUSize(son, out, G_Config_Enum::G_PLANET_MAX_PRODUCTION)) { constants.g_planet.m_max_production = out; }
             if (float out; LoadFloat(son, out, G_Config_Enum::G_PLANET_HOME_WORLD_SPACING)) { constants.g_planet.m_home_world_spacing = out; }
             if (float out; LoadFloat(son, out, G_Config_Enum::G_PLANET_GLOBAL_SPACING)) { constants.g_planet.m_global_spacing = out; }
+        }
+
+        if (nlohmann::json son; LoadSection(load, son, G_Config_Enum::G_PLAYER, G_Player::s_total_config_entry_count)) {
+            if (utl::usize out; LoadUSize(son, out, G_Config_Enum::G_PLAYER_MIN_COUNT)) { constants.g_player.m_min_count = out; }
+            if (utl::usize out; LoadUSize(son, out, G_Config_Enum::G_PLAYER_MAX_COUNT)) { constants.g_player.m_max_count = out; }
+            if (bool out; LoadBool(son, out, G_Config_Enum::G_PLAYER_IS_SHUFFLE)) { constants.g_player.m_is_shuffle = out; }
         }
 
         CheckLoadEntryCount();
@@ -172,6 +179,14 @@ namespace cst {
             { CToS(G_Config_Enum::G_PLANET_MAX_PRODUCTION), constants.g_planet.m_max_production },
             { CToS(G_Config_Enum::G_PLANET_HOME_WORLD_SPACING), constants.g_planet.m_home_world_spacing },
             { CToS(G_Config_Enum::G_PLANET_GLOBAL_SPACING), constants.g_planet.m_global_spacing },
+        };
+
+        save[CToS(G_Config_Enum::G_PLAYER)] = {
+            { CToS(G_Config_Enum::G_PLAYER_TOTAL_CONFIG_ENTRY_COUNT), constants.g_player.s_total_config_entry_count },
+            { CToS(G_Config_Enum::G_PLAYER_LOAD_CONFIG_ENTRY_COUNT), constants.g_player.s_load_config_entry_count },
+            { CToS(G_Config_Enum::G_PLAYER_MIN_COUNT), constants.g_player.m_min_count },
+            { CToS(G_Config_Enum::G_PLAYER_MAX_COUNT), constants.g_player.m_max_count },
+            { CToS(G_Config_Enum::G_PLAYER_IS_SHUFFLE), constants.g_player.m_is_shuffle },
         };
 
         hlp::SaveFile(Files::s_savesDir, Files::s_configFile, save.dump(4));

@@ -27,7 +27,7 @@ namespace lgk {
 
     // player
     bool GameManager::ValidAddPlayer() const {
-        return app::AppContext::GetInstance().constants.player.maxPlayerCount > m_players.size();
+        return app::AppContext::GetInstance().constants.g_player.get_max_count() > m_players.size();
     }
 
     utl::usize GameManager::GetNextPlayerID() const {
@@ -217,20 +217,20 @@ namespace lgk {
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
         bool valid;
 
-        if (m_players.size() < appContext.constants.player.minPlayerCount) {
+        if (m_players.size() < appContext.constants.g_player.get_min_count()) {
             eve::ShowMessagePopUpEvent const event{
                 appContext.languageManager.Text("ui_popup_player_count_title"),
                 appContext.languageManager.Text(
-                        "ui_popup_player_count_min_subtitle", '\n', appContext.constants.player.minPlayerCount),
+                        "ui_popup_player_count_min_subtitle", '\n', appContext.constants.g_player.get_min_count()),
                 []() {}
             };
             appContext.eventManager.InvokeEvent(event);
             valid = false;
-        } else if (m_players.size() > appContext.constants.player.maxPlayerCount) {
+        } else if (m_players.size() > appContext.constants.g_player.get_max_count()) {
             eve::ShowMessagePopUpEvent const event{
                 appContext.languageManager.Text("ui_popup_player_count_title"),
                 appContext.languageManager.Text(
-                        "ui_popup_player_count_max_subtitle", '\n', appContext.constants.player.maxPlayerCount),
+                        "ui_popup_player_count_max_subtitle", '\n', appContext.constants.g_player.get_max_count()),
                 []() {}
             };
             appContext.eventManager.InvokeEvent(event);
@@ -244,7 +244,7 @@ namespace lgk {
     }
 
     void GameManager::ShuffleCurrentRoundPlayer() {
-        if (not app::AppContext::GetInstance().constants.player.shuffle) {
+        if (not app::AppContext::GetInstance().constants.g_player.get_is_shuffle()) {
             return;
         }
 

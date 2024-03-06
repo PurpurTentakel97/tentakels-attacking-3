@@ -149,9 +149,9 @@ namespace ui {
                 uil::Alignment::MID_LEFT,
                 1
         );
-        playerShuffleCB->SetChecked(appContext.constants.player.shuffle);
+        playerShuffleCB->SetChecked(appContext.constants.g_player.get_is_shuffle());
         playerShuffleCB->SetOnCheck([](utl::usize, bool isChecked) {
-            app::AppContext::GetInstance().constants.player.shuffle = isChecked;
+            app::AppContext::GetInstance().constants.g_player.set_is_shuffle(isChecked);
         });
         m_elements.push_back(playerShuffleCB);
 

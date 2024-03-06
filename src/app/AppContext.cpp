@@ -69,8 +69,8 @@ namespace app {
                 constants.g_game_events.m_supernova_chance.value, 10000, "Supernova Event Chance");
 
         // Player
-        ValidateMinMax<utl::usize>(constants.player.minPlayerCount,
-                                   constants.player.maxPlayerCount,
+        ValidateMinMax<utl::usize>(constants.g_player.m_min_count,
+                                   constants.g_player.m_max_count,
                                    "Min Player Count",
                                    "Max Player Count");
 

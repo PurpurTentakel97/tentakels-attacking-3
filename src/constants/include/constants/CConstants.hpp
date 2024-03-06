@@ -6,7 +6,7 @@
 #pragma once
 
 #include "CFiles.hpp"
-#include "CPlayer.hpp"
+#include "G_Player.hpp"
 #include "CSound.hpp"
 #include "CTextProcessing.hpp"
 #include "CWindow.hpp"
@@ -28,7 +28,7 @@ namespace cst {
         G_Fleet g_fleet;
         G_Global g_global;
         G_Planet g_planet;
-        Player player;
+        G_Player g_player;
         Sound sound;
         Window window;
         World world;

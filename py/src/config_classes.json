@@ -117,5 +117,23 @@
       }
     ],
     "namespace": "cst"
+  },
+  "Player": {
+    "prefix": "G_",
+    "name": "Player",
+    "type": 1,
+    "includes": [
+      {
+        "name": "alias/AliasUtils.hpp",
+        "s_brackets": true
+      }
+    ],
+    "forward_declaration": [
+      {
+        "namespace": "app",
+        "name": "struct AppContext"
+      }
+    ],
+    "namespace": "cst"
   }
 }

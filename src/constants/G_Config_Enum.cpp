@@ -19,6 +19,7 @@ namespace cst {
             case G_Config_Enum::G_GAME_EVENTS: return "game_events";
             case G_Config_Enum::G_GLOBAL: return "global";
             case G_Config_Enum::G_PLANET: return "planet";
+            case G_Config_Enum::G_PLAYER: return "player";
 
             case G_Config_Enum::G_GLOBAL_CONFIG_SECTION_COUNT: return "config_section_count";
             case G_Config_Enum::G_FIGHT_TOTAL_CONFIG_ENTRY_COUNT: return "total_config_entry_count";
@@ -82,6 +83,11 @@ namespace cst {
             case G_Config_Enum::G_PLANET_MAX_PRODUCTION: return "max_production";
             case G_Config_Enum::G_PLANET_HOME_WORLD_SPACING: return "home_world_spacing";
             case G_Config_Enum::G_PLANET_GLOBAL_SPACING: return "global_spacing";
+            case G_Config_Enum::G_PLAYER_TOTAL_CONFIG_ENTRY_COUNT: return "total_config_entry_count";
+            case G_Config_Enum::G_PLAYER_LOAD_CONFIG_ENTRY_COUNT: return "load_config_entry_count";
+            case G_Config_Enum::G_PLAYER_MIN_COUNT: return "min_count";
+            case G_Config_Enum::G_PLAYER_MAX_COUNT: return "max_count";
+            case G_Config_Enum::G_PLAYER_IS_SHUFFLE: return "is_shuffle";
         }
     std::unreachable();
     }

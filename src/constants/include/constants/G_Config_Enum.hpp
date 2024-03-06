@@ -19,6 +19,7 @@ namespace cst {
         G_GAME_EVENTS,
         G_GLOBAL,
         G_PLANET,
+        G_PLAYER,
 
         G_GLOBAL_CONFIG_SECTION_COUNT,
         G_FIGHT_TOTAL_CONFIG_ENTRY_COUNT,
@@ -82,6 +83,11 @@ namespace cst {
         G_PLANET_MAX_PRODUCTION,
         G_PLANET_HOME_WORLD_SPACING,
         G_PLANET_GLOBAL_SPACING,
+        G_PLAYER_TOTAL_CONFIG_ENTRY_COUNT,
+        G_PLAYER_LOAD_CONFIG_ENTRY_COUNT,
+        G_PLAYER_MIN_COUNT,
+        G_PLAYER_MAX_COUNT,
+        G_PLAYER_IS_SHUFFLE,
     };
 
     [[nodiscard]] std::string CToS(G_Config_Enum value);

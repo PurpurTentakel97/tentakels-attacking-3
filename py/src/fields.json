@@ -5,7 +5,7 @@
     "type": 5,
     "config": true,
     "constants_class": "G_Global",
-    "value": "6"
+    "value": "7"
   },
   "fight_total_config_entry_count": {
     "prefix": "s_",
@@ -494,5 +494,45 @@
     "config": true,
     "constants_class": "G_Planet",
     "value": "0.02f"
+  },
+  "player_total_config_entry_count": {
+    "prefix": "s_",
+    "name": "total_config_entry_count",
+    "type": 5,
+    "config": true,
+    "constants_class": "G_Player",
+    "value": "5"
+  },
+  "player_load_config_entry_count": {
+    "prefix": "s_",
+    "name": "load_config_entry_count",
+    "type": 5,
+    "config": true,
+    "constants_class": "G_Player",
+    "value": "3"
+  },
+  "player_min_count": {
+    "prefix": "m_",
+    "name": "min_count",
+    "type": 1,
+    "config": true,
+    "constants_class": "G_Player",
+    "value": "2"
+  },
+  "player_max_count": {
+    "prefix": "m_",
+    "name": "max_count",
+    "type": 1,
+    "config": true,
+    "constants_class": "G_Player",
+    "value": "7"
+  },
+  "player_is_shuffle": {
+    "prefix": "m_",
+    "name": "is_shuffle",
+    "type": 4,
+    "config": true,
+    "constants_class": "G_Player",
+    "value": "false"
   }
 }
