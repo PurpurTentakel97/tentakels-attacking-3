@@ -25,6 +25,11 @@ namespace cst {
             case G_Config_Enum::G_WORLD: return "world";
 
             case G_Config_Enum::G_GLOBAL_CONFIG_SECTION_COUNT: return "config_section_count";
+            case G_Config_Enum::G_VERSION_TOTAL_CONFIG_ENTRY_COUNT: return "total_config_entry_count";
+            case G_Config_Enum::G_VERSION_LOAD_CONFIG_ENTRY_COUNT: return "load_config_entry_count";
+            case G_Config_Enum::G_VERSION_GAME_VERSION: return "game_version";
+            case G_Config_Enum::G_VERSION_CONFIG_VERSION: return "config_version";
+            case G_Config_Enum::G_VERSION_LANGUAGE_VERSION: return "language_version";
             case G_Config_Enum::G_FIGHT_TOTAL_CONFIG_ENTRY_COUNT: return "total_config_entry_count";
             case G_Config_Enum::G_FIGHT_LOAD_CONFIG_ENTRY_COUNT: return "load_config_entry_count";
             case G_Config_Enum::G_FIGHT_HIT_CHANCE: return "hit_chance";
@@ -33,11 +38,6 @@ namespace cst {
             case G_Config_Enum::G_FIGHT_IS_FIGHT_TARGET_POINT_FLEET: return "is_fight_target_point_fleet";
             case G_Config_Enum::G_FIGHT_IS_FIGHT_TARGET_POINT_TARGET_POINT: return "is_fight_target_point_target_point";
             case G_Config_Enum::G_FIGHT_IS_FIGHT_PLANET_TARGET_POINT: return "is_fight_planet_target_point";
-            case G_Config_Enum::G_VERSION_TOTAL_CONFIG_ENTRY_COUNT: return "total_config_entry_count";
-            case G_Config_Enum::G_VERSION_LOAD_CONFIG_ENTRY_COUNT: return "load_config_entry_count";
-            case G_Config_Enum::G_VERSION_GAME_VERSION: return "game_version";
-            case G_Config_Enum::G_VERSION_CONFIG_VERSION: return "config_version";
-            case G_Config_Enum::G_VERSION_LANGUAGE_VERSION: return "language_version";
             case G_Config_Enum::G_FLEET_TOTAL_CONFIG_ENTRY_COUNT: return "total_config_entry_count";
             case G_Config_Enum::G_FLEET_LOAD_CONFIG_ENTRY_COUNT: return "load_config_entry_count";
             case G_Config_Enum::G_FLEET_MIN_FLEET_SPEED: return "min_fleet_speed";

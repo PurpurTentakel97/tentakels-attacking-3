@@ -7,6 +7,46 @@
     "constants_class": "G_Global",
     "value": "10"
   },
+  "version_total_config_entry_count": {
+    "prefix": "s_",
+    "name": "total_config_entry_count",
+    "type": 5,
+    "config": true,
+    "constants_class": "G_Version",
+    "value": "5"
+  },
+  "version_load_config_entry_count": {
+    "prefix": "s_",
+    "name": "load_config_entry_count",
+    "type": 5,
+    "config": true,
+    "constants_class": "G_Version",
+    "value": "2"
+  },
+  "version_game_version": {
+    "prefix": "s_",
+    "name": "game_version",
+    "type": 3,
+    "config": true,
+    "constants_class": "G_Version",
+    "value": "v0.1.8"
+  },
+  "version_config_version": {
+    "prefix": "s_",
+    "name": "config_version",
+    "type": 3,
+    "config": true,
+    "constants_class": "G_Version",
+    "value": "v0.1.7.1"
+  },
+  "version_language_version": {
+    "prefix": "s_",
+    "name": "language_version",
+    "type": 3,
+    "config": true,
+    "constants_class": "G_Version",
+    "value": "v0.1.7.1"
+  },
   "fight_total_config_entry_count": {
     "prefix": "s_",
     "name": "total_config_entry_count",
@@ -70,46 +110,6 @@
     "config": true,
     "constants_class": "G_Fight",
     "value": "true"
-  },
-  "version_total_config_entry_count": {
-    "prefix": "s_",
-    "name": "total_config_entry_count",
-    "type": 5,
-    "config": true,
-    "constants_class": "G_Version",
-    "value": "5"
-  },
-  "version_load_config_entry_count": {
-    "prefix": "s_",
-    "name": "load_config_entry_count",
-    "type": 5,
-    "config": true,
-    "constants_class": "G_Version",
-    "value": "2"
-  },
-  "version_game_version": {
-    "prefix": "s_",
-    "name": "game_version",
-    "type": 3,
-    "config": true,
-    "constants_class": "G_Version",
-    "value": "v0.1.7"
-  },
-  "version_config_version": {
-    "prefix": "s_",
-    "name": "config_version",
-    "type": 3,
-    "config": true,
-    "constants_class": "G_Version",
-    "value": "v0.1.6.10"
-  },
-  "version_language_version": {
-    "prefix": "s_",
-    "name": "language_version",
-    "type": 3,
-    "config": true,
-    "constants_class": "G_Version",
-    "value": "v0.1.7.1"
   },
   "fleet_total_config_entry_count": {
     "prefix": "s_",
