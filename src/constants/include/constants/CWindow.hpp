@@ -6,12 +6,8 @@
 #pragma once
 
 #include "CResolution.hpp"
-#include <CustomRaylib.hpp>
 #include <alias/AliasUtils.hpp>
-#include <cstddef>
-#include <string>
 #include <utils/Vec2.hpp>
-#include <vector>
 
 
 namespace cst {
@@ -24,13 +20,5 @@ namespace cst {
 
         bool isFullScreen{ true };
         utl::usize FPS{ 60 };
-
-        [[nodiscard]] bool IsPossibleResolution(Resolution toProve) const;
-
-        [[nodiscard]] std::vector<std::pair<Resolution, std::string>> GetAllResolutionsAsString() const;
-
-        [[nodiscard]] std::string GetStringFromResolution(Resolution resolution) const;
-
-        [[nodiscard]] utl::vec2pos_ty GetIntFromResolution(Resolution resolution) const;
     };
 } // namespace cst

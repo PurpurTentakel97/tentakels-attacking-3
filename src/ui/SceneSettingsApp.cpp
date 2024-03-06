@@ -212,7 +212,7 @@ namespace ui {
     AppSettingsScene::AppSettingsScene() : SettingsScene{} {
 
         app::AppContext_ty appContext{ app::AppContext::GetInstance() };
-        m_rawResolutionEntries = appContext.constants.window.GetAllResolutionsAsString();
+        m_rawResolutionEntries = appContext.constants.h_window.GetAllResolutionsAsString();
         appContext.eventManager.AddListener(this);
 
         Initialize();

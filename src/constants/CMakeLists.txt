@@ -19,8 +19,9 @@ add_library(constants STATIC
             include/constants/CWindow.hpp
             include/constants/HelperConfigIO.hpp
             include/constants/HelperGameEvents.hpp
+            include/constants/HelperWindow.hpp
             CConstants.cpp
-            CWindow.cpp
+            HelperWindow.cpp
             HelperGameEvents.cpp
 )
 

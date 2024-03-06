@@ -60,7 +60,8 @@ namespace uil {
         } };
 
         auto const& window{ appContext.constants.window };
-        auto const& resolution{ window.GetIntFromResolution(window.currentResolutionEnum) };
+        auto const& helper{ appContext.constants.h_window };
+        auto const& resolution{ helper.GetIntFromResolution(window.currentResolutionEnum) };
         bool const high{ static_cast<float>(resolution.y) / 2.0f > GetMousePosition().y };
 
         if (high) {

@@ -41,15 +41,16 @@ namespace ui {
 
     void UIManager::CheckAndSetNewResolution() {
         cst::Window_ty window{ m_appContext.constants.window };
+        auto const& helper{ m_appContext.constants.h_window };
         if (m_nextResolution == window.currentResolutionEnum) {
             return;
         }
 
-        bool const validResolution{ window.IsPossibleResolution(m_nextResolution) };
+        bool const validResolution{ helper.IsPossibleResolution(m_nextResolution) };
         if (!validResolution) {
             Print(hlp::PrintType::ERROR,
                   "invalid resolution for this screen -> {}",
-                  m_appContext.constants.window.GetStringFromResolution(m_nextResolution));
+                  m_appContext.constants.h_window.GetStringFromResolution(m_nextResolution));
             return;
         }
 
@@ -106,12 +107,13 @@ namespace ui {
 
     void UIManager::SetWindowSize(bool const force) {
         cst::Window_ty window{ m_appContext.constants.window };
+        auto const& helper{ m_appContext.constants.h_window };
         if (window.currentResolutionEnum == m_nextResolution and not force) {
             return;
         }
         window.currentResolutionEnum = m_nextResolution;
 
-        utl::vec2pos_ty_c values = window.GetIntFromResolution(m_nextResolution);
+        utl::vec2pos_ty_c values = helper.GetIntFromResolution(m_nextResolution);
 
         window.currentResolutionVec = { static_cast<float>(values.x), static_cast<float>(values.y) };
         ::SetWindowSize(static_cast<int>(values.x), static_cast<int>(values.y));
@@ -178,7 +180,8 @@ namespace ui {
     void UIManager::StartUI() {
         SetWindowTitle(("Tentakels Attacking " + m_appContext.constants.g_version.get_game_version()).c_str());
         cst::Window_ty window{ m_appContext.constants.window };
-        window.nativeResolutionVec = window.GetIntFromResolution(cst::Resolution::SCREEN);
+        auto const& helper{ m_appContext.constants.h_window };
+        window.nativeResolutionVec = helper.GetIntFromResolution(cst::Resolution::SCREEN);
 
         if (m_appContext.constants.window.currentResolutionEnum == cst::Resolution::LAST) {
 
@@ -209,11 +212,11 @@ namespace ui {
             m_isNextFullScreen           = window.isFullScreen;
             window.isFullScreen          = false;
 
-            if (!window.IsPossibleResolution(m_nextResolution)) {
+            if (!helper.IsPossibleResolution(m_nextResolution)) {
                 hlp::Print(hlp::PrintType::ERROR,
                            "invalid resolution: {} -> resolution set to: {}",
-                           m_appContext.constants.window.GetStringFromResolution(m_nextResolution),
-                           m_appContext.constants.window.GetStringFromResolution(cst::Resolution::SCREEN));
+                           m_appContext.constants.h_window.GetStringFromResolution(m_nextResolution),
+                           m_appContext.constants.h_window.GetStringFromResolution(cst::Resolution::SCREEN));
                 m_nextResolution = cst::Resolution::SCREEN;
             }
         }

@@ -18,6 +18,7 @@
 #include "G_Planet.hpp"
 #include "G_Version.hpp"
 #include "HelperGameEvents.hpp"
+#include "HelperWindow.hpp"
 
 namespace cst {
     struct Constants final {
@@ -35,6 +36,7 @@ namespace cst {
 
         // config helper
         HelperGameEvents h_game_events;
+        HelperWindow h_window;
 
         // non config related
         TextProcessing textProcessing;
