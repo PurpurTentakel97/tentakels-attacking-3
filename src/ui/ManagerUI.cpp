@@ -86,7 +86,7 @@ namespace ui {
 
 #ifdef _DEBUG
         utl::usize const fps{ static_cast<utl::usize>(GetFPS()) };
-        cst::Window_ty_c window{ app::AppContext::GetInstance().constants.window };
+        auto const& window{ app::AppContext::GetInstance().constants };
         DrawTextEx(*(m_appContext.assetManager.GetFont()),
                    ("FPS: " + std::to_string(fps)).c_str(),
                    Vector2(window.currentResolutionVec.x * 0.92f, window.currentResolutionVec.y * 0.01f),

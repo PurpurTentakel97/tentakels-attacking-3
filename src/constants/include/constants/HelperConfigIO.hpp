@@ -236,9 +236,9 @@ namespace cst {
         }
 
 #ifdef _DEBUG
-        constants.window.isFullScreen = false;
+        constants.g_window.set_is_full_screen(false);
         hlp::Print(hlp::PrintType::DEBUG, "set full screen to false");
-        constants.window.currentResolutionEnum = Resolution::HD;
+        constants.g_window.set_current_resolution_enum(Resolution::HD);
         hlp::Print(hlp::PrintType::DEBUG, "set resolution to HD");
 #endif // _DEBUG
     }
