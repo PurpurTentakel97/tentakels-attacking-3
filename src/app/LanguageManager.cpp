@@ -17,7 +17,7 @@ namespace app {
                     "not contain the key",
                     m_default_language);
         }
-        ChanceLanguage(app::AppContext::GetInstance().constants.global.currentLanguageName);
+        ChanceLanguage(app::AppContext::GetInstance().constants.g_global.get_current_language_name());
     }
 
     void LanguageManager::InitializeAvailableLanguages() {
@@ -58,7 +58,7 @@ namespace app {
     void LanguageManager::ChanceLanguage(std::string const& language) {
         app::AppContext_ty appContext{ app::AppContext::GetInstance() };
         auto handleUpdateLanguage{ [&]() {
-            auto const event{ eve::UpdateLanguageInUIEvent(appContext.constants.global.currentLanguageName) };
+            auto const event{ eve::UpdateLanguageInUIEvent(appContext.constants.g_global.get_current_language_name()) };
             appContext.eventManager.InvokeEvent(event);
         } };
 
@@ -78,7 +78,7 @@ namespace app {
                     return;
                 }
                 m_current_language_json.clear();
-                appContext.constants.global.currentLanguageName = "";
+                appContext.constants.g_global.set_current_language_name("");
                 hlp::Print(hlp::PrintType::ERROR, "not able to load any language.");
             }
         } else {
@@ -141,7 +141,7 @@ namespace app {
         if (defaultLanguage) {
             hlp::Print(hlp::PrintType::INITIALIZE, "default language loaded -> \"{}\"", language);
         } else {
-            app::AppContext::GetInstance().constants.global.currentLanguageName = language;
+            app::AppContext::GetInstance().constants.g_global.set_current_language_name(language);
 
             hlp::Print(hlp::PrintType::INITIALIZE, "current language loaded -> \"{}\"", language);
         }

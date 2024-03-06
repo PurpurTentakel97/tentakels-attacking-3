@@ -38,9 +38,10 @@ namespace app {
     void AppContext::ValidateConfig() {
         // Global
         ValidateMinMax<utl::usize>(
-                constants.global.minRounds, constants.global.maxRounds, "Min Game Rounds", "Max Game Rounds");
-        ValidateMinCurrentMax<utl::usize>(
-                constants.global.minRounds, constants.global.currentTargetRound, constants.global.maxRounds);
+                constants.g_global.m_min_rounds, constants.g_global.m_max_rounds, "Min Game Rounds", "Max Game Rounds");
+        ValidateMinCurrentMax<utl::usize>(constants.g_global.m_min_rounds,
+                                          constants.g_global.m_current_target_round,
+                                          constants.g_global.m_max_rounds);
 
         // Game Events
         ValidateLowerEqual<float>(
@@ -115,7 +116,7 @@ namespace app {
     void AppContext::OnEvent(eve::Event const& event) {
 
         if (auto const LastRoundEvent = dynamic_cast<eve::SetCurrentLastRoundEvent const*>(&event)) {
-            constants.global.currentTargetRound = LastRoundEvent->GetLastRound();
+            constants.g_global.set_current_target_round(LastRoundEvent->GetLastRound());
             return;
         }
     }

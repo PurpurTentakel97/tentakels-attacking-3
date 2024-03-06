@@ -41,7 +41,7 @@ namespace ui {
                 appContext.languageManager.Text("scene_settings_continue_btn"),
                 app::SoundType::ACCEPTED
         );
-        continueBtn->SetEnabled(appContext.constants.global.isGameRunning);
+        continueBtn->SetEnabled(appContext.constants.isGameRunning);
         continueBtn->SetOnClick([]() {
             eve::ResumeGameEvent const event{};
             app::AppContext::GetInstance().eventManager.InvokeEvent(event);

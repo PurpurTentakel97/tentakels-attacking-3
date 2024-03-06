@@ -4,12 +4,12 @@ add_library(constants STATIC
             include/constants/G_Fight.hpp
             include/constants/G_Fleet.hpp
             include/constants/G_Game_Events.hpp
+            include/constants/G_Global.hpp
             include/constants/G_Version.hpp
             G_Config_Enum.cpp
             G_Config_IO.cpp
             include/constants/CConstants.hpp
             include/constants/CFiles.hpp
-            include/constants/CGlobal.hpp
             include/constants/CPlanet.hpp
             include/constants/CPlayer.hpp
             include/constants/CTextProcessing.hpp

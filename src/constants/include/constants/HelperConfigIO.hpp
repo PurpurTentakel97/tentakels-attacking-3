@@ -177,17 +177,18 @@ namespace cst {
             hlp::Print(hlp::PrintType::ERROR, "provided config is null {}", defaultValuePrefix);
             return false;
         }
-        if (not IsMatchingSize(son, G_Config_Enum::CONFIG, Global::configSectionCount)) {
+        if (not IsMatchingSize(son, G_Config_Enum::CONFIG, constants.g_global.get_config_section_count())) {
             hlp::Print(hlp::PrintType::ERROR,
                        "config section count is not matching {} -> expected: {} -> provided: {}",
                        defaultValuePrefix,
-                       Global::configSectionCount,
+                       constants.g_global.get_config_section_count(),
                        son.size());
         }
         // version
         if (nlohmann::json version;
             LoadSection(son, version, G_Config_Enum::G_VERSION, constants.g_version.get_total_config_entry_count())) {
-            if (std::string versionConfig; LoadString(version, versionConfig, G_Config_Enum::G_VERSION_CONFIG_VERSION)) {
+            if (std::string versionConfig;
+                LoadString(version, versionConfig, G_Config_Enum::G_VERSION_CONFIG_VERSION)) {
                 if (versionConfig != constants.g_version.get_config_version()) {
                     hlp::Print(hlp::PrintType::ERROR,
                                "config version in config is not matching -> expected: {} -> provided: {} -> overwrite "

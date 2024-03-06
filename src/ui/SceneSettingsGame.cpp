@@ -126,9 +126,9 @@ namespace ui {
                 GetElementPosition(rx, y),
                 GetElementSize(width, height),
                 a,
-                static_cast<int>(appContext.constants.global.minRounds),
-                static_cast<int>(appContext.constants.global.maxRounds),
-                static_cast<int>(appContext.constants.global.currentTargetRound)
+                static_cast<int>(appContext.constants.g_global.get_min_rounds()),
+                static_cast<int>(appContext.constants.g_global.get_max_rounds()),
+                static_cast<int>(appContext.constants.g_global.get_current_target_round())
         );
         lastRound->SetActive(true, appContext);
         lastRound->SetOnSave([](utl::usize value) {

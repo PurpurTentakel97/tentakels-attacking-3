@@ -6,7 +6,6 @@
 #pragma once
 
 #include "CFiles.hpp"
-#include "CGlobal.hpp"
 #include "CPlanet.hpp"
 #include "CPlayer.hpp"
 #include "CSound.hpp"
@@ -16,6 +15,7 @@
 #include "G_Fight.hpp"
 #include "G_Fleet.hpp"
 #include "G_Game_Events.hpp"
+#include "G_Global.hpp"
 #include "G_Version.hpp"
 #include "HelperGameEvents.hpp"
 
@@ -26,7 +26,7 @@ namespace cst {
         G_Game_Events g_game_events;
         G_Fight g_fight;
         G_Fleet g_fleet;
-        Global global;
+        G_Global g_global;
         Planet planet;
         Player player;
         Sound sound;
@@ -39,6 +39,14 @@ namespace cst {
         // non config related
         TextProcessing textProcessing;
         Files files;
+
+        // game
+        bool isGameRunning{ false };
+        bool isGamePaused{ true };
+        bool isGameSaved{ true };
+
+        // input
+        bool acceptInputTriggered{ false };
 
         [[nodiscard]] utl::usize GetConfigValueCount() const;
     };

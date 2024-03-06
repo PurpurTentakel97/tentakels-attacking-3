@@ -148,7 +148,7 @@ namespace ui {
 
     void UIManager::UILoop() {
         while (!WindowShouldClose()) {
-            m_appContext.constants.global.acceptInputTriggered = false;
+            m_appContext.constants.acceptInputTriggered = false;
             CheckAndSetToggleFullScreen();
             CheckAndSetNewResolution();
             CheckAndUpdate();

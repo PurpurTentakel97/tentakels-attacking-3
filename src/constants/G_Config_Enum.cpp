@@ -17,7 +17,9 @@ namespace cst {
             case G_Config_Enum::G_VERSION: return "version";
             case G_Config_Enum::G_FLEET: return "fleet";
             case G_Config_Enum::G_GAME_EVENTS: return "game_events";
+            case G_Config_Enum::G_GLOBAL: return "global";
 
+            case G_Config_Enum::G_GLOBAL_CONFIG_SECTION_COUNT: return "config_section_count";
             case G_Config_Enum::G_FIGHT_TOTAL_CONFIG_ENTRY_COUNT: return "total_config_entry_count";
             case G_Config_Enum::G_FIGHT_LOAD_CONFIG_ENTRY_COUNT: return "load_config_entry_count";
             case G_Config_Enum::G_FIGHT_HIT_CHANCE: return "hit_chance";
@@ -61,6 +63,14 @@ namespace cst {
             case G_Config_Enum::G_GAME_EVENTS_IS_PRODUCTION_PROBLEM: return "is_production_problem";
             case G_Config_Enum::G_GAME_EVENTS_PRODUCTION_PROBLEM_CHANCE: return "production_problem_chance";
             case G_Config_Enum::G_GAME_EVENTS_MAX_PRODUCTION_PROBLEM_YEARS: return "max_production_problem_years";
+            case G_Config_Enum::G_GLOBAL_TOTAL_CONFIG_ENTRY_COUNT: return "total_config_entry_count";
+            case G_Config_Enum::G_GLOBAL_LOAD_CONFIG_ENTRY_COUNT: return "load_config_entry_count";
+            case G_Config_Enum::G_GLOBAL_COPYRIGHT: return "copyright";
+            case G_Config_Enum::G_GLOBAL_CURRENT_LANGUAGE_NAME: return "current_language_name";
+            case G_Config_Enum::G_GLOBAL_MIN_ROUNDS: return "min_rounds";
+            case G_Config_Enum::G_GLOBAL_MAX_ROUNDS: return "max_rounds";
+            case G_Config_Enum::G_GLOBAL_CURRENT_TARGET_ROUND: return "current_target_round";
+            case G_Config_Enum::G_GLOBAL_CURRENT_ROUND: return "current_round";
         }
     std::unreachable();
     }

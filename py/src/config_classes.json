@@ -77,5 +77,27 @@
       }
     ],
     "namespace": "cst"
+  },
+  "Global": {
+    "prefix": "G_",
+    "name": "Global",
+    "type": 1,
+    "includes": [
+      {
+        "name": "alias/AliasUtils.hpp",
+        "s_brackets": true
+      },
+      {
+        "name": "string",
+        "s_brackets": true
+      }
+    ],
+    "forward_declaration": [
+      {
+        "namespace": "app",
+        "name": "struct AppContext"
+      }
+    ],
+    "namespace": "cst"
   }
 }

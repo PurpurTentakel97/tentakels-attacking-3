@@ -8,6 +8,7 @@
 #include "G_Version.hpp"
 #include "G_Fleet.hpp"
 #include "G_Game_Events.hpp"
+#include "G_Global.hpp"
 #include "G_Config_IO.hpp"
 #include "HelperConfigIO.hpp"
 
@@ -63,6 +64,14 @@ namespace cst {
             if (bool out; LoadBool(son, out, G_Config_Enum::G_GAME_EVENTS_IS_PRODUCTION_PROBLEM)) { constants.g_game_events.m_is_production_problem = out; }
             if (utl::usize out; LoadUSize(son, out, G_Config_Enum::G_GAME_EVENTS_PRODUCTION_PROBLEM_CHANCE)) { constants.g_game_events.m_production_problem_chance = out; }
             if (utl::usize out; LoadUSize(son, out, G_Config_Enum::G_GAME_EVENTS_MAX_PRODUCTION_PROBLEM_YEARS)) { constants.g_game_events.m_max_production_problem_years = out; }
+        }
+
+        if (nlohmann::json son; LoadSection(load, son, G_Config_Enum::G_GLOBAL, G_Global::s_total_config_entry_count)) {
+            if (std::string out; LoadString(son, out, G_Config_Enum::G_GLOBAL_CURRENT_LANGUAGE_NAME)) { constants.g_global.m_current_language_name = out; }
+            if (utl::usize out; LoadUSize(son, out, G_Config_Enum::G_GLOBAL_MIN_ROUNDS)) { constants.g_global.m_min_rounds = out; }
+            if (utl::usize out; LoadUSize(son, out, G_Config_Enum::G_GLOBAL_MAX_ROUNDS)) { constants.g_global.m_max_rounds = out; }
+            if (utl::usize out; LoadUSize(son, out, G_Config_Enum::G_GLOBAL_CURRENT_TARGET_ROUND)) { constants.g_global.m_current_target_round = out; }
+            if (utl::usize out; LoadUSize(son, out, G_Config_Enum::G_GLOBAL_CURRENT_ROUND)) { constants.g_global.m_current_round = out; }
         }
 
         CheckLoadEntryCount();
@@ -126,6 +135,18 @@ namespace cst {
             { CToS(G_Config_Enum::G_GAME_EVENTS_IS_PRODUCTION_PROBLEM), constants.g_game_events.m_is_production_problem },
             { CToS(G_Config_Enum::G_GAME_EVENTS_PRODUCTION_PROBLEM_CHANCE), constants.g_game_events.m_production_problem_chance.value },
             { CToS(G_Config_Enum::G_GAME_EVENTS_MAX_PRODUCTION_PROBLEM_YEARS), constants.g_game_events.m_max_production_problem_years },
+        };
+
+        save[CToS(G_Config_Enum::G_GLOBAL)] = {
+            { CToS(G_Config_Enum::G_GLOBAL_CONFIG_SECTION_COUNT), constants.g_global.s_config_section_count },
+            { CToS(G_Config_Enum::G_GLOBAL_TOTAL_CONFIG_ENTRY_COUNT), constants.g_global.s_total_config_entry_count },
+            { CToS(G_Config_Enum::G_GLOBAL_LOAD_CONFIG_ENTRY_COUNT), constants.g_global.s_load_config_entry_count },
+            { CToS(G_Config_Enum::G_GLOBAL_COPYRIGHT), constants.g_global.s_copyright },
+            { CToS(G_Config_Enum::G_GLOBAL_CURRENT_LANGUAGE_NAME), constants.g_global.m_current_language_name },
+            { CToS(G_Config_Enum::G_GLOBAL_MIN_ROUNDS), constants.g_global.m_min_rounds },
+            { CToS(G_Config_Enum::G_GLOBAL_MAX_ROUNDS), constants.g_global.m_max_rounds },
+            { CToS(G_Config_Enum::G_GLOBAL_CURRENT_TARGET_ROUND), constants.g_global.m_current_target_round },
+            { CToS(G_Config_Enum::G_GLOBAL_CURRENT_ROUND), constants.g_global.m_current_round },
         };
 
         hlp::SaveFile(Files::s_savesDir, Files::s_configFile, save.dump(4));

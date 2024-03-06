@@ -196,7 +196,7 @@ namespace ui {
                 id + 1,
                 app::LanguageManager::GetAvailableLanguages()
         );
-        m_languageDropDown->SetCurrentElementByString(appContext.constants.global.currentLanguageName);
+        m_languageDropDown->SetCurrentElementByString(appContext.constants.g_global.get_current_language_name());
         m_languageDropDown->SetOnSave([](utl::usize ID) {
             auto const language{ app::LanguageManager::GetAvailableLanguages().at(ID - 1) };
             auto const event{ eve::ChangeLanguageEvent(language) };

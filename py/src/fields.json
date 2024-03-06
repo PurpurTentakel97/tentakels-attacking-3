@@ -1,4 +1,12 @@
 {
+  "global_config_section_count": {
+    "prefix": "s_",
+    "name": "config_section_count",
+    "type": 5,
+    "config": true,
+    "constants_class": "G_Global",
+    "value": "5"
+  },
   "fight_total_config_entry_count": {
     "prefix": "s_",
     "name": "total_config_entry_count",
@@ -342,5 +350,69 @@
     "config": true,
     "constants_class": "G_Game_Events",
     "value": "5"
+  },
+  "global_total_config_entry_count": {
+    "prefix": "s_",
+    "name": "total_config_entry_count",
+    "type": 5,
+    "config": true,
+    "constants_class": "G_Global",
+    "value": "9"
+  },
+  "global_load_config_entry_count": {
+    "prefix": "s_",
+    "name": "load_config_entry_count",
+    "type": 5,
+    "config": true,
+    "constants_class": "G_Global",
+    "value": "5"
+  },
+  "global_copyright": {
+    "prefix": "s_",
+    "name": "copyright",
+    "type": 3,
+    "config": true,
+    "constants_class": "G_Global",
+    "value": "(c) Purpur Tentakel"
+  },
+  "global_current_language_name": {
+    "prefix": "m_",
+    "name": "current_language_name",
+    "type": 2,
+    "config": true,
+    "constants_class": "G_Global",
+    "value": "english"
+  },
+  "global_min_rounds": {
+    "prefix": "m_",
+    "name": "min_rounds",
+    "type": 1,
+    "config": true,
+    "constants_class": "G_Global",
+    "value": "20"
+  },
+  "global_max_rounds": {
+    "prefix": "m_",
+    "name": "max_rounds",
+    "type": 1,
+    "config": true,
+    "constants_class": "G_Global",
+    "value": "100"
+  },
+  "global_current_target_round": {
+    "prefix": "m_",
+    "name": "current_target_round",
+    "type": 1,
+    "config": true,
+    "constants_class": "G_Global",
+    "value": "50"
+  },
+  "global_current_round": {
+    "prefix": "m_",
+    "name": "current_round",
+    "type": 1,
+    "config": true,
+    "constants_class": "G_Global",
+    "value": "1"
   }
 }

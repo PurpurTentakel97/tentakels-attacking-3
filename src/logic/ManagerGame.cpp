@@ -256,7 +256,7 @@ namespace lgk {
     bool GameManager::CheckValidAddRemovePlayer(std::function<void(bool valid)> forPopup) {
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
 
-        if (appContext.constants.global.isGameRunning) {
+        if (appContext.constants.isGameRunning) {
             eve::ShowValidatePopUp const event{ appContext.languageManager.Text("ui_popup_game_still_running_title"),
                                                 appContext.languageManager.Text("ui_popup_game_still_running_subtitle"),
                                                 std::move(forPopup) };
@@ -302,7 +302,7 @@ namespace lgk {
         }
 
         app::AppContext_ty appContext{ app::AppContext::GetInstance() };
-        appContext.constants.global.isGameSaved = false;
+        appContext.constants.isGameSaved = false;
         // events and so on first
         Update();
 
@@ -318,7 +318,7 @@ namespace lgk {
         SendCurrentPlayerID();
         SendNextPlayerID();
 
-        ++appContext.constants.global.currentRound;
+        appContext.constants.g_global.set_current_round(appContext.constants.g_global.get_current_round() + 1);
 
         Player_ty player{};
         bool validPlayer{ GetCurrentPlayer(player) };
@@ -346,7 +346,7 @@ namespace lgk {
         }
 
         app::AppContext_ty appContext{ app::AppContext::GetInstance() };
-        appContext.constants.global.isGameSaved = false;
+        appContext.constants.isGameSaved = false;
         m_currentRoundPlayers.pop_back();
 
         m_galaxyManager.CopyGalaxies(CopyGalaxyType::COPY_START);
@@ -416,10 +416,10 @@ namespace lgk {
         hlp::Print(hlp::PrintType::ONLY_DEBUG, "-> update Events");
         auto const& constants = app::AppContext::GetInstance().constants;
         if (constants.g_game_events.get_is_min_event_year()
-            and constants.global.currentRound < constants.g_game_events.get_min_event_year()) {
+            and constants.g_global.get_current_round() < constants.g_game_events.get_min_event_year()) {
             hlp::Print(hlp::PrintType::ONLY_DEBUG,
                        "no update of events because current year ({}) in smaller than min event year ({})",
-                       constants.global.currentRound,
+                       constants.g_global.get_current_round(),
                        constants.g_game_events.get_min_event_year());
             return {};
         }
@@ -546,7 +546,7 @@ namespace lgk {
     void GameManager::StartGame() {
         app::AppContext_ty appContext{ app::AppContext::GetInstance() };
 
-        if (appContext.constants.global.isGameRunning and not appContext.constants.global.isGameSaved) {
+        if (appContext.constants.isGameRunning and not appContext.constants.isGameSaved) {
             eve::ShowValidatePopUp const event{ appContext.languageManager.Text("ui_popup_game_still_running_title"),
                                                 appContext.languageManager.Text("ui_popup_game_still_running_subtitle",
                                                                                 '\n'),
@@ -569,10 +569,10 @@ namespace lgk {
             p->Revive();
         }
 
-        appContext.constants.global.currentRound  = 1;
-        appContext.constants.global.isGameRunning = true;
-        appContext.constants.global.isGamePaused  = false;
-        appContext.constants.global.isGameSaved   = false;
+        appContext.constants.g_global.set_current_round(1);
+        appContext.constants.isGameRunning = true;
+        appContext.constants.isGamePaused  = false;
+        appContext.constants.isGameSaved   = false;
 
         Player_ty player{};
         if (not GetCurrentPlayer(player)) {
@@ -586,8 +586,8 @@ namespace lgk {
 
     void GameManager::StopGame() {
         app::AppContext_ty appConstants{ app::AppContext::GetInstance() };
-        appConstants.constants.global.isGameRunning = false;
-        appConstants.constants.global.isGamePaused  = true;
+        appConstants.constants.isGameRunning = false;
+        appConstants.constants.isGamePaused  = true;
         appConstants.aliasManager.Clear();
         m_currentRoundPlayers.clear();
         hlp::Print(hlp::PrintType::ONLY_DEBUG, "game stopped and paused");
@@ -595,13 +595,13 @@ namespace lgk {
 
     void GameManager::PauseGame() {
         app::AppContext_ty appContext{ app::AppContext::GetInstance() };
-        appContext.constants.global.isGamePaused = true;
+        appContext.constants.isGamePaused = true;
         hlp::Print(hlp::PrintType::ONLY_DEBUG, "game paused");
     }
 
     void GameManager::ResumeGame() {
         app::AppContext_ty appContext{ app::AppContext::GetInstance() };
-        if (not appContext.constants.global.isGameRunning) {
+        if (not appContext.constants.isGameRunning) {
             eve::ShowMessagePopUpEvent const event{ appContext.languageManager.Text("ui_popup_no_game_title"),
                                                     appContext.languageManager.Text("ui_popup_no_game_subtitle"),
                                                     []() {} };
@@ -609,7 +609,7 @@ namespace lgk {
             hlp::Print(hlp::PrintType::ONLY_DEBUG, "not able to resume to game because its no game running");
             return;
         }
-        appContext.constants.global.isGamePaused = false;
+        appContext.constants.isGamePaused = false;
         hlp::Print(hlp::PrintType::ONLY_DEBUG, "resumed to game");
         eve::SwitchMainSceneEvent const event{};
         appContext.eventManager.InvokeEvent(event);
@@ -617,12 +617,12 @@ namespace lgk {
 
     void GameManager::QuitGame() {
         app::AppContext_ty appContext{ app::AppContext::GetInstance() };
-        if (not appContext.constants.global.isGameSaved) {
+        if (not appContext.constants.isGameSaved) {
             eve::ShowValidatePopUp const event{ appContext.languageManager.Text("ui_popup_not_saved_title"),
                                                 appContext.languageManager.Text("ui_popup_not_saved_subtitle", '\n'),
                                                 [this](bool valid) {
                                                     if (valid) {
-                                                        app::AppContext::GetInstance().constants.global.isGameSaved =
+                                                        app::AppContext::GetInstance().constants.isGameSaved =
                                                                 true;
                                                         this->QuitGame();
                                                     }

@@ -187,7 +187,7 @@ namespace ui {
                                                      uil::Alignment::TOP_LEFT,
                                                      uil::Alignment::TOP_LEFT,
                                                      0.02f,
-                                                     std::to_string(appContext.constants.global.currentRound));
+                                                     std::to_string(appContext.constants.g_global.get_current_round()));
         // m_currentRound->RenderRectangle(true);
         m_elements.push_back(m_currentRound);
 
@@ -208,7 +208,7 @@ namespace ui {
                                             uil::Alignment::TOP_LEFT,
                                             uil::Alignment::TOP_LEFT,
                                             0.02f,
-                                            std::to_string(appContext.constants.global.currentTargetRound));
+                                            std::to_string(appContext.constants.g_global.get_current_target_round()));
         // m_currentTargetRound->RenderRectangle(true);
         m_elements.push_back(m_currentTargetRound);
 
