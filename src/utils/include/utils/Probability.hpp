@@ -13,5 +13,7 @@ namespace utl {
         inline utl::usize operator*(Probability const& other) const {
             return value * other.value / maxValue;
         }
+
+        Probability(utl::usize v) : value{ v } { }
     };
 } // namespace utl

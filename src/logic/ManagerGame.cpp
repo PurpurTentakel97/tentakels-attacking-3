@@ -415,11 +415,12 @@ namespace lgk {
     std::vector<utl::ResultUpdate::event_ty> GameManager::UpdateEvents() {
         hlp::Print(hlp::PrintType::ONLY_DEBUG, "-> update Events");
         auto const& constants = app::AppContext::GetInstance().constants;
-        if (constants.gameEvents.isMinEventYear and constants.global.currentRound < constants.gameEvents.minEventYear) {
+        if (constants.g_game_events.get_is_min_event_year()
+            and constants.global.currentRound < constants.g_game_events.get_min_event_year()) {
             hlp::Print(hlp::PrintType::ONLY_DEBUG,
                        "no update of events because current year ({}) in smaller than min event year ({})",
                        constants.global.currentRound,
-                       constants.gameEvents.minEventYear);
+                       constants.g_game_events.get_min_event_year());
             return {};
         }
         std::array<utl::GameEventType, 6> constexpr events{
@@ -471,13 +472,14 @@ namespace lgk {
     }
 
     bool GameManager::IsSingleGameEvent(utl::GameEventType type) {
-        auto const& constants = app::AppContext::GetInstance().constants.gameEvents;
+        auto const& helper    = app::AppContext::GetInstance().constants.h_game_events;
+        auto const& constants = app::AppContext::GetInstance().constants.g_game_events;
 
-        if (not constants.IsFlag(type)) {
+        if (not helper.IsEventByType(type)) {
             return false;
         }
 
-        auto const typeChance = constants.globalChance * constants.ChanceByType(type);
+        auto const typeChance = constants.get_global_chance() * helper.ChanceByType(type);
         auto& random          = hlp::Random::GetInstance();
         auto chance           = random.random(utl::Probability::maxValue);
 
@@ -502,9 +504,10 @@ namespace lgk {
 
     std::shared_ptr<utl::ResultEventPirates> GameManager::HandlePirates() {
         hlp::Print(hlp::PrintType::ONLY_DEBUG, "Handle Pirate Event in GameManager");
-        auto const& constants = app::AppContext::GetInstance().constants.gameEvents;
-        auto const shipCount  = hlp::Random::GetInstance().random(constants.maxPirateShips - constants.minPirateShips)
-                             + constants.minPirateShips;
+        auto const& constants = app::AppContext::GetInstance().constants.g_game_events;
+        auto const shipCount =
+                hlp::Random::GetInstance().random(constants.get_max_pirate_ships() - constants.get_min_pirate_ships())
+                + constants.get_min_pirate_ships();
         return m_galaxyManager.HandlePirates(m_npcs[PlayerType::PIRATE], shipCount);
     }
 
@@ -527,7 +530,7 @@ namespace lgk {
         hlp::Print(hlp::PrintType::ONLY_DEBUG, "Handle Engine Problem Event in GameManager");
         auto const& appContext = app::AppContext::GetInstance();
         auto& random           = hlp::Random::GetInstance();
-        auto const years       = random.random(appContext.constants.gameEvents.maxYearsEngineProblem) + 1;
+        auto const years       = random.random(appContext.constants.g_game_events.get_max_engine_problem_years()) + 1;
         return m_galaxyManager.HandleEngineProblem(years);
     }
 
@@ -535,7 +538,7 @@ namespace lgk {
         hlp::Print(hlp::PrintType::ONLY_DEBUG, "Handle Production Problem in GameManager");
         auto const& appContext = app::AppContext::GetInstance();
         auto& random           = hlp::Random::GetInstance();
-        auto const years       = random.random(appContext.constants.gameEvents.maxYearsProductionProblem) + 1;
+        auto const years = random.random(appContext.constants.g_game_events.get_max_production_problem_years()) + 1;
         return m_galaxyManager.HandleProductionProblem(years);
     }
 

@@ -7,8 +7,9 @@
 #pragma once
 
 
+
 namespace cst {
-    struct G_ConfigIO final {
+    struct G_Config_IO final {
         static void LoadConfig();
 
         static void SaveConfig();

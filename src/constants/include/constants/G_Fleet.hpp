@@ -6,6 +6,7 @@
 
 #pragma once
 
+
 namespace app {
      struct AppContext;
 }
@@ -13,7 +14,7 @@ namespace app {
 namespace cst {
     class G_Fleet final {
     public:
-        friend struct G_ConfigIO;
+        friend struct G_Config_IO;
         friend struct app::AppContext;
 
     private:

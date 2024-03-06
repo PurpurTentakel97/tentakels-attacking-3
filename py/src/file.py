@@ -27,6 +27,8 @@ class File:
         for incl in self.includes:
             text += incl.dump()
 
+        text += '\n'
+
         for f in self.forward_declarations:
             text += f.dump()
 

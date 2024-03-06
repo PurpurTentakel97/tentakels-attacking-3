@@ -36,6 +36,7 @@ class CppType(IntEnum):
     BOOL = 4,
     USIZE_STATIC_CONSTEXPR = 5,
     FLOAT = 6,
+    PROBABILITY = 7,
 
 
 field_type_lookup: dict[CppType, str] = {
@@ -45,6 +46,7 @@ field_type_lookup: dict[CppType, str] = {
     CppType.BOOL: "bool",
     CppType.USIZE_STATIC_CONSTEXPR: "static inline utl::usize constexpr",
     CppType.FLOAT: "float",
+    CppType.PROBABILITY : "utl::Probability",
 }
 passed_type_lookup: dict[CppType, str] = {
     CppType.USIZE: "utl::usize const",
@@ -53,6 +55,7 @@ passed_type_lookup: dict[CppType, str] = {
     CppType.BOOL: "bool const",
     CppType.USIZE_STATIC_CONSTEXPR: "utl::usize const",
     CppType.FLOAT: "float const",
+    CppType.PROBABILITY : "utl::Probability const",
 }
 return_type_lookup: dict[CppType, str] = {
     CppType.USIZE: "utl::usize",
@@ -61,6 +64,7 @@ return_type_lookup: dict[CppType, str] = {
     CppType.BOOL: "bool",
     CppType.USIZE_STATIC_CONSTEXPR: "utl::usize",
     CppType.FLOAT: "float",
+    CppType.PROBABILITY : "utl::Probability",
 }
 load_function_lookup: dict[CppType, str] = {
     CppType.USIZE: "LoadUSize",
@@ -69,6 +73,16 @@ load_function_lookup: dict[CppType, str] = {
     CppType.BOOL: "LoadBool",
     CppType.USIZE_STATIC_CONSTEXPR: "LoadUSize",
     CppType.FLOAT: "LoadFloat",
+    CppType.PROBABILITY : "LoadUSize",
+}
+load_type_lookup:dict[CppType, str] = {
+    CppType.USIZE: "utl::usize",
+    CppType.STRING: "std::string",
+    CppType.STRING_STATIC_CONST: "std::string",
+    CppType.BOOL: "bool",
+    CppType.USIZE_STATIC_CONSTEXPR: "utl::usize",
+    CppType.FLOAT: "float",
+    CppType.PROBABILITY : "utl::usize",
 }
 
 

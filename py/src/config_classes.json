@@ -47,5 +47,35 @@
       }
     ],
     "namespace": "cst"
+  },
+  "Game_Events": {
+    "prefix": "G_",
+    "name": "Game_Events",
+    "type": 1,
+    "includes": [
+      {
+        "name": "alias/AliasUtils.hpp",
+        "s_brackets": true
+      },
+      {
+        "name": "array",
+        "s_brackets": true
+      },
+      {
+        "name": "utils/GameEventTypes.hpp",
+        "s_brackets": true
+      },
+      {
+        "name": "utils/Probability.hpp",
+        "s_brackets": true
+      }
+    ],
+    "forward_declaration": [
+      {
+        "namespace": "app",
+        "name": "struct AppContext"
+      }
+    ],
+    "namespace": "cst"
   }
 }

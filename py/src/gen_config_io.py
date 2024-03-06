@@ -30,7 +30,7 @@ def _gen_load_dict(fields: tuple[raw_field.RawField], config_files: tuple[raw_co
             if helper.no_config_load(f.type_):
                 continue
 
-            text = f"{helper.indent(1)}if ({enums.return_type_lookup[f.type_]} out; {enums.load_function_lookup[f.type_]}" \
+            text = f"{helper.indent(1)}if ({enums.load_type_lookup[f.type_]} out; {enums.load_function_lookup[f.type_]}" \
                    f"(son, out, {helper.config_enum_name}::{f.enum_name()})) {helper.left_bracket} " \
                    f"{_constants}.{f.constants_class.lower()}.{f.full_name()} = "
             text += f"out"  # cast here if necessary
@@ -56,7 +56,10 @@ def _gen_save_dict(fields: tuple[raw_field.RawField], config_files: tuple[raw_co
     for f in fields:
         text: str = f"{helper.indent(1)}{helper.left_bracket} {helper.config_switch_function_name}({helper.config_enum_name}::" \
                     f"{f.enum_name()}), "
-        text += f"{_constants}.{f.constants_class.lower()}.{f.full_name()}"
+        if f.type_ == enums.CppType.PROBABILITY:
+            text += f"{_constants}.{f.constants_class.lower()}.{f.full_name()}.value"
+        else:
+            text += f"{_constants}.{f.constants_class.lower()}.{f.full_name()}"
         text += f" {helper.right_bracket},"
         save[f.constants_class].append(text)
 
@@ -89,7 +92,7 @@ def _gen_header() -> file.File:
     indent -= 1
     text += f"{helper.indent(indent)}{helper.right_bracket};\n"
 
-    return file.File(helper.config_io_name, enums.FileType.HEADER, [],[], "cst", text)
+    return file.File(helper.config_io_name, enums.FileType.HEADER, [], [], "cst", text)
 
 
 def _gen_source(fields: tuple[raw_field.RawField], config_files: tuple[raw_config_file.RawConfigFile]) -> file.File:
@@ -132,7 +135,7 @@ def _gen_source(fields: tuple[raw_field.RawField], config_files: tuple[raw_confi
     includes.extend([include.Include(f"{helper.config_io_name}.hpp", False),
                      include.Include("HelperConfigIO.hpp", False)])
 
-    return file.File(helper.config_io_name, enums.FileType.SOURCE, includes,[], "cst", f"{load_text}\n{save_text}")
+    return file.File(helper.config_io_name, enums.FileType.SOURCE, includes, [], "cst", f"{load_text}\n{save_text}")
 
 
 def gen(fields: tuple[raw_field.RawField], config_files: tuple[raw_config_file.RawConfigFile]) -> tuple[

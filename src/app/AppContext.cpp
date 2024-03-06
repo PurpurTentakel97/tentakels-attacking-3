@@ -4,7 +4,7 @@
 //
 
 #include "AppContext.hpp"
-#include <constants/G_ConfigIO.hpp>
+#include <constants/G_Config_IO.hpp>
 #include <event/EventGeneral.hpp>
 #include <helper/HPrint.hpp>
 
@@ -20,7 +20,7 @@ namespace app {
     }
 
     void AppContext::LoadConfig() const {
-        cst::G_ConfigIO::LoadConfig();
+        cst::G_Config_IO::LoadConfig();
         if (constants.sound.muteVolume) {
             SetMasterVolume(0.0f);
         } else {
@@ -32,7 +32,7 @@ namespace app {
     }
 
     void AppContext::SaveConfig() {
-        cst::G_ConfigIO::SaveConfig();
+        cst::G_Config_IO::SaveConfig();
     }
 
     void AppContext::ValidateConfig() {
@@ -43,26 +43,29 @@ namespace app {
                 constants.global.minRounds, constants.global.currentTargetRound, constants.global.maxRounds);
 
         // Game Events
-        ValidateMinMax<float>(constants.gameEvents.minBlackHoleRangeFactor,
-                              constants.gameEvents.maxBlackHoleRangeFactor,
+        ValidateLowerEqual<float>(
+                constants.g_game_events.m_min_black_hole_range_factor, 1.0f, "Min Black Hole Range Factor");
+        ValidateLowerEqual<float>(
+                constants.g_game_events.m_max_black_hole_range_factor, 1.0f, "Max Black Hole Range Factor");
+
+        ValidateMinMax<float>(constants.g_game_events.m_min_black_hole_range_factor,
+                              constants.g_game_events.m_max_black_hole_range_factor,
                               "Min Black Hole Factor",
                               "Max Black Hole Factor");
-        ValidateMinMax<utl::usize>(constants.gameEvents.minPirateShips,
-                                   constants.gameEvents.maxPirateShips,
+        ValidateMinMax<utl::usize>(constants.g_game_events.m_min_pirate_ships,
+                                   constants.g_game_events.m_max_pirate_ships,
                                    "Min Pirate Ships count",
                                    "Max Pirate Ship count");
 
-        ValidateLowerEqual<utl::usize>(constants.gameEvents.globalChance.value, 10000, "Global Event Chance");
+        ValidateLowerEqual<utl::usize>(constants.g_game_events.m_global_chance.value, 10000, "Global Event Chance");
         ValidateLowerEqual<utl::usize>(
-                constants.gameEvents.engineProblemChance.value, 10000, "Engine Problem Event Chance");
-        ValidateLowerEqual<utl::usize>(constants.gameEvents.pirateChance.value, 10000, "Pirate Event Chance");
+                constants.g_game_events.m_engine_problem_chance.value, 10000, "Engine Problem Event Chance");
+        ValidateLowerEqual<utl::usize>(constants.g_game_events.m_pirate_chance.value, 10000, "Pirate Event Chance");
         ValidateLowerEqual<utl::usize>(
-                constants.gameEvents.renegadeShipsChance.value, 10000, "Renegade Ships Event Chance");
-        ValidateLowerEqual<utl::usize>(constants.gameEvents.revoltChance.value, 10000, "Revolts Event Chance");
-        ValidateLowerEqual<utl::usize>(constants.gameEvents.supernovaChance.value, 10000, "Supernova Event Chance");
-
-        ValidateLowerEqual<float>(constants.gameEvents.minBlackHoleRangeFactor, 1.0f, "Min Black Hole Range Factor");
-        ValidateLowerEqual<float>(constants.gameEvents.maxBlackHoleRangeFactor, 1.0f, "Max Black Hole Range Factor");
+                constants.g_game_events.m_renegade_ships_chance.value, 10000, "Renegade Ships Event Chance");
+        ValidateLowerEqual<utl::usize>(constants.g_game_events.m_revolts_chance.value, 10000, "Revolts Event Chance");
+        ValidateLowerEqual<utl::usize>(
+                constants.g_game_events.m_supernova_chance.value, 10000, "Supernova Event Chance");
 
         // Player
         ValidateMinMax<utl::usize>(constants.player.minPlayerCount,

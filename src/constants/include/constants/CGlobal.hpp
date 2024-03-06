@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include <cstddef>
+#include <alias/AliasUtils.hpp>
 #include <string>
 
 
@@ -13,7 +13,7 @@ namespace cst {
     struct Global final {
         // config counts
         static inline utl::usize constexpr configEntryCount{ 4 };
-        static inline utl::usize constexpr configSectionCount{ 3 };
+        static inline utl::usize constexpr configSectionCount{ 4 };
 
         static inline std::string const copyRight{ "(c) Purpur Tentakel" };
 

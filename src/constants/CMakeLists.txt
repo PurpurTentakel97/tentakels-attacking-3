@@ -1,14 +1,14 @@
 add_library(constants STATIC
-            include/constants/G_ConfigEnum.hpp
-            include/constants/G_ConfigIO.hpp
+            include/constants/G_Config_Enum.hpp
+            include/constants/G_Config_IO.hpp
             include/constants/G_Fight.hpp
             include/constants/G_Fleet.hpp
+            include/constants/G_Game_Events.hpp
             include/constants/G_Version.hpp
-            G_ConfigEnum.cpp
-            G_ConfigIO.cpp
+            G_Config_Enum.cpp
+            G_Config_IO.cpp
             include/constants/CConstants.hpp
             include/constants/CFiles.hpp
-            include/constants/CGameEvents.hpp
             include/constants/CGlobal.hpp
             include/constants/CPlanet.hpp
             include/constants/CPlayer.hpp
@@ -18,9 +18,10 @@ add_library(constants STATIC
             include/constants/CWorld.hpp
             include/constants/CWindow.hpp
             include/constants/HelperConfigIO.hpp
+            include/constants/HelperGameEvents.hpp
             CConstants.cpp
-            CGameEvents.cpp
             CWindow.cpp
+            HelperGameEvents.cpp
 )
 
 target_include_directories(constants
