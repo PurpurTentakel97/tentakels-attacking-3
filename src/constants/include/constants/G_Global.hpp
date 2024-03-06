@@ -20,7 +20,7 @@ namespace cst {
         friend struct app::AppContext;
 
     private:
-        static inline utl::usize constexpr s_config_section_count = 9;
+        static inline utl::usize constexpr s_config_section_count = 10;
         static inline utl::usize constexpr s_total_config_entry_count = 9;
         static inline utl::usize constexpr s_load_config_entry_count = 5;
         static inline std::string const s_copyright = "(c) Purpur Tentakel";

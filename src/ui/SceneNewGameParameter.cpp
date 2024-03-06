@@ -78,14 +78,14 @@ namespace ui {
                 0.04f,
                 appContext.languageManager.Text("scene_new_game_parameter_planet_count_subheadline", ":")));
 
-        auto planetCount =
-                std::make_shared<SliderAndInputLine>(ID,
-                                                     GetElementPosition(posX, posY + 0.04f),
-                                                     GetElementSize(sizeX, sizeY),
-                                                     uil::Alignment::TOP_MID,
-                                                     static_cast<int>(appContext.constants.world.minPlanetCount),
-                                                     static_cast<int>(appContext.constants.world.maxPlanetCount),
-                                                     static_cast<int>(appContext.constants.world.currentPlanetCount));
+        auto planetCount = std::make_shared<SliderAndInputLine>(
+                ID,
+                GetElementPosition(posX, posY + 0.04f),
+                GetElementSize(sizeX, sizeY),
+                uil::Alignment::TOP_MID,
+                static_cast<int>(appContext.constants.g_world.get_min_planet_count()),
+                static_cast<int>(appContext.constants.g_world.get_max_planet_count()),
+                static_cast<int>(appContext.constants.g_world.get_current_planet_count()));
         planetCount->SetActive(true, appContext);
         planetCount->SetOnSave(
                 [](utl::usize value) { NewGameParameterScene::SetValue(value, SliderType::PLANET_COUNT); });
@@ -102,14 +102,14 @@ namespace ui {
                 0.04f,
                 appContext.languageManager.Text("scene_new_game_parameter_galaxy_width_subheadline", ":")));
 
-        auto galaxyWidth =
-                std::make_shared<SliderAndInputLine>(ID,
-                                                     GetElementPosition(posX, posY + 0.04f),
-                                                     GetElementSize(sizeX, sizeY),
-                                                     uil::Alignment::TOP_MID,
-                                                     static_cast<int>(appContext.constants.world.minDimensionX),
-                                                     static_cast<int>(appContext.constants.world.maxDimensionX),
-                                                     static_cast<int>(appContext.constants.world.currentDimensionX));
+        auto galaxyWidth = std::make_shared<SliderAndInputLine>(
+                ID,
+                GetElementPosition(posX, posY + 0.04f),
+                GetElementSize(sizeX, sizeY),
+                uil::Alignment::TOP_MID,
+                static_cast<int>(appContext.constants.g_world.get_min_dimension_x()),
+                static_cast<int>(appContext.constants.g_world.get_max_dimension_x()),
+                static_cast<int>(appContext.constants.g_world.get_current_dimension_x()));
         galaxyWidth->SetActive(true, appContext);
         galaxyWidth->SetOnSave(
                 [](utl::usize value) { NewGameParameterScene::SetValue(value, SliderType::DIMENSION_X); });
@@ -126,14 +126,14 @@ namespace ui {
                 0.04f,
                 appContext.languageManager.Text("scene_new_game_parameter_galaxy_height_subheadline", ":")));
 
-        auto galaxyHeight =
-                std::make_shared<SliderAndInputLine>(ID,
-                                                     GetElementPosition(posX, posY + 0.04f),
-                                                     GetElementSize(sizeX, sizeY),
-                                                     uil::Alignment::TOP_MID,
-                                                     static_cast<int>(appContext.constants.world.minDimensionY),
-                                                     static_cast<int>(appContext.constants.world.maxDimensionY),
-                                                     static_cast<int>(appContext.constants.world.currentDimensionY));
+        auto galaxyHeight = std::make_shared<SliderAndInputLine>(
+                ID,
+                GetElementPosition(posX, posY + 0.04f),
+                GetElementSize(sizeX, sizeY),
+                uil::Alignment::TOP_MID,
+                static_cast<int>(appContext.constants.g_world.get_min_dimension_y()),
+                static_cast<int>(appContext.constants.g_world.get_max_dimension_y()),
+                static_cast<int>(appContext.constants.g_world.get_current_dimension_y()));
         galaxyHeight->SetActive(true, appContext);
         galaxyHeight->SetOnSave(
                 [](utl::usize value) { NewGameParameterScene::SetValue(value, SliderType::DIMENSION_Y); });
@@ -229,13 +229,14 @@ namespace ui {
     void NewGameParameterScene::SetValue(utl::usize const value, SliderType const type) {
         switch (type) {
             case SliderType::PLANET_COUNT:
-                app::AppContext::GetInstance().constants.world.currentPlanetCount = static_cast<utl::usize>(value);
+                app::AppContext::GetInstance().constants.g_world.set_current_planet_count(
+                        static_cast<utl::usize>(value));
                 return;
             case SliderType::DIMENSION_X:
-                app::AppContext::GetInstance().constants.world.currentDimensionX = value;
+                app::AppContext::GetInstance().constants.g_world.set_current_dimension_x(value);
                 return;
             case SliderType::DIMENSION_Y:
-                app::AppContext::GetInstance().constants.world.currentDimensionY = value;
+                app::AppContext::GetInstance().constants.g_world.set_current_dimension_y(value);
                 return;
             case SliderType::FLEET_SPEED:
                 app::AppContext::GetInstance().constants.g_fleet.set_current_fleet_speed(value);

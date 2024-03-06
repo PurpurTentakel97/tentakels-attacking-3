@@ -33,10 +33,10 @@ namespace lgk {
 
     void GalaxyManager::GenerateGalaxy() {
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
-        utl::vec2pos_ty_c size = { static_cast<int>(appContext.constants.world.currentDimensionX),
-                                   static_cast<int>(appContext.constants.world.currentDimensionY) };
+        utl::vec2pos_ty_c size = { static_cast<int>(appContext.constants.g_world.get_current_dimension_x()),
+                                   static_cast<int>(appContext.constants.g_world.get_current_dimension_y()) };
         auto const galaxy      = std::make_shared<Galaxy>(size,
-                                                     appContext.constants.world.currentPlanetCount,
+                                                     appContext.constants.g_world.get_current_planet_count(),
                                                      m_gameManager->m_players,
                                                      m_gameManager->m_npcs[PlayerType::NEUTRAL]);
 
@@ -58,12 +58,12 @@ namespace lgk {
     void GalaxyManager::GenerateShowGalaxy() {
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
         utl::vec2pos_ty_c size = {
-            static_cast<int>(appContext.constants.world.showDimensionX),
-            static_cast<int>(appContext.constants.world.showDimensionY),
+            static_cast<int>(appContext.constants.g_world.get_show_dimension_x()),
+            static_cast<int>(appContext.constants.g_world.get_show_dimension_y()),
         };
 
         auto const galaxy = std::make_shared<Galaxy>(size,
-                                                     appContext.constants.world.showPlanetCount,
+                                                     appContext.constants.g_world.get_show_planet_count(),
                                                      m_gameManager->m_players,
                                                      m_gameManager->m_npcs[PlayerType::NEUTRAL]);
 

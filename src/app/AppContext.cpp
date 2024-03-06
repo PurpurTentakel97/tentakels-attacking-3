@@ -69,26 +69,33 @@ namespace app {
                 constants.g_game_events.m_supernova_chance.value, 10000, "Supernova Event Chance");
 
         // Player
-        ValidateMinMax<utl::usize>(constants.g_player.m_min_count,
-                                   constants.g_player.m_max_count,
-                                   "Min Player Count",
-                                   "Max Player Count");
+        ValidateMinMax<utl::usize>(
+                constants.g_player.m_min_count, constants.g_player.m_max_count, "Min Player Count", "Max Player Count");
 
         // World
-        ValidateMinMax<utl::usize>(
-                constants.world.minPlanetCount, constants.world.maxPlanetCount, "Min Planet Count", "Max Planet Count");
-        ValidateMinCurrentMax<utl::usize>(
-                constants.world.minPlanetCount, constants.world.currentPlanetCount, constants.world.maxPlanetCount);
+        ValidateMinMax<utl::usize>(constants.g_world.m_min_planet_count,
+                                   constants.g_world.m_max_planet_count,
+                                   "Min Planet Count",
+                                   "Max Planet Count");
+        ValidateMinCurrentMax<utl::usize>(constants.g_world.m_min_planet_count,
+                                          constants.g_world.m_current_planet_count,
+                                          constants.g_world.m_max_planet_count);
 
-        ValidateMinMax<utl::usize>(
-                constants.world.minDimensionX, constants.world.maxDimensionX, "Min World Width", "Max World Width");
-        ValidateMinCurrentMax<utl::usize>(
-                constants.world.minDimensionX, constants.world.currentDimensionX, constants.world.maxDimensionX);
+        ValidateMinMax<utl::usize>(constants.g_world.m_min_dimension_x,
+                                   constants.g_world.m_max_dimension_x,
+                                   "Min World Width",
+                                   "Max World Width");
+        ValidateMinCurrentMax<utl::usize>(constants.g_world.m_min_dimension_x,
+                                          constants.g_world.m_current_dimension_x,
+                                          constants.g_world.m_max_dimension_x);
 
-        ValidateMinMax<utl::usize>(
-                constants.world.minDimensionY, constants.world.maxDimensionY, "Min World Height", "Max World Height");
-        ValidateMinCurrentMax<utl::usize>(
-                constants.world.minDimensionY, constants.world.currentDimensionY, constants.world.maxDimensionY);
+        ValidateMinMax<utl::usize>(constants.g_world.m_min_dimension_y,
+                                   constants.g_world.m_max_dimension_y,
+                                   "Min World Height",
+                                   "Max World Height");
+        ValidateMinCurrentMax<utl::usize>(constants.g_world.m_min_dimension_y,
+                                          constants.g_world.m_current_dimension_y,
+                                          constants.g_world.m_max_dimension_y);
 
         // Sound
         ValidateLowerEqual<float>(constants.g_sound.m_master_volume, 100.0f, "Master Volume");

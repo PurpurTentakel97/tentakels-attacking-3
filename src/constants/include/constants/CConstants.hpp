@@ -6,17 +6,17 @@
 #pragma once
 
 #include "CFiles.hpp"
-#include "G_Player.hpp"
-#include "G_Sound.hpp"
 #include "CTextProcessing.hpp"
-#include "G_Window.hpp"
-#include "CWorld.hpp"
 #include "G_Fight.hpp"
 #include "G_Fleet.hpp"
 #include "G_Game_Events.hpp"
 #include "G_Global.hpp"
 #include "G_Planet.hpp"
+#include "G_Player.hpp"
+#include "G_Sound.hpp"
 #include "G_Version.hpp"
+#include "G_Window.hpp"
+#include "G_World.hpp"
 #include "HelperGameEvents.hpp"
 #include "HelperWindow.hpp"
 
@@ -32,7 +32,7 @@ namespace cst {
         G_Player g_player;
         G_Sound g_sound;
         G_Window g_window;
-        World world;
+        G_World g_world;
 
         // config helper
         HelperGameEvents h_game_events;

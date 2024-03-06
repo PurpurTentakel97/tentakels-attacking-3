@@ -5,7 +5,7 @@
     "type": 5,
     "config": true,
     "constants_class": "G_Global",
-    "value": "9"
+    "value": "10"
   },
   "fight_total_config_entry_count": {
     "prefix": "s_",
@@ -606,5 +606,125 @@
     "config": true,
     "constants_class": "G_Window",
     "value": "60"
+  },
+  "world_total_config_entry_count": {
+    "prefix": "s_",
+    "name": "total_config_entry_count",
+    "type": 5,
+    "config": true,
+    "constants_class": "G_World",
+    "value": "15"
+  },
+  "world_load_config_entry_count": {
+    "prefix": "s_",
+    "name": "load_config_entry_count",
+    "type": 5,
+    "config": true,
+    "constants_class": "G_World",
+    "value": "13"
+  },
+  "world_min_planet_count": {
+    "prefix": "m_",
+    "name": "min_planet_count",
+    "type": 1,
+    "config": true,
+    "constants_class": "G_World",
+    "value": "20"
+  },
+  "world_current_planet_count": {
+    "prefix": "m_",
+    "name": "current_planet_count",
+    "type": 1,
+    "config": true,
+    "constants_class": "G_World",
+    "value": "50"
+  },
+  "world_max_planet_count": {
+    "prefix": "m_",
+    "name": "max_planet_count",
+    "type": 1,
+    "config": true,
+    "constants_class": "G_World",
+    "value": "100"
+  },
+  "world_show_planet_count": {
+    "prefix": "m_",
+    "name": "show_planet_count",
+    "type": 1,
+    "config": true,
+    "constants_class": "G_World",
+    "value": "25"
+  },
+  "world_min_dimension_x": {
+    "prefix": "m_",
+    "name": "min_dimension_x",
+    "type": 1,
+    "config": true,
+    "constants_class": "G_World",
+    "value": "60"
+  },
+  "world_current_dimension_x": {
+    "prefix": "m_",
+    "name": "current_dimension_x",
+    "type": 1,
+    "config": true,
+    "constants_class": "G_World",
+    "value": "150"
+  },
+  "world_max_dimension_x": {
+    "prefix": "m_",
+    "name": "max_dimension_x",
+    "type": 1,
+    "config": true,
+    "constants_class": "G_World",
+    "value": "300"
+  },
+  "world_min_dimension_y": {
+    "prefix": "m_",
+    "name": "min_dimension_y",
+    "type": 1,
+    "config": true,
+    "constants_class": "G_World",
+    "value": "20"
+  },
+  "world_current_dimension_y": {
+    "prefix": "m_",
+    "name": "current_dimension_y",
+    "type": 1,
+    "config": true,
+    "constants_class": "G_World",
+    "value": "80"
+  },
+  "world_max_dimension_y": {
+    "prefix": "m_",
+    "name": "max_dimension_y",
+    "type": 1,
+    "config": true,
+    "constants_class": "G_World",
+    "value": "160"
+  },
+  "world_show_dimension_x": {
+    "prefix": "m_",
+    "name": "show_dimension_x",
+    "type": 1,
+    "config": true,
+    "constants_class": "G_World",
+    "value": "200"
+  },
+  "world_show_dimension_y": {
+    "prefix": "m_",
+    "name": "show_dimension_y",
+    "type": 1,
+    "config": true,
+    "constants_class": "G_World",
+    "value": "112"
+  },
+  "world_discover_range_factor": {
+    "prefix": "m_",
+    "name": "discover_range_factor",
+    "type": 1,
+    "config": true,
+    "constants_class": "G_World",
+    "value": "3"
   }
 }

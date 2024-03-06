@@ -6,7 +6,7 @@
     "includes": [
       {
         "name": "alias/AliasUtils.hpp",
-        "s_brackets": false
+        "s_brackets": true
       }
     ],
     "forward_declaration": [
@@ -39,7 +39,10 @@
     "prefix": "G_",
     "name": "Fleet",
     "type": 1,
-    "includes": [],
+    "includes": [{
+        "name": "alias/AliasUtils.hpp",
+        "s_brackets": true
+      }],
     "forward_declaration": [
       {
         "namespace": "app",
@@ -169,6 +172,24 @@
       },
       {
         "name": "utils/Vec2.hpp",
+        "s_brackets": true
+      }
+    ],
+    "forward_declaration": [
+      {
+        "namespace": "app",
+        "name": "struct AppContext"
+      }
+    ],
+    "namespace": "cst"
+  },
+  "World": {
+    "prefix": "G_",
+    "name": "World",
+    "type": 1,
+    "includes": [
+      {
+        "name": "alias/AliasUtils.hpp",
         "s_brackets": true
       }
     ],

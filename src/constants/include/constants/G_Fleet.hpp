@@ -6,6 +6,7 @@
 
 #pragma once
 
+#include <alias/AliasUtils.hpp>
 
 namespace app {
      struct AppContext;

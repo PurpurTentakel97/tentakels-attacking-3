@@ -13,6 +13,7 @@
 #include "G_Player.hpp"
 #include "G_Sound.hpp"
 #include "G_Window.hpp"
+#include "G_World.hpp"
 #include "G_Config_IO.hpp"
 #include "HelperConfigIO.hpp"
 
@@ -104,6 +105,22 @@ namespace cst {
             if (utl::usize out; LoadUSize(son, out, G_Config_Enum::G_WINDOW_CURRENT_RESOLUTION_ENUM)) { constants.g_window.m_current_resolution_enum = static_cast<Resolution>(out); }
             if (bool out; LoadBool(son, out, G_Config_Enum::G_WINDOW_IS_FULL_SCREEN)) { constants.g_window.m_is_full_screen = out; }
             if (utl::usize out; LoadUSize(son, out, G_Config_Enum::G_WINDOW_FPS)) { constants.g_window.m_fps = out; }
+        }
+
+        if (nlohmann::json son; LoadSection(load, son, G_Config_Enum::G_WORLD, G_World::s_total_config_entry_count)) {
+            if (utl::usize out; LoadUSize(son, out, G_Config_Enum::G_WORLD_MIN_PLANET_COUNT)) { constants.g_world.m_min_planet_count = out; }
+            if (utl::usize out; LoadUSize(son, out, G_Config_Enum::G_WORLD_CURRENT_PLANET_COUNT)) { constants.g_world.m_current_planet_count = out; }
+            if (utl::usize out; LoadUSize(son, out, G_Config_Enum::G_WORLD_MAX_PLANET_COUNT)) { constants.g_world.m_max_planet_count = out; }
+            if (utl::usize out; LoadUSize(son, out, G_Config_Enum::G_WORLD_SHOW_PLANET_COUNT)) { constants.g_world.m_show_planet_count = out; }
+            if (utl::usize out; LoadUSize(son, out, G_Config_Enum::G_WORLD_MIN_DIMENSION_X)) { constants.g_world.m_min_dimension_x = out; }
+            if (utl::usize out; LoadUSize(son, out, G_Config_Enum::G_WORLD_CURRENT_DIMENSION_X)) { constants.g_world.m_current_dimension_x = out; }
+            if (utl::usize out; LoadUSize(son, out, G_Config_Enum::G_WORLD_MAX_DIMENSION_X)) { constants.g_world.m_max_dimension_x = out; }
+            if (utl::usize out; LoadUSize(son, out, G_Config_Enum::G_WORLD_MIN_DIMENSION_Y)) { constants.g_world.m_min_dimension_y = out; }
+            if (utl::usize out; LoadUSize(son, out, G_Config_Enum::G_WORLD_CURRENT_DIMENSION_Y)) { constants.g_world.m_current_dimension_y = out; }
+            if (utl::usize out; LoadUSize(son, out, G_Config_Enum::G_WORLD_MAX_DIMENSION_Y)) { constants.g_world.m_max_dimension_y = out; }
+            if (utl::usize out; LoadUSize(son, out, G_Config_Enum::G_WORLD_SHOW_DIMENSION_X)) { constants.g_world.m_show_dimension_x = out; }
+            if (utl::usize out; LoadUSize(son, out, G_Config_Enum::G_WORLD_SHOW_DIMENSION_Y)) { constants.g_world.m_show_dimension_y = out; }
+            if (utl::usize out; LoadUSize(son, out, G_Config_Enum::G_WORLD_DISCOVER_RANGE_FACTOR)) { constants.g_world.m_discover_range_factor = out; }
         }
 
         CheckLoadEntryCount();
@@ -215,6 +232,24 @@ namespace cst {
             { CToS(G_Config_Enum::G_WINDOW_CURRENT_RESOLUTION_ENUM), constants.g_window.m_current_resolution_enum },
             { CToS(G_Config_Enum::G_WINDOW_IS_FULL_SCREEN), constants.g_window.m_is_full_screen },
             { CToS(G_Config_Enum::G_WINDOW_FPS), constants.g_window.m_fps },
+        };
+
+        save[CToS(G_Config_Enum::G_WORLD)] = {
+            { CToS(G_Config_Enum::G_WORLD_TOTAL_CONFIG_ENTRY_COUNT), constants.g_world.s_total_config_entry_count },
+            { CToS(G_Config_Enum::G_WORLD_LOAD_CONFIG_ENTRY_COUNT), constants.g_world.s_load_config_entry_count },
+            { CToS(G_Config_Enum::G_WORLD_MIN_PLANET_COUNT), constants.g_world.m_min_planet_count },
+            { CToS(G_Config_Enum::G_WORLD_CURRENT_PLANET_COUNT), constants.g_world.m_current_planet_count },
+            { CToS(G_Config_Enum::G_WORLD_MAX_PLANET_COUNT), constants.g_world.m_max_planet_count },
+            { CToS(G_Config_Enum::G_WORLD_SHOW_PLANET_COUNT), constants.g_world.m_show_planet_count },
+            { CToS(G_Config_Enum::G_WORLD_MIN_DIMENSION_X), constants.g_world.m_min_dimension_x },
+            { CToS(G_Config_Enum::G_WORLD_CURRENT_DIMENSION_X), constants.g_world.m_current_dimension_x },
+            { CToS(G_Config_Enum::G_WORLD_MAX_DIMENSION_X), constants.g_world.m_max_dimension_x },
+            { CToS(G_Config_Enum::G_WORLD_MIN_DIMENSION_Y), constants.g_world.m_min_dimension_y },
+            { CToS(G_Config_Enum::G_WORLD_CURRENT_DIMENSION_Y), constants.g_world.m_current_dimension_y },
+            { CToS(G_Config_Enum::G_WORLD_MAX_DIMENSION_Y), constants.g_world.m_max_dimension_y },
+            { CToS(G_Config_Enum::G_WORLD_SHOW_DIMENSION_X), constants.g_world.m_show_dimension_x },
+            { CToS(G_Config_Enum::G_WORLD_SHOW_DIMENSION_Y), constants.g_world.m_show_dimension_y },
+            { CToS(G_Config_Enum::G_WORLD_DISCOVER_RANGE_FACTOR), constants.g_world.m_discover_range_factor },
         };
 
         hlp::SaveFile(Files::s_savesDir, Files::s_configFile, save.dump(4));

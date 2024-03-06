@@ -22,6 +22,7 @@ namespace cst {
             case G_Config_Enum::G_PLAYER: return "player";
             case G_Config_Enum::G_SOUND: return "sound";
             case G_Config_Enum::G_WINDOW: return "window";
+            case G_Config_Enum::G_WORLD: return "world";
 
             case G_Config_Enum::G_GLOBAL_CONFIG_SECTION_COUNT: return "config_section_count";
             case G_Config_Enum::G_FIGHT_TOTAL_CONFIG_ENTRY_COUNT: return "total_config_entry_count";
@@ -99,6 +100,21 @@ namespace cst {
             case G_Config_Enum::G_WINDOW_CURRENT_RESOLUTION_ENUM: return "current_resolution_enum";
             case G_Config_Enum::G_WINDOW_IS_FULL_SCREEN: return "is_full_screen";
             case G_Config_Enum::G_WINDOW_FPS: return "fps";
+            case G_Config_Enum::G_WORLD_TOTAL_CONFIG_ENTRY_COUNT: return "total_config_entry_count";
+            case G_Config_Enum::G_WORLD_LOAD_CONFIG_ENTRY_COUNT: return "load_config_entry_count";
+            case G_Config_Enum::G_WORLD_MIN_PLANET_COUNT: return "min_planet_count";
+            case G_Config_Enum::G_WORLD_CURRENT_PLANET_COUNT: return "current_planet_count";
+            case G_Config_Enum::G_WORLD_MAX_PLANET_COUNT: return "max_planet_count";
+            case G_Config_Enum::G_WORLD_SHOW_PLANET_COUNT: return "show_planet_count";
+            case G_Config_Enum::G_WORLD_MIN_DIMENSION_X: return "min_dimension_x";
+            case G_Config_Enum::G_WORLD_CURRENT_DIMENSION_X: return "current_dimension_x";
+            case G_Config_Enum::G_WORLD_MAX_DIMENSION_X: return "max_dimension_x";
+            case G_Config_Enum::G_WORLD_MIN_DIMENSION_Y: return "min_dimension_y";
+            case G_Config_Enum::G_WORLD_CURRENT_DIMENSION_Y: return "current_dimension_y";
+            case G_Config_Enum::G_WORLD_MAX_DIMENSION_Y: return "max_dimension_y";
+            case G_Config_Enum::G_WORLD_SHOW_DIMENSION_X: return "show_dimension_x";
+            case G_Config_Enum::G_WORLD_SHOW_DIMENSION_Y: return "show_dimension_y";
+            case G_Config_Enum::G_WORLD_DISCOVER_RANGE_FACTOR: return "discover_range_factor";
         }
     std::unreachable();
     }

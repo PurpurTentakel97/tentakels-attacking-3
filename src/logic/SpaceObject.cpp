@@ -74,7 +74,7 @@ namespace lgk {
     bool SpaceObject::IsInDiscoverRange(SpaceObject_ty_c object) const {
         app::AppContext_ty_c appContext{ app::AppContext::GetInstance() };
         auto const range =
-                appContext.constants.world.discoverRangeFactor * appContext.constants.g_fleet.get_current_fleet_speed();
+                appContext.constants.g_world.get_discover_range_factor() * appContext.constants.g_fleet.get_current_fleet_speed();
         return IsInRange(object.get(), this, range);
     }
 
