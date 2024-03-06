@@ -50,6 +50,10 @@ namespace cst {
         // input
         bool acceptInputTriggered{ false };
 
+        // window
+        Vector2 currentResolutionVec{ 800.0f, 600.0f };
+        utl::vec2pos_ty nativeResolutionVec{ 800, 600 };
+
         [[nodiscard]] utl::usize GetConfigValueCount() const;
     };
 } // namespace cst

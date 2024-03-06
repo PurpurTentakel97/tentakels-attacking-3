@@ -153,5 +153,31 @@
       }
     ],
     "namespace": "cst"
+  },
+  "Window": {
+    "prefix": "G_",
+    "name": "Window",
+    "type": 1,
+    "includes": [
+      {
+        "name": "CResolution.hpp",
+        "s_brackets": false
+      },
+      {
+        "name": "alias/AliasUtils.hpp",
+        "s_brackets": true
+      },
+      {
+        "name": "utils/Vec2.hpp",
+        "s_brackets": true
+      }
+    ],
+    "forward_declaration": [
+      {
+        "namespace": "app",
+        "name": "struct AppContext"
+      }
+    ],
+    "namespace": "cst"
   }
 }

@@ -99,29 +99,29 @@ namespace ui {
     }
 
     void UIManager::SetNativeWindowSize() {
-        cst::Window_ty_c window{ m_appContext.constants.window };
+        auto const& window{ m_appContext.constants };
         utl::vec2pos_ty_c values{ window.nativeResolutionVec };
 
         ::SetWindowSize(static_cast<int>(values.x), static_cast<int>(values.y));
     }
 
     void UIManager::SetWindowSize(bool const force) {
-        cst::Window_ty window{ m_appContext.constants.window };
+        auto& constants{ m_appContext.constants };
         auto const& helper{ m_appContext.constants.h_window };
-        if (window.currentResolutionEnum == m_nextResolution and not force) {
+        if (constants.window.currentResolutionEnum == m_nextResolution and not force) {
             return;
         }
-        window.currentResolutionEnum = m_nextResolution;
+        constants.window.currentResolutionEnum = m_nextResolution;
 
         utl::vec2pos_ty_c values = helper.GetIntFromResolution(m_nextResolution);
 
-        window.currentResolutionVec = { static_cast<float>(values.x), static_cast<float>(values.y) };
+        constants.currentResolutionVec = { static_cast<float>(values.x), static_cast<float>(values.y) };
         ::SetWindowSize(static_cast<int>(values.x), static_cast<int>(values.y));
     }
 
     void UIManager::SetWindowPosition() {
-        cst::Window_ty_c window{ m_appContext.constants.window };
-        if (window.isFullScreen) {
+        auto const& constants{ m_appContext.constants };
+        if (constants.window.isFullScreen) {
             return;
         }
 
@@ -129,8 +129,8 @@ namespace ui {
         auto const screenHeight{ GetMonitorHeight(screen) };
         auto const screenWidth{ GetMonitorWidth(screen) };
 
-        auto differenceWidth{ static_cast<int>((static_cast<float>(screenWidth) - window.currentResolutionVec.x) / 2) };
-        auto differenceHeight{ static_cast<int>((static_cast<float>(screenHeight) - window.currentResolutionVec.y)
+        auto differenceWidth{ static_cast<int>((static_cast<float>(screenWidth) - constants.currentResolutionVec.x) / 2) };
+        auto differenceHeight{ static_cast<int>((static_cast<float>(screenHeight) - constants.currentResolutionVec.y)
                                                 / 2) };
 
         if (differenceWidth < 0) {
@@ -179,9 +179,9 @@ namespace ui {
 
     void UIManager::StartUI() {
         SetWindowTitle(("Tentakels Attacking " + m_appContext.constants.g_version.get_game_version()).c_str());
-        cst::Window_ty window{ m_appContext.constants.window };
+        auto& constants{ m_appContext.constants };
         auto const& helper{ m_appContext.constants.h_window };
-        window.nativeResolutionVec = helper.GetIntFromResolution(cst::Resolution::SCREEN);
+        constants.nativeResolutionVec = helper.GetIntFromResolution(cst::Resolution::SCREEN);
 
         if (m_appContext.constants.window.currentResolutionEnum == cst::Resolution::LAST) {
 
@@ -201,16 +201,16 @@ namespace ui {
             };
             app::AppContext::GetInstance().eventManager.InvokeEvent(event);
         } else {
-            m_nextResolution             = window.currentResolutionEnum;
-            window.currentResolutionEnum = cst::Resolution::LAST;
+            m_nextResolution             = constants.window.currentResolutionEnum;
+            constants.window.currentResolutionEnum = cst::Resolution::LAST;
             /*
              * problem here is, that the game actually starts with window mode.
              * to trick this I set the local variable to the constants value and the constants variable to false.
              * this cause the CheckAndSetToggleFullScreen() to toggle fullscreen if fullscreen was provided in config.
              * kinda hacky. I know.
              * */
-            m_isNextFullScreen           = window.isFullScreen;
-            window.isFullScreen          = false;
+            m_isNextFullScreen           = constants.window.isFullScreen;
+            constants.window.isFullScreen          = false;
 
             if (!helper.IsPossibleResolution(m_nextResolution)) {
                 hlp::Print(hlp::PrintType::ERROR,

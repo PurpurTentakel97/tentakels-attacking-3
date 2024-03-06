@@ -122,7 +122,7 @@ namespace app {
     }
 
     Vector2 AppContext::GetResolution() const {
-        return constants.window.currentResolutionVec;
+        return constants.currentResolutionVec;
     }
 
     AppContext::AppContext() {

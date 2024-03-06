@@ -5,7 +5,7 @@
     "type": 5,
     "config": true,
     "constants_class": "G_Global",
-    "value": "8"
+    "value": "9"
   },
   "fight_total_config_entry_count": {
     "prefix": "s_",
@@ -566,5 +566,21 @@
     "config": true,
     "constants_class": "G_Sound",
     "value": "50.0f"
+  },
+  "window_total_config_entry_count": {
+    "prefix": "s_",
+    "name": "total_config_entry_count",
+    "type": 5,
+    "config": true,
+    "constants_class": "G_Window",
+    "value": "4"
+  },
+  "window_load_config_entry_count": {
+    "prefix": "s_",
+    "name": "load_config_entry_count",
+    "type": 5,
+    "config": true,
+    "constants_class": "G_Window",
+    "value": "2"
   }
 }

@@ -12,7 +12,7 @@
 
 namespace cst {
     bool HelperWindow::IsPossibleResolution(Resolution const toProve) const {
-        auto const& window = app::AppContext::GetInstance().constants.window;
+        auto const& window = app::AppContext::GetInstance().constants;
         auto const value   = GetIntFromResolution(toProve);
 
         if (window.nativeResolutionVec.x < value.x) {
@@ -70,7 +70,7 @@ namespace cst {
             case Resolution::VGA: return "VGA 4:3 (640 x 480)";
 
             case Resolution::NATIVE: {
-                auto const& window = app::AppContext::GetInstance().constants.window;
+                auto const& window = app::AppContext::GetInstance().constants;
                 return "Native (" + std::to_string(window.nativeResolutionVec.x) + " x "
                      + std::to_string(window.nativeResolutionVec.y) + ")";
             }
@@ -115,7 +115,7 @@ namespace cst {
             case Resolution::VGA: return { 640, 480 };
 
 
-            case Resolution::NATIVE: return app::AppContext::GetInstance().constants.window.nativeResolutionVec;
+            case Resolution::NATIVE: return app::AppContext::GetInstance().constants.nativeResolutionVec;
             case Resolution::SCREEN: {
                 auto const screen{ GetCurrentMonitor() };
                 auto const height{ GetMonitorHeight(screen) };
