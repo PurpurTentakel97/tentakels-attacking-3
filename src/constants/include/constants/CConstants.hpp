@@ -9,7 +9,7 @@
 #include "G_Player.hpp"
 #include "G_Sound.hpp"
 #include "CTextProcessing.hpp"
-#include "CWindow.hpp"
+#include "G_Window.hpp"
 #include "CWorld.hpp"
 #include "G_Fight.hpp"
 #include "G_Fleet.hpp"
@@ -31,7 +31,7 @@ namespace cst {
         G_Planet g_planet;
         G_Player g_player;
         G_Sound g_sound;
-        Window window;
+        G_Window g_window;
         World world;
 
         // config helper

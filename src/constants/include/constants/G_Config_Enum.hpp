@@ -21,6 +21,7 @@ namespace cst {
         G_PLANET,
         G_PLAYER,
         G_SOUND,
+        G_WINDOW,
 
         G_GLOBAL_CONFIG_SECTION_COUNT,
         G_FIGHT_TOTAL_CONFIG_ENTRY_COUNT,
@@ -93,6 +94,11 @@ namespace cst {
         G_SOUND_LOAD_CONFIG_ENTRY_COUNT,
         G_SOUND_IS_MUTE,
         G_SOUND_MASTER_VOLUME,
+        G_WINDOW_TOTAL_CONFIG_ENTRY_COUNT,
+        G_WINDOW_LOAD_CONFIG_ENTRY_COUNT,
+        G_WINDOW_CURRENT_RESOLUTION_ENUM,
+        G_WINDOW_IS_FULL_SCREEN,
+        G_WINDOW_FPS,
     };
 
     [[nodiscard]] std::string CToS(G_Config_Enum value);

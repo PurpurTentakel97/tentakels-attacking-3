@@ -19,14 +19,14 @@ namespace ui {
     }
 
     void UIManager::CheckAndSetToggleFullScreen() {
-        cst::Window_ty window{ m_appContext.constants.window };
+        auto& window{ m_appContext.constants.g_window };
 
-        if (window.isFullScreen == m_isNextFullScreen) {
+        if (window.get_is_full_screen() == m_isNextFullScreen) {
             return;
         }
-        window.isFullScreen = m_isNextFullScreen;
+        window.set_is_full_screen(m_isNextFullScreen);
 
-        if (window.isFullScreen) {
+        if (window.get_is_full_screen()) {
             SetNativeWindowSize();
             ::ToggleFullscreen();
             SetWindowSize(true);
@@ -40,9 +40,9 @@ namespace ui {
     }
 
     void UIManager::CheckAndSetNewResolution() {
-        cst::Window_ty window{ m_appContext.constants.window };
+        auto const& window{ m_appContext.constants.g_window };
         auto const& helper{ m_appContext.constants.h_window };
-        if (m_nextResolution == window.currentResolutionEnum) {
+        if (m_nextResolution == window.get_current_resolution_enum()) {
             return;
         }
 
@@ -108,10 +108,10 @@ namespace ui {
     void UIManager::SetWindowSize(bool const force) {
         auto& constants{ m_appContext.constants };
         auto const& helper{ m_appContext.constants.h_window };
-        if (constants.window.currentResolutionEnum == m_nextResolution and not force) {
+        if (constants.g_window.get_current_resolution_enum() == m_nextResolution and not force) {
             return;
         }
-        constants.window.currentResolutionEnum = m_nextResolution;
+        constants.g_window.set_current_resolution_enum(m_nextResolution);
 
         utl::vec2pos_ty_c values = helper.GetIntFromResolution(m_nextResolution);
 
@@ -121,7 +121,7 @@ namespace ui {
 
     void UIManager::SetWindowPosition() {
         auto const& constants{ m_appContext.constants };
-        if (constants.window.isFullScreen) {
+        if (constants.g_window.get_is_full_screen()) {
             return;
         }
 
@@ -183,7 +183,7 @@ namespace ui {
         auto const& helper{ m_appContext.constants.h_window };
         constants.nativeResolutionVec = helper.GetIntFromResolution(cst::Resolution::SCREEN);
 
-        if (m_appContext.constants.window.currentResolutionEnum == cst::Resolution::LAST) {
+        if (m_appContext.constants.g_window.get_current_resolution_enum() == cst::Resolution::LAST) {
 
             m_nextResolution                           = cst::Resolution::SCREEN;
             /*
@@ -193,7 +193,7 @@ namespace ui {
              * kinda hacky. I know.
              * */
             m_isNextFullScreen                         = true;
-            m_appContext.constants.window.isFullScreen = false;
+            m_appContext.constants.g_window.set_is_full_screen(false);
 
             eve::ShowInitialSoundLevelPopUpEvent event{
                 m_appContext.languageManager.Text("ui_manager_initial_sound_popup_title"),
@@ -201,16 +201,16 @@ namespace ui {
             };
             app::AppContext::GetInstance().eventManager.InvokeEvent(event);
         } else {
-            m_nextResolution             = constants.window.currentResolutionEnum;
-            constants.window.currentResolutionEnum = cst::Resolution::LAST;
+            m_nextResolution             = constants.g_window.get_current_resolution_enum();
+            constants.g_window.set_current_resolution_enum(cst::Resolution::LAST);
             /*
              * problem here is, that the game actually starts with window mode.
              * to trick this I set the local variable to the constants value and the constants variable to false.
              * this cause the CheckAndSetToggleFullScreen() to toggle fullscreen if fullscreen was provided in config.
              * kinda hacky. I know.
              * */
-            m_isNextFullScreen           = constants.window.isFullScreen;
-            constants.window.isFullScreen          = false;
+            m_isNextFullScreen           = constants.g_window.get_is_full_screen();
+            constants.g_window.set_is_full_screen(false);
 
             if (!helper.IsPossibleResolution(m_nextResolution)) {
                 hlp::Print(hlp::PrintType::ERROR,

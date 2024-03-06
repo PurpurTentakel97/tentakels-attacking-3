@@ -61,7 +61,7 @@ namespace ui {
 
         m_toggleFullScreenCBM =
                 std::make_shared<uil::CheckBox>(id, GetElementPosition(lx, y), GetElementSize(0.0f, height).y, a, 1);
-        m_toggleFullScreenCBM->SetChecked(appContext.constants.window.isFullScreen);
+        m_toggleFullScreenCBM->SetChecked(appContext.constants.g_window.get_is_full_screen());
         m_toggleFullScreenCBM->SetOnCheck([](utl::usize, bool isChecked) {
             eve::ToggleFullscreenEvent const event{ isChecked };
             app::AppContext::GetInstance().eventManager.InvokeEvent(event);
@@ -165,7 +165,7 @@ namespace ui {
                                                                id + 1,
                                                                GetStringsFromResolutionEntries());
         m_resolutionDropDown->SetCurrentElementByID(
-                GetIndexFromResolution(appContext.constants.window.currentResolutionEnum) + 1);
+                GetIndexFromResolution(appContext.constants.g_window.get_current_resolution_enum()) + 1);
         m_resolutionDropDown->SetOnSave([this](utl::usize ID) {
             eve::SetNewResolutionEvent const event{ this->m_rawResolutionEntries[ID - 1].first };
             app::AppContext::GetInstance().eventManager.InvokeEvent(event);
@@ -223,7 +223,7 @@ namespace ui {
 
     void AppSettingsScene::CheckAndUpdate(Vector2 const& mousePosition, app::AppContext_ty_c appContext) {
         SettingsScene::CheckAndUpdate(mousePosition, appContext);
-        m_toggleFullScreenCBM->SetChecked(appContext.constants.window.isFullScreen);
+        m_toggleFullScreenCBM->SetChecked(appContext.constants.g_window.get_is_full_screen());
     }
 
     void AppSettingsScene::Render(app::AppContext_ty_c appContext) {

@@ -59,9 +59,9 @@ namespace uil {
             }
         } };
 
-        auto const& window{ appContext.constants.window };
+        auto const& window{ appContext.constants.g_window };
         auto const& helper{ appContext.constants.h_window };
-        auto const& resolution{ helper.GetIntFromResolution(window.currentResolutionEnum) };
+        auto const& resolution{ helper.GetIntFromResolution(window.get_current_resolution_enum()) };
         bool const high{ static_cast<float>(resolution.y) / 2.0f > GetMousePosition().y };
 
         if (high) {

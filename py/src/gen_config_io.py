@@ -33,7 +33,10 @@ def _gen_load_dict(fields: tuple[raw_field.RawField], config_files: tuple[raw_co
             text = f"{helper.indent(1)}if ({enums.load_type_lookup[f.type_]} out; {enums.load_function_lookup[f.type_]}" \
                    f"(son, out, {helper.config_enum_name}::{f.enum_name()})) {helper.left_bracket} " \
                    f"{_constants}.{f.constants_class.lower()}.{f.full_name()} = "
-            text += f"out"  # cast here if necessary
+            if f.type_ == enums.CppType.RESOLUTION:
+                text += f"static_cast<Resolution>(out)"  # cast here if necessary
+            else:
+                text += f"out"  # cast here if necessary
             text += f"; {helper.right_bracket}"
             load[f.constants_class].append(text)
 

@@ -27,7 +27,7 @@ namespace app {
             SetMasterVolume(constants.g_sound.get_master_volume() / 100);
         }
 
-        eve::SetTargetFPSEvent const event{ constants.window.FPS };
+        eve::SetTargetFPSEvent const event{ constants.g_window.get_fps() };
         eventManager.InvokeEvent(event);
     }
 

@@ -9,6 +9,7 @@ add_library(constants STATIC
             include/constants/G_Player.hpp
             include/constants/G_Sound.hpp
             include/constants/G_Version.hpp
+            include/constants/G_Window.hpp
             G_Config_Enum.cpp
             G_Config_IO.cpp
             include/constants/CConstants.hpp
@@ -16,11 +17,10 @@ add_library(constants STATIC
             include/constants/CTextProcessing.hpp
             include/constants/CResolution.hpp
             include/constants/CWorld.hpp
-            include/constants/CWindow.hpp
+            CConstants.cpp
             include/constants/HelperConfigIO.hpp
             include/constants/HelperGameEvents.hpp
             include/constants/HelperWindow.hpp
-            CConstants.cpp
             HelperWindow.cpp
             HelperGameEvents.cpp
 )

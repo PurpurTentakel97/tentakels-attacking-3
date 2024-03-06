@@ -12,6 +12,7 @@
 #include "G_Planet.hpp"
 #include "G_Player.hpp"
 #include "G_Sound.hpp"
+#include "G_Window.hpp"
 #include "G_Config_IO.hpp"
 #include "HelperConfigIO.hpp"
 
@@ -97,6 +98,12 @@ namespace cst {
         if (nlohmann::json son; LoadSection(load, son, G_Config_Enum::G_SOUND, G_Sound::s_total_config_entry_count)) {
             if (bool out; LoadBool(son, out, G_Config_Enum::G_SOUND_IS_MUTE)) { constants.g_sound.m_is_mute = out; }
             if (float out; LoadFloat(son, out, G_Config_Enum::G_SOUND_MASTER_VOLUME)) { constants.g_sound.m_master_volume = out; }
+        }
+
+        if (nlohmann::json son; LoadSection(load, son, G_Config_Enum::G_WINDOW, G_Window::s_total_config_entry_count)) {
+            if (utl::usize out; LoadUSize(son, out, G_Config_Enum::G_WINDOW_CURRENT_RESOLUTION_ENUM)) { constants.g_window.m_current_resolution_enum = static_cast<Resolution>(out); }
+            if (bool out; LoadBool(son, out, G_Config_Enum::G_WINDOW_IS_FULL_SCREEN)) { constants.g_window.m_is_full_screen = out; }
+            if (utl::usize out; LoadUSize(son, out, G_Config_Enum::G_WINDOW_FPS)) { constants.g_window.m_fps = out; }
         }
 
         CheckLoadEntryCount();
@@ -200,6 +207,14 @@ namespace cst {
             { CToS(G_Config_Enum::G_SOUND_LOAD_CONFIG_ENTRY_COUNT), constants.g_sound.s_load_config_entry_count },
             { CToS(G_Config_Enum::G_SOUND_IS_MUTE), constants.g_sound.m_is_mute },
             { CToS(G_Config_Enum::G_SOUND_MASTER_VOLUME), constants.g_sound.m_master_volume },
+        };
+
+        save[CToS(G_Config_Enum::G_WINDOW)] = {
+            { CToS(G_Config_Enum::G_WINDOW_TOTAL_CONFIG_ENTRY_COUNT), constants.g_window.s_total_config_entry_count },
+            { CToS(G_Config_Enum::G_WINDOW_LOAD_CONFIG_ENTRY_COUNT), constants.g_window.s_load_config_entry_count },
+            { CToS(G_Config_Enum::G_WINDOW_CURRENT_RESOLUTION_ENUM), constants.g_window.m_current_resolution_enum },
+            { CToS(G_Config_Enum::G_WINDOW_IS_FULL_SCREEN), constants.g_window.m_is_full_screen },
+            { CToS(G_Config_Enum::G_WINDOW_FPS), constants.g_window.m_fps },
         };
 
         hlp::SaveFile(Files::s_savesDir, Files::s_configFile, save.dump(4));

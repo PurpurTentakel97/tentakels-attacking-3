@@ -573,7 +573,7 @@
     "type": 5,
     "config": true,
     "constants_class": "G_Window",
-    "value": "4"
+    "value": "5"
   },
   "window_load_config_entry_count": {
     "prefix": "s_",
@@ -581,6 +581,30 @@
     "type": 5,
     "config": true,
     "constants_class": "G_Window",
-    "value": "2"
+    "value": "3"
+  },
+  "window_current_resolution_enum": {
+    "prefix": "m_",
+    "name": "current_resolution_enum",
+    "type": 8,
+    "config": true,
+    "constants_class": "G_Window",
+    "value": "Resolution::LAST"
+  },
+  "window_is_full_screen": {
+    "prefix": "m_",
+    "name": "is_full_screen",
+    "type": 4,
+    "config": true,
+    "constants_class": "G_Window",
+    "value": "true"
+  },
+  "window_fps": {
+    "prefix": "m_",
+    "name": "fps",
+    "type": 1,
+    "config": true,
+    "constants_class": "G_Window",
+    "value": "60"
   }
 }

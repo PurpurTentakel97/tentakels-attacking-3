@@ -134,8 +134,14 @@ namespace cst {
          void set_is_event_on_home_world(bool const value) {
             m_is_event_on_home_world = value;
         }
+         void set_global_chance(utl::Probability const value) {
+            m_global_chance = value;
+        }
          void set_is_pirates(bool const value) {
             m_is_pirates = value;
+        }
+         void set_pirate_chance(utl::Probability const value) {
+            m_pirate_chance = value;
         }
          void set_min_pirate_ships(utl::usize const value) {
             m_min_pirate_ships = value;
@@ -146,11 +152,20 @@ namespace cst {
          void set_is_revolts(bool const value) {
             m_is_revolts = value;
         }
+         void set_revolts_chance(utl::Probability const value) {
+            m_revolts_chance = value;
+        }
          void set_is_renegade_ships(bool const value) {
             m_is_renegade_ships = value;
         }
+         void set_renegade_ships_chance(utl::Probability const value) {
+            m_renegade_ships_chance = value;
+        }
          void set_is_supernova(bool const value) {
             m_is_supernova = value;
+        }
+         void set_supernova_chance(utl::Probability const value) {
+            m_supernova_chance = value;
         }
          void set_min_black_hole_range_factor(float const value) {
             m_min_black_hole_range_factor = value;
@@ -164,11 +179,17 @@ namespace cst {
          void set_is_engine_problem(bool const value) {
             m_is_engine_problem = value;
         }
+         void set_engine_problem_chance(utl::Probability const value) {
+            m_engine_problem_chance = value;
+        }
          void set_max_engine_problem_years(utl::usize const value) {
             m_max_engine_problem_years = value;
         }
          void set_is_production_problem(bool const value) {
             m_is_production_problem = value;
+        }
+         void set_production_problem_chance(utl::Probability const value) {
+            m_production_problem_chance = value;
         }
          void set_max_production_problem_years(utl::usize const value) {
             m_max_production_problem_years = value;

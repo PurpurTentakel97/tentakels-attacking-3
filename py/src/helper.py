@@ -33,6 +33,8 @@ def needs_constants_setter(type_: enums.CppType) -> bool:
         enums.CppType.STRING,
         enums.CppType.BOOL,
         enums.CppType.FLOAT,
+        enums.CppType.RESOLUTION,
+        enums.CppType.PROBABILITY
     )
     return type_ in t
 
