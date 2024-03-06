@@ -29,7 +29,7 @@
     "type": 3,
     "config": true,
     "constants_class": "G_Version",
-    "value": "v0.1.7"
+    "value": "v0.1.8"
   },
   "version_config_version": {
     "prefix": "s_",
