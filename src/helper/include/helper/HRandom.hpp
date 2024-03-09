@@ -18,6 +18,8 @@ namespace hlp {
         [[nodiscard]] auto random() -> float;
         auto setRandomSeed(std::mt19937_64::result_type seed) -> void;
         [[nodiscard]] auto getRandomSeed() const -> std::mt19937_64::result_type;
+        auto setState(std::string state) -> void;
+        [[nodiscard]] auto getState() -> std::string;
         auto randomize() -> void;
 
         Random(Random const& old) = delete;

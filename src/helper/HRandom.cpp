@@ -6,6 +6,7 @@
 
 #include "HRandom.hpp"
 #include <chrono>
+#include <sstream>
 
 namespace hlp {
     Random& Random::GetInstance() {
@@ -34,9 +35,19 @@ namespace hlp {
         return mSeed;
     }
 
+    auto Random::setState(std::string state) -> void {
+        auto stream = std::stringstream{ std::move(state) };
+        stream >> mGenerator;
+    }
+
+    auto Random::getState() -> std::string {
+        auto stream = std::stringstream{};
+        stream << mGenerator;
+        return std::move(stream).str();
+    }
+
     auto Random::randomize() -> void {
         setRandomSeed(
-                static_cast<std::mt19937_64::result_type>(std::chrono::system_clock::now().time_since_epoch().count())
-        );
+                static_cast<std::mt19937_64::result_type>(std::chrono::system_clock::now().time_since_epoch().count()));
     }
 } // namespace hlp
