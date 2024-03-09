@@ -1,8 +1,19 @@
 //
-// Created by marti on 09.03.2024.
+// PurpurTentakel
+// 09.03.24
 //
 
-#ifndef TENTAKELSATTACKING_REPRESENTATIONLOGICSAVE_HPP
-#define TENTAKELSATTACKING_REPRESENTATIONLOGICSAVE_HPP
+#pragma once
 
-#endif //TENTAKELSATTACKING_REPRESENTATIONLOGICSAVE_HPP
+#include "RepresentationGalaxy.hpp"
+#include "RepresentationPlayer.hpp"
+
+namespace utl{
+    struct RepresentationLogicSave final{
+        RepresentationGalaxy main;
+        RepresentationGalaxy start;
+        RepresentationGalaxy current;
+        std::vector<RepresentationPlayer> all_player;
+        std::vector<RepresentationPlayer> current_player;
+    };
+}

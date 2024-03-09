@@ -14,6 +14,7 @@ add_library(utils STATIC
             include/utils/ResultsEvents.hpp
             include/utils/Result.hpp
             Colors.cpp
+            include/utils/RepresentationLogicSave.hpp
 )
 target_include_directories(utils
                            PRIVATE include/utils

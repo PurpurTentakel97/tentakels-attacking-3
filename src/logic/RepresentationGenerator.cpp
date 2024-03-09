@@ -6,6 +6,7 @@
 #include "RepresentationGenerator.hpp"
 #include "Fleet.hpp"
 #include "Player.hpp"
+#include <ranges>
 #include <vector>
 
 
@@ -54,7 +55,8 @@ namespace lgk {
     }
 
     [[nodiscard]] static std::vector<utl::RepresentationBlackHole> GenAllBlackHoleRep(
-            std::vector<BlackHole_ty> const& blackHoles, int const galaxyWidth) {
+            std::vector<BlackHole_ty> const& blackHoles,
+            int const galaxyWidth) {
         std::vector<utl::RepresentationBlackHole> result{};
         for (auto const& b : blackHoles) {
             result.push_back(GenSingleBlackHoleRep(b, galaxyWidth));
@@ -144,6 +146,24 @@ namespace lgk {
     }
 
     utl::RepresentationPlayer GenPlayerRep(Player const* player) {
-        return { player->GetID() };
+        return { player->GetID(), player->IsAlive() };
+    }
+
+    utl::RepresentationLogicSave GenLogicSaveRep(Galaxy const* main,
+                                                 Galaxy const* start,
+                                                 Galaxy const* current,
+                                                 std::vector<Player const*> const& all_players,
+                                                 std::vector<Player const*> const& current_players) {
+
+        static auto constexpr gen_player_rep = [](std::vector<Player const*> const& players) {
+            using namespace std::ranges;
+            return players | views::transform([](Player const* player) { return GenPlayerRep(player); })
+                 | to<std::vector>();
+        };
+
+        auto const all_player_rep     = gen_player_rep(all_players);
+        auto const current_player_rep = gen_player_rep(current_players);
+
+        return { GenGalaxyRep(main), GenGalaxyRep(start), GenGalaxyRep(current), all_player_rep, current_player_rep };
     }
 } // namespace lgk

@@ -6,7 +6,7 @@
 #pragma once
 
 #include "Galaxy.hpp"
-#include <utils/RepresentationGalaxy.hpp>
+#include <utils/RepresentationLogicSave.hpp>
 
 namespace lgk {
     [[nodiscard]] utl::RepresentationBlackHole GenSingleBlackHoleRep(BlackHole_ty_c blackHole, int galaxyWidth);
@@ -16,4 +16,10 @@ namespace lgk {
     [[nodiscard]] utl::RepresentationGalaxy GenGalaxyRep(Galaxy const* galaxy);
 
     [[nodiscard]] utl::RepresentationPlayer GenPlayerRep(Player const* player);
+
+    [[nodiscard]] utl::RepresentationLogicSave GenLogicSaveRep(Galaxy const* main,
+                                                               Galaxy const* start,
+                                                               Galaxy const* current,
+                                                               std::vector<Player const*> const& all_players,
+                                                               std::vector<Player const*> const& current_players);
 } // namespace lgk

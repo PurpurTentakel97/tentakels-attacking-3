@@ -10,5 +10,6 @@
 namespace utl {
     struct RepresentationPlayer final {
         usize ID{};
+        bool is_alive{};
     };
 } // namespace utl
