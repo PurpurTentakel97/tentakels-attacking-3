@@ -17,6 +17,7 @@ add_library(helper STATIC
             HTextProcessing.cpp
             HVector2Operator.cpp
             SaveLoadFile.cpp
+            include/helper/HLohmann.hpp
 )
 
 target_include_directories(helper

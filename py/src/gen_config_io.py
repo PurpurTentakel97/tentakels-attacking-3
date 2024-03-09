@@ -11,7 +11,7 @@ import raw_config_file
 import raw_field
 
 _constants: str = "constants"
-
+_loadEntryCount:str = "loadEntryCount"
 
 # dict
 def _gen_load_dict(fields: tuple[raw_field.RawField], config_files: tuple[raw_config_file.RawConfigFile]) -> dict[
@@ -19,7 +19,7 @@ def _gen_load_dict(fields: tuple[raw_field.RawField], config_files: tuple[raw_co
     load: dict[str, list[str]] = dict()
 
     for c in config_files:
-        text: str = f"if (nlohmann::json son; LoadSection(load, son, {helper.config_enum_name}::{c.enum_name()}, " \
+        text: str = f"if (nlohmann::json son; hlp::LoadSection(load, son, {helper.config_enum_name}::{c.enum_name()}, " \
                     f"{c.full_name()}::s_total_config_entry_count)) {helper.left_bracket}"
         l: list[str] = list()
         l.append(text)
@@ -30,8 +30,8 @@ def _gen_load_dict(fields: tuple[raw_field.RawField], config_files: tuple[raw_co
             if helper.no_config_load(f.type_):
                 continue
 
-            text = f"{helper.indent(1)}if ({enums.load_type_lookup[f.type_]} out; {enums.load_function_lookup[f.type_]}" \
-                   f"(son, out, {helper.config_enum_name}::{f.enum_name()})) {helper.left_bracket} " \
+            text = f"{helper.indent(1)}if ({enums.load_type_lookup[f.type_]} out; hlp::{enums.load_function_lookup[f.type_]}" \
+                   f"(son, out, {helper.config_enum_name}::{f.enum_name()}, {_loadEntryCount})) {helper.left_bracket} " \
                    f"{_constants}.{f.constants_class.lower()}.{f.full_name()} = "
             if f.type_ == enums.CppType.RESOLUTION:
                 text += f"static_cast<Resolution>(out)"  # cast here if necessary
@@ -106,9 +106,9 @@ def _gen_source(fields: tuple[raw_field.RawField], config_files: tuple[raw_confi
     indent += 1
 
     # setup
-    load_text += f"{helper.indent(indent)}loadEntryCount = 0;\n{helper.indent(indent)}nlohmann::json load;\n" \
+    load_text += f"{helper.indent(indent)}utl::usize {_loadEntryCount} = 0;\n{helper.indent(indent)}nlohmann::json load;\n" \
                  f"{helper.indent(indent)}auto& {_constants} = app::AppContext::GetInstance().{_constants};\n" \
-                 f"{helper.indent(indent)}if (not LoadAndValidateConfigJson(load)) {helper.left_bracket}\n"
+                 f"{helper.indent(indent)}if (not LoadAndValidateConfigJson(load, {_loadEntryCount})) {helper.left_bracket}\n"
     indent += 1
     load_text += f"{helper.indent(indent)}return;\n"
     indent -= 1
@@ -123,7 +123,7 @@ def _gen_source(fields: tuple[raw_field.RawField], config_files: tuple[raw_confi
     save_text += _gen_source_from_dict(save_entries, indent)
 
     # end
-    load_text += f"{helper.indent(indent)}CheckLoadEntryCount();\n" \
+    load_text += f"{helper.indent(indent)}CheckLoadEntryCount({_loadEntryCount});\n" \
                  f"{helper.indent(indent)}hlp::Print(hlp::PrintType::INFO, \"config loaded\");\n"
     save_text += f"{helper.indent(indent)}hlp::SaveFile(Files::s_savesDir, Files::s_configFile, save.dump(4));\n" \
                  f"{helper.indent(indent)}hlp::Print(hlp::PrintType::INFO, \"config saved\");\n"
