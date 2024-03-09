@@ -6,7 +6,7 @@
 #include "RepresentationGenerator.hpp"
 #include "Fleet.hpp"
 #include "Player.hpp"
-#include <ranges>
+// #include <ranges> // gcc 13.1.0 does not support to<>()
 #include <vector>
 
 
@@ -162,7 +162,7 @@ namespace lgk {
             }
             return toReturn;
             /*
-             * gcc 13.1.0 does not support to<>
+             * gcc 13.1.0 does not support to<>()
             using namespace std::ranges;
             return players | views::transform([](Player const* player) { return GenPlayerRep(player); })
                  | to<std::vector>();
