@@ -20,8 +20,8 @@ def _check_len(to_check, length: int, name: str) -> None:
         exit()
 
 
-input_fields: dict = load_save.LoadJson("fields.json")
-_check_len(input_fields, 0, "fields.json")
+input_fields: dict = load_save.LoadJson("config_fields.json")
+_check_len(input_fields, 0, "config_fields.json")
 raw_fields: tuple[raw_field.RawField] = raw_field.load_raw_entries(input_fields)
 _check_len(raw_fields, 0, "raw fields list")
 
