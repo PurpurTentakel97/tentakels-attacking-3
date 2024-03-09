@@ -33,7 +33,7 @@ int main() {
 
     appContext.ValidateConfig();
 
-    lgk::GameManager m_gameManager{};
+
 
     uiManager.StartUILoop();
 

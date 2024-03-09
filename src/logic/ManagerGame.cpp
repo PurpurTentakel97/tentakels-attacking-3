@@ -636,12 +636,7 @@ namespace lgk {
     }
 
     GameManager::GameManager() : m_galaxyManager{ this } {
-        app::AppContext::GetInstance().eventManager.AddListener(this);
         hlp::Print(hlp::PrintType::INITIALIZE, "GameManager");
-    }
-
-    GameManager::~GameManager() {
-        app::AppContext::GetInstance().eventManager.RemoveListener(this);
     }
 
     void GameManager::Update() {

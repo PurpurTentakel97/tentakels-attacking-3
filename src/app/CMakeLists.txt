@@ -26,6 +26,7 @@ target_link_libraries(app
                       PRIVATE
                       project_options
                       PUBLIC
+                      logic
                       alias
                       constants
                       event

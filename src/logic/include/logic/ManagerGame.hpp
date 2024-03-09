@@ -112,8 +112,6 @@ namespace lgk {
     public:
         GameManager();
 
-        ~GameManager() override;
-
         void Update();
 
         void OnEvent(eve::Event const& event) override;

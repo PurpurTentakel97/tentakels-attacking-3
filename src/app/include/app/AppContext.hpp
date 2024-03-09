@@ -11,6 +11,7 @@
 #include "PlayerCollection.hpp"
 #include "SoundManager.hpp"
 #include "utils/Concepts.hpp"
+#include <logic/ManagerGame.hpp>
 #include <alias/AliasApp.hpp>
 #include <constants/CConstants.hpp>
 #include <event/EventListener.hpp>
@@ -22,6 +23,7 @@
 namespace app {
     struct AppContext final : public eve::EventListener {
     public:
+        lgk::GameManager gameManager{};
         SoundManager soundManager;
         AssetManager assetManager;
         LanguageManager languageManager;

@@ -136,6 +136,7 @@ namespace app {
         eventManager.AddListener(&soundManager);
         eventManager.AddListener(&playerCollection);
         eventManager.AddListener(&languageManager);
+        eventManager.AddListener(&gameManager);
         eventManager.AddListener(this);
 
         hlp::Print(hlp::PrintType::INITIALIZE, "AppContext");
@@ -145,6 +146,7 @@ namespace app {
         eventManager.RemoveListener(&soundManager);
         eventManager.RemoveListener(&playerCollection);
         eventManager.RemoveListener(&languageManager);
+        eventManager.RemoveListener(&gameManager);
         eventManager.RemoveListener(this);
         hlp::Print(hlp::PrintType::INFO, "AppContext deleted");
     }
