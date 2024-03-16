@@ -42,13 +42,13 @@ namespace cst {
             return m_max_fleet_speed;
         }
 
-         void set_min_fleet_speed(utl::usize const value) {
+        void set_min_fleet_speed(utl::usize const value) {
             m_min_fleet_speed = value;
         }
-         void set_current_fleet_speed(utl::usize const value) {
+        void set_current_fleet_speed(utl::usize const value) {
             m_current_fleet_speed = value;
         }
-         void set_max_fleet_speed(utl::usize const value) {
+        void set_max_fleet_speed(utl::usize const value) {
             m_max_fleet_speed = value;
         }
     };

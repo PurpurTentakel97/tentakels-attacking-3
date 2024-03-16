@@ -20,10 +20,10 @@ namespace app {
         std::string m_global_save_version;
 
     public:
-        G_Global(std::string const& global_game_version,
-                std::string const& global_save_version)
-            : m_global_game_version{ global_game_version },
-                m_global_save_version{ global_save_version } {}
+        G_Global(std::string global_game_version,
+                std::string global_save_version)
+            : m_global_game_version{ std::move(global_game_version) },
+                m_global_save_version{ std::move(global_save_version) } {}
 
         [[nodiscard]] utl::usize get_save_section_count() const {
             return s_save_section_count;
@@ -41,11 +41,11 @@ namespace app {
             return m_global_save_version;
         }
 
-         void set_global_game_version(std::string const& value) {
-            m_global_game_version = value;
+        void set_global_game_version(std::string value) {
+            m_global_game_version = std::move(value);
         }
-         void set_global_save_version(std::string const& value) {
-            m_global_save_version = value;
+        void set_global_save_version(std::string value) {
+            m_global_save_version = std::move(value);
         }
     };
 

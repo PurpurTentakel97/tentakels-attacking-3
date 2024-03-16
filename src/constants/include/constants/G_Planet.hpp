@@ -62,28 +62,28 @@ namespace cst {
             return m_global_spacing;
         }
 
-         void set_max_ships_factor(utl::usize const value) {
+        void set_max_ships_factor(utl::usize const value) {
             m_max_ships_factor = value;
         }
-         void set_starting_human_ships_multiplier(utl::usize const value) {
+        void set_starting_human_ships_multiplier(utl::usize const value) {
             m_starting_human_ships_multiplier = value;
         }
-         void set_starting_global_ships_multiplier(utl::usize const value) {
+        void set_starting_global_ships_multiplier(utl::usize const value) {
             m_starting_global_ships_multiplier = value;
         }
-         void set_home_world_production(utl::usize const value) {
+        void set_home_world_production(utl::usize const value) {
             m_home_world_production = value;
         }
-         void set_min_production(utl::usize const value) {
+        void set_min_production(utl::usize const value) {
             m_min_production = value;
         }
-         void set_max_production(utl::usize const value) {
+        void set_max_production(utl::usize const value) {
             m_max_production = value;
         }
-         void set_home_world_spacing(float const value) {
+        void set_home_world_spacing(float const value) {
             m_home_world_spacing = value;
         }
-         void set_global_spacing(float const value) {
+        void set_global_spacing(float const value) {
             m_global_spacing = value;
         }
     };

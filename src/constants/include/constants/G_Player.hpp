@@ -42,13 +42,13 @@ namespace cst {
             return m_is_shuffle;
         }
 
-         void set_min_count(utl::usize const value) {
+        void set_min_count(utl::usize const value) {
             m_min_count = value;
         }
-         void set_max_count(utl::usize const value) {
+        void set_max_count(utl::usize const value) {
             m_max_count = value;
         }
-         void set_is_shuffle(bool const value) {
+        void set_is_shuffle(bool const value) {
             m_is_shuffle = value;
         }
     };

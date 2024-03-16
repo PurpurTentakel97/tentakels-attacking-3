@@ -82,43 +82,43 @@ namespace cst {
             return m_discover_range_factor;
         }
 
-         void set_min_planet_count(utl::usize const value) {
+        void set_min_planet_count(utl::usize const value) {
             m_min_planet_count = value;
         }
-         void set_current_planet_count(utl::usize const value) {
+        void set_current_planet_count(utl::usize const value) {
             m_current_planet_count = value;
         }
-         void set_max_planet_count(utl::usize const value) {
+        void set_max_planet_count(utl::usize const value) {
             m_max_planet_count = value;
         }
-         void set_show_planet_count(utl::usize const value) {
+        void set_show_planet_count(utl::usize const value) {
             m_show_planet_count = value;
         }
-         void set_min_dimension_x(utl::usize const value) {
+        void set_min_dimension_x(utl::usize const value) {
             m_min_dimension_x = value;
         }
-         void set_current_dimension_x(utl::usize const value) {
+        void set_current_dimension_x(utl::usize const value) {
             m_current_dimension_x = value;
         }
-         void set_max_dimension_x(utl::usize const value) {
+        void set_max_dimension_x(utl::usize const value) {
             m_max_dimension_x = value;
         }
-         void set_min_dimension_y(utl::usize const value) {
+        void set_min_dimension_y(utl::usize const value) {
             m_min_dimension_y = value;
         }
-         void set_current_dimension_y(utl::usize const value) {
+        void set_current_dimension_y(utl::usize const value) {
             m_current_dimension_y = value;
         }
-         void set_max_dimension_y(utl::usize const value) {
+        void set_max_dimension_y(utl::usize const value) {
             m_max_dimension_y = value;
         }
-         void set_show_dimension_x(utl::usize const value) {
+        void set_show_dimension_x(utl::usize const value) {
             m_show_dimension_x = value;
         }
-         void set_show_dimension_y(utl::usize const value) {
+        void set_show_dimension_y(utl::usize const value) {
             m_show_dimension_y = value;
         }
-         void set_discover_range_factor(utl::usize const value) {
+        void set_discover_range_factor(utl::usize const value) {
             m_discover_range_factor = value;
         }
     };

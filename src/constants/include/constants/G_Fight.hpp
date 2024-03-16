@@ -54,22 +54,22 @@ namespace cst {
             return m_is_fight_planet_target_point;
         }
 
-         void set_hit_chance(float const value) {
+        void set_hit_chance(float const value) {
             m_hit_chance = value;
         }
-         void set_fleet_fight_range(utl::usize const value) {
+        void set_fleet_fight_range(utl::usize const value) {
             m_fleet_fight_range = value;
         }
-         void set_is_fight_planet_fleet(bool const value) {
+        void set_is_fight_planet_fleet(bool const value) {
             m_is_fight_planet_fleet = value;
         }
-         void set_is_fight_target_point_fleet(bool const value) {
+        void set_is_fight_target_point_fleet(bool const value) {
             m_is_fight_target_point_fleet = value;
         }
-         void set_is_fight_target_point_target_point(bool const value) {
+        void set_is_fight_target_point_target_point(bool const value) {
             m_is_fight_target_point_target_point = value;
         }
-         void set_is_fight_planet_target_point(bool const value) {
+        void set_is_fight_planet_target_point(bool const value) {
             m_is_fight_planet_target_point = value;
         }
     };

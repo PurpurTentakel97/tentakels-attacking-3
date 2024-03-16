@@ -38,10 +38,10 @@ namespace cst {
             return m_master_volume;
         }
 
-         void set_is_mute(bool const value) {
+        void set_is_mute(bool const value) {
             m_is_mute = value;
         }
-         void set_master_volume(float const value) {
+        void set_master_volume(float const value) {
             m_master_volume = value;
         }
     };

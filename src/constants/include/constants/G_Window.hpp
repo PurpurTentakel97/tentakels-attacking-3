@@ -44,13 +44,13 @@ namespace cst {
             return m_fps;
         }
 
-         void set_current_resolution_enum(Resolution const value) {
+        void set_current_resolution_enum(Resolution const value) {
             m_current_resolution_enum = value;
         }
-         void set_is_full_screen(bool const value) {
+        void set_is_full_screen(bool const value) {
             m_is_full_screen = value;
         }
-         void set_fps(utl::usize const value) {
+        void set_fps(utl::usize const value) {
             m_fps = value;
         }
     };

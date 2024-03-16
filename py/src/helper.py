@@ -39,6 +39,14 @@ def needs_constants_setter(type_: enums.CppType) -> bool:
     return type_ in t
 
 
+def needs_move(type_: enums.CppType) -> bool:
+    t: tuple[enums.CppType, ...] = (
+        enums.CppType.STRING,
+        enums.CppType.STRING_STATIC_CONST
+    )
+    return type_ in t
+
+
 def no_config_load(type_: enums.CppType) -> bool:
     t: tuple[enums.CppType, ...] = (
         enums.CppType.STRING_STATIC_CONST,

@@ -25,8 +25,12 @@ def _gen_mid(class_name: str, fields: tuple[raw_field.RawSaveField], indent: int
         if not field.needs_ctor:
             continue
 
-        values.append(f"{enums.passed_type_lookup[field.type_]} {field.name}")
-        initializer_list.append(f"{field.full_name()}{{ {field.name} }}")
+        if helper.needs_move(field.type_):
+            values.append(f"{enums.return_type_lookup[field.type_]} {field.name}")
+            initializer_list.append(f"{field.full_name()}{{ std::move({field.name}) }}")
+        else:
+            values.append(f"{enums.passed_type_lookup[field.type_]} {field.name}")
+            initializer_list.append(f"{field.full_name()}{{ {field.name} }}")
 
     delimiter: str = f",\n{helper.indent(indent + 3)}"
     text: str = f"\n{helper.indent(indent)}public:\n" \

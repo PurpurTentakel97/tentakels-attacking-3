@@ -59,19 +59,19 @@ namespace cst {
             return m_current_round;
         }
 
-         void set_current_language_name(std::string const& value) {
-            m_current_language_name = value;
+        void set_current_language_name(std::string value) {
+            m_current_language_name = std::move(value);
         }
-         void set_min_rounds(utl::usize const value) {
+        void set_min_rounds(utl::usize const value) {
             m_min_rounds = value;
         }
-         void set_max_rounds(utl::usize const value) {
+        void set_max_rounds(utl::usize const value) {
             m_max_rounds = value;
         }
-         void set_current_target_round(utl::usize const value) {
+        void set_current_target_round(utl::usize const value) {
             m_current_target_round = value;
         }
-         void set_current_round(utl::usize const value) {
+        void set_current_round(utl::usize const value) {
             m_current_round = value;
         }
     };
