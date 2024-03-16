@@ -5,8 +5,11 @@
     "type": 1,
     "includes": [
       {
-        "name": "AppContext.hpp",
-        "s_brackets": false
+        "name": "alias/AliasUtils.hpp",
+        "s_brackets": true
+      },{
+        "name": "string",
+        "s_brackets": true
       }
     ],
     "forward_declaration": [],
