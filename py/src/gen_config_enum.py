@@ -8,10 +8,10 @@ import file
 import helper
 import include
 import raw_field
-import raw_config_file
+import raw_file
 
 
-def _gen_source(fields: tuple[raw_field.RawField], config_files: tuple[raw_config_file.RawConfigFile]) -> file.File:
+def _gen_source(fields: tuple[raw_field.RawField], config_files: tuple[raw_file.RawFile]) -> file.File:
     indent: int = 1
     text: str = f"{helper.indent(indent)}std::string {helper.config_switch_function_name}({helper.config_enum_name} const value) {helper.left_bracket}\n"
 
@@ -41,7 +41,7 @@ def _gen_source(fields: tuple[raw_field.RawField], config_files: tuple[raw_confi
                      "cst", text)
 
 
-def _gen_header(fields: tuple[raw_field.RawField], config_files: tuple[raw_config_file.RawConfigFile]) -> file.File:
+def _gen_header(fields: tuple[raw_field.RawField], config_files: tuple[raw_file.RawFile]) -> file.File:
     indent: int = 1
     text: str = f"{helper.indent(indent)}enum class {helper.config_enum_name} {helper.left_bracket}\n"
     indent += 1
@@ -64,6 +64,6 @@ def _gen_header(fields: tuple[raw_field.RawField], config_files: tuple[raw_confi
     return file.File(helper.config_enum_name, enums.FileType.HEADER, [include.Include("string", True)], [], "cst", text)
 
 
-def gen(fields: tuple[raw_field.RawField], config_files: tuple[raw_config_file.RawConfigFile]) -> tuple[
+def gen(fields: tuple[raw_field.RawField], config_files: tuple[raw_file.RawFile]) -> tuple[
     file.File, file.File]:
     return _gen_header(fields, config_files), _gen_source(fields, config_files)

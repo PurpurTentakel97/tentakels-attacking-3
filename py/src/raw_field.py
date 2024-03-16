@@ -8,11 +8,11 @@ import helper
 
 
 class RawField:
-    def __init__(self, prefix: str, name: str, type_: int, constants_class: str,
+    def __init__(self, prefix: str, name: str, type_: int, class_name: str,
                  value: str) -> None:
         self.prefix: str = prefix.lower().strip()
         self.name: str = name.lower().strip()
-        self.constants_class: str = constants_class.title().strip()
+        self.class_name: str = class_name.title().strip()
         self.value: str = value
 
         try:
@@ -24,10 +24,10 @@ class RawField:
             exit()
 
     def enum_name(self) -> str:
-        return f"{self.constants_class_enum_name()}_{self.name.upper()}"
+        return f"{self.class_name_enum_name()}_{self.name.upper()}"
 
-    def constants_class_enum_name(self) -> str:
-        return self.constants_class.upper()
+    def class_name_enum_name(self) -> str:
+        return self.class_name.upper()
 
     def enum_return_value(self) -> str:
         return self.name
@@ -58,7 +58,14 @@ class RawField:
         return text
 
 
-reference_entry: dict = {
+class RawSaveField(RawField):
+    def __init__(self, prefix: str, name: str, type_: int, class_name: str,
+                 value: str, needs_ctor: bool) -> None:
+        super(RawSaveField, self).__init__(prefix, name, type_, class_name, value)
+        self.needs_ctor: bool = needs_ctor
+
+
+conf_reference_entry: dict = {
     "prefix": str(),
     "name": str(),
     "type": int(),
@@ -67,7 +74,7 @@ reference_entry: dict = {
 }
 
 
-def load_raw_entries(entries: dict) -> tuple[RawField]:
+def load_raw_config_entries(entries: dict) -> tuple[RawField]:
     if len(entries) == 0:
         enums.my_print(enums.PrintType.ERROR, "empty raw field json")
         return tuple()
@@ -76,25 +83,51 @@ def load_raw_entries(entries: dict) -> tuple[RawField]:
 
     for l in entries:
         load = entries[l]
-        if len(load) > len(reference_entry):
-            enums.my_print(enums.PrintType.ERROR, f"key '{l}' has too many entries")
-            enums.my_print(enums.PrintType.INFO, f"expected: {len(reference_entry)} | provided: {len(load)}")
+        if not helper.check_load_json(load, l, conf_reference_entry):
             return tuple()
-        for r_e in reference_entry:
-            if r_e not in load:
-                enums.my_print(enums.PrintType.ERROR, f"key '{r_e}' missing in '{l}' in raw field json")
-                return tuple()
-            if not isinstance(reference_entry[r_e], type(load[r_e])):
-                enums.my_print(enums.PrintType.ERROR, f"value '{r_e}' in '{l}' has unexpected value type")
-                enums.my_print(enums.PrintType.INFO,
-                               f"expected type: {type(reference_entry[r_e])} | provided type: {type(load[r_e])}")
-                return tuple()
+
         entry: RawField = RawField(
             # @formatter off
             load["prefix"],
             load["name"],
             load["type"],
             load["constants_class"],
+            load["value"]
+            # @formatter on
+        )
+        r.append(entry)
+    return tuple(r)
+
+
+save_reference_entry: dict = {
+    "prefix": str(),
+    "name": str(),
+    "type": int(),
+    "constants_class": str(),
+    "ctor": bool(),
+    "value": str()
+}
+
+
+def load_raw_save_entries(entries: dict) -> tuple[RawSaveField]:
+    if len(entries) == 0:
+        enums.my_print(enums.PrintType.ERROR, "empty raw field json")
+        return tuple()
+
+    r: list[RawSaveField] = list()
+
+    for l in entries:
+        load = entries[l]
+        if not helper.check_load_json(load, l, save_reference_entry):
+            return tuple()
+
+        entry: RawSaveField = RawSaveField(
+            # @formatter off
+            load["prefix"],
+            load["name"],
+            load["type"],
+            load["constants_class"],
+            load["ctor"],
             load["value"]
             # @formatter on
         )

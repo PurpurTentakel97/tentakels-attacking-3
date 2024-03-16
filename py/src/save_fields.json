@@ -1,3 +1,42 @@
 {
-
+  "global_save_section_count": {
+    "prefix": "s_",
+    "name": "save_section_count",
+    "type": 5,
+    "constants_class": "G_Global",
+    "ctor": false,
+    "value": "1"
+  },
+  "global_total_save_entry_count": {
+    "prefix": "s_",
+    "name": "global_total_save_entry_count",
+    "type": 5,
+    "constants_class": "G_Version",
+    "ctor": false,
+    "value": "6"
+  },
+  "global_load_save_entry_count": {
+    "prefix": "s_",
+    "name": "global_load_save_entry_count",
+    "type": 5,
+    "constants_class": "G_Version",
+    "ctor": false,
+    "value": "2"
+  },
+  "global_game_version": {
+    "prefix": "s_",
+    "name": "global_game_version",
+    "type": 5,
+    "constants_class": "G_Version",
+    "ctor": true,
+    "value": ""
+  },
+  "global_save_version": {
+    "prefix": "s_",
+    "name": "global_save_version",
+    "type": 5,
+    "constants_class": "G_Version",
+    "ctor": true,
+    "value": ""
+  }
 }

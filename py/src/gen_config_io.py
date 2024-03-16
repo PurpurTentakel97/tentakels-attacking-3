@@ -7,7 +7,7 @@ import enums
 import file
 import helper
 import include
-import raw_config_file
+import raw_file
 import raw_field
 
 _constants: str = "constants"
@@ -15,7 +15,7 @@ _loadEntryCount: str = "loadEntryCount"
 
 
 # dict
-def _gen_load_dict(fields: tuple[raw_field.RawField], config_files: tuple[raw_config_file.RawConfigFile]) -> dict[
+def _gen_load_dict(fields: tuple[raw_field.RawField], config_files: tuple[raw_file.RawFile]) -> dict[
     str, list[str]]:
     load: dict[str, list[str]] = dict()
 
@@ -32,13 +32,13 @@ def _gen_load_dict(fields: tuple[raw_field.RawField], config_files: tuple[raw_co
 
         text = f"{helper.indent(1)}if ({enums.load_type_lookup[f.type_]} out; hlp::{enums.load_function_lookup[f.type_]}" \
                f"(son, out, {helper.config_enum_name}::{f.enum_name()}, {_loadEntryCount})) {helper.left_bracket} " \
-               f"{_constants}.{f.constants_class.lower()}.{f.full_name()} = "
+               f"{_constants}.{f.class_name.lower()}.{f.full_name()} = "
         if f.type_ == enums.CppType.RESOLUTION:
             text += f"static_cast<Resolution>(out)"  # cast here if necessary
         else:
             text += f"out"  # cast here if necessary
         text += f"; {helper.right_bracket}"
-        load[f.constants_class].append(text)
+        load[f.class_name].append(text)
 
     for c in config_files:
         load[c.full_name()].append(f"{helper.right_bracket}\n")
@@ -46,7 +46,7 @@ def _gen_load_dict(fields: tuple[raw_field.RawField], config_files: tuple[raw_co
     return load
 
 
-def _gen_save_dict(fields: tuple[raw_field.RawField], config_files: tuple[raw_config_file.RawConfigFile]) -> dict[
+def _gen_save_dict(fields: tuple[raw_field.RawField], config_files: tuple[raw_file.RawFile]) -> dict[
     str, list[str]]:
     save: dict[str, list[str]] = dict()
 
@@ -60,11 +60,11 @@ def _gen_save_dict(fields: tuple[raw_field.RawField], config_files: tuple[raw_co
         text: str = f"{helper.indent(1)}{helper.left_bracket} {helper.config_switch_function_name}({helper.config_enum_name}::" \
                     f"{f.enum_name()}), "
         if f.type_ == enums.CppType.PROBABILITY:
-            text += f"{_constants}.{f.constants_class.lower()}.{f.full_name()}.value"
+            text += f"{_constants}.{f.class_name.lower()}.{f.full_name()}.value"
         else:
-            text += f"{_constants}.{f.constants_class.lower()}.{f.full_name()}"
+            text += f"{_constants}.{f.class_name.lower()}.{f.full_name()}"
         text += f" {helper.right_bracket},"
-        save[f.constants_class].append(text)
+        save[f.class_name].append(text)
 
     for c in config_files:
         save[c.full_name()].append(f"{helper.right_bracket};\n")
@@ -98,7 +98,7 @@ def _gen_header() -> file.File:
     return file.File(helper.config_io_name, enums.FileType.HEADER, [], [], "cst", text)
 
 
-def _gen_source(fields: tuple[raw_field.RawField], config_files: tuple[raw_config_file.RawConfigFile]) -> file.File:
+def _gen_source(fields: tuple[raw_field.RawField], config_files: tuple[raw_file.RawFile]) -> file.File:
     indent: int = 1
     load_text: str = f"{helper.indent(indent)}void {helper.config_io_name}::LoadConfig() {helper.left_bracket}\n"
     save_text: str = f"{helper.indent(indent)}void {helper.config_io_name}::SaveConfig() {helper.left_bracket}\n"
@@ -141,6 +141,6 @@ def _gen_source(fields: tuple[raw_field.RawField], config_files: tuple[raw_confi
     return file.File(helper.config_io_name, enums.FileType.SOURCE, includes, [], "cst", f"{load_text}\n{save_text}")
 
 
-def gen(fields: tuple[raw_field.RawField], config_files: tuple[raw_config_file.RawConfigFile]) -> tuple[
+def gen(fields: tuple[raw_field.RawField], config_files: tuple[raw_file.RawFile]) -> tuple[
     file.File, file.File]:
     return _gen_header(), _gen_source(fields, config_files)

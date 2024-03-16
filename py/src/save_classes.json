@@ -1,7 +1,7 @@
 {
-  "Version": {
+  "Global": {
     "prefix": "G_",
-    "name": "Version",
+    "name": "Global",
     "type": 1,
     "includes": [
       {

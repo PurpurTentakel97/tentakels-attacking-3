@@ -5,13 +5,13 @@
 
 import file
 import raw_field
-import raw_config_file
+import raw_file
 import gen_config_classes
 import gen_config_enum
 import gen_config_io
 
 
-def gen(fields: tuple[raw_field.RawField], config: tuple[raw_config_file.RawConfigFile]) -> tuple[file.File]:
+def gen(fields: tuple[raw_field.RawField], config: tuple[raw_file.RawFile]) -> tuple[file.File]:
     generated: list = list()
     generated.extend(gen_config_classes.gen(fields, config))
     generated.extend(gen_config_enum.gen(fields, config))
