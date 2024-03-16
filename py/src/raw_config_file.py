@@ -6,6 +6,7 @@
 import enums
 import include
 import forward_declaration
+import helper
 
 
 class RawConfigFile:
@@ -60,27 +61,6 @@ reference_forward_entry: dict = {
 }
 
 
-def _check_import_list(entries: list, reference: dict, key: str, outer_key: str) -> bool:
-    for incl in entries:
-        if len(incl) > len(reference):
-            enums.my_print(enums.PrintType.ERROR, f"key '{key}' has too many entries")
-            enums.my_print(enums.PrintType.INFO,
-                           f"expected: {len(reference)} | provided: {len(incl)}")
-            return False
-        for i_e in reference:
-            if i_e not in incl:
-                enums.my_print(enums.PrintType.ERROR,
-                               f"key '{i_e}' missing in key '{key}' missing in '{outer_key}' in raw config file json")
-                return False
-            if not isinstance(incl[i_e], type(reference[i_e])):
-                enums.my_print(enums.PrintType.ERROR,
-                               f"value '{i_e}' in '{key}' in '{outer_key}' has unexpected value type")
-                enums.my_print(enums.PrintType.ERROR,
-                               f"expected type: {type(reference[i_e])} | provided type: {type(incl[i_e])}")
-                return False
-    return True
-
-
 def load_raw_config_files(entries: dict) -> tuple[RawConfigFile]:
     if len(entries) == 0:
         enums.my_print(enums.PrintType.ERROR, "empty raw config files json")
@@ -88,26 +68,14 @@ def load_raw_config_files(entries: dict) -> tuple[RawConfigFile]:
 
     r: list[RawConfigFile] = list()
     for l in entries:
-        load = entries[l]
-        if len(load) > len(reference_entry):
-            enums.my_print(enums.PrintType.ERROR, f"key '{l}' has too many entries")
-            enums.my_print(enums.PrintType.INFO, f"expected: {len(reference_entry)} | provided: {len(load)}")
+        load: dict = entries[l]
+
+        if not helper.check_load_json(load, l, reference_entry):
             return tuple()
-        for r_e in reference_entry:
-            if r_e not in load:
-                enums.my_print(enums.PrintType.ERROR, f"key '{r_e}' missing in '{l}' in raw config file json")
-                return tuple()
-            if not isinstance(load[r_e], type(reference_entry[r_e])):
-                enums.my_print(enums.PrintType.ERROR, f"value '{r_e}' in '{l}' has unexpected value type")
-                enums.my_print(enums.PrintType.INFO,
-                               f"expected type: {type(reference_entry[r_e])} | provided type: {type(load[r_e])}")
-                return tuple()
-            if r_e == "includes":
-                if not _check_import_list(load[r_e], reference_include_entry, r_e, l):
-                    return tuple()
-            if r_e == "forward_declaration":
-                if not _check_import_list(load[r_e], reference_forward_entry, r_e, l):
-                    return tuple()
+        if not helper.check_import_list_json(load["includes"], reference_include_entry, "includes", l):
+            return tuple()
+        if not helper.check_import_list_json(load["forward_declaration"], reference_forward_entry, "forward_declaration", l):
+            return tuple()
 
         entry: RawConfigFile = RawConfigFile(
             # @formatter off

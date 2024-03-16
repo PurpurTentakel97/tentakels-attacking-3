@@ -50,3 +50,41 @@ def no_config_load(type_: enums.CppType) -> bool:
 
 def needs_quotes(type_: enums.CppType) -> bool:
     return type_ in [enums.CppType.STRING, enums.CppType.STRING_STATIC_CONST]
+
+
+def check_import_list_json(entries: list, reference: dict, key: str, outer_key: str) -> bool:
+    for incl in entries:
+        if len(incl) > len(reference):
+            enums.my_print(enums.PrintType.ERROR, f"key '{key}' has too many entries")
+            enums.my_print(enums.PrintType.INFO,
+                           f"expected: {len(reference)} | provided: {len(incl)}")
+            return False
+        for i_e in reference:
+            if i_e not in incl:
+                enums.my_print(enums.PrintType.ERROR,
+                               f"key '{i_e}' missing in key '{key}' missing in '{outer_key}' in raw config file json")
+                return False
+            if not isinstance(incl[i_e], type(reference[i_e])):
+                enums.my_print(enums.PrintType.ERROR,
+                               f"value '{i_e}' in '{key}' in '{outer_key}' has unexpected value type")
+                enums.my_print(enums.PrintType.INFO,
+                               f"expected type: {type(reference[i_e])} | provided type: {type(incl[i_e])}")
+                return False
+    return True
+
+
+def check_load_json(load: dict, key: str, reference_entry: dict) -> bool:
+    if len(load) > len(reference_entry):
+        enums.my_print(enums.PrintType.ERROR, f"key '{key}' has too many entries")
+        enums.my_print(enums.PrintType.INFO, f"expected: {len(reference_entry)} | provided: {len(load)}")
+        return False
+    for r_e in reference_entry:
+        if r_e not in load:
+            enums.my_print(enums.PrintType.ERROR, f"key '{r_e}' missing in '{key}' in raw config file json")
+            return False
+        if not isinstance(load[r_e], type(reference_entry[r_e])):
+            enums.my_print(enums.PrintType.ERROR, f"value '{r_e}' in '{key}' has unexpected value type")
+            enums.my_print(enums.PrintType.INFO,
+                           f"expected type: {type(reference_entry[r_e])} | provided type: {type(load[r_e])}")
+            return False
+    return True
