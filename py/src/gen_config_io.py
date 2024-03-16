@@ -11,7 +11,8 @@ import raw_config_file
 import raw_field
 
 _constants: str = "constants"
-_loadEntryCount:str = "loadEntryCount"
+_loadEntryCount: str = "loadEntryCount"
+
 
 # dict
 def _gen_load_dict(fields: tuple[raw_field.RawField], config_files: tuple[raw_config_file.RawConfigFile]) -> dict[
@@ -26,19 +27,18 @@ def _gen_load_dict(fields: tuple[raw_field.RawField], config_files: tuple[raw_co
         load[c.full_name()] = l
 
     for f in fields:
-        if f.is_config:
-            if helper.no_config_load(f.type_):
-                continue
+        if helper.no_config_load(f.type_):
+            continue
 
-            text = f"{helper.indent(1)}if ({enums.load_type_lookup[f.type_]} out; hlp::{enums.load_function_lookup[f.type_]}" \
-                   f"(son, out, {helper.config_enum_name}::{f.enum_name()}, {_loadEntryCount})) {helper.left_bracket} " \
-                   f"{_constants}.{f.constants_class.lower()}.{f.full_name()} = "
-            if f.type_ == enums.CppType.RESOLUTION:
-                text += f"static_cast<Resolution>(out)"  # cast here if necessary
-            else:
-                text += f"out"  # cast here if necessary
-            text += f"; {helper.right_bracket}"
-            load[f.constants_class].append(text)
+        text = f"{helper.indent(1)}if ({enums.load_type_lookup[f.type_]} out; hlp::{enums.load_function_lookup[f.type_]}" \
+               f"(son, out, {helper.config_enum_name}::{f.enum_name()}, {_loadEntryCount})) {helper.left_bracket} " \
+               f"{_constants}.{f.constants_class.lower()}.{f.full_name()} = "
+        if f.type_ == enums.CppType.RESOLUTION:
+            text += f"static_cast<Resolution>(out)"  # cast here if necessary
+        else:
+            text += f"out"  # cast here if necessary
+        text += f"; {helper.right_bracket}"
+        load[f.constants_class].append(text)
 
     for c in config_files:
         load[c.full_name()].append(f"{helper.right_bracket}\n")

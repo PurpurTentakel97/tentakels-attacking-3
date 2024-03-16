@@ -28,17 +28,8 @@ def _gen_bottom(indent: int) -> str:
 
 
 def _gen_class_strings(entries: tuple[raw_field.RawField], indent: int) -> dict[str, str]:
-    # {"class_name": {
-    #   "header": "",
-    #   "fields" : "",
-    #   "getter" : "",
-    #   "setter" : "",
-    # };
     classes: dict = dict()
     for entry in entries:
-        if not entry.is_config:
-            continue
-
         if entry.constants_class not in classes:
             classes[entry.constants_class] = dict()
             classes[entry.constants_class]["header"] = _gen_top(entry, indent)

@@ -1,0 +1,15 @@
+{
+  "Version": {
+    "prefix": "G_",
+    "name": "Version",
+    "type": 1,
+    "includes": [
+      {
+        "name": "AppContext.hpp",
+        "s_brackets": false
+      }
+    ],
+    "forward_declaration": [],
+    "namespace": "app"
+  }
+}

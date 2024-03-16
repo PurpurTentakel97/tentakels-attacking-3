@@ -8,11 +8,10 @@ import helper
 
 
 class RawField:
-    def __init__(self, prefix: str, name: str, type_: int, is_config: bool, constants_class: str,
+    def __init__(self, prefix: str, name: str, type_: int, constants_class: str,
                  value: str) -> None:
         self.prefix: str = prefix.lower().strip()
         self.name: str = name.lower().strip()
-        self.is_config: bool = is_config
         self.constants_class: str = constants_class.title().strip()
         self.value: str = value
 
@@ -63,7 +62,6 @@ reference_entry: dict = {
     "prefix": str(),
     "name": str(),
     "type": int(),
-    "config": bool(),
     "constants_class": str(),
     "value": str()
 }
@@ -96,7 +94,6 @@ def load_raw_entries(entries: dict) -> tuple[RawField]:
             load["prefix"],
             load["name"],
             load["type"],
-            load["config"],
             load["constants_class"],
             load["value"]
             # @formatter on
