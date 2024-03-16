@@ -1,4 +1,5 @@
 add_library(app STATIC
+            include/app/G_Global.hpp
             include/app/AppContext.hpp
             include/app/AssetType.hpp
             include/app/AssetManager.hpp

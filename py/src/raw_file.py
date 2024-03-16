@@ -35,12 +35,6 @@ class RawFile:
     def full_name(self) -> str:
         return f"{self.prefix}{self.name}"
 
-    def full_name_save(self) -> str:
-        return f"{self.full_name()}Save"
-
-    def full_name_load(self) -> str:
-        return f"{self.full_name()}Load"
-
     def enum_name(self) -> str:
         return self.full_name().upper()
 

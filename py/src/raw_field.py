@@ -64,6 +64,12 @@ class RawSaveField(RawField):
         super(RawSaveField, self).__init__(prefix, name, type_, class_name, value)
         self.needs_ctor: bool = needs_ctor
 
+    def dump_field(self, indent: int) -> str:
+        if self.needs_ctor:
+            return f"{helper.indent(indent)}{enums.field_type_lookup[self.type_]} {self.full_name()};\n"
+
+        return super().dump_field(indent)
+
 
 conf_reference_entry: dict = {
     "prefix": str(),
@@ -127,8 +133,8 @@ def load_raw_save_entries(entries: dict) -> tuple[RawSaveField]:
             load["name"],
             load["type"],
             load["constants_class"],
-            load["ctor"],
-            load["value"]
+            load["value"],
+            load["ctor"]
             # @formatter on
         )
         r.append(entry)

@@ -7,10 +7,11 @@ import load_save
 import raw_field
 import raw_file
 import gen_config_all
+import gen_save_all
 import file
 import enums
 
-_global_export_path: str = "../../src/"
+_global_export_path: str = "..\\..\\src\\"
 _constants_export_dir: str = "constants"
 _save_export_dir: str = "app"
 
@@ -46,7 +47,8 @@ def _load_and_gen_save() -> tuple[file.File]:
     raw_files: tuple[raw_file.RawFile] = raw_file.load_raw_save_load_files(input_files)
     _check_len(raw_files, 0, "raw save classes list")
 
-    return tuple()
+    # return tuple()
+    return gen_save_all.gen(raw_fields, raw_files)
 
 
 config_files: tuple[file.File] = _load_and_gen_config()
@@ -54,3 +56,6 @@ save_files: tuple[file.File] = _load_and_gen_save()
 
 for f in config_files:
     load_save.Save(_global_export_path, _constants_export_dir, f)
+
+for f in save_files:
+    load_save.Save(_global_export_path, _save_export_dir, f)

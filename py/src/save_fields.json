@@ -4,39 +4,39 @@
     "name": "save_section_count",
     "type": 5,
     "constants_class": "G_Global",
-    "ctor": false,
-    "value": "1"
+    "value": "1",
+    "ctor": false
   },
   "global_total_save_entry_count": {
     "prefix": "s_",
     "name": "global_total_save_entry_count",
     "type": 5,
-    "constants_class": "G_Version",
-    "ctor": false,
-    "value": "6"
+    "constants_class": "G_Global",
+    "value": "6",
+    "ctor": false
   },
   "global_load_save_entry_count": {
     "prefix": "s_",
     "name": "global_load_save_entry_count",
     "type": 5,
-    "constants_class": "G_Version",
-    "ctor": false,
-    "value": "2"
+    "constants_class": "G_Global",
+    "value": "2",
+    "ctor": false
   },
   "global_game_version": {
-    "prefix": "s_",
+    "prefix": "m_",
     "name": "global_game_version",
-    "type": 5,
-    "constants_class": "G_Version",
-    "ctor": true,
-    "value": ""
+    "type": 2,
+    "constants_class": "G_Global",
+    "value": "",
+    "ctor": true
   },
   "global_save_version": {
-    "prefix": "s_",
+    "prefix": "m_",
     "name": "global_save_version",
-    "type": 5,
-    "constants_class": "G_Version",
-    "ctor": true,
-    "value": ""
+    "type": 2,
+    "constants_class": "G_Global",
+    "value": "",
+    "ctor": true
   }
 }
