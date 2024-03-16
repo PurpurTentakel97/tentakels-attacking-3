@@ -13,7 +13,7 @@
     "type": 5,
     "config": true,
     "constants_class": "G_Version",
-    "value": "5"
+    "value": "6"
   },
   "version_load_config_entry_count": {
     "prefix": "s_",
@@ -37,11 +37,19 @@
     "type": 3,
     "config": true,
     "constants_class": "G_Version",
-    "value": "v0.1.7.1"
+    "value": "v0.1.7.2"
   },
   "version_language_version": {
     "prefix": "s_",
     "name": "language_version",
+    "type": 3,
+    "config": true,
+    "constants_class": "G_Version",
+    "value": "v0.1.7.1"
+  },
+  "version_save_game_version": {
+    "prefix": "s_",
+    "name": "save_game_version",
     "type": 3,
     "config": true,
     "constants_class": "G_Version",
