@@ -56,7 +56,8 @@ def _gen_source(fields: tuple[raw_field.RawSaveField], files: tuple[raw_file.Raw
             f"{helper.indent(indent)}}}"
 
     return file.File(helper.save_enum_name, enums.FileType.SOURCE,
-                     [include.Include(f"{helper.save_enum_name}.hpp", False)], [], "app", text)
+                     [include.Include(f"{helper.save_enum_name}.hpp", False), include.Include("utility", True)], [],
+                     "app", text)
 
 
 def gen(fields: tuple[raw_field.RawSaveField], files: tuple[raw_file.RawFile]) -> tuple[file.File, ...]:

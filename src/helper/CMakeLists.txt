@@ -18,6 +18,8 @@ add_library(helper STATIC
             HVector2Operator.cpp
             SaveLoadFile.cpp
             include/helper/HLohmann.hpp
+            include/helper/HVersion.hpp
+            HVersion.cpp
 )
 
 target_include_directories(helper

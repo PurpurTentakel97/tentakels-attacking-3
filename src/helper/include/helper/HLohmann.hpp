@@ -19,7 +19,7 @@ namespace hlp {
     static std::string EToS(cst::G_Config_Enum const value) {
         return cst::CToS(value);
     }
-    static std::string EToS(app::G_Save_Enum const value) {
+    [[maybe_unused]] static std::string EToS(app::G_Save_Enum const value) {
         return app::SToS(value);
     }
 
@@ -35,9 +35,7 @@ namespace hlp {
     }
 
     template<utl::IsEnum E>
-    inline void PrintNotMatchingCount(E const section,
-                                      utl::usize const expected,
-                                      utl::usize const provided) {
+    inline void PrintNotMatchingCount(E const section, utl::usize const expected, utl::usize const provided) {
         Print(PrintType::ERROR,
               R"(section "{}" entry count in config is not matching -> expected: "{}" -> provided: "{}")",
               EToS(section),
@@ -105,8 +103,9 @@ namespace hlp {
         if (IsNull(out, section)) {
             return false;
         }
-        IsMatchingSize(out, section, count);
-
+        if (count != 0) {
+            IsMatchingSize(out, section, count);
+        }
         return true;
     }
 
