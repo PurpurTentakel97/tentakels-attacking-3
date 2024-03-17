@@ -39,7 +39,7 @@
     "name": "language_version",
     "type": 3,
     "constants_class": "G_Version",
-    "value": "v0.1.7.1"
+    "value": "v0.1.8.1"
   },
   "version_save_game_version": {
     "prefix": "s_",
