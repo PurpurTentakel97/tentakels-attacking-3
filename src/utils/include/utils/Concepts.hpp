@@ -16,4 +16,7 @@ namespace utl {
     concept InputValueTypeCol = AnyOf<T, utl::usize, double, std::string, Color>;
     template<typename T>
     concept InputValueType = AnyOf<T, utl::usize, double, std::string>;
+
+    template<typename T>
+    concept IsEnum = std::is_enum_v<T>;
 } // namespace utl
