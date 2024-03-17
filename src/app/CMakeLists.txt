@@ -1,5 +1,7 @@
 add_library(app STATIC
             include/app/G_Global.hpp
+            include/app/G_Save_Enum.hpp
+            G_Save_Enum.cpp
             include/app/AppContext.hpp
             include/app/AssetType.hpp
             include/app/AssetManager.hpp

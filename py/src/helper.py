@@ -19,8 +19,11 @@ right_bracket: str = "}"
 
 config_enum_name: str = "G_Config_Enum"
 config_switch_function_name: str = "CToS"
-
 config_io_name: str = "G_Config_IO"
+
+save_enum_name: str = "G_Save_Enum"
+save_switch_function_name: str = "SToS"
+save_io_name: str = "G_Save_IO"
 
 
 def indent(i: int) -> str:

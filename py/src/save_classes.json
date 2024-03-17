@@ -7,7 +7,8 @@
       {
         "name": "alias/AliasUtils.hpp",
         "s_brackets": true
-      },{
+      },
+      {
         "name": "string",
         "s_brackets": true
       }
