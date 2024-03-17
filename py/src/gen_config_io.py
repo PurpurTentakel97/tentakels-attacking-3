@@ -21,7 +21,7 @@ def _gen_load_dict(fields: tuple[raw_field.RawField], config_files: tuple[raw_fi
 
     for c in config_files:
         text: str = f"if (nlohmann::json son; hlp::LoadSection(load, son, {helper.config_enum_name}::{c.enum_name()}, " \
-                    f"{c.full_name()}::s_total_config_entry_count)) {helper.left_bracket}"
+                    f"{c.full_name()}::s_total_config_entry_count)) {{"
         l: list[str] = list()
         l.append(text)
         load[c.full_name()] = l
@@ -31,17 +31,17 @@ def _gen_load_dict(fields: tuple[raw_field.RawField], config_files: tuple[raw_fi
             continue
 
         text = f"{helper.indent(1)}if ({enums.load_type_lookup[f.type_]} out; hlp::{enums.load_function_lookup[f.type_]}" \
-               f"(son, out, {helper.config_enum_name}::{f.enum_name()}, {_loadEntryCount})) {helper.left_bracket} " \
+               f"(son, out, {helper.config_enum_name}::{f.enum_name()}, {_loadEntryCount})) {{ " \
                f"{_constants}.{f.class_name.lower()}.{f.full_name()} = "
         if f.type_ == enums.CppType.RESOLUTION:
             text += f"static_cast<Resolution>(out)"  # cast here if necessary
         else:
             text += f"out"  # cast here if necessary
-        text += f"; {helper.right_bracket}"
+        text += f"; }}"
         load[f.class_name].append(text)
 
     for c in config_files:
-        load[c.full_name()].append(f"{helper.right_bracket}\n")
+        load[c.full_name()].append(f"}}\n")
 
     return load
 
@@ -51,23 +51,23 @@ def _gen_save_dict(fields: tuple[raw_field.RawField], config_files: tuple[raw_fi
     save: dict[str, list[str]] = dict()
 
     for c in config_files:
-        text: str = f"save[{helper.config_switch_function_name}({helper.config_enum_name}::{c.enum_name()})] = {helper.left_bracket}"
+        text: str = f"save[{helper.config_switch_function_name}({helper.config_enum_name}::{c.enum_name()})] = {{"
         l: list[str] = list()
         l.append(text)
         save[c.full_name()] = l
 
     for f in fields:
-        text: str = f"{helper.indent(1)}{helper.left_bracket} {helper.config_switch_function_name}({helper.config_enum_name}::" \
+        text: str = f"{helper.indent(1)}{{ {helper.config_switch_function_name}({helper.config_enum_name}::" \
                     f"{f.enum_name()}), "
         if f.type_ == enums.CppType.PROBABILITY:
             text += f"{_constants}.{f.class_name.lower()}.{f.full_name()}.value"
         else:
             text += f"{_constants}.{f.class_name.lower()}.{f.full_name()}"
-        text += f" {helper.right_bracket},"
+        text += f" }},"
         save[f.class_name].append(text)
 
     for c in config_files:
-        save[c.full_name()].append(f"{helper.right_bracket};\n")
+        save[c.full_name()].append(f"}};\n")
 
     return save
 
@@ -86,33 +86,33 @@ def _gen_source_from_dict(dict_: dict[str, list[str]], indent: int) -> str:
 # file
 def _gen_header() -> file.File:
     indent: int = 1
-    text: str = f"{helper.indent(indent)}struct {helper.config_io_name} final {helper.left_bracket}\n"
+    text: str = f"{helper.indent(indent)}struct {helper.config_io_name} final {{\n"
 
     indent += 1
     text += f"{helper.indent(indent)}static void LoadConfig();\n\n"
     text += f"{helper.indent(indent)}static void SaveConfig();\n"
 
     indent -= 1
-    text += f"{helper.indent(indent)}{helper.right_bracket};\n"
+    text += f"{helper.indent(indent)}}};\n"
 
     return file.File(helper.config_io_name, enums.FileType.HEADER, [], [], "cst", text)
 
 
 def _gen_source(fields: tuple[raw_field.RawField], config_files: tuple[raw_file.RawFile]) -> file.File:
     indent: int = 1
-    load_text: str = f"{helper.indent(indent)}void {helper.config_io_name}::LoadConfig() {helper.left_bracket}\n"
-    save_text: str = f"{helper.indent(indent)}void {helper.config_io_name}::SaveConfig() {helper.left_bracket}\n"
+    load_text: str = f"{helper.indent(indent)}void {helper.config_io_name}::LoadConfig() {{\n"
+    save_text: str = f"{helper.indent(indent)}void {helper.config_io_name}::SaveConfig() {{\n"
 
     indent += 1
 
     # setup
     load_text += f"{helper.indent(indent)}utl::usize {_loadEntryCount} = 0;\n{helper.indent(indent)}nlohmann::json load;\n" \
                  f"{helper.indent(indent)}auto& {_constants} = app::AppContext::GetInstance().{_constants};\n" \
-                 f"{helper.indent(indent)}if (not LoadAndValidateConfigJson(load, {_loadEntryCount})) {helper.left_bracket}\n"
+                 f"{helper.indent(indent)}if (not LoadAndValidateConfigJson(load, {_loadEntryCount})) {{\n"
     indent += 1
     load_text += f"{helper.indent(indent)}return;\n"
     indent -= 1
-    load_text += f"{helper.indent(indent)}{helper.right_bracket}\n\n"
+    load_text += f"{helper.indent(indent)}}}\n\n"
     save_text += f"{helper.indent(indent)}auto const& {_constants} = app::AppContext::GetInstance().{_constants};\n" \
                  f"{helper.indent(indent)}nlohmann::json save;\n\n"
 
@@ -129,8 +129,8 @@ def _gen_source(fields: tuple[raw_field.RawField], config_files: tuple[raw_file.
                  f"{helper.indent(indent)}hlp::Print(hlp::PrintType::INFO, \"config saved\");\n"
 
     indent -= 1
-    load_text += f"{helper.indent(indent)}{helper.right_bracket}\n"
-    save_text += f"{helper.indent(indent)}{helper.right_bracket}\n"
+    load_text += f"{helper.indent(indent)}}}\n"
+    save_text += f"{helper.indent(indent)}}}\n"
 
     includes: list[include.Include] = list()
     for c in config_files:

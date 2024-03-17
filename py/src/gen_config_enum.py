@@ -13,10 +13,10 @@ import raw_file
 
 def _gen_source(fields: tuple[raw_field.RawField], config_files: tuple[raw_file.RawFile]) -> file.File:
     indent: int = 1
-    text: str = f"{helper.indent(indent)}std::string {helper.config_switch_function_name}({helper.config_enum_name} const value) {helper.left_bracket}\n"
+    text: str = f"{helper.indent(indent)}std::string {helper.config_switch_function_name}({helper.config_enum_name} const value) {{\n"
 
     indent += 1
-    text += f"{helper.indent(indent)}switch (value) {helper.left_bracket}\n"
+    text += f"{helper.indent(indent)}switch (value) {{\n"
 
     indent += 1
     text += f"{helper.indent(indent)}case {helper.config_enum_name}::CONFIG: return \"config\";\n\n"
@@ -30,11 +30,11 @@ def _gen_source(fields: tuple[raw_field.RawField], config_files: tuple[raw_file.
         text += f"{helper.indent(indent)}case {helper.config_enum_name}::{f.enum_name()}: return \"{f.enum_return_value()}\";\n"
 
     indent -= 1
-    text += f"{helper.indent(indent)}{helper.right_bracket}\n"
+    text += f"{helper.indent(indent)}}}\n"
 
     indent -= 1
     text += f"{helper.indent(indent)}std::unreachable();\n"
-    text += f"{helper.indent(indent)}{helper.right_bracket}\n"
+    text += f"{helper.indent(indent)}}}\n"
 
     return file.File(helper.config_enum_name, enums.FileType.SOURCE,
                      [include.Include(f"{helper.config_enum_name}.hpp", False), include.Include("utility", True)], [],
@@ -43,7 +43,7 @@ def _gen_source(fields: tuple[raw_field.RawField], config_files: tuple[raw_file.
 
 def _gen_header(fields: tuple[raw_field.RawField], config_files: tuple[raw_file.RawFile]) -> file.File:
     indent: int = 1
-    text: str = f"{helper.indent(indent)}enum class {helper.config_enum_name} {helper.left_bracket}\n"
+    text: str = f"{helper.indent(indent)}enum class {helper.config_enum_name} {{\n"
     indent += 1
 
     text += f"{helper.indent(indent)}CONFIG,\n\n"
@@ -57,7 +57,7 @@ def _gen_header(fields: tuple[raw_field.RawField], config_files: tuple[raw_file.
         text += f"{helper.indent(indent)}{f.enum_name()},\n"
 
     indent -= 1
-    text += f"{helper.indent(indent)}{helper.right_bracket};\n\n"
+    text += f"{helper.indent(indent)}}};\n\n"
 
     text += f"{helper.indent(indent)}[[nodiscard]] std::string {helper.config_switch_function_name}({helper.config_enum_name} value);\n"
 

@@ -11,7 +11,7 @@ import enums
 
 
 def _gen_top(entry: raw_field.RawSaveField, indent: int) -> str:
-    text: str = f"{helper.indent(indent)}class {entry.class_name} final {helper.left_bracket}\n"
+    text: str = f"{helper.indent(indent)}class {entry.class_name} final {{\n"
     text += f"{helper.indent(indent)}private:\n"
     return text
 
@@ -41,7 +41,7 @@ def _gen_mid(class_name: str, fields: tuple[raw_field.RawSaveField], indent: int
 
 
 def _gen_bottom(indent: int) -> str:
-    return f"{helper.indent(indent)}{helper.right_bracket};\n"
+    return f"{helper.indent(indent)}}};\n"
 
 
 def _gen_class_strings(fields: tuple[raw_field.RawSaveField], files: tuple[raw_file.RawFile], indent: int) -> dict[

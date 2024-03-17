@@ -32,8 +32,8 @@ class File:
         for f in self.forward_declarations:
             text += f.dump()
 
-        text += f"\nnamespace {self.namespace} {helper.left_bracket}\n" \
+        text += f"\nnamespace {self.namespace} {{\n" \
                 f"{self.text}\n" \
-                f"{helper.right_bracket} // namespace {self.namespace}\n"
+                f"}} // namespace {self.namespace}\n"
 
         return text

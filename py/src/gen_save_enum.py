@@ -48,7 +48,8 @@ def _gen_source(fields: tuple[raw_field.RawSaveField], files: tuple[raw_file.Raw
     indent -= 1
     text += f"{helper.indent(indent)}}}\n"
     indent -= 1
-    text += f"{helper.indent(indent)}}}"
+    text += f"{helper.indent(indent)}std::unreachable();\n" \
+            f"{helper.indent(indent)}}}"
 
     return file.File(helper.save_enum_name, enums.FileType.SOURCE,
                      [include.Include(f"{helper.save_enum_name}.hpp", False)], [], "app", text)

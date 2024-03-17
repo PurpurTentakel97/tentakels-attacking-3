@@ -44,9 +44,9 @@ class RawField:
         return text
 
     def dump_getter(self, indent: int) -> str:
-        text: str = f"{helper.indent(indent)}[[nodiscard]] {enums.return_type_lookup[self.type_]} get_{self.name}() const {helper.left_bracket}\n"
+        text: str = f"{helper.indent(indent)}[[nodiscard]] {enums.return_type_lookup[self.type_]} get_{self.name}() const {{\n"
         text += f"{helper.indent(indent + 1)}return {self.full_name()};\n"
-        text += f"{helper.indent(indent)}{helper.right_bracket}\n"
+        text += f"{helper.indent(indent)}}}\n"
         return text
 
     def dump_setter(self, indent: int) -> str:
@@ -54,13 +54,13 @@ class RawField:
             return ""
 
         if helper.needs_move(self.type_):
-            text: str = f"{helper.indent(indent)}void set_{self.name}({enums.return_type_lookup[self.type_]} value) {helper.left_bracket}\n"
+            text: str = f"{helper.indent(indent)}void set_{self.name}({enums.return_type_lookup[self.type_]} value) {{\n"
             text += f"{helper.indent(indent + 1)}{self.full_name()} = std::move(value);\n"
-            text += f"{helper.indent(indent)}{helper.right_bracket}\n"
+            text += f"{helper.indent(indent)}}}\n"
         else:
-            text: str = f"{helper.indent(indent)}void set_{self.name}({enums.passed_type_lookup[self.type_]} value) {helper.left_bracket}\n"
+            text: str = f"{helper.indent(indent)}void set_{self.name}({enums.passed_type_lookup[self.type_]} value) {{\n"
             text += f"{helper.indent(indent + 1)}{self.full_name()} = value;\n"
-            text += f"{helper.indent(indent)}{helper.right_bracket}\n"
+            text += f"{helper.indent(indent)}}}\n"
         return text
 
 

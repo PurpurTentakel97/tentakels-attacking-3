@@ -11,7 +11,7 @@ import enums
 
 
 def _gen_top(entry: raw_field.RawField, indent: int) -> str:
-    text: str = f"{helper.indent(indent)}class {entry.class_name} final {helper.left_bracket}\n"
+    text: str = f"{helper.indent(indent)}class {entry.class_name} final {{\n"
     text += f"{helper.indent(indent)}public:\n"
     text += f"{helper.indent(indent + 1)}friend struct {helper.config_io_name};\n"
     text += f"{helper.indent(indent + 1)}friend struct app::AppContext;\n\n"
@@ -24,7 +24,7 @@ def _gen_mid(indent: int) -> str:
 
 
 def _gen_bottom(indent: int) -> str:
-    return f"{helper.indent(indent)}{helper.right_bracket};\n"
+    return f"{helper.indent(indent)}}};\n"
 
 
 def _gen_class_strings(entries: tuple[raw_field.RawField], indent: int) -> dict[str, str]:

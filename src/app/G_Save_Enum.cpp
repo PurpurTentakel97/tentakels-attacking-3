@@ -17,5 +17,6 @@ namespace app {
             case G_Save_Enum::G_GLOBAL_GAME_VERSION: return "game_version";
             case G_Save_Enum::G_GLOBAL_SAVE_VERSION: return "save_version";
         }
+    std::unreachable();
     }
 } // namespace app

@@ -12,6 +12,6 @@ class ForwardDeclaration:
         self.name: str = name.strip()
 
     def dump(self) -> str:
-        return f"namespace {self.namespace} {helper.left_bracket}\n" \
+        return f"namespace {self.namespace} {{\n" \
                f"{helper.indent(1)} {self.name};\n" \
-               f"{helper.right_bracket}\n"
+               f"}}\n"
