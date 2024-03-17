@@ -10,12 +10,12 @@
 namespace app {
     std::string SToS(G_Save_Enum const& type) {
         switch (type) {
-            case G_Save_Enum::G_GLOBAL: return "global";
-            case G_Save_Enum::G_GLOBAL_SAVE_SECTION_COUNT: return "save_section_count";
-            case G_Save_Enum::G_GLOBAL_TOTAL_SAVE_ENTRY_COUNT: return "total_save_entry_count";
-            case G_Save_Enum::G_GLOBAL_LOAD_SAVE_ENTRY_COUNT: return "load_save_entry_count";
-            case G_Save_Enum::G_GLOBAL_GAME_VERSION: return "game_version";
-            case G_Save_Enum::G_GLOBAL_SAVE_VERSION: return "save_version";
+            case G_Save_Enum::G_SAVE: return "save";
+
+            case G_Save_Enum::G_VERSION: return "version";
+
+            case G_Save_Enum::G_VERSION_GAME_VERSION: return "game_version";
+            case G_Save_Enum::G_VERSION_SAVE_VERSION: return "save_version";
         }
     std::unreachable();
     }

@@ -6,34 +6,21 @@
 
 #pragma once
 
-#include <alias/AliasUtils.hpp>
 #include <string>
 
 
 namespace app {
-    class G_Global final {
+    class G_Version final {
     private:
-        static inline utl::usize constexpr s_save_section_count = 1;
-        static inline utl::usize constexpr s_total_save_entry_count = 6;
-        static inline utl::usize constexpr s_load_save_entry_count = 2;
         std::string m_game_version;
         std::string m_save_version;
 
     public:
-        G_Global(std::string game_version,
+        G_Version(std::string game_version,
                 std::string save_version)
             : m_game_version{ std::move(game_version) },
                 m_save_version{ std::move(save_version) } {}
 
-        [[nodiscard]] utl::usize get_save_section_count() const {
-            return s_save_section_count;
-        }
-        [[nodiscard]] utl::usize get_total_save_entry_count() const {
-            return s_total_save_entry_count;
-        }
-        [[nodiscard]] utl::usize get_load_save_entry_count() const {
-            return s_load_save_entry_count;
-        }
         [[nodiscard]] std::string get_game_version() const {
             return m_game_version;
         }

@@ -11,13 +11,12 @@
 
 namespace app {
     enum class G_Save_Enum {
-        G_GLOBAL,
+        G_SAVE,
 
-        G_GLOBAL_SAVE_SECTION_COUNT,
-        G_GLOBAL_TOTAL_SAVE_ENTRY_COUNT,
-        G_GLOBAL_LOAD_SAVE_ENTRY_COUNT,
-        G_GLOBAL_GAME_VERSION,
-        G_GLOBAL_SAVE_VERSION,
+        G_VERSION,
+
+        G_VERSION_GAME_VERSION,
+        G_VERSION_SAVE_VERSION,
     };
 
     [[nodiscard]] std::string SToS(G_Save_Enum const& type);

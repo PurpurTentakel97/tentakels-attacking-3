@@ -1,5 +1,5 @@
 add_library(app STATIC
-            include/app/G_Global.hpp
+            include/app/G_Version.hpp
             include/app/G_Save_Enum.hpp
             G_Save_Enum.cpp
             include/app/AppContext.hpp
@@ -11,6 +11,7 @@ add_library(app STATIC
             include/app/SoundManager.hpp
             include/app/SoundType.hpp
             include/app/AliasManager.hpp
+            include/app/HelperSaveIO.hpp
             AppContext.cpp
             AssetManager.cpp
             LanguageManager.cpp

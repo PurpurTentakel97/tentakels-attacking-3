@@ -19,9 +19,9 @@ namespace hlp {
     static std::string EToS(cst::G_Config_Enum const value) {
         return cst::CToS(value);
     }
-    /*static std::string EToS(app::G_Save_Enum const value) {
+    static std::string EToS(app::G_Save_Enum const value) {
         return app::SToS(value);
-    }*/
+    }
 
     // print
     template<utl::IsEnum E>

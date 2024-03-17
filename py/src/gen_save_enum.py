@@ -16,6 +16,8 @@ def _gen_header(fields: tuple[raw_field.RawSaveField], files: tuple[raw_file.Raw
     text: str = f"{helper.indent(indent)}enum class {helper.save_enum_name} {{\n"
     indent += 1
 
+    text += f"{helper.indent(indent)}G_SAVE,\n\n"
+
     for f in files:
         text += f"{helper.indent(indent)}{f.enum_name()},\n"
 
@@ -39,9 +41,11 @@ def _gen_source(fields: tuple[raw_field.RawSaveField], files: tuple[raw_file.Raw
     indent += 1
     text += f"{helper.indent(indent)}switch (type) {{\n"
     indent += 1
+    text += f"{helper.indent(indent)}case {helper.save_enum_name}::G_SAVE: return \"save\";\n\n"
     for f in files:
         text += f"{helper.indent(indent)}case {helper.save_enum_name}::{f.enum_name()}: return \"{f.enum_return_value()}\";\n"
 
+    text += '\n'
     for f in fields:
         text += f"{helper.indent(indent)}case {helper.save_enum_name}::{f.enum_name()}: return \"{f.enum_return_value()}\";\n"
 

@@ -1,13 +1,9 @@
 {
   "Global": {
     "prefix": "G_",
-    "name": "Global",
+    "name": "Version",
     "type": 1,
     "includes": [
-      {
-        "name": "alias/AliasUtils.hpp",
-        "s_brackets": true
-      },
       {
         "name": "string",
         "s_brackets": true

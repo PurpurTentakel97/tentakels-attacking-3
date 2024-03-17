@@ -50,8 +50,7 @@ namespace cst {
                 if (versionConfig != constants.g_version.get_config_version()) {
                     hlp::Print(hlp::PrintType::ERROR,
                                "config version in config is not matching -> expected: {} -> provided: {} -> overwrite "
-                               "config by "
-                               "save",
+                               "config by save",
                                constants.g_version.get_config_version(),
                                versionConfig);
                 } else {
@@ -64,8 +63,7 @@ namespace cst {
                 hlp::LoadString(version, versionGame, G_Config_Enum::G_VERSION_GAME_VERSION, loadEntryCount)) {
                 if (versionGame != constants.g_version.get_game_version()) {
                     hlp::Print(hlp::PrintType::ERROR,
-                               "game version is not matching -> expected: {} -> provided: {} -> overwrite by "
-                               "save",
+                               "game version is not matching -> expected: {} -> provided: {} -> overwrite by save",
                                constants.g_version.get_game_version(),
                                versionGame);
                 } else {
