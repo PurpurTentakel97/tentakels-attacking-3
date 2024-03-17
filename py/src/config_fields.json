@@ -32,7 +32,7 @@
     "name": "config_version",
     "type": 3,
     "constants_class": "G_Version",
-    "value": "v0.1.7.2"
+    "value": "v0.1.8.1"
   },
   "version_language_version": {
     "prefix": "s_",
@@ -46,7 +46,7 @@
     "name": "save_game_version",
     "type": 3,
     "constants_class": "G_Version",
-    "value": "v0.1.7.1"
+    "value": "v0.1.8.1"
   },
   "fight_total_config_entry_count": {
     "prefix": "s_",
