@@ -16,30 +16,6 @@ def _gen_top(entry: raw_field.RawSaveField, indent: int) -> str:
     return text
 
 
-def _gen_mid(class_name: str, fields: tuple[raw_field.RawSaveField], indent: int) -> str:
-    initializer_list: list[str] = list()
-    values: list[str] = list()
-    for field in fields:
-        if field.class_name != class_name:
-            continue
-        if not field.needs_ctor:
-            continue
-
-        if helper.needs_move(field.type_):
-            values.append(f"{enums.return_type_lookup[field.type_]} {field.name}")
-            initializer_list.append(f"{field.full_name()}{{ std::move({field.name}) }}")
-        else:
-            values.append(f"{enums.passed_type_lookup[field.type_]} {field.name}")
-            initializer_list.append(f"{field.full_name()}{{ {field.name} }}")
-
-    delimiter: str = f",\n{helper.indent(indent + 3)}"
-    text: str = f"\n{helper.indent(indent)}public:\n" \
-                f"{helper.indent(indent + 1)}{class_name}({delimiter.join(values)})\n" \
-                f"{helper.indent(indent + 2)}: {delimiter.join(initializer_list)} {{}}\n\n"
-
-    return text
-
-
 def _gen_bottom(indent: int) -> str:
     return f"{helper.indent(indent)}}};\n"
 
@@ -69,7 +45,7 @@ def _gen_class_strings(fields: tuple[raw_field.RawSaveField], files: tuple[raw_f
         single_entry: dict = classes[class_]
         o: str = single_entry["header"]
         o += single_entry["fields"]
-        o += _gen_mid(class_, fields, indent)
+        o += f"\n{helper.indent(indent)}public:\n"
         o += single_entry["getter"] + '\n'
         o += single_entry["setter"]
         o += _gen_bottom(indent)

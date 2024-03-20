@@ -4,15 +4,13 @@
     "name": "game_version",
     "type": 2,
     "constants_class": "G_Version",
-    "value": "",
-    "ctor": true
+    "value": "v0.0.0"
   },
   "version_save_version": {
     "prefix": "m_",
     "name": "save_version",
     "type": 2,
     "constants_class": "G_Version",
-    "value": "",
-    "ctor": true
+    "value": "v0.0.0.0"
   }
 }
