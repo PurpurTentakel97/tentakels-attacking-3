@@ -15,6 +15,8 @@ namespace app {
 
         G_VERSION,
 
+        G_VERSION_TOTAL_SAVE_ENTRY_COUNT,
+        G_VERSION_LOAD_SAVE_ENTRY_COUNT,
         G_VERSION_GAME_VERSION,
         G_VERSION_SAVE_VERSION,
     };

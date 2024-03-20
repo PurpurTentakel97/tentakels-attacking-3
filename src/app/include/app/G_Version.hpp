@@ -7,15 +7,24 @@
 #pragma once
 
 #include <string>
+#include <alias/AliasUtils.hpp>
 
 
 namespace app {
     class G_Version final {
     private:
+        static inline utl::usize constexpr s_total_save_entry_count = 4;
+        static inline utl::usize constexpr s_load_save_entry_count = 2;
         std::string m_game_version = "v0.0.0";
         std::string m_save_version = "v0.0.0.0";
 
     public:
+        [[nodiscard]] utl::usize get_total_save_entry_count() const {
+            return s_total_save_entry_count;
+        }
+        [[nodiscard]] utl::usize get_load_save_entry_count() const {
+            return s_load_save_entry_count;
+        }
         [[nodiscard]] std::string get_game_version() const {
             return m_game_version;
         }

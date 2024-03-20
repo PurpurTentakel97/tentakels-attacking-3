@@ -19,6 +19,7 @@ add_library(app STATIC
             PlayerData.cpp
             SoundManager.cpp
             AliasManager.cpp
+            include/app/SaveState.hpp
 )
 
 target_include_directories(app

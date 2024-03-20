@@ -7,6 +7,9 @@
       {
         "name": "string",
         "s_brackets": true
+      },{
+        "name" : "alias/AliasUtils.hpp",
+        "s_brackets" : true
       }
     ],
     "forward_declaration": [],
