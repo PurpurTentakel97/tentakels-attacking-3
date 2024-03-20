@@ -1,7 +1,7 @@
 {
-  "Global": {
+  "Save_Version": {
     "prefix": "G_",
-    "name": "Version",
+    "name": "Save_Version",
     "type": 1,
     "includes": [
       {
@@ -13,6 +13,6 @@
       }
     ],
     "forward_declaration": [],
-    "namespace": "app"
+    "namespace": "utl"
   }
 }

@@ -1,4 +1,7 @@
 add_library(utils STATIC
+            include/utils/G_Save_Enum.hpp
+            include/utils/G_Save_Version.hpp
+            G_Save_Enum.cpp
             include/utils/Colors.hpp
             include/utils/ResultsUpdate.hpp
             include/utils/LayeredVector.hpp
@@ -13,8 +16,10 @@ add_library(utils STATIC
             include/utils/GameEventTypes.hpp
             include/utils/ResultsEvents.hpp
             include/utils/Result.hpp
+            include/utils/SaveState.hpp
             Colors.cpp
-            include/utils/RepresentationLogicSave.hpp
+            SaveState.cpp
+
 )
 target_include_directories(utils
                            PRIVATE include/utils

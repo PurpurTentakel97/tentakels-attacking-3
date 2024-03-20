@@ -41,6 +41,10 @@ namespace app {
 
         static void SaveConfig();
 
+        void LoadGame();
+
+        void SaveGame() const;
+
         void ValidateConfig();
 
         template<utl::arithmetic D>

@@ -31,7 +31,7 @@ def _gen_header(fields: tuple[raw_field.RawSaveField], files: tuple[raw_file.Raw
             f"{helper.indent(indent)}" \
             f"[[nodiscard]] std::string {helper.save_switch_function_name}({helper.save_enum_name} const& type);\n"
 
-    return file.File(helper.save_enum_name, enums.FileType.HEADER, [include.Include("string", True)], [], "app", text)
+    return file.File(helper.save_enum_name, enums.FileType.HEADER, [include.Include("string", True)], [], "utl", text)
 
 
 def _gen_source(fields: tuple[raw_field.RawSaveField], files: tuple[raw_file.RawFile]) -> file.File:
@@ -57,7 +57,7 @@ def _gen_source(fields: tuple[raw_field.RawSaveField], files: tuple[raw_file.Raw
 
     return file.File(helper.save_enum_name, enums.FileType.SOURCE,
                      [include.Include(f"{helper.save_enum_name}.hpp", False), include.Include("utility", True)], [],
-                     "app", text)
+                     "utl", text)
 
 
 def gen(fields: tuple[raw_field.RawSaveField], files: tuple[raw_file.RawFile]) -> tuple[file.File, ...]:

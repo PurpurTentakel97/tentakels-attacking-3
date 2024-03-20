@@ -7,7 +7,7 @@
 #pragma once
 
 #include <alias/AliasUtils.hpp>
-#include <app/G_Save_Enum.hpp>
+#include <utils/G_Save_Enum.hpp>
 #include <constants/G_Config_Enum.hpp>
 #include <helper/HPrint.hpp>
 #include <nlohmann/json.hpp>
@@ -19,8 +19,8 @@ namespace hlp {
     static std::string EToS(cst::G_Config_Enum const value) {
         return cst::CToS(value);
     }
-    [[maybe_unused]] static std::string EToS(app::G_Save_Enum const value) {
-        return app::SToS(value);
+    [[maybe_unused]] static std::string EToS(utl::G_Save_Enum const value) {
+        return utl::SToS(value);
     }
 
     // print

@@ -13,7 +13,7 @@ import enums
 
 _global_export_path: str = "..\\..\\src\\"
 _constants_export_dir: str = "constants"
-_save_export_dir: str = "app"
+_save_export_dir: str = "utils"
 
 
 def _check_len(to_check, length: int, name: str) -> None:

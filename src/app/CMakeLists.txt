@@ -1,7 +1,4 @@
 add_library(app STATIC
-            include/app/G_Version.hpp
-            include/app/G_Save_Enum.hpp
-            G_Save_Enum.cpp
             include/app/AppContext.hpp
             include/app/AssetType.hpp
             include/app/AssetManager.hpp
@@ -19,7 +16,6 @@ add_library(app STATIC
             PlayerData.cpp
             SoundManager.cpp
             AliasManager.cpp
-            include/app/SaveState.hpp
 )
 
 target_include_directories(app

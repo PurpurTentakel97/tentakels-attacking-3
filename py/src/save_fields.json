@@ -3,28 +3,28 @@
     "prefix": "s_",
     "name": "total_save_entry_count",
     "type": 5,
-    "constants_class": "G_Version",
+    "constants_class": "G_Save_Version",
     "value": "4"
   },
   "version_load_save_entry_count": {
     "prefix": "s_",
     "name": "load_save_entry_count",
     "type": 5,
-    "constants_class": "G_Version",
+    "constants_class": "G_Save_Version",
     "value": "2"
   },
   "version_game_version": {
     "prefix": "m_",
     "name": "game_version",
     "type": 2,
-    "constants_class": "G_Version",
+    "constants_class": "G_Save_Version",
     "value": "v0.0.0"
   },
-  "version_save_version": {
+  "version_save_game_version": {
     "prefix": "m_",
-    "name": "save_version",
+    "name": "save_game_version",
     "type": 2,
-    "constants_class": "G_Version",
+    "constants_class": "G_Save_Version",
     "value": "v0.0.0.0"
   }
 }

@@ -148,30 +148,4 @@ namespace lgk {
     utl::RepresentationPlayer GenPlayerRep(Player const* player) {
         return { player->GetID(), player->IsAlive() };
     }
-
-    utl::RepresentationLogicSave GenLogicSaveRep(Galaxy const* main,
-                                                 Galaxy const* start,
-                                                 Galaxy const* current,
-                                                 std::vector<Player const*> const& all_players,
-                                                 std::vector<Player const*> const& current_players) {
-
-        static auto constexpr gen_player_rep = [](std::vector<Player const*> const& players) {
-            std::vector<utl::RepresentationPlayer> toReturn{};
-            for (auto const& p : players){
-                toReturn.push_back(GenPlayerRep(p));
-            }
-            return toReturn;
-            /*
-             * gcc 13.1.0 does not support to<>()
-            using namespace std::ranges;
-            return players | views::transform([](Player const* player) { return GenPlayerRep(player); })
-                 | to<std::vector>();
-            */
-        };
-
-        auto const all_player_rep     = gen_player_rep(all_players);
-        auto const current_player_rep = gen_player_rep(current_players);
-
-        return { GenGalaxyRep(main), GenGalaxyRep(start), GenGalaxyRep(current), all_player_rep, current_player_rep };
-    }
 } // namespace lgk

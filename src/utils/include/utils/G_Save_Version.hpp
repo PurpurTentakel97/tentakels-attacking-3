@@ -10,13 +10,16 @@
 #include <alias/AliasUtils.hpp>
 
 
-namespace app {
-    class G_Version final {
+namespace utl {
+    class G_Save_Version final {
+    public:
+        friend struct SaveState;
+
     private:
         static inline utl::usize constexpr s_total_save_entry_count = 4;
         static inline utl::usize constexpr s_load_save_entry_count = 2;
         std::string m_game_version = "v0.0.0";
-        std::string m_save_version = "v0.0.0.0";
+        std::string m_save_game_version = "v0.0.0.0";
 
     public:
         [[nodiscard]] utl::usize get_total_save_entry_count() const {
@@ -28,16 +31,16 @@ namespace app {
         [[nodiscard]] std::string get_game_version() const {
             return m_game_version;
         }
-        [[nodiscard]] std::string get_save_version() const {
-            return m_save_version;
+        [[nodiscard]] std::string get_save_game_version() const {
+            return m_save_game_version;
         }
 
         void set_game_version(std::string value) {
             m_game_version = std::move(value);
         }
-        void set_save_version(std::string value) {
-            m_save_version = std::move(value);
+        void set_save_game_version(std::string value) {
+            m_save_game_version = std::move(value);
         }
     };
 
-} // namespace app
+} // namespace utl

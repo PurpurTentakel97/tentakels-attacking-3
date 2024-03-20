@@ -7,6 +7,7 @@
 #include <constants/G_Config_IO.hpp>
 #include <event/EventGeneral.hpp>
 #include <helper/HPrint.hpp>
+#include <utils/SaveState.hpp>
 
 
 namespace app {
@@ -33,6 +34,16 @@ namespace app {
 
     void AppContext::SaveConfig() {
         cst::G_Config_IO::SaveConfig();
+    }
+
+    void AppContext::LoadGame() {
+        utl::SaveState saveState{};
+        constants.LoadGame(saveState);
+    }
+
+    void AppContext::SaveGame() const {
+        utl::SaveState saveState{};
+        constants.SaveGame(saveState);
     }
 
     void AppContext::ValidateConfig() {
