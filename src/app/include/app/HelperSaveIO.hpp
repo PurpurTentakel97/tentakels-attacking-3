@@ -49,33 +49,30 @@ namespace app {
         }
 
         auto const checkVersion = [&](std::string const& provided,
-                                      std::string const& expected,
-                                      std::string const& titleKey,
-                                      std::string const& textKey,
-                                      std::string const& versionName) {
+                                      std::string const& expected) {
             auto const result = hlp::CompareVersion(provided, expected);
             switch (result) {
                 case hlp::VersionResult::HIGHER: {
                     auto const event =
-                            eve::ShowMessagePopUpEvent(appContext.languageManager.Text(titleKey),
-                                                       appContext.languageManager.Text(textKey, expected, provided),
+                            eve::ShowMessagePopUpEvent(appContext.languageManager.Text("ui_popup_higher_save_file_version_title"),
+                                                       appContext.languageManager.Text("ui_popup_higher_save_file_version_text", expected, '\n', provided),
                                                        []() {});
                     appContext.eventManager.InvokeEvent(event);
                     hlp::Print(hlp::PrintType::ERROR,
                                "higher save file version detected -> not able to load {} -> expected: {}, "
                                "provided:{}",
-                               versionName,
+                               "save file",
                                expected,
                                provided);
                     return false;
                 }
                 case hlp::VersionResult::SAME:
-                    hlp::Print(hlp::PrintType::INFO, "matching {} version: {}", versionName, provided);
+                    hlp::Print(hlp::PrintType::INFO, "matching {} version: {}", "save file", provided);
                     break;
                 case hlp::VersionResult::LOWER:
                     hlp::Print(hlp::PrintType::INFO,
                                "lower {} version detected -> expected: {}, provided:{}",
-                               versionName,
+                               "save file",
                                expected,
                                provided);
                     break;
@@ -88,10 +85,7 @@ namespace app {
             if (std::string saveVersion;
                 hlp::LoadString(version, saveVersion, utl::G_Save_Enum::G_SAVE_VERSION_SAVE_GAME_VERSION, currentEntryCount)) {
                 if (not checkVersion(saveVersion,
-                                     constants.g_version.get_save_game_version(),
-                                     "ui_popup_higher_save_file_version_title",
-                                     "ui_popup_higher_save_file_version_text",
-                                     "save file")) {
+                                     constants.g_version.get_save_game_version())) {
                     return false;
                 }
             } else {
@@ -101,25 +95,6 @@ namespace app {
                         []() {});
                 appContext.eventManager.InvokeEvent(event);
                 hlp::Print(hlp::PrintType::ERROR, "not able to check save file version");
-                return false;
-            }
-
-            if (std::string gameVersion;
-                hlp::LoadString(version, gameVersion, utl::G_Save_Enum::G_SAVE_VERSION_GAME_VERSION, currentEntryCount)) {
-                if (not checkVersion(gameVersion,
-                                     constants.g_version.get_game_version(),
-                                     "ui_popup_higher_game_version_title",
-                                     "ui_popup_higher_game_version_text",
-                                     "game")) {
-                    return false;
-                }
-            } else {
-                auto const event = eve::ShowMessagePopUpEvent(
-                        appContext.languageManager.Text("ui_popup_missing_game_version_title"),
-                        appContext.languageManager.Text("ui_popup_missing_game_version_text"),
-                        []() {});
-                appContext.eventManager.InvokeEvent(event);
-                hlp::Print(hlp::PrintType::ERROR, "not able to check game version");
                 return false;
             }
 

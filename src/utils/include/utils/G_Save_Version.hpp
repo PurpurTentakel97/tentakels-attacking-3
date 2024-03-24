@@ -13,9 +13,8 @@
 namespace utl {
     class G_Save_Version final {
     private:
-        static inline utl::usize constexpr s_total_save_entry_count = 4;
-        static inline utl::usize constexpr s_load_save_entry_count = 2;
-        std::string m_game_version = "v0.0.0";
+        static inline utl::usize constexpr s_total_save_entry_count = 3;
+        static inline utl::usize constexpr s_load_save_entry_count = 1;
         std::string m_save_game_version = "v0.0.0.0";
 
     public:
@@ -25,16 +24,10 @@ namespace utl {
         [[nodiscard]] utl::usize get_load_save_entry_count() const {
             return s_load_save_entry_count;
         }
-        [[nodiscard]] std::string get_game_version() const {
-            return m_game_version;
-        }
         [[nodiscard]] std::string get_save_game_version() const {
             return m_save_game_version;
         }
 
-        void set_game_version(std::string value) {
-            m_game_version = std::move(value);
-        }
         void set_save_game_version(std::string value) {
             m_save_game_version = std::move(value);
         }

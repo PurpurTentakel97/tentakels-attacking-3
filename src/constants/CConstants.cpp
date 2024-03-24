@@ -12,7 +12,6 @@ namespace cst {
     }
 
     void Constants::SaveGame(utl::SaveState& saveState) const {
-        saveState.g_save_version.set_game_version(g_version.get_game_version());
         saveState.g_save_version.set_save_game_version(g_version.get_save_game_version());
     }
 

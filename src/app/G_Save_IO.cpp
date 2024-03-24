@@ -25,7 +25,6 @@ namespace app {
         save[SToS(utl::G_Save_Enum::G_SAVE_VERSION)] = {
             { SToS(utl::G_Save_Enum::G_SAVE_VERSION_TOTAL_SAVE_ENTRY_COUNT), saveState.g_save_version.get_total_save_entry_count() },
             { SToS(utl::G_Save_Enum::G_SAVE_VERSION_LOAD_SAVE_ENTRY_COUNT), saveState.g_save_version.get_load_save_entry_count() },
-            { SToS(utl::G_Save_Enum::G_SAVE_VERSION_GAME_VERSION), saveState.g_save_version.get_game_version() },
             { SToS(utl::G_Save_Enum::G_SAVE_VERSION_SAVE_GAME_VERSION), saveState.g_save_version.get_save_game_version() },
         };
         hlp::SaveFile(dir, file, save.dump(4));

@@ -17,7 +17,6 @@ namespace utl {
 
             case G_Save_Enum::G_SAVE_VERSION_TOTAL_SAVE_ENTRY_COUNT: return "total_save_entry_count";
             case G_Save_Enum::G_SAVE_VERSION_LOAD_SAVE_ENTRY_COUNT: return "load_save_entry_count";
-            case G_Save_Enum::G_SAVE_VERSION_GAME_VERSION: return "game_version";
             case G_Save_Enum::G_SAVE_VERSION_SAVE_GAME_VERSION: return "save_game_version";
         }
     std::unreachable();
