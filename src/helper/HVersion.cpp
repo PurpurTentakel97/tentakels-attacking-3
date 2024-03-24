@@ -10,11 +10,13 @@
 namespace hlp {
     version_ty ParseVersion(std::string const& versionString) {
         version_ty versionNumbers{};
-        std::regex pattern(R"(v(\d+)\.(\d+)\.(\d+)\.(\d+))");
+        std::regex pattern(R"(v(\d+)(?:\.(\d+)(?:\.(\d+)(?:\.(\d+))?)?)?)");
         std::smatch matches;
         if (std::regex_match(versionString, matches, pattern)) {
             for (size_t i = 1; i < matches.size(); ++i) {
-                versionNumbers[i - 1] = (static_cast<utl::usize>(std::stoi(matches[i])));
+                if (matches[i].matched){
+                    versionNumbers[i - 1] = (static_cast<utl::usize>(std::stoi(matches[i])));
+                }
             }
         }
         return versionNumbers;

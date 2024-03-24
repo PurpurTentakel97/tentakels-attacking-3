@@ -88,7 +88,7 @@ namespace app {
             if (std::string saveVersion;
                 hlp::LoadString(version, saveVersion, utl::G_Save_Enum::G_SAVE_VERSION_SAVE_GAME_VERSION, currentEntryCount)) {
                 if (not checkVersion(saveVersion,
-                                     constants.g_version.get_game_version(),
+                                     constants.g_version.get_save_game_version(),
                                      "ui_popup_higher_save_file_version_title",
                                      "ui_popup_higher_save_file_version_text",
                                      "save file")) {

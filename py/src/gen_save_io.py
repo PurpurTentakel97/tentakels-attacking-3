@@ -16,6 +16,7 @@ _save_state_cass: str = "utl::SaveState"
 _save_state_variable: str = "saveState"
 _dir: str = "dir"
 _file: str = "file"
+_current_entry_count:str = "currentEntryCount"
 
 
 def _gen_header() -> file.File:
@@ -40,8 +41,11 @@ def _gen_source(fields: tuple[raw_field.RawSaveField], files: tuple[raw_file.Raw
 
     indent += 1
 
-    load_text += f"// enter preparation"
-    save_text += f"{helper.indent(indent)} nlohmann::json save{{}};\n\n"
+    load_text += f"{helper.indent(indent)}nlohmann::json load{{}};\n" \
+                 f"{helper.indent(indent)}utl::usize {_current_entry_count}{{}};\n" \
+                 f"{helper.indent(indent)}auto const result = LoadAndValidateSaveJson(load, {_current_entry_count}, {_dir}, {_file});\n" \
+                 f"{helper.indent(indent)}if (not result) {{ return; }}\n"
+    save_text += f"{helper.indent(indent)}nlohmann::json save{{}};\n\n"
 
     for current_file in files:
         load_text += f"{helper.indent(indent)}// enter file loop here\n"

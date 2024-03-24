@@ -39,6 +39,7 @@ namespace app {
 
     void AppContext::LoadGame(std::string const& dir, std::string const& file) {
         utl::SaveState saveState{};
+        G_Save_IO::LoadGame(saveState, dir, file);
         constants.LoadGame(saveState);
     }
 

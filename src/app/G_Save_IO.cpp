@@ -11,12 +11,16 @@
 
 
 namespace app {
-    void G_Save_IO::LoadGame(utl::SaveState& , std::string const& , std::string const& ) {
-// enter preparation        // enter file loop here
+    void G_Save_IO::LoadGame(utl::SaveState& saveState, std::string const& dir, std::string const& file) {
+        nlohmann::json load{};
+        utl::usize currentEntryCount{};
+        auto const result = LoadAndValidateSaveJson(load, currentEntryCount, dir, file);
+        if (not result) { return; }
+        // enter file loop here
     }
 
     void G_Save_IO::SaveGame(utl::SaveState const& saveState, std::string const& dir, std::string const& file) {
-         nlohmann::json save{};
+        nlohmann::json save{};
 
         save[SToS(utl::G_Save_Enum::G_SAVE_VERSION)] = {
             { SToS(utl::G_Save_Enum::G_SAVE_VERSION_TOTAL_SAVE_ENTRY_COUNT), saveState.g_save_version.get_total_save_entry_count() },

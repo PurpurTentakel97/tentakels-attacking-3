@@ -34,6 +34,8 @@ int main() {
 
     appContext.ValidateConfig();
 
+    appContext.LoadGame(cst::Files::gameSafeDir(), "test.tas");
+
     uiManager.StartUILoop();
 
     appContext.SaveGame(cst::Files::gameSafeDir(), "test.tas");
