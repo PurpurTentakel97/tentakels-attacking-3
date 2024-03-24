@@ -12,9 +12,6 @@
 
 namespace utl {
     class G_Save_Version final {
-    public:
-        friend struct SaveState;
-
     private:
         static inline utl::usize constexpr s_total_save_entry_count = 4;
         static inline utl::usize constexpr s_load_save_entry_count = 2;

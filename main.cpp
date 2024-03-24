@@ -11,6 +11,7 @@
 #include <helper/HPrint.hpp>
 #include <logic/ManagerGame.hpp>
 #include <ui/ManagerUI.hpp>
+#include <constants/CFiles.hpp>
 
 int main() {
     SetConfigFlags(FLAG_VSYNC_HINT);
@@ -33,9 +34,9 @@ int main() {
 
     appContext.ValidateConfig();
 
-
-
     uiManager.StartUILoop();
+
+    appContext.SaveGame(cst::Files::gameSafeDir(), "test.tas");
 
     app::AppContext::SaveConfig();
 

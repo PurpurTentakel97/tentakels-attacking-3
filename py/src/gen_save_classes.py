@@ -12,9 +12,6 @@ import enums
 
 def _gen_top(entry: raw_field.RawSaveField, indent: int) -> str:
     text: str = f"{helper.indent(indent)}class {entry.class_name} final {{\n" \
-                f"{helper.indent(indent)}public:\n" \
-                f"{helper.indent(indent+1)}friend struct SaveState;\n" \
-                f"\n" \
                 f"{helper.indent(indent)}private:\n"
     return text
 

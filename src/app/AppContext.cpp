@@ -4,6 +4,7 @@
 //
 
 #include "AppContext.hpp"
+#include "G_Save_IO.hpp"
 #include <constants/G_Config_IO.hpp>
 #include <event/EventGeneral.hpp>
 #include <helper/HPrint.hpp>
@@ -36,14 +37,16 @@ namespace app {
         cst::G_Config_IO::SaveConfig();
     }
 
-    void AppContext::LoadGame() {
+    void AppContext::LoadGame(std::string const& dir, std::string const& file) {
         utl::SaveState saveState{};
         constants.LoadGame(saveState);
     }
 
-    void AppContext::SaveGame() const {
+    void AppContext::SaveGame(std::string const& dir, std::string const& file) const {
         utl::SaveState saveState{};
         constants.SaveGame(saveState);
+
+        G_Save_IO::SaveGame(saveState, dir, file);
     }
 
     void AppContext::ValidateConfig() {

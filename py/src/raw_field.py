@@ -35,6 +35,12 @@ class RawField:
     def full_name(self) -> str:
         return f"{self.prefix}{self.name}"
 
+    def getter_name(self) -> str:
+        return f"get_{self.name}"
+
+    def setter_name(self) -> str:
+        return f"set_{self.name}"
+
     def dump_field(self, indent: int) -> str:
         text: str = f"{helper.indent(indent)}{enums.field_type_lookup[self.type_]} {self.full_name()} = "
         if helper.needs_quotes(self.type_):
@@ -44,7 +50,7 @@ class RawField:
         return text
 
     def dump_getter(self, indent: int) -> str:
-        text: str = f"{helper.indent(indent)}[[nodiscard]] {enums.return_type_lookup[self.type_]} get_{self.name}() const {{\n"
+        text: str = f"{helper.indent(indent)}[[nodiscard]] {enums.return_type_lookup[self.type_]} {self.getter_name()}() const {{\n"
         text += f"{helper.indent(indent + 1)}return {self.full_name()};\n"
         text += f"{helper.indent(indent)}}}\n"
         return text
@@ -54,7 +60,7 @@ class RawField:
             return ""
 
         if helper.needs_move(self.type_):
-            text: str = f"{helper.indent(indent)}void set_{self.name}({enums.return_type_lookup[self.type_]} value) {{\n"
+            text: str = f"{helper.indent(indent)}void {self.setter_name()}({enums.return_type_lookup[self.type_]} value) {{\n"
             text += f"{helper.indent(indent + 1)}{self.full_name()} = std::move(value);\n"
             text += f"{helper.indent(indent)}}}\n"
         else:

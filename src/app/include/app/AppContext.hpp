@@ -41,9 +41,9 @@ namespace app {
 
         static void SaveConfig();
 
-        void LoadGame();
+        void LoadGame(std::string const& dir, std::string const& file);
 
-        void SaveGame() const;
+        void SaveGame(std::string const& dir, std::string const& file) const;
 
         void ValidateConfig();
 

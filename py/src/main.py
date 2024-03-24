@@ -10,10 +10,12 @@ import gen_config_all
 import gen_save_all
 import file
 import enums
+import helper
 
 _global_export_path: str = "..\\..\\src\\"
 _constants_export_dir: str = "constants"
-_save_export_dir: str = "utils"
+_save_container_export_dir: str = "utils"
+_save_logic_export_dir: str = "app"
 
 
 def _check_len(to_check, length: int, name: str) -> None:
@@ -58,4 +60,9 @@ for f in config_files:
     load_save.Save(_global_export_path, _constants_export_dir, f)
 
 for f in save_files:
-    load_save.Save(_global_export_path, _save_export_dir, f)
+    files: tuple[str, ...] = (
+        helper.save_io_name,
+    )
+    path: str = _save_logic_export_dir if f.name in files else _save_container_export_dir
+
+    load_save.Save(_global_export_path, path, f)

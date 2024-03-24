@@ -1,6 +1,5 @@
 add_library(utils STATIC
             include/utils/G_Save_Enum.hpp
-            include/utils/G_Save_IO.hpp
             include/utils/G_Save_Version.hpp
             G_Save_Enum.cpp
             include/utils/Colors.hpp

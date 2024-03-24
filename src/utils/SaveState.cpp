@@ -7,6 +7,6 @@
 
 namespace utl {
     utl::usize SaveState::GetSaveValueCount() {
-        return G_Save_Version::s_load_save_entry_count;
+        return g_save_version.get_load_save_entry_count();
     }
 } // namespace app

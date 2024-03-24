@@ -10,8 +10,8 @@
 
 namespace utl {
     struct SaveState final {
-        G_Save_Version g_version;
+        G_Save_Version g_save_version;
 
-        [[nodiscard]] static utl::usize GetSaveValueCount();
+        [[nodiscard]] utl::usize GetSaveValueCount();
     };
 } // namespace app

@@ -1,4 +1,6 @@
 add_library(app STATIC
+            include/app/G_Save_IO.hpp
+            G_Save_IO.cpp
             include/app/AppContext.hpp
             include/app/AssetType.hpp
             include/app/AssetManager.hpp

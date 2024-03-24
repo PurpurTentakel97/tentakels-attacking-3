@@ -6,8 +6,8 @@
 #pragma once
 
 #include "AppContext.hpp"
-#include "G_Save_Enum.hpp"
-#include "G_Version.hpp"
+#include <utils/G_Save_Enum.hpp>
+#include <utils/G_Save_Version.hpp>
 #include <alias/AliasUtils.hpp>
 #include <event/EventsUI.hpp>
 #include <helper/HLohmann.hpp>
@@ -38,7 +38,7 @@ namespace app {
         std::stringstream stream{ input };
         stream >> son;
 
-        if (hlp::IsNull(son, G_Save_Enum::G_SAVE)) {
+        if (hlp::IsNull(son, utl::G_Save_Enum::G_SAVE)) {
             auto const event =
                     eve::ShowMessagePopUpEvent(appContext.languageManager.Text("ui_popup_empty_save_file_title"),
                                                appContext.languageManager.Text("ui_popup_empty_save_file_text", file),
@@ -83,10 +83,10 @@ namespace app {
             return true;
         };
 
-        if (nlohmann::json version; hlp::LoadSection(son, version, G_Save_Enum::G_VERSION, 0)) {
+        if (nlohmann::json version; hlp::LoadSection(son, version, utl::G_Save_Enum::G_SAVE_VERSION, 0)) {
 
             if (std::string saveVersion;
-                hlp::LoadString(version, saveVersion, G_Save_Enum::G_VERSION_SAVE_VERSION, currentEntryCount)) {
+                hlp::LoadString(version, saveVersion, utl::G_Save_Enum::G_SAVE_VERSION_SAVE_GAME_VERSION, currentEntryCount)) {
                 if (not checkVersion(saveVersion,
                                      constants.g_version.get_game_version(),
                                      "ui_popup_higher_save_file_version_title",
@@ -105,7 +105,7 @@ namespace app {
             }
 
             if (std::string gameVersion;
-                hlp::LoadString(version, gameVersion, G_Save_Enum::G_VERSION_GAME_VERSION, currentEntryCount)) {
+                hlp::LoadString(version, gameVersion, utl::G_Save_Enum::G_SAVE_VERSION_GAME_VERSION, currentEntryCount)) {
                 if (not checkVersion(gameVersion,
                                      constants.g_version.get_game_version(),
                                      "ui_popup_higher_game_version_title",
