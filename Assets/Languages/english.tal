@@ -246,7 +246,7 @@
     "ui_popup_higher_save_file_version_title": "Save game too new",
     "ui_popup_higher_save_file_version_text": "expected: {0}{1}provided: {2}",
     "ui_popup_missing_version_section_title": "Missing Section",
-    "ui_popup_missing_version_section_text": "Not able to check game and save game version.",
+    "ui_popup_missing_version_section_text": "Not able to check save game version.",
     "ui_popup_missing_game_version_title": "No Game Version",
     "ui_popup_missing_game_version_text": "Not able to check game version.",
     "ui_popup_missing_save_game_version_title": "No Save Game Version",
